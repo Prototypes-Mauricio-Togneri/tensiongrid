@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
@@ -42,9 +43,14 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      color: Colors.red,
+    return StateProvider<MatchState>(
+      state: state,
+      builder: (context, state) {
+        return Container(
+          height: 50,
+          color: Colors.blue,
+        );
+      },
     );
   }
 }
@@ -71,9 +77,14 @@ class Info extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      color: Colors.amber,
+    return StateProvider<MatchState>(
+      state: state,
+      builder: (context, state) {
+        return Container(
+          height: 150,
+          color: Colors.amber,
+        );
+      },
     );
   }
 }
