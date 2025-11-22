@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
+import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/character_tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
@@ -9,11 +10,13 @@ abstract class Tile {
   final int x;
   final int y;
   final Color color;
+  final Match match;
 
   const Tile({
     required this.x,
     required this.y,
     required this.color,
+    required this.match,
   });
 
   TileComponent component({
@@ -53,6 +56,7 @@ abstract class Tile {
   }
 
   static List<Tile> sequenceNumberTiles({
+    required Match match,
     required int width,
     required int height,
     required int max,
@@ -77,6 +81,7 @@ abstract class Tile {
               color: Colors.white,
               number: number,
               type: type,
+              match: match,
             ),
           );
         } else {
@@ -86,6 +91,7 @@ abstract class Tile {
               y: y,
               color: Colors.white,
               value: _numberToVisualCharacter(index),
+              match: match,
             ),
           );
         }
@@ -96,6 +102,7 @@ abstract class Tile {
   }
 
   static List<Tile> sequenceCharacterTiles({
+    required Match match,
     required int width,
     required int height,
     required int max,
@@ -116,6 +123,7 @@ abstract class Tile {
             y: y,
             color: Colors.white,
             value: _numberToCharacter(number),
+            match: match,
           ),
         );
       }

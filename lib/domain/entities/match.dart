@@ -20,28 +20,37 @@ class Match {
 
   Stage get stage => stages[stageIndex];
 
+  void onTileTapped(Tile tile) {
+    print('Tile tapped at (${tile.x}, ${tile.y})');
+  }
+
   factory Match.test() {
     const int width = Constants.GRID_MAX_WIDTH;
     const int height = Constants.GRID_MAX_HEIGHT;
 
-    return Match(
+    final Match match = Match(
       id: '123',
       player1: const Player(id: '1', name: 'Alice'),
       player2: const Player(id: '2', name: 'Bob'),
-      stages: [
-        Stage(
-          id: 's1',
-          info: 'Stage 1',
+      stages: [],
+    );
+
+    match.stages.add(
+      Stage(
+        id: 's1',
+        info: 'Stage 1',
+        width: width,
+        height: height,
+        tiles: Tile.sequenceNumberTiles(
+          match: match,
           width: width,
           height: height,
-          tiles: Tile.sequenceNumberTiles(
-            width: width,
-            height: height,
-            max: 15,
-            type: NumberType.arabic,
-          ),
+          max: 15,
+          type: NumberType.arabic,
         ),
-      ],
+      ),
     );
+
+    return match;
   }
 }

@@ -13,6 +13,7 @@ class NumberTile extends Tile {
     required super.x,
     required super.y,
     required super.color,
+    required super.match,
   });
 
   @override
@@ -23,5 +24,6 @@ class NumberTile extends Tile {
     position: position,
     size: size,
     tile: this,
+    match: match,
   );
 }
