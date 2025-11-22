@@ -21,10 +21,30 @@ abstract class Tile {
     required Vector2 size,
   });
 
-  static String numberToCharacter(int number) {
+  static String _numberToCharacter(int number) {
     final int letterIndex = (number - 1) % 26;
 
     return String.fromCharCode('A'.codeUnitAt(0) + letterIndex);
+  }
+
+  static String _numberToVisualCharacter(int number) {
+    const Map<int, String> visualMap = {
+      0: 'O',
+      1: 'I',
+      2: 'Z',
+      3: 'E',
+      4: 'A',
+      5: 'S',
+      6: 'G',
+      7: 'T',
+      8: 'B',
+      9: 'H',
+    };
+
+    // For numbers > 9, use modulo to cycle through patterns
+    final int digit = number % 10;
+    
+    return visualMap[digit] ?? number.toString();
   }
 
   static List<Tile> sequenceNumberTiles({
@@ -41,7 +61,8 @@ abstract class Tile {
 
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        final int number = numbers[(x + 1) + (y * width) - 1];
+        final int index = (x + 1) + (y * width) - 1;
+        final int number = numbers[index];
 
         if (number > 0) {
           result.add(
@@ -51,6 +72,15 @@ abstract class Tile {
               color: Colors.white,
               number: number,
               type: type,
+            ),
+          );
+        } else {
+          result.add(
+            CharacterTile(
+              x: x,
+              y: y,
+              color: Colors.white,
+              value: _numberToVisualCharacter(index),
             ),
           );
         }
@@ -80,7 +110,7 @@ abstract class Tile {
             x: x,
             y: y,
             color: Colors.white,
-            value: numberToCharacter(number),
+            value: _numberToCharacter(number),
           ),
         );
       }
