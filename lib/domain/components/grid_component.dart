@@ -16,7 +16,7 @@ class GridComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final Vector2 tileSize = Vector2(
+    /*final Vector2 tileSize = Vector2(
       size.x / stage.width,
       size.y / stage.height,
     );
@@ -24,18 +24,26 @@ class GridComponent extends PositionComponent {
     for (final Tile tile in stage.tiles) {
       add(
         TileComponent(
-          position: Vector2(
-            tile.x * size.x,
-            tile.y * size.y,
+          position: _tilePosition(
+            tile: tile,
+            tileSize: tileSize,
           ),
           size: tileSize,
           tile: tile,
         ),
       );
-    }
+    }*/
 
     return super.onLoad();
   }
+
+  Vector2 _tilePosition({
+    required Tile tile,
+    required Vector2 tileSize,
+  }) => Vector2(
+    (tile.x * tileSize.x) - size.x / 2 + tileSize.x / 2,
+    (tile.y * tileSize.y) - size.y / 2 + tileSize.y / 2,
+  );
 
   @override
   void render(Canvas canvas) {
@@ -55,5 +63,6 @@ class GridComponent extends PositionComponent {
       ),
       paint,
     );
+    canvas.drawCircle((size / 2).toOffset(), size.x / 2, paint);
   }
 }

@@ -29,5 +29,6 @@ class TileComponent extends PositionComponent {
       ),
       paint,
     );
+    //canvas.drawCircle((size / 2).toOffset(), size.x / 2, paint);
   }
 }
