@@ -11,6 +11,7 @@ class NumberTileComponent extends TileComponent<NumberTile> {
   final Paint paintDots = Palette.paint(
     style: PaintingStyle.fill,
   );
+  late final double characterSize;
 
   NumberTileComponent({
     required super.position,
@@ -21,6 +22,7 @@ class NumberTileComponent extends TileComponent<NumberTile> {
   @override
   FutureOr onLoad() {
     paintDots.color = tile.color;
+    characterSize = size.x / 3;
 
     return super.onLoad();
   }
@@ -33,7 +35,7 @@ class NumberTileComponent extends TileComponent<NumberTile> {
       canvas.drawText(
         text: '${tile.number}',
         position: size / 2,
-        size: size.x / 5,
+        size: characterSize,
         color: const Color(0xffffffff),
       );
     } else if (tile.type == NumberType.roman) {
@@ -41,7 +43,7 @@ class NumberTileComponent extends TileComponent<NumberTile> {
       canvas.drawText(
         text: romanNumeral,
         position: size / 2,
-        size: size.x / 5,
+        size: characterSize,
         color: const Color(0xffffffff),
       );
     } else if (tile.type == NumberType.dots) {
