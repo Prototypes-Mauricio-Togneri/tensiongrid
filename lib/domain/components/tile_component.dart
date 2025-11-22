@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensiongrid/domain/entities/tile.dart';
-import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class TileComponent extends PositionComponent with TapCallbacks {
@@ -77,11 +76,11 @@ class TileComponent extends PositionComponent with TapCallbacks {
       paintNeutral,
     );
 
-    canvas.drawText(
+    /*canvas.drawText(
       text: '${tile.x},${tile.y}',
       position: size / 2,
       size: size.x / 5,
       color: const Color(0xffffffff),
-    );
+    );*/
   }
 }
