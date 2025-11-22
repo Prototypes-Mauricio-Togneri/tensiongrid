@@ -1,9 +1,16 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:tensiongrid/domain/entities/tile.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
-class TileComponent extends PositionComponent {
+class TileComponent extends PositionComponent with TapCallbacks {
+  final Paint paintNeutral = Palette.paint(
+    color: const Color(0xffffffff),
+    style: PaintingStyle.stroke,
+  );
   final Tile tile;
 
   TileComponent({
@@ -13,13 +20,25 @@ class TileComponent extends PositionComponent {
   }) : super(anchor: Anchor.center);
 
   @override
+  FutureOr onLoad() {
+    paintNeutral.strokeWidth = size.x * 0.02;
+
+    return super.onLoad();
+  }
+
+  @override
+  bool onTapDown(TapDownEvent event) {
+    return true;
+  }
+
+  @override
+  bool onTapUp(TapUpEvent event) {
+    return true;
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
-
-    final Paint paint = Paint()
-      ..color = const Color(0xffffffff)
-      ..strokeWidth = 0.5
-      ..style = PaintingStyle.stroke;
 
     canvas.drawRect(
       Rect.fromLTWH(
@@ -28,13 +47,13 @@ class TileComponent extends PositionComponent {
         size.x,
         size.y,
       ),
-      paint,
+      paintNeutral,
     );
 
     canvas.drawText(
       text: '${tile.x},${tile.y}',
       position: size / 2,
-      size: 5,
+      size: size.x / 5,
       color: const Color(0xffffffff),
     );
   }
