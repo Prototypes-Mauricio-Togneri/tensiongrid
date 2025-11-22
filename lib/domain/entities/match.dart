@@ -4,7 +4,7 @@ import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
 import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/types/timeout.dart';
+import 'package:tensiongrid/domain/types/number_type.dart';
 
 class Match {
   final String id;
@@ -24,6 +24,11 @@ class Match {
 
   factory Match.test() {
     final List<Tile> tiles = [];
+    final List<int> numbers = List<int>.generate(
+      Constants.GRID_MAX_WIDTH * Constants.GRID_MAX_HEIGHT,
+      (index) => index + 1,
+    );
+    numbers.shuffle();
 
     for (int x = 0; x < Constants.GRID_MAX_WIDTH; x++) {
       for (int y = 0; y < Constants.GRID_MAX_HEIGHT; y++) {
@@ -32,7 +37,7 @@ class Match {
             x: x,
             y: y,
             color: Colors.white,
-            number: (x + 1) + (y * Constants.GRID_MAX_WIDTH),
+            number: numbers[(x + 1) + (y * Constants.GRID_MAX_WIDTH) - 1],
             type: NumberType.dots,
           ),
         );

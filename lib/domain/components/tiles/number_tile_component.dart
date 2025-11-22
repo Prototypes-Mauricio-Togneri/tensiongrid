@@ -1,15 +1,28 @@
+import 'dart:async';
 import 'dart:ui';
-import 'package:tensiongrid/domain/components/tile_component.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
-import 'package:tensiongrid/domain/types/timeout.dart';
+import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
 class NumberTileComponent extends TileComponent<NumberTile> {
+  final Paint paintDots = Palette.paint(
+    style: PaintingStyle.fill,
+  );
+
   NumberTileComponent({
     required super.position,
     required super.size,
     required super.tile,
-  }) : super();
+  });
+
+  @override
+  FutureOr onLoad() {
+    paintDots.color = tile.color;
+
+    return super.onLoad();
+  }
 
   @override
   void render(Canvas canvas) {
@@ -29,6 +42,12 @@ class NumberTileComponent extends TileComponent<NumberTile> {
         position: size / 2,
         size: size.x / 5,
         color: const Color(0xffffffff),
+      );
+    } else if (tile.type == NumberType.dots) {
+      canvas.drawCircle(
+        Offset(size.x / 2, size.y / 2),
+        size.x * 0.1,
+        paintDots,
       );
     }
   }

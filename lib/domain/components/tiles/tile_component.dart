@@ -5,7 +5,7 @@ import 'package:flame/events.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
-abstract class TileComponent extends PositionComponent with TapCallbacks {
+abstract class TileComponent<T extends Tile> extends PositionComponent with TapCallbacks {
   final Paint paintNeutral = Palette.paint(
     style: PaintingStyle.stroke,
   );
@@ -13,7 +13,7 @@ abstract class TileComponent extends PositionComponent with TapCallbacks {
     style: PaintingStyle.stroke,
     maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
   );
-  final Tile tile;
+  final T tile;
   bool isPressed = false;
 
   TileComponent({

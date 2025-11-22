@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/tiles/number_tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/types/timeout.dart';
+import 'package:tensiongrid/domain/types/number_type.dart';
 
 class NumberTile extends Tile {
   final int number;

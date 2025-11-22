@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:tensiongrid/domain/components/tile_component.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 
 abstract class Tile {
   final int x;
