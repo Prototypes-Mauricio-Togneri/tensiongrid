@@ -37,7 +37,7 @@ class GameComponent extends FlameGame {
 
     add(
       FpsTextComponent(
-        position: Vector2(0, 0),
+        position: Vector2(250, 0),
         textRenderer: TextPaint(
           style: TextStyle(
             fontSize: camera.viewport.size.y * 0.03,

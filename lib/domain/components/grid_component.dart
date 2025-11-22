@@ -11,9 +11,19 @@ class GridComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final paint = Paint()
+    final Paint paint = Paint()
       ..color = const Color(0xffff0000)
-      ..style = PaintingStyle.fill;
-    canvas.drawRect(size.toRect(), paint);
+      ..strokeWidth = 0.5
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawRect(
+      Rect.fromLTWH(
+        -size.x / 2,
+        -size.y / 2,
+        size.x,
+        size.y,
+      ),
+      paint,
+    );
   }
 }

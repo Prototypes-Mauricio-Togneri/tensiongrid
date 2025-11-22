@@ -16,7 +16,12 @@ class MatchComponent extends World {
 
   @override
   FutureOr onLoad() {
-    add(GridComponent(position: resolution / 2, size: resolution));
+    add(
+      GridComponent(
+        position: resolution / 2,
+        size: resolution,
+      ),
+    );
 
     return super.onLoad();
   }
