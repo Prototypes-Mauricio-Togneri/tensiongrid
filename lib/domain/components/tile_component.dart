@@ -14,6 +14,7 @@ class TileComponent extends PositionComponent with TapCallbacks {
   final Paint paintPressed = Palette.paint(
     color: const Color(0xffffffff),
     style: PaintingStyle.stroke,
+    maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
   );
   final Tile tile;
   bool isPressed = false;
@@ -27,6 +28,7 @@ class TileComponent extends PositionComponent with TapCallbacks {
   @override
   FutureOr onLoad() {
     paintNeutral.strokeWidth = size.x * 0.02;
+    paintPressed.strokeWidth = size.x * 0.04;
 
     return super.onLoad();
   }
@@ -53,6 +55,18 @@ class TileComponent extends PositionComponent with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
+    if (isPressed) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          0,
+          0,
+          size.x,
+          size.y,
+        ),
+        paintPressed,
+      );
+    }
+
     canvas.drawRect(
       Rect.fromLTWH(
         0,
@@ -60,7 +74,7 @@ class TileComponent extends PositionComponent with TapCallbacks {
         size.x,
         size.y,
       ),
-      isPressed ? paintPressed : paintNeutral,
+      paintNeutral,
     );
 
     canvas.drawText(

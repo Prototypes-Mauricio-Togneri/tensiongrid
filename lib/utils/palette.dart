@@ -17,6 +17,7 @@ class Palette {
     StrokeJoin? strokeJoin,
     BlendMode? blendMode,
     double? blurSigma,
+    MaskFilter? maskFilter,
   }) {
     final Paint paint = Paint();
 
@@ -49,6 +50,10 @@ class Palette {
         sigmaX: blurSigma,
         sigmaY: blurSigma,
       );
+    }
+
+    if (maskFilter != null) {
+      paint.maskFilter = maskFilter;
     }
 
     return paint;
