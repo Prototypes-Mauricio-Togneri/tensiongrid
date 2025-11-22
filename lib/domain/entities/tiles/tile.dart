@@ -28,25 +28,33 @@ abstract class Tile {
     return String.fromCharCode('A'.codeUnitAt(0) + letterIndex);
   }
 
-  static List<Tile> numberTiles() {
+  static List<Tile> sequenceNumberTiles({
+    required int length,
+    required int max,
+    required NumberType type,
+  }) {
     final List<Tile> result = [];
-    final List<int> numbers = List<int>.generate(
-      Constants.GRID_MAX_WIDTH * Constants.GRID_MAX_HEIGHT,
-      (index) => index + 1,
+    final List<int> numbers = _generateSequence(
+      length: length,
+      max: max,
     );
-    numbers.shuffle();
 
     for (int x = 0; x < Constants.GRID_MAX_WIDTH; x++) {
       for (int y = 0; y < Constants.GRID_MAX_HEIGHT; y++) {
-        result.add(
-          NumberTile(
-            x: x,
-            y: y,
-            color: Colors.white,
-            number: numbers[(x + 1) + (y * Constants.GRID_MAX_WIDTH) - 1],
-            type: NumberType.arabic,
-          ),
-        );
+        final int number =
+            numbers[(x + 1) + (y * Constants.GRID_MAX_WIDTH) - 1];
+
+        if (number > 0) {
+          result.add(
+            NumberTile(
+              x: x,
+              y: y,
+              color: Colors.white,
+              number: number,
+              type: type,
+            ),
+          );
+        }
       }
     }
 
@@ -78,5 +86,18 @@ abstract class Tile {
     }
 
     return result;
+  }
+
+  static List<int> _generateSequence({
+    required int length,
+    required int max,
+  }) {
+    final List<int> numbers = List<int>.generate(
+      length,
+      (index) => (index + 1) <= max ? (index + 1) : 0,
+    );
+    numbers.shuffle();
+
+    return numbers;
   }
 }
