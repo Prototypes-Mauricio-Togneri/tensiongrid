@@ -1,5 +1,7 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/domain/components/game_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
@@ -137,7 +139,14 @@ class Grid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
+        padding: const EdgeInsets.all(20),
         color: Colors.green,
+        child: GameWidget(
+          game: GameComponent(
+            match: state.match,
+            matchState: state,
+          ),
+        ),
       ),
     );
   }
