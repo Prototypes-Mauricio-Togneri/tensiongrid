@@ -1,7 +1,11 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:tensiongrid/utils/navigation.dart';
 
 class HomeState extends BaseState {
-  void onStart() {
-
+  @override
+  void onLoad() {
+    Delayed.post(onStart);
   }
+
+  void onStart() => Navigation.matchScreen();
 }
