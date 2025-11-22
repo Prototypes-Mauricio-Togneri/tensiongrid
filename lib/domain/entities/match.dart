@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
-import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/types/number_type.dart';
 
 class Match {
   final String id;
@@ -22,48 +19,25 @@ class Match {
 
   Stage get stage => stages[stageIndex];
 
-  factory Match.test() {
-    final List<Tile> tiles = [];
-    final List<int> numbers = List<int>.generate(
-      Constants.GRID_MAX_WIDTH * Constants.GRID_MAX_HEIGHT,
-      (index) => index + 1,
-    );
-    numbers.shuffle();
-
-    for (int x = 0; x < Constants.GRID_MAX_WIDTH; x++) {
-      for (int y = 0; y < Constants.GRID_MAX_HEIGHT; y++) {
-        tiles.add(
-          NumberTile(
-            x: x,
-            y: y,
-            color: Colors.white,
-            number: numbers[(x + 1) + (y * Constants.GRID_MAX_WIDTH) - 1],
-            type: NumberType.dots,
-          ),
-        );
-      }
-    }
-
-    return Match(
-      id: '123',
-      player1: const Player(id: '1', name: 'Alice'),
-      player2: const Player(id: '2', name: 'Bob'),
-      stages: [
-        Stage(
-          id: 's1',
-          info: 'Stage 1',
-          width: Constants.GRID_MAX_WIDTH,
-          height: Constants.GRID_MAX_HEIGHT,
-          tiles: tiles,
-        ),
-        Stage(
-          id: 's2',
-          info: 'Stage 2',
-          width: Constants.GRID_MAX_WIDTH,
-          height: Constants.GRID_MAX_HEIGHT,
-          tiles: tiles,
-        ),
-      ],
-    );
-  }
+  factory Match.test() => Match(
+    id: '123',
+    player1: const Player(id: '1', name: 'Alice'),
+    player2: const Player(id: '2', name: 'Bob'),
+    stages: [
+      Stage(
+        id: 's1',
+        info: 'Stage 1',
+        width: Constants.GRID_MAX_WIDTH,
+        height: Constants.GRID_MAX_HEIGHT,
+        tiles: Tile.characterTiles(),
+      ),
+      Stage(
+        id: 's2',
+        info: 'Stage 2',
+        width: Constants.GRID_MAX_WIDTH,
+        height: Constants.GRID_MAX_HEIGHT,
+        tiles: Tile.numberTiles(),
+      ),
+    ],
+  );
 }

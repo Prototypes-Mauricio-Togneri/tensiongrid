@@ -3,7 +3,7 @@ import 'package:tensiongrid/domain/components/tiles/character_tile_component.dar
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class CharacterTile extends Tile {
-  final int value;
+  final String value;
 
   CharacterTile({
     required this.value,

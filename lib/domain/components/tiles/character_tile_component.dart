@@ -15,7 +15,7 @@ class CharacterTileComponent extends TileComponent<CharacterTile> {
     super.render(canvas);
 
     canvas.drawText(
-      text: '${tile.value}',
+      text: tile.value,
       position: size / 2,
       size: size.x / 5,
       color: const Color(0xffffffff),
