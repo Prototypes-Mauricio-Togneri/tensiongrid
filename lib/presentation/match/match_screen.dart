@@ -24,8 +24,55 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('MATCH', style: TextStyle(color: Colors.amber)),
+    return Column(
+      children: [
+        TopBar(state),
+        Grid(state),
+        Info(state),
+      ],
+    );
+  }
+}
+
+class TopBar extends StatelessWidget {
+  final MatchState state;
+
+  const TopBar(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      color: Colors.red,
+    );
+  }
+}
+
+class Grid extends StatelessWidget {
+  final MatchState state;
+
+  const Grid(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        color: Colors.green,
+      ),
+    );
+  }
+}
+
+class Info extends StatelessWidget {
+  final MatchState state;
+
+  const Info(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      color: Colors.amber,
     );
   }
 }
