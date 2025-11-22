@@ -24,6 +24,7 @@ class GameComponent extends FlameGame {
   @override
   FutureOr onLoad() {
     final Vector2 resolution = Vector2(100, 100);
+    final Vector2 screenSize = size;
 
     world = MatchComponent(
       resolution: resolution,
@@ -37,10 +38,10 @@ class GameComponent extends FlameGame {
 
     add(
       FpsTextComponent(
-        position: Vector2(250, 0),
+        position: Vector2((camera.viewport.size.x / 2) - 40, screenSize.y - 35),
         textRenderer: TextPaint(
           style: TextStyle(
-            fontSize: camera.viewport.size.y * 0.03,
+            fontSize: screenSize.x * 0.05,
             color: Palette.TEXT_COLOR_PRIMARY,
           ),
         ),
