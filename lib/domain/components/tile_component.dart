@@ -11,7 +11,12 @@ class TileComponent extends PositionComponent with TapCallbacks {
     color: const Color(0xffffffff),
     style: PaintingStyle.stroke,
   );
+  final Paint paintPressed = Palette.paint(
+    color: const Color(0xffffffff),
+    style: PaintingStyle.stroke,
+  );
   final Tile tile;
+  bool isPressed = false;
 
   TileComponent({
     required super.position,
@@ -28,11 +33,19 @@ class TileComponent extends PositionComponent with TapCallbacks {
 
   @override
   bool onTapDown(TapDownEvent event) {
+    isPressed = true;
     return true;
   }
 
   @override
   bool onTapUp(TapUpEvent event) {
+    isPressed = false;
+    return true;
+  }
+
+  @override
+  bool onTapCancel(TapCancelEvent event) {
+    isPressed = false;
     return true;
   }
 
@@ -47,7 +60,7 @@ class TileComponent extends PositionComponent with TapCallbacks {
         size.x,
         size.y,
       ),
-      paintNeutral,
+      isPressed ? paintPressed : paintNeutral,
     );
 
     canvas.drawText(
