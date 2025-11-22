@@ -41,10 +41,15 @@ abstract class Tile {
       9: 'H',
     };
 
-    // For numbers > 9, use modulo to cycle through patterns
-    final int digit = number % 10;
-    
-    return visualMap[digit] ?? number.toString();
+    String result = '';
+    final String numberString = number.toString();
+
+    for (int i = 0; i < numberString.length; i++) {
+      final int digit = int.parse(numberString[i]);
+      result += visualMap[digit] ?? digit.toString();
+    }
+
+    return result;
   }
 
   static List<Tile> sequenceNumberTiles({
