@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/character_tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
@@ -29,20 +28,20 @@ abstract class Tile {
   }
 
   static List<Tile> sequenceNumberTiles({
-    required int length,
+    required int width,
+    required int height,
     required int max,
     required NumberType type,
   }) {
     final List<Tile> result = [];
     final List<int> numbers = _generateSequence(
-      length: length,
+      length: width * height,
       max: max,
     );
 
-    for (int x = 0; x < Constants.GRID_MAX_WIDTH; x++) {
-      for (int y = 0; y < Constants.GRID_MAX_HEIGHT; y++) {
-        final int number =
-            numbers[(x + 1) + (y * Constants.GRID_MAX_WIDTH) - 1];
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int number = numbers[(x + 1) + (y * width) - 1];
 
         if (number > 0) {
           result.add(
@@ -61,18 +60,20 @@ abstract class Tile {
     return result;
   }
 
-  static List<Tile> characterTiles() {
+  static List<Tile> sequenceCharacterTiles({
+    required int width,
+    required int height,
+    required int max,
+  }) {
     final List<Tile> result = [];
-    final List<int> numbers = List<int>.generate(
-      Constants.GRID_MAX_WIDTH * Constants.GRID_MAX_HEIGHT,
-      (index) => index + 1,
+    final List<int> numbers = _generateSequence(
+      length: width * height,
+      max: max,
     );
-    numbers.shuffle();
 
-    for (int x = 0; x < Constants.GRID_MAX_WIDTH; x++) {
-      for (int y = 0; y < Constants.GRID_MAX_HEIGHT; y++) {
-        final int number =
-            numbers[(x + 1) + (y * Constants.GRID_MAX_WIDTH) - 1];
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int number = numbers[(x + 1) + (y * width) - 1];
 
         result.add(
           CharacterTile(

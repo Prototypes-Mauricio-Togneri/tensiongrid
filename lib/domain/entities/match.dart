@@ -35,7 +35,8 @@ class Match {
           width: width,
           height: height,
           tiles: Tile.sequenceNumberTiles(
-            length: width * height,
+            width: width,
+            height: height,
             max: 15,
             type: NumberType.arabic,
           ),
