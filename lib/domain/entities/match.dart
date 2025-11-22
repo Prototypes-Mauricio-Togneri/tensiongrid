@@ -28,29 +28,24 @@ class Match {
     const int width = Constants.GRID_MAX_WIDTH;
     const int height = Constants.GRID_MAX_HEIGHT;
 
-    final Match match = Match(
+    return Match(
       id: '123',
       player1: const Player(id: '1', name: 'Alice'),
       player2: const Player(id: '2', name: 'Bob'),
-      stages: [],
-    );
-
-    match.stages.add(
-      Stage(
-        id: 's1',
-        info: 'Stage 1',
-        width: width,
-        height: height,
-        tiles: Tile.sequenceNumberTiles(
-          match: match,
+      stages: [
+        Stage(
+          id: 's1',
+          info: 'Stage 1',
           width: width,
           height: height,
-          max: 15,
-          type: NumberType.arabic,
+          tiles: Tile.sequenceNumberTiles(
+            width: width,
+            height: height,
+            max: 15,
+            type: NumberType.arabic,
+          ),
         ),
-      ),
+      ],
     );
-
-    return match;
   }
 }

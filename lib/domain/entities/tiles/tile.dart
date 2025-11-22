@@ -10,16 +10,15 @@ abstract class Tile {
   final int x;
   final int y;
   final Color color;
-  final Match match;
 
   const Tile({
     required this.x,
     required this.y,
     required this.color,
-    required this.match,
   });
 
   TileComponent component({
+    required Match match,
     required Vector2 position,
     required Vector2 size,
   });
@@ -56,7 +55,6 @@ abstract class Tile {
   }
 
   static List<Tile> sequenceNumberTiles({
-    required Match match,
     required int width,
     required int height,
     required int max,
@@ -81,7 +79,6 @@ abstract class Tile {
               color: Colors.white,
               number: number,
               type: type,
-              match: match,
             ),
           );
         } else {
@@ -91,7 +88,6 @@ abstract class Tile {
               y: y,
               color: Colors.white,
               value: _numberToVisualCharacter(index),
-              match: match,
             ),
           );
         }
@@ -102,7 +98,6 @@ abstract class Tile {
   }
 
   static List<Tile> sequenceCharacterTiles({
-    required Match match,
     required int width,
     required int height,
     required int max,
@@ -123,7 +118,6 @@ abstract class Tile {
             y: y,
             color: Colors.white,
             value: _numberToCharacter(number),
-            match: match,
           ),
         );
       }

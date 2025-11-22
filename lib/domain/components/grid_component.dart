@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class GridComponent extends PositionComponent {
+  final Match match;
   final Stage stage;
 
   GridComponent({
     required super.position,
     required super.size,
+    required this.match,
     required this.stage,
   }) : super(anchor: Anchor.center);
 
@@ -22,6 +25,7 @@ class GridComponent extends PositionComponent {
     for (final Tile tile in stage.tiles) {
       add(
         tile.component(
+          match: match,
           position: _tilePosition(
             tile: tile,
             tileSize: tileSize,
