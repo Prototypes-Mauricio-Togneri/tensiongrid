@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/state/home/home_state.dart';
+import 'package:tensiongrid/presentation/common/primary_button.dart';
 import 'package:tensiongrid/utils/palette.dart';
 import 'package:tensiongrid/widgets/game_container.dart';
 
@@ -25,12 +26,12 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Tension Grid',
-        style: TextStyle(
-          color: Palette.TEXT_COLOR_PRIMARY,
-        ),
+    return Center(
+      child: PrimaryButton(
+        label: 'PLAY',
+        enabled: true,
+        backgroundColor: Palette.PRIMARY,
+        onPressed: state.onStart,
       ),
     );
   }
