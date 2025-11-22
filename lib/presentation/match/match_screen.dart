@@ -167,7 +167,7 @@ class Info extends StatelessWidget {
           color: Colors.amber,
           child: Center(
             child: Text(
-              state.match.currentStage.info.toUpperCase(),
+              state.match.stage.info.toUpperCase(),
               style: const TextStyle(fontSize: 24),
             ),
           ),

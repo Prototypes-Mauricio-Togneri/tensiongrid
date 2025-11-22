@@ -20,6 +20,7 @@ class MatchComponent extends World {
       GridComponent(
         position: resolution / 2,
         size: resolution,
+        stage: match.stage,
       ),
     );
 

@@ -17,7 +17,7 @@ class Match {
     required this.stages,
   });
 
-  Stage get currentStage => stages[stageIndex];
+  Stage get stage => stages[stageIndex];
 
   factory Match.test() {
     final List<Tile> tiles = [];
@@ -36,11 +36,15 @@ class Match {
         Stage(
           id: 's1',
           info: 'Stage 1',
+          width: Constants.GRID_MAX_WIDTH,
+          height: Constants.GRID_MAX_HEIGHT,
           tiles: tiles,
         ),
         Stage(
           id: 's2',
           info: 'Stage 2',
+          width: Constants.GRID_MAX_WIDTH,
+          height: Constants.GRID_MAX_HEIGHT,
           tiles: tiles,
         ),
       ],
