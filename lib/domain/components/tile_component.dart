@@ -27,8 +27,8 @@ class TileComponent extends PositionComponent with TapCallbacks {
 
   @override
   FutureOr onLoad() {
-    paintNeutral.strokeWidth = size.x * 0.02;
-    paintPressed.strokeWidth = size.x * 0.04;
+    paintNeutral.strokeWidth = size.x * 0.03;
+    paintPressed.strokeWidth = size.x * 0.06;
 
     return super.onLoad();
   }
