@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'package:chronochicken/app/chrono_chicken.dart';
-import 'package:chronochicken/environments/environment_remote.dart';
-import 'package:chronochicken/utils/error_handler.dart';
-import 'package:chronochicken/utils/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/app/tension_grid.dart';
+import 'package:tensiongrid/environments/environment_remote.dart';
+import 'package:tensiongrid/utils/error_handler.dart';
+import 'package:tensiongrid/utils/locator.dart';
 
 void main() {
   runZonedGuarded(() async {
     await Locator.load(RemoteEnvironment());
-    runApp(const ChronoChicken());
+    runApp(const TensionGrid());
   }, ErrorHandler.onUncaughtError);
 }

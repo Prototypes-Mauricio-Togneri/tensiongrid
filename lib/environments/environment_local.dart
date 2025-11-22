@@ -1,4 +1,4 @@
-import 'package:chronochicken/environments/environment.dart';
+import 'package:tensiongrid/environments/environment.dart';
 
 class LocalEnvironment extends Environment {
   @override

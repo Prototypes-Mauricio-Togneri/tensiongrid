@@ -1,7 +1,7 @@
-import 'package:chronochicken/utils/log.dart';
-import 'package:chronochicken/utils/platform.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/utils/log.dart';
+import 'package:tensiongrid/utils/platform.dart';
 
 class ErrorHandler {
   static Future process(Object exception) async {

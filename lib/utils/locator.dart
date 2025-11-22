@@ -1,12 +1,12 @@
 import 'dart:ui';
-import 'package:chronochicken/environments/environment.dart';
-import 'package:chronochicken/platform/operations/set_url_strategy.dart';
-import 'package:chronochicken/utils/navigation.dart';
-import 'package:chronochicken/utils/platform.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tensiongrid/environments/environment.dart';
+import 'package:tensiongrid/platform/operations/set_url_strategy.dart';
+import 'package:tensiongrid/utils/navigation.dart';
+import 'package:tensiongrid/utils/platform.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -17,13 +17,13 @@ class Locator {
     if (Platform.isWeb) {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
-          apiKey: 'AIzaSyDOnRsvxIM7fOUAWMNtjW4R2lmQ2hHDffQ',
-          authDomain: 'chrono-chicken.firebaseapp.com',
-          projectId: 'chrono-chicken',
-          storageBucket: 'chrono-chicken.firebasestorage.app',
-          messagingSenderId: '665767144566',
-          appId: '1:665767144566:web:827b979acb75919147c357',
-          measurementId: 'G-73R27JT00F',
+          apiKey: 'AIzaSyCv1u8NNWyF0HbyeYqRKGY9QJjnrHeSweM',
+          authDomain: 'tension-grid.firebaseapp.com',
+          projectId: 'tension-grid',
+          storageBucket: 'tension-grid.firebasestorage.app',
+          messagingSenderId: '917756221178',
+          appId: '1:917756221178:web:f4b710ddf314d640e05b43',
+          measurementId: 'G-YLBGZJL3TV',
         ),
       );
     } else {

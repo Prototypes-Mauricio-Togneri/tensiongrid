@@ -1,4 +1,4 @@
-import 'package:chronochicken/platform/platform_base.dart';
+import 'package:tensiongrid/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override

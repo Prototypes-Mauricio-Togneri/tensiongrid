@@ -1,5 +1,5 @@
-import 'package:chronochicken/platform/platform_base.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:tensiongrid/platform/platform_base.dart';
 import 'package:web/web.dart';
 
 class PlatformMethods extends PlatformMethodsBase {

@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'package:chronochicken/utils/palette.dart';
-import 'package:chronochicken/utils/platform.dart';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/utils/palette.dart';
+import 'package:tensiongrid/utils/platform.dart';
 
 class GameContainer extends StatelessWidget {
   final Widget child;

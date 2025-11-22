@@ -1,15 +1,15 @@
-import 'package:chronochicken/presentation/splash/splash_screen.dart';
-import 'package:chronochicken/utils/navigation.dart';
-import 'package:chronochicken/utils/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/presentation/splash/splash_screen.dart';
+import 'package:tensiongrid/utils/navigation.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
-class ChronoChicken extends StatelessWidget {
-  const ChronoChicken();
+class TensionGrid extends StatelessWidget {
+  const TensionGrid();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Chrono Chicken',
+      title: 'Tension Grid',
       debugShowCheckedModeBanner: false,
       navigatorKey: Navigation.get.routes.key,
       theme: ThemeData(

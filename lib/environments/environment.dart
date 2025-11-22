@@ -1,5 +1,5 @@
-import 'package:chronochicken/utils/locator.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tensiongrid/utils/locator.dart';
 
 abstract class Environment {
   String get name;

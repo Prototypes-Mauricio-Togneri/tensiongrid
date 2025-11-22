@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "chrono-chicken",
-    "local": "chrono-chicken",
-    "remote": "chrono-chicken"
+    "default": "tension-grid",
+    "local": "tension-grid",
+    "remote": "tension-grid"
   }
 }

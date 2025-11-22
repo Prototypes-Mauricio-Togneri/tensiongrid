@@ -1,7 +1,7 @@
-import 'package:chronochicken/domain/state/home/home_state.dart';
-import 'package:chronochicken/utils/palette.dart';
-import 'package:chronochicken/widgets/game_container.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/domain/state/home/home_state.dart';
+import 'package:tensiongrid/utils/palette.dart';
+import 'package:tensiongrid/widgets/game_container.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeState state;
@@ -27,7 +27,7 @@ class Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Chrono Chicken',
+        'Tension Grid',
         style: TextStyle(
           color: Palette.TEXT_COLOR_PRIMARY,
         ),
