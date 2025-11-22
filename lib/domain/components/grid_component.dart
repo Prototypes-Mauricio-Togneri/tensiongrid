@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensiongrid/domain/components/tile_component.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
@@ -22,13 +21,12 @@ class GridComponent extends PositionComponent {
 
     for (final Tile tile in stage.tiles) {
       add(
-        TileComponent(
+        tile.component(
           position: _tilePosition(
             tile: tile,
             tileSize: tileSize,
           ),
           size: tileSize * 0.85,
-          tile: tile,
         ),
       );
     }
