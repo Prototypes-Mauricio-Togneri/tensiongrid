@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
@@ -44,11 +45,27 @@ class NumberTileComponent extends TileComponent<NumberTile> {
         color: const Color(0xffffffff),
       );
     } else if (tile.type == NumberType.dots) {
-      canvas.drawCircle(
-        Offset(size.x / 2, size.y / 2),
-        size.x * 0.1,
-        paintDots,
-      );
+      final double dotSize = (size.x * 0.5) / (tile.number * 3);
+
+      if (tile.number == 1) {
+        canvas.drawCircle(
+          Offset(size.x / 2, size.y / 2),
+          dotSize,
+          paintDots,
+        );
+      } else {
+        for (int i = 0; i < tile.number; i++) {
+          final double angle = (2 * pi / tile.number) * i;
+          final double radius = size.x * 0.2;
+          final double x = (size.x / 2) + radius * cos(angle);
+          final double y = (size.y / 2) + radius * sin(angle);
+          canvas.drawCircle(
+            Offset(x, y),
+            dotSize,
+            paintDots,
+          );
+        }
+      }
     }
   }
 
