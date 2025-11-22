@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/presentation/home/home_screen.dart';
 import 'package:tensiongrid/presentation/match/match_screen.dart';
 import 'package:tensiongrid/utils/locator.dart';
@@ -20,9 +21,9 @@ class Navigation {
     ),
   );
 
-  static void matchScreen() => get.routes.push(
+  static void matchScreen(Match match) => get.routes.push(
     BasicRoute(
-      MatchScreen.instance(),
+      MatchScreen.instance(match),
       name: 'match',
     ),
   );

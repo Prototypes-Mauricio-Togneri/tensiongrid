@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
 import 'package:tensiongrid/widgets/game_container.dart';
 
@@ -7,7 +8,7 @@ class MatchScreen extends StatelessWidget {
 
   const MatchScreen._(this.state);
 
-  factory MatchScreen.instance() => MatchScreen._(MatchState());
+  factory MatchScreen.instance(Match match) => MatchScreen._(MatchState(match));
 
   @override
   Widget build(BuildContext context) {
