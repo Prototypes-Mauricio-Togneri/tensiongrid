@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/tile_component.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
@@ -28,7 +27,7 @@ class GridComponent extends PositionComponent {
             tile: tile,
             tileSize: tileSize,
           ),
-          size: tileSize,
+          size: tileSize * 0.9,
           tile: tile,
         ),
       );
@@ -45,7 +44,7 @@ class GridComponent extends PositionComponent {
     (tile.y * tileSize.y) + tileSize.y / 2,
   );
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     super.render(canvas);
 
@@ -63,5 +62,5 @@ class GridComponent extends PositionComponent {
       ),
       paint,
     );
-  }
+  }*/
 }

@@ -17,7 +17,7 @@ class TileComponent extends PositionComponent {
     super.render(canvas);
 
     final Paint paint = Paint()
-      ..color = const Color(0xffff0000)
+      ..color = const Color(0xffffffff)
       ..strokeWidth = 0.5
       ..style = PaintingStyle.stroke;
 
@@ -35,7 +35,7 @@ class TileComponent extends PositionComponent {
       text: '${tile.x},${tile.y}',
       position: size / 2,
       size: 5,
-      color: const Color(0xffff0000),
+      color: const Color(0xffffffff),
     );
   }
 }

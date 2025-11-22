@@ -140,7 +140,6 @@ class Grid extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(20),
-        color: Colors.green,
         child: GameWidget(
           game: GameComponent(
             match: state.match,
