@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   web: ^1.1.1
+  flame: ^1.33.0
   logger: ^2.6.2
   get_it: ^9.1.0
   dafluta: 5.5.1 # Not compatible with current Flutter/Dart version

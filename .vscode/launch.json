@@ -5,7 +5,7 @@
             "name": "Tension Grid",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart",
+            "program": "lib/main/main_local.dart",
             "flutterMode": "debug"
         }
     ]
