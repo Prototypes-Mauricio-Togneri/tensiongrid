@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/entities/tile.dart';
+import 'package:tensiongrid/extensions/canvas_extension.dart';
 
 class TileComponent extends PositionComponent {
   final Tile tile;
@@ -28,6 +29,13 @@ class TileComponent extends PositionComponent {
         size.y,
       ),
       paint,
+    );
+
+    canvas.drawText(
+      text: '${tile.x},${tile.y}',
+      position: size / 2,
+      size: 5,
+      color: const Color(0xffff0000),
     );
   }
 }
