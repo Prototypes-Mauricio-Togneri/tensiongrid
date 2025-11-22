@@ -4,6 +4,7 @@ import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
 import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/types/timeout.dart';
 
 class Match {
   final String id;
@@ -32,6 +33,7 @@ class Match {
             y: y,
             color: Colors.white,
             number: (x + 1) + (y * Constants.GRID_MAX_WIDTH),
+            type: NumberType.dots,
           ),
         );
       }

@@ -1,4 +1,5 @@
-enum Timeout {
-  fixed,
-  variable,
+enum NumberType {
+  arabic,
+  roman,
+  dots,
 }
