@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
-import 'package:tensiongrid/domain/entities/tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class Match {
   final String id;
@@ -24,7 +25,13 @@ class Match {
 
     for (int x = 0; x < Constants.GRID_MAX_WIDTH; x++) {
       for (int y = 0; y < Constants.GRID_MAX_HEIGHT; y++) {
-        tiles.add(Tile(x: x, y: y));
+        tiles.add(
+          Tile(
+            x: x,
+            y: y,
+            color: Colors.white,
+          ),
+        );
       }
     }
 

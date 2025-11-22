@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/tile_component.dart';
 import 'package:tensiongrid/domain/entities/stage.dart';
-import 'package:tensiongrid/domain/entities/tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class GridComponent extends PositionComponent {
   final Stage stage;

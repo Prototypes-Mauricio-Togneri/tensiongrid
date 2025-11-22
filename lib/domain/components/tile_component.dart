@@ -2,16 +2,14 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:tensiongrid/domain/entities/tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class TileComponent extends PositionComponent with TapCallbacks {
   final Paint paintNeutral = Palette.paint(
-    color: const Color(0xffffffff),
     style: PaintingStyle.stroke,
   );
   final Paint paintPressed = Palette.paint(
-    color: const Color(0xffffffff),
     style: PaintingStyle.stroke,
     maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
   );
@@ -27,7 +25,10 @@ class TileComponent extends PositionComponent with TapCallbacks {
   @override
   FutureOr onLoad() {
     paintNeutral.strokeWidth = size.x * 0.03;
+    paintNeutral.color = tile.color;
+
     paintPressed.strokeWidth = size.x * 0.06;
+    paintPressed.color = tile.color;
 
     return super.onLoad();
   }

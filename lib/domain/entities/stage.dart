@@ -1,4 +1,4 @@
-import 'package:tensiongrid/domain/entities/tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class Stage {
   final String id;
