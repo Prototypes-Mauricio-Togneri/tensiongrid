@@ -1,0 +1,4 @@
+enum Timeout {
+  fixed,
+  variable,
+}

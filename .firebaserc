@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "chrono-chicken",
+    "local": "chrono-chicken",
+    "remote": "chrono-chicken"
+  }
+}
