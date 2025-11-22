@@ -27,7 +27,7 @@ class GridComponent extends PositionComponent {
             tile: tile,
             tileSize: tileSize,
           ),
-          size: tileSize * 0.9,
+          size: tileSize * 0.85,
           tile: tile,
         ),
       );

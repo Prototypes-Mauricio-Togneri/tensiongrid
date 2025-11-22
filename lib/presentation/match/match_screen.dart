@@ -139,7 +139,7 @@ class Grid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         child: GameWidget(
           game: GameComponent(
             match: state.match,
