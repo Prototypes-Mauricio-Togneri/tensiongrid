@@ -18,7 +18,7 @@ class MatchComponent extends World {
   FutureOr onLoad() {
     add(
       GridComponent(
-        position: resolution / 2,
+        position: Vector2(0, 0),
         size: resolution,
         stage: match.stage,
       ),

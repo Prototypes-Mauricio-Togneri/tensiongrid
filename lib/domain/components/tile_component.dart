@@ -22,13 +22,12 @@ class TileComponent extends PositionComponent {
 
     canvas.drawRect(
       Rect.fromLTWH(
-        -size.x / 2,
-        -size.y / 2,
+        0,
+        0,
         size.x,
         size.y,
       ),
       paint,
     );
-    //canvas.drawCircle((size / 2).toOffset(), size.x / 2, paint);
   }
 }
