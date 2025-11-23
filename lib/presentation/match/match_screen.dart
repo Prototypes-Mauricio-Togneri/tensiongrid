@@ -96,7 +96,7 @@ class PlayerSection extends StatelessWidget {
           child: Text(
             player.name.toUpperCase(),
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 22,
               color: Palette.PLAYER_NAME,
             ),
           ),
@@ -114,12 +114,12 @@ class MiddleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
+      width: 150,
       height: 50,
       color: Palette.TOPBAR_MIDDLE,
       child: Center(
         child: Text(
-          'STAGE ${state.match.stageIndex + 1}',
+          'STAGE ${state.match.stageIndex + 1}/${state.match.stages.length}',
           style: const TextStyle(
             fontSize: 18,
             color: Palette.TOPBAR_TEXT,
