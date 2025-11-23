@@ -8,6 +8,7 @@ import 'package:tensiongrid/domain/types/action_result.dart';
 class MatchComponent extends World {
   final Vector2 resolution;
   final Match match;
+  late GridComponent currentGrid;
 
   MatchComponent({
     required this.resolution,
@@ -21,19 +22,25 @@ class MatchComponent extends World {
 
     if (result == ActionResult.remove) {
       tileComponent.removeFromParent();
+    } else if (result == ActionResult.next_stage) {
+      currentGrid.removeFromParent();
+      _addGrid();
     }
+  }
+
+  void _addGrid() {
+    currentGrid = GridComponent(
+      position: Vector2(0, 0),
+      size: resolution,
+      match: match,
+      stage: match.stage,
+    );
+    add(currentGrid);
   }
 
   @override
   FutureOr onLoad() {
-    add(
-      GridComponent(
-        position: Vector2(0, 0),
-        size: resolution,
-        match: match,
-        stage: match.stage,
-      ),
-    );
+    _addGrid();
 
     return super.onLoad();
   }

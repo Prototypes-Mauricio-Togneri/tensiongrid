@@ -22,7 +22,15 @@ class Match {
 
   Stage get stage => stages[stageIndex];
 
-  ActionResult onTileTapped(Tile tile) => stage.onTileTapped(tile);
+  ActionResult onTileTapped(Tile tile) {
+    final ActionResult result = stage.onTileTapped(tile);
+
+    if (result == ActionResult.next_stage) {
+      stageIndex++;
+    }
+
+    return result;
+  }
 
   factory Match.test() {
     const int width = Constants.GRID_MAX_WIDTH;
@@ -47,10 +55,10 @@ class Match {
           tiles: Tile.sequenceNumberTiles(
             width: width,
             height: height,
-            max: 10,
+            max: 5,
             type: NumberType.arabic,
           ),
-          maxIndex: 10,
+          maxIndex: 5,
         ),
         StageSequence(
           id: 's2',
@@ -60,9 +68,9 @@ class Match {
           tiles: Tile.sequenceCharacterTiles(
             width: width,
             height: height,
-            max: 10,
+            max: 5,
           ),
-          maxIndex: 10,
+          maxIndex: 5,
         ),
       ],
     );
