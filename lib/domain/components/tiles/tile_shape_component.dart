@@ -36,22 +36,11 @@ class TileShapeComponent extends TileComponent<TileShape> {
           paintShape,
         );
       case Shape.triangle:
-        final Path path = Path()
-          ..moveTo(size.x / 2, size.y / 4)
-          ..lineTo(size.x * 3 / 4, size.y * 3 / 4)
-          ..lineTo(size.x / 4, size.y * 3 / 4)
-          ..close();
+        final Path path = _trianglePath();
         canvas.drawPath(path, paintShape);
       case Shape.square:
-        canvas.drawRect(
-          Rect.fromLTWH(
-            size.x / 4,
-            size.y / 4,
-            size.x / 2,
-            size.y / 2,
-          ),
-          paintShape,
-        );
+        final Path path = _squarePath();
+        canvas.drawPath(path, paintShape);
       case Shape.rombous:
         final Path path = _polygonPath(4);
         canvas.drawPath(path, paintShape);
@@ -62,7 +51,8 @@ class TileShapeComponent extends TileComponent<TileShape> {
         final Path path = _polygonPath(6);
         canvas.drawPath(path, paintShape);
       case Shape.arrowUp:
-      // Implementation for arrow up shape
+        final Path path = _arrowUpPath();
+        canvas.drawPath(path, paintShape);
       case Shape.arrowDown:
       // Implementation for arrow down shape
       case Shape.arrowLeft:
@@ -71,6 +61,19 @@ class TileShapeComponent extends TileComponent<TileShape> {
       // Implementation for arrow right shape
     }
   }
+
+  Path _trianglePath() => Path()
+    ..moveTo(size.x / 2, size.y / 4)
+    ..lineTo(size.x * 3 / 4, size.y * 3 / 4)
+    ..lineTo(size.x / 4, size.y * 3 / 4)
+    ..close();
+
+  Path _squarePath() => Path()
+    ..moveTo(size.x / 4, size.y / 4)
+    ..lineTo(size.x * 3 / 4, size.y / 4)
+    ..lineTo(size.x * 3 / 4, size.y * 3 / 4)
+    ..lineTo(size.x / 4, size.y * 3 / 4)
+    ..close();
 
   Path _polygonPath(int sides) {
     final double centerX = size.x / 2;
@@ -93,4 +96,21 @@ class TileShapeComponent extends TileComponent<TileShape> {
 
     return path;
   }
+
+  Path _arrowUpPath() => Path()
+    // Arrow head - top point
+    ..moveTo(size.x / 2, size.y / 4)
+    // Arrow head - left side (bigger head)
+    ..lineTo(size.x / 4, size.y / 2)
+    // Arrow shaft - left side (thicker shaft)
+    ..lineTo(size.x * 2 / 5, size.y / 2)
+    ..lineTo(size.x * 2 / 5, size.y * 3 / 4)
+    // Arrow shaft - bottom (thicker shaft)
+    ..lineTo(size.x * 3 / 5, size.y * 3 / 4)
+    // Arrow shaft - right side (thicker shaft)
+    ..lineTo(size.x * 3 / 5, size.y / 2)
+    // Arrow head - right side (bigger head)
+    ..lineTo(size.x * 3 / 4, size.y / 2)
+    // Back to top point
+    ..close();
 }
