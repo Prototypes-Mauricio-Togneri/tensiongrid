@@ -55,4 +55,20 @@ class StageGenerator {
     ),
     numberOfTiles: numberOfTiles,
   );
+
+  Stage sequenceCharacter({
+    required String id,
+    required int numberOfTiles,
+  }) => StageSequence(
+    id: id,
+    info: 'Character sequence',
+    width: width,
+    height: height,
+    tiles: Tile.sequenceCharacterTiles(
+      width: width,
+      height: height,
+      max: numberOfTiles,
+    ),
+    numberOfTiles: numberOfTiles,
+  );
 }

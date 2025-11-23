@@ -2,7 +2,6 @@ import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stages/stage.dart';
-import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/utils/generator.dart';
@@ -62,30 +61,14 @@ class Match {
           numberOfTiles: 3,
           type: NumberType.arabic,
         ),
-        StageSequence(
+        generator.sequenceCharacter(
           id: 's2',
-          info: 'Character sequence',
-          width: width,
-          height: height,
-          tiles: Tile.sequenceCharacterTiles(
-            width: width,
-            height: height,
-            max: 3,
-          ),
           numberOfTiles: 3,
         ),
-        StageSequence(
+        generator.sequenceNumber(
           id: 's3',
-          info: 'Dot sequence',
-          width: width,
-          height: height,
-          tiles: Tile.sequenceNumberTiles(
-            width: width,
-            height: height,
-            numberOfTiles: 3,
-            type: NumberType.dots,
-          ),
           numberOfTiles: 3,
+          type: NumberType.dots,
         ),
       ],
     );
