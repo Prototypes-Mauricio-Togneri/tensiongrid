@@ -3,9 +3,11 @@ import 'package:tensiongrid/domain/entities/stages/stage.dart';
 import 'package:tensiongrid/domain/entities/stages/stage_match.dart';
 import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_arrow.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_shape.dart';
+import 'package:tensiongrid/domain/types/arrow.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/domain/types/shape.dart';
 import 'package:tensiongrid/utils/formatter.dart';
@@ -62,6 +64,28 @@ class StageGenerator {
       ),
       numberOfTiles: numberOfTiles,
       category: shape.name,
+    );
+  }
+
+  Stage matchArrow({
+    required String id,
+    required int numberOfTiles,
+  }) {
+    final Arrow arrow = Arrow.values[Random().nextInt(Arrow.values.length)];
+
+    return StageMatch(
+      id: id,
+      info: 'Match arrow: ${arrow.name}',
+      width: width,
+      height: height,
+      tiles: matchArrowTiles(
+        width: width,
+        height: height,
+        numberOfTiles: numberOfTiles,
+        arrow: arrow,
+      ),
+      numberOfTiles: numberOfTiles,
+      category: arrow.name,
     );
   }
 
@@ -271,6 +295,47 @@ class StageGenerator {
     return result;
   }
 
+  static List<Tile> matchArrowTiles({
+    required int width,
+    required int height,
+    required int numberOfTiles,
+    required Arrow arrow,
+  }) {
+    final List<Tile> result = [];
+    final List<bool> list = _generateBooleanList(
+      length: width * height,
+      max: numberOfTiles,
+    );
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int index = (x + 1) + (y * width) - 1;
+
+        if (list[index]) {
+          result.add(
+            TileArrow(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              arrow: arrow,
+            ),
+          );
+        } else {
+          result.add(
+            TileArrow(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              arrow: _otherArrow(arrow),
+            ),
+          );
+        }
+      }
+    }
+
+    return result;
+  }
+
   static Shape _otherShape(Shape shape) {
     final List<Shape> otherShapes = Shape.values
         .where((s) => s != shape)
@@ -278,6 +343,15 @@ class StageGenerator {
     otherShapes.shuffle();
 
     return otherShapes.first;
+  }
+
+  static Arrow _otherArrow(Arrow arrow) {
+    final List<Arrow> otherArrows = Arrow.values
+        .where((a) => a != arrow)
+        .toList();
+    otherArrows.shuffle();
+
+    return otherArrows.first;
   }
 
   static List<int> _generateSequenceList({

@@ -52,6 +52,10 @@ class Match {
         name: 'Bob',
       ),
       stages: [
+        generator.matchArrow(
+          id: 's0',
+          numberOfTiles: 3,
+        ),
         generator.matchShape(
           id: 's0',
           numberOfTiles: 3,
