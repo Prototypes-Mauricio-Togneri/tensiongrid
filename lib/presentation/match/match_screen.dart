@@ -104,7 +104,6 @@ class PlayerSection extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         height: 50,
-        color: color,
         child: Align(
           alignment: alignment,
           child: NeonText(
@@ -125,17 +124,15 @@ class MiddleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 150,
       height: 50,
-      color: Palette.TOPBAR_MIDDLE,
       child: Center(
-        child: Text(
-          'STAGE ${state.match.stageIndex + 1}/${state.match.stages.length}',
-          style: const TextStyle(
-            fontSize: 18,
-            color: Palette.TOPBAR_TEXT,
-          ),
+        child: NeonText(
+          text:
+              'STAGE ${state.match.stageIndex + 1}/${state.match.stages.length}',
+          size: 18,
+          color: Palette.TOPBAR_TEXT,
         ),
       ),
     );
