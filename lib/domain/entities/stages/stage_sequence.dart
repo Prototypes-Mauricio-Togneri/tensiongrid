@@ -57,7 +57,12 @@ class StageSequence extends Stage {
         );
       }
     } else {
-      return const ActionResult(soundError: true);
+      final bool validIndex = index >= 1 && index <= maxIndex;
+
+      return ActionResult(
+        removeTile: !validIndex,
+        soundError: true,
+      );
     }
   }
 }
