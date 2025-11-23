@@ -12,6 +12,7 @@ class NumberTileComponent extends TileComponent<NumberTile> {
   final Paint paintDots = Palette.paint(
     style: PaintingStyle.fill,
   );
+  late final TextNeonPaint neonPaint;
   late final double characterSize;
 
   NumberTileComponent({
@@ -23,6 +24,7 @@ class NumberTileComponent extends TileComponent<NumberTile> {
 
   @override
   FutureOr onLoad() {
+    neonPaint = TextNeonPaint.create(tile.color);
     paintDots.color = tile.color;
     characterSize = size.x / 3;
 

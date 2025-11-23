@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
 extension CanvasExtension on Canvas {
   void drawText({
@@ -35,6 +36,30 @@ extension CanvasExtension on Canvas {
       size: Vector2(textPainter.size.width, textPainter.size.height),
     );
     textPainter.paint(this, translatedPosition.toOffset());
+  }
+
+  void drawTextNeon({
+    required String text,
+    required Vector2 position,
+    required double size,
+    required TextNeonPaint paint,
+    TextAlign textAlign = TextAlign.center,
+    FontWeight fontWeight = FontWeight.normal,
+    Anchor anchor = Anchor.center,
+  }) {
+    drawText(
+      text: text,
+      position: position,
+      size: size,
+      foreground: paint.neon,
+    );
+
+    drawText(
+      text: text,
+      position: position,
+      size: size,
+      foreground: paint.base,
+    );
   }
 
   Vector2 translate({

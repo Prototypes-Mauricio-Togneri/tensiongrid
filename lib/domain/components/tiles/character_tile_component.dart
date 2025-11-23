@@ -20,18 +20,11 @@ class CharacterTileComponent extends TileComponent<CharacterTile> {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawText(
+    canvas.drawTextNeon(
       text: tile.value,
       position: size / 2,
       size: size.x / 3,
-      foreground: neonPaint.neon,
-    );
-
-    canvas.drawText(
-      text: tile.value,
-      position: size / 2,
-      size: size.x / 3,
-      foreground: neonPaint.base,
+      paint: neonPaint,
     );
   }
 }
