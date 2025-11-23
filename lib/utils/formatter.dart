@@ -1,4 +1,35 @@
 class Formatter {
+  static String numberToCharacter(int number) {
+    final int letterIndex = (number - 1) % 26;
+
+    return String.fromCharCode('A'.codeUnitAt(0) + letterIndex);
+  }
+
+  static String numberToVisualCharacter(int number) {
+    const Map<int, String> visualMap = {
+      0: 'O',
+      1: 'I',
+      2: 'Z',
+      3: 'E',
+      4: 'A',
+      5: 'S',
+      6: 'G',
+      7: 'T',
+      8: 'B',
+      9: 'H',
+    };
+
+    String result = '';
+    final String numberString = number.toString();
+
+    for (int i = 0; i < numberString.length; i++) {
+      final int digit = int.parse(numberString[i]);
+      result += visualMap[digit] ?? digit.toString();
+    }
+
+    return result;
+  }
+
   static String toRomanNumeral(int number) {
     if (number < 1 || number > 3999) {
       return number.toString(); // Return the number as a string if out of range

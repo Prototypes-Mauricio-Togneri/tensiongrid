@@ -48,6 +48,18 @@ class Match {
       ),
       stages: [
         StageSequence(
+          id: 's2',
+          info: 'Stage 2',
+          width: width,
+          height: height,
+          tiles: Tile.sequenceCharacterTiles(
+            width: width,
+            height: height,
+            max: 5,
+          ),
+          maxIndex: 5,
+        ),
+        StageSequence(
           id: 's1',
           info: 'Stage 1',
           width: width,
@@ -57,18 +69,6 @@ class Match {
             height: height,
             max: 5,
             type: NumberType.arabic,
-          ),
-          maxIndex: 5,
-        ),
-        StageSequence(
-          id: 's2',
-          info: 'Stage 2',
-          width: width,
-          height: height,
-          tiles: Tile.sequenceCharacterTiles(
-            width: width,
-            height: height,
-            max: 5,
           ),
           maxIndex: 5,
         ),
