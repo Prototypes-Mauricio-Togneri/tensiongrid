@@ -174,13 +174,15 @@ class Info extends StatelessWidget {
     return StateProvider<MatchState>(
       state: state,
       builder: (context, state) {
-        return Container(
+        return SizedBox(
           height: 150,
-          color: Colors.amber,
           child: Center(
             child: Text(
               state.match.stage.info.toUpperCase(),
-              style: const TextStyle(fontSize: 24),
+              style: const TextStyle(
+                fontSize: 24,
+                color: Palette.TEXT_COLOR_PRIMARY,
+              ),
             ),
           ),
         );
