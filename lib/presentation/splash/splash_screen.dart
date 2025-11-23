@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/state/splash/splash_state.dart';
+import 'package:tensiongrid/presentation/common/containers/game_container.dart';
 import 'package:tensiongrid/utils/palette.dart';
-import 'package:tensiongrid/widgets/game_container.dart';
 
 class SplashScreen extends StatelessWidget {
   final SplashState state;

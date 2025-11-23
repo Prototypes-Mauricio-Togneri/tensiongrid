@@ -5,9 +5,9 @@ import 'package:tensiongrid/domain/components/game_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
+import 'package:tensiongrid/presentation/common/containers/game_container.dart';
 import 'package:tensiongrid/utils/assets.dart';
 import 'package:tensiongrid/utils/palette.dart';
-import 'package:tensiongrid/widgets/game_container.dart';
 
 class MatchScreen extends StatelessWidget {
   final MatchState state;

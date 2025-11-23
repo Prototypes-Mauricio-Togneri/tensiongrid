@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/state/home/home_state.dart';
-import 'package:tensiongrid/presentation/common/primary_button.dart';
+import 'package:tensiongrid/presentation/common/buttons/primary_button.dart';
+import 'package:tensiongrid/presentation/common/containers/game_container.dart';
 import 'package:tensiongrid/utils/palette.dart';
-import 'package:tensiongrid/widgets/game_container.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeState state;
