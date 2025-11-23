@@ -52,21 +52,25 @@ class Match {
         name: 'Bob',
       ),
       stages: [
-        generator.match(
+        generator.matchShape(
           id: 's0',
           numberOfTiles: 3,
         ),
-        generator.sequenceNumber(
+        generator.matchNumber(
           id: 's1',
+          numberOfTiles: 3,
+        ),
+        generator.sequenceNumber(
+          id: 's2',
           numberOfTiles: 3,
           type: NumberType.arabic,
         ),
         generator.sequenceCharacter(
-          id: 's2',
+          id: 's3',
           numberOfTiles: 3,
         ),
         generator.sequenceNumber(
-          id: 's3',
+          id: 's4',
           numberOfTiles: 3,
           type: NumberType.dots,
         ),

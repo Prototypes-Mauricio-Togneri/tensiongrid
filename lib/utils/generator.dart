@@ -5,7 +5,9 @@ import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_shape.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
+import 'package:tensiongrid/domain/types/shape.dart';
 import 'package:tensiongrid/utils/formatter.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
@@ -18,7 +20,7 @@ class StageGenerator {
     required this.height,
   });
 
-  Stage match({
+  Stage matchNumber({
     required String id,
     required int numberOfTiles,
   }) {
@@ -38,6 +40,28 @@ class StageGenerator {
       ),
       numberOfTiles: numberOfTiles,
       category: digit.toString(),
+    );
+  }
+
+  Stage matchShape({
+    required String id,
+    required int numberOfTiles,
+  }) {
+    final Shape shape = Shape.values[Random().nextInt(Shape.values.length)];
+
+    return StageMatch(
+      id: id,
+      info: 'Match shape: ${shape.name}',
+      width: width,
+      height: height,
+      tiles: matchShapeTiles(
+        width: width,
+        height: height,
+        numberOfTiles: numberOfTiles,
+        shape: shape,
+      ),
+      numberOfTiles: numberOfTiles,
+      category: shape.name,
     );
   }
 
@@ -82,7 +106,7 @@ class StageGenerator {
     required NumberType type,
   }) {
     final List<Tile> result = [];
-    final List<int> numbers = _generateSequence(
+    final List<int> numbers = _generateSequenceList(
       length: width * height,
       max: numberOfTiles,
     );
@@ -125,7 +149,7 @@ class StageGenerator {
     required int max,
   }) {
     final List<Tile> result = [];
-    final List<int> numbers = _generateSequence(
+    final List<int> numbers = _generateSequenceList(
       length: width * height,
       max: max,
     );
@@ -170,7 +194,7 @@ class StageGenerator {
     required NumberType type,
   }) {
     final List<Tile> result = [];
-    final List<int> numbers = _generateSequence(
+    final List<bool> list = _generateBooleanList(
       length: width * height,
       max: numberOfTiles,
     );
@@ -178,9 +202,8 @@ class StageGenerator {
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
         final int index = (x + 1) + (y * width) - 1;
-        final int number = numbers[index];
 
-        if (number > 0) {
+        if (list[index]) {
           result.add(
             TileNumber(
               x: x,
@@ -207,13 +230,76 @@ class StageGenerator {
     return result;
   }
 
-  static List<int> _generateSequence({
+  static List<Tile> matchShapeTiles({
+    required int width,
+    required int height,
+    required int numberOfTiles,
+    required Shape shape,
+  }) {
+    final List<Tile> result = [];
+    final List<bool> list = _generateBooleanList(
+      length: width * height,
+      max: numberOfTiles,
+    );
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int index = (x + 1) + (y * width) - 1;
+
+        if (list[index]) {
+          result.add(
+            TileShape(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              shape: shape,
+            ),
+          );
+        } else {
+          result.add(
+            TileShape(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              shape: _otherShape(shape),
+            ),
+          );
+        }
+      }
+    }
+
+    return result;
+  }
+
+  static Shape _otherShape(Shape shape) {
+    final List<Shape> otherShapes = Shape.values
+        .where((s) => s != shape)
+        .toList();
+    otherShapes.shuffle();
+
+    return otherShapes.first;
+  }
+
+  static List<int> _generateSequenceList({
     required int length,
     required int max,
   }) {
     final List<int> numbers = List<int>.generate(
       length,
       (index) => (index + 1) <= max ? (index + 1) : 0,
+    );
+    numbers.shuffle();
+
+    return numbers;
+  }
+
+  static List<bool> _generateBooleanList({
+    required int length,
+    required int max,
+  }) {
+    final List<bool> numbers = List<bool>.generate(
+      length,
+      (index) => (index + 1) <= max,
     );
     numbers.shuffle();
 
