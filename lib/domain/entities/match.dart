@@ -1,9 +1,9 @@
 import 'package:tensiongrid/app/constants.dart';
+import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stages/stage.dart';
 import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/types/action_result.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 
 class Match {
@@ -25,7 +25,7 @@ class Match {
   ActionResult onTileTapped(Tile tile) {
     final ActionResult result = stage.onTileTapped(tile);
 
-    if (result == ActionResult.next_stage) {
+    if (result.nextStage) {
       stageIndex++;
     }
 

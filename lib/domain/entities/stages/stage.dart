@@ -1,5 +1,5 @@
+import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/types/action_result.dart';
 
 abstract class Stage {
   final String id;
