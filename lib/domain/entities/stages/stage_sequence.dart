@@ -3,6 +3,8 @@ import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/action_result.dart';
+import 'package:tensiongrid/presentation/audio/audio.dart';
+import 'package:tensiongrid/presentation/audio/sound.dart';
 
 class StageSequence extends Stage {
   final int maxIndex;
@@ -43,6 +45,7 @@ class StageSequence extends Stage {
     if (index == currentIndex) {
       currentIndex++;
       tiles.remove(tile);
+      Audio.get.playSound(Sound.TILE_TAP);
 
       if (currentIndex > maxIndex) {
         return ActionResult.next_stage;

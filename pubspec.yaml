@@ -12,6 +12,7 @@ dependencies:
   logger: ^2.6.2
   get_it: ^9.1.0
   dafluta: 5.5.1 # Not compatible with current Flutter/Dart version
+  just_audio: ^0.10.5
   json_annotation: ^4.9.0
   shared_preferences: ^2.5.3
 
@@ -41,4 +42,5 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/audio/sound/
     - assets/images/
