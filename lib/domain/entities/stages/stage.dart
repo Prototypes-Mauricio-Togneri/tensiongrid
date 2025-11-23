@@ -1,6 +1,6 @@
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
-class Stage {
+abstract class Stage {
   final String id;
   final String info;
   final int width;
@@ -15,7 +15,5 @@ class Stage {
     required this.tiles,
   });
 
-  void onTileTapped(Tile tile) {
-    print('Tile tapped at (${tile.x}, ${tile.y})');
-  }
+  void onTileTapped(Tile tile);
 }

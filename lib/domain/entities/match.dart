@@ -1,6 +1,7 @@
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stages/stage.dart';
+import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 
@@ -33,7 +34,7 @@ class Match {
       player1: const Player(id: '1', name: 'Alice'),
       player2: const Player(id: '2', name: 'Bob'),
       stages: [
-        Stage(
+        StageSequence(
           id: 's1',
           info: 'Stage 1',
           width: width,
