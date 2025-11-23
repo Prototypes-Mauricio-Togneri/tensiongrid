@@ -29,9 +29,9 @@ class StageSequence extends Stage {
         index: tile.index,
         tile: tile,
       );
+    } else {
+      return ActionResult.failure;
     }
-
-    return ActionResult.none;
   }
 
   ActionResult _checkIndex({
