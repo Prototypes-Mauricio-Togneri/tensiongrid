@@ -68,3 +68,25 @@ class Palette {
     return paint;
   }
 }
+
+class TextNeonPaint {
+  final Paint base;
+  final Paint neon;
+
+  const TextNeonPaint({
+    required this.base,
+    required this.neon,
+  });
+
+  factory TextNeonPaint.create(Color color) => TextNeonPaint(
+    base: Palette.paint(
+      style: PaintingStyle.fill,
+      color: color,
+    ),
+    neon: Palette.paint(
+      style: PaintingStyle.fill,
+      maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
+      color: color,
+    ),
+  );
+}

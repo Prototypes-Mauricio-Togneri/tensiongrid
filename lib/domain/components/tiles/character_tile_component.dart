@@ -5,13 +5,7 @@ import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class CharacterTileComponent extends TileComponent<CharacterTile> {
-  final Paint paintBase = Palette.paint(
-    style: PaintingStyle.fill,
-  );
-  final Paint paintNeon = Palette.paint(
-    style: PaintingStyle.fill,
-    maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
-  );
+  late final TextNeonPaint neonPaint;
 
   CharacterTileComponent({
     required super.position,
@@ -19,8 +13,7 @@ class CharacterTileComponent extends TileComponent<CharacterTile> {
     required super.match,
     required super.tile,
   }) {
-    paintBase.color = tile.color;
-    paintNeon.color = tile.color;
+    neonPaint = TextNeonPaint.create(tile.color);
   }
 
   @override
@@ -31,14 +24,14 @@ class CharacterTileComponent extends TileComponent<CharacterTile> {
       text: tile.value,
       position: size / 2,
       size: size.x / 3,
-      foreground: paintNeon,
+      foreground: neonPaint.neon,
     );
 
     canvas.drawText(
       text: tile.value,
       position: size / 2,
       size: size.x / 3,
-      foreground: paintBase,
+      foreground: neonPaint.base,
     );
   }
 }
