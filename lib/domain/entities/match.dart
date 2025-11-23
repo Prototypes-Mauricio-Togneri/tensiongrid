@@ -55,10 +55,10 @@ class Match {
           tiles: Tile.sequenceNumberTiles(
             width: width,
             height: height,
-            max: 5,
+            max: 3,
             type: NumberType.arabic,
           ),
-          maxIndex: 5,
+          maxIndex: 3,
         ),
         StageSequence(
           id: 's2',
@@ -68,9 +68,22 @@ class Match {
           tiles: Tile.sequenceCharacterTiles(
             width: width,
             height: height,
-            max: 5,
+            max: 3,
           ),
-          maxIndex: 5,
+          maxIndex: 3,
+        ),
+        StageSequence(
+          id: 's3',
+          info: 'Dot sequence',
+          width: width,
+          height: height,
+          tiles: Tile.sequenceNumberTiles(
+            width: width,
+            height: height,
+            max: 3,
+            type: NumberType.dots,
+          ),
+          maxIndex: 3,
         ),
       ],
     );
