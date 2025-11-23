@@ -10,7 +10,6 @@ class CharacterTileComponent extends TileComponent<CharacterTile> {
   CharacterTileComponent({
     required super.position,
     required super.size,
-    required super.match,
     required super.tile,
   }) {
     neonPaint = TextNeonPaint.create(tile.color);

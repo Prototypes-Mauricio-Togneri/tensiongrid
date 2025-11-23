@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/extensions/component_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 abstract class TileComponent<T extends Tile> extends PositionComponent
@@ -18,7 +18,6 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   final Paint paintBackground = Palette.paint(
     style: PaintingStyle.fill,
   );
-  final Match match;
   final T tile;
   late final RRect rect;
   bool isPressed = false;
@@ -26,7 +25,6 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   TileComponent({
     required super.position,
     required super.size,
-    required this.match,
     required this.tile,
   }) : super(anchor: Anchor.center) {
     paintBorderBase.strokeWidth = size.x * 0.02;
@@ -57,7 +55,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   @override
   bool onTapUp(TapUpEvent event) {
     isPressed = false;
-    match.onTileTapped(tile);
+    match.onTileTapped(this);
 
     return true;
   }

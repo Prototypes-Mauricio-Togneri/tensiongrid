@@ -21,7 +21,7 @@ class Match {
   Stage get stage => stages[stageIndex];
 
   void onTileTapped(Tile tile) {
-    print('Tile tapped at (${tile.x}, ${tile.y})');
+    stage.onTileTapped(tile);
   }
 
   factory Match.test() {

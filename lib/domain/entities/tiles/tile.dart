@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
-import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/character_tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
@@ -18,7 +17,6 @@ abstract class Tile {
   });
 
   TileComponent component({
-    required Match match,
     required Vector2 position,
     required Vector2 size,
   });

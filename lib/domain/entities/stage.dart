@@ -14,4 +14,8 @@ class Stage {
     required this.height,
     required this.tiles,
   });
+
+  void onTileTapped(Tile tile) {
+    print('Tile tapped at (${tile.x}, ${tile.y})');
+  }
 }

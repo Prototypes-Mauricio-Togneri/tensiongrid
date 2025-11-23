@@ -18,7 +18,6 @@ class NumberTileComponent extends TileComponent<NumberTile> {
   NumberTileComponent({
     required super.position,
     required super.size,
-    required super.match,
     required super.tile,
   });
 

@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/tiles/character_tile_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
-import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class CharacterTile extends Tile {
@@ -16,13 +15,11 @@ class CharacterTile extends Tile {
 
   @override
   TileComponent component({
-    required Match match,
     required Vector2 position,
     required Vector2 size,
   }) => CharacterTileComponent(
     position: position,
     size: size,
     tile: this,
-    match: match,
   );
 }

@@ -25,7 +25,6 @@ class GridComponent extends PositionComponent {
     for (final Tile tile in stage.tiles) {
       add(
         tile.component(
-          match: match,
           position: _tilePosition(
             tile: tile,
             tileSize: tileSize,

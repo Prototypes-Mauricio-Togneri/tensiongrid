@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/grid_component.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 
 class MatchComponent extends World {
@@ -12,6 +13,10 @@ class MatchComponent extends World {
     required this.match,
   }) {
     MatchComponentRef.instance = this;
+  }
+
+  void onTileTapped(TileComponent tileComponent) {
+    match.onTileTapped(tileComponent.tile);
   }
 
   @override
