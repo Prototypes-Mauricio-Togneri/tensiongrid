@@ -14,6 +14,9 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     style: PaintingStyle.stroke,
     maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
   );
+  final Paint paintBackground = Palette.paint(
+    style: PaintingStyle.fill,
+  );
   final Match match;
   final T tile;
   bool isPressed = false;
@@ -29,6 +32,8 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
 
     paintBorderNeon.strokeWidth = size.x * 0.02;
     paintBorderNeon.color = tile.color;
+
+    paintBackground.color = tile.color.withAlpha(20);
   }
 
   @override
@@ -56,6 +61,14 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     super.render(canvas);
 
     if (isPressed) {
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(0, 0, size.x, size.y),
+          Radius.circular(size.x * 0.05),
+        ),
+        paintBackground,
+      );
+
       canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.x, size.y),
