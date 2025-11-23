@@ -6,6 +6,7 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
 import 'package:tensiongrid/presentation/common/containers/game_container.dart';
+import 'package:tensiongrid/presentation/common/text/neon_text.dart';
 import 'package:tensiongrid/utils/assets.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
@@ -106,12 +107,10 @@ class PlayerSection extends StatelessWidget {
         color: color,
         child: Align(
           alignment: alignment,
-          child: Text(
-            player.name.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 22,
-              color: Palette.PLAYER_NAME,
-            ),
+          child: NeonText(
+            text: player.name.toUpperCase(),
+            size: 22,
+            color: Palette.PLAYER_NAME,
           ),
         ),
       ),
