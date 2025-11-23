@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_shape.dart';
@@ -27,21 +28,6 @@ class TileShapeComponent extends TileComponent<TileShape> {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    /*
-     // Basic shapes
-  circle,
-  triangle,
-  square,
-  pentagon,
-  hexagon,
-
-  // Arrow shapes
-  arrowUp,
-  arrowDown,
-  arrowLeft,
-  arrowRight,
-  */
-
     switch (tile.shape) {
       case Shape.circle:
         canvas.drawCircle(
@@ -51,9 +37,9 @@ class TileShapeComponent extends TileComponent<TileShape> {
         );
       case Shape.triangle:
         final Path path = Path()
-          ..moveTo(size.x / 2, size.y / 6)
-          ..lineTo(size.x * 5 / 6, size.y * 5 / 6)
-          ..lineTo(size.x / 6, size.y * 5 / 6)
+          ..moveTo(size.x / 2, size.y / 4)
+          ..lineTo(size.x * 3 / 4, size.y * 3 / 4)
+          ..lineTo(size.x / 4, size.y * 3 / 4)
           ..close();
         canvas.drawPath(path, paintShape);
       case Shape.square:
@@ -66,10 +52,15 @@ class TileShapeComponent extends TileComponent<TileShape> {
           ),
           paintShape,
         );
+      case Shape.rombous:
+        final Path path = _polygonPath(4);
+        canvas.drawPath(path, paintShape);
       case Shape.pentagon:
-      // Implementation for pentagon shape
+        final Path path = _polygonPath(5);
+        canvas.drawPath(path, paintShape);
       case Shape.hexagon:
-      // Implementation for hexagon shape
+        final Path path = _polygonPath(6);
+        canvas.drawPath(path, paintShape);
       case Shape.arrowUp:
       // Implementation for arrow up shape
       case Shape.arrowDown:
@@ -79,5 +70,27 @@ class TileShapeComponent extends TileComponent<TileShape> {
       case Shape.arrowRight:
       // Implementation for arrow right shape
     }
+  }
+
+  Path _polygonPath(int sides) {
+    final double centerX = size.x / 2;
+    final double centerY = size.y / 2;
+    final double radius = size.x / 4;
+    final Path path = Path();
+
+    for (int i = 0; i < sides; i++) {
+      final double angle = (i * 2 * pi / sides) - (pi / 2);
+      final double x = centerX + radius * cos(angle);
+      final double y = centerY + radius * sin(angle);
+
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    path.close();
+
+    return path;
   }
 }
