@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -24,17 +23,12 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     required super.size,
     required this.match,
     required this.tile,
-  }) : super(anchor: Anchor.center);
-
-  @override
-  FutureOr onLoad() {
+  }) : super(anchor: Anchor.center) {
     paintNeutral.strokeWidth = size.x * 0.02;
-    paintNeutral.color = tile.color.withAlpha(128);
+    paintNeutral.color = tile.color.withAlpha(150);
 
     paintPressed.strokeWidth = size.x * 0.02;
     paintPressed.color = tile.color;
-
-    return super.onLoad();
   }
 
   @override
