@@ -15,7 +15,7 @@ class Formatter {
 
   static String randomCharacter() {
     final int digit = Random().nextInt(9) + 1;
-    
+
     return similarCharacter(digit);
   }
 
