@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
-import 'package:tensiongrid/domain/entities/tiles/character_tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
-class CharacterTileComponent extends TileComponent<CharacterTile> {
+class TileCharacterComponent extends TileComponent<TileCharacter> {
   late final TextNeonPaint neonPaint;
 
-  CharacterTileComponent({
+  TileCharacterComponent({
     required super.position,
     required super.size,
     required super.tile,

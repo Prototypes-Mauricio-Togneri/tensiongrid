@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
-import 'package:tensiongrid/domain/entities/tiles/character_tile.dart';
-import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 
 abstract class Tile {
@@ -71,7 +71,7 @@ abstract class Tile {
 
         if (number > 0) {
           result.add(
-            NumberTile(
+            TileNumber(
               x: x,
               y: y,
               color: Colors.white,
@@ -81,7 +81,7 @@ abstract class Tile {
           );
         } else {
           result.add(
-            CharacterTile(
+            TileCharacter(
               x: x,
               y: y,
               color: Colors.white,
@@ -111,7 +111,7 @@ abstract class Tile {
         final int number = numbers[(x + 1) + (y * width) - 1];
 
         result.add(
-          CharacterTile(
+          TileCharacter(
             x: x,
             y: y,
             color: Colors.white,

@@ -2,20 +2,20 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
-import 'package:tensiongrid/domain/entities/tiles/number_tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/formatter.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
-class NumberTileComponent extends TileComponent<NumberTile> {
+class TileNumberComponent extends TileComponent<TileNumber> {
   final Paint paintDots = Palette.paint(
     style: PaintingStyle.fill,
   );
   late final TextNeonPaint neonPaint;
   late final double characterSize;
 
-  NumberTileComponent({
+  TileNumberComponent({
     required super.position,
     required super.size,
     required super.tile,

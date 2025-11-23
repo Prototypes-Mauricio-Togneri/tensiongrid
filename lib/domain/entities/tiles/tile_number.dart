@@ -1,14 +1,14 @@
 import 'package:flame/components.dart';
-import 'package:tensiongrid/domain/components/tiles/number_tile_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_number_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 
-class NumberTile extends Tile {
+class TileNumber extends Tile {
   final int number;
   final NumberType type;
 
-  NumberTile({
+  TileNumber({
     required this.number,
     required this.type,
     required super.x,
@@ -20,7 +20,7 @@ class NumberTile extends Tile {
   TileComponent component({
     required Vector2 position,
     required Vector2 size,
-  }) => NumberTileComponent(
+  }) => TileNumberComponent(
     position: position,
     size: size,
     tile: this,

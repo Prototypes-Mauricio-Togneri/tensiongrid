@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
-import 'package:tensiongrid/domain/entities/stage.dart';
+import 'package:tensiongrid/domain/entities/stages/stage.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class GridComponent extends PositionComponent {

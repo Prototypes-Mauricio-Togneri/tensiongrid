@@ -1,6 +1,6 @@
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
-import 'package:tensiongrid/domain/entities/stage.dart';
+import 'package:tensiongrid/domain/entities/stages/stage.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 
