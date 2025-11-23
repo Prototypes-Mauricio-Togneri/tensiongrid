@@ -29,6 +29,7 @@ class GameComponent extends FlameGame {
     world = MatchComponent(
       resolution: resolution,
       match: match,
+      state: matchState,
     );
 
     camera = CameraComponent.withFixedResolution(
