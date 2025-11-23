@@ -105,6 +105,7 @@ class PlayerSection extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
+          color: color.withAlpha(150),
           border: Border.all(
             color: color,
             width: 3,
@@ -132,7 +133,7 @@ class MiddleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: 120,
       height: 50,
       child: Center(
         child: NeonText(
