@@ -53,19 +53,14 @@ class Match {
         name: 'Bob',
       ),
       stages: [
-        generator.match('s0'),
-        StageSequence(
-          id: 's1',
-          info: 'Number sequence',
-          width: width,
-          height: height,
-          tiles: Tile.sequenceNumberTiles(
-            width: width,
-            height: height,
-            max: 3,
-            type: NumberType.arabic,
-          ),
+        generator.match(
+          id: 's0',
           numberOfTiles: 3,
+        ),
+        generator.sequenceNumber(
+          id: 's1',
+          numberOfTiles: 3,
+          type: NumberType.arabic,
         ),
         StageSequence(
           id: 's2',
@@ -87,7 +82,7 @@ class Match {
           tiles: Tile.sequenceNumberTiles(
             width: width,
             height: height,
-            max: 3,
+            numberOfTiles: 3,
             type: NumberType.dots,
           ),
           numberOfTiles: 3,

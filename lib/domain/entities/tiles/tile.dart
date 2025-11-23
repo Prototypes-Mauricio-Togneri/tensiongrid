@@ -28,13 +28,13 @@ abstract class Tile {
   static List<Tile> sequenceNumberTiles({
     required int width,
     required int height,
-    required int max,
+    required int numberOfTiles,
     required NumberType type,
   }) {
     final List<Tile> result = [];
     final List<int> numbers = _generateSequence(
       length: width * height,
-      max: max,
+      max: numberOfTiles,
     );
 
     for (int x = 0; x < width; x++) {
@@ -115,14 +115,14 @@ abstract class Tile {
   static List<Tile> matchNumbersTiles({
     required int width,
     required int height,
-    required int max,
+    required int numberOfTiles,
     required int digit,
     required NumberType type,
   }) {
     final List<Tile> result = [];
     final List<int> numbers = _generateSequence(
       length: width * height,
-      max: max,
+      max: numberOfTiles,
     );
 
     for (int x = 0; x < width; x++) {
