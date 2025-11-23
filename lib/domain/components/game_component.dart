@@ -19,7 +19,7 @@ class GameComponent extends FlameGame {
   }
 
   @override
-  Color backgroundColor() => Palette.GAME_BACKGROUND;
+  Color backgroundColor() => Palette.TRANSPARENT;
 
   @override
   FutureOr onLoad() {

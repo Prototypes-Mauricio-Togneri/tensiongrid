@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class Palette {
   static const MaterialColor PRIMARY = Colors.blue;
 
+  static const Color TRANSPARENT = Colors.transparent;
+
   static const Color SCREEN_BACKGROUND = Colors.black;
   static const Color GAME_BACKGROUND = Colors.black;
 

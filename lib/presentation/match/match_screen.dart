@@ -5,6 +5,7 @@ import 'package:tensiongrid/domain/components/game_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
+import 'package:tensiongrid/utils/assets.dart';
 import 'package:tensiongrid/utils/palette.dart';
 import 'package:tensiongrid/widgets/game_container.dart';
 
@@ -30,11 +31,23 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        TopBar(state),
-        Grid(state),
-        Info(state),
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/${Assets.IMAGES_BACKGROUND}'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Column(
+          children: [
+            TopBar(state),
+            Grid(state),
+            Info(state),
+          ],
+        ),
       ],
     );
   }

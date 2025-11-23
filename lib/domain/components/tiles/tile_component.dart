@@ -65,7 +65,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
       canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.x, size.y),
-          Radius.circular(size.x * 0.1),
+          Radius.circular(size.x * 0.05),
         ),
         paintPressed,
       );
@@ -74,7 +74,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.x, size.y),
-        Radius.circular(size.x * 0.1),
+        Radius.circular(size.x * 0.05),
       ),
       paintNeutral,
     );
