@@ -45,9 +45,16 @@ class StageSequence extends Stage {
       tiles.remove(tile);
 
       if (currentIndex > maxIndex) {
-        return const ActionResult(nextStage: true, soundTap: true);
+        return const ActionResult(
+          nextStage: true,
+          removeTile: true,
+          soundTap: true,
+        );
       } else {
-        return const ActionResult(removeTile: true, soundTap: true);
+        return const ActionResult(
+          removeTile: true,
+          soundTap: true,
+        );
       }
     } else {
       return const ActionResult(soundError: true);
