@@ -29,7 +29,11 @@ class MatchComponent extends World {
     if (result.soundTap) {
       Audio.get.playSound(Sound.TILE_TAP);
     }
-    
+
+    if (result.soundError) {
+      Audio.get.playSound(Sound.TILE_ERROR);
+    }
+
     if (result.nextStage) {
       currentGrid.removeFromParent();
       _addGrid();
