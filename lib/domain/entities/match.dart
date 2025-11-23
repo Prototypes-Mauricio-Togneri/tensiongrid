@@ -30,8 +30,14 @@ class Match {
 
     return Match(
       id: '123',
-      player1: const Player(id: '1', name: 'Alice'),
-      player2: const Player(id: '2', name: 'Bob'),
+      player1: const Player(
+        id: '1',
+        name: 'Alice',
+      ),
+      player2: const Player(
+        id: '2',
+        name: 'Bob',
+      ),
       stages: [
         StageSequence(
           id: 's1',
