@@ -103,12 +103,13 @@ class PlayerSection extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(5),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
           border: Border.all(
             color: color,
             width: 3,
           ),
+          borderRadius: BorderRadius.circular(5),
         ),
         child: Align(
           alignment: alignment,
