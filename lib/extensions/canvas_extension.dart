@@ -42,5 +42,4 @@ extension CanvasExtension on Canvas {
     required Vector2 point,
     required Vector2 size,
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
-
 }
