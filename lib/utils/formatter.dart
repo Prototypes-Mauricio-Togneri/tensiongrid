@@ -29,7 +29,7 @@ class Formatter {
       6: 'G',
       7: 'T',
       8: 'B',
-      9: 'H',
+      9: 'g',
     };
 
     return visualMap[digit] ?? digit.toString();

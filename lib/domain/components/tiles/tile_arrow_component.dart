@@ -18,6 +18,7 @@ class TileArrowComponent extends TileComponent<TileArrow> {
 
   @override
   FutureOr onLoad() {
+    paintShape.strokeWidth = size.x / 50;
     paintShape.color = tile.color;
 
     return super.onLoad();
