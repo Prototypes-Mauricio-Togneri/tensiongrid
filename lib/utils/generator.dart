@@ -1,10 +1,13 @@
 import 'dart:math';
-
 import 'package:tensiongrid/domain/entities/stages/stage.dart';
 import 'package:tensiongrid/domain/entities/stages/stage_match.dart';
 import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
+import 'package:tensiongrid/utils/formatter.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
 class StageGenerator {
   final int width;
@@ -26,7 +29,7 @@ class StageGenerator {
       info: 'Match number: $digit',
       width: width,
       height: height,
-      tiles: Tile.matchNumbersTiles(
+      tiles: matchNumbersTiles(
         width: width,
         height: height,
         numberOfTiles: numberOfTiles,
@@ -47,7 +50,7 @@ class StageGenerator {
     info: 'Number sequence',
     width: width,
     height: height,
-    tiles: Tile.sequenceNumberTiles(
+    tiles: sequenceNumberTiles(
       width: width,
       height: height,
       numberOfTiles: numberOfTiles,
@@ -64,11 +67,156 @@ class StageGenerator {
     info: 'Character sequence',
     width: width,
     height: height,
-    tiles: Tile.sequenceCharacterTiles(
+    tiles: sequenceCharacterTiles(
       width: width,
       height: height,
       max: numberOfTiles,
     ),
     numberOfTiles: numberOfTiles,
   );
+
+  static List<Tile> sequenceNumberTiles({
+    required int width,
+    required int height,
+    required int numberOfTiles,
+    required NumberType type,
+  }) {
+    final List<Tile> result = [];
+    final List<int> numbers = _generateSequence(
+      length: width * height,
+      max: numberOfTiles,
+    );
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int index = (x + 1) + (y * width) - 1;
+        final int number = numbers[index];
+
+        if (number > 0) {
+          result.add(
+            TileNumber(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              number: number,
+              type: type,
+            ),
+          );
+        } else {
+          result.add(
+            TileCharacter(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              index: -1,
+              value: Formatter.randomCharacter(),
+            ),
+          );
+        }
+      }
+    }
+
+    return result;
+  }
+
+  static List<Tile> sequenceCharacterTiles({
+    required int width,
+    required int height,
+    required int max,
+  }) {
+    final List<Tile> result = [];
+    final List<int> numbers = _generateSequence(
+      length: width * height,
+      max: max,
+    );
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int index = (x + 1) + (y * width) - 1;
+        final int number = numbers[index];
+
+        if (number > 0) {
+          result.add(
+            TileCharacter(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              index: number,
+              value: Formatter.numberToCharacter(number),
+            ),
+          );
+        } else {
+          result.add(
+            TileCharacter(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              index: -1,
+              value: Formatter.randomDigit(),
+            ),
+          );
+        }
+      }
+    }
+
+    return result;
+  }
+
+  static List<Tile> matchNumbersTiles({
+    required int width,
+    required int height,
+    required int numberOfTiles,
+    required int digit,
+    required NumberType type,
+  }) {
+    final List<Tile> result = [];
+    final List<int> numbers = _generateSequence(
+      length: width * height,
+      max: numberOfTiles,
+    );
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int index = (x + 1) + (y * width) - 1;
+        final int number = numbers[index];
+
+        if (number > 0) {
+          result.add(
+            TileNumber(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              number: digit,
+              type: type,
+            ),
+          );
+        } else {
+          result.add(
+            TileCharacter(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              index: -1,
+              value: Formatter.similarCharacter(digit),
+            ),
+          );
+        }
+      }
+    }
+
+    return result;
+  }
+
+  static List<int> _generateSequence({
+    required int length,
+    required int max,
+  }) {
+    final List<int> numbers = List<int>.generate(
+      length,
+      (index) => (index + 1) <= max ? (index + 1) : 0,
+    );
+    numbers.shuffle();
+
+    return numbers;
+  }
 }
