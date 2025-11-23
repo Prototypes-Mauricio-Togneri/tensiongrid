@@ -33,7 +33,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     paintBorderNeon.strokeWidth = size.x * 0.02;
     paintBorderNeon.color = tile.color;
 
-    paintBackground.color = tile.color.withAlpha(20);
+    paintBackground.color = tile.color.withAlpha(50);
   }
 
   @override
