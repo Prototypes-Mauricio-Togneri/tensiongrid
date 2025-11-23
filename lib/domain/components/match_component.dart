@@ -38,6 +38,7 @@ class MatchComponent extends World {
     }
 
     if (result.nextStage) {
+      Audio.get.playSound(Sound.NEXT_STAGE);
       currentGrid.removeFromParent();
       _addGrid();
       state.notify();

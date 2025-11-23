@@ -13,10 +13,14 @@ mixin Sound {
   static const AudioSpec TILE_ERROR = AudioSpec(
     path: Assets.AUDIO_SOUND_TILE_ERROR,
   );
+  static const AudioSpec NEXT_STAGE = AudioSpec(
+    path: Assets.AUDIO_SOUND_NEXT_STAGE,
+  );
 
   static const List<AudioSpec> ALL_SOUNDS = [
     TILE_TAP,
     TILE_ERROR,
+    NEXT_STAGE,
   ];
 
   Future playSound(AudioSpec spec) async {
