@@ -5,6 +5,7 @@ import 'package:tensiongrid/domain/components/game_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
+import 'package:tensiongrid/utils/palette.dart';
 import 'package:tensiongrid/widgets/game_container.dart';
 
 class MatchScreen extends StatelessWidget {
@@ -49,21 +50,20 @@ class TopBar extends StatelessWidget {
     return StateProvider<MatchState>(
       state: state,
       builder: (context, state) {
-        return Container(
+        return SizedBox(
           height: 50,
-          color: Colors.blue,
           child: Row(
             children: [
               PlayerSection(
                 player: state.match.player1,
                 alignment: Alignment.centerLeft,
-                color: Colors.blue,
+                color: Palette.PLAYER_1,
               ),
               MiddleSection(state),
               PlayerSection(
                 player: state.match.player2,
                 alignment: Alignment.centerRight,
-                color: Colors.red,
+                color: Palette.PLAYER_2,
               ),
             ],
           ),
@@ -81,7 +81,7 @@ class PlayerSection extends StatelessWidget {
   const PlayerSection({
     required this.player,
     required this.alignment,
-    this.color = Colors.red,
+    required this.color,
   });
 
   @override
@@ -97,7 +97,7 @@ class PlayerSection extends StatelessWidget {
             player.name.toUpperCase(),
             style: const TextStyle(
               fontSize: 18,
-              color: Colors.white,
+              color: Palette.PLAYER_NAME,
             ),
           ),
         ),
@@ -116,13 +116,13 @@ class MiddleSection extends StatelessWidget {
     return Container(
       width: 100,
       height: 50,
-      color: Colors.grey,
+      color: Palette.TOPBAR_MIDDLE,
       child: Center(
         child: Text(
           'STAGE ${state.match.stageIndex + 1}',
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.white,
+            color: Palette.TOPBAR_TEXT,
           ),
         ),
       ),

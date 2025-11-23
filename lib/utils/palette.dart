@@ -9,6 +9,13 @@ class Palette {
 
   static const Color TEXT_COLOR_PRIMARY = Colors.white;
 
+  static const Color PLAYER_1 = Colors.blue;
+  static const Color PLAYER_2 = Colors.red;
+  static const Color PLAYER_NAME = Colors.white;
+
+  static const Color TOPBAR_MIDDLE = Colors.grey;
+  static const Color TOPBAR_TEXT = Colors.white;
+
   static Paint paint({
     PaintingStyle? style,
     Color? color,

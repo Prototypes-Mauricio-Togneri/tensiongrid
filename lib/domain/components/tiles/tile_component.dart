@@ -28,10 +28,10 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
 
   @override
   FutureOr onLoad() {
-    paintNeutral.strokeWidth = size.x * 0.03;
-    paintNeutral.color = tile.color;
+    paintNeutral.strokeWidth = size.x * 0.02;
+    paintNeutral.color = tile.color.withAlpha(128);
 
-    paintPressed.strokeWidth = size.x * 0.06;
+    paintPressed.strokeWidth = size.x * 0.02;
     paintPressed.color = tile.color;
 
     return super.onLoad();
@@ -62,23 +62,19 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     super.render(canvas);
 
     if (isPressed) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          0,
-          0,
-          size.x,
-          size.y,
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(0, 0, size.x, size.y),
+          Radius.circular(size.x * 0.1),
         ),
         paintPressed,
       );
     }
 
-    canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        0,
-        size.x,
-        size.y,
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, 0, size.x, size.y),
+        Radius.circular(size.x * 0.1),
       ),
       paintNeutral,
     );
