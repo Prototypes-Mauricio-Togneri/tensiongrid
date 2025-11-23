@@ -112,6 +112,51 @@ abstract class Tile {
     return result;
   }
 
+  static List<Tile> matchNumbersTiles({
+    required int width,
+    required int height,
+    required int max,
+    required int digit,
+    required NumberType type,
+  }) {
+    final List<Tile> result = [];
+    final List<int> numbers = _generateSequence(
+      length: width * height,
+      max: max,
+    );
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final int index = (x + 1) + (y * width) - 1;
+        final int number = numbers[index];
+
+        if (number > 0) {
+          result.add(
+            TileNumber(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              number: digit,
+              type: type,
+            ),
+          );
+        } else {
+          result.add(
+            TileCharacter(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              index: -1,
+              value: Formatter.similarCharacter(digit),
+            ),
+          );
+        }
+      }
+    }
+
+    return result;
+  }
+
   static List<int> _generateSequence({
     required int length,
     required int max,

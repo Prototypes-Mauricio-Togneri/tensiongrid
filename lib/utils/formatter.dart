@@ -15,7 +15,11 @@ class Formatter {
 
   static String randomCharacter() {
     final int digit = Random().nextInt(9) + 1;
+    
+    return similarCharacter(digit);
+  }
 
+  static String similarCharacter(int digit) {
     const Map<int, String> visualMap = {
       1: 'I',
       2: 'Z',

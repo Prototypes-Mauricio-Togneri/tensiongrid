@@ -2,6 +2,7 @@ import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stages/stage.dart';
+import 'package:tensiongrid/domain/entities/stages/stage_match.dart';
 import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
@@ -47,6 +48,21 @@ class Match {
         name: 'Bob',
       ),
       stages: [
+        StageMatch(
+          id: 's0',
+          info: 'Match number: 5',
+          width: width,
+          height: height,
+          tiles: Tile.matchNumbersTiles(
+            width: width,
+            height: height,
+            max: 3,
+            digit: 5,
+            type: NumberType.arabic,
+          ),
+          numberOfTiles: 3,
+          category: '5',
+        ),
         StageSequence(
           id: 's1',
           info: 'Number sequence',
