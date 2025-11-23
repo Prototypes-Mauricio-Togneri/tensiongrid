@@ -7,10 +7,10 @@ import 'package:tensiongrid/utils/palette.dart';
 
 abstract class TileComponent<T extends Tile> extends PositionComponent
     with TapCallbacks {
-  final Paint paintNeutral = Palette.paint(
+  final Paint paintBorderBase = Palette.paint(
     style: PaintingStyle.stroke,
   );
-  final Paint paintPressed = Palette.paint(
+  final Paint paintBorderNeon = Palette.paint(
     style: PaintingStyle.stroke,
     maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
   );
@@ -24,11 +24,11 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     required this.match,
     required this.tile,
   }) : super(anchor: Anchor.center) {
-    paintNeutral.strokeWidth = size.x * 0.02;
-    paintNeutral.color = tile.color.withAlpha(150);
+    paintBorderBase.strokeWidth = size.x * 0.02;
+    paintBorderBase.color = tile.color.withAlpha(150);
 
-    paintPressed.strokeWidth = size.x * 0.02;
-    paintPressed.color = tile.color;
+    paintBorderNeon.strokeWidth = size.x * 0.02;
+    paintBorderNeon.color = tile.color;
   }
 
   @override
@@ -61,7 +61,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
           Rect.fromLTWH(0, 0, size.x, size.y),
           Radius.circular(size.x * 0.05),
         ),
-        paintPressed,
+        paintBorderNeon,
       );
     }
 
@@ -70,7 +70,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
         Rect.fromLTWH(0, 0, size.x, size.y),
         Radius.circular(size.x * 0.05),
       ),
-      paintNeutral,
+      paintBorderBase,
     );
 
     /*canvas.drawText(
