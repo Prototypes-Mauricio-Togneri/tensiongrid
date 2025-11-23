@@ -18,6 +18,8 @@ class Palette {
   static const Color TOPBAR_MIDDLE = Colors.grey;
   static const Color TOPBAR_TEXT = Colors.white;
 
+  static const Color TILE_WHITE = Colors.white;
+
   static Paint paint({
     PaintingStyle? style,
     Color? color,

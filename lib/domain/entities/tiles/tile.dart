@@ -4,6 +4,7 @@ import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
 abstract class Tile {
   final int x;
@@ -74,7 +75,7 @@ abstract class Tile {
             TileNumber(
               x: x,
               y: y,
-              color: Colors.white,
+              color: Palette.TILE_WHITE,
               number: number,
               type: type,
             ),
@@ -84,8 +85,8 @@ abstract class Tile {
             TileCharacter(
               x: x,
               y: y,
-              color: Colors.white,
-              index: index,
+              color: Palette.TILE_WHITE,
+              index: -1,
               value: _numberToVisualCharacter(index),
             ),
           );
@@ -116,7 +117,7 @@ abstract class Tile {
           TileCharacter(
             x: x,
             y: y,
-            color: Colors.white,
+            color: Palette.TILE_WHITE,
             index: index,
             value: _numberToCharacter(number),
           ),
