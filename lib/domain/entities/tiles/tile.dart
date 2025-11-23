@@ -75,7 +75,6 @@ abstract class Tile {
               x: x,
               y: y,
               color: Colors.white,
-              index: index,
               number: number,
               type: type,
             ),

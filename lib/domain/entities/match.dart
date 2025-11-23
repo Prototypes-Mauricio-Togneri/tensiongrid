@@ -41,9 +41,22 @@ class Match {
           tiles: Tile.sequenceNumberTiles(
             width: width,
             height: height,
-            max: 15,
+            max: 10,
             type: NumberType.arabic,
           ),
+          maxIndex: 10,
+        ),
+        StageSequence(
+          id: 's2',
+          info: 'Stage 2',
+          width: width,
+          height: height,
+          tiles: Tile.sequenceCharacterTiles(
+            width: width,
+            height: height,
+            max: 10,
+          ),
+          maxIndex: 10,
         ),
       ],
     );

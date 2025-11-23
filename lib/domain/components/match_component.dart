@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
+import 'package:tensiongrid/domain/types/action_result.dart';
 
 class MatchComponent extends World {
   final Vector2 resolution;
@@ -16,7 +17,11 @@ class MatchComponent extends World {
   }
 
   void onTileTapped(TileComponent tileComponent) {
-    match.onTileTapped(tileComponent.tile);
+    final ActionResult result = match.onTileTapped(tileComponent.tile);
+
+    if (result == ActionResult.remove) {
+      tileComponent.removeFromParent();
+    }
   }
 
   @override
