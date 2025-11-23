@@ -36,19 +36,18 @@ class NumberTileComponent extends TileComponent<NumberTile> {
     super.render(canvas);
 
     if (tile.type == NumberType.arabic) {
-      canvas.drawText(
+      canvas.drawTextNeon(
         text: '${tile.number}',
         position: size / 2,
-        size: characterSize,
-        color: const Color(0xffffffff),
+        size: size.x / 3,
+        paint: neonPaint,
       );
     } else if (tile.type == NumberType.roman) {
-      final String romanNumeral = Formatter.toRomanNumeral(tile.number);
-      canvas.drawText(
-        text: romanNumeral,
+      canvas.drawTextNeon(
+        text: Formatter.toRomanNumeral(tile.number),
         position: size / 2,
-        size: characterSize,
-        color: const Color(0xffffffff),
+        size: size.x / 3,
+        paint: neonPaint,
       );
     } else if (tile.type == NumberType.dots) {
       final double dotSize = (size.x * 0.5) / (tile.number * 3);
