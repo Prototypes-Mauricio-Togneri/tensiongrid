@@ -1,4 +1,5 @@
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/types/action_result.dart';
 
 abstract class Stage {
   final String id;
@@ -15,5 +16,5 @@ abstract class Stage {
     required this.tiles,
   });
 
-  void onTileTapped(Tile tile);
+  ActionResult onTileTapped(Tile tile);
 }
