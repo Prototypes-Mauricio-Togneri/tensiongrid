@@ -20,25 +20,31 @@ class StageSequence extends Stage {
     print('Tile tapped at (${tile.x}, ${tile.y})');
 
     if (tile is TileNumber) {
-      if (tile.index == currentIndex) {
-        currentIndex++;
-        tiles.remove(tile);
-
-        return ActionResult.success;
-      } else {
-        return ActionResult.failure;
-      }
+      return _checkIndex(
+        index: tile.index,
+        tile: tile,
+      );
     } else if (tile is TileCharacter) {
-      if (tile.index == currentIndex) {
-        currentIndex++;
-        tiles.remove(tile);
-
-        return ActionResult.success;
-      } else {
-        return ActionResult.failure;
-      }
+      return _checkIndex(
+        index: tile.index,
+        tile: tile,
+      );
     }
 
     return ActionResult.none;
+  }
+
+  ActionResult _checkIndex({
+    required int index,
+    required Tile tile,
+  }) {
+    if (index == currentIndex) {
+      currentIndex++;
+      tiles.remove(tile);
+
+      return ActionResult.success;
+    } else {
+      return ActionResult.failure;
+    }
   }
 }
