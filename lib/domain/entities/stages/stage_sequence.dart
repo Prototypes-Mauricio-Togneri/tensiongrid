@@ -5,17 +5,16 @@ import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 
 class StageSequence extends Stage {
-  final int maxIndex;
-  int currentIndex = 1;
-
   StageSequence({
     required super.id,
     required super.info,
     required super.width,
     required super.height,
     required super.tiles,
-    required this.maxIndex,
+    required super.numberOfTiles,
   });
+
+  int get currentIndex => tilesRemoved + 1;
 
   @override
   ActionResult onTileTapped(Tile tile) {
@@ -41,10 +40,9 @@ class StageSequence extends Stage {
     required Tile tile,
   }) {
     if (index == currentIndex) {
-      currentIndex++;
-      tiles.remove(tile);
+      removeTile(tile);
 
-      if (currentIndex > maxIndex) {
+      if (isCompleted) {
         return const ActionResult(
           nextStage: true,
           removeTile: true,
@@ -57,7 +55,7 @@ class StageSequence extends Stage {
         );
       }
     } else {
-      final bool validIndex = index >= 1 && index <= maxIndex;
+      final bool validIndex = index >= 1 && index <= numberOfTiles;
 
       return ActionResult(
         removeTile: !validIndex,

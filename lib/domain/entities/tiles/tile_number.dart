@@ -14,7 +14,9 @@ class TileNumber extends Tile {
     required super.color,
     required this.number,
     required this.type,
-  });
+  }) : super(
+         category: number.toString(),
+       );
 
   @override
   TileComponent component({

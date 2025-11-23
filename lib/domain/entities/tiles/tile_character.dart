@@ -13,7 +13,8 @@ class TileCharacter extends Tile {
     required super.color,
     required this.index,
     required this.value,
-  });
+    String? category,
+  }) : super(category: category ?? value);
 
   @override
   TileComponent component({

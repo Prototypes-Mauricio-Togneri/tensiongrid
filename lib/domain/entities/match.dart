@@ -58,7 +58,7 @@ class Match {
             max: 3,
             type: NumberType.arabic,
           ),
-          maxIndex: 3,
+          numberOfTiles: 3,
         ),
         StageSequence(
           id: 's2',
@@ -70,7 +70,7 @@ class Match {
             height: height,
             max: 3,
           ),
-          maxIndex: 3,
+          numberOfTiles: 3,
         ),
         StageSequence(
           id: 's3',
@@ -83,7 +83,7 @@ class Match {
             max: 3,
             type: NumberType.dots,
           ),
-          maxIndex: 3,
+          numberOfTiles: 3,
         ),
       ],
     );

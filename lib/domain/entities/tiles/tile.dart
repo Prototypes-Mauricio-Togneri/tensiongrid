@@ -11,11 +11,13 @@ abstract class Tile {
   final int x;
   final int y;
   final Color color;
+  final String category;
 
   const Tile({
     required this.x,
     required this.y,
     required this.color,
+    required this.category,
   });
 
   TileComponent component({
