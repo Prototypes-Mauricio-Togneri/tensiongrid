@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -19,6 +20,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   );
   final Match match;
   final T tile;
+  late final RRect rect;
   bool isPressed = false;
 
   TileComponent({
@@ -34,6 +36,16 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     paintBorderNeon.color = tile.color;
 
     paintBackground.color = tile.color.withAlpha(20);
+  }
+
+  @override
+  FutureOr onLoad() {
+    rect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(0, 0, size.x, size.y),
+      Radius.circular(size.x * 0.05),
+    );
+
+    return super.onLoad();
   }
 
   @override
@@ -61,30 +73,11 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     super.render(canvas);
 
     if (isPressed) {
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(0, 0, size.x, size.y),
-          Radius.circular(size.x * 0.05),
-        ),
-        paintBackground,
-      );
-
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(0, 0, size.x, size.y),
-          Radius.circular(size.x * 0.05),
-        ),
-        paintBorderNeon,
-      );
+      canvas.drawRRect(rect, paintBackground);
+      canvas.drawRRect(rect, paintBorderNeon);
     }
 
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.x, size.y),
-        Radius.circular(size.x * 0.05),
-      ),
-      paintBorderBase,
-    );
+    canvas.drawRRect(rect, paintBorderBase);
 
     /*canvas.drawText(
       text: '${tile.x},${tile.y}',
