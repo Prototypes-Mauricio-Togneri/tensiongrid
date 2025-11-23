@@ -57,7 +57,7 @@ abstract class Tile {
               y: y,
               color: Palette.TILE_WHITE,
               index: -1,
-              value: Formatter.numberToVisualCharacter(index),
+              value: Formatter.randomCharacter(),
             ),
           );
         }
@@ -84,15 +84,15 @@ abstract class Tile {
         final int number = numbers[index];
 
         if (number > 0) {
-           result.add(
-          TileCharacter(
-            x: x,
-            y: y,
-            color: Palette.TILE_WHITE,
-            index: index,
-            value: Formatter.numberToCharacter(number),
-          ),
-        );
+          result.add(
+            TileCharacter(
+              x: x,
+              y: y,
+              color: Palette.TILE_WHITE,
+              index: number,
+              value: Formatter.numberToCharacter(number),
+            ),
+          );
         } else {
           result.add(
             TileCharacter(
@@ -100,7 +100,7 @@ abstract class Tile {
               y: y,
               color: Palette.TILE_WHITE,
               index: -1,
-              value: Formatter.numberToVisualCharacter(index),
+              value: Formatter.randomDigit(),
             ),
           );
         }

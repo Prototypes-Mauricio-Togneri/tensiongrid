@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Formatter {
   static String numberToCharacter(int number) {
     final int letterIndex = (number - 1) % 26;
@@ -5,9 +7,16 @@ class Formatter {
     return String.fromCharCode('A'.codeUnitAt(0) + letterIndex);
   }
 
-  static String numberToVisualCharacter(int number) {
+  static String randomDigit() {
+    final int digit = Random().nextInt(9) + 1;
+
+    return digit.toString();
+  }
+
+  static String randomCharacter() {
+    final int digit = Random().nextInt(9) + 1;
+
     const Map<int, String> visualMap = {
-      0: 'O',
       1: 'I',
       2: 'Z',
       3: 'E',
@@ -19,15 +28,7 @@ class Formatter {
       9: 'H',
     };
 
-    String result = '';
-    final String numberString = number.toString();
-
-    for (int i = 0; i < numberString.length; i++) {
-      final int digit = int.parse(numberString[i]);
-      result += visualMap[digit] ?? digit.toString();
-    }
-
-    return result;
+    return visualMap[digit] ?? digit.toString();
   }
 
   static String toRomanNumeral(int number) {
