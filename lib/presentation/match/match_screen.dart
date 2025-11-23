@@ -105,15 +105,14 @@ class PlayerSection extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
-          color: color.withAlpha(30),
           border: Border.all(
             color: color,
-            width: 3,
+            width: 2.5,
           ),
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(
-              color: color.withAlpha(150),
+              color: color.withAlpha(100),
               blurRadius: 2,
               spreadRadius: 2,
               offset: Offset.zero,
