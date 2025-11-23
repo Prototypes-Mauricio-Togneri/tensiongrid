@@ -3,6 +3,7 @@ import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/stages/stage.dart';
 import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/types/action_result.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 
 class Match {
@@ -21,9 +22,7 @@ class Match {
 
   Stage get stage => stages[stageIndex];
 
-  void onTileTapped(Tile tile) {
-    stage.onTileTapped(tile);
-  }
+  ActionResult onTileTapped(Tile tile) => stage.onTileTapped(tile);
 
   factory Match.test() {
     const int width = Constants.GRID_MAX_WIDTH;

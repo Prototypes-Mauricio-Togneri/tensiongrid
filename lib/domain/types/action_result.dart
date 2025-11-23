@@ -1,5 +1,5 @@
 enum ActionResult {
   none,
   success,
-  remove,
+  failure,
 }

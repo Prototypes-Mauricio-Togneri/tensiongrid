@@ -4,13 +4,15 @@ import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class TileCharacter extends Tile {
+  final int index;
   final String value;
 
   TileCharacter({
-    required this.value,
     required super.x,
     required super.y,
     required super.color,
+    required this.index,
+    required this.value,
   });
 
   @override

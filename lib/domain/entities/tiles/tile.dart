@@ -75,6 +75,7 @@ abstract class Tile {
               x: x,
               y: y,
               color: Colors.white,
+              index: index,
               number: number,
               type: type,
             ),
@@ -85,6 +86,7 @@ abstract class Tile {
               x: x,
               y: y,
               color: Colors.white,
+              index: index,
               value: _numberToVisualCharacter(index),
             ),
           );
@@ -108,13 +110,15 @@ abstract class Tile {
 
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        final int number = numbers[(x + 1) + (y * width) - 1];
+        final int index = (x + 1) + (y * width) - 1;
+        final int number = numbers[index];
 
         result.add(
           TileCharacter(
             x: x,
             y: y,
             color: Colors.white,
+            index: index,
             value: _numberToCharacter(number),
           ),
         );

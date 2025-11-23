@@ -5,15 +5,17 @@ import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 
 class TileNumber extends Tile {
+  final int index;
   final int number;
   final NumberType type;
 
   TileNumber({
-    required this.number,
-    required this.type,
     required super.x,
     required super.y,
     required super.color,
+    required this.index,
+    required this.number,
+    required this.type,
   });
 
   @override
