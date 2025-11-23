@@ -176,12 +176,10 @@ class Info extends StatelessWidget {
         return SizedBox(
           height: 150,
           child: Center(
-            child: Text(
-              state.match.stage.info.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 24,
-                color: Palette.TEXT_COLOR_PRIMARY,
-              ),
+            child: NeonText(
+              text: state.match.stage.info.toUpperCase(),
+              size: 24,
+              color: Palette.TEXT_COLOR_PRIMARY,
             ),
           ),
         );
