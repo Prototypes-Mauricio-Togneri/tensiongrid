@@ -65,7 +65,7 @@ class TopBar extends StatelessWidget {
       state: state,
       builder: (context, state) {
         return SizedBox(
-          height: 60,
+          height: 50,
           child: Row(
             children: [
               PlayerSection(
@@ -103,7 +103,7 @@ class PlayerSection extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(5),
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           border: Border.all(
             color: color,
@@ -123,7 +123,7 @@ class PlayerSection extends StatelessWidget {
           alignment: alignment,
           child: NeonText(
             text: player.name.toUpperCase(),
-            size: 22,
+            size: 18,
             color: Palette.PLAYER_NAME,
           ),
         ),
