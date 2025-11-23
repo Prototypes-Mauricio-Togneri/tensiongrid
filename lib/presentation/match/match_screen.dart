@@ -65,7 +65,7 @@ class TopBar extends StatelessWidget {
       state: state,
       builder: (context, state) {
         return SizedBox(
-          height: 50,
+          height: 40,
           child: Row(
             children: [
               PlayerSection(
@@ -102,14 +102,27 @@ class PlayerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.all(5),
+        margin: EdgeInsets.only(
+          top: 0,
+          left: alignment == Alignment.centerLeft ? 1 : 0,
+          right: alignment == Alignment.centerLeft ? 0 : 1,
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           border: Border.all(
             color: color,
             width: 2.5,
           ),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(0),
+            bottomLeft: Radius.circular(
+              alignment == Alignment.centerLeft ? 0 : 20,
+            ),
+            topRight: const Radius.circular(0),
+            bottomRight: Radius.circular(
+              alignment == Alignment.centerRight ? 0 : 20,
+            ),
+          ),
           boxShadow: [
             BoxShadow(
               color: color.withAlpha(100),
