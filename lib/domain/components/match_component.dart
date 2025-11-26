@@ -22,6 +22,14 @@ class MatchComponent extends World {
     MatchComponentRef.instance = this;
   }
 
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    match.update(dt);
+    state.notify();
+  }
+
   void onTileTapped(TileComponent tileComponent) {
     final ActionResult result = match.onTileTapped(tileComponent.tile);
 
