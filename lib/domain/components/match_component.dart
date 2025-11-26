@@ -50,7 +50,6 @@ class MatchComponent extends World {
       position: Vector2(0, 0),
       size: resolution,
       match: match,
-      stage: match.stage,
     );
     add(currentGrid);
   }

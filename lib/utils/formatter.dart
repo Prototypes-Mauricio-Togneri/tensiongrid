@@ -1,6 +1,13 @@
 import 'dart:math';
 
 class Formatter {
+  static String hoursMinutes(int seconds) {
+    final int minutes = seconds ~/ 60;
+    final int remainingSeconds = seconds % 60;
+
+    return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
   static String numberToCharacter(int number) {
     final int letterIndex = (number - 1) % 26;
 

@@ -1,382 +1,71 @@
 import 'dart:math';
-import 'package:tensiongrid/domain/entities/stages/stage.dart';
-import 'package:tensiongrid/domain/entities/stages/stage_match.dart';
-import 'package:tensiongrid/domain/entities/stages/stage_sequence.dart';
+import 'package:tensiongrid/domain/entities/coordinates.dart';
+import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_arrow.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_shape.dart';
-import 'package:tensiongrid/domain/types/arrow.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
-import 'package:tensiongrid/domain/types/shape.dart';
-import 'package:tensiongrid/utils/formatter.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
-class StageGenerator {
+class EventGenerator {
   final int width;
   final int height;
 
-  const StageGenerator({
+  const EventGenerator({
     required this.width,
     required this.height,
   });
 
-  Stage matchNumber({
+  Event eventSequence({
     required String id,
-    required int numberOfTiles,
-  }) {
-    final int digit = Random().nextInt(9) + 1;
-
-    return StageMatch(
-      id: id,
-      info: 'Match number: $digit',
-      width: width,
-      height: height,
-      tiles: matchNumbersTiles(
-        width: width,
-        height: height,
-        numberOfTiles: numberOfTiles,
-        digit: digit,
-        type: NumberType.arabic,
-      ),
-      numberOfTiles: numberOfTiles,
-      category: digit.toString(),
-    );
-  }
-
-  Stage matchShape({
-    required String id,
-    required int numberOfTiles,
-  }) {
-    final Shape shape = Shape.values[Random().nextInt(Shape.values.length)];
-
-    return StageMatch(
-      id: id,
-      info: 'Match shape: ${shape.name}',
-      width: width,
-      height: height,
-      tiles: matchShapeTiles(
-        width: width,
-        height: height,
-        numberOfTiles: numberOfTiles,
-        shape: shape,
-      ),
-      numberOfTiles: numberOfTiles,
-      category: shape.name,
-    );
-  }
-
-  Stage matchArrow({
-    required String id,
-    required int numberOfTiles,
-  }) {
-    final Arrow arrow = Arrow.values[Random().nextInt(Arrow.values.length)];
-
-    return StageMatch(
-      id: id,
-      info: 'Match arrow: ${arrow.name}',
-      width: width,
-      height: height,
-      tiles: matchArrowTiles(
-        width: width,
-        height: height,
-        numberOfTiles: numberOfTiles,
-        arrow: arrow,
-      ),
-      numberOfTiles: numberOfTiles,
-      category: arrow.name,
-    );
-  }
-
-  Stage sequenceNumber({
-    required String id,
-    required int numberOfTiles,
-    required NumberType type,
-  }) => StageSequence(
-    id: id,
-    info: 'Number sequence',
-    width: width,
-    height: height,
-    tiles: sequenceNumberTiles(
-      width: width,
-      height: height,
-      numberOfTiles: numberOfTiles,
-      type: type,
-    ),
-    numberOfTiles: numberOfTiles,
-  );
-
-  Stage sequenceCharacter({
-    required String id,
-    required int numberOfTiles,
-  }) => StageSequence(
-    id: id,
-    info: 'Character sequence',
-    width: width,
-    height: height,
-    tiles: sequenceCharacterTiles(
-      width: width,
-      height: height,
-      max: numberOfTiles,
-    ),
-    numberOfTiles: numberOfTiles,
-  );
-
-  static List<Tile> sequenceNumberTiles({
-    required int width,
-    required int height,
-    required int numberOfTiles,
-    required NumberType type,
-  }) {
-    final List<Tile> result = [];
-    final List<int> numbers = _generateSequenceList(
-      length: width * height,
-      max: numberOfTiles,
-    );
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        final int index = (x + 1) + (y * width) - 1;
-        final int number = numbers[index];
-
-        if (number > 0) {
-          result.add(
-            TileNumber(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              number: number,
-              type: type,
-            ),
-          );
-        } else {
-          result.add(
-            TileCharacter(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              index: -1,
-              value: Formatter.randomCharacter(),
-            ),
-          );
-        }
-      }
-    }
-
-    return result;
-  }
-
-  static List<Tile> sequenceCharacterTiles({
-    required int width,
-    required int height,
-    required int max,
-  }) {
-    final List<Tile> result = [];
-    final List<int> numbers = _generateSequenceList(
-      length: width * height,
-      max: max,
-    );
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        final int index = (x + 1) + (y * width) - 1;
-        final int number = numbers[index];
-
-        if (number > 0) {
-          result.add(
-            TileCharacter(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              index: number,
-              value: Formatter.numberToCharacter(number),
-            ),
-          );
-        } else {
-          result.add(
-            TileCharacter(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              index: -1,
-              value: Formatter.randomDigit(),
-            ),
-          );
-        }
-      }
-    }
-
-    return result;
-  }
-
-  static List<Tile> matchNumbersTiles({
-    required int width,
-    required int height,
-    required int numberOfTiles,
-    required int digit,
-    required NumberType type,
-  }) {
-    final List<Tile> result = [];
-    final List<bool> list = _generateBooleanList(
-      length: width * height,
-      max: numberOfTiles,
-    );
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        final int index = (x + 1) + (y * width) - 1;
-
-        if (list[index]) {
-          result.add(
-            TileNumber(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              number: digit,
-              type: type,
-            ),
-          );
-        } else {
-          result.add(
-            TileCharacter(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              index: -1,
-              value: Formatter.similarCharacter(digit),
-            ),
-          );
-        }
-      }
-    }
-
-    return result;
-  }
-
-  static List<Tile> matchShapeTiles({
-    required int width,
-    required int height,
-    required int numberOfTiles,
-    required Shape shape,
-  }) {
-    final List<Tile> result = [];
-    final List<bool> list = _generateBooleanList(
-      length: width * height,
-      max: numberOfTiles,
-    );
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        final int index = (x + 1) + (y * width) - 1;
-
-        if (list[index]) {
-          result.add(
-            TileShape(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              shape: shape,
-            ),
-          );
-        } else {
-          result.add(
-            TileShape(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              shape: _otherShape(shape),
-            ),
-          );
-        }
-      }
-    }
-
-    return result;
-  }
-
-  static List<Tile> matchArrowTiles({
-    required int width,
-    required int height,
-    required int numberOfTiles,
-    required Arrow arrow,
-  }) {
-    final List<Tile> result = [];
-    final List<bool> list = _generateBooleanList(
-      length: width * height,
-      max: numberOfTiles,
-    );
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        final int index = (x + 1) + (y * width) - 1;
-
-        if (list[index]) {
-          result.add(
-            TileArrow(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              arrow: arrow,
-            ),
-          );
-        } else {
-          result.add(
-            TileArrow(
-              x: x,
-              y: y,
-              color: Palette.TILE_WHITE,
-              arrow: _otherArrow(arrow),
-            ),
-          );
-        }
-      }
-    }
-
-    return result;
-  }
-
-  static Shape _otherShape(Shape shape) {
-    final List<Shape> otherShapes = Shape.values
-        .where((s) => s != shape)
-        .toList();
-    otherShapes.shuffle();
-
-    return otherShapes.first;
-  }
-
-  static Arrow _otherArrow(Arrow arrow) {
-    final List<Arrow> otherArrows = Arrow.values
-        .where((a) => a != arrow)
-        .toList();
-    otherArrows.shuffle();
-
-    return otherArrows.first;
-  }
-
-  static List<int> _generateSequenceList({
+    required int timestamp,
     required int length,
-    required int max,
+    required NumberType type,
   }) {
-    final List<int> numbers = List<int>.generate(
-      length,
-      (index) => (index + 1) <= max ? (index + 1) : 0,
+    final List<Coordinates> coordinates = _generateCoordinates(
+      width: width,
+      height: height,
+      length: length,
     );
-    numbers.shuffle();
 
-    return numbers;
+    final List<Tile> tiles = [];
+
+    for (int i = 0; i < coordinates.length; i++) {
+      final Coordinates coord = coordinates[i];
+
+      tiles.add(
+        TileNumber(
+          x: coord.x,
+          y: coord.y,
+          color: Palette.TILE_WHITE,
+          number: i + 1,
+          type: type,
+        ),
+      );
+    }
+
+    return EventSequence(
+      id: id,
+      timestamp: timestamp,
+      tiles: tiles,
+    );
   }
 
-  static List<bool> _generateBooleanList({
+  static List<Coordinates> _generateCoordinates({
+    required int width,
+    required int height,
     required int length,
-    required int max,
   }) {
-    final List<bool> numbers = List<bool>.generate(
-      length,
-      (index) => (index + 1) <= max,
-    );
-    numbers.shuffle();
+    final Random random = Random();
+    final Set<Coordinates> coordinates = {};
 
-    return numbers;
+    while (coordinates.length < length) {
+      final int x = random.nextInt(width);
+      final int y = random.nextInt(height);
+      final Coordinates coord = Coordinates(x: x, y: y);
+      coordinates.add(coord);
+    }
+
+    return coordinates.toList();
   }
 }

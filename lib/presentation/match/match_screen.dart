@@ -46,7 +46,6 @@ class Content extends StatelessWidget {
           children: [
             TopBar(state),
             Grid(state),
-            Info(state),
           ],
         ),
       ],
@@ -157,8 +156,7 @@ class MiddleSection extends StatelessWidget {
       height: 50,
       child: Center(
         child: NeonText(
-          text:
-              'STAGE ${state.match.stageIndex + 1}/${state.match.stages.length}',
+          text: state.match.elapsedTimeFormatted,
           size: 18,
           color: Palette.TOPBAR_TEXT,
         ),
@@ -184,31 +182,6 @@ class Grid extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class Info extends StatelessWidget {
-  final MatchState state;
-
-  const Info(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return StateProvider<MatchState>(
-      state: state,
-      builder: (context, state) {
-        return SizedBox(
-          height: 150,
-          child: Center(
-            child: NeonText(
-              text: state.match.stage.info.toUpperCase(),
-              size: 24,
-              color: Palette.TEXT_COLOR_PRIMARY,
-            ),
-          ),
-        );
-      },
     );
   }
 }

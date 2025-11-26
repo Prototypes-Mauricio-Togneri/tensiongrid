@@ -1,18 +1,18 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
-import 'package:tensiongrid/domain/entities/stages/stage.dart';
+import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 
-class StageSequence extends Stage {
-  StageSequence({
+class EventSequence extends Event {
+  EventSequence({
     required super.id,
-    required super.info,
-    required super.width,
-    required super.height,
+    required super.timestamp,
     required super.tiles,
-    required super.numberOfTiles,
   });
+
+  @override
+  bool get isCompleted => tilesRemoved >= tiles.length;
 
   int get currentIndex => tilesRemoved + 1;
 
@@ -55,10 +55,8 @@ class StageSequence extends Stage {
         );
       }
     } else {
-      final bool validIndex = index >= 1 && index <= numberOfTiles;
-
-      return ActionResult(
-        removeTile: !validIndex,
+      return const ActionResult(
+        removeTile: false,
         soundError: true,
       );
     }

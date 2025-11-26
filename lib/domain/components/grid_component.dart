@@ -1,28 +1,34 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
-import 'package:tensiongrid/domain/entities/stages/stage.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class GridComponent extends PositionComponent {
   final Match match;
-  final Stage stage;
 
   GridComponent({
     required super.position,
     required super.size,
     required this.match,
-    required this.stage,
   }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() {
-    final Vector2 tileSize = Vector2(
-      size.x / stage.width,
-      size.y / stage.height,
-    );
+    /*final Vector2 tileSize = Vector2(
+      size.x / match.width,
+      size.y / match.height,
+    );*/
 
-    for (final Tile tile in stage.tiles) {
+    return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    print('');
+    /*
+    for (final Tile tile in events.tiles) {
       add(
         tile.component(
           position: _tilePosition(
@@ -33,19 +39,18 @@ class GridComponent extends PositionComponent {
         ),
       );
     }
-
-    return super.onLoad();
+    */
   }
 
-  Vector2 _tilePosition({
+  /*Vector2 _tilePosition({
     required Tile tile,
     required Vector2 tileSize,
   }) => Vector2(
     (tile.x * tileSize.x) + tileSize.x / 2,
     (tile.y * tileSize.y) + tileSize.y / 2,
-  );
+  );*/
 
-  /*@override
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
@@ -63,5 +68,5 @@ class GridComponent extends PositionComponent {
       ),
       paint,
     );
-  }*/
+  }
 }
