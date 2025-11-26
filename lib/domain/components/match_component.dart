@@ -26,7 +26,6 @@ class MatchComponent extends World {
     super.update(dt);
 
     match.update(dt);
-    state.notify();
   }
 
   void onTileTapped(TileComponent tileComponent) {
@@ -45,7 +44,7 @@ class MatchComponent extends World {
     }
 
     if (result.eventCompleted) {
-      Audio.get.playSound(Sound.NEXT_STAGE);
+      Audio.get.playSound(Sound.EVENT_COMPLETED);
       state.notify();
     }
   }
