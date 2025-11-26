@@ -19,6 +19,7 @@ class EventGenerator {
   Event eventSequence({
     required String id,
     required int timestamp,
+    required int timeout,
     required int length,
     required NumberType type,
   }) {
@@ -47,6 +48,7 @@ class EventGenerator {
     return EventSequence(
       id: id,
       timestamp: timestamp,
+      timeout: timeout,
       tiles: tiles,
     );
   }

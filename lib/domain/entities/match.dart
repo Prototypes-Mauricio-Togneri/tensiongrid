@@ -13,7 +13,9 @@ class Match {
   final int height;
   final Player player1;
   final Player player2;
-  final List<Event> events;
+  final List<Event> futureEvents;
+  final List<Event> currentEvents = [];
+  final List<Event> pastEvents = [];
   double elapsedTime = 0;
 
   Match({
@@ -22,7 +24,7 @@ class Match {
     required this.height,
     required this.player1,
     required this.player2,
-    required this.events,
+    required this.futureEvents,
   });
 
   String get elapsedTimeFormatted =>
@@ -30,12 +32,22 @@ class Match {
 
   void update(double dt) {
     elapsedTime += dt;
+
+    for (final Event event in currentEvents) {
+      if (!event.isTimedOut) {
+        event.update(dt);
+      } else {
+        currentEvents.remove(event);
+        pastEvents.add(event);
+      }
+    }
   }
 
   Event? get newEvent {
-    for (final Event event in events) {
+    for (final Event event in futureEvents) {
       if (event.isBefore(elapsedTime.floor())) {
-        events.remove(event);
+        futureEvents.remove(event);
+        currentEvents.add(event);
 
         return event;
       }
@@ -76,10 +88,11 @@ class Match {
         id: '2',
         name: 'Bob',
       ),
-      events: [
+      futureEvents: [
         generator.eventSequence(
           id: 's0',
           timestamp: 3,
+          timeout: 5,
           length: 3,
           type: NumberType.arabic,
         ),

@@ -8,6 +8,7 @@ class EventSequence extends Event {
   EventSequence({
     required super.id,
     required super.timestamp,
+    required super.timeout,
     required super.tiles,
   });
 
