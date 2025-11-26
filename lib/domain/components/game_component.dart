@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/match_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
@@ -23,7 +24,10 @@ class GameComponent extends FlameGame {
 
   @override
   FutureOr onLoad() {
-    final Vector2 resolution = Vector2(100, 100);
+    final Vector2 resolution = Vector2(
+      Constants.UI_WIDTH.toDouble(),
+      (canvasSize.y / canvasSize.x) * Constants.UI_WIDTH,
+    );
     final Vector2 screenSize = size;
 
     world = MatchComponent(

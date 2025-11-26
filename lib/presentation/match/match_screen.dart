@@ -42,11 +42,11 @@ class Content extends StatelessWidget {
             ),
           ),
         ),
-        Column(
-          children: [
-            TopBar(state),
-            Grid(state),
-          ],
+        GameWidget(
+          game: GameComponent(
+            match: state.match,
+            matchState: state,
+          ),
         ),
       ],
     );
@@ -72,7 +72,6 @@ class TopBar extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 color: Palette.PLAYER_1,
               ),
-              MiddleSection(state),
               PlayerSection(
                 player: state.match.player2,
                 alignment: Alignment.centerRight,
@@ -137,48 +136,6 @@ class PlayerSection extends StatelessWidget {
             text: player.name.toUpperCase(),
             size: 18,
             color: Palette.PLAYER_NAME,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MiddleSection extends StatelessWidget {
-  final MatchState state;
-
-  const MiddleSection(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      height: 50,
-      child: Center(
-        child: NeonText(
-          text: state.match.elapsedTimeFormatted,
-          size: 18,
-          color: Palette.TOPBAR_TEXT,
-        ),
-      ),
-    );
-  }
-}
-
-class Grid extends StatelessWidget {
-  final MatchState state;
-
-  const Grid(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: GameWidget(
-          game: GameComponent(
-            match: state.match,
-            matchState: state,
           ),
         ),
       ),

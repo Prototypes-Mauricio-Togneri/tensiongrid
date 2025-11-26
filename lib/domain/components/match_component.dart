@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
+import 'package:tensiongrid/domain/components/topbar_component.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
@@ -52,12 +54,45 @@ class MatchComponent extends World {
   @override
   FutureOr onLoad() {
     add(
-      GridComponent(
-        position: Vector2(0, 0),
-        size: resolution,
+      TopbarComponent(
+        position: Vector2(
+          0,
+          -(resolution.y / 2) + (Constants.TOPBAR_HEIGHT / 2),
+        ),
+        size: Vector2(resolution.x, Constants.TOPBAR_HEIGHT.toDouble()),
         match: match,
       ),
     );
+
+    add(
+      GridComponent(
+        position: Vector2(0, 0),
+        size: Vector2(
+          Constants.GRID_SIZE.toDouble(),
+          Constants.GRID_SIZE.toDouble(),
+        ),
+        match: match,
+      ),
+    );
+
+    /*game.camera.viewport.add(
+      TimeComponent(
+        position: Vector2(100, 100),
+        size: Vector2(100, 100),
+        match: match,
+      ),
+    );*/
+
+    /*add(
+      TimeComponent(
+        position: Vector2(
+          0,
+          -22,
+        ),
+        size: Vector2(resolution.x / 25, 50),
+        match: match,
+      ),
+    );*/
 
     return super.onLoad();
   }
