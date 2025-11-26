@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/utils/dimensions.dart';
 
 class GridComponent extends PositionComponent {
   final Match match;
@@ -13,9 +14,10 @@ class GridComponent extends PositionComponent {
     required super.size,
     required this.match,
   }) : super(anchor: Anchor.center) {
-    tileSize = Vector2(
-      size.x / match.width,
-      size.y / match.height,
+    tileSize = Dimensions.tileSize(
+      size: size,
+      width: match.width,
+      height: match.height,
     );
   }
 
@@ -29,7 +31,7 @@ class GridComponent extends PositionComponent {
       for (final Tile tile in newEvent.tiles) {
         add(
           tile.component(
-            position: _tilePosition(
+            position: Dimensions.tilePosition(
               tile: tile,
               tileSize: tileSize,
             ),
@@ -39,14 +41,6 @@ class GridComponent extends PositionComponent {
       }
     }
   }
-
-  Vector2 _tilePosition({
-    required Tile tile,
-    required Vector2 tileSize,
-  }) => Vector2(
-    (tile.x * tileSize.x) + tileSize.x / 2,
-    (tile.y * tileSize.y) + tileSize.y / 2,
-  );
 
   @override
   void render(Canvas canvas) {
