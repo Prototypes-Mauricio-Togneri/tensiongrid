@@ -12,7 +12,6 @@ class MatchComponent extends World {
   final Vector2 resolution;
   final Match match;
   final MatchState state;
-  late GridComponent currentGrid;
 
   MatchComponent({
     required this.resolution,
@@ -45,26 +44,21 @@ class MatchComponent extends World {
       Audio.get.playSound(Sound.TILE_ERROR);
     }
 
-    if (result.nextStage) {
+    if (result.eventCompleted) {
       Audio.get.playSound(Sound.NEXT_STAGE);
-      currentGrid.removeFromParent();
-      _addGrid();
       state.notify();
     }
   }
 
-  void _addGrid() {
-    currentGrid = GridComponent(
-      position: Vector2(0, 0),
-      size: resolution,
-      match: match,
-    );
-    add(currentGrid);
-  }
-
   @override
   FutureOr onLoad() {
-    _addGrid();
+    add(
+      GridComponent(
+        position: Vector2(0, 0),
+        size: resolution,
+        match: match,
+      ),
+    );
 
     return super.onLoad();
   }

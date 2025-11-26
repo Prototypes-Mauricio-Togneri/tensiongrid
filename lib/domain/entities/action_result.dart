@@ -3,13 +3,13 @@ class ActionResult {
   final bool soundTap;
   final bool soundError;
   final bool removeTile;
-  final bool nextStage;
+  final bool eventCompleted;
 
   const ActionResult({
     this.success = false,
     this.soundTap = false,
     this.soundError = false,
     this.removeTile = false,
-    this.nextStage = false,
+    this.eventCompleted = false,
   });
 }

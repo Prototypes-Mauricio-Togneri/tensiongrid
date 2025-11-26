@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class GridComponent extends PositionComponent {
   final Match match;
@@ -25,31 +26,27 @@ class GridComponent extends PositionComponent {
     final Event? newEvent = match.newEvent;
 
     if (newEvent != null) {
-      print(newEvent);
-    }
-
-    /*
-    for (final Tile tile in events.tiles) {
-      add(
-        tile.component(
-          position: _tilePosition(
-            tile: tile,
-            tileSize: tileSize,
+      for (final Tile tile in newEvent.tiles) {
+        add(
+          tile.component(
+            position: _tilePosition(
+              tile: tile,
+              tileSize: tileSize,
+            ),
+            size: tileSize * 0.85,
           ),
-          size: tileSize * 0.85,
-        ),
-      );
+        );
+      }
     }
-    */
   }
 
-  /*Vector2 _tilePosition({
+  Vector2 _tilePosition({
     required Tile tile,
     required Vector2 tileSize,
   }) => Vector2(
     (tile.x * tileSize.x) + tileSize.x / 2,
     (tile.y * tileSize.y) + tileSize.y / 2,
-  );*/
+  );
 
   @override
   void render(Canvas canvas) {

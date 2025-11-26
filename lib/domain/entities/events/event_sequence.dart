@@ -44,7 +44,7 @@ class EventSequence extends Event {
 
       if (isCompleted) {
         return const ActionResult(
-          nextStage: true,
+          eventCompleted: true,
           removeTile: true,
           soundTap: true,
         );
