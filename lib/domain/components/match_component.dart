@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/topbar_component.dart';
@@ -9,6 +8,7 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
 import 'package:tensiongrid/presentation/audio/audio.dart';
 import 'package:tensiongrid/presentation/audio/sound.dart';
+import 'package:tensiongrid/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Vector2 resolution;
@@ -55,44 +55,19 @@ class MatchComponent extends World {
   FutureOr onLoad() {
     add(
       TopbarComponent(
-        position: Vector2(
-          0,
-          -(resolution.y / 2) + (Constants.TOPBAR_HEIGHT / 2),
-        ),
-        size: Vector2(resolution.x, Constants.TOPBAR_HEIGHT.toDouble()),
+        position: Dimensions.topbarPosition(resolution),
+        size: Dimensions.topbarSize(resolution),
         match: match,
       ),
     );
 
     add(
       GridComponent(
-        position: Vector2(0, 0),
-        size: Vector2(
-          Constants.GRID_SIZE.toDouble(),
-          Constants.GRID_SIZE.toDouble(),
-        ),
+        position: Vector2.zero(),
+        size: Dimensions.gridSize(),
         match: match,
       ),
     );
-
-    /*game.camera.viewport.add(
-      TimeComponent(
-        position: Vector2(100, 100),
-        size: Vector2(100, 100),
-        match: match,
-      ),
-    );*/
-
-    /*add(
-      TimeComponent(
-        position: Vector2(
-          0,
-          -22,
-        ),
-        size: Vector2(resolution.x / 25, 50),
-        match: match,
-      ),
-    );*/
 
     return super.onLoad();
   }

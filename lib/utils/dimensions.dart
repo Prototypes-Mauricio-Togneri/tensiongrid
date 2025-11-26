@@ -13,6 +13,21 @@ class Dimensions {
     canvasSize.y - 40,
   );
 
+  static Vector2 topbarPosition(Vector2 resolution) => Vector2(
+    0,
+    -(resolution.y / 2) + (Constants.TOPBAR_HEIGHT / 2),
+  );
+
+  static Vector2 topbarSize(Vector2 resolution) => Vector2(
+    resolution.x,
+    Constants.TOPBAR_HEIGHT.toDouble(),
+  );
+
+  static Vector2 gridSize() => Vector2(
+    Constants.GRID_SIZE.toDouble(),
+    Constants.GRID_SIZE.toDouble(),
+  );
+
   static Vector2 tileSize({
     required Vector2 size,
     required int width,
