@@ -32,6 +32,18 @@ class Match {
     elapsedTime += dt;
   }
 
+  Event? get newEvent {
+    for (final Event event in events) {
+      if (event.isBefore(elapsedTime.floor())) {
+        events.remove(event);
+
+        return event;
+      }
+    }
+
+    return null;
+  }
+
   ActionResult onTileTapped(Tile tile) {
     /*inal ActionResult result = stage.onTileTapped(tile);
 
@@ -67,7 +79,7 @@ class Match {
       events: [
         generator.eventSequence(
           id: 's0',
-          timestamp: 0,
+          timestamp: 3,
           length: 3,
           type: NumberType.arabic,
         ),

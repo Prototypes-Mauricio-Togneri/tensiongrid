@@ -13,6 +13,8 @@ abstract class Event {
     required this.tiles,
   });
 
+  bool isBefore(int time) => timestamp <= time;
+
   bool get isCompleted;
 
   void removeTile(Tile tile) {
