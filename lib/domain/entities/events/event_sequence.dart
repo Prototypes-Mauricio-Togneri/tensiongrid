@@ -14,9 +14,12 @@ class EventSequence extends Event {
 
   @override
   bool get isCompleted => tilesRemoved >= tiles.length;
-  
+
   @override
   int get pointsTimeout => 10;
+
+  @override
+  int get pointsCompleted => tiles.length * 10;
 
   int get currentIndex => tilesRemoved + 1;
 
@@ -47,7 +50,8 @@ class EventSequence extends Event {
       removeTile(tile);
 
       if (isCompleted) {
-        return const ActionResult(
+        return ActionResult(
+          score: pointsCompleted,
           soundEventCompleted: true,
           removeTile: true,
           soundTap: true,

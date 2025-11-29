@@ -78,6 +78,8 @@ class Match {
         } else if (result.score < 0) {
           _removePoints(-result.score);
         }
+
+        return result;
       }
     }
 
