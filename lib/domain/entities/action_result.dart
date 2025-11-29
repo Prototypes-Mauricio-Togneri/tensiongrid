@@ -1,15 +1,15 @@
 class ActionResult {
-  final bool success;
+  final int score;
   final bool soundTap;
   final bool soundError;
+  final bool soundEventCompleted;
   final bool removeTile;
-  final bool eventCompleted;
 
   const ActionResult({
-    this.success = false,
+    this.score = 0,
     this.soundTap = false,
     this.soundError = false,
+    this.soundEventCompleted = false,
     this.removeTile = false,
-    this.eventCompleted = false,
   });
 }

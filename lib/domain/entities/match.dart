@@ -51,8 +51,15 @@ class Match {
   }
 
   ActionResult onTileTapped(Tile tile) {
-    //final ActionResult result = stage.onTileTapped(tile);
+    for (final Event event in currentEvents) {
+      if (event.containsTile(tile)) {
+        return event.onTileTapped(tile);
+      }
+    }
 
-    return const ActionResult();
+    return const ActionResult(
+      score: -10,
+      soundError: true,
+    );
   }
 }

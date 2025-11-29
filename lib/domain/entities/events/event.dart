@@ -15,11 +15,21 @@ abstract class Event {
     required this.tiles,
   });
 
-  bool isBefore(double time) => timestamp <= time;
-
   bool get isCompleted;
 
+  bool isBefore(double time) => timestamp <= time;
+
   bool isTimedOut(double elapsedTime) => elapsedTime >= timeout;
+
+  bool containsTile(Tile tile) {
+    for (final Tile element in tiles) {
+      if (element == tile) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   void removeTile(Tile tile) {
     tiles.remove(tile);
