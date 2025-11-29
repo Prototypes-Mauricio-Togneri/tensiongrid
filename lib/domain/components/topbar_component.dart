@@ -59,7 +59,9 @@ class TopbarComponent extends PositionComponent {
 
 class PlayerIndicatorComponent extends PositionComponent {
   final Player player;
-  late final NeonPaint paintNeon;
+  late final Paint paintBackground;
+  late final NeonPaint paintBorder;
+  late final NeonPaint paintText;
   late final RRect rect;
 
   PlayerIndicatorComponent({
@@ -67,10 +69,18 @@ class PlayerIndicatorComponent extends PositionComponent {
     required super.size,
     required this.player,
   }) : super(anchor: Anchor.center) {
-    paintNeon = NeonPaint.create(
+    paintBackground = Palette.paint(
+      style: PaintingStyle.fill,
+      color: player.color.withAlpha(50),
+    );
+    paintBorder = NeonPaint.create(
       color: player.color,
       style: PaintingStyle.stroke,
       strokeWidth: size.x * 0.01,
+    );
+    paintText = NeonPaint.create(
+      color: Palette.TEXT_COLOR_PRIMARY,
+      style: PaintingStyle.fill,
     );
     rect = RRect.fromRectAndRadius(
       Rect.fromLTWH(0, 0, size.x, size.y),
@@ -84,7 +94,19 @@ class PlayerIndicatorComponent extends PositionComponent {
 
     canvas.drawRectNeon(
       rect: rect,
-      paint: paintNeon,
+      paint: paintBorder,
+    );
+
+    canvas.drawRRect(
+      rect,
+      paintBackground,
+    );
+
+    canvas.drawTextNeon(
+      text: player.name.toUpperCase(),
+      position: size / 2,
+      size: size.x / 8,
+      paint: paintText,
     );
   }
 }
