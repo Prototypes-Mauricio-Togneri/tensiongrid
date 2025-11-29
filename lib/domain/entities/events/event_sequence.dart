@@ -1,12 +1,9 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 
-// TODO(momo): use Event<TileSequence>
-class EventSequence extends Event {
+class EventSequence extends Event<TileSequence> {
   EventSequence({
     required super.id,
     required super.timestamp,
@@ -23,39 +20,11 @@ class EventSequence extends Event {
   @override
   int get pointsCompleted => tilesRemoved.length * 2;
 
-  int get _currentIndex => tilesRemoved.length + 1;
-
   @override
-  ActionResult onTileTapped(Tile tile) {
-    if (tile is TileNumber) {
-      return _checkIndex(
-        index: tile.number,
-        tile: tile,
-      );
-    } else if (tile is TileCharacter) {
-      return _checkIndex(
-        index: tile.index,
-        tile: tile,
-      );
-    } else {
-      return const ActionResult(
-        score: -10, // TODO(momo): use score for error
-        soundError: true,
-      );
-    }
-  }
+  ActionResult onTileTapped(TileSequence tile) {
+    final int currentIndex = tilesRemoved.length + 1;
 
-  @override
-  ActionResult onTileSwiped({
-    required Tile tile,
-    required Direction direction,
-  }) => const ActionResult();
-
-  ActionResult _checkIndex({
-    required int index,
-    required Tile tile,
-  }) {
-    if (index == _currentIndex) {
+    if (tile.number == currentIndex) {
       removeTile(tile);
 
       if (isCompleted) {
@@ -78,4 +47,10 @@ class EventSequence extends Event {
       );
     }
   }
+
+  @override
+  ActionResult onTileSwiped({
+    required TileSequence tile,
+    required Direction direction,
+  }) => const ActionResult();
 }
