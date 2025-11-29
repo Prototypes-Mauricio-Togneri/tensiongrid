@@ -25,9 +25,7 @@ class GridComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    match.update(dt);
-
-    final Event? newEvent = match.newEvent;
+    final Event? newEvent = match.update(dt);
 
     if (newEvent != null) {
       for (final Tile tile in newEvent.tiles) {

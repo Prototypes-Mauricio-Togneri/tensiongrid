@@ -32,7 +32,7 @@ class Match {
   String get elapsedTimeFormatted =>
       Formatter.hoursMinutes(elapsedTime.floor());
 
-  void update(double dt) {
+  Event? update(double dt) {
     elapsedTime += dt;
 
     for (final Event event in currentEvents) {
@@ -43,9 +43,7 @@ class Match {
         pastEvents.add(event);
       }
     }
-  }
 
-  Event? get newEvent {
     for (final Event event in futureEvents) {
       if (event.isBefore(elapsedTime.floor())) {
         futureEvents.remove(event);
