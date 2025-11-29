@@ -26,6 +26,8 @@ class EventDirectional extends Event<TileDirectional> {
     required Direction direction,
   }) {
     if (direction == tile.direction) {
+      removeTile(tile);
+
       return ActionResult(
         score: pointsCompleted,
         eventCompleted: true,
