@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
@@ -23,10 +24,11 @@ class Dimensions {
     Constants.TOPBAR_HEIGHT.toDouble(),
   );
 
-  static Vector2 gridSize() => Vector2(
-    Constants.GRID_SIZE.toDouble(),
-    Constants.GRID_SIZE.toDouble(),
-  );
+  static Vector2 gridSize(Vector2 resolution) {
+    final double gridSize = min(resolution.x, resolution.y) * 0.95;
+
+    return Vector2(gridSize, gridSize);
+  }
 
   static Vector2 tileSize({
     required Vector2 size,

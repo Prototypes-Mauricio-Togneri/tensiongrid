@@ -64,7 +64,7 @@ class MatchComponent extends World {
     add(
       GridComponent(
         position: Vector2.zero(),
-        size: Dimensions.gridSize(),
+        size: Dimensions.gridSize(resolution),
         match: match,
       ),
     );
