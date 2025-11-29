@@ -14,6 +14,9 @@ class EventSequence extends Event {
 
   @override
   bool get isCompleted => tilesRemoved >= tiles.length;
+  
+  @override
+  int get pointsTimeout => 10;
 
   int get currentIndex => tilesRemoved + 1;
 

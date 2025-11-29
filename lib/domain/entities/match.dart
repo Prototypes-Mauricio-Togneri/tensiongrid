@@ -13,7 +13,7 @@ class Match {
   final List<Event> currentEvents = [];
   final List<Event> futureEvents = [];
   double elapsedTime = 0;
-  int score = 0;
+  int _score = 0;
 
   Match({
     required this.id,
@@ -26,6 +26,20 @@ class Match {
     futureEvents.addAll(events);
   }
 
+  int get score => _score;
+
+  void _addPoints(int points) {
+    _score += points;
+  }
+
+  void _removePoints(int points) {
+    _score -= points;
+
+    if (_score < 0) {
+      _score = 0;
+    }
+  }
+
   (List<Event>, List<Event>) update(double dt) {
     elapsedTime += dt;
 
@@ -36,6 +50,7 @@ class Match {
         currentEvents.remove(event);
         pastEvents.add(event);
         timedOutEvents.add(event);
+        _removePoints(event.pointsTimeout);
       }
     }
 
@@ -56,7 +71,13 @@ class Match {
   ActionResult onTileTapped(Tile tile) {
     for (final Event event in currentEvents) {
       if (event.containsTile(tile)) {
-        return event.onTileTapped(tile);
+        final ActionResult result = event.onTileTapped(tile);
+
+        if (result.score > 0) {
+          _addPoints(result.score);
+        } else if (result.score < 0) {
+          _removePoints(-result.score);
+        }
       }
     }
 

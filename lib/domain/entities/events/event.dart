@@ -24,6 +24,8 @@ abstract class Event {
 
   bool get isCompleted;
 
+  int get pointsTimeout;
+
   bool isBefore(double time) => timestamp <= time;
 
   bool containsTile(Tile tile) {
