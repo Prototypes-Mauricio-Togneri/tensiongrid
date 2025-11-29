@@ -13,15 +13,15 @@ class EventSequence extends Event {
   });
 
   @override
-  bool get isCompleted => tilesRemoved >= tiles.length;
+  bool get isCompleted => tilesRemoved.length >= numberOfTiles;
 
   @override
   int get pointsTimeout => 10;
 
   @override
-  int get pointsCompleted => tiles.length * 10;
+  int get pointsCompleted => tilesRemoved.length * 10;
 
-  int get currentIndex => tilesRemoved + 1;
+  int get currentIndex => tilesRemoved.length + 1;
 
   @override
   ActionResult onTileTapped(Tile tile) {

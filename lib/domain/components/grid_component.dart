@@ -38,14 +38,14 @@ class GridComponent extends PositionComponent {
     }
 
     for (final Event event in events.$2) {
-      for (final Tile tile in event.tiles) {
+      for (final Tile tile in event.tilesActive) {
         _removeTile(tile);
       }
     }
   }
 
   void _addNewEvent(Event event) {
-    for (final Tile tile in event.tiles) {
+    for (final Tile tile in event.tilesActive) {
       final TileComponent tileComponent = tile.component(
         position: Dimensions.tilePosition(
           tile: tile,

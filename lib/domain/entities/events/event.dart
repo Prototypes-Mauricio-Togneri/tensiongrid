@@ -4,17 +4,21 @@ import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 abstract class Event {
   final String id;
   final double timestamp;
-  final List<Tile> tiles;
+  final List<Tile> tilesRemoved = [];
+  final List<Tile> tilesActive = [];
   final int timeout;
+  late final int numberOfTiles;
   double elapsedTime = 0;
-  int tilesRemoved = 0;
 
   Event({
     required this.id,
     required this.timestamp,
     required this.timeout,
-    required this.tiles,
-  });
+    required List<Tile> tiles,
+  }) {
+    tilesActive.addAll(tiles);
+    numberOfTiles = tiles.length;
+  }
 
   bool update(double dt) {
     elapsedTime += dt;
@@ -31,7 +35,7 @@ abstract class Event {
   bool isBefore(double time) => timestamp <= time;
 
   bool containsTile(Tile tile) {
-    for (final Tile element in tiles) {
+    for (final Tile element in tilesActive) {
       if (element == tile) {
         return true;
       }
@@ -41,8 +45,8 @@ abstract class Event {
   }
 
   void removeTile(Tile tile) {
-    tiles.remove(tile);
-    tilesRemoved++;
+    tilesActive.remove(tile);
+    tilesRemoved.add(tile);
   }
 
   ActionResult onTileTapped(Tile tile);
