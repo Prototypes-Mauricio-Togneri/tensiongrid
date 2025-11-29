@@ -26,13 +26,16 @@ class Match {
     futureEvents.addAll(events);
   }
 
-  List<Event> update(double dt) {
+  (List<Event>, List<Event>) update(double dt) {
     elapsedTime += dt;
 
+    final List<Event> timedOutEvents = [];
+
     for (final Event event in currentEvents) {
-      if (event.update(elapsedTime)) {
+      if (event.update(dt)) {
         currentEvents.remove(event);
         pastEvents.add(event);
+        timedOutEvents.add(event);
       }
     }
 
@@ -47,7 +50,7 @@ class Match {
 
     currentEvents.addAll(newEvents);
 
-    return newEvents;
+    return (newEvents, timedOutEvents);
   }
 
   ActionResult onTileTapped(Tile tile) {
