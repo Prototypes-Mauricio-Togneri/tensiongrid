@@ -79,6 +79,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
     _dragVector += event.localDelta;
+    print('Drag update: delta=${event.localDelta}, total=$_dragVector');
   }
 
   @override
@@ -102,43 +103,49 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     final double absX = delta.x.abs();
     final double absY = delta.y.abs();
 
+    print('Swipe detected: X=$absX, Y=$absY');
+
     if (absX > absY) {
       if (delta.x > 0) {
-        onSwipeRight(delta);
+        print('Swipe Right');
+        onSwipeRight();
       } else {
-        onSwipeLeft(delta);
+        print('Swipe Left');
+        onSwipeLeft();
       }
     } else {
       if (delta.y > 0) {
-        onSwipeDown(delta);
+        print('Swipe Down');
+        onSwipeDown();
       } else {
-        onSwipeUp(delta);
+        print('Swipe Up');
+        onSwipeUp();
       }
     }
   }
 
-  void onSwipeLeft(Vector2 delta) {
+  void onSwipeLeft() {
     match.onTileSwiped(
       tileComponent: this,
       direction: Direction.left,
     );
   }
 
-  void onSwipeRight(Vector2 delta) {
+  void onSwipeRight() {
     match.onTileSwiped(
       tileComponent: this,
       direction: Direction.right,
     );
   }
 
-  void onSwipeUp(Vector2 delta) {
+  void onSwipeUp() {
     match.onTileSwiped(
       tileComponent: this,
       direction: Direction.up,
     );
   }
 
-  void onSwipeDown(Vector2 delta) {
+  void onSwipeDown() {
     match.onTileSwiped(
       tileComponent: this,
       direction: Direction.down,
