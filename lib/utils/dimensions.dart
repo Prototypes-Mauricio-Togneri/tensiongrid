@@ -108,8 +108,13 @@ class Dimensions {
     (resolution.y / 2) - (resolution.x / 5),
   );
 
-  static Vector2 scoreSize(Vector2 resolution) => Vector2(
-    resolution.x / 3,
-    resolution.y / 10,
-  );
+  static Vector2 scoreSize(Vector2 resolution) {
+    final Vector2 grid = gridSize(resolution);
+    final double remainingHeight = resolution.y - grid.y;
+
+    return Vector2(
+      resolution.x,
+      remainingHeight / 2,
+    );
+  }
 }

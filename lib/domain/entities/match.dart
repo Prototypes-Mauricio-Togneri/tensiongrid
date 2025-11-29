@@ -35,8 +35,6 @@ class Match {
   void update(double dt) {
     elapsedTime += dt;
 
-    score += (dt * 100).toInt();
-
     for (final Event event in currentEvents) {
       if (!event.isTimedOut) {
         event.update(dt);
