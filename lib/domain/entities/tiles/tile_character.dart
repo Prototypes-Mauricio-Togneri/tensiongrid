@@ -15,7 +15,7 @@ class TileCharacter extends Tile {
     required this.index,
     required this.value,
     required this.size,
-  }) ;
+  });
 
   @override
   TileComponent component({
