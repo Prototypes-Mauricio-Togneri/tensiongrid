@@ -25,9 +25,9 @@ class ScoreComponent extends PositionComponent {
     canvas.drawTextNeon(
       text: match.score.toString(),
       position: size / 2,
-      size: size.x / 2,
+      size: size.x / 3,
       paint: neonPaint,
-      fontFamily: Constants.FONT_ORBITRON,
+      fontFamily: Constants.FONT_MICHROMA,
     );
   }
 }

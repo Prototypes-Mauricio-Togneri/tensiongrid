@@ -45,9 +45,9 @@ flutter:
     - family: dseg7
       fonts:
         - asset: assets/fonts/dseg7.ttf
-    - family: orbitron
+    - family: michroma
       fonts:
-        - asset: assets/fonts/orbitron.ttf
+        - asset: assets/fonts/michroma.ttf
 
   assets:
     - assets/audio/sound/

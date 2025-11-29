@@ -9,5 +9,5 @@ class Constants {
   static const int PLAYER_2 = 1;
 
   static const String FONT_DIGITAL = 'dseg7';
-  static const String FONT_ORBITRON = 'orbitron';
+  static const String FONT_MICHROMA = 'michroma';
 }
