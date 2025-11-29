@@ -52,7 +52,7 @@ class EventSequence extends Event {
       if (isCompleted) {
         return ActionResult(
           score: pointsCompleted,
-          soundEventCompleted: true,
+          eventCompleted: true,
           removeTile: true,
           soundTap: true,
         );

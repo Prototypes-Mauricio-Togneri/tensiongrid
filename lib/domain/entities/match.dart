@@ -79,6 +79,11 @@ class Match {
           _removePoints(-result.score);
         }
 
+        if (result.eventCompleted) {
+          currentEvents.remove(event);
+          pastEvents.add(event);
+        }
+
         return result;
       }
     }

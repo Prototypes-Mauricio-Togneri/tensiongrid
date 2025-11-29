@@ -40,7 +40,7 @@ class MatchGenerator {
       events: [
         generator.eventSequence(
           id: 's0',
-          timestamp: 3,
+          timestamp: 2,
           timeout: 10,
           length: 3,
           type: NumberType.arabic,

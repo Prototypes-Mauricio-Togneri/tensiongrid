@@ -88,7 +88,7 @@ class GridComponent extends PositionComponent {
       Audio.get.playSound(Sound.TILE_ERROR);
     }
 
-    if (result.soundEventCompleted) {
+    if (result.eventCompleted) {
       Audio.get.playSound(Sound.EVENT_COMPLETED);
     }
   }
