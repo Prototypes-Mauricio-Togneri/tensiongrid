@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/grid_component.dart';
+import 'package:tensiongrid/domain/components/score_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/topbar_component.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
@@ -58,6 +59,14 @@ class MatchComponent extends World {
       GridComponent(
         position: Vector2.zero(),
         size: Dimensions.gridSize(resolution),
+        match: match,
+      ),
+    );
+
+    add(
+      ScoreComponent(
+        position: Dimensions.scorePosition(resolution),
+        size: Dimensions.scoreSize(resolution),
         match: match,
       ),
     );

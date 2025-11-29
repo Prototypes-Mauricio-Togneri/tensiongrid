@@ -18,6 +18,7 @@ class Match {
   final List<Event> currentEvents = [];
   final List<Event> pastEvents = [];
   double elapsedTime = 0;
+  int score = 0;
 
   Match({
     required this.id,

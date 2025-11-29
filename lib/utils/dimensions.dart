@@ -24,12 +24,6 @@ class Dimensions {
     Constants.TOPBAR_HEIGHT.toDouble(),
   );
 
-  static Vector2 gridSize(Vector2 resolution) {
-    final double gridSize = min(resolution.x, resolution.y) * 0.95;
-
-    return Vector2(gridSize, gridSize);
-  }
-
   static Vector2 playerIndicatorPosition({
     required Vector2 containerSize,
     required Vector2 indicatorSize,
@@ -86,6 +80,20 @@ class Dimensions {
     toolbarSize.y,
   );
 
+  static Vector2 gridSize(Vector2 resolution) {
+    final double gridSize = min(resolution.x, resolution.y) * 0.95;
+
+    return Vector2(gridSize, gridSize);
+  }
+
+  static Vector2 tilePosition({
+    required Tile tile,
+    required Vector2 tileSize,
+  }) => Vector2(
+    (tile.x * tileSize.x) + tileSize.x / 2,
+    (tile.y * tileSize.y) + tileSize.y / 2,
+  );
+
   static Vector2 tileSize({
     required Vector2 size,
     required int width,
@@ -95,11 +103,13 @@ class Dimensions {
     size.y / height,
   );
 
-  static Vector2 tilePosition({
-    required Tile tile,
-    required Vector2 tileSize,
-  }) => Vector2(
-    (tile.x * tileSize.x) + tileSize.x / 2,
-    (tile.y * tileSize.y) + tileSize.y / 2,
+  static Vector2 scorePosition(Vector2 resolution) => Vector2(
+    0,
+    (resolution.y / 2) - (resolution.x / 5),
+  );
+
+  static Vector2 scoreSize(Vector2 resolution) => Vector2(
+    resolution.x / 3,
+    resolution.y / 10,
   );
 }
