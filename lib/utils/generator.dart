@@ -9,9 +9,10 @@ import 'package:tensiongrid/domain/entities/events/event_swipe.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_swipe.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
 import 'package:tensiongrid/utils/palette.dart';
@@ -119,13 +120,12 @@ class EventGenerator {
       final Coordinates coord = coordinates[i];
 
       tiles.add(
-        TileCharacter(
+        TileSwipe(
           x: coord.x,
           y: coord.y,
           color: Palette.TILE_WHITE,
-          index: 0,
-          value: '▶',
-          size: 1,
+          direction:
+              Direction.values[Random().nextInt(Direction.values.length)],
         ),
       );
     }
