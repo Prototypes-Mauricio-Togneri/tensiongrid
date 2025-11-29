@@ -30,6 +30,30 @@ class Dimensions {
     return Vector2(gridSize, gridSize);
   }
 
+  static Vector2 playerIndicatorPosition({
+    required Vector2 size,
+    required int playerIndex,
+  }) {
+    if (playerIndex == Constants.PLAYER_1) {
+      return Vector2(
+        size.x / 2,
+        size.y / 2,
+      );
+    } else if (playerIndex == Constants.PLAYER_2) {
+      return Vector2(
+        size.x * 2,
+        size.y / 2,
+      );
+    } else {
+      throw Exception('Invalid player index: $playerIndex');
+    }
+  }
+
+  static Vector2 playerIndicatorSize(Vector2 toolbarSize) => Vector2(
+    toolbarSize.x * 0.4,
+    toolbarSize.y,
+  );
+
   static Vector2 tileSize({
     required Vector2 size,
     required int width,

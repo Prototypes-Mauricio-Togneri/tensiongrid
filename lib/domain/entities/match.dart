@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
@@ -82,11 +83,15 @@ class Match {
       height: height,
       player1: const Player(
         id: '1',
+        index: Constants.PLAYER_1,
         name: 'Alice',
+        color: Colors.blue,
       ),
       player2: const Player(
         id: '2',
+        index: Constants.PLAYER_2,
         name: 'Bob',
+        color: Colors.red,
       ),
       futureEvents: [
         generator.eventSequence(
