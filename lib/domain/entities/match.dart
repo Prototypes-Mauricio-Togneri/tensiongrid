@@ -70,8 +70,8 @@ class Match {
   }
 
   factory Match.test() {
-    const int width = Constants.GRID_MAX_WIDTH;
-    const int height = Constants.GRID_MAX_HEIGHT;
+    const int width = 5;
+    const int height = 5;
 
     const EventGenerator generator = EventGenerator(
       width: width,
