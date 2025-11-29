@@ -51,13 +51,8 @@ class Match {
   }
 
   ActionResult onTileTapped(Tile tile) {
-    /*inal ActionResult result = stage.onTileTapped(tile);
+    //final ActionResult result = stage.onTileTapped(tile);
 
-    if (result.nextStage) {
-      stageIndex++;
-    }
-
-    return result;*/
     return const ActionResult();
   }
 }

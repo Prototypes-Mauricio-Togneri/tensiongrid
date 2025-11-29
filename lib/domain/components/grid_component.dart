@@ -1,9 +1,13 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
+import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/environments/environment.dart';
+import 'package:tensiongrid/presentation/audio/audio.dart';
+import 'package:tensiongrid/presentation/audio/sound.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 
 class GridComponent extends PositionComponent {
@@ -44,6 +48,26 @@ class GridComponent extends PositionComponent {
           size: tileSize * 0.85,
         ),
       );
+    }
+  }
+
+  void onTileTapped(TileComponent tileComponent) {
+    final ActionResult result = match.onTileTapped(tileComponent.tile);
+
+    if (result.removeTile) {
+      tileComponent.removeFromParent();
+    }
+
+    if (result.soundTap) {
+      Audio.get.playSound(Sound.TILE_TAP);
+    }
+
+    if (result.soundError) {
+      Audio.get.playSound(Sound.TILE_ERROR);
+    }
+
+    if (result.eventCompleted) {
+      Audio.get.playSound(Sound.EVENT_COMPLETED);
     }
   }
 
