@@ -78,8 +78,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   @override
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
-    _dragVector += event.localDelta;
-    print('Drag update: delta=${event.localDelta}, total=$_dragVector');
+    _dragVector += event.canvasDelta;
   }
 
   @override
@@ -103,22 +102,16 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     final double absX = delta.x.abs();
     final double absY = delta.y.abs();
 
-    print('Swipe detected: X=$absX, Y=$absY');
-
     if (absX > absY) {
       if (delta.x > 0) {
-        print('Swipe Right');
         onSwipeRight();
       } else {
-        print('Swipe Left');
         onSwipeLeft();
       }
     } else {
       if (delta.y > 0) {
-        print('Swipe Down');
         onSwipeDown();
       } else {
-        print('Swipe Up');
         onSwipeUp();
       }
     }
