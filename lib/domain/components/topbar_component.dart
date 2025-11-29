@@ -3,7 +3,9 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
+import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
 class TopbarComponent extends PositionComponent {
   final Match match;
@@ -40,6 +42,14 @@ class TopbarComponent extends PositionComponent {
       ),
     );
 
+    add(
+      TimeComponent(
+        position: Dimensions.timePosition(size),
+        size: Dimensions.timeSize(size),
+        match: match,
+      ),
+    );
+
     return super.onLoad();
   }
 }
@@ -60,6 +70,31 @@ class PlayerIndicatorComponent extends PositionComponent {
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.x, size.y),
       Paint()..color = player.color,
+    );
+  }
+}
+
+class TimeComponent extends PositionComponent {
+  final Match match;
+  final TextNeonPaint neonPaint = TextNeonPaint.create(
+    Palette.TEXT_COLOR_PRIMARY,
+  );
+
+  TimeComponent({
+    required super.position,
+    required super.size,
+    required this.match,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawTextNeon(
+      text: match.elapsedTimeFormatted,
+      position: size / 2,
+      size: size.x / 3.5,
+      paint: neonPaint,
     );
   }
 }

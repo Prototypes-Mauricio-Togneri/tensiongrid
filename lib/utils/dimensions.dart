@@ -54,6 +54,16 @@ class Dimensions {
     toolbarSize.y,
   );
 
+  static Vector2 timePosition(Vector2 size) => Vector2(
+    size.x / 2,
+    size.y / 2,
+  );
+
+  static Vector2 timeSize(Vector2 toolbarSize) => Vector2(
+    toolbarSize.x * 0.2,
+    toolbarSize.y,
+  );
+
   static Vector2 tileSize({
     required Vector2 size,
     required int width,
