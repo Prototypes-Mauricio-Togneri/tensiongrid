@@ -4,14 +4,14 @@ import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/events/event_coin.dart';
+import 'package:tensiongrid/domain/entities/events/event_directional.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
-import 'package:tensiongrid/domain/entities/events/event_swipe.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_swipe.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
@@ -44,7 +44,7 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventSwipe(
+        generator.eventDirectional(
           id: 's0',
           timestamp: 1,
         ),
@@ -104,7 +104,7 @@ class EventGenerator {
     );
   }
 
-  Event eventSwipe({
+  Event eventDirectional({
     required String id,
     required int timestamp,
   }) {
@@ -114,13 +114,13 @@ class EventGenerator {
       length: 1,
     );
 
-    final List<TileSwipe> tiles = [];
+    final List<TileDirectional> tiles = [];
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
 
       tiles.add(
-        TileSwipe(
+        TileDirectional(
           x: coord.x,
           y: coord.y,
           color: Palette.TILE_WHITE,
@@ -130,7 +130,7 @@ class EventGenerator {
       );
     }
 
-    return EventSwipe(
+    return EventDirectional(
       id: id,
       timestamp: timestamp.toDouble(),
       timeout: Timeout.short.time,

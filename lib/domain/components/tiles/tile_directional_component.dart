@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_swipe.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
-class TileSwipeComponent extends TileComponent<TileSwipe> {
+class TileDirectionalComponent extends TileComponent<TileDirectional> {
   late final NeonPaint neonPaint;
 
-  TileSwipeComponent({
+  TileDirectionalComponent({
     required super.position,
     required super.size,
     required super.tile,

@@ -1,13 +1,13 @@
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
-import 'package:tensiongrid/domain/components/tiles/tile_swipe_component.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_directional_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 
-class TileSwipe extends Tile {
+class TileDirectional extends Tile {
   final Direction direction;
 
-  TileSwipe({
+  TileDirectional({
     required super.x,
     required super.y,
     required super.color,
@@ -18,7 +18,7 @@ class TileSwipe extends Tile {
   TileComponent component({
     required Vector2 position,
     required Vector2 size,
-  }) => TileSwipeComponent(
+  }) => TileDirectionalComponent(
     position: position,
     size: size,
     tile: this,
