@@ -17,6 +17,7 @@ class TileDirectionalComponent extends TileComponent<TileDirectional> {
       color: tile.color,
       style: PaintingStyle.fill,
     );
+    angle = tile.direction.angle;
   }
 
   @override
