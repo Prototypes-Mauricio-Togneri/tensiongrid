@@ -3,7 +3,9 @@ import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 
+// TODO(momo): use Event<TileSequence>
 class EventSequence extends Event {
   EventSequence({
     required super.id,
@@ -36,9 +38,18 @@ class EventSequence extends Event {
         tile: tile,
       );
     } else {
-      return const ActionResult(soundError: true);
+      return const ActionResult(
+        score: -10, // TODO(momo): use score for error
+        soundError: true,
+      );
     }
   }
+
+  @override
+  ActionResult onTileSwiped({
+    required Tile tile,
+    required Direction direction,
+  }) => const ActionResult();
 
   ActionResult _checkIndex({
     required int index,

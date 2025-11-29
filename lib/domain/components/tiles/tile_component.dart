@@ -3,11 +3,12 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/extensions/component_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 abstract class TileComponent<T extends Tile> extends PositionComponent
-    with TapCallbacks {
+    with TapCallbacks, DragCallbacks {
   final Paint paintBorderBase = Palette.paint(
     style: PaintingStyle.stroke,
   );
@@ -64,6 +65,87 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   bool onTapCancel(TapCancelEvent event) {
     isPressed = false;
     return true;
+  }
+
+  Vector2 _dragVector = Vector2.zero();
+  static const double _swipeThreshold = 20;
+
+  @override
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+    _dragVector = Vector2.zero();
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    super.onDragUpdate(event);
+    _dragVector += event.localDelta;
+  }
+
+  @override
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
+
+    print(_dragVector.length);
+
+    if (_dragVector.length > _swipeThreshold) {
+      _handleSwipe(_dragVector);
+    }
+
+    _dragVector = Vector2.zero();
+  }
+
+  @override
+  void onDragCancel(DragCancelEvent event) {
+    super.onDragCancel(event);
+    _dragVector = Vector2.zero();
+  }
+
+  void _handleSwipe(Vector2 delta) {
+    final double absX = delta.x.abs();
+    final double absY = delta.y.abs();
+
+    if (absX > absY) {
+      if (delta.x > 0) {
+        onSwipeRight(delta);
+      } else {
+        onSwipeLeft(delta);
+      }
+    } else {
+      if (delta.y > 0) {
+        onSwipeDown(delta);
+      } else {
+        onSwipeUp(delta);
+      }
+    }
+  }
+
+  void onSwipeLeft(Vector2 delta) {
+    match.onTileSwiped(
+      tileComponent: this,
+      direction: Direction.left,
+    );
+  }
+
+  void onSwipeRight(Vector2 delta) {
+    match.onTileSwiped(
+      tileComponent: this,
+      direction: Direction.right,
+    );
+  }
+
+  void onSwipeUp(Vector2 delta) {
+    match.onTileSwiped(
+      tileComponent: this,
+      direction: Direction.up,
+    );
+  }
+
+  void onSwipeDown(Vector2 delta) {
+    match.onTileSwiped(
+      tileComponent: this,
+      direction: Direction.down,
+    );
   }
 
   @override

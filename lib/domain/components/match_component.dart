@@ -6,6 +6,7 @@ import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/topbar_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -24,6 +25,14 @@ class MatchComponent extends World {
 
   void onTileTapped(TileComponent tileComponent) =>
       gridComponent.onTileTapped(tileComponent);
+
+  void onTileSwiped({
+    required TileComponent tileComponent,
+    required Direction direction,
+  }) => gridComponent.onTileSwiped(
+    tileComponent: tileComponent,
+    direction: direction,
+  );
 
   @override
   FutureOr onLoad() {

@@ -2,6 +2,7 @@ import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 
 class Match {
   final String id;
@@ -72,6 +73,38 @@ class Match {
     for (final Event event in currentEvents) {
       if (event.containsTile(tile)) {
         final ActionResult result = event.onTileTapped(tile);
+
+        if (result.score > 0) {
+          _addPoints(result.score);
+        } else if (result.score < 0) {
+          _removePoints(-result.score);
+        }
+
+        if (result.eventCompleted) {
+          currentEvents.remove(event);
+          pastEvents.add(event);
+        }
+
+        return result;
+      }
+    }
+
+    return const ActionResult(
+      score: -10,
+      soundError: true,
+    );
+  }
+
+  ActionResult onTileSwiped({
+    required Tile tile,
+    required Direction direction,
+  }) {
+    for (final Event event in currentEvents) {
+      if (event.containsTile(tile)) {
+        final ActionResult result = event.onTileSwiped(
+          tile: tile,
+          direction: direction,
+        );
 
         if (result.score > 0) {
           _addPoints(result.score);

@@ -82,7 +82,7 @@ class EventGenerator {
       length: 1,
     );
 
-    final List<Tile> tiles = [];
+    final List<TileCoin> tiles = [];
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
@@ -114,7 +114,7 @@ class EventGenerator {
       length: 1,
     );
 
-    final List<Tile> tiles = [];
+    final List<TileSwipe> tiles = [];
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];

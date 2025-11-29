@@ -5,6 +5,7 @@ import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/environments/environment.dart';
 import 'package:tensiongrid/presentation/audio/audio.dart';
 import 'package:tensiongrid/presentation/audio/sound.dart';
@@ -75,7 +76,30 @@ class GridComponent extends PositionComponent {
 
   void onTileTapped(TileComponent tileComponent) {
     final ActionResult result = match.onTileTapped(tileComponent.tile);
+    _processActionResult(
+      tileComponent: tileComponent,
+      result: result,
+    );
+  }
 
+  void onTileSwiped({
+    required TileComponent tileComponent,
+    required Direction direction,
+  }) {
+    final ActionResult result = match.onTileSwiped(
+      tile: tileComponent.tile,
+      direction: direction,
+    );
+    _processActionResult(
+      tileComponent: tileComponent,
+      result: result,
+    );
+  }
+
+  void _processActionResult({
+    required TileComponent tileComponent,
+    required ActionResult result,
+  }) {
     if (result.removeTile) {
       _removeTileComponent(tileComponent);
     }

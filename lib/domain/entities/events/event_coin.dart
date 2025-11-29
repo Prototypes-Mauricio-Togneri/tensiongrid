@@ -1,8 +1,10 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 
-class EventCoin extends Event {
+class EventCoin extends Event<TileCoin> {
   EventCoin({
     required super.id,
     required super.timestamp,
@@ -23,4 +25,10 @@ class EventCoin extends Event {
     removeTile: true,
     soundTap: true,
   );
+
+  @override
+  ActionResult onTileSwiped({
+    required Tile tile,
+    required Direction direction,
+  }) => const ActionResult();
 }
