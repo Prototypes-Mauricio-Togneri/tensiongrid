@@ -25,20 +25,24 @@ class GridComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    final Event? newEvent = match.update(dt);
+    final List<Event> events = match.update(dt);
 
-    if (newEvent != null) {
-      for (final Tile tile in newEvent.tiles) {
-        add(
-          tile.component(
-            position: Dimensions.tilePosition(
-              tile: tile,
-              tileSize: tileSize,
-            ),
-            size: tileSize * 0.85,
+    for (final Event event in events) {
+      _addNewEvent(event);
+    }
+  }
+
+  void _addNewEvent(Event event) {
+    for (final Tile tile in event.tiles) {
+      add(
+        tile.component(
+          position: Dimensions.tilePosition(
+            tile: tile,
+            tileSize: tileSize,
           ),
-        );
-      }
+          size: tileSize * 0.85,
+        ),
+      );
     }
   }
 

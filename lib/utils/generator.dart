@@ -47,7 +47,7 @@ class EventGenerator {
 
     return EventSequence(
       id: id,
-      timestamp: timestamp,
+      timestamp: timestamp.toDouble(),
       timeout: timeout,
       tiles: tiles,
     );

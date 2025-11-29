@@ -32,28 +32,28 @@ class Match {
   String get elapsedTimeFormatted =>
       Formatter.hoursMinutes(elapsedTime.floor());
 
-  Event? update(double dt) {
+  List<Event> update(double dt) {
     elapsedTime += dt;
 
     for (final Event event in currentEvents) {
-      if (!event.isTimedOut) {
-        event.update(dt);
-      } else {
+      if (event.isTimedOut(elapsedTime)) {
         currentEvents.remove(event);
         pastEvents.add(event);
       }
     }
 
-    for (final Event event in futureEvents) {
-      if (event.isBefore(elapsedTime.floor())) {
-        futureEvents.remove(event);
-        currentEvents.add(event);
+    final List<Event> newEvents = [];
 
-        return event;
+    for (final Event event in futureEvents) {
+      if (event.isBefore(elapsedTime)) {
+        futureEvents.remove(event);
+        newEvents.add(event);
       }
     }
 
-    return null;
+    currentEvents.addAll(newEvents);
+
+    return newEvents;
   }
 
   ActionResult onTileTapped(Tile tile) {

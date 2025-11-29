@@ -3,10 +3,9 @@ import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 abstract class Event {
   final String id;
-  final int timestamp;
+  final double timestamp;
   final List<Tile> tiles;
   final int timeout;
-  int elapsedTime = 0;
   int tilesRemoved = 0;
 
   Event({
@@ -16,15 +15,11 @@ abstract class Event {
     required this.tiles,
   });
 
-  void update(double dt) {
-    elapsedTime += dt.floor();
-  }
-
-  bool isBefore(int time) => timestamp <= time;
+  bool isBefore(double time) => timestamp <= time;
 
   bool get isCompleted;
 
-  bool get isTimedOut => elapsedTime >= timeout;
+  bool isTimedOut(double elapsedTime) => elapsedTime >= timeout;
 
   void removeTile(Tile tile) {
     tiles.remove(tile);
