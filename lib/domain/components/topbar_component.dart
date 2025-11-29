@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
@@ -95,6 +96,7 @@ class TimeComponent extends PositionComponent {
       position: size / 2,
       size: size.x / 3.5,
       paint: neonPaint,
+      fontFamily: Constants.FONT_DIGITAL,
     );
   }
 }

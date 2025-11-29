@@ -41,6 +41,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: Digtal
+      fonts:
+        - asset: assets/fonts/digital.ttf
+
   assets:
     - assets/audio/sound/
     - assets/images/

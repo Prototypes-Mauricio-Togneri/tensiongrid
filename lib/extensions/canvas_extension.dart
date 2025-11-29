@@ -14,6 +14,7 @@ extension CanvasExtension on Canvas {
     Color? color,
     Paint? foreground,
     Paint? background,
+    String? fontFamily,
   }) {
     final TextStyle textStyle = TextStyle(
       fontSize: size,
@@ -21,8 +22,12 @@ extension CanvasExtension on Canvas {
       color: color,
       foreground: foreground,
       background: background,
+      fontFamily: fontFamily,
     );
-    final TextSpan textSpan = TextSpan(text: text, style: textStyle);
+    final TextSpan textSpan = TextSpan(
+      text: text,
+      style: textStyle,
+    );
     final TextPainter textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
@@ -32,8 +37,14 @@ extension CanvasExtension on Canvas {
 
     final Vector2 translatedPosition = translate(
       anchor: anchor,
-      point: Vector2(position.x, position.y),
-      size: Vector2(textPainter.size.width, textPainter.size.height),
+      point: Vector2(
+        position.x,
+        position.y,
+      ),
+      size: Vector2(
+        textPainter.size.width,
+        textPainter.size.height,
+      ),
     );
     textPainter.paint(this, translatedPosition.toOffset());
   }
@@ -46,12 +57,17 @@ extension CanvasExtension on Canvas {
     TextAlign textAlign = TextAlign.center,
     FontWeight fontWeight = FontWeight.normal,
     Anchor anchor = Anchor.center,
+    String? fontFamily,
   }) {
     drawText(
       text: text,
       position: position,
       size: size,
       foreground: paint.neon,
+      fontFamily: fontFamily,
+      textAlign: textAlign,
+      fontWeight: fontWeight,
+      anchor: anchor,
     );
 
     drawText(
@@ -59,6 +75,10 @@ extension CanvasExtension on Canvas {
       position: position,
       size: size,
       foreground: paint.base,
+      fontFamily: fontFamily,
+      textAlign: textAlign,
+      fontWeight: fontWeight,
+      anchor: anchor,
     );
   }
 
