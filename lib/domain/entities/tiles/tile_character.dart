@@ -6,6 +6,7 @@ import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 class TileCharacter extends Tile {
   final int index;
   final String value;
+  final double size;
 
   TileCharacter({
     required super.x,
@@ -13,6 +14,7 @@ class TileCharacter extends Tile {
     required super.color,
     required this.index,
     required this.value,
+    required this.size,
     String? category,
   }) : super(category: category ?? value);
 

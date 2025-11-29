@@ -5,6 +5,7 @@ import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/events/event_coin.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
+import 'package:tensiongrid/domain/entities/events/event_swipe.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
@@ -41,13 +42,17 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
+        generator.eventSwipe(
+          id: 's0',
+          timestamp: 1,
+        ),
         generator.eventCoin(
           id: 's0',
-          timestamp: 2,
+          timestamp: 3,
         ),
         generator.eventSequence(
           id: 's0',
-          timestamp: 3,
+          timestamp: 5,
           length: 3,
           type: NumberType.arabic,
         ),
@@ -87,11 +92,47 @@ class EventGenerator {
           color: Palette.TILE_WHITE,
           index: 0,
           value: '🪙',
+          size: 0.9,
         ),
       );
     }
 
     return EventCoin(
+      id: id,
+      timestamp: timestamp.toDouble(),
+      timeout: Timeout.short.time,
+      tiles: tiles,
+    );
+  }
+
+  Event eventSwipe({
+    required String id,
+    required int timestamp,
+  }) {
+    final List<Coordinates> coordinates = _generateCoordinates(
+      width: width,
+      height: height,
+      length: 1,
+    );
+
+    final List<Tile> tiles = [];
+
+    for (int i = 0; i < coordinates.length; i++) {
+      final Coordinates coord = coordinates[i];
+
+      tiles.add(
+        TileCharacter(
+          x: coord.x,
+          y: coord.y,
+          color: Palette.TILE_WHITE,
+          index: 0,
+          value: '▶',
+          size: 1,
+        ),
+      );
+    }
+
+    return EventSwipe(
       id: id,
       timestamp: timestamp.toDouble(),
       timeout: Timeout.short.time,

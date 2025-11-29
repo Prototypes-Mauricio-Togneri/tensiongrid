@@ -26,7 +26,7 @@ class TileCharacterComponent extends TileComponent<TileCharacter> {
     canvas.drawTextNeon(
       text: tile.value,
       position: size / 2,
-      size: size.x / 3,
+      size: (size.x / 2) * tile.size,
       paint: neonPaint,
       fontFamily: Constants.FONT_MICHROMA,
     );
