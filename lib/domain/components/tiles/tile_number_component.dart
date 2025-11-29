@@ -12,7 +12,7 @@ class TileNumberComponent extends TileComponent<TileNumber> {
   final Paint paintDots = Palette.paint(
     style: PaintingStyle.fill,
   );
-  late final TextNeonPaint neonPaint;
+  late final NeonPaint neonPaint;
   late final double characterSize;
 
   TileNumberComponent({
@@ -23,7 +23,7 @@ class TileNumberComponent extends TileComponent<TileNumber> {
 
   @override
   FutureOr onLoad() {
-    neonPaint = TextNeonPaint.create(
+    neonPaint = NeonPaint.create(
       color: tile.color,
       style: PaintingStyle.fill,
     );

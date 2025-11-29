@@ -5,14 +5,14 @@ import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class TileCharacterComponent extends TileComponent<TileCharacter> {
-  late final TextNeonPaint neonPaint;
+  late final NeonPaint neonPaint;
 
   TileCharacterComponent({
     required super.position,
     required super.size,
     required super.tile,
   }) {
-    neonPaint = TextNeonPaint.create(
+    neonPaint = NeonPaint.create(
       color: tile.color,
       style: PaintingStyle.fill,
     );

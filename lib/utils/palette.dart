@@ -70,27 +70,36 @@ class Palette {
   }
 }
 
-class TextNeonPaint {
+class NeonPaint {
   final Paint base;
   final Paint neon;
 
-  const TextNeonPaint({
+  const NeonPaint({
     required this.base,
     required this.neon,
   });
 
-  factory TextNeonPaint.create({
+  factory NeonPaint.create({
     required Color color,
     required PaintingStyle style,
-  }) => TextNeonPaint(
+    double? strokeWidth,
+    StrokeCap? strokeCap,
+    StrokeJoin? strokeJoin,
+  }) => NeonPaint(
     base: Palette.paint(
       style: style,
       color: color,
+      strokeWidth: strokeWidth,
+      strokeCap: strokeCap,
+      strokeJoin: strokeJoin,
     ),
     neon: Palette.paint(
       style: style,
       maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
       color: color,
+      strokeWidth: strokeWidth != null ? strokeWidth * 2 : null,
+      strokeCap: strokeCap,
+      strokeJoin: strokeJoin,
     ),
   );
 }

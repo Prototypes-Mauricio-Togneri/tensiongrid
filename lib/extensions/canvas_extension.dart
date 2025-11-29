@@ -53,7 +53,7 @@ extension CanvasExtension on Canvas {
     required String text,
     required Vector2 position,
     required double size,
-    required TextNeonPaint paint,
+    required NeonPaint paint,
     TextAlign textAlign = TextAlign.center,
     FontWeight fontWeight = FontWeight.normal,
     Anchor anchor = Anchor.center,
@@ -87,4 +87,19 @@ extension CanvasExtension on Canvas {
     required Vector2 point,
     required Vector2 size,
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
+
+  void drawRectNeon({
+    required RRect rect,
+    required NeonPaint paint,
+  }) {
+    drawRRect(
+      rect,
+      paint.neon,
+    );
+
+    drawRRect(
+      rect,
+      paint.base,
+    );
+  }
 }

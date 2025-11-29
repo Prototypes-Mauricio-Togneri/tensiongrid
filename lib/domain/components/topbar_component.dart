@@ -59,34 +59,39 @@ class TopbarComponent extends PositionComponent {
 
 class PlayerIndicatorComponent extends PositionComponent {
   final Player player;
-  final Paint paintBorderNeon = Palette.paint(
-    style: PaintingStyle.stroke,
-    maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
-  );
+  late final NeonPaint paintNeon;
 
   PlayerIndicatorComponent({
     required super.position,
     required super.size,
     required this.player,
   }) : super(anchor: Anchor.center) {
-    paintBorderNeon.strokeWidth = size.x * 0.02;
-    paintBorderNeon.color = player.color;
+    paintNeon = NeonPaint.create(
+      color: player.color,
+      style: PaintingStyle.stroke,
+      strokeWidth: size.x * 0.01,
+    );
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(
+    final RRect rrect = RRect.fromRectAndRadius(
       Rect.fromLTWH(0, 0, size.x, size.y),
-      paintBorderNeon,
+      Radius.circular(size.x / 30),
+    );
+
+    canvas.drawRectNeon(
+      rect: rrect,
+      paint: paintNeon,
     );
   }
 }
 
 class TimeComponent extends PositionComponent {
   final Match match;
-  final TextNeonPaint neonPaint = TextNeonPaint.create(
+  final NeonPaint neonPaint = NeonPaint.create(
     color: Palette.TEXT_COLOR_PRIMARY,
     style: PaintingStyle.fill,
   );
