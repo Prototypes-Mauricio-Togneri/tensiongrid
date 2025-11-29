@@ -11,21 +11,16 @@ class EventCoin extends Event {
   });
 
   @override
-  bool get isCompleted => tilesRemoved.length >= numberOfTiles;
-
-  @override
   int get pointsTimeout => 1;
 
   @override
   int get pointsCompleted => 5 + remainingTime;
 
   @override
-  ActionResult onTileTapped(Tile tile) {
-    return ActionResult(
-      score: pointsCompleted,
-      eventCompleted: true,
-      removeTile: true,
-      soundTap: true,
-    );
-  }
+  ActionResult onTileTapped(Tile tile) => ActionResult(
+    score: pointsCompleted,
+    eventCompleted: true,
+    removeTile: true,
+    soundTap: true,
+  );
 }

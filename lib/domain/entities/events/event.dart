@@ -28,7 +28,7 @@ abstract class Event {
 
   bool get isStarted => tilesRemoved.isNotEmpty;
 
-  bool get isCompleted;
+  bool get isCompleted => false;
 
   int get pointsCompleted;
 
