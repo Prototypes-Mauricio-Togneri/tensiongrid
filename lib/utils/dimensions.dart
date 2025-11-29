@@ -31,18 +31,19 @@ class Dimensions {
   }
 
   static Vector2 playerIndicatorPosition({
-    required Vector2 size,
+    required Vector2 containerSize,
+    required Vector2 indicatorSize,
     required int playerIndex,
   }) {
     if (playerIndex == Constants.PLAYER_1) {
       return Vector2(
-        size.x / 2,
-        size.y / 2,
+        indicatorSize.x / 2,
+        indicatorSize.y / 2,
       );
     } else if (playerIndex == Constants.PLAYER_2) {
       return Vector2(
-        size.x * 2,
-        size.y / 2,
+        containerSize.x - (indicatorSize.x / 2),
+        indicatorSize.y / 2,
       );
     } else {
       throw Exception('Invalid player index: $playerIndex');
@@ -50,7 +51,7 @@ class Dimensions {
   }
 
   static Vector2 playerIndicatorSize(Vector2 toolbarSize) => Vector2(
-    toolbarSize.x * 0.4,
+    toolbarSize.x * 0.375,
     toolbarSize.y,
   );
 
@@ -60,7 +61,7 @@ class Dimensions {
   );
 
   static Vector2 timeSize(Vector2 toolbarSize) => Vector2(
-    toolbarSize.x * 0.2,
+    toolbarSize.x * 0.25,
     toolbarSize.y,
   );
 

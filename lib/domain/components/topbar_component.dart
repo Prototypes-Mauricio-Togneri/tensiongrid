@@ -24,7 +24,8 @@ class TopbarComponent extends PositionComponent {
     add(
       PlayerIndicatorComponent(
         position: Dimensions.playerIndicatorPosition(
-          size: playerIndicatorSize,
+          containerSize: size,
+          indicatorSize: playerIndicatorSize,
           playerIndex: match.player1.index,
         ),
         size: playerIndicatorSize,
@@ -35,7 +36,8 @@ class TopbarComponent extends PositionComponent {
     add(
       PlayerIndicatorComponent(
         position: Dimensions.playerIndicatorPosition(
-          size: playerIndicatorSize,
+          containerSize: size,
+          indicatorSize: playerIndicatorSize,
           playerIndex: match.player2.index,
         ),
         size: playerIndicatorSize,
@@ -94,7 +96,7 @@ class TimeComponent extends PositionComponent {
     canvas.drawTextNeon(
       text: match.elapsedTimeFormatted,
       position: size / 2,
-      size: size.x / 3.5,
+      size: size.x / 5.5,
       paint: neonPaint,
       fontFamily: Constants.FONT_DIGITAL,
     );

@@ -42,9 +42,9 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: Digtal
+    - family: dseg7
       fonts:
-        - asset: assets/fonts/digital.ttf
+        - asset: assets/fonts/dseg7.ttf
 
   assets:
     - assets/audio/sound/
