@@ -30,7 +30,7 @@ class Match {
     elapsedTime += dt;
 
     for (final Event event in currentEvents) {
-      if (event.isTimedOut(elapsedTime)) {
+      if (event.update(elapsedTime)) {
         currentEvents.remove(event);
         pastEvents.add(event);
       }

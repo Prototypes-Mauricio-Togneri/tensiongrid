@@ -6,6 +6,7 @@ abstract class Event {
   final double timestamp;
   final List<Tile> tiles;
   final int timeout;
+  double elapsedTime = 0;
   int tilesRemoved = 0;
 
   Event({
@@ -15,11 +16,15 @@ abstract class Event {
     required this.tiles,
   });
 
+  bool update(double dt) {
+    elapsedTime += dt;
+
+    return elapsedTime >= timeout;
+  }
+
   bool get isCompleted;
 
   bool isBefore(double time) => timestamp <= time;
-
-  bool isTimedOut(double elapsedTime) => elapsedTime >= timeout;
 
   bool containsTile(Tile tile) {
     for (final Tile element in tiles) {
