@@ -12,7 +12,6 @@ import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
-import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
@@ -55,7 +54,6 @@ class MatchGenerator {
           id: 's0',
           timestamp: 5,
           length: 3,
-          type: NumberType.arabic,
         ),
       ],
     );
@@ -141,7 +139,6 @@ class EventGenerator {
     required String id,
     required int timestamp,
     required int length,
-    required NumberType type,
   }) {
     final List<Coordinates> coordinates = _generateCoordinates(
       width: width,
