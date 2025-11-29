@@ -57,6 +57,25 @@ class Dimensions {
     toolbarSize.y,
   );
 
+  static Vector2 playerNamePosition({
+    required Vector2 size,
+    required int playerIndex,
+  }) {
+    if (playerIndex == Constants.PLAYER_1) {
+      return Vector2(
+        size.y / 2,
+        size.y * 0.55,
+      );
+    } else if (playerIndex == Constants.PLAYER_2) {
+      return Vector2(
+        size.x - size.y / 2,
+        size.y * 0.55,
+      );
+    } else {
+      throw Exception('Invalid player index: $playerIndex');
+    }
+  }
+
   static Vector2 timePosition(Vector2 size) => Vector2(
     size.x / 2,
     (size.y / 2) - (size.y / 10),

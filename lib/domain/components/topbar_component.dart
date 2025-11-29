@@ -63,6 +63,7 @@ class PlayerIndicatorComponent extends PositionComponent {
   late final NeonPaint paintBorder;
   late final NeonPaint paintText;
   late final RRect rect;
+  late final Vector2 textPosition;
 
   PlayerIndicatorComponent({
     required super.position,
@@ -86,6 +87,10 @@ class PlayerIndicatorComponent extends PositionComponent {
       Rect.fromLTWH(0, 0, size.x, size.y),
       Radius.circular(size.x / 30),
     );
+    textPosition = Dimensions.playerNamePosition(
+      size: size,
+      playerIndex: player.index,
+    );
   }
 
   @override
@@ -104,9 +109,12 @@ class PlayerIndicatorComponent extends PositionComponent {
 
     canvas.drawTextNeon(
       text: player.name.toUpperCase(),
-      position: size / 2,
+      position: textPosition,
       size: size.x / 8,
       paint: paintText,
+      anchor: player.index == Constants.PLAYER_1
+          ? Anchor.centerLeft
+          : Anchor.centerRight,
     );
   }
 }
@@ -130,8 +138,11 @@ class TimeComponent extends PositionComponent {
 
     canvas.drawTextNeon(
       text: match.elapsedTimeFormatted,
-      position: size / 2,
-      size: size.x / 5.5,
+      position: Vector2(
+        size.x / 2,
+        size.y * 0.65,
+      ),
+      size: size.x / 6,
       paint: neonPaint,
       fontFamily: Constants.FONT_DIGITAL,
     );
