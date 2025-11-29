@@ -9,8 +9,8 @@ class Dimensions {
   );
 
   static Vector2 fpsPosition(Vector2 canvasSize) => Vector2(
-    (canvasSize.x / 2) - 40,
-    canvasSize.y - 40,
+    canvasSize.x - 85,
+    canvasSize.y - 35,
   );
 
   static Vector2 topbarPosition(Vector2 resolution) => Vector2(
