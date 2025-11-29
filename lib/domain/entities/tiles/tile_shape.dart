@@ -12,7 +12,7 @@ class TileShape extends Tile {
     required super.y,
     required super.color,
     required this.shape,
-  }) : super(category: shape.name);
+  });
 
   @override
   TileComponent component({

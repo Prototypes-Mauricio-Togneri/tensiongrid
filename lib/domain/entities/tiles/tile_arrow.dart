@@ -12,7 +12,7 @@ class TileArrow extends Tile {
     required super.y,
     required super.color,
     required this.arrow,
-  }) : super(category: arrow.name);
+  });
 
   @override
   TileComponent component({

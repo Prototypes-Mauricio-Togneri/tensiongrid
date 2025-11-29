@@ -10,6 +10,7 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_character.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
@@ -86,13 +87,10 @@ class EventGenerator {
       final Coordinates coord = coordinates[i];
 
       tiles.add(
-        TileCharacter(
+        TileCoin(
           x: coord.x,
           y: coord.y,
           color: Palette.TILE_WHITE,
-          index: 0,
-          value: '🪙',
-          size: 0.9,
         ),
       );
     }
