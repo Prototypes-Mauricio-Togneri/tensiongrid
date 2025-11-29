@@ -1,5 +1,5 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensiongrid/domain/entities/match.dart';
+import 'package:tensiongrid/utils/generator.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 
 class HomeState extends BaseState {
@@ -8,5 +8,5 @@ class HomeState extends BaseState {
     Delayed.post(onStart);
   }
 
-  void onStart() => Navigation.matchScreen(Match.test());
+  void onStart() => Navigation.matchScreen(MatchGenerator.test());
 }

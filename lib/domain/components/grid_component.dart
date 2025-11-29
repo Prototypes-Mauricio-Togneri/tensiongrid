@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/environments/environment.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 
 class GridComponent extends PositionComponent {
@@ -50,19 +51,21 @@ class GridComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint paint = Paint()
-      ..color = const Color(0xffff0000)
-      ..strokeWidth = 0.5
-      ..style = PaintingStyle.stroke;
+    if (Environment.get.isDebug) {
+      final Paint paint = Paint()
+        ..color = const Color(0xffff0000)
+        ..strokeWidth = 0.5
+        ..style = PaintingStyle.stroke;
 
-    canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        0,
-        size.x,
-        size.y,
-      ),
-      paint,
-    );
+      canvas.drawRect(
+        Rect.fromLTWH(
+          0,
+          0,
+          size.x,
+          size.y,
+        ),
+        paint,
+      );
+    }
   }
 }

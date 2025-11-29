@@ -1,11 +1,54 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
+import 'package:tensiongrid/domain/entities/match.dart';
+import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
 import 'package:tensiongrid/utils/palette.dart';
+
+class MatchGenerator {
+  static Match test() {
+    const int width = 5;
+    const int height = 5;
+
+    const EventGenerator generator = EventGenerator(
+      width: width,
+      height: height,
+    );
+
+    return Match(
+      id: '123',
+      width: width,
+      height: height,
+      player1: const Player(
+        id: '1',
+        index: Constants.PLAYER_1,
+        name: 'Alice',
+        color: Colors.blue,
+      ),
+      player2: const Player(
+        id: '2',
+        index: Constants.PLAYER_2,
+        name: 'Bob',
+        color: Colors.red,
+      ),
+      events: [
+        generator.eventSequence(
+          id: 's0',
+          timestamp: 3,
+          timeout: 5,
+          length: 3,
+          type: NumberType.arabic,
+        ),
+      ],
+    );
+  }
+}
 
 class EventGenerator {
   final int width;

@@ -6,6 +6,7 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
+import 'package:tensiongrid/utils/formatter.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class TopbarComponent extends PositionComponent {
@@ -138,7 +139,7 @@ class TimeComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawTextNeon(
-      text: match.elapsedTimeFormatted,
+      text: Formatter.hoursMinutes(match.elapsedTime.floor()),
       position: Vector2(
         size.x / 2,
         size.y * 0.65,
