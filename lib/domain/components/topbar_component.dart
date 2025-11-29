@@ -110,8 +110,9 @@ class PlayerIndicatorComponent extends PositionComponent {
     canvas.drawTextNeon(
       text: player.name.toUpperCase(),
       position: textPosition,
-      size: size.x / 8,
+      size: size.x / 12,
       paint: paintText,
+      fontFamily: Constants.FONT_MICHROMA,
       anchor: player.index == Constants.PLAYER_1
           ? Anchor.centerLeft
           : Anchor.centerRight,

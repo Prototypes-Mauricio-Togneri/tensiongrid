@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_number.dart';
 import 'package:tensiongrid/domain/types/number_type.dart';
@@ -43,6 +44,7 @@ class TileNumberComponent extends TileComponent<TileNumber> {
         position: size / 2,
         size: size.x / 3,
         paint: neonPaint,
+        fontFamily: Constants.FONT_MICHROMA,
       );
     } else if (tile.type == NumberType.roman) {
       canvas.drawTextNeon(
@@ -50,6 +52,7 @@ class TileNumberComponent extends TileComponent<TileNumber> {
         position: size / 2,
         size: size.x / 3,
         paint: neonPaint,
+        fontFamily: Constants.FONT_MICHROMA,
       );
     } else if (tile.type == NumberType.dots) {
       final double dotSize = (size.x * 0.5) / (tile.number * 3);

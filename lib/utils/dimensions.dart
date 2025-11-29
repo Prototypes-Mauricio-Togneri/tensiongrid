@@ -55,15 +55,17 @@ class Dimensions {
     required Vector2 size,
     required int playerIndex,
   }) {
+    final double padding = size.y * 0.4;
+
     if (playerIndex == Constants.PLAYER_1) {
       return Vector2(
-        size.y / 2,
-        size.y * 0.55,
+        padding,
+        size.y * 0.45,
       );
     } else if (playerIndex == Constants.PLAYER_2) {
       return Vector2(
-        size.x - size.y / 2,
-        size.y * 0.55,
+        size.x - padding,
+        size.y * 0.45,
       );
     } else {
       throw Exception('Invalid player index: $playerIndex');
@@ -72,7 +74,7 @@ class Dimensions {
 
   static Vector2 timePosition(Vector2 size) => Vector2(
     size.x / 2,
-    (size.y / 2) - (size.y / 10),
+    (size.y / 2) - (size.y / 8),
   );
 
   static Vector2 timeSize(Vector2 toolbarSize) => Vector2(
