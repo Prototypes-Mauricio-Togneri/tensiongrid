@@ -16,17 +16,15 @@ class EventSequence extends Event {
   bool get isCompleted => tilesRemoved.length >= numberOfTiles;
 
   @override
-  int get pointsTimeout => 10;
+  int get pointsTimeout => isStarted ? tilesActive.length : 0;
 
   @override
-  int get pointsCompleted => tilesRemoved.length * 10;
+  int get pointsCompleted => tilesRemoved.length * 2;
 
-  int get currentIndex => tilesRemoved.length + 1;
+  int get _currentIndex => tilesRemoved.length + 1;
 
   @override
   ActionResult onTileTapped(Tile tile) {
-    print('Tile tapped at (${tile.x}, ${tile.y})');
-
     if (tile is TileNumber) {
       return _checkIndex(
         index: tile.number,
@@ -46,7 +44,7 @@ class EventSequence extends Event {
     required int index,
     required Tile tile,
   }) {
-    if (index == currentIndex) {
+    if (index == _currentIndex) {
       removeTile(tile);
 
       if (isCompleted) {

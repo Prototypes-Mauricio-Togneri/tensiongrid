@@ -26,11 +26,15 @@ abstract class Event {
     return elapsedTime >= timeout;
   }
 
+  bool get isStarted => tilesRemoved.isNotEmpty;
+
   bool get isCompleted;
 
   int get pointsCompleted;
 
   int get pointsTimeout;
+
+  int get remainingTime => (timeout - elapsedTime).ceil();
 
   bool isBefore(double time) => timestamp <= time;
 
