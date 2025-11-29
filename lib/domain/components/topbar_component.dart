@@ -59,12 +59,19 @@ class TopbarComponent extends PositionComponent {
 
 class PlayerIndicatorComponent extends PositionComponent {
   final Player player;
+  final Paint paintBorderNeon = Palette.paint(
+    style: PaintingStyle.stroke,
+    maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
+  );
 
   PlayerIndicatorComponent({
     required super.position,
     required super.size,
     required this.player,
-  }) : super(anchor: Anchor.center);
+  }) : super(anchor: Anchor.center) {
+    paintBorderNeon.strokeWidth = size.x * 0.02;
+    paintBorderNeon.color = player.color;
+  }
 
   @override
   void render(Canvas canvas) {
@@ -72,7 +79,7 @@ class PlayerIndicatorComponent extends PositionComponent {
 
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = player.color,
+      paintBorderNeon,
     );
   }
 }
