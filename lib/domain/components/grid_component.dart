@@ -25,6 +25,8 @@ class GridComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
+    match.update(dt);
+
     final Event? newEvent = match.newEvent;
 
     if (newEvent != null) {
