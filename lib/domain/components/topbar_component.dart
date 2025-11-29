@@ -60,6 +60,7 @@ class TopbarComponent extends PositionComponent {
 class PlayerIndicatorComponent extends PositionComponent {
   final Player player;
   late final NeonPaint paintNeon;
+  late final RRect rect;
 
   PlayerIndicatorComponent({
     required super.position,
@@ -71,19 +72,18 @@ class PlayerIndicatorComponent extends PositionComponent {
       style: PaintingStyle.stroke,
       strokeWidth: size.x * 0.01,
     );
+    rect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(0, 0, size.x, size.y),
+      Radius.circular(size.x / 30),
+    );
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final RRect rrect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(0, 0, size.x, size.y),
-      Radius.circular(size.x / 30),
-    );
-
     canvas.drawRectNeon(
-      rect: rrect,
+      rect: rect,
       paint: paintNeon,
     );
   }
