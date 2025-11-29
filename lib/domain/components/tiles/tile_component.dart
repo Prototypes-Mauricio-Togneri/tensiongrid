@@ -68,7 +68,6 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   }
 
   Vector2 _dragVector = Vector2.zero();
-  static const double _swipeThreshold = 20;
 
   @override
   void onDragStart(DragStartEvent event) {
@@ -86,9 +85,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
 
-    print(_dragVector.length);
-
-    if (_dragVector.length > _swipeThreshold) {
+    if (_dragVector.length > size.x) {
       _handleSwipe(_dragVector);
     }
 
