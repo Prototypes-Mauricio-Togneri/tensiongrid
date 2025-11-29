@@ -12,7 +12,10 @@ class TileCharacterComponent extends TileComponent<TileCharacter> {
     required super.size,
     required super.tile,
   }) {
-    neonPaint = TextNeonPaint.create(tile.color);
+    neonPaint = TextNeonPaint.create(
+      color: tile.color,
+      style: PaintingStyle.fill,
+    );
   }
 
   @override

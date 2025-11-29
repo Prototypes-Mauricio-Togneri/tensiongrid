@@ -87,7 +87,8 @@ class PlayerIndicatorComponent extends PositionComponent {
 class TimeComponent extends PositionComponent {
   final Match match;
   final TextNeonPaint neonPaint = TextNeonPaint.create(
-    Palette.TEXT_COLOR_PRIMARY,
+    color: Palette.TEXT_COLOR_PRIMARY,
+    style: PaintingStyle.fill,
   );
 
   TimeComponent({

@@ -79,13 +79,16 @@ class TextNeonPaint {
     required this.neon,
   });
 
-  factory TextNeonPaint.create(Color color) => TextNeonPaint(
+  factory TextNeonPaint.create({
+    required Color color,
+    required PaintingStyle style,
+  }) => TextNeonPaint(
     base: Palette.paint(
-      style: PaintingStyle.fill,
+      style: style,
       color: color,
     ),
     neon: Palette.paint(
-      style: PaintingStyle.fill,
+      style: style,
       maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
       color: color,
     ),

@@ -23,7 +23,10 @@ class TileNumberComponent extends TileComponent<TileNumber> {
 
   @override
   FutureOr onLoad() {
-    neonPaint = TextNeonPaint.create(tile.color);
+    neonPaint = TextNeonPaint.create(
+      color: tile.color,
+      style: PaintingStyle.fill,
+    );
     paintDots.color = tile.color;
     characterSize = size.x / 3;
 
