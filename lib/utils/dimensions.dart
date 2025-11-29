@@ -37,14 +37,16 @@ class Dimensions {
   }) {
     if (playerIndex == Constants.PLAYER_1) {
       return Vector2(
-        indicatorSize.x / 2,
-        indicatorSize.y / 2,
-      );
+            indicatorSize.x / 2,
+            indicatorSize.y / 2,
+          ) -
+          Vector2(containerSize.y / 10, containerSize.y / 10);
     } else if (playerIndex == Constants.PLAYER_2) {
       return Vector2(
-        containerSize.x - (indicatorSize.x / 2),
-        indicatorSize.y / 2,
-      );
+            containerSize.x - (indicatorSize.x / 2),
+            indicatorSize.y / 2,
+          ) -
+          Vector2(-containerSize.y / 10, containerSize.y / 10);
     } else {
       throw Exception('Invalid player index: $playerIndex');
     }
@@ -57,7 +59,7 @@ class Dimensions {
 
   static Vector2 timePosition(Vector2 size) => Vector2(
     size.x / 2,
-    size.y / 2,
+    (size.y / 2) - (size.y / 10),
   );
 
   static Vector2 timeSize(Vector2 toolbarSize) => Vector2(
