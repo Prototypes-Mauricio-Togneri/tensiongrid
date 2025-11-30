@@ -11,9 +11,6 @@ class EventSequence extends Event<TileSequence> {
   });
 
   @override
-  bool get isCompleted => tilesRemoved.length >= numberOfTiles;
-
-  @override
   int get pointsFail => tilesRemoved.isNotEmpty ? tilesActive.length : 0;
 
   @override
@@ -31,7 +28,7 @@ class EventSequence extends Event<TileSequence> {
     if (tile.number == currentIndex) {
       removeTile(tile);
 
-      if (isCompleted) {
+      if (tilesRemoved.length >= numberOfTiles) {
         return ActionResult(
           score: pointsSuccess,
           eventCompleted: true,

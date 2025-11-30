@@ -43,8 +43,6 @@ abstract class Event<T extends Tile> {
     return elapsedTime >= timeout;
   }
 
-  bool get isCompleted => false;
-
   int get pointsFail;
 
   int get pointsSuccess;
