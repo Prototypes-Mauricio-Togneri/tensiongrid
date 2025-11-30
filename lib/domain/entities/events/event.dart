@@ -33,6 +33,11 @@ abstract class Event<T extends Tile> {
     numberOfTiles++;
   }
 
+  void removeTile(T tile) {
+    tilesActive.remove(tile);
+    tilesRemoved.add(tile);
+  }
+
   bool update(double dt) {
     elapsedTime += dt;
 
@@ -50,11 +55,6 @@ abstract class Event<T extends Tile> {
   double get remainingTime => timeout - elapsedTime;
 
   bool isNew(double time) => timestamp <= time;
-
-  void removeTile(T tile) {
-    tilesActive.remove(tile);
-    tilesRemoved.add(tile);
-  }
 
   void onTimedout() {}
 
