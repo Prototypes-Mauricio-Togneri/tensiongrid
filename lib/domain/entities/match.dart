@@ -70,61 +70,43 @@ class Match {
   }
 
   ActionResult onTileTapped(Tile tile) {
-    for (final Event event in currentEvents) {
-      if (event.containsTile(tile)) {
-        final ActionResult result = event.onTileTapped(tile);
+    final ActionResult result = tile.event.onTileTapped(tile);
 
-        if (result.score > 0) {
-          _addPoints(result.score);
-        } else if (result.score < 0) {
-          _removePoints(-result.score);
-        }
-
-        if (result.eventCompleted) {
-          currentEvents.remove(event);
-          pastEvents.add(event);
-        }
-
-        return result;
-      }
+    if (result.score > 0) {
+      _addPoints(result.score);
+    } else if (result.score < 0) {
+      _removePoints(-result.score);
     }
 
-    return const ActionResult(
-      score: -10,
-      soundError: true,
-    );
+    if (result.eventCompleted) {
+      currentEvents.remove(tile.event);
+      pastEvents.add(tile.event);
+    }
+
+    return result;
   }
 
   ActionResult onTileSwiped({
     required Tile tile,
     required Direction direction,
   }) {
-    for (final Event event in currentEvents) {
-      if (event.containsTile(tile)) {
-        final ActionResult result = event.onTileSwiped(
-          tile: tile,
-          direction: direction,
-        );
+    final ActionResult result = tile.event.onTileSwiped(
+      tile: tile,
+      direction: direction,
+    );
 
-        if (result.score > 0) {
-          _addPoints(result.score);
-        } else if (result.score < 0) {
-          _removePoints(-result.score);
-        }
-
-        if (result.eventCompleted) {
-          currentEvents.remove(event);
-          pastEvents.add(event);
-        }
-
-        return result;
-      }
+    if (result.score > 0) {
+      _addPoints(result.score);
+    } else if (result.score < 0) {
+      _removePoints(-result.score);
     }
 
-    return const ActionResult(
-      score: -10,
-      soundError: true,
-    );
+    if (result.eventCompleted) {
+      currentEvents.remove(tile.event);
+      pastEvents.add(tile.event);
+    }
+
+    return result;
   }
 
   void onWrongAction() {

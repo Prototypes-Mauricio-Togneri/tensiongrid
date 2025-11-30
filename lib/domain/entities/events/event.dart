@@ -21,6 +21,10 @@ abstract class Event<T extends Tile> {
     numberOfTiles = tiles.length;
   }
 
+  void addTile(T tile) {
+    tilesActive.add(tile);
+  }
+
   bool update(double dt) {
     elapsedTime += dt;
 
@@ -38,16 +42,6 @@ abstract class Event<T extends Tile> {
   int get remainingTime => (timeout - elapsedTime).ceil();
 
   bool isBefore(double time) => timestamp <= time;
-
-  bool containsTile(Tile tile) {
-    for (final Tile element in tilesActive) {
-      if (element == tile) {
-        return true;
-      }
-    }
-
-    return false;
-  }
 
   void removeTile(T tile) {
     tilesActive.remove(tile);

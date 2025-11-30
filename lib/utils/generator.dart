@@ -73,66 +73,68 @@ class EventGenerator {
     required String id,
     required int timestamp,
   }) {
+    final Event event = EventCoin(
+      id: id,
+      timestamp: timestamp.toDouble(),
+      timeout: Timeout.short.time,
+      tiles: [],
+    );
+
     final List<Coordinates> coordinates = _generateCoordinates(
       width: width,
       height: height,
       length: 1,
     );
 
-    final List<TileCoin> tiles = [];
-
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
 
-      tiles.add(
+      event.addTile(
         TileCoin(
           x: coord.x,
           y: coord.y,
           color: Palette.TILE_WHITE,
+          event: event,
         ),
       );
     }
 
-    return EventCoin(
-      id: id,
-      timestamp: timestamp.toDouble(),
-      timeout: Timeout.short.time,
-      tiles: tiles,
-    );
+    return event;
   }
 
   Event eventDirectional({
     required String id,
     required int timestamp,
   }) {
+    final Event event = EventDirectional(
+      id: id,
+      timestamp: timestamp.toDouble(),
+      timeout: Timeout.short.time,
+      tiles: [],
+    );
+
     final List<Coordinates> coordinates = _generateCoordinates(
       width: width,
       height: height,
       length: 1,
     );
 
-    final List<TileDirectional> tiles = [];
-
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
 
-      tiles.add(
+      event.addTile(
         TileDirectional(
           x: coord.x,
           y: coord.y,
           color: Palette.TILE_WHITE,
+          event: event,
           direction:
               Direction.values[Random().nextInt(Direction.values.length)],
         ),
       );
     }
 
-    return EventDirectional(
-      id: id,
-      timestamp: timestamp.toDouble(),
-      timeout: Timeout.short.time,
-      tiles: tiles,
-    );
+    return event;
   }
 
   Event eventSequence({
@@ -140,33 +142,34 @@ class EventGenerator {
     required int timestamp,
     required int length,
   }) {
+    final Event event = EventSequence(
+      id: id,
+      timestamp: timestamp.toDouble(),
+      timeout: Timeout.short.time * length,
+      tiles: [],
+    );
+
     final List<Coordinates> coordinates = _generateCoordinates(
       width: width,
       height: height,
       length: length,
     );
 
-    final List<TileSequence> tiles = [];
-
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
 
-      tiles.add(
+      event.addTile(
         TileSequence(
           x: coord.x,
           y: coord.y,
           color: Palette.TILE_WHITE,
+          event: event,
           number: i + 1,
         ),
       );
     }
 
-    return EventSequence(
-      id: id,
-      timestamp: timestamp.toDouble(),
-      timeout: Timeout.short.time * tiles.length,
-      tiles: tiles,
-    );
+    return event;
   }
 
   static List<Coordinates> _generateCoordinates({
