@@ -126,4 +126,8 @@ class Match {
       soundError: true,
     );
   }
+
+  void onWrongAction() {
+    _removePoints(5);
+  }
 }

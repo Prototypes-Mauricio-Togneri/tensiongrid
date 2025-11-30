@@ -21,7 +21,8 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   );
   final T tile;
   late final RRect rect;
-  bool isPressed = false;
+  Vector2 _dragVector = Vector2.zero();
+  bool _isPressed = false;
 
   TileComponent({
     required super.position,
@@ -48,26 +49,23 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   }
 
   @override
-  bool onTapDown(TapDownEvent event) {
-    isPressed = true;
-    return true;
+  void onTapDown(TapDownEvent event) {
+    super.onTapDown(event);
+    _isPressed = true;
   }
 
   @override
-  bool onTapUp(TapUpEvent event) {
-    isPressed = false;
+  void onTapUp(TapUpEvent event) {
+    super.onTapUp(event);
+    _isPressed = false;
     match.onTileTapped(this);
-
-    return true;
   }
 
   @override
-  bool onTapCancel(TapCancelEvent event) {
-    isPressed = false;
-    return true;
+  void onTapCancel(TapCancelEvent event) {
+    super.onTapCancel(event);
+    _isPressed = false;
   }
-
-  Vector2 _dragVector = Vector2.zero();
 
   @override
   void onDragStart(DragStartEvent event) {
@@ -149,7 +147,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (isPressed) {
+    if (_isPressed) {
       canvas.drawRRect(rect, paintBackground);
       canvas.drawRRect(rect, paintBorderNeon);
     }

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
@@ -11,7 +12,7 @@ import 'package:tensiongrid/presentation/audio/audio.dart';
 import 'package:tensiongrid/presentation/audio/sound.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 
-class GridComponent extends PositionComponent {
+class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
   final Match match;
   late final Vector2 tileSize;
   final List<TileComponent> tileComponents = [];
@@ -115,6 +116,25 @@ class GridComponent extends PositionComponent {
     if (result.eventCompleted) {
       Audio.get.playSound(Sound.EVENT_COMPLETED);
     }
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    super.onTapDown(event);
+
+    _onWrongAction();
+  }
+
+  @override
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+
+    _onWrongAction();
+  }
+
+  void _onWrongAction() {
+    Audio.get.playSound(Sound.TILE_ERROR);
+    match.onWrongAction();
   }
 
   @override
