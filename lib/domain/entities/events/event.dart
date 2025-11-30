@@ -56,7 +56,7 @@ abstract class Event<T extends Tile> {
 
   bool isNew(double time) => timestamp <= time;
 
-  void onTimedout() {}
+  void onFailed() {}
 
   @mustCallSuper
   ActionResult onTilePressed({

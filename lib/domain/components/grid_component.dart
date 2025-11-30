@@ -65,7 +65,7 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
       _removeTile(tile);
     }
 
-    event.onTimedout();
+    event.onFailed();
   }
 
   void _removeTile(Tile tile) {
