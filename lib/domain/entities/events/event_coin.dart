@@ -14,7 +14,7 @@ class EventCoin extends Event<TileCoin> {
   int get pointsTimeout => 1;
 
   @override
-  int get pointsCompleted => 5 + remainingTime;
+  int get pointsCompleted => 5 + remainingTime.floor();
 
   @override
   ActionResult onTileTapped({

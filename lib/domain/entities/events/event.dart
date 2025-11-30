@@ -44,7 +44,7 @@ abstract class Event<T extends Tile> {
 
   int get pointsTimeout;
 
-  int get remainingTime => (timeout - elapsedTime).floor();
+  double get remainingTime => timeout - elapsedTime;
 
   bool isNew(double time) => timestamp <= time;
 

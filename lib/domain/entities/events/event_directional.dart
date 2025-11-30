@@ -15,7 +15,7 @@ class EventDirectional extends Event<TileDirectional> {
   int get pointsTimeout => 2;
 
   @override
-  int get pointsCompleted => 10 + remainingTime;
+  int get pointsCompleted => 10 + remainingTime.floor();
 
   @override
   ActionResult onTileSwiped({

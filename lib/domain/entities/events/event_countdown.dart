@@ -14,7 +14,7 @@ class EventCountdown extends Event<TileCountdown> {
   int get pointsTimeout => timeout.ceil();
 
   @override
-  int get pointsCompleted => timeout.ceil() - remainingTime;
+  int get pointsCompleted => (timeout - remainingTime).floor();
 
   @override
   void onTimedout() {
