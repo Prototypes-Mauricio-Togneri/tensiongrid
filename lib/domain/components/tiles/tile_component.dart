@@ -24,6 +24,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   late final RRect rect;
   Vector2 _dragVector = Vector2.zero();
   bool _isPressed = false;
+  double _pressedTime = 0;
 
   TileComponent({
     required super.position,
@@ -51,16 +52,29 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (_isPressed) {
+      _pressedTime += dt;
+    }
+  }
+
+  @override
   void onTapDown(TapDownEvent event) {
     super.onTapDown(event);
     _isPressed = true;
+    _pressedTime = 0;
   }
 
   @override
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
     _isPressed = false;
-    gridComponent.onTileTapped(this);
+    gridComponent.onTileTapped(
+      tileComponent: this,
+      time: _pressedTime,
+    );
   }
 
   @override
@@ -104,45 +118,29 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
 
     if (absX > absY) {
       if (delta.x > 0) {
-        onSwipeRight();
+        gridComponent.onTileSwiped(
+          tileComponent: this,
+          direction: Direction.right,
+        );
       } else {
-        onSwipeLeft();
+        gridComponent.onTileSwiped(
+          tileComponent: this,
+          direction: Direction.left,
+        );
       }
     } else {
       if (delta.y > 0) {
-        onSwipeDown();
+        gridComponent.onTileSwiped(
+          tileComponent: this,
+          direction: Direction.down,
+        );
       } else {
-        onSwipeUp();
+        gridComponent.onTileSwiped(
+          tileComponent: this,
+          direction: Direction.up,
+        );
       }
     }
-  }
-
-  void onSwipeLeft() {
-    gridComponent.onTileSwiped(
-      tileComponent: this,
-      direction: Direction.left,
-    );
-  }
-
-  void onSwipeRight() {
-    gridComponent.onTileSwiped(
-      tileComponent: this,
-      direction: Direction.right,
-    );
-  }
-
-  void onSwipeUp() {
-    gridComponent.onTileSwiped(
-      tileComponent: this,
-      direction: Direction.up,
-    );
-  }
-
-  void onSwipeDown() {
-    gridComponent.onTileSwiped(
-      tileComponent: this,
-      direction: Direction.down,
-    );
   }
 
   @override
