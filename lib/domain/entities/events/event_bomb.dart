@@ -23,6 +23,8 @@ class EventBomb extends Event<TileBomb> {
     required TileBomb tile,
     required double time,
   }) {
+    super.onTilePressed(tile: tile, time: time);
+
     if (isTimeCompleted(time)) {
       removeTile(tile);
 
@@ -42,6 +44,8 @@ class EventBomb extends Event<TileBomb> {
     required TileBomb tile,
     required double time,
   }) {
+    super.onTileTapped(tile: tile, time: time);
+
     if (isTimeCompleted(time)) {
       removeTile(tile);
 

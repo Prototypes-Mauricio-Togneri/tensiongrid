@@ -21,6 +21,8 @@ class EventCoin extends Event<TileCoin> {
     required TileCoin tile,
     required double time,
   }) {
+    super.onTileTapped(tile: tile, time: time);
+    
     removeTile(tile);
 
     return ActionResult(

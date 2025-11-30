@@ -24,6 +24,8 @@ class EventSequence extends Event<TileSequence> {
     required TileSequence tile,
     required double time,
   }) {
+    super.onTileTapped(tile: tile, time: time);
+
     final int currentIndex = tilesRemoved.length + 1;
 
     if (tile.number == currentIndex) {

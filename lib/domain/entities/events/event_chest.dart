@@ -23,7 +23,7 @@ class EventChest extends Event<TileChest> {
     required TileChest tile,
     required double time,
   }) {
-    hasStarted = true;
+    super.onTilePressed(tile: tile, time: time);
 
     if (isTimeCompleted(time)) {
       removeTile(tile);
@@ -44,7 +44,7 @@ class EventChest extends Event<TileChest> {
     required TileChest tile,
     required double time,
   }) {
-    hasStarted = true;
+    super.onTileTapped(tile: tile, time: time);
 
     if (isTimeCompleted(time)) {
       removeTile(tile);

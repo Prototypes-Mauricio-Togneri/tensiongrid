@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
@@ -10,7 +11,8 @@ abstract class Event<T extends Tile> {
   final double timeout;
   int numberOfTiles = 0;
   double elapsedTime = 0;
-  bool hasStarted = false;
+  bool _hasStarted = false;
+  bool _isPressed = false;
 
   Event({
     required this.id,
@@ -21,6 +23,10 @@ abstract class Event<T extends Tile> {
     tilesActive.addAll(tiles);
     numberOfTiles = tiles.length;
   }
+
+  bool get hasStarted => _hasStarted;
+
+  bool get isPressed => _isPressed;
 
   void addTile(T tile) {
     tilesActive.add(tile);
@@ -54,18 +60,36 @@ abstract class Event<T extends Tile> {
 
   void onTimedout() {}
 
+  @mustCallSuper
   ActionResult onTilePressed({
     required T tile,
     required double time,
-  }) => const ActionResult();
+  }) {
+    _isPressed = true;
+    _hasStarted = true;
 
+    return const ActionResult();
+  }
+
+  @mustCallSuper
   ActionResult onTileTapped({
     required T tile,
     required double time,
-  }) => const ActionResult();
+  }) {
+    _isPressed = false;
+    _hasStarted = true;
 
+    return const ActionResult();
+  }
+
+  @mustCallSuper
   ActionResult onTileSwiped({
     required T tile,
     required Direction direction,
-  }) => const ActionResult();
+  }) {
+    _isPressed = true;
+    _hasStarted = true;
+
+    return const ActionResult();
+  }
 }

@@ -22,6 +22,8 @@ class EventDirectional extends Event<TileDirectional> {
     required TileDirectional tile,
     required Direction direction,
   }) {
+    super.onTileSwiped(tile: tile, direction: direction);
+
     if (direction == tile.direction) {
       removeTile(tile);
 

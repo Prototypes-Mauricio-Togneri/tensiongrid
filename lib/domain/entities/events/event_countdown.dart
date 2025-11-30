@@ -26,6 +26,8 @@ class EventCountdown extends Event<TileCountdown> {
     required TileCountdown tile,
     required double time,
   }) {
+    super.onTileTapped(tile: tile, time: time);
+    
     removeTile(tile);
 
     return ActionResult(
