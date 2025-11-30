@@ -8,6 +8,14 @@ class Formatter {
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
+  static String seconds(double seconds) {
+    final int rounded = seconds.floor();
+    final double rest = (seconds - rounded) * 10;
+    final String firstDecimal = rest.toString()[0];
+
+    return '${rounded.toString().padLeft(1, '0')}:${firstDecimal.padLeft(1, '0')}';
+  }
+
   static String numberToCharacter(int number) {
     final int letterIndex = (number - 1) % 26;
 

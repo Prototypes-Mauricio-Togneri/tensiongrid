@@ -7,7 +7,7 @@ abstract class Event<T extends Tile> {
   final double timestamp;
   final List<T> tilesRemoved = [];
   final List<T> tilesActive = [];
-  final int timeout;
+  final double timeout;
   int numberOfTiles = 0;
   double elapsedTime = 0;
 
@@ -29,6 +29,10 @@ abstract class Event<T extends Tile> {
   bool update(double dt) {
     elapsedTime += dt;
 
+    for (final T tile in tilesActive) {
+      tile.update(dt);
+    }
+
     return elapsedTime >= timeout;
   }
 
@@ -40,7 +44,7 @@ abstract class Event<T extends Tile> {
 
   int get pointsTimeout;
 
-  int get remainingTime => (timeout - elapsedTime).ceil();
+  int get remainingTime => (timeout - elapsedTime).floor();
 
   bool isNew(double time) => timestamp <= time;
 

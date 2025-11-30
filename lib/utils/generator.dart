@@ -4,11 +4,13 @@ import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/events/event_coin.dart';
+import 'package:tensiongrid/domain/entities/events/event_countdown.dart';
 import 'package:tensiongrid/domain/entities/events/event_directional.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
@@ -42,18 +44,21 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventDirectional(
-          id: 's0',
+        generator.eventCountdown(
+          id: 'e0',
           timestamp: 1,
         ),
-        generator.eventCoin(
-          id: 's0',
+        generator.eventDirectional(
+          id: 'e0',
           timestamp: 3,
         ),
-        generator.eventSequence(
-          id: 's0',
+        generator.eventCoin(
+          id: 'e0',
           timestamp: 5,
-          length: 3,
+        ),
+        generator.eventSequence(
+          id: 'e0',
+          timestamp: 7,
         ),
       ],
     );
@@ -71,12 +76,12 @@ class EventGenerator {
 
   Event eventCoin({
     required String id,
-    required int timestamp,
+    required double timestamp,
   }) {
     final Event event = EventCoin(
       id: id,
-      timestamp: timestamp.toDouble(),
-      timeout: Timeout.short.time,
+      timestamp: timestamp,
+      timeout: Timeout.short.time.toDouble(),
       tiles: [],
     );
 
@@ -104,12 +109,12 @@ class EventGenerator {
 
   Event eventDirectional({
     required String id,
-    required int timestamp,
+    required double timestamp,
   }) {
     final Event event = EventDirectional(
       id: id,
-      timestamp: timestamp.toDouble(),
-      timeout: Timeout.short.time,
+      timestamp: timestamp,
+      timeout: Timeout.short.time.toDouble(),
       tiles: [],
     );
 
@@ -138,15 +143,50 @@ class EventGenerator {
     return event;
   }
 
+  Event eventCountdown({
+    required String id,
+    required double timestamp,
+  }) {
+    final int timeout = Random().nextInt(5) + 5;
+    final Event event = EventCountdown(
+      id: id,
+      timestamp: timestamp,
+      timeout: timeout.toDouble(),
+      tiles: [],
+    );
+
+    final List<Coordinates> coordinates = _generateCoordinates(
+      width: width,
+      height: height,
+      length: 1,
+    );
+
+    for (int i = 0; i < coordinates.length; i++) {
+      final Coordinates coord = coordinates[i];
+
+      event.addTile(
+        TileCountdown(
+          x: coord.x,
+          y: coord.y,
+          color: Palette.TILE_WHITE,
+          event: event,
+          timeout: timeout.toDouble(),
+        ),
+      );
+    }
+
+    return event;
+  }
+
   Event eventSequence({
     required String id,
-    required int timestamp,
-    required int length,
+    required double timestamp,
   }) {
+    final int length = Random().nextInt(3) + 3;
     final Event event = EventSequence(
       id: id,
-      timestamp: timestamp.toDouble(),
-      timeout: Timeout.short.time * length,
+      timestamp: timestamp,
+      timeout: (Timeout.short.time * length).toDouble(),
       tiles: [],
     );
 

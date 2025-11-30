@@ -20,6 +20,8 @@ abstract class Tile {
     id = '$x,$y';
   }
 
+  void update(double dt) {}
+
   TileComponent component({
     required Vector2 position,
     required Vector2 size,
