@@ -21,6 +21,7 @@ class TileDirectionalComponent extends TileComponent<TileDirectional> {
         position: size / 2,
         size: size / 2,
         spritePath: Assets.IMAGES_ICONS_ARROW,
+        tintColor: tile.color,
       ),
     );
 
