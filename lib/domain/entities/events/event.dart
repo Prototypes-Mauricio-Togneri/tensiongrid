@@ -55,13 +55,18 @@ abstract class Event<T extends Tile> {
 
   void onTimedout() {}
 
+  ActionResult onTilePressed({
+    required T tile,
+    required double time,
+  }) => const ActionResult();
+
   ActionResult onTileTapped({
     required T tile,
     required double time,
-  });
+  }) => const ActionResult();
 
   ActionResult onTileSwiped({
     required T tile,
     required Direction direction,
-  });
+  }) => const ActionResult();
 }

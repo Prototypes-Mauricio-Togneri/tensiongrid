@@ -1,7 +1,6 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
-import 'package:tensiongrid/domain/types/direction.dart';
 
 class EventCountdown extends Event<TileCountdown> {
   EventCountdown({
@@ -36,10 +35,4 @@ class EventCountdown extends Event<TileCountdown> {
       soundTap: true,
     );
   }
-
-  @override
-  ActionResult onTileSwiped({
-    required TileCountdown tile,
-    required Direction direction,
-  }) => const ActionResult();
 }

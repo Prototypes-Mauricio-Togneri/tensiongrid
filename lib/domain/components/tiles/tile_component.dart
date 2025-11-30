@@ -43,6 +43,12 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
   }
 
   @override
+  void onTilePressed(double time) => gridComponent.onTilePressed(
+    tileComponent: this,
+    time: time,
+  );
+
+  @override
   void onTileTapped(double time) => gridComponent.onTileTapped(
     tileComponent: this,
     time: time,

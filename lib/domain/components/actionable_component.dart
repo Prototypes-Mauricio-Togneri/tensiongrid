@@ -19,6 +19,7 @@ abstract class ActionableComponent extends PositionComponent
 
     if (isPressed) {
       _pressedTime += dt;
+      onTilePressed(_pressedTime);
     }
   }
 
@@ -89,6 +90,8 @@ abstract class ActionableComponent extends PositionComponent
       }
     }
   }
+
+  void onTilePressed(double time);
 
   void onTileTapped(double time);
 

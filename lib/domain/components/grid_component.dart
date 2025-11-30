@@ -82,6 +82,20 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     tileComponents.remove(tileComponent);
   }
 
+  void onTilePressed({
+    required TileComponent tileComponent,
+    required double time,
+  }) {
+    final ActionResult result = match.onTilePressed(
+      tile: tileComponent.tile,
+      time: time,
+    );
+    _processActionResult(
+      tileComponent: tileComponent,
+      result: result,
+    );
+  }
+
   void onTileTapped({
     required TileComponent tileComponent,
     required double time,

@@ -86,6 +86,22 @@ class Match {
     return result;
   }
 
+  ActionResult onTilePressed({
+    required Tile tile,
+    required double time,
+  }) {
+    final ActionResult result = tile.event.onTilePressed(
+      tile: tile,
+      time: time,
+    );
+    _processActionResult(
+      result: result,
+      event: tile.event,
+    );
+
+    return result;
+  }
+
   ActionResult onTileTapped({
     required Tile tile,
     required double time,
