@@ -9,6 +9,7 @@ class TileDirectionalComponent extends TileComponent<TileDirectional> {
     required super.position,
     required super.size,
     required super.tile,
+    required super.gridComponent,
   }) {
     angle = tile.direction.angle;
   }

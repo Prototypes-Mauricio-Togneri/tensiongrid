@@ -17,6 +17,7 @@ class TileSequenceComponent extends TileComponent<TileSequence> {
     required super.position,
     required super.size,
     required super.tile,
+    required super.gridComponent,
   });
 
   @override

@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
-import 'package:tensiongrid/extensions/component_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 abstract class TileComponent<T extends Tile> extends PositionComponent
@@ -20,6 +20,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     style: PaintingStyle.fill,
   );
   final T tile;
+  final GridComponent gridComponent;
   late final RRect rect;
   Vector2 _dragVector = Vector2.zero();
   bool _isPressed = false;
@@ -28,6 +29,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
     required super.position,
     required super.size,
     required this.tile,
+    required this.gridComponent,
   }) : super(anchor: Anchor.center) {
     paintBorderBase.strokeWidth = size.x * 0.02;
     paintBorderBase.color = tile.color.withAlpha(150);
@@ -58,7 +60,7 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
     _isPressed = false;
-    match.onTileTapped(this);
+    gridComponent.onTileTapped(this);
   }
 
   @override
@@ -116,28 +118,28 @@ abstract class TileComponent<T extends Tile> extends PositionComponent
   }
 
   void onSwipeLeft() {
-    match.onTileSwiped(
+    gridComponent.onTileSwiped(
       tileComponent: this,
       direction: Direction.left,
     );
   }
 
   void onSwipeRight() {
-    match.onTileSwiped(
+    gridComponent.onTileSwiped(
       tileComponent: this,
       direction: Direction.right,
     );
   }
 
   void onSwipeUp() {
-    match.onTileSwiped(
+    gridComponent.onTileSwiped(
       tileComponent: this,
       direction: Direction.up,
     );
   }
 
   void onSwipeDown() {
-    match.onTileSwiped(
+    gridComponent.onTileSwiped(
       tileComponent: this,
       direction: Direction.down,
     );

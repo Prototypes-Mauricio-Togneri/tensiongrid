@@ -2,18 +2,15 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/score_component.dart';
-import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/topbar_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
-import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Vector2 resolution;
   final Match match;
   final MatchState state;
-  late final GridComponent gridComponent;
 
   MatchComponent({
     required this.resolution,
@@ -22,17 +19,6 @@ class MatchComponent extends World {
   }) {
     MatchComponentRef.instance = this;
   }
-
-  void onTileTapped(TileComponent tileComponent) =>
-      gridComponent.onTileTapped(tileComponent);
-
-  void onTileSwiped({
-    required TileComponent tileComponent,
-    required Direction direction,
-  }) => gridComponent.onTileSwiped(
-    tileComponent: tileComponent,
-    direction: direction,
-  );
 
   @override
   FutureOr onLoad() {
@@ -44,13 +30,13 @@ class MatchComponent extends World {
       ),
     );
 
-    gridComponent = GridComponent(
-      position: Vector2.zero(),
-      size: Dimensions.gridSize(resolution),
-      match: match,
+    add(
+      GridComponent(
+        position: Vector2.zero(),
+        size: Dimensions.gridSize(resolution),
+        match: match,
+      ),
     );
-
-    add(gridComponent);
 
     add(
       ScoreComponent(

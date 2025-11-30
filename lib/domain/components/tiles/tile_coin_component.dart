@@ -12,6 +12,7 @@ class TileCoinComponent extends TileComponent<TileCoin> {
     required super.position,
     required super.size,
     required super.tile,
+    required super.gridComponent,
   }) {
     neonPaint = NeonPaint.create(
       color: tile.color,

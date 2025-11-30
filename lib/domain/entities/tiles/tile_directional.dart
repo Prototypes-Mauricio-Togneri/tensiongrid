@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_directional_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
@@ -18,9 +19,11 @@ class TileDirectional extends Tile {
   TileComponent component({
     required Vector2 position,
     required Vector2 size,
+    required GridComponent gridComponent,
   }) => TileDirectionalComponent(
     position: position,
     size: size,
     tile: this,
+    gridComponent: gridComponent,
   );
 }

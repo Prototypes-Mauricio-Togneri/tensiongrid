@@ -54,6 +54,7 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
           tileSize: tileSize,
         ),
         size: tileSize * 0.85,
+        gridComponent: this,
       );
 
       add(tileComponent);

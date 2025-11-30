@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 
 abstract class Tile {
@@ -19,6 +20,7 @@ abstract class Tile {
   TileComponent component({
     required Vector2 position,
     required Vector2 size,
+    required GridComponent gridComponent,
   });
 
   @override
