@@ -18,6 +18,10 @@ class Palette {
   static const Color TOPBAR_TEXT = Colors.white;
 
   static const Color TILE_WHITE = Colors.white;
+  static const Color TILE_RED = Colors.red;
+  static const Color TILE_BLUE = Colors.blue;
+  static const Color TILE_GREEN = Colors.green;
+  static const Color TILE_YELLOW = Colors.yellow;
 
   static Paint paint({
     PaintingStyle? style,

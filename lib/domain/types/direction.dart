@@ -1,4 +1,7 @@
 import 'dart:math';
+import 'dart:ui';
+
+import 'package:tensiongrid/utils/palette.dart';
 
 enum Direction {
   up,
@@ -16,6 +19,19 @@ enum Direction {
         return pi / 2;
       case Direction.left:
         return pi;
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case Direction.up:
+        return Palette.TILE_RED;
+      case Direction.down:
+        return Palette.TILE_BLUE;
+      case Direction.left:
+        return Palette.TILE_GREEN;
+      case Direction.right:
+        return Palette.TILE_YELLOW;
     }
   }
 }

@@ -121,15 +121,16 @@ class EventGenerator {
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
+      final Direction direction =
+          Direction.values[Random().nextInt(Direction.values.length)];
 
       event.addTile(
         TileDirectional(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
+          color: direction.color,
           event: event,
-          direction:
-              Direction.values[Random().nextInt(Direction.values.length)],
+          direction: direction,
         ),
       );
     }
