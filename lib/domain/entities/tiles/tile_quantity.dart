@@ -5,7 +5,6 @@ import 'package:tensiongrid/domain/components/tiles/tile_quantity_component.dart
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class TileQuantity extends Tile {
-  final int quantity;
   late int counter;
 
   TileQuantity({
@@ -13,7 +12,7 @@ class TileQuantity extends Tile {
     required super.y,
     required super.color,
     required super.event,
-    required this.quantity,
+    required int quantity,
   }) {
     counter = quantity;
   }
