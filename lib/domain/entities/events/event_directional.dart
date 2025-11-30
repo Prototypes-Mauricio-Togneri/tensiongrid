@@ -12,10 +12,10 @@ class EventDirectional extends Event<TileDirectional> {
   });
 
   @override
-  int get pointsTimeout => 2;
+  int get pointsFail => 2;
 
   @override
-  int get pointsCompleted => 10 + remainingTime.floor();
+  int get pointsSuccess => 10 + remainingTime.floor();
 
   @override
   ActionResult onTileSwiped({
@@ -26,7 +26,7 @@ class EventDirectional extends Event<TileDirectional> {
       removeTile(tile);
 
       return ActionResult(
-        score: pointsCompleted,
+        score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,

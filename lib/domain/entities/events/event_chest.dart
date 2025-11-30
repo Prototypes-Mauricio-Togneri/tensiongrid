@@ -11,10 +11,10 @@ class EventChest extends Event<TileChest> {
   });
 
   @override
-  int get pointsTimeout => hasStarted ? 10 : 5;
+  int get pointsFail => hasStarted ? 10 : 5;
 
   @override
-  int get pointsCompleted => 50;
+  int get pointsSuccess => 50;
 
   bool isTimeCompleted(double time) => time >= timeout / 2;
 
@@ -29,7 +29,7 @@ class EventChest extends Event<TileChest> {
       removeTile(tile);
 
       return ActionResult(
-        score: pointsCompleted,
+        score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
@@ -50,7 +50,7 @@ class EventChest extends Event<TileChest> {
       removeTile(tile);
 
       return ActionResult(
-        score: pointsCompleted,
+        score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,

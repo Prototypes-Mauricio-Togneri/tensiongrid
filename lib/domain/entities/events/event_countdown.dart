@@ -11,10 +11,10 @@ class EventCountdown extends Event<TileCountdown> {
   });
 
   @override
-  int get pointsTimeout => timeout.ceil();
+  int get pointsFail => timeout.ceil();
 
   @override
-  int get pointsCompleted => (timeout - remainingTime).floor();
+  int get pointsSuccess => (timeout - remainingTime).floor();
 
   @override
   void onTimedout() {
@@ -29,7 +29,7 @@ class EventCountdown extends Event<TileCountdown> {
     removeTile(tile);
 
     return ActionResult(
-      score: pointsCompleted,
+      score: pointsSuccess,
       eventCompleted: true,
       removeTile: true,
       soundTap: true,

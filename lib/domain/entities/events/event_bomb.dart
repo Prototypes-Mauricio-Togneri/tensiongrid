@@ -11,10 +11,10 @@ class EventBomb extends Event<TileBomb> {
   });
 
   @override
-  int get pointsTimeout => hasStarted ? 10 : 20;
+  int get pointsFail => hasStarted ? 10 : 20;
 
   @override
-  int get pointsCompleted => 0;
+  int get pointsSuccess => 0;
 
   bool isTimeCompleted(double time) => time >= timeout / 2;
 
@@ -27,7 +27,7 @@ class EventBomb extends Event<TileBomb> {
       removeTile(tile);
 
       return ActionResult(
-        score: pointsCompleted,
+        score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
@@ -46,13 +46,14 @@ class EventBomb extends Event<TileBomb> {
       removeTile(tile);
 
       return ActionResult(
-        score: pointsCompleted,
+        score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
       );
     } else {
-      return const ActionResult(
+      return ActionResult(
+        score: -pointsFail,
         removeTile: true,
         soundError: true,
       );

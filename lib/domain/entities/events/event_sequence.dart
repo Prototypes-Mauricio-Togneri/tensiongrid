@@ -14,10 +14,10 @@ class EventSequence extends Event<TileSequence> {
   bool get isCompleted => tilesRemoved.length >= numberOfTiles;
 
   @override
-  int get pointsTimeout => tilesRemoved.isNotEmpty ? tilesActive.length : 0;
+  int get pointsFail => tilesRemoved.isNotEmpty ? tilesActive.length : 0;
 
   @override
-  int get pointsCompleted => tilesRemoved.length * 2;
+  int get pointsSuccess => tilesRemoved.length * 2;
 
   @override
   ActionResult onTileTapped({
@@ -31,7 +31,7 @@ class EventSequence extends Event<TileSequence> {
 
       if (isCompleted) {
         return ActionResult(
-          score: pointsCompleted,
+          score: pointsSuccess,
           eventCompleted: true,
           removeTile: true,
           soundTap: true,

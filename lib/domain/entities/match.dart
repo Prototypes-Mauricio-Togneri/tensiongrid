@@ -45,7 +45,7 @@ class Match {
     for (final Event event in timedOutEvents) {
       pastEvents.add(event);
       currentEvents.remove(event);
-      _removePoints(event.pointsTimeout);
+      _removePoints(event.pointsFail);
     }
 
     final List<Event> newEvents = _newEvents(elapsedTime);

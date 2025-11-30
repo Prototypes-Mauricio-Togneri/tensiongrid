@@ -39,9 +39,9 @@ abstract class Event<T extends Tile> {
 
   bool get isCompleted => false;
 
-  int get pointsCompleted;
+  int get pointsFail;
 
-  int get pointsTimeout;
+  int get pointsSuccess;
 
   double get remainingTime => timeout - elapsedTime;
 

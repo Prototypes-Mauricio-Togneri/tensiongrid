@@ -11,10 +11,10 @@ class EventCoin extends Event<TileCoin> {
   });
 
   @override
-  int get pointsTimeout => 1;
+  int get pointsFail => 1;
 
   @override
-  int get pointsCompleted => 5 + remainingTime.floor();
+  int get pointsSuccess => 5 + remainingTime.floor();
 
   @override
   ActionResult onTileTapped({
@@ -24,7 +24,7 @@ class EventCoin extends Event<TileCoin> {
     removeTile(tile);
 
     return ActionResult(
-      score: pointsCompleted,
+      score: pointsSuccess,
       eventCompleted: true,
       removeTile: true,
       soundTap: true,
