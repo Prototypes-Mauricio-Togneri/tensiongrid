@@ -44,29 +44,46 @@ class Match {
   (List<Event>, List<Event>) update(double dt) {
     elapsedTime += dt;
 
-    final List<Event> timedOutEvents = [];
+    final List<Event> timedOutEvents = _timedoutEvents(dt);
+
+    for (final Event event in timedOutEvents) {
+      pastEvents.add(event);
+      currentEvents.remove(event);
+      _removePoints(event.pointsTimeout);
+    }
+
+    final List<Event> newEvents = _newEvents(elapsedTime);
+
+    for (final Event event in newEvents) {
+      currentEvents.add(event);
+      futureEvents.remove(event);
+    }
+
+    return (timedOutEvents, newEvents);
+  }
+
+  List<Event> _timedoutEvents(double dt) {
+    final List<Event> result = [];
 
     for (final Event event in currentEvents) {
       if (event.update(dt)) {
-        currentEvents.remove(event);
-        pastEvents.add(event);
-        timedOutEvents.add(event);
-        _removePoints(event.pointsTimeout);
+        result.add(event);
       }
     }
 
-    final List<Event> newEvents = [];
+    return result;
+  }
+
+  List<Event> _newEvents(double elapsedTime) {
+    final List<Event> result = [];
 
     for (final Event event in futureEvents) {
-      if (event.isBefore(elapsedTime)) {
-        futureEvents.remove(event);
-        newEvents.add(event);
+      if (event.isNew(elapsedTime)) {
+        result.add(event);
       }
     }
 
-    currentEvents.addAll(newEvents);
-
-    return (newEvents, timedOutEvents);
+    return result;
   }
 
   ActionResult onTileTapped(Tile tile) {

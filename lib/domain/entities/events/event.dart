@@ -42,7 +42,7 @@ abstract class Event<T extends Tile> {
 
   int get remainingTime => (timeout - elapsedTime).ceil();
 
-  bool isBefore(double time) => timestamp <= time;
+  bool isNew(double time) => timestamp <= time;
 
   void removeTile(T tile) {
     tilesActive.remove(tile);

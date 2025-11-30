@@ -36,17 +36,15 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     final (List<Event>, List<Event>) events = match.update(dt);
 
     for (final Event event in events.$1) {
-      _addNewEvent(event);
+      _removeEvent(event);
     }
 
     for (final Event event in events.$2) {
-      for (final Tile tile in event.tilesActive) {
-        _removeTile(tile);
-      }
+      _addEvent(event);
     }
   }
 
-  void _addNewEvent(Event event) {
+  void _addEvent(Event event) {
     for (final Tile tile in event.tilesActive) {
       final TileComponent tileComponent = tile.component(
         position: Dimensions.tilePosition(
@@ -59,6 +57,12 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
 
       add(tileComponent);
       tileComponents.add(tileComponent);
+    }
+  }
+
+  void _removeEvent(Event event) {
+    for (final Tile tile in event.tilesActive) {
+      _removeTile(tile);
     }
   }
 
