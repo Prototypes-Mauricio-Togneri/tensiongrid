@@ -102,4 +102,22 @@ extension CanvasExtension on Canvas {
       paint.base,
     );
   }
+
+  void drawCircleNeon({
+    required Vector2 center,
+    required double radius,
+    required NeonPaint paint,
+  }) {
+    drawCircle(
+      center.toOffset(),
+      radius,
+      paint.neon,
+    );
+
+    drawCircle(
+      center.toOffset(),
+      radius,
+      paint.base,
+    );
+  }
 }

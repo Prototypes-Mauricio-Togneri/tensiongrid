@@ -4,7 +4,7 @@ import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 
 class EventQuantity extends Event<TileQuantity> {
   final int quantity;
-  int counter = 0;
+  late int counter;
 
   EventQuantity({
     required super.id,
@@ -12,7 +12,9 @@ class EventQuantity extends Event<TileQuantity> {
     required super.timeout,
     required super.tiles,
     required this.quantity,
-  });
+  }) {
+    counter = quantity;
+  }
 
   @override
   int get pointsFail => hasStarted ? (quantity - counter) : quantity;

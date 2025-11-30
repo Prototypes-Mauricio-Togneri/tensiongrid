@@ -266,7 +266,7 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    final int quantity = Random().nextInt(6) + 1;
+    const int quantity = 6; //Random().nextInt(6) + 1;
     final Event event = EventQuantity(
       id: id,
       timestamp: timestamp,
