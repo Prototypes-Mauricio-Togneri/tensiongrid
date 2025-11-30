@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:tensiongrid/domain/components/actionable_component.dart';
 import 'package:tensiongrid/domain/components/grid_component.dart';
@@ -34,16 +33,11 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
     paintBorderNeon.color = tile.color;
 
     paintBackground.color = tile.color.withAlpha(50);
-  }
 
-  @override
-  FutureOr onLoad() {
     rect = RRect.fromRectAndRadius(
       Rect.fromLTWH(0, 0, size.x, size.y),
       Radius.circular(size.x * 0.05),
     );
-
-    return super.onLoad();
   }
 
   @override
