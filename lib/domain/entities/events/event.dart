@@ -55,7 +55,10 @@ abstract class Event<T extends Tile> {
 
   void onTimedout() {}
 
-  ActionResult onTileTapped(T tile);
+  ActionResult onTileTapped({
+    required T tile,
+    required double time,
+  });
 
   ActionResult onTileSwiped({
     required T tile,

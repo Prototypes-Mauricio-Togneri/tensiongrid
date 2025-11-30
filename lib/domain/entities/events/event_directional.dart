@@ -18,7 +18,10 @@ class EventDirectional extends Event<TileDirectional> {
   int get pointsCompleted => 10 + remainingTime;
 
   @override
-  ActionResult onTileTapped(TileDirectional tile) => const ActionResult();
+  ActionResult onTileTapped({
+    required TileDirectional tile,
+    required double time,
+  }) => const ActionResult();
 
   @override
   ActionResult onTileSwiped({

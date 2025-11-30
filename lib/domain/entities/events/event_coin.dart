@@ -18,7 +18,10 @@ class EventCoin extends Event<TileCoin> {
   int get pointsCompleted => 5 + remainingTime;
 
   @override
-  ActionResult onTileTapped(TileCoin tile) {
+  ActionResult onTileTapped({
+    required TileCoin tile,
+    required double time,
+  }) {
     removeTile(tile);
 
     return ActionResult(

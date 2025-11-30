@@ -18,7 +18,10 @@ class EventChest extends Event<TileChest> {
   int get pointsCompleted => 50;
 
   @override
-  ActionResult onTileTapped(TileChest tile) {
+  ActionResult onTileTapped({
+    required TileChest tile,
+    required double time,
+  }) {
     removeTile(tile);
 
     return ActionResult(

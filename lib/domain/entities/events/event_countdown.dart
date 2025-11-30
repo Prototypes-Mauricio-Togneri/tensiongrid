@@ -23,7 +23,10 @@ class EventCountdown extends Event<TileCountdown> {
   }
 
   @override
-  ActionResult onTileTapped(TileCountdown tile) {
+  ActionResult onTileTapped({
+    required TileCountdown tile,
+    required double time,
+  }) {
     removeTile(tile);
 
     return ActionResult(
