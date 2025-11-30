@@ -53,33 +53,37 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventQuantity(
+        generator.eventMatching(
           id: 'e0',
           timestamp: 1,
         ),
-        generator.eventBomb(
+        generator.eventQuantity(
           id: 'e0',
           timestamp: 3,
         ),
-        generator.eventChest(
+        generator.eventBomb(
           id: 'e0',
           timestamp: 5,
         ),
-        generator.eventCountdown(
+        generator.eventChest(
           id: 'e0',
           timestamp: 7,
         ),
-        generator.eventDirectional(
+        generator.eventCountdown(
           id: 'e0',
           timestamp: 9,
         ),
-        generator.eventCoin(
+        generator.eventDirectional(
           id: 'e0',
           timestamp: 11,
         ),
-        generator.eventSequence(
+        generator.eventCoin(
           id: 'e0',
           timestamp: 13,
+        ),
+        generator.eventSequence(
+          id: 'e0',
+          timestamp: 15,
         ),
       ],
     );
@@ -340,30 +344,34 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    final Category category =
+    final Category validCategory =
         Category.values[Random().nextInt(Category.values.length)];
-    final Category otherCategory = _otherCategory(category);
-    final int length = Random().nextInt(3) + 3;
+    final Category invalidCategory = _otherCategory(validCategory);
+    final int validTiles = Random().nextInt(5) + 1;
+    final int invalidTiles = validTiles ~/ 2;
     final Event event = EventMatching(
       id: id,
       timestamp: timestamp,
       timeout: Timeout.long.time.toDouble(),
       tiles: [],
+      category: validCategory,
+      validTiles: validTiles,
     );
 
     final List<Coordinates> coordinates = _generateCoordinates(
       width: width,
       height: height,
-      length: length + 3,
+      length: validTiles + invalidTiles,
     );
 
-    final List<String> goodValues = category.list;
+    final List<String> goodValues = List.from(validCategory.list);
     goodValues.shuffle();
-    final List<String> otherValues = otherCategory.list;
+    final List<String> otherValues = List.from(invalidCategory.list);
     otherValues.shuffle();
 
     final List<String> values =
-        goodValues.sublist(0, length) + otherValues.sublist(0, 3);
+        goodValues.sublist(0, validTiles) +
+        otherValues.sublist(0, invalidTiles);
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
@@ -374,7 +382,7 @@ class EventGenerator {
           y: coord.y,
           color: Palette.TILE_WHITE,
           event: event,
-          category: category,
+          category: validCategory,
           value: values[i],
         ),
       );

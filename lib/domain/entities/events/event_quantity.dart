@@ -4,7 +4,7 @@ import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 
 class EventQuantity extends Event<TileQuantity> {
   final int quantity;
-  late int counter;
+  late int count;
 
   EventQuantity({
     required super.id,
@@ -13,11 +13,11 @@ class EventQuantity extends Event<TileQuantity> {
     required super.tiles,
     required this.quantity,
   }) {
-    counter = quantity;
+    count = quantity;
   }
 
   @override
-  int get pointsFail => hasStarted ? (quantity - counter) : quantity;
+  int get pointsFail => hasStarted ? (quantity - count) : quantity;
 
   @override
   int get pointsSuccess => quantity * 2;
@@ -29,13 +29,13 @@ class EventQuantity extends Event<TileQuantity> {
   }) {
     super.onTileTapped(tile: tile, time: time);
 
-    if (counter > 0) {
-      counter--;
+    if (count > 0) {
+      count--;
     }
 
     tile.decrementCounter();
 
-    if (counter == 0) {
+    if (count == 0) {
       removeTile(tile);
 
       return ActionResult(
