@@ -88,17 +88,10 @@ class Match {
 
   ActionResult onTileTapped(Tile tile) {
     final ActionResult result = tile.event.onTileTapped(tile);
-
-    if (result.score > 0) {
-      _addPoints(result.score);
-    } else if (result.score < 0) {
-      _removePoints(-result.score);
-    }
-
-    if (result.eventCompleted) {
-      currentEvents.remove(tile.event);
-      pastEvents.add(tile.event);
-    }
+    _processActionResult(
+      result: result,
+      event: tile.event,
+    );
 
     return result;
   }
@@ -111,7 +104,18 @@ class Match {
       tile: tile,
       direction: direction,
     );
+    _processActionResult(
+      result: result,
+      event: tile.event,
+    );
 
+    return result;
+  }
+
+  void _processActionResult({
+    required ActionResult result,
+    required Event event,
+  }) {
     if (result.score > 0) {
       _addPoints(result.score);
     } else if (result.score < 0) {
@@ -119,11 +123,9 @@ class Match {
     }
 
     if (result.eventCompleted) {
-      currentEvents.remove(tile.event);
-      pastEvents.add(tile.event);
+      currentEvents.remove(event);
+      pastEvents.add(event);
     }
-
-    return result;
   }
 
   void onWrongAction() {
