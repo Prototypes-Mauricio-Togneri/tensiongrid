@@ -13,7 +13,7 @@ class Formatter {
     final double rest = (seconds - rounded) * 10;
     final String firstDecimal = rest.toString()[0];
 
-    return '${rounded.toString().padLeft(1, '0')}:${firstDecimal.padLeft(1, '0')}';
+    return '${rounded.toString().padLeft(1, '0')}.${firstDecimal.padLeft(1, '0')}';
   }
 
   static String numberToCharacter(int number) {

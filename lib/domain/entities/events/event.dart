@@ -53,6 +53,8 @@ abstract class Event<T extends Tile> {
     tilesRemoved.add(tile);
   }
 
+  void onTimedout() {}
+
   ActionResult onTileTapped(T tile);
 
   ActionResult onTileSwiped({

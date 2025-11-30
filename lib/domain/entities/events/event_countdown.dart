@@ -18,6 +18,11 @@ class EventCountdown extends Event<TileCountdown> {
   int get pointsCompleted => timeout.ceil() - remainingTime;
 
   @override
+  void onTimedout() {
+    // TODO(momo): play explosion sound
+  }
+
+  @override
   ActionResult onTileTapped(TileCountdown tile) {
     removeTile(tile);
 
