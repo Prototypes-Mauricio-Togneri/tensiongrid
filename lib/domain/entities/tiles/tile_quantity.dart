@@ -6,6 +6,7 @@ import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class TileQuantity extends Tile {
   final int quantity;
+  int counter = 0;
 
   TileQuantity({
     required super.x,
@@ -14,6 +15,12 @@ class TileQuantity extends Tile {
     required super.event,
     required this.quantity,
   });
+
+  void decrementCounter() {
+    if (counter > 0) {
+      counter--;
+    }
+  }
 
   @override
   TileComponent component({
