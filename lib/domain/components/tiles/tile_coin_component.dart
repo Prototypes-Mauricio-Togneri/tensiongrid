@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
@@ -29,7 +28,6 @@ class TileCoinComponent extends TileComponent<TileCoin> {
       position: size / 2,
       size: size.x / 2.5,
       paint: neonPaint,
-      fontFamily: Constants.FONT_MICHROMA,
     );
   }
 }

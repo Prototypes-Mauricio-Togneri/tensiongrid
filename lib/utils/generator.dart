@@ -8,6 +8,7 @@ import 'package:tensiongrid/domain/entities/events/event_chest.dart';
 import 'package:tensiongrid/domain/entities/events/event_coin.dart';
 import 'package:tensiongrid/domain/entities/events/event_countdown.dart';
 import 'package:tensiongrid/domain/entities/events/event_directional.dart';
+import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
@@ -16,6 +17,7 @@ import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
@@ -48,29 +50,33 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventBomb(
+        generator.eventQuantity(
           id: 'e0',
           timestamp: 1,
         ),
-        generator.eventChest(
+        generator.eventBomb(
           id: 'e0',
           timestamp: 3,
         ),
-        generator.eventCountdown(
+        generator.eventChest(
           id: 'e0',
           timestamp: 5,
         ),
-        generator.eventDirectional(
+        generator.eventCountdown(
           id: 'e0',
           timestamp: 7,
         ),
-        generator.eventCoin(
+        generator.eventDirectional(
           id: 'e0',
           timestamp: 9,
         ),
-        generator.eventSequence(
+        generator.eventCoin(
           id: 'e0',
           timestamp: 11,
+        ),
+        generator.eventSequence(
+          id: 'e0',
+          timestamp: 13,
         ),
       ],
     );
@@ -249,6 +255,42 @@ class EventGenerator {
           y: coord.y,
           color: Palette.TILE_WHITE,
           event: event,
+        ),
+      );
+    }
+
+    return event;
+  }
+
+  Event eventQuantity({
+    required String id,
+    required double timestamp,
+  }) {
+    final int quantity = Random().nextInt(6) + 1;
+    final Event event = EventQuantity(
+      id: id,
+      timestamp: timestamp,
+      timeout: Timeout.medium.time.toDouble(),
+      tiles: [],
+      quantity: quantity,
+    );
+
+    final List<Coordinates> coordinates = _generateCoordinates(
+      width: width,
+      height: height,
+      length: 1,
+    );
+
+    for (int i = 0; i < coordinates.length; i++) {
+      final Coordinates coord = coordinates[i];
+
+      event.addTile(
+        TileQuantity(
+          x: coord.x,
+          y: coord.y,
+          color: Palette.TILE_WHITE,
+          event: event,
+          quantity: quantity,
         ),
       );
     }
