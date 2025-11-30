@@ -8,7 +8,7 @@ abstract class Event<T extends Tile> {
   final List<T> tilesRemoved = [];
   final List<T> tilesActive = [];
   final int timeout;
-  late final int numberOfTiles;
+  int numberOfTiles = 0;
   double elapsedTime = 0;
 
   Event({
@@ -23,6 +23,7 @@ abstract class Event<T extends Tile> {
 
   void addTile(T tile) {
     tilesActive.add(tile);
+    numberOfTiles++;
   }
 
   bool update(double dt) {
