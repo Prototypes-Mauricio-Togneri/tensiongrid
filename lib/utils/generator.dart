@@ -8,6 +8,7 @@ import 'package:tensiongrid/domain/entities/events/event_chest.dart';
 import 'package:tensiongrid/domain/entities/events/event_coin.dart';
 import 'package:tensiongrid/domain/entities/events/event_countdown.dart';
 import 'package:tensiongrid/domain/entities/events/event_directional.dart';
+import 'package:tensiongrid/domain/entities/events/event_matching.dart';
 import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
@@ -17,8 +18,10 @@ import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
+import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
 import 'package:tensiongrid/utils/palette.dart';
@@ -331,6 +334,61 @@ class EventGenerator {
     }
 
     return event;
+  }
+
+  Event eventMatching({
+    required String id,
+    required double timestamp,
+  }) {
+    final Category category =
+        Category.values[Random().nextInt(Category.values.length)];
+    final Category otherCategory = _otherCategory(category);
+    final int length = Random().nextInt(3) + 3;
+    final Event event = EventMatching(
+      id: id,
+      timestamp: timestamp,
+      timeout: Timeout.long.time.toDouble(),
+      tiles: [],
+    );
+
+    final List<Coordinates> coordinates = _generateCoordinates(
+      width: width,
+      height: height,
+      length: length + 3,
+    );
+
+    final List<String> goodValues = category.list;
+    goodValues.shuffle();
+    final List<String> otherValues = otherCategory.list;
+    otherValues.shuffle();
+
+    final List<String> values =
+        goodValues.sublist(0, length) + otherValues.sublist(0, 3);
+
+    for (int i = 0; i < coordinates.length; i++) {
+      final Coordinates coord = coordinates[i];
+
+      event.addTile(
+        TileMatching(
+          x: coord.x,
+          y: coord.y,
+          color: Palette.TILE_WHITE,
+          event: event,
+          category: category,
+          value: values[i],
+        ),
+      );
+    }
+
+    return event;
+  }
+
+  Category _otherCategory(Category category) {
+    final List<Category> otherCategories = Category.values
+        .where((Category c) => c != category)
+        .toList();
+
+    return otherCategories[Random().nextInt(otherCategories.length)];
   }
 
   static List<Coordinates> _generateCoordinates({
