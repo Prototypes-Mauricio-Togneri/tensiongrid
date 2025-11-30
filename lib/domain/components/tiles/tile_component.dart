@@ -26,10 +26,12 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
     required this.tile,
     required this.gridComponent,
   }) {
-    paintBorderBase.strokeWidth = size.x * 0.02;
-    paintBorderBase.color = tile.color.withAlpha(150);
+    final double borderWidth = size.x * 0.04;
 
-    paintBorderNeon.strokeWidth = size.x * 0.02;
+    paintBorderBase.strokeWidth = borderWidth;
+    paintBorderBase.color = tile.color.withAlpha(200);
+
+    paintBorderNeon.strokeWidth = borderWidth;
     paintBorderNeon.color = tile.color;
 
     paintBackground.color = tile.color.withAlpha(50);
