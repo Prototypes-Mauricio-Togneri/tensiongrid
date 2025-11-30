@@ -36,7 +36,7 @@ abstract class Event<T extends Tile> {
     return elapsedTime >= timeout;
   }
 
-  bool get isStarted => tilesRemoved.isNotEmpty;
+  bool get isStarted => false;
 
   bool get isCompleted => false;
 
