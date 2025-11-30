@@ -35,10 +35,6 @@ class Match {
 
   void _removePoints(int points) {
     _score -= points;
-
-    if (_score < 0) {
-      _score = 0;
-    }
   }
 
   (List<Event>, List<Event>) update(double dt) {

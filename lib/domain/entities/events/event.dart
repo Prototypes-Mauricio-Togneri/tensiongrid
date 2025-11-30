@@ -10,6 +10,7 @@ abstract class Event<T extends Tile> {
   final double timeout;
   int numberOfTiles = 0;
   double elapsedTime = 0;
+  bool hasStarted = false;
 
   Event({
     required this.id,
@@ -35,8 +36,6 @@ abstract class Event<T extends Tile> {
 
     return elapsedTime >= timeout;
   }
-
-  bool get isStarted => false;
 
   bool get isCompleted => false;
 

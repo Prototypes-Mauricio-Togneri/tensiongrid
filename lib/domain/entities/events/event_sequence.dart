@@ -11,13 +11,10 @@ class EventSequence extends Event<TileSequence> {
   });
 
   @override
-  bool get isStarted => tilesRemoved.isNotEmpty;
-
-  @override
   bool get isCompleted => tilesRemoved.length >= numberOfTiles;
 
   @override
-  int get pointsTimeout => isStarted ? tilesActive.length : 0;
+  int get pointsTimeout => tilesRemoved.isNotEmpty ? tilesActive.length : 0;
 
   @override
   int get pointsCompleted => tilesRemoved.length * 2;

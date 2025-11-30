@@ -11,10 +11,7 @@ class EventChest extends Event<TileChest> {
   });
 
   @override
-  bool get isStarted => tilesRemoved.isNotEmpty;
-
-  @override
-  int get pointsTimeout => isStarted ? 10 : 0;
+  int get pointsTimeout => hasStarted ? 10 : 5;
 
   @override
   int get pointsCompleted => 50;
@@ -26,6 +23,8 @@ class EventChest extends Event<TileChest> {
     required TileChest tile,
     required double time,
   }) {
+    hasStarted = true;
+
     if (isTimeCompleted(time)) {
       removeTile(tile);
 
@@ -45,6 +44,8 @@ class EventChest extends Event<TileChest> {
     required TileChest tile,
     required double time,
   }) {
+    hasStarted = true;
+
     if (isTimeCompleted(time)) {
       removeTile(tile);
 
