@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/events/event_chest.dart';
 import 'package:tensiongrid/domain/entities/events/event_coin.dart';
 import 'package:tensiongrid/domain/entities/events/event_countdown.dart';
 import 'package:tensiongrid/domain/entities/events/event_directional.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
@@ -44,21 +46,25 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventCountdown(
+        generator.eventChest(
           id: 'e0',
           timestamp: 1,
         ),
-        generator.eventDirectional(
+        generator.eventCountdown(
           id: 'e0',
           timestamp: 3,
         ),
-        generator.eventCoin(
+        generator.eventDirectional(
           id: 'e0',
           timestamp: 5,
         ),
-        generator.eventSequence(
+        generator.eventCoin(
           id: 'e0',
           timestamp: 7,
+        ),
+        generator.eventSequence(
+          id: 'e0',
+          timestamp: 9,
         ),
       ],
     );
@@ -171,6 +177,39 @@ class EventGenerator {
           color: Palette.TILE_WHITE,
           event: event,
           timeout: timeout.toDouble(),
+        ),
+      );
+    }
+
+    return event;
+  }
+
+  Event eventChest({
+    required String id,
+    required double timestamp,
+  }) {
+    final Event event = EventChest(
+      id: id,
+      timestamp: timestamp,
+      timeout: Timeout.long.time.toDouble(),
+      tiles: [],
+    );
+
+    final List<Coordinates> coordinates = _generateCoordinates(
+      width: width,
+      height: height,
+      length: 1,
+    );
+
+    for (int i = 0; i < coordinates.length; i++) {
+      final Coordinates coord = coordinates[i];
+
+      event.addTile(
+        TileChest(
+          x: coord.x,
+          y: coord.y,
+          color: Palette.TILE_WHITE,
+          event: event,
         ),
       );
     }
