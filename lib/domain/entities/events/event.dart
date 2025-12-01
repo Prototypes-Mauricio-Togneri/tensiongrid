@@ -30,7 +30,10 @@ abstract class Event<T extends Tile> {
   void addTile(T tile) {
     tilesActive.add(tile);
     numberOfTiles++;
+    onTileAdded(tile);
   }
+
+  void onTileAdded(T tile) {}
 
   void removeTile(T tile) {
     tilesActive.remove(tile);

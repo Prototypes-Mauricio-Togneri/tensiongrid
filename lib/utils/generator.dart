@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/events/event_align.dart';
 import 'package:tensiongrid/domain/entities/events/event_bomb.dart';
 import 'package:tensiongrid/domain/entities/events/event_chest.dart';
 import 'package:tensiongrid/domain/entities/events/event_coin.dart';
@@ -13,6 +14,7 @@ import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
@@ -53,37 +55,41 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventMatching(
+        generator.eventAlign(
           id: 'e0',
           timestamp: 1,
         ),
-        generator.eventQuantity(
+        generator.eventMatching(
           id: 'e0',
           timestamp: 3,
         ),
-        generator.eventBomb(
+        generator.eventQuantity(
           id: 'e0',
           timestamp: 5,
         ),
-        generator.eventChest(
+        generator.eventBomb(
           id: 'e0',
-          timestamp: 7,
+          timestamp: 70,
         ),
-        generator.eventCountdown(
+        generator.eventChest(
           id: 'e0',
           timestamp: 9,
         ),
-        generator.eventDirectional(
+        generator.eventCountdown(
           id: 'e0',
           timestamp: 11,
         ),
-        generator.eventCoin(
+        generator.eventDirectional(
           id: 'e0',
           timestamp: 13,
         ),
-        generator.eventSequence(
+        generator.eventCoin(
           id: 'e0',
           timestamp: 15,
+        ),
+        generator.eventSequence(
+          id: 'e0',
+          timestamp: 17,
         ),
       ],
     );
@@ -273,7 +279,7 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    const int quantity = 6; //Random().nextInt(6) + 1;
+    final int quantity = Random().nextInt(6) + 1;
     final Event event = EventQuantity(
       id: id,
       timestamp: timestamp,
@@ -391,6 +397,46 @@ class EventGenerator {
           event: event,
           category: values[i].$2,
           value: values[i].$1,
+        ),
+      );
+    }
+
+    return event;
+  }
+
+  Event eventAlign({
+    required String id,
+    required double timestamp,
+  }) {
+    final int length = Random().nextInt(3) + 3;
+    final Direction direction =
+        Direction.values[Random().nextInt(Direction.values.length)];
+    final Event event = EventAlign(
+      id: id,
+      timestamp: timestamp,
+      timeout: 100, //Timeout.long.time.toDouble(),
+      tiles: [],
+      direction: direction,
+    );
+
+    final List<Coordinates> coordinates = _generateCoordinates(
+      width: width,
+      height: height,
+      length: length,
+    );
+
+    for (int i = 0; i < coordinates.length; i++) {
+      final Coordinates coord = coordinates[i];
+      final Direction direction =
+          Direction.values[Random().nextInt(Direction.values.length)];
+
+      event.addTile(
+        TileAlign(
+          x: coord.x,
+          y: coord.y,
+          color: Palette.TILE_WHITE,
+          event: event,
+          direction: direction,
         ),
       );
     }

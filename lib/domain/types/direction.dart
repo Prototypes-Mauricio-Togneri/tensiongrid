@@ -9,6 +9,19 @@ enum Direction {
   left,
   right;
 
+  Direction get next {
+    switch (this) {
+      case Direction.up:
+        return Direction.right;
+      case Direction.right:
+        return Direction.down;
+      case Direction.down:
+        return Direction.left;
+      case Direction.left:
+        return Direction.up;
+    }
+  }
+
   double get angle {
     switch (this) {
       case Direction.right:
