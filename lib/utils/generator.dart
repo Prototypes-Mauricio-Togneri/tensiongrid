@@ -59,31 +59,31 @@ class MatchGenerator {
         ),
         generator.eventQuantity(
           id: 'e0',
-          timestamp: 3,
+          timestamp: 30,
         ),
         generator.eventBomb(
           id: 'e0',
-          timestamp: 5,
+          timestamp: 50,
         ),
         generator.eventChest(
           id: 'e0',
-          timestamp: 7,
+          timestamp: 70,
         ),
         generator.eventCountdown(
           id: 'e0',
-          timestamp: 9,
+          timestamp: 90,
         ),
         generator.eventDirectional(
           id: 'e0',
-          timestamp: 11,
+          timestamp: 110,
         ),
         generator.eventCoin(
           id: 'e0',
-          timestamp: 13,
+          timestamp: 130,
         ),
         generator.eventSequence(
           id: 'e0',
-          timestamp: 15,
+          timestamp: 150,
         ),
       ],
     );
@@ -346,7 +346,6 @@ class EventGenerator {
   }) {
     final Category validCategory =
         Category.values[Random().nextInt(Category.values.length)];
-    final Category invalidCategory = _otherCategory(validCategory);
     final int validTiles = Random().nextInt(5) + 1;
     final int invalidTiles = validTiles ~/ 2;
     final Event event = EventMatching(
@@ -366,12 +365,20 @@ class EventGenerator {
 
     final List<String> goodValues = List.from(validCategory.list);
     goodValues.shuffle();
-    final List<String> otherValues = List.from(invalidCategory.list);
-    otherValues.shuffle();
+    final List<(String, Category)> values = goodValues
+        .sublist(0, validTiles)
+        .map(
+          (String value) => (value, validCategory),
+        )
+        .toList();
 
-    final List<String> values =
-        goodValues.sublist(0, validTiles) +
-        otherValues.sublist(0, invalidTiles);
+    for (final Category category in Category.values) {
+      if (category != validCategory) {
+        final List<String> categoryValues = List.from(category.list);
+        categoryValues.shuffle();
+        values.add((categoryValues[0], category));
+      }
+    }
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
@@ -382,21 +389,13 @@ class EventGenerator {
           y: coord.y,
           color: Palette.TILE_WHITE,
           event: event,
-          category: validCategory,
-          value: values[i],
+          category: values[i].$2,
+          value: values[i].$1,
         ),
       );
     }
 
     return event;
-  }
-
-  Category _otherCategory(Category category) {
-    final List<Category> otherCategories = Category.values
-        .where((Category c) => c != category)
-        .toList();
-
-    return otherCategories[Random().nextInt(otherCategories.length)];
   }
 
   static List<Coordinates> _generateCoordinates({
