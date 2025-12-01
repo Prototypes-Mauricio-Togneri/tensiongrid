@@ -31,6 +31,7 @@ class EventCountdown extends Event<TileCountdown> {
     removeTile(tile);
 
     return ActionResult(
+      event: this,
       score: pointsSuccess,
       eventCompleted: true,
       removeTile: true,

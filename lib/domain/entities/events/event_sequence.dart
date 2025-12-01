@@ -30,19 +30,22 @@ class EventSequence extends Event<TileSequence> {
 
       if (tilesRemoved.length >= numberOfTiles) {
         return ActionResult(
+          event: this,
           score: pointsSuccess,
           eventCompleted: true,
           removeTile: true,
           soundTap: true,
         );
       } else {
-        return const ActionResult(
+        return ActionResult(
+          event: this,
           removeTile: true,
           soundTap: true,
         );
       }
     } else {
-      return const ActionResult(
+      return ActionResult(
+        event: this,
         removeTile: false,
         soundError: true,
       );

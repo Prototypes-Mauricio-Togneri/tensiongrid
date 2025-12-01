@@ -29,13 +29,14 @@ class EventBomb extends Event<TileBomb> {
       removeTile(tile);
 
       return ActionResult(
+        event: this,
         score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
       );
     } else {
-      return const ActionResult();
+      return ActionResult(event: this);
     }
   }
 
@@ -50,6 +51,7 @@ class EventBomb extends Event<TileBomb> {
       removeTile(tile);
 
       return ActionResult(
+        event: this,
         score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
@@ -57,6 +59,7 @@ class EventBomb extends Event<TileBomb> {
       );
     } else {
       return ActionResult(
+        event: this,
         score: -pointsFail,
         removeTile: true,
         soundError: true,

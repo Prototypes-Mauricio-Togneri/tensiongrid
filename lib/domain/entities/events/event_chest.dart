@@ -29,13 +29,14 @@ class EventChest extends Event<TileChest> {
       removeTile(tile);
 
       return ActionResult(
+        event: this,
         score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
       );
     } else {
-      return const ActionResult();
+      return ActionResult(event: this);
     }
   }
 
@@ -50,13 +51,15 @@ class EventChest extends Event<TileChest> {
       removeTile(tile);
 
       return ActionResult(
+        event: this,
         score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
       );
     } else {
-      return const ActionResult(
+      return ActionResult(
+        event: this,
         removeTile: true,
         soundError: true,
       );

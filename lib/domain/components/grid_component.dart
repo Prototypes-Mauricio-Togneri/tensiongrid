@@ -36,7 +36,10 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     final (List<Event>, List<Event>) events = match.update(dt);
 
     for (final Event event in events.$1) {
-      _removeEvent(event);
+      _removeEvent(
+        event: event,
+        hasFailed: true,
+      );
     }
 
     for (final Event event in events.$2) {
@@ -60,12 +63,17 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     }
   }
 
-  void _removeEvent(Event event) {
+  void _removeEvent({
+    required Event event,
+    required bool hasFailed,
+  }) {
     for (final Tile tile in event.tilesActive) {
       _removeTile(tile);
     }
 
-    event.onFailed();
+    if (hasFailed) {
+      event.onFailed();
+    }
   }
 
   void _removeTile(Tile tile) {
@@ -142,6 +150,11 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
 
     if (result.eventCompleted) {
       Audio.get.playSound(Sound.EVENT_COMPLETED);
+
+      _removeEvent(
+        event: result.event,
+        hasFailed: false,
+      );
     }
   }
 

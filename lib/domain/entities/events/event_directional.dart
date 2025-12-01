@@ -28,13 +28,15 @@ class EventDirectional extends Event<TileDirectional> {
       removeTile(tile);
 
       return ActionResult(
+        event: this,
         score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
       );
     } else {
-      return const ActionResult(
+      return ActionResult(
+        event: this,
         score: -10, // TODO(momo): use score for error
         soundError: true,
       );

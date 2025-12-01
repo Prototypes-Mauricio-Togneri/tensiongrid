@@ -39,13 +39,17 @@ class EventQuantity extends Event<TileQuantity> {
       removeTile(tile);
 
       return ActionResult(
+        event: this,
         score: pointsSuccess,
         eventCompleted: true,
         removeTile: true,
         soundTap: true,
       );
     } else {
-      return const ActionResult(soundTap: true);
+      return ActionResult(
+        event: this,
+        soundTap: true,
+      );
     }
   }
 }

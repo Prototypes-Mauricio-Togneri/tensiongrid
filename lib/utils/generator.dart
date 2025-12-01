@@ -346,7 +346,7 @@ class EventGenerator {
   }) {
     final Category validCategory =
         Category.values[Random().nextInt(Category.values.length)];
-    final int validTiles = Random().nextInt(5) + 1;
+    final int validTiles = Random().nextInt(3) + 3;
     final int invalidTiles = validTiles ~/ 2;
     final Event event = EventMatching(
       id: id,

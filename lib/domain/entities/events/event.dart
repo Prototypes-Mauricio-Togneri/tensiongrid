@@ -67,7 +67,7 @@ abstract class Event<T extends Tile> {
     _hasStarted = true;
 
     // TODO(momo): call and return specific function
-    return const ActionResult();
+    return ActionResult(event: this);
   }
 
   @mustCallSuper
@@ -79,7 +79,7 @@ abstract class Event<T extends Tile> {
     _hasStarted = true;
 
     // TODO(momo): call and return specific function
-    return const ActionResult();
+    return ActionResult(event: this);
   }
 
   @mustCallSuper
@@ -91,6 +91,6 @@ abstract class Event<T extends Tile> {
     _hasStarted = true;
 
     // TODO(momo): call and return specific function
-    return const ActionResult();
+    return ActionResult(event: this);
   }
 }
