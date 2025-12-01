@@ -19,12 +19,10 @@ class EventChest extends Event<TileChest> {
   bool isTimeCompleted(double time) => time >= timeout / 2;
 
   @override
-  ActionResult onTilePressed({
+  ActionResult tilePressed({
     required TileChest tile,
     required double time,
   }) {
-    super.onTilePressed(tile: tile, time: time);
-
     if (isTimeCompleted(time)) {
       removeTile(tile);
 
@@ -41,12 +39,10 @@ class EventChest extends Event<TileChest> {
   }
 
   @override
-  ActionResult onTileTapped({
+  ActionResult tileTapped({
     required TileChest tile,
     required double time,
   }) {
-    super.onTileTapped(tile: tile, time: time);
-
     if (isTimeCompleted(time)) {
       removeTile(tile);
 

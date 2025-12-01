@@ -23,12 +23,10 @@ class EventQuantity extends Event<TileQuantity> {
   int get pointsSuccess => quantity * 2;
 
   @override
-  ActionResult onTileTapped({
+  ActionResult tileTapped({
     required TileQuantity tile,
     required double time,
   }) {
-    super.onTileTapped(tile: tile, time: time);
-
     if (count > 0) {
       count--;
     }

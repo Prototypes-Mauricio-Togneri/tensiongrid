@@ -58,7 +58,6 @@ abstract class Event<T extends Tile> {
 
   void onFailed() {}
 
-  @mustCallSuper
   ActionResult onTilePressed({
     required T tile,
     required double time,
@@ -66,11 +65,17 @@ abstract class Event<T extends Tile> {
     _isPressed = true;
     _hasStarted = true;
 
-    // TODO(momo): call and return specific function
-    return ActionResult(event: this);
+    return tilePressed(
+      tile: tile,
+      time: time,
+    );
   }
 
-  @mustCallSuper
+  ActionResult tilePressed({
+    required T tile,
+    required double time,
+  }) => ActionResult(event: this);
+
   ActionResult onTileTapped({
     required T tile,
     required double time,
@@ -78,11 +83,17 @@ abstract class Event<T extends Tile> {
     _isPressed = false;
     _hasStarted = true;
 
-    // TODO(momo): call and return specific function
-    return ActionResult(event: this);
+    return tileTapped(
+      tile: tile,
+      time: time,
+    );
   }
 
-  @mustCallSuper
+  ActionResult tileTapped({
+    required T tile,
+    required double time,
+  }) => ActionResult(event: this);
+
   ActionResult onTileSwiped({
     required T tile,
     required Direction direction,
@@ -90,7 +101,14 @@ abstract class Event<T extends Tile> {
     _isPressed = true;
     _hasStarted = true;
 
-    // TODO(momo): call and return specific function
-    return ActionResult(event: this);
+    return tileSwiped(
+      tile: tile,
+      direction: direction,
+    );
   }
+
+  ActionResult tileSwiped({
+    required T tile,
+    required Direction direction,
+  }) => ActionResult(event: this);
 }

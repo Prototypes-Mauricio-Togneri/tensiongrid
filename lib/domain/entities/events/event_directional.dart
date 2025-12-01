@@ -18,12 +18,10 @@ class EventDirectional extends Event<TileDirectional> {
   int get pointsSuccess => 10 + remainingTime.floor();
 
   @override
-  ActionResult onTileSwiped({
+  ActionResult tileSwiped({
     required TileDirectional tile,
     required Direction direction,
   }) {
-    super.onTileSwiped(tile: tile, direction: direction);
-
     if (direction == tile.direction) {
       removeTile(tile);
 

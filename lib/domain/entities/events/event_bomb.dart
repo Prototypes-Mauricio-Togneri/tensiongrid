@@ -19,12 +19,10 @@ class EventBomb extends Event<TileBomb> {
   bool isTimeCompleted(double time) => time >= timeout / 2;
 
   @override
-  ActionResult onTilePressed({
+  ActionResult tilePressed({
     required TileBomb tile,
     required double time,
   }) {
-    super.onTilePressed(tile: tile, time: time);
-
     if (isTimeCompleted(time)) {
       removeTile(tile);
 
@@ -41,12 +39,10 @@ class EventBomb extends Event<TileBomb> {
   }
 
   @override
-  ActionResult onTileTapped({
+  ActionResult tileTapped({
     required TileBomb tile,
     required double time,
   }) {
-    super.onTileTapped(tile: tile, time: time);
-
     if (isTimeCompleted(time)) {
       removeTile(tile);
 

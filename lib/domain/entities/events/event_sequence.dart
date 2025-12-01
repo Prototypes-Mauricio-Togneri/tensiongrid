@@ -17,12 +17,10 @@ class EventSequence extends Event<TileSequence> {
   int get pointsSuccess => tilesRemoved.length * 2;
 
   @override
-  ActionResult onTileTapped({
+  ActionResult tileTapped({
     required TileSequence tile,
     required double time,
   }) {
-    super.onTileTapped(tile: tile, time: time);
-
     final int currentIndex = tilesRemoved.length + 1;
 
     if (tile.number == currentIndex) {

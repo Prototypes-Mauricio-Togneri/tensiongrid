@@ -17,12 +17,10 @@ class EventCoin extends Event<TileCoin> {
   int get pointsSuccess => 5 + remainingTime.floor();
 
   @override
-  ActionResult onTileTapped({
+  ActionResult tileTapped({
     required TileCoin tile,
     required double time,
   }) {
-    super.onTileTapped(tile: tile, time: time);
-
     removeTile(tile);
 
     return ActionResult(

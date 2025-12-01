@@ -59,31 +59,31 @@ class MatchGenerator {
         ),
         generator.eventQuantity(
           id: 'e0',
-          timestamp: 30,
+          timestamp: 3,
         ),
         generator.eventBomb(
           id: 'e0',
-          timestamp: 50,
+          timestamp: 5,
         ),
         generator.eventChest(
           id: 'e0',
-          timestamp: 70,
+          timestamp: 7,
         ),
         generator.eventCountdown(
           id: 'e0',
-          timestamp: 90,
+          timestamp: 9,
         ),
         generator.eventDirectional(
           id: 'e0',
-          timestamp: 110,
+          timestamp: 11,
         ),
         generator.eventCoin(
           id: 'e0',
-          timestamp: 130,
+          timestamp: 13,
         ),
         generator.eventSequence(
           id: 'e0',
-          timestamp: 150,
+          timestamp: 15,
         ),
       ],
     );

@@ -24,12 +24,10 @@ class EventMatching extends Event<TileMatching> {
   int get pointsSuccess => count * 3;
 
   @override
-  ActionResult onTileTapped({
+  ActionResult tileTapped({
     required TileMatching tile,
     required double time,
   }) {
-    super.onTileTapped(tile: tile, time: time);
-
     if (tile.category == category) {
       count++;
       removeTile(tile);
@@ -52,6 +50,7 @@ class EventMatching extends Event<TileMatching> {
     } else {
       return ActionResult(
         event: this,
+        removeTile: true,
         soundError: true,
       );
     }
