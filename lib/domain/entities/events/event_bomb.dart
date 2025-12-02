@@ -16,25 +16,17 @@ class EventBomb extends Event<TileBomb> {
   @override
   int get pointsSuccess => 0;
 
-  bool isTimeCompleted(double time) => time >= timeout / 2;
+  bool _isTimeCompleted(double time) => time >= 3;
 
   @override
   ActionResult tilePressed({
     required TileBomb tile,
     required double time,
   }) {
-    if (isTimeCompleted(time)) {
-      removeTile(tile);
-
-      return ActionResult(
-        event: this,
-        score: pointsSuccess,
-        eventCompleted: true,
-        removeTile: true,
-        soundTap: true,
-      );
+    if (_isTimeCompleted(time)) {
+      return ActionResult.completed(this);
     } else {
-      return ActionResult(event: this);
+      return ActionResult.neutral(this);
     }
   }
 
@@ -43,23 +35,10 @@ class EventBomb extends Event<TileBomb> {
     required TileBomb tile,
     required double time,
   }) {
-    if (isTimeCompleted(time)) {
-      removeTile(tile);
-
-      return ActionResult(
-        event: this,
-        score: pointsSuccess,
-        eventCompleted: true,
-        removeTile: true,
-        soundTap: true,
-      );
+    if (_isTimeCompleted(time)) {
+      return ActionResult.completed(this);
     } else {
-      return ActionResult(
-        event: this,
-        score: -pointsFail,
-        removeTile: true,
-        soundError: true,
-      );
+      return ActionResult.penalty(this);
     }
   }
 }

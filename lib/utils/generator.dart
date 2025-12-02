@@ -71,6 +71,10 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
+        /*generator.eventBomb(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
 
         /*generator.eventAlign(
           id: 'e0',
@@ -83,10 +87,6 @@ class MatchGenerator {
         /*generator.eventQuantity(
           id: 'e0',
           timestamp: 5,
-        ),*/
-        /*generator.eventBomb(
-          id: 'e0',
-          timestamp: 70,
         ),*/
         /*generator.eventSequence(
           id: 'e0',
@@ -234,7 +234,7 @@ class EventGenerator {
         TileChest(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
+          color: Palette.TILE_YELLOW,
           event: event,
         ),
       );
@@ -267,7 +267,7 @@ class EventGenerator {
         TileBomb(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
+          color: Palette.TILE_RED,
           event: event,
         ),
       );
