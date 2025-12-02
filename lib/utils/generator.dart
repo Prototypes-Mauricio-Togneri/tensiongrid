@@ -79,6 +79,10 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
+        /*generator.eventSequence(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
 
         /*generator.eventAlign(
           id: 'e0',
@@ -87,10 +91,6 @@ class MatchGenerator {
         /*generator.eventMatching(
           id: 'e0',
           timestamp: 3,
-        ),*/
-        /*generator.eventSequence(
-          id: 'e0',
-          timestamp: 17,
         ),*/
       ],
     );

@@ -11,7 +11,7 @@ class EventSequence extends Event<TileSequence> {
   });
 
   @override
-  int get pointsFail => tilesRemoved.isNotEmpty ? tilesActive.length : 0;
+  int get pointsFail => hasStarted ? tilesActive.length : 0;
 
   @override
   int get pointsSuccess => tilesRemoved.length * 2;
@@ -27,26 +27,12 @@ class EventSequence extends Event<TileSequence> {
       removeTile(tile);
 
       if (tilesRemoved.length >= numberOfTiles) {
-        return ActionResult(
-          event: this,
-          score: pointsSuccess,
-          eventCompleted: true,
-          removeTile: true,
-          soundTap: true,
-        );
+        return ActionResult.completed(this);
       } else {
-        return ActionResult(
-          event: this,
-          removeTile: true,
-          soundTap: true,
-        );
+        return ActionResult.remove(this);
       }
     } else {
-      return ActionResult(
-        event: this,
-        removeTile: false,
-        soundError: true,
-      );
+      return ActionResult.mistake(this);
     }
   }
 }

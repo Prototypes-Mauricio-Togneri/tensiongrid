@@ -25,6 +25,12 @@ class ActionResult {
     soundTap: true,
   );
 
+  factory ActionResult.remove(Event event) => ActionResult(
+    event: event,
+    soundTap: true,
+    removeTile: true,
+  );
+
   factory ActionResult.completed(Event event) => ActionResult(
     event: event,
     score: event.pointsSuccess,
@@ -36,6 +42,12 @@ class ActionResult {
   factory ActionResult.penalty(Event event) => ActionResult(
     event: event,
     score: -event.pointsFail,
+    soundError: true,
+  );
+
+  factory ActionResult.mistake(Event event) => ActionResult(
+    event: event,
+    score: -1,
     soundError: true,
   );
 }
