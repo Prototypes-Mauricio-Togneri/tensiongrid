@@ -55,42 +55,42 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventAlign(
-          id: 'e0',
-          timestamp: 1,
-        ),
-        generator.eventMatching(
-          id: 'e0',
-          timestamp: 3,
-        ),
-        generator.eventQuantity(
-          id: 'e0',
-          timestamp: 5,
-        ),
-        generator.eventBomb(
-          id: 'e0',
-          timestamp: 70,
-        ),
-        generator.eventChest(
-          id: 'e0',
-          timestamp: 9,
-        ),
-        generator.eventCountdown(
-          id: 'e0',
-          timestamp: 11,
-        ),
-        generator.eventDirectional(
-          id: 'e0',
-          timestamp: 13,
-        ),
         generator.eventCoin(
           id: 'e0',
-          timestamp: 15,
+          timestamp: 2,
         ),
-        generator.eventSequence(
+        /*generator.eventAlign(
+          id: 'e0',
+          timestamp: 1,
+        ),*/
+        /*generator.eventMatching(
+          id: 'e0',
+          timestamp: 3,
+        ),*/
+        /*generator.eventQuantity(
+          id: 'e0',
+          timestamp: 5,
+        ),*/
+        /*generator.eventBomb(
+          id: 'e0',
+          timestamp: 70,
+        ),*/
+        /*generator.eventChest(
+          id: 'e0',
+          timestamp: 9,
+        ),*/
+        /*generator.eventCountdown(
+          id: 'e0',
+          timestamp: 11,
+        ),*/
+        /*generator.eventDirectional(
+          id: 'e0',
+          timestamp: 13,
+        ),*/
+        /*generator.eventSequence(
           id: 'e0',
           timestamp: 17,
-        ),
+        ),*/
       ],
     );
   }
@@ -129,7 +129,7 @@ class EventGenerator {
         TileCoin(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
+          color: Palette.TILE_YELLOW,
           event: event,
         ),
       );
