@@ -101,6 +101,7 @@ class NeonPaint {
     double? strokeWidth,
     StrokeCap? strokeCap,
     StrokeJoin? strokeJoin,
+    double neonStrokeWidthFactor = 2,
   }) => NeonPaint(
     base: Palette.paint(
       style: style,
@@ -113,7 +114,9 @@ class NeonPaint {
       style: style,
       maskFilter: const MaskFilter.blur(BlurStyle.normal, 1),
       color: color,
-      strokeWidth: strokeWidth != null ? strokeWidth * 2 : null,
+      strokeWidth: strokeWidth != null
+          ? strokeWidth * neonStrokeWidthFactor
+          : null,
       strokeCap: strokeCap,
       strokeJoin: strokeJoin,
     ),
