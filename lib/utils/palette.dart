@@ -23,6 +23,8 @@ class Palette {
   static const Color TILE_GREEN = Colors.green;
   static const Color TILE_YELLOW = Colors.yellow;
 
+  static const Color EXPLOSION = Colors.white;
+
   static Paint paint({
     PaintingStyle? style,
     Color? color,

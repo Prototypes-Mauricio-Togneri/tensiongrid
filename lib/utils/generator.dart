@@ -71,10 +71,10 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
-        /*generator.eventBomb(
+        generator.eventBomb(
           id: 'e0',
           timestamp: 2,
-        ),*/
+        ),
         /*generator.eventQuantity(
           id: 'e0',
           timestamp: 2,
@@ -87,10 +87,10 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
-        generator.eventAlign(
+        /*generator.eventAlign(
           id: 'e0',
           timestamp: 2,
-        ),
+        ),*/
       ],
     );
   }

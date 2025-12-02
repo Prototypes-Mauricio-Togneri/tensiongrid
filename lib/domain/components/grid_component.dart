@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:tensiongrid/domain/components/explosion_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
@@ -68,7 +69,10 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     required bool hasFailed,
   }) {
     for (final Tile tile in event.tilesActive) {
-      _removeTile(tile);
+      _removeTile(
+        tile: tile,
+        hasFailed: hasFailed,
+      );
     }
 
     if (hasFailed) {
@@ -76,18 +80,36 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     }
   }
 
-  void _removeTile(Tile tile) {
+  void _removeTile({
+    required Tile tile,
+    required bool hasFailed,
+  }) {
     for (final TileComponent tileComponent in tileComponents) {
       if (tileComponent.tile == tile) {
-        _removeTileComponent(tileComponent);
+        _removeTileComponent(
+          tileComponent: tileComponent,
+          hasFailed: hasFailed,
+        );
         break;
       }
     }
   }
 
-  void _removeTileComponent(TileComponent tileComponent) {
+  void _removeTileComponent({
+    required TileComponent tileComponent,
+    required bool hasFailed,
+  }) {
     tileComponent.removeFromParent();
     tileComponents.remove(tileComponent);
+
+    if (hasFailed) {
+      add(
+        ExplosionComponent(
+          position: tileComponent.position,
+          size: tileComponent.size,
+        ),
+      );
+    }
   }
 
   void onTilePressed({
@@ -137,7 +159,10 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     required ActionResult result,
   }) {
     if (result.removeTile) {
-      _removeTileComponent(tileComponent);
+      _removeTileComponent(
+        tileComponent: tileComponent,
+        hasFailed: false,
+      );
     }
 
     if (result.soundTap) {
