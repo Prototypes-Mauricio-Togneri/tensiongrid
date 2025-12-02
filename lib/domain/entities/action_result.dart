@@ -16,4 +16,12 @@ class ActionResult {
     this.eventCompleted = false,
     this.removeTile = false,
   });
+
+  factory ActionResult.completed(Event event) => ActionResult(
+    event: event,
+    score: event.pointsSuccess,
+    eventCompleted: true,
+    removeTile: true,
+    soundTap: true,
+  );
 }

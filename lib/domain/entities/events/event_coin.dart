@@ -23,12 +23,6 @@ class EventCoin extends Event<TileCoin> {
   }) {
     removeTile(tile);
 
-    return ActionResult(
-      event: this,
-      score: pointsSuccess,
-      eventCompleted: true,
-      removeTile: true,
-      soundTap: true,
-    );
+    return ActionResult.completed(this);
   }
 }
