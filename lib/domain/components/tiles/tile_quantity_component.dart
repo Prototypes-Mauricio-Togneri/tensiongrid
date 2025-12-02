@@ -29,98 +29,182 @@ class TileQuantityComponent extends TileComponent<TileQuantity> {
     final double spacing = size.x / 4;
 
     if (tile.counter == 6) {
-      for (int col = 0; col < 2; col++) {
-        for (int row = 0; row < 3; row++) {
-          canvas.drawCircleNeon(
-            center: Vector2(
-              center.x - spacing + col * spacing * 2,
-              center.y - spacing + row * spacing,
-            ),
-            radius: radius,
-            paint: neonPaint,
-          );
-        }
-      }
-    } else if (tile.counter == 5) {
-      canvas.drawCircleNeon(
-        center: Vector2(center.x - spacing, center.y - spacing),
-        radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x + spacing, center.y - spacing),
-        radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
+      _draw6(
+        canvas: canvas,
         center: center,
         radius: radius,
-        paint: neonPaint,
+        spacing: spacing,
       );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x - spacing, center.y + spacing),
+    } else if (tile.counter == 5) {
+      _draw5(
+        canvas: canvas,
+        center: center,
         radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x + spacing, center.y + spacing),
-        radius: radius,
-        paint: neonPaint,
+        spacing: spacing,
       );
     } else if (tile.counter == 4) {
-      canvas.drawCircleNeon(
-        center: Vector2(center.x - spacing, center.y - spacing),
+      _draw4(
+        canvas: canvas,
+        center: center,
         radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x + spacing, center.y - spacing),
-        radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x - spacing, center.y + spacing),
-        radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x + spacing, center.y + spacing),
-        radius: radius,
-        paint: neonPaint,
+        spacing: spacing,
       );
     } else if (tile.counter == 3) {
-      canvas.drawCircleNeon(
-        center: Vector2(center.x + spacing, center.y - spacing),
-        radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
+      _draw3(
+        canvas: canvas,
         center: center,
         radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x - spacing, center.y + spacing),
-        radius: radius,
-        paint: neonPaint,
+        spacing: spacing,
       );
     } else if (tile.counter == 2) {
-      canvas.drawCircleNeon(
-        center: Vector2(center.x + spacing, center.y - spacing),
-        radius: radius,
-        paint: neonPaint,
-      );
-      canvas.drawCircleNeon(
-        center: Vector2(center.x - spacing, center.y + spacing),
-        radius: radius,
-        paint: neonPaint,
-      );
-    } else if (tile.counter == 1) {
-      canvas.drawCircleNeon(
+      _draw2(
+        canvas: canvas,
         center: center,
         radius: radius,
-        paint: neonPaint,
+        spacing: spacing,
+      );
+    } else if (tile.counter == 1) {
+      _draw1(
+        canvas: canvas,
+        center: center,
+        radius: radius,
+        spacing: spacing,
       );
     }
+  }
+
+  void _draw6({
+    required Canvas canvas,
+    required Vector2 center,
+    required double radius,
+    required double spacing,
+  }) {
+    for (int col = 0; col < 2; col++) {
+      for (int row = 0; row < 3; row++) {
+        canvas.drawCircleNeon(
+          center: Vector2(
+            center.x - spacing + col * spacing * 2,
+            center.y - spacing + row * spacing,
+          ),
+          radius: radius,
+          paint: neonPaint,
+        );
+      }
+    }
+  }
+
+  void _draw5({
+    required Canvas canvas,
+    required Vector2 center,
+    required double radius,
+    required double spacing,
+  }) {
+    canvas.drawCircleNeon(
+      center: Vector2(center.x - spacing, center.y - spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x + spacing, center.y - spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: center,
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x - spacing, center.y + spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x + spacing, center.y + spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+  }
+
+  void _draw4({
+    required Canvas canvas,
+    required Vector2 center,
+    required double radius,
+    required double spacing,
+  }) {
+    canvas.drawCircleNeon(
+      center: Vector2(center.x - spacing, center.y - spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x + spacing, center.y - spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x - spacing, center.y + spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x + spacing, center.y + spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+  }
+
+  void _draw3({
+    required Canvas canvas,
+    required Vector2 center,
+    required double radius,
+    required double spacing,
+  }) {
+    canvas.drawCircleNeon(
+      center: Vector2(center.x + spacing, center.y - spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: center,
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x - spacing, center.y + spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+  }
+
+  void _draw2({
+    required Canvas canvas,
+    required Vector2 center,
+    required double radius,
+    required double spacing,
+  }) {
+    canvas.drawCircleNeon(
+      center: Vector2(center.x + spacing, center.y - spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+    canvas.drawCircleNeon(
+      center: Vector2(center.x - spacing, center.y + spacing),
+      radius: radius,
+      paint: neonPaint,
+    );
+  }
+
+  void _draw1({
+    required Canvas canvas,
+    required Vector2 center,
+    required double radius,
+    required double spacing,
+  }) {
+    canvas.drawCircleNeon(
+      center: center,
+      radius: radius,
+      paint: neonPaint,
+    );
   }
 }

@@ -20,6 +20,11 @@ class ActionResult {
 
   factory ActionResult.neutral(Event event) => ActionResult(event: event);
 
+  factory ActionResult.tap(Event event) => ActionResult(
+    event: event,
+    soundTap: true,
+  );
+
   factory ActionResult.completed(Event event) => ActionResult(
     event: event,
     score: event.pointsSuccess,

@@ -17,7 +17,7 @@ class EventQuantity extends Event<TileQuantity> {
   }
 
   @override
-  int get pointsFail => hasStarted ? (quantity - count) : quantity;
+  int get pointsFail => count;
 
   @override
   int get pointsSuccess => quantity * 2;
@@ -34,20 +34,9 @@ class EventQuantity extends Event<TileQuantity> {
     tile.decrementCounter();
 
     if (count == 0) {
-      removeTile(tile);
-
-      return ActionResult(
-        event: this,
-        score: pointsSuccess,
-        eventCompleted: true,
-        removeTile: true,
-        soundTap: true,
-      );
+      return ActionResult.completed(this);
     } else {
-      return ActionResult(
-        event: this,
-        soundTap: true,
-      );
+      return ActionResult.tap(this);
     }
   }
 }
