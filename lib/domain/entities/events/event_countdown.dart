@@ -17,23 +17,8 @@ class EventCountdown extends Event<TileCountdown> {
   int get pointsSuccess => (timeout - remainingTime).floor();
 
   @override
-  void onFailed() {
-    // TODO(momo): play explosion sound
-  }
-
-  @override
   ActionResult tileTapped({
     required TileCountdown tile,
     required double time,
-  }) {
-    removeTile(tile);
-
-    return ActionResult(
-      event: this,
-      score: pointsSuccess,
-      eventCompleted: true,
-      removeTile: true,
-      soundTap: true,
-    );
-  }
+  }) => ActionResult.completed(this);
 }

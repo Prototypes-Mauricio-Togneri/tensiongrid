@@ -63,6 +63,11 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
+        /*generator.eventCountdown(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+
         /*generator.eventAlign(
           id: 'e0',
           timestamp: 1,
@@ -82,10 +87,6 @@ class MatchGenerator {
         /*generator.eventChest(
           id: 'e0',
           timestamp: 9,
-        ),*/
-        /*generator.eventCountdown(
-          id: 'e0',
-          timestamp: 11,
         ),*/
         /*generator.eventSequence(
           id: 'e0',
