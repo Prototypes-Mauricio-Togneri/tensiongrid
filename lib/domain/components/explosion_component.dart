@@ -1,26 +1,32 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/extensions/canvas_extension.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class ExplosionComponent extends PositionComponent {
   double percentage = 1;
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.EXPLOSION,
-  );
+  late final NeonPaint neonPaint;
 
   ExplosionComponent({
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center);
+  }) : super(anchor: Anchor.center) {
+    neonPaint = NeonPaint.create(
+      color: Palette.EXPLOSION,
+      style: PaintingStyle.stroke,
+      strokeWidth: size.x / 20,
+    );
+  }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    percentage = (percentage - dt).clamp(0, 1);
+    percentage = (percentage - (dt * 2)).clamp(0, 1);
 
-    fillPaint.color = fillPaint.color.withAlpha((percentage * 255).toInt());
+    final int alpha = (percentage * 255).toInt();
+    neonPaint.base.color = neonPaint.base.color.withAlpha(alpha);
+    neonPaint.neon.color = neonPaint.neon.color.withAlpha(alpha);
 
     if (percentage == 0) {
       removeFromParent();
@@ -31,10 +37,10 @@ class ExplosionComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle(
-      (size / 2).toOffset(),
-      (size.x / 2) * (1 - percentage),
-      fillPaint,
+    canvas.drawCircleNeon(
+      center: size / 2,
+      radius: (size.x / 2) * (1 - percentage),
+      paint: neonPaint,
     );
   }
 }

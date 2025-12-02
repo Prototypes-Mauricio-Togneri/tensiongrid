@@ -6,7 +6,7 @@
     - Play ticking sound for every second
     - Change border color from white to yellow to red
   - Bomb
-    - Explosion animation when bomb detonates
+    - Play bomb sound when bomb goes off
 - Tutorial
 - Generator algorithm
 - Backed and matchmaking
