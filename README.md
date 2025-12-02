@@ -2,11 +2,11 @@
 
 - Polish play and UI
   - Countdown
-    - Explosion animation for coundown tile
+    - Explosion sound when timer hits zero
     - Play ticking sound for every second
     - Change border color from white to yellow to red
   - Bomb
-    - Play bomb sound when bomb goes off
+    - Bomb sound when bomb goes off
 - Tutorial
 - Generator algorithm
 - Backed and matchmaking

@@ -63,18 +63,18 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
-        /*generator.eventCountdown(
+        generator.eventCountdown(
           id: 'e0',
           timestamp: 2,
-        ),*/
+        ),
         /*generator.eventChest(
           id: 'e0',
           timestamp: 2,
         ),*/
-        generator.eventBomb(
+        /*generator.eventBomb(
           id: 'e0',
           timestamp: 2,
-        ),
+        ),*/
         /*generator.eventQuantity(
           id: 'e0',
           timestamp: 2,

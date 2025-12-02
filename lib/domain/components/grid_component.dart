@@ -2,7 +2,9 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensiongrid/domain/components/explosion_component.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_bomb_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
+import 'package:tensiongrid/domain/components/tiles/tile_countdown_component.dart';
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
@@ -102,7 +104,9 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     tileComponent.removeFromParent();
     tileComponents.remove(tileComponent);
 
-    if (hasFailed) {
+    if (((tileComponent is TileBombComponent) ||
+            (tileComponent is TileCountdownComponent)) &&
+        hasFailed) {
       add(
         ExplosionComponent(
           position: tileComponent.position,
