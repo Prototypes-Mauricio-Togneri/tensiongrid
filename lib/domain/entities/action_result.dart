@@ -27,8 +27,8 @@ class ActionResult {
 
   factory ActionResult.remove(Event event) => ActionResult(
     event: event,
-    soundTap: true,
     removeTile: true,
+    soundTap: true,
   );
 
   factory ActionResult.completed(Event event) => ActionResult(

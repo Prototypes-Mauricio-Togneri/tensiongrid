@@ -33,26 +33,12 @@ class EventMatching extends Event<TileMatching> {
       removeTile(tile);
 
       if (count == validTiles) {
-        return ActionResult(
-          event: this,
-          score: pointsSuccess,
-          eventCompleted: true,
-          removeTile: true,
-          soundTap: true,
-        );
+        return ActionResult.completed(this);
       } else {
-        return ActionResult(
-          event: this,
-          removeTile: true,
-          soundTap: true,
-        );
+        return ActionResult.remove(this);
       }
     } else {
-      return ActionResult(
-        event: this,
-        removeTile: true,
-        soundError: true,
-      );
+      return ActionResult.mistake(this);
     }
   }
 }
