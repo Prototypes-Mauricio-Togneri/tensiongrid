@@ -1,3 +1,4 @@
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 
 class ActionResult {
@@ -64,7 +65,7 @@ class ActionResult {
 
   factory ActionResult.mistake(Event event) => ActionResult._(
     event: event,
-    score: -1,
+    score: -Constants.MISTAKE_POINTS,
     soundTap: false,
     soundError: true,
     eventCompleted: false,

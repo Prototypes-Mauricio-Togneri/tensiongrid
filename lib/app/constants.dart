@@ -5,6 +5,8 @@ class Constants {
   static const int PLAYER_1 = 0;
   static const int PLAYER_2 = 1;
 
+  static const int MISTAKE_POINTS = 1;
+
   static const String FONT_DIGITAL = 'dseg7';
   static const String FONT_MICHROMA = 'michroma';
 }
