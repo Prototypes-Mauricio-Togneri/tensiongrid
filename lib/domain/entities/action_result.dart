@@ -8,46 +8,66 @@ class ActionResult {
   final bool eventCompleted;
   final bool removeTile;
 
-  // TODO(momo): make private and use only factory constructors
-  const ActionResult({
+  const ActionResult._({
     required this.event,
-    this.score = 0,
-    this.soundTap = false,
-    this.soundError = false,
-    this.eventCompleted = false,
-    this.removeTile = false,
+    required this.score,
+    required this.soundTap,
+    required this.soundError,
+    required this.eventCompleted,
+    required this.removeTile,
   });
 
-  factory ActionResult.neutral(Event event) => ActionResult(event: event);
-
-  factory ActionResult.tap(Event event) => ActionResult(
+  factory ActionResult.neutral(Event event) => ActionResult._(
     event: event,
-    soundTap: true,
+    score: 0,
+    soundTap: false,
+    soundError: false,
+    eventCompleted: false,
+    removeTile: false,
   );
 
-  factory ActionResult.remove(Event event) => ActionResult(
-    event: event,
-    removeTile: true,
-    soundTap: true,
-  );
-
-  factory ActionResult.completed(Event event) => ActionResult(
+  factory ActionResult.completed(Event event) => ActionResult._(
     event: event,
     score: event.pointsSuccess,
+    soundTap: true,
+    soundError: false,
     eventCompleted: true,
     removeTile: true,
-    soundTap: true,
   );
 
-  factory ActionResult.penalty(Event event) => ActionResult(
+  factory ActionResult.tap(Event event) => ActionResult._(
+    event: event,
+    score: 0,
+    soundTap: true,
+    soundError: false,
+    eventCompleted: false,
+    removeTile: false,
+  );
+
+  factory ActionResult.remove(Event event) => ActionResult._(
+    event: event,
+    score: 0,
+    soundTap: true,
+    soundError: false,
+    eventCompleted: false,
+    removeTile: true,
+  );
+
+  factory ActionResult.penalty(Event event) => ActionResult._(
     event: event,
     score: -event.pointsFail,
+    soundTap: false,
     soundError: true,
+    eventCompleted: false,
+    removeTile: false,
   );
 
-  factory ActionResult.mistake(Event event) => ActionResult(
+  factory ActionResult.mistake(Event event) => ActionResult._(
     event: event,
     score: -1,
+    soundTap: false,
     soundError: true,
+    eventCompleted: false,
+    removeTile: false,
   );
 }
