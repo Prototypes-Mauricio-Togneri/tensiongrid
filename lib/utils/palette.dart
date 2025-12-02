@@ -85,6 +85,16 @@ class NeonPaint {
     required this.neon,
   });
 
+  void color(Color color) {
+    base.color = color;
+    neon.color = color;
+  }
+
+  void alpha(int alpha) {
+    base.color = base.color.withAlpha(alpha);
+    neon.color = neon.color.withAlpha(alpha);
+  }
+
   factory NeonPaint.create({
     required Color color,
     required PaintingStyle style,

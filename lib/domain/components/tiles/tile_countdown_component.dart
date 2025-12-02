@@ -22,6 +22,13 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    neonPaint.color(Colors.red);
+  }
+
+  @override
   bool get showExplosion => true;
 
   @override

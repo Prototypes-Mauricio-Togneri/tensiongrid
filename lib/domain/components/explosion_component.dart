@@ -23,10 +23,7 @@ class ExplosionComponent extends PositionComponent {
     super.update(dt);
 
     percentage = (percentage - (dt * 2)).clamp(0, 1);
-
-    final int alpha = (percentage * 255).toInt();
-    neonPaint.base.color = neonPaint.base.color.withAlpha(alpha);
-    neonPaint.neon.color = neonPaint.neon.color.withAlpha(alpha);
+    neonPaint.alpha((percentage * 255).toInt());
 
     if (percentage == 0) {
       removeFromParent();
