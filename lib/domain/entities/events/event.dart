@@ -78,7 +78,7 @@ abstract class Event<T extends Tile> {
   ActionResult tilePressed({
     required T tile,
     required double time,
-  }) => ActionResult(event: this);
+  }) => ActionResult.neutral(this);
 
   ActionResult onTileTapped({
     required T tile,
@@ -96,7 +96,7 @@ abstract class Event<T extends Tile> {
   ActionResult tileTapped({
     required T tile,
     required double time,
-  }) => ActionResult(event: this);
+  }) => ActionResult.neutral(this);
 
   ActionResult onTileSwiped({
     required T tile,
@@ -114,5 +114,5 @@ abstract class Event<T extends Tile> {
   ActionResult tileSwiped({
     required T tile,
     required Direction direction,
-  }) => ActionResult(event: this);
+  }) => ActionResult.neutral(this);
 }

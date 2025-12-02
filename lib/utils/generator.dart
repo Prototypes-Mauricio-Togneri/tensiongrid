@@ -87,10 +87,10 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
-        /*generator.eventAlign(
+        generator.eventAlign(
           id: 'e0',
-          timestamp: 1,
-        ),*/
+          timestamp: 2,
+        ),
       ],
     );
   }
@@ -414,7 +414,7 @@ class EventGenerator {
     final Event event = EventAlign(
       id: id,
       timestamp: timestamp,
-      timeout: Timeout.long.time.toDouble(),
+      timeout: (Timeout.short.time * length).toDouble(),
       tiles: [],
       direction: direction,
     );

@@ -33,7 +33,7 @@ class EventAlign extends Event<TileAlign> {
   }
 
   @override
-  int get pointsFail => hasStarted ? 5 : 0;
+  int get pointsFail => hasStarted ? numberOfTiles : 0;
 
   @override
   int get pointsSuccess => numberOfTiles * 5;
@@ -71,17 +71,9 @@ class EventAlign extends Event<TileAlign> {
         alignedDown == numberOfTiles ||
         alignedLeft == numberOfTiles ||
         alignedRight == numberOfTiles) {
-      return ActionResult(
-        event: this,
-        score: pointsSuccess,
-        eventCompleted: true,
-        soundTap: true,
-      );
+      return ActionResult.completed(this);
     } else {
-      return ActionResult(
-        event: this,
-        soundTap: true,
-      );
+      return ActionResult.tap(this);
     }
   }
 }
