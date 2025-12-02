@@ -55,10 +55,14 @@ class MatchGenerator {
         color: Colors.red,
       ),
       events: [
-        generator.eventCoin(
+        /*generator.eventCoin(
           id: 'e0',
           timestamp: 2,
-        ),
+        ),*/
+        /*generator.eventDirectional(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
         /*generator.eventAlign(
           id: 'e0',
           timestamp: 1,
@@ -82,10 +86,6 @@ class MatchGenerator {
         /*generator.eventCountdown(
           id: 'e0',
           timestamp: 11,
-        ),*/
-        /*generator.eventDirectional(
-          id: 'e0',
-          timestamp: 13,
         ),*/
         /*generator.eventSequence(
           id: 'e0',

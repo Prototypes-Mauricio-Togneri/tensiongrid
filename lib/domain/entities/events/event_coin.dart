@@ -20,9 +20,5 @@ class EventCoin extends Event<TileCoin> {
   ActionResult tileTapped({
     required TileCoin tile,
     required double time,
-  }) {
-    removeTile(tile);
-
-    return ActionResult.completed(this);
-  }
+  }) => ActionResult.completed(this);
 }

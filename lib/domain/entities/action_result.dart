@@ -8,6 +8,7 @@ class ActionResult {
   final bool eventCompleted;
   final bool removeTile;
 
+  // TODO(momo): make private and use only factory constructors
   const ActionResult({
     required this.event,
     this.score = 0,
@@ -23,5 +24,11 @@ class ActionResult {
     eventCompleted: true,
     removeTile: true,
     soundTap: true,
+  );
+
+  factory ActionResult.penalty(Event event) => ActionResult(
+    event: event,
+    score: -event.pointsFail,
+    soundError: true,
   );
 }

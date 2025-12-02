@@ -23,21 +23,9 @@ class EventDirectional extends Event<TileDirectional> {
     required Direction direction,
   }) {
     if (direction == tile.direction) {
-      removeTile(tile);
-
-      return ActionResult(
-        event: this,
-        score: pointsSuccess,
-        eventCompleted: true,
-        removeTile: true,
-        soundTap: true,
-      );
+      return ActionResult.completed(this);
     } else {
-      return ActionResult(
-        event: this,
-        score: -10, // TODO(momo): use score for error
-        soundError: true,
-      );
+      return ActionResult.penalty(this);
     }
   }
 }
