@@ -22,6 +22,9 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
   }
 
   @override
+  bool get showExplosion => true;
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 

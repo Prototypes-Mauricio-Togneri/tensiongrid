@@ -20,6 +20,9 @@ class TileBombComponent extends TileComponent<TileBomb> {
   }
 
   @override
+  bool get showExplosion => true;
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 

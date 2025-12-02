@@ -42,6 +42,8 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
     );
   }
 
+  bool get showExplosion => false;
+
   @override
   void onTilePressed(double time) => gridComponent.onTilePressed(
     tileComponent: this,
@@ -70,12 +72,5 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
     }
 
     canvas.drawRRect(rect, paintBorderBase);
-
-    /*canvas.drawText(
-      text: '${tile.x},${tile.y}',
-      position: size / 2,
-      size: size.x / 5,
-      color: const Color(0xffffffff),
-    );*/
   }
 }
