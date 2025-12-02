@@ -37,6 +37,10 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
 
   bool get showExplosion => false;
 
+  void borderColor(Color color) {
+    paintBorder.color(color);
+  }
+
   @override
   void onTilePressed(double time) => gridComponent.onTilePressed(
     tileComponent: this,

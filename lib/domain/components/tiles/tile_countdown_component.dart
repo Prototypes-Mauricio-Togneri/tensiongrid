@@ -25,7 +25,24 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
   void update(double dt) {
     super.update(dt);
 
-    neonPaint.color(Colors.red);
+    final double percentage = tile.timeout / tile.event.timeout;
+    final Color gradientColor = _getGradientColor(percentage);
+    neonPaint.color(gradientColor);
+    borderColor(gradientColor);
+  }
+
+  Color _getGradientColor(double percentage) {
+    final double clampedPercentage = percentage.clamp(0, 1);
+
+    if (clampedPercentage <= 0.5) {
+      // Interpolate between red (0.0) and orange (0.5)
+      final double factor = clampedPercentage / 0.5;
+      return Color.lerp(Colors.red, Colors.orange, factor)!;
+    } else {
+      // Interpolate between orange (0.5) and yellow (1.0)
+      final double factor = (clampedPercentage - 0.5) / 0.5;
+      return Color.lerp(Colors.orange, Colors.yellow, factor)!;
+    }
   }
 
   @override

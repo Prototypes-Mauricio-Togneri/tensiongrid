@@ -4,7 +4,6 @@
   - Countdown
     - Explosion sound when timer hits zero
     - Play ticking sound for every second
-    - Change border color from white to yellow to red
   - Bomb
     - Bomb sound when bomb goes off
 - Tutorial
