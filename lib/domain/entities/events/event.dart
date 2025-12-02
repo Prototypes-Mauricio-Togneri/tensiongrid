@@ -41,7 +41,9 @@ abstract class Event<T extends Tile> {
   }
 
   bool update(double dt) {
-    elapsedTime += dt;
+    if (!_isPressed) {
+      elapsedTime += dt;
+    }
 
     for (final T tile in tilesActive) {
       tile.update(dt);

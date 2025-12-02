@@ -1,7 +1,10 @@
 # Tension Grid
 
 - Polish play and UI
-  - Explosion animation for coundown tile
+  - Countdown
+    - Explosion animation for coundown tile
+    - Play ticking sound for every second
+    - Change border color from white to yellow to red
 - Tutorial
 - Generator algorithm
 - Backed and matchmaking

@@ -67,6 +67,10 @@ class MatchGenerator {
           id: 'e0',
           timestamp: 2,
         ),*/
+        /*generator.eventChest(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
 
         /*generator.eventAlign(
           id: 'e0',
@@ -83,10 +87,6 @@ class MatchGenerator {
         /*generator.eventBomb(
           id: 'e0',
           timestamp: 70,
-        ),*/
-        /*generator.eventChest(
-          id: 'e0',
-          timestamp: 9,
         ),*/
         /*generator.eventSequence(
           id: 'e0',
@@ -217,7 +217,7 @@ class EventGenerator {
     final Event event = EventChest(
       id: id,
       timestamp: timestamp,
-      timeout: Timeout.long.time.toDouble(),
+      timeout: Timeout.medium.time.toDouble(),
       tiles: [],
     );
 
@@ -250,7 +250,7 @@ class EventGenerator {
     final Event event = EventBomb(
       id: id,
       timestamp: timestamp,
-      timeout: Timeout.long.time.toDouble(),
+      timeout: Timeout.medium.time.toDouble(),
       tiles: [],
     );
 
@@ -358,7 +358,7 @@ class EventGenerator {
     final Event event = EventMatching(
       id: id,
       timestamp: timestamp,
-      timeout: Timeout.long.time.toDouble(),
+      timeout: (Timeout.short.time * validTiles).toDouble(),
       tiles: [],
       category: validCategory,
       validTiles: validTiles,
@@ -415,7 +415,7 @@ class EventGenerator {
     final Event event = EventAlign(
       id: id,
       timestamp: timestamp,
-      timeout: 100, //Timeout.long.time.toDouble(),
+      timeout: Timeout.long.time.toDouble(),
       tiles: [],
       direction: direction,
     );

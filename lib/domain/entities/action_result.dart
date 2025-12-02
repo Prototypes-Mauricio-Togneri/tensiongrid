@@ -18,6 +18,8 @@ class ActionResult {
     this.removeTile = false,
   });
 
+  factory ActionResult.neutral(Event event) => ActionResult(event: event);
+
   factory ActionResult.completed(Event event) => ActionResult(
     event: event,
     score: event.pointsSuccess,
