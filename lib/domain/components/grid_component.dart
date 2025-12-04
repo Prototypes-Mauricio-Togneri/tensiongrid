@@ -171,7 +171,7 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
     }
 
     if (result.eventCompleted) {
-      Audio.get.playSound(Sound.EVENT_COMPLETED);
+      Audio.get.playSound(Sound.SUCCESS);
 
       _removeEvent(
         event: result.event,

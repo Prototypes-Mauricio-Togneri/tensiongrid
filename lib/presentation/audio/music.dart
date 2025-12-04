@@ -1,4 +1,5 @@
 import 'package:just_audio/just_audio.dart';
+import 'package:tensiongrid/presentation/audio/audio.dart';
 import 'package:tensiongrid/presentation/audio/audio_spec.dart';
 import 'package:tensiongrid/utils/assets.dart';
 
@@ -9,7 +10,7 @@ mixin Music {
   static const AudioSpec MUSIC = AudioSpec(
     path: Assets.AUDIO_MUSIC_MUSIC,
     loop: false,
-    volume: 0.3,
+    volume: 0.2,
   );
 
   Future<AudioPlayer> _getPlayer(AudioSpec spec) async {
@@ -22,11 +23,11 @@ mixin Music {
   }
 
   Future playMusic(AudioSpec audioSpec) async {
-    /*if (Audio.get.enabled) {
+    if (Audio.get.enabled) {
       await stopMusic();
       await _musicPlayers[audioSpec.path]?.seek(Duration.zero);
       await _musicPlayers[audioSpec.path]?.play();
-    }*/
+    }
   }
 
   Future pauseMusic() async {

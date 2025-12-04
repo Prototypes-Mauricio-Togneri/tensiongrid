@@ -14,22 +14,22 @@ mixin Sound {
     path: Assets.AUDIO_SOUND_TILE_ERROR,
     volume: 0.3,
   );
-  static const AudioSpec EVENT_COMPLETED = AudioSpec(
-    path: Assets.AUDIO_SOUND_EVENT_COMPLETED,
-  );
   static const AudioSpec CLOCK_TICK = AudioSpec(
     path: Assets.AUDIO_SOUND_CLOCK_TICK,
   );
   static const AudioSpec EXPLOSION = AudioSpec(
     path: Assets.AUDIO_SOUND_EXPLOSION,
   );
+  static const AudioSpec SUCCESS = AudioSpec(
+    path: Assets.AUDIO_SOUND_SUCCESS,
+  );
 
   static const List<AudioSpec> ALL_SOUNDS = [
     TILE_TAP,
     TILE_ERROR,
-    EVENT_COMPLETED,
     CLOCK_TICK,
     EXPLOSION,
+    SUCCESS,
   ];
 
   Future playSound(AudioSpec spec) async {
