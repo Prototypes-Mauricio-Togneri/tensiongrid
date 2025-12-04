@@ -6,6 +6,8 @@ import 'package:tensiongrid/domain/components/match_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
+import 'package:tensiongrid/presentation/audio/audio.dart';
+import 'package:tensiongrid/presentation/audio/music.dart';
 import 'package:tensiongrid/presentation/common/dialogs/tutorial_dialog.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 import 'package:tensiongrid/utils/palette.dart';
@@ -26,6 +28,8 @@ class GameComponent extends FlameGame {
 
   @override
   FutureOr onLoad() {
+    Audio.get.playMusic(Music.MUSIC);
+
     final Vector2 resolution = Dimensions.cameraResolution(canvasSize);
 
     world = MatchComponent(
@@ -52,6 +56,11 @@ class GameComponent extends FlameGame {
     );
 
     return super.onLoad();
+  }
+
+  @override
+  void onDetach() {
+    Audio.get.stopMusic();
   }
 
   void showTutorial(EventType type) {
