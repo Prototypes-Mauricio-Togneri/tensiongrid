@@ -60,8 +60,6 @@ abstract class Event<T extends Tile> {
 
   bool isNew(double time) => timestamp <= time;
 
-  void onFailed() {}
-
   ActionResult onTilePressed({
     required T tile,
     required double time,

@@ -74,10 +74,6 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
         hasFailed: hasFailed,
       );
     }
-
-    if (hasFailed) {
-      event.onFailed();
-    }
   }
 
   void _removeTile({
@@ -109,6 +105,7 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
           size: tileComponent.size,
         ),
       );
+      Audio.get.playSound(Sound.EXPLOSION);
     }
   }
 
