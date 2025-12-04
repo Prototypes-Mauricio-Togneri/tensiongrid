@@ -8,7 +8,7 @@ class SettingsStorage extends Storage {
   static Future saveAudio(bool value) => Storage.setBool(FIELD_AUDIO, value);
 
   static Future<bool> loadAudio() =>
-      Storage.getBool(FIELD_AUDIO, Environment.get.isRelease || true);
+      Storage.getBool(FIELD_AUDIO, Environment.get.isRelease);
 
   static Future saveName(String name) => Storage.setString(FIELD_NAME, name);
 
