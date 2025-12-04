@@ -1,7 +1,7 @@
 # Tension Grid
 
-- Tutorial
+- Show progress indicator in single tiles
 - Generator algorithm
-- Backed and matchmaking
+- Backend and matchmaking
 
 [Website](https://tension-grid.web.app)

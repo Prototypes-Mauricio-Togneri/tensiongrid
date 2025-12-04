@@ -31,11 +31,26 @@ class TutorialDialog extends StatelessWidget {
 
   String get _text {
     switch (type) {
+      case EventType.coin:
+        return 'Tap it to get points. The sooner you tap it, the more points you get!';
+      case EventType.directional:
+        return 'Swap it in the direction of the arrow to get points.';
       case EventType.countdown:
         return 'Tap it before the countdown runs out. The closer you are to zero, the more points you get!';
+      case EventType.chest:
+        return 'Tap it and hold it for 3 seconds to get points.';
+      case EventType.bomb:
+        return 'Tap it and hold it for 3 seconds to defuse it and avoid losing points.';
       default:
         return '';
     }
+
+    /*
+      quantity,
+      sequence,
+      matching,
+      align,
+    */
   }
 
   String get _imagePath => 'assets/images/tutorial/${type.name}.png';
