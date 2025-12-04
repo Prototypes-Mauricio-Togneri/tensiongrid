@@ -1,5 +1,7 @@
 class Assets {
   static const String AUDIO_MUSIC_MUSIC = 'assets/audio/music/music.mp3';
+  static const String AUDIO_SOUND_CLOCK_TICK =
+      'assets/audio/sound/clock_tick.mp3';
   static const String AUDIO_SOUND_EVENT_COMPLETED =
       'assets/audio/sound/event_completed.mp3';
   static const String AUDIO_SOUND_TILE_ERROR =

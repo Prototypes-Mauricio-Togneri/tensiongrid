@@ -3,11 +3,14 @@ import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
+import 'package:tensiongrid/presentation/audio/audio.dart';
+import 'package:tensiongrid/presentation/audio/sound.dart';
 import 'package:tensiongrid/utils/formatter.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class TileCountdownComponent extends TileComponent<TileCountdown> {
   late final NeonPaint neonPaint;
+  int lastTime = 0;
 
   TileCountdownComponent({
     required super.position,
@@ -19,6 +22,7 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
       color: tile.color,
       style: PaintingStyle.fill,
     );
+    lastTime = tile.timeout.floor();
   }
 
   @override
@@ -29,6 +33,13 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
     final Color gradientColor = _getGradientColor(percentage);
     neonPaint.color(gradientColor);
     borderColor(gradientColor);
+
+    final int currentTime = tile.timeout.floor();
+
+    if (currentTime != lastTime) {
+      lastTime = currentTime;
+      Audio.get.playSound(Sound.CLOCK_TICK);
+    }
   }
 
   Color _getGradientColor(double percentage) {

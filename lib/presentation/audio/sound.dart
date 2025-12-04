@@ -16,11 +16,15 @@ mixin Sound {
   static const AudioSpec EVENT_COMPLETED = AudioSpec(
     path: Assets.AUDIO_SOUND_EVENT_COMPLETED,
   );
+  static const AudioSpec CLOCK_TICK = AudioSpec(
+    path: Assets.AUDIO_SOUND_CLOCK_TICK,
+  );
 
   static const List<AudioSpec> ALL_SOUNDS = [
     TILE_TAP,
     TILE_ERROR,
     EVENT_COMPLETED,
+    CLOCK_TICK,
   ];
 
   Future playSound(AudioSpec spec) async {
