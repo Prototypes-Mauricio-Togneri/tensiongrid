@@ -36,21 +36,20 @@ class TutorialDialog extends StatelessWidget {
       case EventType.directional:
         return 'Swap it in the direction of the arrow to get points.';
       case EventType.countdown:
-        return 'Tap it before the countdown runs out. The closer you are to zero, the more points you get!';
+        return 'Tap it to stop the countdown. The closer you are to zero, the more points you get!';
       case EventType.chest:
         return 'Tap it and hold it for 3 seconds to get points.';
       case EventType.bomb:
         return 'Tap it and hold it for 3 seconds to defuse it and avoid losing points.';
-      default:
-        return '';
+      case EventType.quantity:
+        return 'Tap it as many times as the number shown to get points.';
+      case EventType.sequence:
+        return 'Tap them in order to get points.';
+      case EventType.matching:
+        return 'Tap only the related ones to get points.';
+      case EventType.align:
+        return 'Tap them to rotate them 90º clockwise and align them all to get points.';
     }
-
-    /*
-      quantity,
-      sequence,
-      matching,
-      align,
-    */
   }
 
   String get _imagePath => 'assets/images/tutorial/${type.name}.png';
