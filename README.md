@@ -1,6 +1,5 @@
 # Tension Grid
 
-- Show progress indicator in single tiles
 - Generator algorithm
 - Backend and matchmaking
 
