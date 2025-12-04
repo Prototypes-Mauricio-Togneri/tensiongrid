@@ -11,4 +11,5 @@ class Assets {
   static const String IMAGES_BACKGROUND = 'background.jpg';
   static const String IMAGES_ICONS_ARROW = 'icons/arrow.png';
   static const String IMAGES_ICONS_CHEST = 'icons/chest.png';
+  static const String IMAGES_TUTORIAL_COUNTDOWN = 'tutorial/countdown.png';
 }

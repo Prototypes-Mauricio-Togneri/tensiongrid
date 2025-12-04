@@ -57,7 +57,7 @@ class GameComponent extends FlameGame {
     pauseEngine();
 
     TutorialDialog.show(
-      text: 'Tutorial for $eventType event.',
+      type: eventType,
       onAccept: resumeEngine,
     );
   }
