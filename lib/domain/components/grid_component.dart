@@ -9,6 +9,7 @@ import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 import 'package:tensiongrid/environments/environment.dart';
 import 'package:tensiongrid/extensions/component_extension.dart';
 import 'package:tensiongrid/persistence/storage/tutorial_storage.dart';
@@ -75,12 +76,12 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
       tileComponents.add(tileComponent);
     }
 
-    final String eventType = event.runtimeType.toString();
+    final EventType type = event.type;
 
-    if (!tutorialEventsShown.contains(eventType)) {
-      tutorialEventsShown.add(eventType);
+    if (!tutorialEventsShown.contains(type.name)) {
+      tutorialEventsShown.add(event.type.name);
       TutorialStorage.saveEvents(tutorialEventsShown);
-      game.showTutorial(eventType);
+      game.showTutorial(type);
     }
   }
 

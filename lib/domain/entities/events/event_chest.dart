@@ -1,6 +1,7 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventChest extends Event<TileChest> {
   EventChest({
@@ -8,7 +9,7 @@ class EventChest extends Event<TileChest> {
     required super.timestamp,
     required super.timeout,
     required super.tiles,
-  });
+  }) : super(type: EventType.chest);
 
   @override
   int get pointsFail => hasStarted ? 10 : 5;

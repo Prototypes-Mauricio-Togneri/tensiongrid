@@ -1,6 +1,7 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventBomb extends Event<TileBomb> {
   EventBomb({
@@ -8,7 +9,7 @@ class EventBomb extends Event<TileBomb> {
     required super.timestamp,
     required super.timeout,
     required super.tiles,
-  });
+  }) : super(type: EventType.bomb);
 
   @override
   int get pointsFail => hasStarted ? 10 : 20;

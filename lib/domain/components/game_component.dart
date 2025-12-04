@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/components/match_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 import 'package:tensiongrid/presentation/common/dialogs/tutorial_dialog.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 import 'package:tensiongrid/utils/palette.dart';
@@ -53,11 +54,11 @@ class GameComponent extends FlameGame {
     return super.onLoad();
   }
 
-  void showTutorial(String eventType) {
+  void showTutorial(EventType type) {
     pauseEngine();
 
     TutorialDialog.show(
-      type: eventType,
+      type: type,
       onAccept: resumeEngine,
     );
   }

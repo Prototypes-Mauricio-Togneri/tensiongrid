@@ -1,28 +1,26 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 
 class TutorialDialog extends StatelessWidget {
-  final String type;
+  final EventType type;
   final VoidCallback? onAccept;
 
   const TutorialDialog._(this.type, this.onAccept);
 
   static DialogController show({
-    required String type,
+    required EventType type,
     required VoidCallback onAccept,
   }) {
     final BuildContext context = Navigation.context();
-
-    print(type);
-    print(type.toLowerCase().replaceFirst('event', ''));
 
     Delayed.post(() {
       showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) => TutorialDialog._(
-          type.toLowerCase().replaceFirst('event', ''),
+          type,
           onAccept,
         ),
       );
@@ -32,14 +30,15 @@ class TutorialDialog extends StatelessWidget {
   }
 
   String get _text {
-    if (type == 'countdown') {
-      return 'Tap it before the countdown runs out. The closer you are to zero, the more points you get!';
-    } else {
-      return 'Missing: $type';
+    switch (type) {
+      case EventType.countdown:
+        return 'Tap it before the countdown runs out. The closer you are to zero, the more points you get!';
+      default:
+        return '';
     }
   }
 
-  String get _imagePath => 'assets/images/tutorial/$type.png';
+  String get _imagePath => 'assets/images/tutorial/${type.name}.png';
 
   @override
   Widget build(BuildContext context) {

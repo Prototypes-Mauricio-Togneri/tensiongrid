@@ -1,9 +1,11 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 
 abstract class Event<T extends Tile> {
   final String id;
+  final EventType type;
   final double timestamp;
   final List<T> tilesRemoved = [];
   final List<T> tilesActive = [];
@@ -15,6 +17,7 @@ abstract class Event<T extends Tile> {
 
   Event({
     required this.id,
+    required this.type,
     required this.timestamp,
     required this.timeout,
     required List<T> tiles,

@@ -2,6 +2,7 @@ import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
 import 'package:tensiongrid/domain/types/category.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventMatching extends Event<TileMatching> {
   final Category category;
@@ -15,7 +16,7 @@ class EventMatching extends Event<TileMatching> {
     required super.tiles,
     required this.category,
     required this.validTiles,
-  });
+  }) : super(type: EventType.matching);
 
   @override
   int get pointsFail => hasStarted ? (validTiles - count) : 0;

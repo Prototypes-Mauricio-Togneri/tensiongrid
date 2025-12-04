@@ -1,6 +1,7 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventCoin extends Event<TileCoin> {
   EventCoin({
@@ -8,7 +9,7 @@ class EventCoin extends Event<TileCoin> {
     required super.timestamp,
     required super.timeout,
     required super.tiles,
-  });
+  }) : super(type: EventType.coin);
 
   @override
   int get pointsFail => 1;

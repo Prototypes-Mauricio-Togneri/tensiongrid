@@ -6,12 +6,10 @@ import 'package:tensiongrid/utils/navigation.dart';
 class HomeState extends BaseState {
   @override
   void onLoad() {
-    Delayed.post(onStart);
-  }
-
-  void onStart() {
     if (Environment.get.isDebug) {
-      Navigation.matchScreen(MatchGenerator.test());
+      Delayed.post(onStart);
     }
   }
+
+  void onStart() => Navigation.matchScreen(MatchGenerator.test());
 }

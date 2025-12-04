@@ -1,6 +1,7 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventSequence extends Event<TileSequence> {
   EventSequence({
@@ -8,7 +9,7 @@ class EventSequence extends Event<TileSequence> {
     required super.timestamp,
     required super.timeout,
     required super.tiles,
-  });
+  }) : super(type: EventType.sequence);
 
   @override
   int get pointsFail => hasStarted ? tilesActive.length : 0;
