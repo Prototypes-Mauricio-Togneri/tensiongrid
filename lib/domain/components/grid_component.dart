@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -9,6 +10,8 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/environments/environment.dart';
+import 'package:tensiongrid/extensions/component_extension.dart';
+import 'package:tensiongrid/persistence/storage/tutorial_storage.dart';
 import 'package:tensiongrid/presentation/audio/audio.dart';
 import 'package:tensiongrid/presentation/audio/sound.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
@@ -17,6 +20,7 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
   final Match match;
   late final Vector2 tileSize;
   final List<TileComponent> tileComponents = [];
+  final List<String> tutorialEventsShown = [];
 
   GridComponent({
     required super.position,
@@ -28,6 +32,14 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
       width: match.width,
       height: match.height,
     );
+  }
+
+  @override
+  FutureOr onLoad() async {
+    final List<String> list = await TutorialStorage.loadEvents();
+    tutorialEventsShown.addAll(list);
+
+    return super.onLoad();
   }
 
   @override
@@ -61,6 +73,14 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
 
       add(tileComponent);
       tileComponents.add(tileComponent);
+    }
+
+    final String eventType = event.runtimeType.toString();
+
+    if (!tutorialEventsShown.contains(eventType)) {
+      tutorialEventsShown.add(eventType);
+      TutorialStorage.saveEvents(tutorialEventsShown);
+      game.showTutorial(eventType);
     }
   }
 
