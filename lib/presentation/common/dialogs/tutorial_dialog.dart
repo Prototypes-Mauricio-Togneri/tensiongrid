@@ -14,6 +14,9 @@ class TutorialDialog extends StatelessWidget {
   }) {
     final BuildContext context = Navigation.context();
 
+    print(type);
+    print(type.toLowerCase().replaceFirst('event', ''));
+
     Delayed.post(() {
       showDialog(
         barrierDismissible: false,
@@ -30,9 +33,9 @@ class TutorialDialog extends StatelessWidget {
 
   String get _text {
     if (type == 'countdown') {
-      return 'A countdown event has started! Reach the target before time runs out to earn extra points. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum';
+      return 'Tap it before the countdown runs out. The closer you are to zero, the more points you get!';
     } else {
-      return '';
+      return 'Missing: $type';
     }
   }
 
@@ -48,7 +51,7 @@ class TutorialDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(_imagePath),
-            const VBox(10),
+            const VBox(20),
             Text(_text),
           ],
         ),
@@ -58,7 +61,7 @@ class TutorialDialog extends StatelessWidget {
               Navigation.pop();
               onAccept?.call();
             },
-            child: const Text('OK'),
+            child: const Text('Continue'),
           ),
         ],
       ),
