@@ -12,6 +12,7 @@ mixin Sound {
   );
   static const AudioSpec TILE_ERROR = AudioSpec(
     path: Assets.AUDIO_SOUND_TILE_ERROR,
+    volume: 0.3,
   );
   static const AudioSpec EVENT_COMPLETED = AudioSpec(
     path: Assets.AUDIO_SOUND_EVENT_COMPLETED,
