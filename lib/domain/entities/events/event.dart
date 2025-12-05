@@ -4,7 +4,6 @@ import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 abstract class Event<T extends Tile> {
-  final String id;
   final EventType type;
   final double timestamp;
   final List<T> tilesRemoved = [];
@@ -16,7 +15,6 @@ abstract class Event<T extends Tile> {
   bool _isPressed = false;
 
   Event({
-    required this.id,
     required this.type,
     required this.timestamp,
     required this.timeout,

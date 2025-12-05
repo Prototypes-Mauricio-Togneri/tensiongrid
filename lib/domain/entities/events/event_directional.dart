@@ -6,7 +6,6 @@ import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventDirectional extends Event<TileDirectional> {
   EventDirectional({
-    required super.id,
     required super.timestamp,
     required super.timeout,
     required super.tiles,

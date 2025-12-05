@@ -74,63 +74,54 @@ class EventGenerator {
 
     result.add(
       eventCoin(
-        id: 'e0',
         timestamp: 2,
       ),
     );
 
     result.add(
       eventDirectional(
-        id: 'e0',
         timestamp: 2,
       ),
     );
 
     result.add(
       eventCountdown(
-        id: 'e0',
         timestamp: 2,
       ),
     );
 
     result.add(
       eventChest(
-        id: 'e0',
         timestamp: 5,
       ),
     );
 
     result.add(
       eventBomb(
-        id: 'e0',
         timestamp: 8,
       ),
     );
 
     result.add(
       eventQuantity(
-        id: 'e0',
         timestamp: 12,
       ),
     );
 
     result.add(
       eventSequence(
-        id: 'e0',
         timestamp: 16,
       ),
     );
 
     result.add(
       eventMatching(
-        id: 'e0',
         timestamp: 20,
       ),
     );
 
     result.add(
       eventAlign(
-        id: 'e0',
         timestamp: 25,
       ),
     );
@@ -139,11 +130,9 @@ class EventGenerator {
   }
 
   Event eventCoin({
-    required String id,
     required double timestamp,
   }) {
     final Event event = EventCoin(
-      id: id,
       timestamp: timestamp,
       timeout: Timeout.short.time.toDouble(),
       tiles: [],
@@ -171,11 +160,9 @@ class EventGenerator {
   }
 
   Event eventDirectional({
-    required String id,
     required double timestamp,
   }) {
     final Event event = EventDirectional(
-      id: id,
       timestamp: timestamp,
       timeout: Timeout.short.time.toDouble(),
       tiles: [],
@@ -205,12 +192,10 @@ class EventGenerator {
   }
 
   Event eventCountdown({
-    required String id,
     required double timestamp,
   }) {
     final int timeout = _randomInt(5, 9);
     final Event event = EventCountdown(
-      id: id,
       timestamp: timestamp,
       timeout: timeout.toDouble(),
       tiles: [],
@@ -239,11 +224,9 @@ class EventGenerator {
   }
 
   Event eventChest({
-    required String id,
     required double timestamp,
   }) {
     final Event event = EventChest(
-      id: id,
       timestamp: timestamp,
       timeout: Timeout.medium.time.toDouble(),
       tiles: [],
@@ -271,11 +254,9 @@ class EventGenerator {
   }
 
   Event eventBomb({
-    required String id,
     required double timestamp,
   }) {
     final Event event = EventBomb(
-      id: id,
       timestamp: timestamp,
       timeout: Timeout.medium.time.toDouble(),
       tiles: [],
@@ -303,12 +284,10 @@ class EventGenerator {
   }
 
   Event eventQuantity({
-    required String id,
     required double timestamp,
   }) {
     final int quantity = _randomInt(3, 6);
     final Event event = EventQuantity(
-      id: id,
       timestamp: timestamp,
       timeout: Timeout.medium.time.toDouble(),
       tiles: [],
@@ -338,12 +317,10 @@ class EventGenerator {
   }
 
   Event eventSequence({
-    required String id,
     required double timestamp,
   }) {
     final int length = _randomInt(3, 6);
     final Event event = EventSequence(
-      id: id,
       timestamp: timestamp,
       timeout: (Timeout.short.time * length).toDouble(),
       tiles: [],
@@ -372,14 +349,12 @@ class EventGenerator {
   }
 
   Event eventMatching({
-    required String id,
     required double timestamp,
   }) {
     final Category validCategory = _randomEnum(Category.values);
     final int validTiles = _randomInt(4, 6);
     final int invalidTiles = validTiles ~/ 2;
     final Event event = EventMatching(
-      id: id,
       timestamp: timestamp,
       timeout: (Timeout.short.time * validTiles).toDouble(),
       tiles: [],
@@ -428,13 +403,11 @@ class EventGenerator {
   }
 
   Event eventAlign({
-    required String id,
     required double timestamp,
   }) {
     final int length = _randomInt(3, 6);
     final Direction direction = _randomEnum(Direction.values);
     final Event event = EventAlign(
-      id: id,
       timestamp: timestamp,
       timeout: (Timeout.short.time * length).toDouble(),
       tiles: [],
