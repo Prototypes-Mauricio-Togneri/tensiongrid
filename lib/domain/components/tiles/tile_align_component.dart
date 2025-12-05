@@ -13,9 +13,9 @@ class TileAlignComponent extends TileComponent<TileAlign> {
     required super.size,
     required super.tile,
     required super.gridComponent,
-  }) {
+  }) : super(borderColor: Palette.TILE_WHITE) {
     neonPaint = NeonPaint.create(
-      color: tile.color,
+      color: Palette.TILE_WHITE,
       style: PaintingStyle.fill,
     );
   }

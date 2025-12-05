@@ -10,7 +10,7 @@ class TileDirectionalComponent extends TileComponent<TileDirectional> {
     required super.size,
     required super.tile,
     required super.gridComponent,
-  }) {
+  }) : super(borderColor: tile.direction.color) {
     angle = tile.direction.angle;
   }
 
@@ -21,7 +21,7 @@ class TileDirectionalComponent extends TileComponent<TileDirectional> {
         position: size / 2,
         size: size / 2,
         spritePath: Assets.IMAGES_ICONS_ARROW,
-        tintColor: tile.color,
+        tintColor: tile.direction.color,
       ),
     );
 

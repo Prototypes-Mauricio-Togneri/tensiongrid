@@ -8,7 +8,6 @@ class TileBomb extends Tile {
   TileBomb({
     required super.x,
     required super.y,
-    required super.color,
     required super.event,
   });
 

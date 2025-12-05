@@ -12,19 +12,21 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
   late final RRect rect;
   final GridComponent gridComponent;
   final T tile;
+  final Color borderColor;
 
   TileComponent({
     required super.position,
     required super.size,
     required this.tile,
+    required this.borderColor,
     required this.gridComponent,
   }) {
     paintBackground = Palette.paint(
       style: PaintingStyle.fill,
-      color: tile.color.withAlpha(50),
+      color: borderColor.withAlpha(50),
     );
     paintBorder = NeonPaint.create(
-      color: tile.color,
+      color: borderColor,
       style: PaintingStyle.stroke,
       strokeWidth: size.x * 0.04,
       neonStrokeWidthFactor: 1.2,
@@ -37,7 +39,7 @@ abstract class TileComponent<T extends Tile> extends ActionableComponent {
 
   bool get showExplosion => false;
 
-  void borderColor(Color color) {
+  void setBorderColor(Color color) {
     paintBorder.color(color);
   }
 

@@ -11,7 +11,6 @@ class TileDirectional extends Tile {
   TileDirectional({
     required super.x,
     required super.y,
-    required super.color,
     required super.event,
     required this.direction,
   });

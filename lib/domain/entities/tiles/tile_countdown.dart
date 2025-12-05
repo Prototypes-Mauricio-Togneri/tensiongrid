@@ -10,7 +10,6 @@ class TileCountdown extends Tile {
   TileCountdown({
     required super.x,
     required super.y,
-    required super.color,
     required super.event,
     required this.timeout,
   });

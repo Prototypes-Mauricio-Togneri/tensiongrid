@@ -8,7 +8,6 @@ class TileCoin extends Tile {
   TileCoin({
     required super.x,
     required super.y,
-    required super.color,
     required super.event,
   });
 

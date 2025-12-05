@@ -26,7 +26,6 @@ import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
-import 'package:tensiongrid/utils/palette.dart';
 
 class MatchGenerator {
   static Match test() {
@@ -129,7 +128,6 @@ class EventGenerator {
         TileCoin(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_YELLOW,
           event: event,
         ),
       );
@@ -163,7 +161,6 @@ class EventGenerator {
         TileDirectional(
           x: coord.x,
           y: coord.y,
-          color: direction.color,
           event: event,
           direction: direction,
         ),
@@ -198,7 +195,6 @@ class EventGenerator {
         TileCountdown(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
           event: event,
           timeout: timeout.toDouble(),
         ),
@@ -232,7 +228,6 @@ class EventGenerator {
         TileChest(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_YELLOW,
           event: event,
         ),
       );
@@ -265,7 +260,6 @@ class EventGenerator {
         TileBomb(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_RED,
           event: event,
         ),
       );
@@ -300,7 +294,6 @@ class EventGenerator {
         TileQuantity(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
           event: event,
           quantity: quantity,
         ),
@@ -335,7 +328,6 @@ class EventGenerator {
         TileSequence(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
           event: event,
           number: i + 1,
         ),
@@ -391,7 +383,6 @@ class EventGenerator {
         TileMatching(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
           event: event,
           category: values[i].$2,
           value: values[i].$1,
@@ -430,7 +421,6 @@ class EventGenerator {
         TileAlign(
           x: coord.x,
           y: coord.y,
-          color: Palette.TILE_WHITE,
           event: event,
           direction: direction,
         ),

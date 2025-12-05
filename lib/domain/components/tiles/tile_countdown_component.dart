@@ -17,9 +17,9 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
     required super.size,
     required super.tile,
     required super.gridComponent,
-  }) {
+  }) : super(borderColor: Palette.TILE_WHITE) {
     neonPaint = NeonPaint.create(
-      color: tile.color,
+      color: Palette.TILE_WHITE,
       style: PaintingStyle.fill,
     );
     lastTime = tile.timeout.floor();
@@ -32,7 +32,7 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
     final double percentage = tile.timeout / tile.event.timeout;
     final Color gradientColor = _getGradientColor(percentage);
     neonPaint.color(gradientColor);
-    borderColor(gradientColor);
+    setBorderColor(gradientColor);
 
     final int currentTime = tile.timeout.floor();
 

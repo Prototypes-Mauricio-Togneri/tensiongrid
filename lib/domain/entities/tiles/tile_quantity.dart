@@ -10,7 +10,6 @@ class TileQuantity extends Tile {
   TileQuantity({
     required super.x,
     required super.y,
-    required super.color,
     required super.event,
     required int quantity,
   }) {

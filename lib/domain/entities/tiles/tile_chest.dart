@@ -8,7 +8,6 @@ class TileChest extends Tile {
   TileChest({
     required super.x,
     required super.y,
-    required super.color,
     required super.event,
   });
 
