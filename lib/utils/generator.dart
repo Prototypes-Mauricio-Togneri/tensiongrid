@@ -44,6 +44,7 @@ class MatchGenerator {
       timeout: 5,
       player1: const Player(
         id: '1',
+        isSelf: false,
         index: Constants.PLAYER_1,
         name: 'Alice',
         color: Colors.blue,
@@ -51,6 +52,7 @@ class MatchGenerator {
       ),
       player2: const Player(
         id: '2',
+        isSelf: true,
         index: Constants.PLAYER_2,
         name: 'Bob',
         color: Colors.red,
