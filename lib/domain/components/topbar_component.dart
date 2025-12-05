@@ -139,7 +139,7 @@ class TimeComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawTextNeon(
-      text: Formatter.hoursMinutes(match.elapsedTime.floor()),
+      text: Formatter.hoursMinutes(match.remainingTime),
       position: Vector2(
         size.x / 2,
         size.y * 0.65,

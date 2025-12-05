@@ -8,18 +8,20 @@ class Match {
   final String id;
   final int width;
   final int height;
+  final int timeout;
   final Player player1;
   final Player player2;
   final List<Event> pastEvents = [];
   final List<Event> currentEvents = [];
   final List<Event> futureEvents = [];
-  double elapsedTime = 0;
+  double _elapsedTime = 0;
   int _score = 0;
 
   Match({
     required this.id,
     required this.width,
     required this.height,
+    required this.timeout,
     required this.player1,
     required this.player2,
     required List<Event> events,
@@ -28,6 +30,8 @@ class Match {
   }
 
   int get score => _score;
+
+  int get remainingTime => (timeout - _elapsedTime).ceil();
 
   void _addPoints(int points) {
     _score += points;
@@ -38,7 +42,7 @@ class Match {
   }
 
   (List<Event>, List<Event>) update(double dt) {
-    elapsedTime += dt;
+    _elapsedTime += dt;
 
     final List<Event> timedOutEvents = _timedoutEvents(dt);
 
@@ -48,7 +52,7 @@ class Match {
       _removePoints(event.pointsFail);
     }
 
-    final List<Event> newEvents = _newEvents(elapsedTime);
+    final List<Event> newEvents = _newEvents(_elapsedTime);
 
     for (final Event event in newEvents) {
       currentEvents.add(event);

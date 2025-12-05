@@ -41,17 +41,20 @@ class MatchGenerator {
       id: '123',
       width: width,
       height: height,
+      timeout: 60,
       player1: const Player(
         id: '1',
         index: Constants.PLAYER_1,
         name: 'Alice',
         color: Colors.blue,
+        score: 50,
       ),
       player2: const Player(
         id: '2',
         index: Constants.PLAYER_2,
         name: 'Bob',
         color: Colors.red,
+        score: 75,
       ),
       events: [
         /*generator.eventCoin(
