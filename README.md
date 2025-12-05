@@ -31,7 +31,7 @@ Create new grid
   - width: number
   - height: number
 - events: Event[]
-- winnerId: string?
+- winnerId: string | null
 - playerIds: string[]
 - matches: Match[]
 
