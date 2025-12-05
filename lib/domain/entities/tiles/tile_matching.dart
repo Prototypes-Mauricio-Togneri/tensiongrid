@@ -10,8 +10,7 @@ class TileMatching extends Tile {
   final String value;
 
   TileMatching({
-    required super.x,
-    required super.y,
+    required super.location,
     required super.event,
     required this.category,
     required this.value,

@@ -8,8 +8,7 @@ class TileCountdown extends Tile {
   double timeout;
 
   TileCountdown({
-    required super.x,
-    required super.y,
+    required super.location,
     required super.event,
     required this.timeout,
   });

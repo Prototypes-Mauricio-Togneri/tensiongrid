@@ -92,8 +92,8 @@ class Dimensions {
     required Tile tile,
     required Vector2 tileSize,
   }) => Vector2(
-    (tile.x * tileSize.x) + tileSize.x / 2,
-    (tile.y * tileSize.y) + tileSize.y / 2,
+    (tile.location.x * tileSize.x) + tileSize.x / 2,
+    (tile.location.y * tileSize.y) + tileSize.y / 2,
   );
 
   static Vector2 tileSize({

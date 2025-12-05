@@ -6,8 +6,7 @@ import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 
 class TileBomb extends Tile {
   TileBomb({
-    required super.x,
-    required super.y,
+    required super.location,
     required super.event,
   });
 

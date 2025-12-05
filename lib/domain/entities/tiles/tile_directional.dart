@@ -9,8 +9,7 @@ class TileDirectional extends Tile {
   final Direction direction;
 
   TileDirectional({
-    required super.x,
-    required super.y,
+    required super.location,
     required super.event,
     required this.direction,
   });

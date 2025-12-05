@@ -9,8 +9,7 @@ class TileAlign extends Tile {
   Direction direction;
 
   TileAlign({
-    required super.x,
-    required super.y,
+    required super.location,
     required super.event,
     required this.direction,
   });

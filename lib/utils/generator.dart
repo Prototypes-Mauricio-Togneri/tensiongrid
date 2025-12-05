@@ -167,8 +167,7 @@ class EventGenerator {
     for (final Location location in locations) {
       event.addTile(
         TileCoin(
-          x: location.x,
-          y: location.y,
+          location: location,
           event: event,
         ),
       );
@@ -192,14 +191,12 @@ class EventGenerator {
       length: 1,
     );
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
+    for (final Location location in locations) {
       final Direction direction = _randomEnum(Direction.values);
 
       event.addTile(
         TileDirectional(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
           direction: direction,
         ),
@@ -225,13 +222,10 @@ class EventGenerator {
       length: 1,
     );
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
-
+    for (final Location location in locations) {
       event.addTile(
         TileCountdown(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
           timeout: timeout.toDouble(),
         ),
@@ -256,13 +250,10 @@ class EventGenerator {
       length: 1,
     );
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
-
+    for (final Location location in locations) {
       event.addTile(
         TileChest(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
         ),
       );
@@ -286,13 +277,10 @@ class EventGenerator {
       length: 1,
     );
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
-
+    for (final Location location in locations) {
       event.addTile(
         TileBomb(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
         ),
       );
@@ -318,13 +306,10 @@ class EventGenerator {
       length: 1,
     );
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
-
+    for (final Location location in locations) {
       event.addTile(
         TileQuantity(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
           quantity: quantity,
         ),
@@ -351,12 +336,11 @@ class EventGenerator {
     );
 
     for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
+      final Location location = locations[i];
 
       event.addTile(
         TileSequence(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
           number: i + 1,
         ),
@@ -404,12 +388,11 @@ class EventGenerator {
     }
 
     for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
+      final Location location = locations[i];
 
       event.addTile(
         TileMatching(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
           category: values[i].$2,
           value: values[i].$1,
@@ -438,14 +421,12 @@ class EventGenerator {
       length: length,
     );
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
+    for (final Location location in locations) {
       final Direction direction = _randomEnum(Direction.values);
 
       event.addTile(
         TileAlign(
-          x: coord.x,
-          y: coord.y,
+          location: location,
           event: event,
           direction: direction,
         ),

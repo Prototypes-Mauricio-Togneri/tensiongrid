@@ -8,8 +8,7 @@ class TileQuantity extends Tile {
   late int counter;
 
   TileQuantity({
-    required super.x,
-    required super.y,
+    required super.location,
     required super.event,
     required int quantity,
   }) {
