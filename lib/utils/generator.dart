@@ -80,13 +80,16 @@ class EventGenerator {
       width: width,
       height: height,
     );
-    int time = 0;
+    double time = 0;
 
     for (int i = 0; i < timeout; i++) {
       final int ratio = grid.ratio;
 
       if (ratio < time) {
-        final Event event = _newEvent(grid);
+        final Event event = _newEvent(
+          grid: grid,
+          trigger: time,
+        );
         result.add(event);
       }
 
@@ -96,46 +99,54 @@ class EventGenerator {
     return result;
   }
 
-  Event _newEvent(Grid grid) {
+  Event _newEvent({
+    required Grid grid,
+    required double trigger,
+  }) {
     final EventType eventType = _randomEnum(EventType.values);
 
     switch (eventType) {
       case EventType.coin:
         return _eventCoin(
           grid: grid,
-          trigger: 0,
+          trigger: trigger,
         );
-      case EventType.directional:
+      /*case EventType.directional:
         return eventDirectional(
-          trigger: 0,
+          trigger: trigger,
         );
       case EventType.countdown:
         return eventCountdown(
-          trigger: 0,
+          trigger: trigger,
         );
       case EventType.chest:
         return eventChest(
-          trigger: 0,
+          trigger: trigger,
         );
       case EventType.bomb:
         return eventBomb(
-          trigger: 0,
+          trigger: trigger,
         );
       case EventType.quantity:
         return eventQuantity(
-          trigger: 0,
+          trigger: trigger,
         );
       case EventType.sequence:
         return eventSequence(
-          trigger: 0,
+          trigger: trigger,
         );
       case EventType.matching:
         return eventMatching(
-          trigger: 0,
+          trigger: trigger,
         );
       case EventType.align:
         return eventAlign(
-          trigger: 0,
+          trigger: trigger,
+        );*/
+      default:
+        return _eventCoin(
+          grid: grid,
+          trigger: trigger,
         );
     }
   }
@@ -455,7 +466,7 @@ class EventGenerator {
   }
 
   static T _randomEnum<T>(List<T> values) =>
-      values[_randomInt(0, values.length)];
+      values[_randomInt(0, values.length - 1)];
 }
 
 class Grid {
