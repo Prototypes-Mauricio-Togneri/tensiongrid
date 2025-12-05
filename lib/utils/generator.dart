@@ -157,8 +157,7 @@ class EventGenerator {
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
-      final Direction direction =
-          Direction.values[Random().nextInt(Direction.values.length)];
+      final Direction direction = _randomEnum(Direction.values);
 
       event.addTile(
         TileDirectional(
@@ -178,7 +177,7 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    final int timeout = Random().nextInt(5) + 5;
+    final int timeout = _randomInt(5, 9);
     final Event event = EventCountdown(
       id: id,
       timestamp: timestamp,
@@ -279,7 +278,7 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    final int quantity = Random().nextInt(6) + 1;
+    final int quantity = _randomInt(3, 6);
     final Event event = EventQuantity(
       id: id,
       timestamp: timestamp,
@@ -315,7 +314,7 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    final int length = Random().nextInt(3) + 3;
+    final int length = _randomInt(3, 6);
     final Event event = EventSequence(
       id: id,
       timestamp: timestamp,
@@ -350,9 +349,8 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    final Category validCategory =
-        Category.values[Random().nextInt(Category.values.length)];
-    final int validTiles = Random().nextInt(3) + 3;
+    final Category validCategory = _randomEnum(Category.values);
+    final int validTiles = _randomInt(4, 6);
     final int invalidTiles = validTiles ~/ 2;
     final Event event = EventMatching(
       id: id,
@@ -408,9 +406,8 @@ class EventGenerator {
     required String id,
     required double timestamp,
   }) {
-    final int length = Random().nextInt(3) + 3;
-    final Direction direction =
-        Direction.values[Random().nextInt(Direction.values.length)];
+    final int length = _randomInt(3, 6);
+    final Direction direction = _randomEnum(Direction.values);
     final Event event = EventAlign(
       id: id,
       timestamp: timestamp,
@@ -427,8 +424,7 @@ class EventGenerator {
 
     for (int i = 0; i < coordinates.length; i++) {
       final Coordinates coord = coordinates[i];
-      final Direction direction =
-          Direction.values[Random().nextInt(Direction.values.length)];
+      final Direction direction = _randomEnum(Direction.values);
 
       event.addTile(
         TileAlign(
@@ -461,4 +457,13 @@ class EventGenerator {
 
     return coordinates.toList();
   }
+
+  static int _randomInt(int min, int max) {
+    final Random random = Random();
+
+    return min + random.nextInt(max - min + 1);
+  }
+
+  static T _randomEnum<T>(List<T> values) =>
+      values[_randomInt(0, values.length)];
 }
