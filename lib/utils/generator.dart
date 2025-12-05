@@ -70,44 +70,72 @@ class EventGenerator {
   });
 
   List<Event> get events {
-    return [
-      /*eventCoin(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-      /*eventDirectional(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
+    final List<Event> result = [];
+
+    result.add(
+      eventCoin(
+        id: 'e0',
+        timestamp: 2,
+      ),
+    );
+
+    result.add(
+      eventDirectional(
+        id: 'e0',
+        timestamp: 2,
+      ),
+    );
+
+    result.add(
       eventCountdown(
         id: 'e0',
         timestamp: 2,
       ),
-      /*eventChest(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-      /*eventBomb(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-      /*eventQuantity(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-      /*eventSequence(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-      /*eventMatching(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-      /*eventAlign(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-    ];
+    );
+
+    result.add(
+      eventChest(
+        id: 'e0',
+        timestamp: 5,
+      ),
+    );
+
+    result.add(
+      eventBomb(
+        id: 'e0',
+        timestamp: 8,
+      ),
+    );
+
+    result.add(
+      eventQuantity(
+        id: 'e0',
+        timestamp: 12,
+      ),
+    );
+
+    result.add(
+      eventSequence(
+        id: 'e0',
+        timestamp: 16,
+      ),
+    );
+
+    result.add(
+      eventMatching(
+        id: 'e0',
+        timestamp: 20,
+      ),
+    );
+
+    result.add(
+      eventAlign(
+        id: 'e0',
+        timestamp: 25,
+      ),
+    );
+
+    return result;
   }
 
   Event eventCoin({
