@@ -104,6 +104,7 @@ class EventGenerator {
     required Grid grid,
     required double trigger,
   }) {
+    // TODO(momo): use weightes probabilities
     final EventType eventType = _randomEnum(EventType.values);
 
     switch (eventType) {
@@ -122,11 +123,12 @@ class EventGenerator {
           grid: grid,
           trigger: trigger,
         );
-      /*case EventType.chest:
-        return eventChest(
+      case EventType.chest:
+        return _eventChest(
+          grid: grid,
           trigger: trigger,
         );
-      case EventType.bomb:
+      /*case EventType.bomb:
         return eventBomb(
           trigger: trigger,
         );
@@ -221,7 +223,7 @@ class EventGenerator {
     required Grid grid,
     required double trigger,
   }) {
-    final double timeout = _randomInt(5, 9).toDouble();
+    final double timeout = _randomInt(3, 9).toDouble();
     final double removeTime = trigger + timeout;
 
     final Event event = EventCountdown(
@@ -248,19 +250,22 @@ class EventGenerator {
     return event;
   }
 
-  Event eventChest({
+  Event _eventChest({
+    required Grid grid,
     required double trigger,
   }) {
+    const double timeout = 5;
+    final double removeTime = trigger + timeout;
+
     final Event event = EventChest(
       trigger: trigger,
-      timeout: Timeout.medium.time.toDouble(),
+      timeout: timeout,
       tiles: [],
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: 1,
+    final List<Location> locations = grid.locations(
+      amount: 1,
+      removeTime: removeTime,
     );
 
     for (final Location location in locations) {
