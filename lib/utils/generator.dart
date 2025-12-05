@@ -161,17 +161,80 @@ class EventGenerator {
     }
   }
 
-  // TODO(momo): use weightes probabilities
+  // Uses weighted probabilities based on EventType.probability values
   EventType _nextEventType(List<EventType> presentTypes) {
-    final List<EventType> availableTypes = EventType.values
-        .where((type) => !presentTypes.contains(type))
-        .toList();
+    final List<EventType> availableTypes = [];
 
-    if (availableTypes.isEmpty) {
-      return _randomEnum(EventType.values);
-    } else {
-      return _randomEnum(availableTypes);
+    for (final EventType type in presentTypes) {
+      if (!type.isUnique) {
+        availableTypes.add(type);
+      }
     }
+
+    /*final List<EventType> availableTypes = EventType.values
+        .where((type) => !presentTypes.contains(type))
+        .toList();*/
+
+    /*if (availableTypes.isEmpty) {
+      return _randomWeighted(EventType.values);
+    } else {
+      return _randomWeighted(availableTypes);
+    }*/
+
+    return _randomEventType(
+      availableTypes.isEmpty ? EventType.values : availableTypes,
+    );
+  }
+
+  /// Selects a random EventType based on weighted probabilities
+  /*static EventType _randomWeighted(List<EventType> types) {
+    final Random random = Random();
+    final int totalWeight = types.fold(
+      0,
+      (sum, type) => sum + type.probability,
+    );
+    final int randomValue = random.nextInt(totalWeight);
+
+    int currentWeight = 0;
+    for (final EventType type in types) {
+      currentWeight += type.probability;
+      if (randomValue < currentWeight) {
+        return type;
+      }
+    }
+
+    // Fallback (should never reach here if probabilities are correct)
+    return types.last;
+  }*/
+
+  EventType _randomEventType(List<EventType> types) {
+    final Random random = Random();
+
+    // 1. Calculate the total weight (sum of all probabilities)
+    final int totalWeight = types
+        .map((type) => type.probability)
+        .reduce((a, b) => a + b);
+
+    // 2. Pick a random number between 0 (inclusive) and totalWeight (exclusive)
+    final int randomNumber = random.nextInt(totalWeight);
+
+    // 3. Iterate through the events, accumulating weights to find the selection
+    int cumulativeWeight = 0;
+
+    for (final EventType type in types) {
+      cumulativeWeight += type.probability;
+
+      // If the random number is less than the current cumulative weight,
+      // this is the selected event.
+      if (randomNumber < cumulativeWeight) {
+        return type;
+      }
+    }
+
+    // This part should technically be unreachable if the logic is correct,
+    // but it's good practice to have a fallback.
+    // Returning the first event or throwing an exception is a choice.
+    return types.first;
   }
 
   Event _eventCoin({
