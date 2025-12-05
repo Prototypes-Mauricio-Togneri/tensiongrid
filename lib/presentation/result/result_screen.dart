@@ -41,7 +41,7 @@ class Content extends StatelessWidget {
           onPressed: () {
             // Restart the game or navigate to the main menu
           },
-          child: const Text('Play Again'),
+          child: const Text('Close'),
         ),
       ],
     );

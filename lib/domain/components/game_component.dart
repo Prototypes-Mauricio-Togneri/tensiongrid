@@ -68,6 +68,7 @@ class GameComponent extends FlameGame {
     super.update(dt);
 
     if (match.isFinished) {
+      pauseEngine();
       state.onMatchFinished();
     }
   }

@@ -35,6 +35,8 @@ class Match {
 
   bool get isFinished => _elapsedTime >= timeout;
 
+  bool get isRunning => !isFinished;
+
   void _addPoints(int points) {
     _score += points;
   }

@@ -47,17 +47,19 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
   void update(double dt) {
     super.update(dt);
 
-    final (List<Event>, List<Event>) events = match.update(dt);
+    if (match.isRunning) {
+      final (List<Event>, List<Event>) events = match.update(dt);
 
-    for (final Event event in events.$1) {
-      _removeEvent(
-        event: event,
-        hasFailed: true,
-      );
-    }
+      for (final Event event in events.$1) {
+        _removeEvent(
+          event: event,
+          hasFailed: true,
+        );
+      }
 
-    for (final Event event in events.$2) {
-      _addEvent(event);
+      for (final Event event in events.$2) {
+        _addEvent(event);
+      }
     }
   }
 
