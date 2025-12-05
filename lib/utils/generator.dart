@@ -83,6 +83,8 @@ class EventGenerator {
     double time = 0;
 
     for (int i = 0; i < timeout; i++) {
+      grid.clean(time);
+
       while (grid.ratio < time) {
         final Event event = _newEvent(
           grid: grid,
@@ -496,6 +498,18 @@ class Grid {
 
   void set(int x, int y, double value) {
     grid[y][x] = value;
+  }
+
+  void clean(double time) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        final double value = grid[y][x];
+
+        if (value != 0 && value <= time) {
+          set(x, y, 0);
+        }
+      }
+    }
   }
 
   int get occupancy {
