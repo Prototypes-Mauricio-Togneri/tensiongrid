@@ -117,11 +117,12 @@ class EventGenerator {
           grid: grid,
           trigger: trigger,
         );
-      /*case EventType.countdown:
-        return eventCountdown(
+      case EventType.countdown:
+        return _eventCountdown(
+          grid: grid,
           trigger: trigger,
         );
-      case EventType.chest:
+      /*case EventType.chest:
         return eventChest(
           trigger: trigger,
         );
@@ -216,20 +217,22 @@ class EventGenerator {
     return event;
   }
 
-  Event eventCountdown({
+  Event _eventCountdown({
+    required Grid grid,
     required double trigger,
   }) {
-    final int timeout = _randomInt(5, 9);
+    final double timeout = _randomInt(5, 9).toDouble();
+    final double removeTime = trigger + timeout;
+
     final Event event = EventCountdown(
       trigger: trigger,
-      timeout: timeout.toDouble(),
+      timeout: timeout,
       tiles: [],
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: 1,
+    final List<Location> locations = grid.locations(
+      amount: 1,
+      removeTime: removeTime,
     );
 
     for (final Location location in locations) {
@@ -237,7 +240,7 @@ class EventGenerator {
         TileCountdown(
           location: location,
           event: event,
-          timeout: timeout.toDouble(),
+          timeout: timeout,
         ),
       );
     }
