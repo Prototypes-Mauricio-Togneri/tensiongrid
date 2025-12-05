@@ -3,6 +3,26 @@
 - Generator algorithm
 - Backend and matchmaking
 
+# Matchmaking
+
+## Never played
+
+```
+userId is not in playerIds
+```
+
+## Played but not winner
+
+```
+userId is in playerIds AND userId != winnerId
+```
+
+## Create new match
+
+```
+Create new grid
+```
+
 # Grid
 
 - id: string
@@ -13,7 +33,7 @@
 - events: Event[]
 - winnerId: string?
 - playerIds: string[]
-- history: History[]
+- matches: Match[]
 
 # Match
 
