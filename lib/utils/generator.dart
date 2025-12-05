@@ -133,11 +133,12 @@ class EventGenerator {
           grid: grid,
           trigger: trigger,
         );
-      /*case EventType.quantity:
-        return eventQuantity(
+      case EventType.quantity:
+        return _eventQuantity(
+          grid: grid,
           trigger: trigger,
         );
-      case EventType.sequence:
+      /*case EventType.sequence:
         return eventSequence(
           trigger: trigger,
         );
@@ -311,21 +312,24 @@ class EventGenerator {
     return event;
   }
 
-  Event eventQuantity({
+  Event _eventQuantity({
+    required Grid grid,
     required double trigger,
   }) {
     final int quantity = _randomInt(3, 6);
+    const double timeout = 5;
+    final double removeTime = trigger + timeout;
+
     final Event event = EventQuantity(
       trigger: trigger,
-      timeout: Timeout.medium.time.toDouble(),
+      timeout: timeout,
       tiles: [],
       quantity: quantity,
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: 1,
+    final List<Location> locations = grid.locations(
+      amount: 1,
+      removeTime: removeTime,
     );
 
     for (final Location location in locations) {
