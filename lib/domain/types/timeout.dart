@@ -1,3 +1,4 @@
+// TODO(momo): remove enum
 enum Timeout {
   short(time: 3),
   medium(time: 5),

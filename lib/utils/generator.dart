@@ -156,13 +156,19 @@ class EventGenerator {
     required Grid grid,
     required double trigger,
   }) {
+    const double timeout = 3;
+    final double removeTime = trigger + timeout;
+
     final Event event = EventCoin(
       trigger: trigger,
-      timeout: Timeout.short.time.toDouble(),
+      timeout: timeout,
       tiles: [],
     );
 
-    final List<Location> locations = grid.locations(1);
+    final List<Location> locations = grid.locations(
+      amount: 1,
+      removeTime: removeTime,
+    );
 
     for (final Location location in locations) {
       event.addTile(
@@ -467,7 +473,7 @@ class EventGenerator {
 class Grid {
   final int width;
   final int height;
-  final List<List<int>> grid;
+  final List<List<double>> grid;
 
   const Grid({
     required this.width,
@@ -484,13 +490,17 @@ class Grid {
     grid: List.generate(height, (_) => List.generate(width, (_) => 0)),
   );
 
-  int get(int x, int y) => grid[y][x];
+  double get(int x, int y) => grid[y][x];
+
+  void set(int x, int y, double value) {
+    grid[y][x] = value;
+  }
 
   int get occupancy {
     int result = 0;
 
-    for (final List<int> row in grid) {
-      for (final int value in row) {
+    for (final List<double> row in grid) {
+      for (final double value in row) {
         if (value != 0) {
           result++;
         }
@@ -502,18 +512,22 @@ class Grid {
 
   int get ratio => ((occupancy / (width * height)) * 100).round();
 
-  List<Location> locations(int amount) {
+  List<Location> locations({
+    required int amount,
+    required double removeTime,
+  }) {
     final Random random = Random();
     final Set<Location> locations = {};
 
     while (locations.length < amount) {
       final int x = random.nextInt(width);
       final int y = random.nextInt(height);
-      final int value = get(x, y);
+      final double value = get(x, y);
 
       if (value == 0) {
         final Location coord = Location(x, y);
         locations.add(coord);
+        set(x, y, removeTime);
       }
     }
 
