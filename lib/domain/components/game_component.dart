@@ -6,6 +6,7 @@ import 'package:tensiongrid/domain/components/match_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
+import 'package:tensiongrid/environments/environment.dart';
 import 'package:tensiongrid/presentation/audio/audio.dart';
 import 'package:tensiongrid/presentation/audio/music.dart';
 import 'package:tensiongrid/presentation/common/dialogs/tutorial_dialog.dart';
@@ -64,12 +65,14 @@ class GameComponent extends FlameGame {
   }
 
   void showTutorial(EventType type) {
-    pauseEngine();
+    if (Environment.get.isRelease) {
+      pauseEngine();
 
-    TutorialDialog.show(
-      type: type,
-      onAccept: resumeEngine,
-    );
+      TutorialDialog.show(
+        type: type,
+        onAccept: resumeEngine,
+      );
+    }
   }
 }
 
