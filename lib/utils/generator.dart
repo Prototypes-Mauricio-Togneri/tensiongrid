@@ -25,7 +25,6 @@ import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
-import 'package:tensiongrid/domain/types/timeout.dart';
 
 class MatchGenerator {
   static Match test() {
@@ -148,12 +147,8 @@ class EventGenerator {
           grid: grid,
           trigger: trigger,
         );
-      /*case EventType.align:
-        return eventAlign(
-          trigger: trigger,
-        );*/
-      default:
-        return _eventCoin(
+      case EventType.align:
+        return _eventAlign(
           grid: grid,
           trigger: trigger,
         );
@@ -438,22 +433,26 @@ class EventGenerator {
     return event;
   }
 
-  Event eventAlign({
+  Event _eventAlign({
+    required Grid grid,
     required double trigger,
   }) {
     final int length = _randomInt(3, 6);
     final Direction direction = _randomEnum(Direction.values);
+
+    final double timeout = (2 * length).toDouble();
+    final double removeTime = trigger + timeout;
+
     final Event event = EventAlign(
       trigger: trigger,
-      timeout: (Timeout.short.time * length).toDouble(),
+      timeout: timeout,
       tiles: [],
       direction: direction,
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: length,
+    final List<Location> locations = grid.locations(
+      amount: length,
+      removeTime: removeTime,
     );
 
     for (final Location location in locations) {
@@ -469,24 +468,6 @@ class EventGenerator {
     }
 
     return event;
-  }
-
-  static List<Location> _generateLocations({
-    required int width,
-    required int height,
-    required int length,
-  }) {
-    final Random random = Random();
-    final Set<Location> locations = {};
-
-    while (locations.length < length) {
-      final int x = random.nextInt(width);
-      final int y = random.nextInt(height);
-      final Location coord = Location(x, y);
-      locations.add(coord);
-    }
-
-    return locations.toList();
   }
 
   static int _randomInt(int min, int max) {
