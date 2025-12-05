@@ -201,9 +201,7 @@ class EventGenerator {
       }
     }
 
-    // This part should technically be unreachable if the logic is correct,
-    // but it's good practice to have a fallback.
-    // Returning the first event or throwing an exception is a choice.
+    // This part should technically be unreachable if the logic is correct
     return types.first;
   }
 
