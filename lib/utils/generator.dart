@@ -71,7 +71,7 @@ class EventGenerator {
 
   List<Event> get events {
     final List<Event> result = [];
-    final Grid grid = Grid.empty(
+    final Grid grid = Grid.create(
       width: width,
       height: height,
     );
@@ -471,26 +471,30 @@ class EventGenerator {
 }
 
 class Grid {
+  final int width;
+  final int height;
   final List<List<int>> grid;
 
-  const Grid(this.grid);
+  const Grid({
+    required this.width,
+    required this.height,
+    required this.grid,
+  });
 
-  factory Grid.empty({
+  factory Grid.create({
     required int width,
     required int height,
   }) => Grid(
-    List.generate(height, (_) => List.generate(width, (_) => 0)),
+    width: width,
+    height: height,
+    grid: List.generate(height, (_) => List.generate(width, (_) => 0)),
   );
 
-  static List<Location> locations({
-    required int width,
-    required int height,
-    required int length,
-  }) {
+  List<Location> locations(int amount) {
     final Random random = Random();
     final Set<Location> locations = {};
 
-    while (locations.length < length) {
+    while (locations.length < amount) {
       final int x = random.nextInt(width);
       final int y = random.nextInt(height);
       final Location coord = Location(x: x, y: y);
