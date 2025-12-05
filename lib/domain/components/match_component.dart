@@ -4,18 +4,15 @@ import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/score_component.dart';
 import 'package:tensiongrid/domain/components/topbar_component.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
-import 'package:tensiongrid/domain/state/match/match_state.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Vector2 resolution;
   final Match match;
-  final MatchState state;
 
   MatchComponent({
     required this.resolution,
     required this.match,
-    required this.state,
   }) {
     MatchComponentRef.instance = this;
   }

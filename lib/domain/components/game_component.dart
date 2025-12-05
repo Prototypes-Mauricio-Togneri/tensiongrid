@@ -15,11 +15,11 @@ import 'package:tensiongrid/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final Match match;
-  final MatchState matchState;
+  final MatchState state;
 
   GameComponent({
     required this.match,
-    required this.matchState,
+    required this.state,
   }) {
     GameComponentRef.instance = this;
   }
@@ -36,7 +36,6 @@ class GameComponent extends FlameGame {
     world = MatchComponent(
       resolution: resolution,
       match: match,
-      state: matchState,
     );
 
     camera = CameraComponent.withFixedResolution(
@@ -62,6 +61,15 @@ class GameComponent extends FlameGame {
   @override
   void onDetach() {
     Audio.get.stopMusic();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (match.isFinished) {
+      state.onMatchFinished();
+    }
   }
 
   void showTutorial(EventType type) {

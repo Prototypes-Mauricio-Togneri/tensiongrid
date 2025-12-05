@@ -41,7 +41,7 @@ class MatchGenerator {
       id: '123',
       width: width,
       height: height,
-      timeout: 60,
+      timeout: 5,
       player1: const Player(
         id: '1',
         index: Constants.PLAYER_1,

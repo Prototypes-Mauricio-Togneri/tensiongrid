@@ -45,7 +45,7 @@ class Content extends StatelessWidget {
         GameWidget(
           game: GameComponent(
             match: state.match,
-            matchState: state,
+            state: state,
           ),
         ),
       ],

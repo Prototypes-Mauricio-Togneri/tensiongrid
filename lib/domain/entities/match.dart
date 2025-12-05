@@ -33,6 +33,8 @@ class Match {
 
   int get remainingTime => (timeout - _elapsedTime).ceil();
 
+  bool get isFinished => _elapsedTime >= timeout;
+
   void _addPoints(int points) {
     _score += points;
   }
