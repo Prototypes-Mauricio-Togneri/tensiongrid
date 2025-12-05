@@ -85,9 +85,15 @@ class EventGenerator {
       grid.clean(time);
 
       while (grid.ratio < time) {
+        final List<EventType> presentTypes = result
+            .map((e) => e.type)
+            .toSet()
+            .toList();
+
         final Event event = _newEvent(
           grid: grid,
           trigger: time,
+          presentTypes: presentTypes,
         );
         result.add(event);
         print('Event: ${event.type}, time $time, ratio ${grid.ratio}%');
@@ -102,6 +108,7 @@ class EventGenerator {
   Event _newEvent({
     required Grid grid,
     required double trigger,
+    required List<EventType> presentTypes,
   }) {
     // TODO(momo): use weightes probabilities
     final EventType eventType = _randomEnum(EventType.values);
