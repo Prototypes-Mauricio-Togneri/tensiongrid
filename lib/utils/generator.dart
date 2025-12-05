@@ -83,12 +83,13 @@ class EventGenerator {
     double time = 0;
 
     for (int i = 0; i < timeout; i++) {
-      if (grid.ratio < time) {
+      while (grid.ratio < time) {
         final Event event = _newEvent(
           grid: grid,
           trigger: time,
         );
         result.add(event);
+        print('Event: ${event.type}, time $time, ratio ${grid.ratio}%');
       }
 
       time++;
