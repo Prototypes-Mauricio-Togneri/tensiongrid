@@ -1,7 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
+import 'package:tensiongrid/presentation/common/text/label.dart';
 import 'package:tensiongrid/utils/navigation.dart';
+import 'package:tensiongrid/utils/palette.dart';
 
 class TutorialDialog extends StatelessWidget {
   final EventType type;
@@ -36,7 +38,7 @@ class TutorialDialog extends StatelessWidget {
       case EventType.directional:
         return 'Swap it in the direction of the arrow to get points.';
       case EventType.countdown:
-        return 'Tap it to stop the countdown. The closer you are to zero, the more points you get!';
+        return 'Tap it to stop the countdown. The closer get are to zero, the more points you get!';
       case EventType.chest:
         return 'Tap it and hold it for 3 seconds to get points.';
       case EventType.bomb:
@@ -65,7 +67,11 @@ class TutorialDialog extends StatelessWidget {
           children: [
             Image.asset(_imagePath),
             const VBox(20),
-            Text(_text),
+            Label(
+              text: _text,
+              color: Palette.TEXT_COLOR_SECONDATY,
+              size: 16,
+            ),
           ],
         ),
         actions: [
@@ -74,7 +80,11 @@ class TutorialDialog extends StatelessWidget {
               Navigation.pop();
               onAccept?.call();
             },
-            child: const Text('Continue'),
+            child: const Label(
+              text: 'CONTINUE',
+              color: Palette.PRIMARY,
+              size: 16,
+            ),
           ),
         ],
       ),

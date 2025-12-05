@@ -15,7 +15,7 @@ class EventCountdown extends Event<TileCountdown> {
   int get pointsFail => timeout.ceil();
 
   @override
-  int get pointsSuccess => (timeout - remainingTime).floor();
+  int get pointsSuccess => (timeout - remainingTime).ceil();
 
   @override
   ActionResult tileTapped({

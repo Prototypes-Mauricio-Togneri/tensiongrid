@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/app/constants.dart';
 
 class Label extends StatelessWidget {
   final String text;
@@ -30,6 +31,7 @@ class Label extends StatelessWidget {
       textAlign: align,
       maxLines: maxLines,
       style: TextStyle(
+        fontFamily: Constants.FONT_MICHROMA,
         color: color,
         fontSize: size,
         fontWeight: weight,

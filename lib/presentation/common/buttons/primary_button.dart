@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/presentation/common/text/label.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -15,8 +16,8 @@ class PrimaryButton extends StatelessWidget {
     required this.enabled,
     required this.backgroundColor,
     required this.onPressed,
-    this.fontSize = 14,
-    this.height = 30,
+    this.fontSize = 18,
+    this.height = 40,
     this.fullWidth = false,
   });
 
@@ -41,8 +42,20 @@ class PrimaryButton extends StatelessWidget {
           textStyle: WidgetStateProperty.all<TextStyle>(
             TextStyle(fontSize: fontSize),
           ),
+          padding: WidgetStateProperty.all<EdgeInsets>(
+            const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              bottom: 10,
+              top: 0,
+            ),
+          ),
         ),
-        child: Text(label.toUpperCase()),
+        child: Label(
+          text: label.toUpperCase(),
+          color: Palette.TEXT_COLOR_PRIMARY,
+          size: fontSize,
+        ),
       ),
     );
   }

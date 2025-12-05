@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/presentation/splash/splash_screen.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 import 'package:tensiongrid/utils/palette.dart';
@@ -13,6 +14,7 @@ class TensionGrid extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: Navigation.get.routes.key,
       theme: ThemeData(
+        fontFamily: Constants.FONT_MICHROMA,
         primaryColor: Palette.PRIMARY,
         primarySwatch: Palette.PRIMARY,
         colorScheme: ColorScheme.fromSeed(seedColor: Palette.PRIMARY),

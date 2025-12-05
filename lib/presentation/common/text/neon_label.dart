@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tensiongrid/app/constants.dart';
 
-class NeonText extends StatelessWidget {
+class NeonLabel extends StatelessWidget {
   final String text;
   final Color color;
   final double size;
@@ -11,7 +12,7 @@ class NeonText extends StatelessWidget {
   final int? maxLines;
   final double glowRadius;
 
-  const NeonText({
+  const NeonLabel({
     required this.text,
     required this.color,
     required this.size,
@@ -20,10 +21,10 @@ class NeonText extends StatelessWidget {
     this.align,
     this.overflow,
     this.maxLines,
-    this.glowRadius = 5,
+    this.glowRadius = 4,
   });
 
-  @override
+  /*@override
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -55,15 +56,16 @@ class NeonText extends StatelessWidget {
           ),
         ),
       ],
-    );
+    );*/
 
-    /*@override
+  @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: align,
       maxLines: maxLines,
       style: TextStyle(
+        fontFamily: Constants.FONT_MICHROMA,
         color: color,
         fontSize: size,
         fontWeight: weight,
@@ -96,6 +98,6 @@ class NeonText extends StatelessWidget {
           ),
         ],
       ),
-    );*/
+    );
   }
 }

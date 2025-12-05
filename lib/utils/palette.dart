@@ -10,6 +10,7 @@ class Palette {
   static const Color GAME_BACKGROUND = Colors.black;
 
   static const Color TEXT_COLOR_PRIMARY = Colors.white;
+  static const Color TEXT_COLOR_SECONDATY = Color(0xff333333);
 
   static const Color PLAYER_1 = Colors.blue;
   static const Color PLAYER_2 = Colors.red;

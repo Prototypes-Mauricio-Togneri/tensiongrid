@@ -5,7 +5,7 @@ import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/state/result/result_state.dart';
 import 'package:tensiongrid/presentation/common/buttons/primary_button.dart';
 import 'package:tensiongrid/presentation/common/containers/game_container.dart';
-import 'package:tensiongrid/presentation/common/text/neon_text.dart';
+import 'package:tensiongrid/presentation/common/text/neon_label.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
 class ResultScreen extends StatelessWidget {
@@ -72,13 +72,13 @@ class PlayerScore extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        NeonText(
+        NeonLabel(
           text: player.name.toUpperCase(),
           size: 36,
           color: player.color,
         ),
         const HBox(20),
-        NeonText(
+        NeonLabel(
           text: score.toString(),
           size: 36,
           color: Palette.TEXT_COLOR_PRIMARY,
