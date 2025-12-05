@@ -74,7 +74,7 @@ class GameComponent extends FlameGame {
   }
 
   void showTutorial(EventType type) {
-    if (!Environment.get.isRelease) {
+    if (Environment.get.isRelease) {
       pauseEngine();
 
       TutorialDialog.show(
