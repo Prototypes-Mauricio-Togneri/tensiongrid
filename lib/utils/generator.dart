@@ -24,6 +24,7 @@ import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
+import 'package:tensiongrid/domain/types/event_type.dart';
 import 'package:tensiongrid/domain/types/timeout.dart';
 
 class MatchGenerator {
@@ -85,71 +86,58 @@ class EventGenerator {
       final int ratio = grid.ratio;
 
       if (ratio < time) {
-        final Event event = _eventCoin(
-          grid: grid,
-          trigger: time.toDouble(),
-        );
+        final Event event = _newEvent(grid);
         result.add(event);
       }
 
       time++;
     }
 
-    /*result.add(
-      eventCoin(
-        trigger: 2,
-      ),
-    );
-
-    result.add(
-      eventDirectional(
-        trigger: 2,
-      ),
-    );
-
-    result.add(
-      eventCountdown(
-        trigger: 2,
-      ),
-    );
-
-    result.add(
-      eventChest(
-        trigger: 5,
-      ),
-    );
-
-    result.add(
-      eventBomb(
-        trigger: 8,
-      ),
-    );
-
-    result.add(
-      eventQuantity(
-        trigger: 12,
-      ),
-    );
-
-    result.add(
-      eventSequence(
-        trigger: 16,
-      ),
-    );
-
-    result.add(
-      eventMatching(
-        trigger: 20,
-      ),
-    );
-
-    result.add(
-      eventAlign(
-        trigger: 25,
-      ),
-    );*/
-
     return result;
+  }
+
+  Event _newEvent(Grid grid) {
+    final EventType eventType = _randomEnum(EventType.values);
+
+    switch (eventType) {
+      case EventType.coin:
+        return _eventCoin(
+          grid: grid,
+          trigger: 0,
+        );
+      case EventType.directional:
+        return eventDirectional(
+          trigger: 0,
+        );
+      case EventType.countdown:
+        return eventCountdown(
+          trigger: 0,
+        );
+      case EventType.chest:
+        return eventChest(
+          trigger: 0,
+        );
+      case EventType.bomb:
+        return eventBomb(
+          trigger: 0,
+        );
+      case EventType.quantity:
+        return eventQuantity(
+          trigger: 0,
+        );
+      case EventType.sequence:
+        return eventSequence(
+          trigger: 0,
+        );
+      case EventType.matching:
+        return eventMatching(
+          trigger: 0,
+        );
+      case EventType.align:
+        return eventAlign(
+          trigger: 0,
+        );
+    }
   }
 
   Event _eventCoin({
