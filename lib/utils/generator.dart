@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:tensiongrid/app/constants.dart';
-import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/events/event_align.dart';
 import 'package:tensiongrid/domain/entities/events/event_bomb.dart';
@@ -11,6 +10,7 @@ import 'package:tensiongrid/domain/entities/events/event_directional.dart';
 import 'package:tensiongrid/domain/entities/events/event_matching.dart';
 import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
+import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
@@ -71,6 +71,11 @@ class EventGenerator {
 
   List<Event> get events {
     final List<Event> result = [];
+    final Grid grid = Grid.empty(
+      width: width,
+      height: height,
+    );
+    print(grid);
 
     result.add(
       eventCoin(
@@ -138,14 +143,14 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: 1,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
 
       event.addTile(
         TileCoin(
@@ -168,14 +173,14 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: 1,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
       final Direction direction = _randomEnum(Direction.values);
 
       event.addTile(
@@ -201,14 +206,14 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: 1,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
 
       event.addTile(
         TileCountdown(
@@ -232,14 +237,14 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: 1,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
 
       event.addTile(
         TileChest(
@@ -262,14 +267,14 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: 1,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
 
       event.addTile(
         TileBomb(
@@ -294,14 +299,14 @@ class EventGenerator {
       quantity: quantity,
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: 1,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
 
       event.addTile(
         TileQuantity(
@@ -326,14 +331,14 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: length,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
 
       event.addTile(
         TileSequence(
@@ -362,7 +367,7 @@ class EventGenerator {
       validTiles: validTiles,
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: validTiles + invalidTiles,
@@ -385,8 +390,8 @@ class EventGenerator {
       }
     }
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
 
       event.addTile(
         TileMatching(
@@ -414,14 +419,14 @@ class EventGenerator {
       direction: direction,
     );
 
-    final List<Coordinates> coordinates = _generateCoordinates(
+    final List<Location> locations = _generateLocations(
       width: width,
       height: height,
       length: length,
     );
 
-    for (int i = 0; i < coordinates.length; i++) {
-      final Coordinates coord = coordinates[i];
+    for (int i = 0; i < locations.length; i++) {
+      final Location coord = locations[i];
       final Direction direction = _randomEnum(Direction.values);
 
       event.addTile(
@@ -437,22 +442,22 @@ class EventGenerator {
     return event;
   }
 
-  static List<Coordinates> _generateCoordinates({
+  static List<Location> _generateLocations({
     required int width,
     required int height,
     required int length,
   }) {
     final Random random = Random();
-    final Set<Coordinates> coordinates = {};
+    final Set<Location> locations = {};
 
-    while (coordinates.length < length) {
+    while (locations.length < length) {
       final int x = random.nextInt(width);
       final int y = random.nextInt(height);
-      final Coordinates coord = Coordinates(x: x, y: y);
-      coordinates.add(coord);
+      final Location coord = Location(x: x, y: y);
+      locations.add(coord);
     }
 
-    return coordinates.toList();
+    return locations.toList();
   }
 
   static int _randomInt(int min, int max) {
@@ -463,4 +468,35 @@ class EventGenerator {
 
   static T _randomEnum<T>(List<T> values) =>
       values[_randomInt(0, values.length)];
+}
+
+class Grid {
+  final List<List<int>> grid;
+
+  const Grid(this.grid);
+
+  factory Grid.empty({
+    required int width,
+    required int height,
+  }) => Grid(
+    List.generate(height, (_) => List.generate(width, (_) => 0)),
+  );
+
+  static List<Location> locations({
+    required int width,
+    required int height,
+    required int length,
+  }) {
+    final Random random = Random();
+    final Set<Location> locations = {};
+
+    while (locations.length < length) {
+      final int x = random.nextInt(width);
+      final int y = random.nextInt(height);
+      final Location coord = Location(x: x, y: y);
+      locations.add(coord);
+    }
+
+    return locations.toList();
+  }
 }

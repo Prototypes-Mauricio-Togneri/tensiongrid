@@ -1,15 +1,15 @@
-class Coordinates {
+class Location {
   final int x;
   final int y;
 
-  const Coordinates({
+  const Location({
     required this.x,
     required this.y,
   });
 
   @override
   bool operator ==(Object other) =>
-      other is Coordinates &&
+      other is Location &&
       other.runtimeType == runtimeType &&
       other.hashCode == hashCode;
 
