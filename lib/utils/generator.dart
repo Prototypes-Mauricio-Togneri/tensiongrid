@@ -85,9 +85,15 @@ class EventGenerator {
       grid.clean(time);
 
       while (grid.ratio < time) {
+        final List<EventType> presentTypes = result
+            .where((e) => (e.trigger + e.timeout) >= time)
+            .map((e) => e.type)
+            .toSet()
+            .toList();
         final Event event = _newEvent(
           grid: grid,
           trigger: time,
+          presentTypes: presentTypes,
         );
         result.add(event);
         print('Event: ${event.type}, time $time, ratio ${grid.ratio}%');
@@ -102,8 +108,9 @@ class EventGenerator {
   Event _newEvent({
     required Grid grid,
     required double trigger,
+    required List<EventType> presentTypes,
   }) {
-    final EventType eventType = _nextEventType([]);
+    final EventType eventType = _nextEventType(presentTypes);
 
     switch (eventType) {
       case EventType.coin:
@@ -157,7 +164,7 @@ class EventGenerator {
   // TODO(momo): use weightes probabilities
   EventType _nextEventType(List<EventType> presentTypes) {
     final List<EventType> availableTypes = EventType.values
-        .where((EventType type) => !presentTypes.contains(type))
+        .where((type) => !presentTypes.contains(type))
         .toList();
 
     if (availableTypes.isEmpty) {
