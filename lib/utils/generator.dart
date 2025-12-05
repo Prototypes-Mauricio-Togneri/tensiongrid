@@ -85,7 +85,7 @@ class EventGenerator {
       final int ratio = grid.ratio;
 
       if (ratio < time) {
-        final Event event = eventCoin(
+        final Event event = _eventCoin(
           grid: grid,
           timestamp: time.toDouble(),
         );
@@ -152,7 +152,7 @@ class EventGenerator {
     return result;
   }
 
-  Event eventCoin({
+  Event _eventCoin({
     required Grid grid,
     required double timestamp,
   }) {
