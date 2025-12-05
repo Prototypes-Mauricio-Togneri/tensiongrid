@@ -8,13 +8,13 @@
 ## Never played
 
 ```
-userId is not in playerIds
+userId not in playerIds
 ```
 
 ## Played but not winner
 
 ```
-userId is in playerIds AND userId != winnerId
+userId in playerIds AND userId != winnerId
 ```
 
 ## Create new match
