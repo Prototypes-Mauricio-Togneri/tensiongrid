@@ -87,7 +87,7 @@ class EventGenerator {
       if (ratio < time) {
         final Event event = _eventCoin(
           grid: grid,
-          timestamp: time.toDouble(),
+          trigger: time.toDouble(),
         );
         result.add(event);
       }
@@ -97,55 +97,55 @@ class EventGenerator {
 
     /*result.add(
       eventCoin(
-        timestamp: 2,
+        trigger: 2,
       ),
     );
 
     result.add(
       eventDirectional(
-        timestamp: 2,
+        trigger: 2,
       ),
     );
 
     result.add(
       eventCountdown(
-        timestamp: 2,
+        trigger: 2,
       ),
     );
 
     result.add(
       eventChest(
-        timestamp: 5,
+        trigger: 5,
       ),
     );
 
     result.add(
       eventBomb(
-        timestamp: 8,
+        trigger: 8,
       ),
     );
 
     result.add(
       eventQuantity(
-        timestamp: 12,
+        trigger: 12,
       ),
     );
 
     result.add(
       eventSequence(
-        timestamp: 16,
+        trigger: 16,
       ),
     );
 
     result.add(
       eventMatching(
-        timestamp: 20,
+        trigger: 20,
       ),
     );
 
     result.add(
       eventAlign(
-        timestamp: 25,
+        trigger: 25,
       ),
     );*/
 
@@ -154,10 +154,10 @@ class EventGenerator {
 
   Event _eventCoin({
     required Grid grid,
-    required double timestamp,
+    required double trigger,
   }) {
     final Event event = EventCoin(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: Timeout.short.time.toDouble(),
       tiles: [],
     );
@@ -177,10 +177,10 @@ class EventGenerator {
   }
 
   Event eventDirectional({
-    required double timestamp,
+    required double trigger,
   }) {
     final Event event = EventDirectional(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: Timeout.short.time.toDouble(),
       tiles: [],
     );
@@ -207,11 +207,11 @@ class EventGenerator {
   }
 
   Event eventCountdown({
-    required double timestamp,
+    required double trigger,
   }) {
     final int timeout = _randomInt(5, 9);
     final Event event = EventCountdown(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: timeout.toDouble(),
       tiles: [],
     );
@@ -236,10 +236,10 @@ class EventGenerator {
   }
 
   Event eventChest({
-    required double timestamp,
+    required double trigger,
   }) {
     final Event event = EventChest(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: Timeout.medium.time.toDouble(),
       tiles: [],
     );
@@ -263,10 +263,10 @@ class EventGenerator {
   }
 
   Event eventBomb({
-    required double timestamp,
+    required double trigger,
   }) {
     final Event event = EventBomb(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: Timeout.medium.time.toDouble(),
       tiles: [],
     );
@@ -290,11 +290,11 @@ class EventGenerator {
   }
 
   Event eventQuantity({
-    required double timestamp,
+    required double trigger,
   }) {
     final int quantity = _randomInt(3, 6);
     final Event event = EventQuantity(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: Timeout.medium.time.toDouble(),
       tiles: [],
       quantity: quantity,
@@ -320,11 +320,11 @@ class EventGenerator {
   }
 
   Event eventSequence({
-    required double timestamp,
+    required double trigger,
   }) {
     final int length = _randomInt(3, 6);
     final Event event = EventSequence(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: (Timeout.short.time * length).toDouble(),
       tiles: [],
     );
@@ -351,13 +351,13 @@ class EventGenerator {
   }
 
   Event eventMatching({
-    required double timestamp,
+    required double trigger,
   }) {
     final Category validCategory = _randomEnum(Category.values);
     final int validTiles = _randomInt(4, 6);
     final int invalidTiles = validTiles ~/ 2;
     final Event event = EventMatching(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: (Timeout.short.time * validTiles).toDouble(),
       tiles: [],
       category: validCategory,
@@ -404,12 +404,12 @@ class EventGenerator {
   }
 
   Event eventAlign({
-    required double timestamp,
+    required double trigger,
   }) {
     final int length = _randomInt(3, 6);
     final Direction direction = _randomEnum(Direction.values);
     final Event event = EventAlign(
-      timestamp: timestamp,
+      trigger: trigger,
       timeout: (Timeout.short.time * length).toDouble(),
       tiles: [],
       direction: direction,

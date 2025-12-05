@@ -5,7 +5,7 @@ import 'package:tensiongrid/domain/types/event_type.dart';
 
 abstract class Event<T extends Tile> {
   final EventType type;
-  final double timestamp;
+  final double trigger;
   final List<T> tilesRemoved = [];
   final List<T> tilesActive = [];
   final double timeout;
@@ -16,7 +16,7 @@ abstract class Event<T extends Tile> {
 
   Event({
     required this.type,
-    required this.timestamp,
+    required this.trigger,
     required this.timeout,
     required List<T> tiles,
   }) {
@@ -59,7 +59,7 @@ abstract class Event<T extends Tile> {
 
   double get remainingTime => timeout - elapsedTime;
 
-  bool isNew(double time) => timestamp <= time;
+  bool isNew(double time) => trigger <= time;
 
   ActionResult onTilePressed({
     required T tile,

@@ -5,7 +5,7 @@ import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventCoin extends Event<TileCoin> {
   EventCoin({
-    required super.timestamp,
+    required super.trigger,
     required super.timeout,
     required super.tiles,
   }) : super(type: EventType.coin);

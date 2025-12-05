@@ -12,7 +12,7 @@ class EventAlign extends Event<TileAlign> {
   int alignedRight = 0;
 
   EventAlign({
-    required super.timestamp,
+    required super.trigger,
     required super.timeout,
     required super.tiles,
     required this.direction,

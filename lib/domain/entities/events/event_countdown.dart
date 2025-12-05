@@ -5,7 +5,7 @@ import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventCountdown extends Event<TileCountdown> {
   EventCountdown({
-    required super.timestamp,
+    required super.trigger,
     required super.timeout,
     required super.tiles,
   }) : super(type: EventType.countdown);

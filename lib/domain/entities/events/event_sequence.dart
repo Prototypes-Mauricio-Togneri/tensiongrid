@@ -5,7 +5,7 @@ import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventSequence extends Event<TileSequence> {
   EventSequence({
-    required super.timestamp,
+    required super.trigger,
     required super.timeout,
     required super.tiles,
   }) : super(type: EventType.sequence);

@@ -5,7 +5,7 @@ import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventChest extends Event<TileChest> {
   EventChest({
-    required super.timestamp,
+    required super.trigger,
     required super.timeout,
     required super.tiles,
   }) : super(type: EventType.chest);

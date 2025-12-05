@@ -10,7 +10,7 @@ class EventMatching extends Event<TileMatching> {
   int count = 0;
 
   EventMatching({
-    required super.timestamp,
+    required super.trigger,
     required super.timeout,
     required super.tiles,
     required this.category,

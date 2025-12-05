@@ -53,7 +53,7 @@ Create new grid
 
 - id: string
 - type: string
-- timestamp: number
+- trigger: number
 - tiles: Tile[]
 
 # Tile

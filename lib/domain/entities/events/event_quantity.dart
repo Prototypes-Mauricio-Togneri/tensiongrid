@@ -8,7 +8,7 @@ class EventQuantity extends Event<TileQuantity> {
   late int count;
 
   EventQuantity({
-    required super.timestamp,
+    required super.trigger,
     required super.timeout,
     required super.tiles,
     required this.quantity,
