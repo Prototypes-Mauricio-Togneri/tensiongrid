@@ -90,7 +90,7 @@ class NeonText extends StatelessWidget {
           ),
           // Core highlight
           Shadow(
-            color: Colors.white.withAlpha(204),
+            color: color.withAlpha(204),
             blurRadius: glowRadius * 0.1,
             offset: Offset.zero,
           ),

@@ -48,11 +48,11 @@ class TileCountdownComponent extends TileComponent<TileCountdown> {
     if (clampedPercentage <= 0.5) {
       // Interpolate between red (0.0) and orange (0.5)
       final double factor = clampedPercentage / 0.5;
-      return Color.lerp(Colors.red, Colors.orange, factor)!;
+      return Color.lerp(Palette.TILE_RED, Palette.TILE_ORANGE, factor)!;
     } else {
       // Interpolate between orange (0.5) and yellow (1.0)
       final double factor = (clampedPercentage - 0.5) / 0.5;
-      return Color.lerp(Colors.orange, Colors.yellow, factor)!;
+      return Color.lerp(Palette.TILE_ORANGE, Palette.TILE_YELLOW, factor)!;
     }
   }
 

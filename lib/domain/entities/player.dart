@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:tensiongrid/app/constants.dart';
+import 'package:tensiongrid/utils/palette.dart';
+
 class Player {
   final String id;
   final bool isSelf;
   final int index;
   final String name;
-  final Color color;
   final int score;
 
   const Player({
@@ -13,7 +15,17 @@ class Player {
     required this.isSelf,
     required this.index,
     required this.name,
-    required this.color,
     required this.score,
   });
+
+  Color get color {
+    if (index == Constants.PLAYER_1) {
+      return Palette.PLAYER_1;
+    } else if (index == Constants.PLAYER_2) {
+      return Palette.PLAYER_2;
+    }
+    {
+      return Palette.TRANSPARENT;
+    }
+  }
 }

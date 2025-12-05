@@ -21,6 +21,7 @@ class Palette {
   static const Color TILE_RED = Colors.red;
   static const Color TILE_BLUE = Colors.blue;
   static const Color TILE_GREEN = Colors.green;
+  static const Color TILE_ORANGE = Colors.orange;
   static const Color TILE_YELLOW = Colors.yellow;
 
   static const Color EXPLOSION = Colors.white;

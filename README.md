@@ -22,7 +22,6 @@
 - id: string
 - index: number
 - name: string
-- color: string
 - score: number
 
 # Event

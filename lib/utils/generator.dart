@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/coordinates.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
@@ -47,7 +46,6 @@ class MatchGenerator {
         isSelf: false,
         index: Constants.PLAYER_1,
         name: 'Alice',
-        color: Colors.blue,
         score: 50,
       ),
       player2: const Player(
@@ -55,7 +53,6 @@ class MatchGenerator {
         isSelf: true,
         index: Constants.PLAYER_2,
         name: 'Bob',
-        color: Colors.red,
         score: 75,
       ),
       events: [
