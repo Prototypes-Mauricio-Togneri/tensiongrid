@@ -143,11 +143,12 @@ class EventGenerator {
           grid: grid,
           trigger: trigger,
         );
-      /*case EventType.matching:
-        return eventMatching(
+      case EventType.matching:
+        return _eventMatching(
+          grid: grid,
           trigger: trigger,
         );
-      case EventType.align:
+      /*case EventType.align:
         return eventAlign(
           trigger: trigger,
         );*/
@@ -380,24 +381,28 @@ class EventGenerator {
     return event;
   }
 
-  Event eventMatching({
+  Event _eventMatching({
+    required Grid grid,
     required double trigger,
   }) {
     final Category validCategory = _randomEnum(Category.values);
-    final int validTiles = _randomInt(4, 6);
-    final int invalidTiles = validTiles ~/ 2;
+    final int validTiles = _randomInt(Category.values.length + 1, 6);
+    final int invalidTiles = Category.values.length - 1;
+
+    final double timeout = (2 * validTiles).toDouble();
+    final double removeTime = trigger + timeout;
+
     final Event event = EventMatching(
       trigger: trigger,
-      timeout: (Timeout.short.time * validTiles).toDouble(),
+      timeout: timeout,
       tiles: [],
       category: validCategory,
       validTiles: validTiles,
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: validTiles + invalidTiles,
+    final List<Location> locations = grid.locations(
+      amount: validTiles + invalidTiles,
+      removeTime: removeTime,
     );
 
     final List<String> goodValues = List.from(validCategory.list);
