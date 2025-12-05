@@ -30,17 +30,19 @@ class MatchGenerator {
   static Match test() {
     const int width = 5;
     const int height = 5;
+    const int timeout = 60;
 
     const EventGenerator generator = EventGenerator(
       width: width,
       height: height,
+      timeout: timeout,
     );
 
     return Match(
       id: 'match1',
       width: width,
       height: height,
-      timeout: 60,
+      timeout: timeout,
       player1: const Player(
         id: 'user1',
         isSelf: false,
@@ -63,10 +65,12 @@ class MatchGenerator {
 class EventGenerator {
   final int width;
   final int height;
+  final int timeout;
 
   const EventGenerator({
     required this.width,
     required this.height,
+    required this.timeout,
   });
 
   List<Event> get events {
@@ -75,9 +79,23 @@ class EventGenerator {
       width: width,
       height: height,
     );
-    print(grid);
+    int time = 0;
 
-    result.add(
+    for (int i = 0; i < timeout; i++) {
+      final int ratio = grid.ratio;
+
+      if (ratio < time) {
+        final Event event = eventCoin(
+          grid: grid,
+          timestamp: time.toDouble(),
+        );
+        result.add(event);
+      }
+
+      time++;
+    }
+
+    /*result.add(
       eventCoin(
         timestamp: 2,
       ),
@@ -129,12 +147,13 @@ class EventGenerator {
       eventAlign(
         timestamp: 25,
       ),
-    );
+    );*/
 
     return result;
   }
 
   Event eventCoin({
+    required Grid grid,
     required double timestamp,
   }) {
     final Event event = EventCoin(
@@ -143,19 +162,13 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: 1,
-    );
+    final List<Location> locations = grid.locations(1);
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location coord = locations[i];
-
+    for (final Location location in locations) {
       event.addTile(
         TileCoin(
-          x: coord.x,
-          y: coord.y,
+          x: location.x,
+          y: location.y,
           event: event,
         ),
       );
@@ -491,6 +504,22 @@ class Grid {
   );
 
   int get(int x, int y) => grid[y][x];
+
+  int get occupancy {
+    int result = 0;
+
+    for (final List<int> row in grid) {
+      for (final int value in row) {
+        if (value != 0) {
+          result++;
+        }
+      }
+    }
+
+    return result;
+  }
+
+  int get ratio => ((occupancy / (width * height)) * 100).round();
 
   List<Location> locations(int amount) {
     final Random random = Random();
