@@ -138,11 +138,12 @@ class EventGenerator {
           grid: grid,
           trigger: trigger,
         );
-      /*case EventType.sequence:
-        return eventSequence(
+      case EventType.sequence:
+        return _eventSequence(
+          grid: grid,
           trigger: trigger,
         );
-      case EventType.matching:
+      /*case EventType.matching:
         return eventMatching(
           trigger: trigger,
         );
@@ -345,20 +346,23 @@ class EventGenerator {
     return event;
   }
 
-  Event eventSequence({
+  Event _eventSequence({
+    required Grid grid,
     required double trigger,
   }) {
     final int length = _randomInt(3, 6);
+    final double timeout = (2 * length).toDouble();
+    final double removeTime = trigger + timeout;
+
     final Event event = EventSequence(
       trigger: trigger,
-      timeout: (Timeout.short.time * length).toDouble(),
+      timeout: timeout,
       tiles: [],
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: length,
+    final List<Location> locations = grid.locations(
+      amount: length,
+      removeTime: removeTime,
     );
 
     for (int i = 0; i < locations.length; i++) {
