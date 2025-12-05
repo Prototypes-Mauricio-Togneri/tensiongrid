@@ -83,9 +83,7 @@ class EventGenerator {
     double time = 0;
 
     for (int i = 0; i < timeout; i++) {
-      final int ratio = grid.ratio;
-
-      if (ratio < time) {
+      if (grid.ratio < time) {
         final Event event = _newEvent(
           grid: grid,
           trigger: time,
@@ -111,11 +109,12 @@ class EventGenerator {
           grid: grid,
           trigger: trigger,
         );
-      /*case EventType.directional:
-        return eventDirectional(
+      case EventType.directional:
+        return _eventDirectional(
+          grid: grid,
           trigger: trigger,
         );
-      case EventType.countdown:
+      /*case EventType.countdown:
         return eventCountdown(
           trigger: trigger,
         );
@@ -181,19 +180,22 @@ class EventGenerator {
     return event;
   }
 
-  Event eventDirectional({
+  Event _eventDirectional({
+    required Grid grid,
     required double trigger,
   }) {
+    const double timeout = 3;
+    final double removeTime = trigger + timeout;
+
     final Event event = EventDirectional(
       trigger: trigger,
-      timeout: Timeout.short.time.toDouble(),
+      timeout: timeout,
       tiles: [],
     );
 
-    final List<Location> locations = _generateLocations(
-      width: width,
-      height: height,
-      length: 1,
+    final List<Location> locations = grid.locations(
+      amount: 1,
+      removeTime: removeTime,
     );
 
     for (final Location location in locations) {
