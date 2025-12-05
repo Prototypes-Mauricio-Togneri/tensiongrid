@@ -490,6 +490,8 @@ class Grid {
     grid: List.generate(height, (_) => List.generate(width, (_) => 0)),
   );
 
+  int get(int x, int y) => grid[y][x];
+
   List<Location> locations(int amount) {
     final Random random = Random();
     final Set<Location> locations = {};
@@ -497,8 +499,12 @@ class Grid {
     while (locations.length < amount) {
       final int x = random.nextInt(width);
       final int y = random.nextInt(height);
-      final Location coord = Location(x: x, y: y);
-      locations.add(coord);
+      final int value = get(x, y);
+
+      if (value == 0) {
+        final Location coord = Location(x: x, y: y);
+        locations.add(coord);
+      }
     }
 
     return locations.toList();
