@@ -37,62 +37,25 @@ class MatchGenerator {
     );
 
     return Match(
-      id: '123',
+      id: 'match1',
       width: width,
       height: height,
-      timeout: 5,
+      timeout: 60,
       player1: const Player(
-        id: '1',
+        id: 'user1',
         isSelf: false,
         index: Constants.PLAYER_1,
         name: 'Alice',
         score: 50,
       ),
       player2: const Player(
-        id: '2',
+        id: 'user2',
         isSelf: true,
         index: Constants.PLAYER_2,
         name: 'Bob',
         score: 75,
       ),
-      events: [
-        /*generator.eventCoin(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-        /*generator.eventDirectional(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-        generator.eventCountdown(
-          id: 'e0',
-          timestamp: 2,
-        ),
-        /*generator.eventChest(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-        /*generator.eventBomb(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-        /*generator.eventQuantity(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-        /*generator.eventSequence(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-        /*generator.eventMatching(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-        /*generator.eventAlign(
-          id: 'e0',
-          timestamp: 2,
-        ),*/
-      ],
+      events: generator.events,
     );
   }
 }
@@ -105,6 +68,47 @@ class EventGenerator {
     required this.width,
     required this.height,
   });
+
+  List<Event> get events {
+    return [
+      /*eventCoin(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+      /*eventDirectional(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+      eventCountdown(
+        id: 'e0',
+        timestamp: 2,
+      ),
+      /*eventChest(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+      /*eventBomb(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+      /*eventQuantity(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+      /*eventSequence(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+      /*eventMatching(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+      /*eventAlign(
+          id: 'e0',
+          timestamp: 2,
+        ),*/
+    ];
+  }
 
   Event eventCoin({
     required String id,
