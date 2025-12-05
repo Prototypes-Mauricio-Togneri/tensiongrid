@@ -3,21 +3,26 @@
 - Generator algorithm
 - Backend and matchmaking
 
-# Match
+# Grid
 - id: string
 - createdAt: timestamp
+- width: number
+- height: number
 - events: Event[]
 - playerIds: string[]
 - history: History[]
 
-# History
+# Match
+- id: string
 - createdAt: timestamp
 - player1: Player
 - player2: Player
 
 # Player
 - id: string
+- index: number
 - name: string
+- color: string
 - score: number
 
 # Event
