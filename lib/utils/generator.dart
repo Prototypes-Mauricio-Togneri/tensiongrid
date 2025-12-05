@@ -453,7 +453,7 @@ class EventGenerator {
     while (locations.length < length) {
       final int x = random.nextInt(width);
       final int y = random.nextInt(height);
-      final Location coord = Location(x: x, y: y);
+      final Location coord = Location(x, y);
       locations.add(coord);
     }
 
@@ -502,7 +502,7 @@ class Grid {
       final int value = get(x, y);
 
       if (value == 0) {
-        final Location coord = Location(x: x, y: y);
+        final Location coord = Location(x, y);
         locations.add(coord);
       }
     }

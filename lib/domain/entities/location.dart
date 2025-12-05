@@ -2,10 +2,7 @@ class Location {
   final int x;
   final int y;
 
-  const Location({
-    required this.x,
-    required this.y,
-  });
+  const Location(this.x, this.y);
 
   @override
   bool operator ==(Object other) =>
