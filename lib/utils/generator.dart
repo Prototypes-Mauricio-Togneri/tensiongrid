@@ -161,51 +161,21 @@ class EventGenerator {
     }
   }
 
-  // Uses weighted probabilities based on EventType.probability values
   EventType _nextEventType(List<EventType> presentTypes) {
     final List<EventType> availableTypes = [];
 
-    for (final EventType type in presentTypes) {
-      if (!type.isUnique) {
+    for (final EventType type in EventType.values) {
+      final bool canBeUsed = !type.isUnique || !presentTypes.contains(type);
+
+      if (canBeUsed) {
         availableTypes.add(type);
       }
     }
-
-    /*final List<EventType> availableTypes = EventType.values
-        .where((type) => !presentTypes.contains(type))
-        .toList();*/
-
-    /*if (availableTypes.isEmpty) {
-      return _randomWeighted(EventType.values);
-    } else {
-      return _randomWeighted(availableTypes);
-    }*/
 
     return _randomEventType(
       availableTypes.isEmpty ? EventType.values : availableTypes,
     );
   }
-
-  /// Selects a random EventType based on weighted probabilities
-  /*static EventType _randomWeighted(List<EventType> types) {
-    final Random random = Random();
-    final int totalWeight = types.fold(
-      0,
-      (sum, type) => sum + type.probability,
-    );
-    final int randomValue = random.nextInt(totalWeight);
-
-    int currentWeight = 0;
-    for (final EventType type in types) {
-      currentWeight += type.probability;
-      if (randomValue < currentWeight) {
-        return type;
-      }
-    }
-
-    // Fallback (should never reach here if probabilities are correct)
-    return types.last;
-  }*/
 
   EventType _randomEventType(List<EventType> types) {
     final Random random = Random();
