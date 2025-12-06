@@ -5,16 +5,13 @@ import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
 
 abstract class Tile {
-  late final String id;
   final Location location;
   final Event event;
 
   Tile({
     required this.location,
     required this.event,
-  }) {
-    id = location.toString();
-  }
+  });
 
   void update(double dt) {}
 
@@ -31,5 +28,5 @@ abstract class Tile {
       other.hashCode == hashCode;
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => location.toString().hashCode;
 }
