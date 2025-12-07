@@ -20,10 +20,10 @@ class LobbyState extends BaseState {
 
   Future _searchMatch(String name) async {
     final GridRepository repository = await GridRepository.instance();
-    final Grid grid = await repository.search();
+    _grid = await repository.search();
 
     Navigation.matchScreen(
-      grid: grid,
+      grid: _grid!,
       match: MatchGenerator.test(),
     );
   }
