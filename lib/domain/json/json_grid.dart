@@ -39,14 +39,14 @@ class JsonGrid {
     required this.results,
   });
 
-  Grid get object => Grid(
+  Grid object(String userId) => Grid(
     id: id,
     createdAt: createdAt,
     size: size.object,
-    events: [], //events.map((e) => e.object).toList(),
+    events: [], // TODO(momo): events.map((e) => e.object).toList(),
     winnerId: winnerId,
     playerIds: playerIds,
-    results: [], //results.map((r) => r.object).toList(),
+    results: results.map((r) => r.object(userId)).toList(),
   );
 
   factory JsonGrid.fromJson(Map<String, dynamic> json) =>

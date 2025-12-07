@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensiongrid/domain/entities/player.dart';
 
 part 'json_player.g.dart';
 
@@ -22,6 +23,14 @@ class JsonPlayer {
     required this.name,
     required this.score,
   });
+
+  Player object(bool isSelf) => Player(
+    id: id,
+    index: index,
+    name: name,
+    score: score,
+    isSelf: isSelf,
+  );
 
   factory JsonPlayer.fromJson(Map<String, dynamic> json) =>
       _$JsonPlayerFromJson(json);

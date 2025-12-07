@@ -35,7 +35,7 @@ class GridRepository {
 
     for (final QueryDocumentSnapshot document in snapshot.docs) {
       final JsonGrid jsonGrid = JsonGrid.fromJson(document.json);
-      result.add(jsonGrid.object);
+      result.add(jsonGrid.object(userId));
     }
 
     return result;
@@ -49,7 +49,7 @@ class GridRepository {
       final DocumentReference docRef = _gridCollection.doc(gridId);
       final DocumentSnapshot snapshot = await transaction.get(docRef);
       final JsonGrid jsonGrid = JsonGrid.fromJson(snapshot.json);
-      final Grid grid = jsonGrid.object;
+      final Grid grid = jsonGrid.object(userId);
 
       final Result finalResult =
           result ??
@@ -83,7 +83,7 @@ class GridRepository {
       if ((grid.winnerId != null) && (grid.winnerId != userId)) {
         return _createResult(
           gridId: grid.id,
-          result: null,
+          result: grid.resultFor(userId),
         );
       }
     }
@@ -107,6 +107,6 @@ class GridRepository {
 
     await docRef.set(jsonGrid.toJson());
 
-    return jsonGrid.object;
+    return jsonGrid.object(userId);
   }
 }

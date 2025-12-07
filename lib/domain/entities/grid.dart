@@ -22,6 +22,22 @@ class Grid {
     required this.results,
   });
 
+  Result resultFor(String userId) {
+    for (final Result result in results) {
+      if (result.player1.id == userId &&
+          result.player1.score < result.player2.score) {
+        // Lost as player 1
+        return result;
+      } else if (result.player2.id == userId &&
+          result.player2.score < result.player1.score) {
+        // Lost as player 2
+        return result;
+      }
+    }
+
+    throw Exception('No result found for userId: $userId');
+  }
+
   Grid withResult(Result result) {
     final String userId = result.player2.id;
     final List<Result> newResults = [];
