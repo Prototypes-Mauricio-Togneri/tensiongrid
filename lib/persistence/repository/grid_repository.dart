@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
+import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/json/json_grid.dart';
-import 'package:tensiongrid/domain/json/json_player.dart';
-import 'package:tensiongrid/domain/json/json_result.dart';
 import 'package:tensiongrid/domain/json/json_size.dart';
 import 'package:tensiongrid/extensions/document_snapshot_extension.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
 import 'package:tensiongrid/utils/authentication.dart';
-import 'package:uuid/uuid.dart';
 
 class GridRepository {
   final String userId;
@@ -29,10 +26,11 @@ class GridRepository {
     );
   }
 
-  static Future<List<Grid>> _grids() async {
-    final Query query = FirebaseFirestore.instance.collection('grid');
+  CollectionReference get _gridCollection =>
+      FirebaseFirestore.instance.collection('grid');
 
-    final QuerySnapshot snapshot = await query.get();
+  Future<List<Grid>> _grids() async {
+    final QuerySnapshot snapshot = await _gridCollection.get();
     final List<Grid> result = [];
 
     for (final QueryDocumentSnapshot document in snapshot.docs) {
@@ -43,51 +41,67 @@ class GridRepository {
     return result;
   }
 
+  Future<Grid> _createResult({
+    required String gridId,
+    required Result? result,
+  }) => FirebaseFirestore.instance.runTransaction<Grid>(
+    (transaction) async {
+      final DocumentReference docRef = _gridCollection.doc(gridId);
+      final DocumentSnapshot snapshot = await transaction.get(docRef);
+      final JsonGrid jsonGrid = JsonGrid.fromJson(snapshot.json);
+      final Grid grid = jsonGrid.object;
+
+      final Result finalResult =
+          result ??
+          Result.withBot(
+            userId: userId,
+            userName: userName,
+          );
+      final Grid updatedGrid = grid.withResult(finalResult);
+
+      transaction.update(docRef, updatedGrid.json.toJson());
+
+      return updatedGrid;
+    },
+  );
+
   Future<Grid> search() async {
     final List<Grid> allGrids = await _grids();
 
     // Never played
     for (final Grid grid in allGrids) {
       if (!grid.playerIds.contains(userId)) {
-        return grid;
+        return _createResult(
+          gridId: grid.id,
+          result: null,
+        );
       }
     }
 
     // Played but not winner
     for (final Grid grid in allGrids) {
       if ((grid.winnerId != null) && (grid.winnerId != userId)) {
-        return grid;
+        return _createResult(
+          gridId: grid.id,
+          result: null,
+        );
       }
     }
 
-    final DocumentReference docRef = FirebaseFirestore.instance
-        .collection('grid')
-        .doc();
+    final DocumentReference docRef = _gridCollection.doc();
 
     final JsonGrid jsonGrid = JsonGrid(
       id: docRef.id,
       createdAt: DateTime.now(),
       size: const JsonSize(width: 5, height: 5),
-      events: [],
+      events: [], // TODO(momo): create events
       winnerId: null,
       playerIds: [userId],
       results: [
-        JsonResult(
-          id: const Uuid().v4(),
-          createdAt: DateTime.now(),
-          player1: const JsonPlayer(
-            id: Constants.BOT_ID,
-            index: 1,
-            name: Constants.BOT_NAME,
-            score: Constants.BOT_SCORE,
-          ),
-          player2: JsonPlayer(
-            id: userId,
-            index: 2,
-            name: userName,
-            score: 0,
-          ),
-        ),
+        Result.withBot(
+          userId: userId,
+          userName: userName,
+        ).json,
       ],
     );
 

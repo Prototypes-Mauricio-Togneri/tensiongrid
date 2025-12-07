@@ -6,20 +6,16 @@ part 'json_event.g.dart';
 
 @JsonSerializable()
 class JsonEvent {
-  @JsonKey(name: 'id')
-  final String id;
-
   @JsonKey(name: 'type')
   final EventType type;
 
   @JsonKey(name: 'trigger')
-  final int trigger;
+  final double trigger;
 
   @JsonKey(name: 'tiles')
   final List<JsonTile> tiles;
 
   const JsonEvent({
-    required this.id,
     required this.type,
     required this.trigger,
     required this.tiles,

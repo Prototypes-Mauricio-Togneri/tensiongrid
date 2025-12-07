@@ -1,5 +1,6 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/json/json_event.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
@@ -114,4 +115,10 @@ abstract class Event<T extends Tile> {
     required T tile,
     required Direction direction,
   }) => ActionResult.neutral(this);
+
+  JsonEvent get json => JsonEvent(
+    type: type,
+    trigger: trigger,
+    tiles: [], // TODO(momo): add tiles
+  );
 }
