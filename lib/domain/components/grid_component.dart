@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensiongrid/domain/components/explosion_component.dart';
@@ -10,7 +9,6 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
-import 'package:tensiongrid/environments/environment.dart';
 import 'package:tensiongrid/extensions/component_extension.dart';
 import 'package:tensiongrid/persistence/storage/tutorial_storage.dart';
 import 'package:tensiongrid/presentation/audio/audio.dart';
@@ -220,27 +218,5 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
   void _onWrongAction() {
     Audio.get.playSound(Sound.TILE_ERROR);
     match.onWrongAction();
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    if (Environment.get.isDebug) {
-      final Paint paint = Paint()
-        ..color = const Color(0xffff0000)
-        ..strokeWidth = 0.5
-        ..style = PaintingStyle.stroke;
-
-      canvas.drawRect(
-        Rect.fromLTWH(
-          0,
-          0,
-          size.x,
-          size.y,
-        ),
-        paint,
-      );
-    }
   }
 }

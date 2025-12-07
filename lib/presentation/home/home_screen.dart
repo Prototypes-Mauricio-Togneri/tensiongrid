@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/state/home/home_state.dart';
 import 'package:tensiongrid/presentation/common/buttons/primary_button.dart';
@@ -27,11 +28,23 @@ class Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: PrimaryButton(
-        label: 'PLAY',
-        enabled: true,
-        backgroundColor: Palette.PRIMARY,
-        onPressed: state.onStart,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          PrimaryButton(
+            label: 'PLAY',
+            enabled: true,
+            backgroundColor: Palette.PRIMARY,
+            onPressed: state.onStart,
+          ),
+          const VBox(50),
+          PrimaryButton(
+            label: 'SETTINGS',
+            enabled: true,
+            backgroundColor: Palette.PRIMARY,
+            onPressed: state.onSettings,
+          ),
+        ],
       ),
     );
   }

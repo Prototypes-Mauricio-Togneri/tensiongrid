@@ -4,6 +4,7 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/presentation/home/home_screen.dart';
 import 'package:tensiongrid/presentation/match/match_screen.dart';
 import 'package:tensiongrid/presentation/result/result_screen.dart';
+import 'package:tensiongrid/presentation/settings/settings_screen.dart';
 import 'package:tensiongrid/presentation/setup/setup_screen.dart';
 import 'package:tensiongrid/utils/locator.dart';
 
@@ -27,6 +28,13 @@ class Navigation {
     BasicRoute(
       HomeScreen.instance(),
       name: 'home',
+    ),
+  );
+
+  static void settingsScreen() => get.routes.push(
+    BasicRoute(
+      SettingsScreen.instance(),
+      name: 'settings',
     ),
   );
 

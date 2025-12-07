@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensiongrid/environments/environment.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
+import 'package:tensiongrid/utils/flags.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 
 class SetupState extends BaseState {
@@ -11,7 +11,7 @@ class SetupState extends BaseState {
 
   @override
   void onLoad() {
-    if (Environment.get.isDebug) {
+    if (Flags.autoSetup) {
       nameController.text =
           'Player ${DateTime.now().millisecondsSinceEpoch % 100}';
       notify();

@@ -14,6 +14,8 @@ class Palette {
 
   static const Color BUTTON_DISABLED = Colors.grey;
 
+  static const Color ICON_ENABLED = Colors.white;
+
   static const Color PLAYER_1 = Colors.blue;
   static const Color PLAYER_2 = Colors.red;
   static const Color PLAYER_NAME = Colors.white;
