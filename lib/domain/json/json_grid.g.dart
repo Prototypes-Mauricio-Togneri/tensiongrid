@@ -17,8 +17,8 @@ JsonGrid _$JsonGridFromJson(Map<String, dynamic> json) => JsonGrid(
   playerIds: (json['playerIds'] as List<dynamic>)
       .map((e) => e as String)
       .toList(),
-  matches: (json['matches'] as List<dynamic>)
-      .map((e) => JsonMatch.fromJson(e as Map<String, dynamic>))
+  results: (json['results'] as List<dynamic>)
+      .map((e) => JsonResult.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
@@ -29,5 +29,5 @@ Map<String, dynamic> _$JsonGridToJson(JsonGrid instance) => <String, dynamic>{
   'events': instance.events,
   'winnerId': instance.winnerId,
   'playerIds': instance.playerIds,
-  'matches': instance.matches,
+  'results': instance.results,
 };

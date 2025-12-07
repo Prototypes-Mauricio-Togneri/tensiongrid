@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'json_player.dart';
 
-part 'json_match.g.dart';
+part 'json_result.g.dart';
 
 @JsonSerializable()
-class JsonMatch {
+class JsonResult {
   @JsonKey(name: 'id')
   final String id;
 
@@ -17,15 +17,15 @@ class JsonMatch {
   @JsonKey(name: 'player2')
   final JsonPlayer player2;
 
-  const JsonMatch({
+  const JsonResult({
     required this.id,
     required this.createdAt,
     required this.player1,
     required this.player2,
   });
 
-  factory JsonMatch.fromJson(Map<String, dynamic> json) =>
-      _$JsonMatchFromJson(json);
+  factory JsonResult.fromJson(Map<String, dynamic> json) =>
+      _$JsonResultFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
+  Map<String, dynamic> toJson() => _$JsonResultToJson(this);
 }

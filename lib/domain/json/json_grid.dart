@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/json/json_event.dart';
-import 'package:tensiongrid/domain/json/json_match.dart';
+import 'package:tensiongrid/domain/json/json_result.dart';
 import 'package:tensiongrid/domain/json/json_size.dart';
 
 part 'json_grid.g.dart';
@@ -25,8 +26,8 @@ class JsonGrid {
   @JsonKey(name: 'playerIds')
   final List<String> playerIds;
 
-  @JsonKey(name: 'matches')
-  final List<JsonMatch> matches;
+  @JsonKey(name: 'results')
+  final List<JsonResult> results;
 
   const JsonGrid({
     required this.id,
@@ -35,8 +36,18 @@ class JsonGrid {
     required this.events,
     required this.winnerId,
     required this.playerIds,
-    required this.matches,
+    required this.results,
   });
+
+  Grid get object => Grid(
+    id: id,
+    createdAt: createdAt,
+    size: size.object,
+    events: [], //events.map((e) => e.object).toList(),
+    winnerId: winnerId,
+    playerIds: playerIds,
+    results: [], //results.map((r) => r.object).toList(),
+  );
 
   factory JsonGrid.fromJson(Map<String, dynamic> json) =>
       _$JsonGridFromJson(json);

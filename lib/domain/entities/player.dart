@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/utils/palette.dart';
 
