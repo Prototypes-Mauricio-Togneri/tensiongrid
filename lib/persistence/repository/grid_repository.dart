@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/json/json_grid.dart';
+import 'package:tensiongrid/domain/json/json_size.dart';
 import 'package:tensiongrid/extensions/document_snapshot_extension.dart';
 
 class GridRepository {
@@ -40,7 +41,22 @@ class GridRepository {
       }
     }
 
-    // Create new grid
-    throw UnimplementedError('Grid creation not implemented yet');
+    final DocumentReference docRef = FirebaseFirestore.instance
+        .collection('grid')
+        .doc();
+
+    final JsonGrid jsonGrid = JsonGrid(
+      id: docRef.id,
+      createdAt: DateTime.now(),
+      size: const JsonSize(width: 5, height: 5),
+      events: [],
+      winnerId: null,
+      playerIds: [userId],
+      results: [],
+    );
+
+    await docRef.set(jsonGrid.toJson());
+
+    return jsonGrid.object;
   }
 }

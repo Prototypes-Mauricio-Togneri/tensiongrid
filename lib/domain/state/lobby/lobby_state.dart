@@ -4,6 +4,7 @@ import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/persistence/repository/grid_repository.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
 import 'package:tensiongrid/utils/authentication.dart';
+import 'package:tensiongrid/utils/generator.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 
 class LobbyState extends BaseState {
@@ -21,7 +22,11 @@ class LobbyState extends BaseState {
   Future _searchMatch(String name) async {
     final GridRepository repository = GridRepository(Authentication.userId);
     final Grid grid = await repository.search();
-    print(grid);
+
+    Navigation.matchScreen(
+      grid: grid,
+      match: MatchGenerator.test(),
+    );
   }
 
   Future onCancel() async {

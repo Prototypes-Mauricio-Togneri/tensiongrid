@@ -35,7 +35,7 @@ class Content extends StatelessWidget {
             label: 'Play',
             enabled: true,
             backgroundColor: Palette.PRIMARY,
-            onPressed: state.onStart,
+            onPressed: state.onPlay,
           ),
           const VBox(50),
           PrimaryButton(

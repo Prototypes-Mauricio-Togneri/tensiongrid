@@ -75,28 +75,28 @@ class EventGenerator {
 
   List<Event> get events {
     final List<Event> result = [];
-    final Grid grid = Grid.create(
+    final Tiles tiles = Tiles.create(
       width: width,
       height: height,
     );
     double time = 0;
 
     for (int i = 0; i < timeout; i++) {
-      grid.clean(time);
+      tiles.clean(time);
 
-      while (grid.ratio < time) {
+      while (tiles.ratio < time) {
         final List<EventType> presentTypes = result
             .where((e) => (e.trigger + e.timeout) >= time)
             .map((e) => e.type)
             .toSet()
             .toList();
         final Event event = _newEvent(
-          grid: grid,
+          tiles: tiles,
           trigger: time,
           presentTypes: presentTypes,
         );
         result.add(event);
-        print('Event: ${event.type}, time $time, ratio ${grid.ratio}%');
+        print('Event: ${event.type}, time $time, ratio ${tiles.ratio}%');
       }
 
       time++;
@@ -106,7 +106,7 @@ class EventGenerator {
   }
 
   Event _newEvent({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
     required List<EventType> presentTypes,
   }) {
@@ -115,47 +115,47 @@ class EventGenerator {
     switch (eventType) {
       case EventType.coin:
         return _eventCoin(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.directional:
         return _eventDirectional(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.countdown:
         return _eventCountdown(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.chest:
         return _eventChest(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.bomb:
         return _eventBomb(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.quantity:
         return _eventQuantity(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.sequence:
         return _eventSequence(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.matching:
         return _eventMatching(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
       case EventType.align:
         return _eventAlign(
-          grid: grid,
+          tiles: tiles,
           trigger: trigger,
         );
     }
@@ -206,7 +206,7 @@ class EventGenerator {
   }
 
   Event _eventCoin({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     const double timeout = 3;
@@ -218,7 +218,7 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: 1,
       removeTime: removeTime,
     );
@@ -236,7 +236,7 @@ class EventGenerator {
   }
 
   Event _eventDirectional({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     const double timeout = 3;
@@ -248,7 +248,7 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: 1,
       removeTime: removeTime,
     );
@@ -269,7 +269,7 @@ class EventGenerator {
   }
 
   Event _eventCountdown({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     final double timeout = _randomInt(3, 9).toDouble();
@@ -281,7 +281,7 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: 1,
       removeTime: removeTime,
     );
@@ -300,7 +300,7 @@ class EventGenerator {
   }
 
   Event _eventChest({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     const double timeout = 5;
@@ -312,7 +312,7 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: 1,
       removeTime: removeTime,
     );
@@ -330,7 +330,7 @@ class EventGenerator {
   }
 
   Event _eventBomb({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     const double timeout = 5;
@@ -342,7 +342,7 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: 1,
       removeTime: removeTime,
     );
@@ -360,7 +360,7 @@ class EventGenerator {
   }
 
   Event _eventQuantity({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     final int quantity = _randomInt(3, 6);
@@ -374,7 +374,7 @@ class EventGenerator {
       quantity: quantity,
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: 1,
       removeTime: removeTime,
     );
@@ -393,7 +393,7 @@ class EventGenerator {
   }
 
   Event _eventSequence({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     final int length = _randomInt(3, 6);
@@ -406,7 +406,7 @@ class EventGenerator {
       tiles: [],
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: length,
       removeTime: removeTime,
     );
@@ -427,7 +427,7 @@ class EventGenerator {
   }
 
   Event _eventMatching({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     final Category validCategory = _randomEnum(Category.values);
@@ -445,7 +445,7 @@ class EventGenerator {
       validTiles: validTiles,
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: validTiles + invalidTiles,
       removeTime: removeTime,
     );
@@ -484,7 +484,7 @@ class EventGenerator {
   }
 
   Event _eventAlign({
-    required Grid grid,
+    required Tiles tiles,
     required double trigger,
   }) {
     final int length = _randomInt(3, 6);
@@ -500,7 +500,7 @@ class EventGenerator {
       direction: direction,
     );
 
-    final List<Location> locations = grid.locations(
+    final List<Location> locations = tiles.locations(
       amount: length,
       removeTime: removeTime,
     );
@@ -530,36 +530,36 @@ class EventGenerator {
       values[_randomInt(0, values.length - 1)];
 }
 
-class Grid {
+class Tiles {
   final int width;
   final int height;
-  final List<List<double>> grid;
+  final List<List<double>> _tiles;
 
-  const Grid({
+  const Tiles({
     required this.width,
     required this.height,
-    required this.grid,
-  });
+    required List<List<double>> tiles,
+  }) : _tiles = tiles;
 
-  factory Grid.create({
+  factory Tiles.create({
     required int width,
     required int height,
-  }) => Grid(
+  }) => Tiles(
     width: width,
     height: height,
-    grid: List.generate(height, (_) => List.generate(width, (_) => 0)),
+    tiles: List.generate(height, (_) => List.generate(width, (_) => 0)),
   );
 
-  double get(int x, int y) => grid[y][x];
+  double get(int x, int y) => _tiles[y][x];
 
   void set(int x, int y, double value) {
-    grid[y][x] = value;
+    _tiles[y][x] = value;
   }
 
   void clean(double time) {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        final double value = grid[y][x];
+        final double value = _tiles[y][x];
 
         if (value != 0 && value <= time) {
           set(x, y, 0);
@@ -571,7 +571,7 @@ class Grid {
   int get occupancy {
     int result = 0;
 
-    for (final List<double> row in grid) {
+    for (final List<double> row in _tiles) {
       for (final double value in row) {
         if (value != 0) {
           result++;
