@@ -36,6 +36,26 @@ class LobbyState extends BaseState {
         onUpdated: _onUpdated,
       ),
     );*/
+
+    /*
+      1. Never played
+
+      ```
+      userId not in playerIds
+      ```
+
+      2. Played but not winner
+
+      ```
+      userId in playerIds AND userId != winnerId
+      ```
+
+      3. Create new match
+
+      ```
+      Create new grid
+      ```
+      */
   }
 
   @override
