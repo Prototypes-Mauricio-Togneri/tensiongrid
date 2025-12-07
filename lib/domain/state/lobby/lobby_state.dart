@@ -3,7 +3,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/persistence/repository/grid_repository.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
-import 'package:tensiongrid/utils/authentication.dart';
 import 'package:tensiongrid/utils/generator.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 
@@ -20,7 +19,7 @@ class LobbyState extends BaseState {
   }
 
   Future _searchMatch(String name) async {
-    final GridRepository repository = GridRepository(Authentication.userId);
+    final GridRepository repository = await GridRepository.instance();
     final Grid grid = await repository.search();
 
     Navigation.matchScreen(
