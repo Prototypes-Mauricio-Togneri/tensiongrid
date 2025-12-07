@@ -81,7 +81,7 @@ class TutorialDialog extends StatelessWidget {
               onAccept?.call();
             },
             child: const Label(
-              text: 'CONTINUE',
+              text: 'Continue',
               color: Palette.PRIMARY,
               size: 16,
             ),

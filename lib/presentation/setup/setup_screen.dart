@@ -14,7 +14,9 @@ class SetupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameContainer(child: Content(state));
+    return GameContainer(
+      child: Content(state),
+    );
   }
 }
 
@@ -56,7 +58,7 @@ class Content extends StatelessWidget {
               ),
               const VBox(20),
               PrimaryButton(
-                label: 'SAVE',
+                label: 'Save',
                 enabled: state.canSave,
                 backgroundColor: Palette.PRIMARY,
                 onPressed: state.onSave,

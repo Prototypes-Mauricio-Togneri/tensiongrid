@@ -32,14 +32,14 @@ class Content extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           PrimaryButton(
-            label: 'PLAY',
+            label: 'Play',
             enabled: true,
             backgroundColor: Palette.PRIMARY,
             onPressed: state.onStart,
           ),
           const VBox(50),
           PrimaryButton(
-            label: 'SETTINGS',
+            label: 'Settings',
             enabled: true,
             backgroundColor: Palette.PRIMARY,
             onPressed: state.onSettings,

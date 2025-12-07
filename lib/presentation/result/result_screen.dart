@@ -48,7 +48,7 @@ class Content extends StatelessWidget {
         ),
         const VBox(50),
         PrimaryButton(
-          label: 'CLOSE',
+          label: 'Close',
           enabled: true,
           backgroundColor: Palette.PRIMARY,
           onPressed: state.onClose,

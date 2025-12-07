@@ -11,7 +11,7 @@ class TileChestComponent extends TileComponent<TileChest> {
     required super.size,
     required super.tile,
     required super.gridComponent,
-  }): super(borderColor: Palette.TILE_YELLOW);
+  }) : super(borderColor: Palette.TILE_YELLOW);
 
   @override
   FutureOr onLoad() async {
