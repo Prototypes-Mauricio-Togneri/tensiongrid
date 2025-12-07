@@ -6,28 +6,45 @@ part of 'json_grid.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonGrid _$JsonGridFromJson(Map<String, dynamic> json) => JsonGrid(
-  id: json['id'] as String,
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  size: JsonSize.fromJson(json['size'] as Map<String, dynamic>),
-  events: (json['events'] as List<dynamic>)
-      .map((e) => JsonEvent.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  winnerId: json['winnerId'] as String?,
-  playerIds: (json['playerIds'] as List<dynamic>)
-      .map((e) => e as String)
-      .toList(),
-  results: (json['results'] as List<dynamic>)
-      .map((e) => JsonResult.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+JsonGrid _$JsonGridFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonGrid', json, ($checkedConvert) {
+      final val = JsonGrid(
+        id: $checkedConvert('id', (v) => v as String),
+        createdAt: $checkedConvert(
+          'createdAt',
+          (v) => DateTime.parse(v as String),
+        ),
+        size: $checkedConvert(
+          'size',
+          (v) => JsonSize.fromJson(v as Map<String, dynamic>),
+        ),
+        events: $checkedConvert(
+          'events',
+          (v) => (v as List<dynamic>)
+              .map((e) => JsonEvent.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        ),
+        winnerId: $checkedConvert('winnerId', (v) => v as String?),
+        playerIds: $checkedConvert(
+          'playerIds',
+          (v) => (v as List<dynamic>).map((e) => e as String).toList(),
+        ),
+        results: $checkedConvert(
+          'results',
+          (v) => (v as List<dynamic>)
+              .map((e) => JsonResult.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$JsonGridToJson(JsonGrid instance) => <String, dynamic>{
   'id': instance.id,
   'createdAt': instance.createdAt.toIso8601String(),
-  'size': instance.size,
-  'events': instance.events,
+  'size': instance.size.toJson(),
+  'events': instance.events.map((e) => e.toJson()).toList(),
   'winnerId': instance.winnerId,
   'playerIds': instance.playerIds,
-  'results': instance.results,
+  'results': instance.results.map((e) => e.toJson()).toList(),
 };

@@ -7,7 +7,13 @@ part of 'json_location.dart';
 // **************************************************************************
 
 JsonLocation _$JsonLocationFromJson(Map<String, dynamic> json) =>
-    JsonLocation(x: (json['x'] as num).toInt(), y: (json['y'] as num).toInt());
+    $checkedCreate('JsonLocation', json, ($checkedConvert) {
+      final val = JsonLocation(
+        x: $checkedConvert('x', (v) => (v as num).toInt()),
+        y: $checkedConvert('y', (v) => (v as num).toInt()),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$JsonLocationToJson(JsonLocation instance) =>
     <String, dynamic>{'x': instance.x, 'y': instance.y};
