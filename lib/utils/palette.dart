@@ -12,6 +12,8 @@ class Palette {
   static const Color TEXT_COLOR_PRIMARY = Colors.white;
   static const Color TEXT_COLOR_SECONDATY = Color(0xff333333);
 
+  static const Color BUTTON_DISABLED = Colors.grey;
+
   static const Color PLAYER_1 = Colors.blue;
   static const Color PLAYER_2 = Colors.red;
   static const Color PLAYER_NAME = Colors.white;

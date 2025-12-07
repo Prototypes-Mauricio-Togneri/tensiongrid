@@ -34,7 +34,7 @@ class PrimaryButton extends StatelessWidget {
           ),
           backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
             if (states.contains(WidgetState.disabled)) {
-              return Palette.TEXT_COLOR_PRIMARY;
+              return Palette.BUTTON_DISABLED;
             } else {
               return backgroundColor;
             }
