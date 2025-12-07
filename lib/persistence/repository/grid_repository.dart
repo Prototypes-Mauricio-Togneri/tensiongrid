@@ -3,38 +3,44 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/json/json_grid.dart';
 import 'package:tensiongrid/extensions/document_snapshot_extension.dart';
-import 'package:tensiongrid/utils/error_handler.dart';
 
 class GridRepository {
-  static StreamSubscription listen({
-    required String gridId,
-    required Function(Grid) onUpdated,
-  }) {
-    final DocumentReference reference = FirebaseFirestore.instance
-        .collection('grid')
-        .doc(gridId);
+  final String userId;
 
-    return reference.snapshots().listen((snapshot) {
-      if (snapshot.exists) {
-        final JsonGrid jsonGrid = JsonGrid.fromJson(snapshot.json);
-        onUpdated(jsonGrid.object);
-      }
-    }, onError: ErrorHandler.process);
+  const GridRepository(this.userId);
+
+  static Future<List<Grid>> _grids() async {
+    final Query query = FirebaseFirestore.instance.collection('grid');
+
+    final QuerySnapshot snapshot = await query.get();
+    final List<Grid> result = [];
+
+    for (final QueryDocumentSnapshot document in snapshot.docs) {
+      final JsonGrid jsonGrid = JsonGrid.fromJson(document.json);
+      result.add(jsonGrid.object);
+    }
+
+    return result;
   }
 
-  static Future<Grid> neverPlayed(String userId) async {
-    final Query query = FirebaseFirestore.instance
-        .collection('grid')
-        .where('playerIds', arrayContains: userId);
+  Future<Grid> search() async {
+    final List<Grid> allGrids = await _grids();
 
-    final QuerySnapshot documents = await query.get();
-
-    if (documents.docs.isEmpty) {
-      throw Exception('No grids found for user $userId');
-    } else {
-      final JsonGrid jsonGrid = JsonGrid.fromJson(documents.docs.first.json);
-
-      return jsonGrid.object;
+    // Never played
+    for (final Grid grid in allGrids) {
+      if (!grid.playerIds.contains(userId)) {
+        return grid;
+      }
     }
+
+    // Played but not winner
+    for (final Grid grid in allGrids) {
+      if ((grid.winnerId != null) && (grid.winnerId != userId)) {
+        return grid;
+      }
+    }
+
+    // Create new grid
+    throw UnimplementedError('Grid creation not implemented yet');
   }
 }

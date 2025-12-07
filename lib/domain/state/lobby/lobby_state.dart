@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
+import 'package:tensiongrid/persistence/repository/grid_repository.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
+import 'package:tensiongrid/utils/authentication.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 
 class LobbyState extends BaseState {
@@ -17,25 +19,9 @@ class LobbyState extends BaseState {
   }
 
   Future _searchMatch(String name) async {
-    /*
-      1. Never played
-
-      ```
-      userId not in playerIds
-      ```
-
-      2. Played but not winner
-
-      ```
-      userId in playerIds AND userId != winnerId
-      ```
-
-      3. Create new match
-
-      ```
-      Create new grid
-      ```
-      */
+    final GridRepository repository = GridRepository(Authentication.userId);
+    final Grid grid = await repository.search();
+    print(grid);
   }
 
   Future onCancel() async {
