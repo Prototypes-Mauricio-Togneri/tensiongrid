@@ -21,4 +21,20 @@ class GridRepository {
       }
     }, onError: ErrorHandler.process);
   }
+
+  static Future<Grid> neverPlayed(String userId) async {
+    final Query query = FirebaseFirestore.instance
+        .collection('grid')
+        .where('playerIds', arrayContains: userId);
+
+    final QuerySnapshot documents = await query.get();
+
+    if (documents.docs.isEmpty) {
+      throw Exception('No grids found for user $userId');
+    } else {
+      final JsonGrid jsonGrid = JsonGrid.fromJson(documents.docs.first.json);
+
+      return jsonGrid.object;
+    }
+  }
 }

@@ -19,24 +19,6 @@ class LobbyState extends BaseState {
   }
 
   Future _searchMatch(String name) async {
-    // Implementation for searching a match
-    /*_room = await const StartMatchmakingCallable()(
-      playerName: name,
-      version: 1,
-      matchType: 'pvp',
-      numberOfPlayers: 2,
-      visibility: RoomVisibility.public,
-      deck: deck,
-    );
-    notify();
-
-    _roomListener.start(
-      RoomRepository.listen(
-        roomId: _room!.id,
-        onUpdated: _onUpdated,
-      ),
-    );*/
-
     /*
       1. Never played
 
