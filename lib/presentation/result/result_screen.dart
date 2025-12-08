@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
+import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/state/result/result_state.dart';
 import 'package:tensiongrid/presentation/common/buttons/primary_button.dart';
 import 'package:tensiongrid/presentation/common/containers/game_container.dart';
@@ -19,33 +20,34 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GameContainer(
-      child: Content(state),
+      child: Content(
+        state: state,
+        result: state.match.result,
+      ),
     );
   }
 }
 
 class Content extends StatelessWidget {
   final ResultState state;
+  final Result result;
 
-  const Content(this.state);
+  const Content({
+    required this.state,
+    required this.result,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final Player player1 = state.match.player1;
-    final Player player2 = state.match.player2;
+    final Player player1 = result.player1;
+    final Player player2 = result.player2;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PlayerScore(
-          player: player1,
-          score: player1.isSelf ? state.match.score : player1.score,
-        ),
+        PlayerRow(player1),
         const VBox(20),
-        PlayerScore(
-          player: player2,
-          score: player2.isSelf ? state.match.score : player2.score,
-        ),
+        PlayerRow(player2),
         const VBox(50),
         PrimaryButton(
           label: 'Close',
@@ -58,14 +60,10 @@ class Content extends StatelessWidget {
   }
 }
 
-class PlayerScore extends StatelessWidget {
+class PlayerRow extends StatelessWidget {
   final Player player;
-  final int score;
 
-  const PlayerScore({
-    required this.player,
-    required this.score,
-  });
+  const PlayerRow(this.player);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +77,7 @@ class PlayerScore extends StatelessWidget {
         ),
         const HBox(20),
         NeonLabel(
-          text: score.toString(),
+          text: player.score.toString(),
           size: 36,
           color: Palette.TEXT_COLOR_PRIMARY,
         ),
