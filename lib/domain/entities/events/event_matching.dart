@@ -5,17 +5,20 @@ import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventMatching extends Event<TileMatching> {
-  late final Category category;
-  late final int validTiles;
+  Category? category;
+  int validTiles = 0;
   int count = 0;
 
   EventMatching({
     required super.trigger,
     required super.timeout,
-    required List<TileMatching> tiles,
-  }) : super(type: EventType.matching, tiles: tiles) {
-    category = _getCategory(tiles);
-    validTiles = tiles.where((tile) => tile.category == category).length;
+    required super.tiles,
+  }) : super(type: EventType.matching);
+
+  @override
+  void onTileAdded(TileMatching tile) {
+    category = _getCategory(tilesActive);
+    validTiles = tilesActive.where((tile) => tile.category == category).length;
   }
 
   Category _getCategory(List<TileMatching> tiles) {

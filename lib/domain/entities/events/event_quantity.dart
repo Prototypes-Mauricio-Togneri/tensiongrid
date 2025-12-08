@@ -4,15 +4,18 @@ import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventQuantity extends Event<TileQuantity> {
-  late final int quantity;
-  late int counter;
+  int quantity = 0;
+  int counter = 0;
 
   EventQuantity({
     required super.trigger,
     required super.timeout,
-    required List<TileQuantity> tiles,
-  }) : super(type: EventType.quantity, tiles: tiles) {
-    quantity = tiles[0].quantity;
+    required super.tiles,
+  }) : super(type: EventType.quantity);
+
+  @override
+  void onTileAdded(TileQuantity tile) {
+    quantity = tile.quantity;
     counter = quantity;
   }
 
