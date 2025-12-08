@@ -88,17 +88,22 @@ class GridRepository {
     }
 
     final DocumentReference docRef = _gridCollection.doc();
+
+    final Result result = Result.withBot(
+      userId: userId,
+      userName: userName,
+    );
     final Grid grid = GridGenerator.test(
       id: docRef.id,
       userId: userId,
-      result: Result.withBot(
-        userId: userId,
-        userName: userName,
-      ),
+      result: result,
     );
 
     await docRef.set(grid.json.toJson());
 
-    return MatchGenerator.test(grid);
+    return Match.create(
+      grid: grid,
+      result: result,
+    );
   }
 }
