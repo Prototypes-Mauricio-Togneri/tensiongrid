@@ -7,6 +7,7 @@ class Grid {
   final String id;
   final DateTime createdAt;
   final Size size;
+  final int timeout;
   final List<Event> events;
   final String? winnerId;
   final List<String> playerIds;
@@ -16,6 +17,7 @@ class Grid {
     required this.id,
     required this.createdAt,
     required this.size,
+    required this.timeout,
     required this.events,
     required this.winnerId,
     required this.playerIds,
@@ -53,6 +55,7 @@ class Grid {
       id: id,
       createdAt: createdAt,
       size: size,
+      timeout: timeout,
       events: events,
       winnerId: result.winnerId,
       playerIds: [
@@ -68,6 +71,7 @@ class Grid {
     id: id,
     createdAt: createdAt,
     size: size.json,
+    timeout: timeout,
     events: events.map((e) => e.json).toList(),
     winnerId: winnerId,
     playerIds: playerIds,

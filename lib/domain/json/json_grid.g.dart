@@ -18,6 +18,7 @@ JsonGrid _$JsonGridFromJson(Map<String, dynamic> json) =>
           'size',
           (v) => JsonSize.fromJson(v as Map<String, dynamic>),
         ),
+        timeout: $checkedConvert('timeout', (v) => (v as num).toInt()),
         events: $checkedConvert(
           'events',
           (v) => (v as List<dynamic>)
@@ -43,6 +44,7 @@ Map<String, dynamic> _$JsonGridToJson(JsonGrid instance) => <String, dynamic>{
   'id': instance.id,
   'createdAt': instance.createdAt.toIso8601String(),
   'size': instance.size.toJson(),
+  'timeout': instance.timeout,
   'events': instance.events.map((e) => e.toJson()).toList(),
   'winnerId': instance.winnerId,
   'playerIds': instance.playerIds,

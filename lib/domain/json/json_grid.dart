@@ -17,6 +17,9 @@ class JsonGrid {
   @JsonKey(name: 'size')
   final JsonSize size;
 
+  @JsonKey(name: 'timeout')
+  final int timeout;
+
   @JsonKey(name: 'events')
   final List<JsonEvent> events;
 
@@ -33,6 +36,7 @@ class JsonGrid {
     required this.id,
     required this.createdAt,
     required this.size,
+    required this.timeout,
     required this.events,
     required this.winnerId,
     required this.playerIds,
@@ -43,6 +47,7 @@ class JsonGrid {
     id: id,
     createdAt: createdAt,
     size: size.object,
+    timeout: timeout,
     events: [], // TODO(momo): events.map((e) => e.object).toList(),
     winnerId: winnerId,
     playerIds: playerIds,

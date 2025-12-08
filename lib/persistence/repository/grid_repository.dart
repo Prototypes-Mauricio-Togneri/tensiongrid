@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
+import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/json/json_grid.dart';
 import 'package:tensiongrid/domain/json/json_size.dart';
 import 'package:tensiongrid/extensions/document_snapshot_extension.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
 import 'package:tensiongrid/utils/authentication.dart';
+import 'package:tensiongrid/utils/generator.dart';
 
 class GridRepository {
   final String userId;
@@ -41,10 +43,10 @@ class GridRepository {
     return result;
   }
 
-  Future<Grid> setResult({
+  Future<Match> setResult({
     required String gridId,
     required Result result,
-  }) => FirebaseFirestore.instance.runTransaction<Grid>(
+  }) => FirebaseFirestore.instance.runTransaction<Match>(
     (transaction) async {
       final DocumentReference docRef = _gridCollection.doc(gridId);
       final DocumentSnapshot snapshot = await transaction.get(docRef);
@@ -53,11 +55,20 @@ class GridRepository {
       final Grid updatedGrid = grid.withResult(result);
       transaction.update(docRef, updatedGrid.json.toJson());
 
-      return updatedGrid;
+      return Match(
+        gridId: updatedGrid.id,
+        matchId: result.id,
+        width: updatedGrid.size.width,
+        height: updatedGrid.size.height,
+        timeout: grid.timeout,
+        player1: result.player1,
+        player2: result.player2,
+        events: grid.events,
+      );
     },
   );
 
-  Future<Grid> getMatch() async {
+  Future<Match> getMatch() async {
     final List<Grid> allGrids = await _grids();
 
     // Never played
@@ -89,6 +100,7 @@ class GridRepository {
       id: docRef.id,
       createdAt: DateTime.now(),
       size: const JsonSize(width: 5, height: 5),
+      timeout: 60,
       events: [], // TODO(momo): create events
       winnerId: null,
       playerIds: [userId],
@@ -102,6 +114,8 @@ class GridRepository {
 
     await docRef.set(jsonGrid.toJson());
 
-    return jsonGrid.object(userId);
+    final Grid grid = jsonGrid.object(userId);
+
+    return MatchGenerator.test(grid);
   }
 }

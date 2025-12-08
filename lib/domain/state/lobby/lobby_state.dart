@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
+import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/persistence/repository/grid_repository.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
-import 'package:tensiongrid/utils/generator.dart';
 import 'package:tensiongrid/utils/navigation.dart';
 
 class LobbyState extends BaseState {
@@ -20,9 +20,8 @@ class LobbyState extends BaseState {
 
   Future _searchMatch(String name) async {
     final GridRepository repository = await GridRepository.instance();
-    _grid = await repository.getMatch();
-
-    Navigation.matchScreen(MatchGenerator.test(_grid!));
+    final Match match = await repository.getMatch();
+    Navigation.matchScreen(match);
   }
 
   Future onCancel() async {
