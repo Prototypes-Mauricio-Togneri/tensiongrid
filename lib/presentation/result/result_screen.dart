@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
-import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/state/result/result_state.dart';
 import 'package:tensiongrid/presentation/common/buttons/primary_button.dart';
 import 'package:tensiongrid/presentation/common/containers/game_container.dart';
@@ -14,10 +13,8 @@ class ResultScreen extends StatelessWidget {
 
   const ResultScreen._(this.state);
 
-  factory ResultScreen.instance({
-    required Match match,
-    required Result result,
-  }) => ResultScreen._(ResultState(match, result));
+  factory ResultScreen.instance(Match match) =>
+      ResultScreen._(ResultState(match));
 
   @override
   Widget build(BuildContext context) {
