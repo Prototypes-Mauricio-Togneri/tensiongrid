@@ -15,7 +15,7 @@ class Player {
     isSelf: false,
     index: 1,
     name: 'Bot',
-    score: 1000,
+    score: 100,
   );
 
   const Player({
@@ -39,8 +39,7 @@ class Player {
       return Palette.PLAYER_1;
     } else if (index == Constants.PLAYER_2) {
       return Palette.PLAYER_2;
-    }
-    {
+    } else {
       return Palette.TRANSPARENT;
     }
   }
