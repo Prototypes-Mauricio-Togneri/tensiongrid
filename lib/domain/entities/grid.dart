@@ -42,13 +42,19 @@ class Grid {
 
   Grid withResult(Result result) {
     final List<Result> newResults = [];
+    bool found = false;
 
     for (final Result element in results) {
       if (element.id == result.id) {
         newResults.add(result);
+        found = true;
       } else {
         newResults.add(element);
       }
+    }
+
+    if (!found) {
+      newResults.add(result);
     }
 
     return Grid(

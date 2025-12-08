@@ -80,8 +80,8 @@ class GridRepository {
     // Played but not winner
     for (final Grid grid in allGrids) {
       if ((grid.winnerId != null) && (grid.winnerId != userId)) {
-        return setResult(
-          gridId: grid.id,
+        return Match.create(
+          grid: grid,
           result: grid.resultFor(userId),
         );
       }
