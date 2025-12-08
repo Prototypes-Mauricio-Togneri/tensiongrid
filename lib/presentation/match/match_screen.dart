@@ -1,7 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/components/game_component.dart';
-import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/state/match/match_state.dart';
 import 'package:tensiongrid/presentation/common/containers/game_container.dart';
@@ -12,10 +11,7 @@ class MatchScreen extends StatelessWidget {
 
   const MatchScreen._(this.state);
 
-  factory MatchScreen.instance({
-    required Grid grid,
-    required Match match,
-  }) => MatchScreen._(MatchState(grid, match));
+  factory MatchScreen.instance(Match match) => MatchScreen._(MatchState(match));
 
   @override
   Widget build(BuildContext context) {

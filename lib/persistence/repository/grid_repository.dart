@@ -57,7 +57,7 @@ class GridRepository {
     },
   );
 
-  Future<Grid> search() async {
+  Future<Grid> getMatch() async {
     final List<Grid> allGrids = await _grids();
 
     // Never played
