@@ -4,7 +4,6 @@ import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/json/json_grid.dart';
-import 'package:tensiongrid/domain/json/json_size.dart';
 import 'package:tensiongrid/extensions/document_snapshot_extension.dart';
 import 'package:tensiongrid/persistence/storage/settings_storage.dart';
 import 'package:tensiongrid/utils/authentication.dart';
@@ -95,26 +94,16 @@ class GridRepository {
     }
 
     final DocumentReference docRef = _gridCollection.doc();
-
-    final JsonGrid jsonGrid = JsonGrid(
+    final Grid grid = GridGenerator.test(
       id: docRef.id,
-      createdAt: DateTime.now(),
-      size: const JsonSize(width: 5, height: 5),
-      timeout: 60,
-      events: [], // TODO(momo): create events
-      winnerId: null,
-      playerIds: [userId],
-      results: [
-        Result.withBot(
-          userId: userId,
-          userName: userName,
-        ).json,
-      ],
+      userId: userId,
+      result: Result.withBot(
+        userId: userId,
+        userName: userName,
+      ),
     );
 
-    await docRef.set(jsonGrid.toJson());
-
-    final Grid grid = jsonGrid.object(userId);
+    await docRef.set(grid.json.toJson());
 
     return MatchGenerator.test(grid);
   }

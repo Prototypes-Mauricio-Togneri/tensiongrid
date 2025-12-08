@@ -14,6 +14,8 @@ import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
+import 'package:tensiongrid/domain/entities/result.dart';
+import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
@@ -26,6 +28,23 @@ import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
+
+class GridGenerator {
+  static Grid test({
+    required String id,
+    required String userId,
+    required Result result,
+  }) => Grid(
+    id: id,
+    createdAt: DateTime.now(),
+    size: const Size(5, 5),
+    timeout: 60,
+    events: [], // TODO(momo): generate events
+    winnerId: null,
+    playerIds: [userId],
+    results: [result],
+  );
+}
 
 class MatchGenerator {
   static Match test(Grid grid) {
