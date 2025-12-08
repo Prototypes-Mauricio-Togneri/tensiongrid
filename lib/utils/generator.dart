@@ -29,7 +29,6 @@ import 'package:tensiongrid/domain/types/event_type.dart';
 class GridGenerator {
   static Grid test({
     required String id,
-    required String userId,
     required Result result,
   }) {
     const Size size = Size(5, 5);
@@ -47,7 +46,10 @@ class GridGenerator {
       timeout: timeout,
       events: generator.events,
       winnerId: null,
-      playerIds: [userId],
+      playerIds: [
+        if (result.player1.id.isNotEmpty) result.player1.id,
+        if (result.player2.id.isNotEmpty) result.player2.id,
+      ],
       results: [result],
     );
   }

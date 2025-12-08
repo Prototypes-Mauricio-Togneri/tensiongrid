@@ -95,7 +95,6 @@ class GridRepository {
     );
     final Grid grid = GridGenerator.test(
       id: docRef.id,
-      userId: userId,
       result: result,
     );
 
