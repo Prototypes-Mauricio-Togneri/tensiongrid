@@ -43,22 +43,14 @@ class GridRepository {
 
   Future<Grid> setResult({
     required String gridId,
-    required Result? result,
+    required Result result,
   }) => FirebaseFirestore.instance.runTransaction<Grid>(
     (transaction) async {
       final DocumentReference docRef = _gridCollection.doc(gridId);
       final DocumentSnapshot snapshot = await transaction.get(docRef);
       final JsonGrid jsonGrid = JsonGrid.fromJson(snapshot.json);
       final Grid grid = jsonGrid.object(userId);
-
-      final Result finalResult =
-          result ??
-          Result.withBot(
-            userId: userId,
-            userName: userName,
-          );
-      final Grid updatedGrid = grid.withResult(finalResult);
-
+      final Grid updatedGrid = grid.withResult(result);
       transaction.update(docRef, updatedGrid.json.toJson());
 
       return updatedGrid;
@@ -73,7 +65,10 @@ class GridRepository {
       if (!grid.playerIds.contains(userId)) {
         return setResult(
           gridId: grid.id,
-          result: null,
+          result: Result.withBot(
+            userId: userId,
+            userName: userName,
+          ),
         );
       }
     }
