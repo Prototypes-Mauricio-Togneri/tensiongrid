@@ -119,6 +119,7 @@ abstract class Event<T extends Tile> {
   JsonEvent get json => JsonEvent(
     type: type,
     trigger: trigger,
-    tiles: [], // TODO(momo): add tiles
+    timeout: timeout,
+    tiles: tilesActive.map((tile) => tile.json).toList(),
   );
 }

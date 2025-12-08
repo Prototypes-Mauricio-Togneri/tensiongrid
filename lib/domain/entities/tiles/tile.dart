@@ -3,6 +3,7 @@ import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
+import 'package:tensiongrid/domain/json/json_tile.dart';
 
 abstract class Tile {
   final Location location;
@@ -20,6 +21,12 @@ abstract class Tile {
     required Vector2 size,
     required GridComponent gridComponent,
   });
+
+  JsonTile get json => JsonTile(
+    id: location.toString(),
+    type: runtimeType.toString(),
+    location: location.json,
+  );
 
   @override
   bool operator ==(Object other) =>

@@ -13,6 +13,7 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
     final val = JsonEvent(
       type: $checkedConvert('type', (v) => $enumDecode(_$EventTypeEnumMap, v)),
       trigger: $checkedConvert('trigger', (v) => (v as num).toDouble()),
+      timeout: $checkedConvert('timeout', (v) => (v as num).toDouble()),
       tiles: $checkedConvert(
         'tiles',
         (v) => (v as List<dynamic>)
@@ -27,6 +28,7 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'type': _$EventTypeEnumMap[instance.type]!,
   'trigger': instance.trigger,
+  'timeout': instance.timeout,
   'tiles': instance.tiles.map((e) => e.toJson()).toList(),
 };
 

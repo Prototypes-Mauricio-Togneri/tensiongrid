@@ -5,7 +5,6 @@ import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventAlign extends Event<TileAlign> {
-  final Direction direction;
   int alignedUp = 0;
   int alignedDown = 0;
   int alignedLeft = 0;
@@ -15,7 +14,6 @@ class EventAlign extends Event<TileAlign> {
     required super.trigger,
     required super.timeout,
     required super.tiles,
-    required this.direction,
   }) : super(type: EventType.align);
 
   @override

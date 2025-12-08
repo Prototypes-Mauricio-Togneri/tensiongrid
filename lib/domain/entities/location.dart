@@ -1,8 +1,12 @@
+import 'package:tensiongrid/domain/json/json_location.dart';
+
 class Location {
   final int x;
   final int y;
 
   const Location(this.x, this.y);
+
+  JsonLocation get json => JsonLocation(x: x, y: y);
 
   @override
   bool operator ==(Object other) =>

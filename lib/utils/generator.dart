@@ -362,7 +362,6 @@ class EventGenerator {
       trigger: trigger,
       timeout: timeout,
       tiles: [],
-      quantity: quantity,
     );
 
     final List<Location> locations = tiles.locations(
@@ -432,8 +431,6 @@ class EventGenerator {
       trigger: trigger,
       timeout: timeout,
       tiles: [],
-      category: validCategory,
-      validTiles: validTiles,
     );
 
     final List<Location> locations = tiles.locations(
@@ -479,7 +476,6 @@ class EventGenerator {
     required double trigger,
   }) {
     final int length = _randomInt(3, 6);
-    final Direction direction = _randomEnum(Direction.values);
 
     final double timeout = (2 * length).toDouble();
     final double removeTime = trigger + timeout;
@@ -488,7 +484,6 @@ class EventGenerator {
       trigger: trigger,
       timeout: timeout,
       tiles: [],
-      direction: direction,
     );
 
     final List<Location> locations = tiles.locations(

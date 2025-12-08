@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'json_location.dart';
 
 part 'json_tile.g.dart';
@@ -19,6 +20,11 @@ class JsonTile {
     required this.type,
     required this.location,
   });
+
+  Tile get object {
+    // TODO(momo): Implement tile deserialization based on type
+    throw UnimplementedError();
+  }
 
   factory JsonTile.fromJson(Map<String, dynamic> json) =>
       _$JsonTileFromJson(json);

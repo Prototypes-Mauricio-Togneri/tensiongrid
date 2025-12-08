@@ -48,7 +48,7 @@ class JsonGrid {
     createdAt: createdAt,
     size: size.object,
     timeout: timeout,
-    events: [], // TODO(momo): events.map((e) => e.object).toList(),
+    events: events.map((e) => e.object).toList(),
     winnerId: winnerId,
     playerIds: playerIds,
     results: results.map((r) => r.object(userId)).toList(),
