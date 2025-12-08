@@ -9,7 +9,8 @@ class Grid {
   final Size size;
   final int timeout;
   final List<Event> events;
-  final String? winnerId;
+  final String winnerId;
+  final int winnerScore;
   final List<String> playerIds;
   final List<Result> results;
 
@@ -20,6 +21,7 @@ class Grid {
     required this.timeout,
     required this.events,
     required this.winnerId,
+    required this.winnerScore,
     required this.playerIds,
     required this.results,
   });
@@ -57,13 +59,16 @@ class Grid {
       newResults.add(result);
     }
 
+    final bool newWinner = result.winnerScore > winnerScore;
+
     return Grid(
       id: id,
       createdAt: createdAt,
       size: size,
       timeout: timeout,
       events: events,
-      winnerId: result.winnerId,
+      winnerId: newWinner ? result.winnerId : winnerId,
+      winnerScore: newWinner ? result.winnerScore : winnerScore,
       playerIds: [
         ...playerIds,
         if (!playerIds.contains(result.player1.id)) result.player1.id,
@@ -80,6 +85,7 @@ class Grid {
     timeout: timeout,
     events: events.map((e) => e.json).toList(),
     winnerId: winnerId,
+    winnerScore: winnerScore,
     playerIds: playerIds,
     results: results.map((r) => r.json).toList(),
   );

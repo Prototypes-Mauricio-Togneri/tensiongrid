@@ -25,6 +25,16 @@ class Result {
     }
   }
 
+  int get winnerScore {
+    if (player1.score >= player2.score) {
+      return player1.score;
+    } else if (player2.score > player1.score) {
+      return player2.score;
+    } else {
+      throw Exception('No winner in a draw');
+    }
+  }
+
   factory Result.withBot({
     required String userId,
     required String userName,

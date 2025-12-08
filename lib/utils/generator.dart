@@ -45,7 +45,8 @@ class GridGenerator {
       size: size,
       timeout: timeout,
       events: generator.events,
-      winnerId: null,
+      winnerId: result.winnerId,
+      winnerScore: result.winnerScore,
       playerIds: [
         if (result.player1.id.isNotEmpty) result.player1.id,
         if (result.player2.id.isNotEmpty) result.player2.id,

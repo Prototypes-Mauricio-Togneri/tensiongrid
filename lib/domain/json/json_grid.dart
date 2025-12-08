@@ -24,7 +24,10 @@ class JsonGrid {
   final List<JsonEvent> events;
 
   @JsonKey(name: 'winnerId')
-  final String? winnerId;
+  final String winnerId;
+
+  @JsonKey(name: 'winnerScore')
+  final int winnerScore;
 
   @JsonKey(name: 'playerIds')
   final List<String> playerIds;
@@ -39,6 +42,7 @@ class JsonGrid {
     required this.timeout,
     required this.events,
     required this.winnerId,
+    required this.winnerScore,
     required this.playerIds,
     required this.results,
   });
@@ -50,6 +54,7 @@ class JsonGrid {
     timeout: timeout,
     events: events.map((e) => e.object).toList(),
     winnerId: winnerId,
+    winnerScore: winnerScore,
     playerIds: playerIds,
     results: results.map((r) => r.object(userId)).toList(),
   );

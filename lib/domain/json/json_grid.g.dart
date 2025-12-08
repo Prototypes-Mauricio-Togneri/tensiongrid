@@ -25,7 +25,8 @@ JsonGrid _$JsonGridFromJson(Map<String, dynamic> json) =>
               .map((e) => JsonEvent.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
-        winnerId: $checkedConvert('winnerId', (v) => v as String?),
+        winnerId: $checkedConvert('winnerId', (v) => v as String),
+        winnerScore: $checkedConvert('winnerScore', (v) => (v as num).toInt()),
         playerIds: $checkedConvert(
           'playerIds',
           (v) => (v as List<dynamic>).map((e) => e as String).toList(),
@@ -47,6 +48,7 @@ Map<String, dynamic> _$JsonGridToJson(JsonGrid instance) => <String, dynamic>{
   'timeout': instance.timeout,
   'events': instance.events.map((e) => e.toJson()).toList(),
   'winnerId': instance.winnerId,
+  'winnerScore': instance.winnerScore,
   'playerIds': instance.playerIds,
   'results': instance.results.map((e) => e.toJson()).toList(),
 };
