@@ -24,7 +24,7 @@ class LobbyState extends BaseState {
 
     Navigation.matchScreen(
       grid: _grid!,
-      match: MatchGenerator.test(),
+      match: MatchGenerator.test(_grid!),
     );
   }
 

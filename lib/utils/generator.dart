@@ -10,6 +10,7 @@ import 'package:tensiongrid/domain/entities/events/event_directional.dart';
 import 'package:tensiongrid/domain/entities/events/event_matching.dart';
 import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
+import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
@@ -27,21 +28,20 @@ import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class MatchGenerator {
-  static Match test() {
-    const int width = 5;
-    const int height = 5;
+  static Match test(Grid grid) {
     const int timeout = 60;
 
-    const EventGenerator generator = EventGenerator(
-      width: width,
-      height: height,
+    final EventGenerator generator = EventGenerator(
+      width: grid.size.width,
+      height: grid.size.height,
       timeout: timeout,
     );
 
     return Match(
-      id: 'match1',
-      width: width,
-      height: height,
+      gridId: grid.id,
+      matchId: 'match1',
+      width: grid.size.width,
+      height: grid.size.height,
       timeout: timeout,
       player1: const Player(
         id: 'user1',

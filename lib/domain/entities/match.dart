@@ -1,11 +1,13 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
+import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 
 class Match {
-  final String id;
+  final String gridId;
+  final String matchId;
   final int width;
   final int height;
   final int timeout;
@@ -18,7 +20,8 @@ class Match {
   int _score = 0;
 
   Match({
-    required this.id,
+    required this.gridId,
+    required this.matchId,
     required this.width,
     required this.height,
     required this.timeout,
@@ -157,4 +160,11 @@ class Match {
   void onWrongAction() {
     _removePoints(5);
   }
+
+  Result get result => Result(
+    id: matchId,
+    createdAt: DateTime.now(),
+    player1: player1.isSelf ? player1.withScore(_score) : player1,
+    player2: player2.isSelf ? player2.withScore(_score) : player2,
+  );
 }

@@ -41,7 +41,7 @@ class GridRepository {
     return result;
   }
 
-  Future<Grid> _createResult({
+  Future<Grid> setResult({
     required String gridId,
     required Result? result,
   }) => FirebaseFirestore.instance.runTransaction<Grid>(
@@ -71,7 +71,7 @@ class GridRepository {
     // Never played
     for (final Grid grid in allGrids) {
       if (!grid.playerIds.contains(userId)) {
-        return _createResult(
+        return setResult(
           gridId: grid.id,
           result: null,
         );
@@ -81,7 +81,7 @@ class GridRepository {
     // Played but not winner
     for (final Grid grid in allGrids) {
       if ((grid.winnerId != null) && (grid.winnerId != userId)) {
-        return _createResult(
+        return setResult(
           gridId: grid.id,
           result: grid.resultFor(userId),
         );

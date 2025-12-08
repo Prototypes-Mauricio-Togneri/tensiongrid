@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
+import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/presentation/home/home_screen.dart';
 import 'package:tensiongrid/presentation/lobby/lobby_screen.dart';
 import 'package:tensiongrid/presentation/match/match_screen.dart';
@@ -60,9 +61,15 @@ class Navigation {
     ),
   );
 
-  static void resultScreen(Match match) => get.routes.pushReplacement(
+  static void resultScreen({
+    required Match match,
+    required Result result,
+  }) => get.routes.pushReplacement(
     BasicRoute(
-      ResultScreen.instance(match),
+      ResultScreen.instance(
+        match: match,
+        result: result,
+      ),
       name: 'result',
     ),
   );

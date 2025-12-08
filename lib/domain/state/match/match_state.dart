@@ -9,5 +9,8 @@ class MatchState extends BaseState {
 
   MatchState(this.grid, this.match);
 
-  void onMatchFinished() => Navigation.resultScreen(match);
+  void onMatchFinished() => Navigation.resultScreen(
+    match: match,
+    result: match.result,
+  );
 }

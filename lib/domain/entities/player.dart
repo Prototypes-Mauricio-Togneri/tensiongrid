@@ -15,7 +15,7 @@ class Player {
     isSelf: false,
     index: 1,
     name: 'Bot',
-    score: 10,
+    score: 1000,
   );
 
   const Player({
@@ -25,6 +25,14 @@ class Player {
     required this.name,
     required this.score,
   });
+
+  Player withScore(int score) => Player(
+    id: id,
+    isSelf: isSelf,
+    index: index,
+    name: name,
+    score: score,
+  );
 
   Color get color {
     if (index == Constants.PLAYER_1) {
