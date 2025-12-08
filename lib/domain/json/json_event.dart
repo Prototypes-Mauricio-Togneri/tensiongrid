@@ -10,15 +10,6 @@ import 'package:tensiongrid/domain/entities/events/event_matching.dart';
 import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 import 'json_tile.dart';
 
@@ -46,62 +37,71 @@ class JsonEvent {
   });
 
   Event get object {
-    final List<Tile> tileList = tiles.map((e) => e.object).toList();
+    final Event event = _event;
+    final List<Tile> tileList = tiles.map((e) => e.object(event)).toList();
 
+    for (final Tile tile in tileList) {
+      event.addTile(tile);
+    }
+
+    return event;
+  }
+
+  Event get _event {
     switch (type) {
       case EventType.coin:
         return EventCoin(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileCoin>,
+          tiles: [],
         );
       case EventType.directional:
         return EventDirectional(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileDirectional>,
+          tiles: [],
         );
       case EventType.countdown:
         return EventCountdown(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileCountdown>,
+          tiles: [],
         );
       case EventType.chest:
         return EventChest(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileChest>,
+          tiles: [],
         );
       case EventType.bomb:
         return EventBomb(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileBomb>,
+          tiles: [],
         );
       case EventType.quantity:
         return EventQuantity(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileQuantity>,
+          tiles: [],
         );
       case EventType.sequence:
         return EventSequence(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileSequence>,
+          tiles: [],
         );
       case EventType.matching:
         return EventMatching(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileMatching>,
+          tiles: [],
         );
       case EventType.align:
         return EventAlign(
           trigger: trigger,
           timeout: timeout,
-          tiles: tileList as List<TileAlign>,
+          tiles: [],
         );
     }
   }
