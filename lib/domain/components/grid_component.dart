@@ -28,8 +28,8 @@ class GridComponent extends PositionComponent with TapCallbacks, DragCallbacks {
   }) : super(anchor: Anchor.center) {
     tileSize = Dimensions.tileSize(
       size: size,
-      width: match.width,
-      height: match.height,
+      width: match.size.width,
+      height: match.size.height,
     );
   }
 

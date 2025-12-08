@@ -59,8 +59,7 @@ class MatchGenerator {
     return Match(
       gridId: grid.id,
       matchId: 'match1',
-      width: grid.size.width,
-      height: grid.size.height,
+      size: grid.size,
       timeout: timeout,
       player1: const Player(
         id: 'user1',

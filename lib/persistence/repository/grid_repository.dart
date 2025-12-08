@@ -52,17 +52,11 @@ class GridRepository {
       final JsonGrid jsonGrid = JsonGrid.fromJson(snapshot.json);
       final Grid grid = jsonGrid.object(userId);
       final Grid updatedGrid = grid.withResult(result);
-      transaction.update(docRef, updatedGrid.json.toJson());
+      transaction.set(docRef, updatedGrid.json.toJson());
 
-      return Match(
-        gridId: updatedGrid.id,
-        matchId: result.id,
-        width: updatedGrid.size.width,
-        height: updatedGrid.size.height,
-        timeout: grid.timeout,
-        player1: result.player1,
-        player2: result.player2,
-        events: grid.events,
+      return Match.create(
+        grid: grid,
+        result: result,
       );
     },
   );

@@ -1,15 +1,16 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
+import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 
 class Match {
   final String gridId;
   final String matchId;
-  final int width;
-  final int height;
+  final Size size;
   final int timeout;
   final Player player1;
   final Player player2;
@@ -22,8 +23,7 @@ class Match {
   Match({
     required this.gridId,
     required this.matchId,
-    required this.width,
-    required this.height,
+    required this.size,
     required this.timeout,
     required this.player1,
     required this.player2,
@@ -31,6 +31,19 @@ class Match {
   }) {
     futureEvents.addAll(events);
   }
+
+  factory Match.create({
+    required Grid grid,
+    required Result result,
+  }) => Match(
+    gridId: grid.id,
+    matchId: result.id,
+    size: grid.size,
+    timeout: grid.timeout,
+    player1: result.player1,
+    player2: result.player2,
+    events: grid.events,
+  );
 
   int get score => _score;
 
