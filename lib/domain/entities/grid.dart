@@ -39,7 +39,6 @@ class Grid {
   }
 
   Grid withResult(Result result) {
-    final String userId = result.player2.id;
     final List<Result> newResults = [];
 
     for (final Result element in results) {
@@ -55,10 +54,11 @@ class Grid {
       createdAt: createdAt,
       size: size,
       events: events,
-      winnerId: null,
+      winnerId: result.winnerId,
       playerIds: [
         ...playerIds,
-        if (!playerIds.contains(userId)) userId,
+        if (!playerIds.contains(result.player1.id)) result.player1.id,
+        if (!playerIds.contains(result.player2.id)) result.player2.id,
       ],
       results: newResults,
     );
