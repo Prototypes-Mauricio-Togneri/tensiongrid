@@ -3,6 +3,7 @@ import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_countdown_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/json/json_tile.dart';
 
 class TileCountdown extends Tile {
   double timeout;
@@ -34,5 +35,15 @@ class TileCountdown extends Tile {
     size: size,
     tile: this,
     gridComponent: gridComponent,
+  );
+
+  @override
+  JsonTile get json => JsonTile(
+    location: location.json,
+    quantity: null,
+    number: null,
+    category: null,
+    value: null,
+    direction: null,
   );
 }

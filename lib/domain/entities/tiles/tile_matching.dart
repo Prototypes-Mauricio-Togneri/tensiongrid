@@ -3,6 +3,7 @@ import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_matching_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/json/json_tile.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 
 class TileMatching extends Tile {
@@ -26,5 +27,15 @@ class TileMatching extends Tile {
     size: size,
     tile: this,
     gridComponent: gridComponent,
+  );
+
+  @override
+  JsonTile get json => JsonTile(
+    location: location.json,
+    category: category,
+    value: value,
+    direction: null,
+    quantity: null,
+    number: null,
   );
 }

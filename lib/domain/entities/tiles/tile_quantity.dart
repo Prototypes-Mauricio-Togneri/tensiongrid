@@ -3,6 +3,7 @@ import 'package:tensiongrid/domain/components/grid_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_component.dart';
 import 'package:tensiongrid/domain/components/tiles/tile_quantity_component.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/json/json_tile.dart';
 
 class TileQuantity extends Tile {
   final int quantity;
@@ -32,5 +33,15 @@ class TileQuantity extends Tile {
     size: size,
     tile: this,
     gridComponent: gridComponent,
+  );
+
+  @override
+  JsonTile get json => JsonTile(
+    location: location.json,
+    quantity: quantity,
+    direction: null,
+    number: null,
+    category: null,
+    value: null,
   );
 }

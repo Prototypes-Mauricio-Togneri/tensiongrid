@@ -1,24 +1,38 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile.dart';
+import 'package:tensiongrid/domain/types/category.dart';
+import 'package:tensiongrid/domain/types/direction.dart';
 import 'json_location.dart';
 
 part 'json_tile.g.dart';
 
 @JsonSerializable()
 class JsonTile {
-  @JsonKey(name: 'id')
-  final String id;
-
-  @JsonKey(name: 'type')
-  final String type;
-
   @JsonKey(name: 'location')
   final JsonLocation location;
 
+  @JsonKey(name: 'direction')
+  final Direction? direction;
+
+  @JsonKey(name: 'category')
+  final Category? category;
+
+  @JsonKey(name: 'quantity')
+  final int? quantity;
+
+  @JsonKey(name: 'number')
+  final int? number;
+
+  @JsonKey(name: 'value')
+  final String? value;
+
   const JsonTile({
-    required this.id,
-    required this.type,
     required this.location,
+    required this.direction,
+    required this.category,
+    required this.quantity,
+    required this.number,
+    required this.value,
   });
 
   Tile get object {

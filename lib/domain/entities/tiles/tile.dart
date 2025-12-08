@@ -22,11 +22,7 @@ abstract class Tile {
     required GridComponent gridComponent,
   });
 
-  JsonTile get json => JsonTile(
-    id: location.toString(),
-    type: runtimeType.toString(),
-    location: location.json,
-  );
+  JsonTile get json;
 
   @override
   bool operator ==(Object other) =>
