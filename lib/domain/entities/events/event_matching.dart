@@ -14,8 +14,28 @@ class EventMatching extends Event<TileMatching> {
     required super.timeout,
     required List<TileMatching> tiles,
   }) : super(type: EventType.matching, tiles: tiles) {
-    category = tiles[0].category;
-    validTiles = tiles.length;
+    category = _getCategory(tiles);
+    validTiles = tiles.where((tile) => tile.category == category).length;
+  }
+
+  Category _getCategory(List<TileMatching> tiles) {
+    final Map<Category, int> categoryCount = {};
+
+    for (final TileMatching tile in tiles) {
+      categoryCount[tile.category] = (categoryCount[tile.category] ?? 0) + 1;
+    }
+
+    Category result = categoryCount.keys.first;
+    int maxCount = 0;
+
+    for (final MapEntry<Category, int> entry in categoryCount.entries) {
+      if (entry.value > maxCount) {
+        maxCount = entry.value;
+        result = entry.key;
+      }
+    }
+
+    return result;
   }
 
   @override
