@@ -27,6 +27,7 @@ class Grid {
   });
 
   Result resultFor(String userId) {
+    // Search for results where the player lost
     for (final Result result in results) {
       if (result.player1.id == userId &&
           result.player1.score < result.player2.score) {
@@ -35,6 +36,13 @@ class Grid {
       } else if (result.player2.id == userId &&
           result.player2.score < result.player1.score) {
         // Lost as player 2
+        return result;
+      }
+    }
+
+    // Search any result where the player participated
+    for (final Result result in results) {
+      if (result.player1.id == userId || result.player2.id == userId) {
         return result;
       }
     }
