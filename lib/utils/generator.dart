@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
 import 'package:tensiongrid/domain/entities/events/event_align.dart';
 import 'package:tensiongrid/domain/entities/events/event_bomb.dart';
@@ -12,8 +11,6 @@ import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
-import 'package:tensiongrid/domain/entities/match.dart';
-import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
@@ -34,68 +31,42 @@ class GridGenerator {
     required String id,
     required String userId,
     required Result result,
-  }) => Grid(
-    id: id,
-    createdAt: DateTime.now(),
-    size: const Size(5, 5),
-    timeout: 60,
-    events: [], // TODO(momo): generate events
-    winnerId: null,
-    playerIds: [userId],
-    results: [result],
-  );
-}
-
-class MatchGenerator {
-  static Match test(Grid grid) {
+  }) {
+    const Size size = Size(5, 5);
     const int timeout = 60;
 
-    final EventGenerator generator = EventGenerator(
-      width: grid.size.width,
-      height: grid.size.height,
+    const EventGenerator generator = EventGenerator(
+      size: size,
       timeout: timeout,
     );
 
-    return Match(
-      gridId: grid.id,
-      matchId: 'match1',
-      size: grid.size,
+    return Grid(
+      id: id,
+      createdAt: DateTime.now(),
+      size: size,
       timeout: timeout,
-      player1: const Player(
-        id: 'user1',
-        isSelf: false,
-        index: Constants.PLAYER_1,
-        name: 'Alice',
-        score: 50,
-      ),
-      player2: const Player(
-        id: 'user2',
-        isSelf: true,
-        index: Constants.PLAYER_2,
-        name: 'Bob',
-        score: 75,
-      ),
       events: generator.events,
+      winnerId: null,
+      playerIds: [userId],
+      results: [result],
     );
   }
 }
 
 class EventGenerator {
-  final int width;
-  final int height;
+  final Size size;
   final int timeout;
 
   const EventGenerator({
-    required this.width,
-    required this.height,
+    required this.size,
     required this.timeout,
   });
 
   List<Event> get events {
     final List<Event> result = [];
     final Tiles tiles = Tiles.create(
-      width: width,
-      height: height,
+      width: size.width,
+      height: size.height,
     );
     double time = 0;
 

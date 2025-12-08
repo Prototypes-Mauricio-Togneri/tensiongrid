@@ -20,7 +20,7 @@ class Match {
   double _elapsedTime = 0;
   int _score = 0;
 
-  Match({
+  Match._({
     required this.gridId,
     required this.matchId,
     required this.size,
@@ -35,7 +35,7 @@ class Match {
   factory Match.create({
     required Grid grid,
     required Result result,
-  }) => Match(
+  }) => Match._(
     gridId: grid.id,
     matchId: result.id,
     size: grid.size,
