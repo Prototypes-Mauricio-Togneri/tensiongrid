@@ -73,13 +73,13 @@ class PlayerRow extends StatelessWidget {
       children: [
         NeonLabel(
           text: player.name.short.toUpperCase(),
-          size: 36,
+          size: 28,
           color: player.color,
         ),
         const HBox(20),
         NeonLabel(
           text: player.score.toString(),
-          size: 36,
+          size: 28,
           color: Palette.TEXT_COLOR_PRIMARY,
         ),
       ],

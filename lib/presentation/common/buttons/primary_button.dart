@@ -42,6 +42,14 @@ class PrimaryButton extends StatelessWidget {
           textStyle: WidgetStateProperty.all<TextStyle>(
             TextStyle(fontSize: fontSize),
           ),
+          padding: WidgetStateProperty.all<EdgeInsets>(
+            const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              bottom: 3,
+              top: 0,
+            ),
+          ),
         ),
         child: Label(
           text: label.toUpperCase(),

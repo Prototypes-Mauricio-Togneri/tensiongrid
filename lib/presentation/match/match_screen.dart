@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/domain/components/game_component.dart';
@@ -15,8 +16,10 @@ class MatchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameContainer(
-      child: Content(state),
+    return Unclosable(
+      child: GameContainer(
+        child: Content(state),
+      ),
     );
   }
 }
