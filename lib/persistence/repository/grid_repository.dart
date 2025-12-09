@@ -39,6 +39,8 @@ class GridRepository {
       result.add(jsonGrid.object(userId));
     }
 
+    result.shuffle();
+
     return result;
   }
 
@@ -80,9 +82,12 @@ class GridRepository {
     // Played but not winner
     for (final Grid grid in allGrids) {
       if (grid.winnerId != userId) {
-        return Match.create(
-          grid: grid,
-          result: grid.resultFor(userId),
+        return setResult(
+          gridId: grid.id,
+          result: grid.resultAsNewPlayer(
+            userId: userId,
+            userName: userName,
+          ),
         );
       }
     }

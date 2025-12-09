@@ -35,13 +35,14 @@ class Result {
     }
   }
 
-  factory Result.withBot({
+  factory Result.withOpponent({
     required String userId,
     required String userName,
+    required Player? opponent,
   }) => Result(
     id: const Uuid().v4(),
     createdAt: DateTime.now(),
-    player1: Player.BOT,
+    player1: opponent ?? Player.BOT,
     player2: Player(
       id: userId,
       index: 2,
@@ -49,6 +50,15 @@ class Result {
       score: 0,
       isSelf: true,
     ),
+  );
+
+  factory Result.withBot({
+    required String userId,
+    required String userName,
+  }) => Result.withOpponent(
+    userId: userId,
+    userName: userName,
+    opponent: Player.BOT,
   );
 
   JsonResult get json => JsonResult(

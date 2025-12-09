@@ -3,7 +3,6 @@ import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/json/json_grid.dart';
-import 'package:uuid/uuid.dart';
 
 class Grid {
   final String id;
@@ -28,38 +27,14 @@ class Grid {
     required this.results,
   });
 
-  Result resultFor(String userId) {
-    // Search for results where the player lost
-    for (final Result result in results) {
-      if (result.player1.id == userId &&
-          result.player1.score < result.player2.score) {
-        // Lost as player 1
-        return result;
-      } else if (result.player2.id == userId &&
-          result.player2.score < result.player1.score) {
-        // Lost as player 2
-        return result;
-      }
-    }
-
-    // Search any result where the player participated
-    for (final Result result in results) {
-      if (result.player1.id == userId || result.player2.id == userId) {
-        return result;
-      }
-    }
-
-    throw Exception('No result found for userId: $userId');
-  }
-
   List<Player> get _players {
     final List<Player> playersSet = [];
 
     for (final Result result in results) {
-      if (!result.player1.isBot) {
+      if (!result.player1.isBot && result.player1.score > 0) {
         playersSet.add(result.player1);
       }
-      if (!result.player2.isBot) {
+      if (!result.player2.isBot && result.player2.score > 0) {
         playersSet.add(result.player2);
       }
     }
@@ -72,10 +47,8 @@ class Grid {
     int count = 0;
 
     for (final Player player in players) {
-      if (player.score > 0) {
-        sum += player.score;
-        count++;
-      }
+      sum += player.score;
+      count++;
     }
 
     return (count == 0) ? 0 : (sum / count).round();
@@ -88,31 +61,50 @@ class Grid {
     final List<Player> players = _players;
     final int averageScore = _averageScore(players);
     Player? opponent;
+    int opponentScore = 0;
 
     for (final Player player in players) {
-      if (opponent == null) {
-        opponent = player;
-      } else {
-        final int opponentDiff = (opponent.score - averageScore).abs();
-        final int playerDiff = (player.score - averageScore).abs();
+      final int opponentDiff = (opponentScore - averageScore).abs();
+      final int playerDiff = (player.score - averageScore).abs();
 
-        if (playerDiff < opponentDiff) {
-          opponent = player;
-        }
+      if (playerDiff < opponentDiff) {
+        opponent = player;
+        opponentScore = player.score;
       }
     }
 
-    return Result(
-      id: const Uuid().v4(),
-      createdAt: DateTime.now(),
-      player1: opponent ?? Player.BOT,
-      player2: Player(
-        id: userId,
-        index: 2,
-        name: userName,
-        score: averageScore,
-        isSelf: true,
-      ),
+    return Result.withOpponent(
+      userId: userId,
+      userName: userName,
+      opponent: opponent,
+    );
+  }
+
+  Result resultAsExistingPlayer({
+    required String userId,
+    required String userName,
+  }) {
+    final List<Player> players = _players;
+    final Iterable<Player> opponents = players.where((p) => p.id != userId);
+    final Iterable<Player> self = players.where((p) => p.id == userId);
+    final int selfAverageScore = _averageScore(self.toList());
+    Player? opponent;
+    int opponentScore = 0;
+
+    for (final Player player in opponents) {
+      final int opponentDiff = (opponentScore - selfAverageScore).abs();
+      final int playerDiff = (player.score - selfAverageScore).abs();
+
+      if ((player.score > selfAverageScore) && (playerDiff < opponentDiff)) {
+        opponent = player;
+        opponentScore = player.score;
+      }
+    }
+
+    return Result.withOpponent(
+      userId: userId,
+      userName: userName,
+      opponent: opponent,
     );
   }
 
