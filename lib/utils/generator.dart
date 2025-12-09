@@ -76,7 +76,7 @@ class EventGenerator {
     for (int i = 0; i < timeout; i++) {
       tiles.clean(time);
 
-      while (tiles.ratio < time) {
+      while (tiles.ratio < 30) {
         final List<EventType> presentTypes = result
             .where((e) => (e.trigger + e.timeout) >= time)
             .map((e) => e.type)
@@ -387,7 +387,7 @@ class EventGenerator {
     required Tiles tiles,
     required double trigger,
   }) {
-    final int length = _randomInt(3, 6);
+    final int length = _randomInt(3, 4);
     final double timeout = (2 * length).toDouble();
     final double removeTime = trigger + timeout;
 
@@ -422,7 +422,7 @@ class EventGenerator {
     required double trigger,
   }) {
     final Category validCategory = _randomEnum(Category.values);
-    final int validTiles = _randomInt(Category.values.length + 1, 6);
+    final int validTiles = Category.values.length;
     final int invalidTiles = Category.values.length - 1;
 
     final double timeout = (2 * validTiles).toDouble();
@@ -476,7 +476,7 @@ class EventGenerator {
     required Tiles tiles,
     required double trigger,
   }) {
-    final int length = _randomInt(3, 6);
+    final int length = _randomInt(3, 4);
 
     final double timeout = (2 * length).toDouble();
     final double removeTime = trigger + timeout;
