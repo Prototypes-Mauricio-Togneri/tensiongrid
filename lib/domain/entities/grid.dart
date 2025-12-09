@@ -85,8 +85,10 @@ class Grid {
     required String userName,
   }) {
     final List<Player> players = _players;
-    final Iterable<Player> opponents = players.where((p) => p.id != userId);
-    final Iterable<Player> self = players.where((p) => p.id == userId);
+    final List<Player> opponents = players
+        .where((p) => p.id != userId)
+        .toList();
+    final List<Player> self = players.where((p) => p.id == userId).toList();
     final int selfAverageScore = _averageScore(self.toList());
     Player? opponent;
     int opponentScore = 0;

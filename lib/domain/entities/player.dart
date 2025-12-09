@@ -28,6 +28,14 @@ class Player {
 
   bool get isBot => id == BOT.id;
 
+  Player withIndex(int index) => Player(
+    id: id,
+    isSelf: isSelf,
+    index: index,
+    name: name,
+    score: score,
+  );
+
   Player withScore(int score) => Player(
     id: id,
     isSelf: isSelf,

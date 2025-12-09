@@ -1,3 +1,4 @@
+import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/json/json_result.dart';
 import 'package:uuid/uuid.dart';
@@ -42,7 +43,7 @@ class Result {
   }) => Result(
     id: const Uuid().v4(),
     createdAt: DateTime.now(),
-    player1: opponent ?? Player.BOT,
+    player1: opponent?.withIndex(Constants.PLAYER_1) ?? Player.BOT,
     player2: Player(
       id: userId,
       index: 2,
