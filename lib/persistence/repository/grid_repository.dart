@@ -84,7 +84,7 @@ class GridRepository {
       if (grid.winnerId != userId) {
         return setResult(
           gridId: grid.id,
-          result: grid.resultAsNewPlayer(
+          result: grid.resultAsExistingPlayer(
             userId: userId,
             userName: userName,
           ),
@@ -98,7 +98,7 @@ class GridRepository {
       userId: userId,
       userName: userName,
     );
-    final Grid grid = GridGenerator.test(
+    final Grid grid = GridGenerator.create(
       id: docRef.id,
       result: result,
     );

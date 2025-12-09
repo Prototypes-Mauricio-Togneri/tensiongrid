@@ -27,7 +27,7 @@ import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class GridGenerator {
-  static Grid test({
+  static Grid create({
     required String id,
     required Result result,
   }) {
