@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
+import 'package:tensiongrid/extensions/component_extension.dart';
 import 'package:tensiongrid/extensions/string_extension.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 import 'package:tensiongrid/utils/formatter.dart';
@@ -122,7 +124,7 @@ class PlayerIndicatorComponent extends PositionComponent {
   }
 }
 
-class TimeComponent extends PositionComponent {
+class TimeComponent extends PositionComponent with TapCallbacks {
   final Match match;
   final NeonPaint neonPaint = NeonPaint.create(
     color: Palette.TEXT_COLOR_PRIMARY,
@@ -134,6 +136,11 @@ class TimeComponent extends PositionComponent {
     required super.size,
     required this.match,
   }) : super(anchor: Anchor.center);
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    game.state.onOpenMenu();
+  }
 
   @override
   void render(Canvas canvas) {
