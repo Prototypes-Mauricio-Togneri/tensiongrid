@@ -5,6 +5,7 @@ import 'package:tensiongrid/app/constants.dart';
 import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/extensions/canvas_extension.dart';
+import 'package:tensiongrid/extensions/string_extension.dart';
 import 'package:tensiongrid/utils/dimensions.dart';
 import 'package:tensiongrid/utils/formatter.dart';
 import 'package:tensiongrid/utils/palette.dart';
@@ -109,7 +110,7 @@ class PlayerIndicatorComponent extends PositionComponent {
     );
 
     canvas.drawTextNeon(
-      text: player.name.toUpperCase(),
+      text: player.name.short.toUpperCase(),
       position: textPosition,
       size: size.x / 12,
       paint: paintText,

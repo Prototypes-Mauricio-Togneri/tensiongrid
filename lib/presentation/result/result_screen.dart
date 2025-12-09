@@ -4,6 +4,7 @@ import 'package:tensiongrid/domain/entities/match.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/state/result/result_state.dart';
+import 'package:tensiongrid/extensions/string_extension.dart';
 import 'package:tensiongrid/presentation/common/buttons/primary_button.dart';
 import 'package:tensiongrid/presentation/common/containers/game_container.dart';
 import 'package:tensiongrid/presentation/common/text/neon_label.dart';
@@ -71,7 +72,7 @@ class PlayerRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         NeonLabel(
-          text: player.name.toUpperCase(),
+          text: player.name.short.toUpperCase(),
           size: 36,
           color: player.color,
         ),
