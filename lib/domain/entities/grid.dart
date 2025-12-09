@@ -1,7 +1,9 @@
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/json/json_grid.dart';
+import 'package:uuid/uuid.dart';
 
 class Grid {
   final String id;
@@ -48,6 +50,70 @@ class Grid {
     }
 
     throw Exception('No result found for userId: $userId');
+  }
+
+  List<Player> get _players {
+    final List<Player> playersSet = [];
+
+    for (final Result result in results) {
+      if (!result.player1.isBot) {
+        playersSet.add(result.player1);
+      }
+      if (!result.player2.isBot) {
+        playersSet.add(result.player2);
+      }
+    }
+
+    return playersSet.toList();
+  }
+
+  int _averageScore(List<Player> players) {
+    int sum = 0;
+    int count = 0;
+
+    for (final Player player in players) {
+      if (player.score > 0) {
+        sum += player.score;
+        count++;
+      }
+    }
+
+    return (count == 0) ? 0 : (sum / count).round();
+  }
+
+  Result resultAsNewPlayer({
+    required String userId,
+    required String userName,
+  }) {
+    final List<Player> players = _players;
+    final int averageScore = _averageScore(players);
+    Player? opponent;
+
+    for (final Player player in players) {
+      if (opponent == null) {
+        opponent = player;
+      } else {
+        final int opponentDiff = (opponent.score - averageScore).abs();
+        final int playerDiff = (player.score - averageScore).abs();
+
+        if (playerDiff < opponentDiff) {
+          opponent = player;
+        }
+      }
+    }
+
+    return Result(
+      id: const Uuid().v4(),
+      createdAt: DateTime.now(),
+      player1: opponent ?? Player.BOT,
+      player2: Player(
+        id: userId,
+        index: 2,
+        name: userName,
+        score: averageScore,
+        isSelf: true,
+      ),
+    );
   }
 
   Grid withResult(Result result) {

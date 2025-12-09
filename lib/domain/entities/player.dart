@@ -26,6 +26,8 @@ class Player {
     required this.score,
   });
 
+  bool get isBot => id == BOT.id;
+
   Player withScore(int score) => Player(
     id: id,
     isSelf: isSelf,

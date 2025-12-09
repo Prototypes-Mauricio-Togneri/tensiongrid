@@ -64,17 +64,12 @@ class GridRepository {
   Future<Match> getMatch() async {
     final List<Grid> allGrids = await _grids();
 
-    // Use ranking system
-    // - createdAt
-    // - userId
-    // - score
-
     // Never played
     for (final Grid grid in allGrids) {
       if (!grid.playerIds.contains(userId)) {
         return setResult(
           gridId: grid.id,
-          result: Result.withBot(
+          result: grid.resultAsNewPlayer(
             userId: userId,
             userName: userName,
           ),
