@@ -48,39 +48,42 @@ class GridGenerator {
     );
   }
 
-  static Grid tutorial() => Grid(
-    id: 'tutorial',
-    createdAt: DateTime.now(),
-    size: const Size(5, 5),
-    timeout: 60,
-    events: [
-      /*EventCoin.create(
+  static Grid tutorial() {
+    const Size size = Size(5, 5);
+
+    return Grid(
+      id: 'tutorial',
+      createdAt: DateTime.now(),
+      size: size,
+      timeout: 60,
+      events: [
+        EventCoin.create(
+          trigger: 1,
+          locations: [const Location(2, 2)],
+        ),
+        EventDirectional.create(
+          trigger: 3,
+          locations: [Location.random(size)],
+        ),
+        EventCountdown.create(
+          trigger: 5,
+          timeout: 3,
+          locations: [Location.random(size)],
+        ),
+        EventChest.create(
+          trigger: 10,
+          locations: [Location.random(size)],
+        ),
+        EventQuantity.create(
+          trigger: 11,
+          quantity: 5,
+          locations: [Location.random(size)],
+        ),
+        /*EventBomb.create(
         trigger: 1,
         locations: [const Location(2, 2)],
       ),*/
-      /*EventDirectional.create(
-        trigger: 1,
-        locations: [const Location(2, 2)],
-      ),*/
-      /*EventCountdown.create(
-        trigger: 1,
-        timeout: 3,
-        locations: [const Location(2, 2)],
-      ),*/
-      /*EventChest.create(
-        trigger: 1,
-        locations: [const Location(2, 2)],
-      ),*/
-      /*EventQuantity.create(
-        trigger: 1,
-        quantity: 5,
-        locations: [const Location(2, 2)],
-      ),*/
-      /*EventBomb.create(
-        trigger: 1,
-        locations: [const Location(2, 2)],
-      ),*/
-      /*EventSequence.create(
+        /*EventSequence.create(
         trigger: 1,
         timeout: 8,
         locations: [
@@ -90,7 +93,7 @@ class GridGenerator {
           const Location(4, 4),
         ],
       ),*/
-      /*EventMatching.create(
+        /*EventMatching.create(
         trigger: 1,
         timeout: 10,
         values: [
@@ -108,7 +111,7 @@ class GridGenerator {
           const Location(4, 4),
         ],
       ),*/
-      EventAlign.create(
+        /*EventAlign.create(
         trigger: 1,
         timeout: 8,
         locations: [
@@ -117,13 +120,14 @@ class GridGenerator {
           const Location(2, 2),
           const Location(3, 3),
         ],
-      ),
-    ],
-    winnerId: Player.BOT.id,
-    winnerScore: 100,
-    playerIds: [],
-    results: [],
-  );
+      ),*/
+      ],
+      winnerId: Player.BOT.id,
+      winnerScore: 100,
+      playerIds: [],
+      results: [],
+    );
+  }
 }
 
 class EventGenerator {
@@ -486,18 +490,15 @@ class Tiles {
     required int amount,
     required double removeTime,
   }) {
-    final Random random = Random();
     final Set<Location> locations = {};
 
     while (locations.length < amount) {
-      final int x = random.nextInt(width);
-      final int y = random.nextInt(height);
-      final double value = get(x, y);
+      final Location location = Location.random(Size(width, height));
+      final double value = get(location.x, location.y);
 
       if (value == 0) {
-        final Location coord = Location(x, y);
-        locations.add(coord);
-        set(x, y, removeTime);
+        locations.add(location);
+        set(location.x, location.y, removeTime);
       }
     }
 

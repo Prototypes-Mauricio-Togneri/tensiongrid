@@ -18,6 +18,14 @@ class Player {
     score: 100,
   );
 
+  static const Player TUTORIAL = Player(
+    id: 'tutorial',
+    isSelf: false,
+    index: 1,
+    name: 'Tutorial',
+    score: 100,
+  );
+
   const Player({
     required this.id,
     required this.isSelf,
