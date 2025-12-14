@@ -14,9 +14,7 @@ import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
 import 'package:tensiongrid/domain/types/category.dart';
-import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class GridGenerator {
@@ -92,7 +90,7 @@ class GridGenerator {
           const Location(4, 4),
         ],
       ),*/
-      EventMatching.create(
+      /*EventMatching.create(
         trigger: 1,
         timeout: 10,
         values: [
@@ -108,6 +106,16 @@ class GridGenerator {
           const Location(2, 2),
           const Location(3, 3),
           const Location(4, 4),
+        ],
+      ),*/
+      EventAlign.create(
+        trigger: 1,
+        timeout: 8,
+        locations: [
+          const Location(0, 0),
+          const Location(1, 1),
+          const Location(2, 2),
+          const Location(3, 3),
         ],
       ),
     ],
@@ -294,7 +302,7 @@ class EventGenerator {
     required Tiles tiles,
     required double trigger,
   }) {
-    final double timeout = _randomInt(3, 9).toDouble();
+    final double timeout = randomInt(3, 9).toDouble();
     final double removeTime = trigger + timeout;
 
     return EventCountdown.create(
@@ -334,7 +342,7 @@ class EventGenerator {
     required double trigger,
   }) => EventQuantity.create(
     trigger: trigger,
-    quantity: _randomInt(3, 6),
+    quantity: randomInt(3, 6),
     locations: tiles.locations(
       amount: 1,
       removeTime: trigger + EventQuantity.duration,
@@ -345,7 +353,7 @@ class EventGenerator {
     required Tiles tiles,
     required double trigger,
   }) {
-    final int length = _randomInt(3, 4);
+    final int length = randomInt(3, 4);
     final double timeout = (EventSequence.durationPerTile * length).toDouble();
 
     return EventSequence.create(
@@ -400,59 +408,27 @@ class EventGenerator {
     required Tiles tiles,
     required double trigger,
   }) {
-    final int length = _randomInt(3, 4);
+    final int length = randomInt(3, 4);
+    final double timeout = (EventAlign.durationPerTile * length).toDouble();
 
-    final double timeout = (2 * length).toDouble();
-    final double removeTime = trigger + timeout;
-
-    final Event event = EventAlign(
+    return EventAlign.create(
       trigger: trigger,
       timeout: timeout,
-      tiles: [],
+      locations: tiles.locations(
+        amount: length,
+        removeTime: trigger + timeout,
+      ),
     );
-
-    final List<Location> locations = tiles.locations(
-      amount: length,
-      removeTime: removeTime,
-    );
-
-    final Set<Direction> usedDirections = {};
-
-    for (final Location location in locations) {
-      final Direction direction = _uniqueDirection(usedDirections);
-
-      event.addTile(
-        TileAlign(
-          location: location,
-          event: event,
-          direction: direction,
-        ),
-      );
-    }
-
-    return event;
-  }
-
-  static Direction _uniqueDirection(Set<Direction> usedDirections) {
-    Direction direction = randomEnum(Direction.values);
-
-    while (usedDirections.contains(direction)) {
-      direction = randomEnum(Direction.values);
-    }
-
-    usedDirections.add(direction);
-
-    return direction;
   }
 }
 
-int _randomInt(int min, int max) {
+int randomInt(int min, int max) {
   final Random random = Random();
 
   return min + random.nextInt(max - min + 1);
 }
 
-T randomEnum<T>(List<T> values) => values[_randomInt(0, values.length - 1)];
+T randomEnum<T>(List<T> values) => values[randomInt(0, values.length - 1)];
 
 class Tiles {
   final int width;
