@@ -18,7 +18,6 @@ import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
@@ -63,7 +62,11 @@ class GridGenerator {
     size: const Size(5, 5),
     timeout: 60,
     events: [
-      EventCoin.create(
+      /*EventCoin.create(
+        trigger: 1,
+        locations: [const Location(2, 2)],
+      ),*/
+      EventDirectional.create(
         trigger: 1,
         locations: [const Location(2, 2)],
       ),
@@ -239,35 +242,13 @@ class EventGenerator {
   Event _eventDirectional({
     required Tiles tiles,
     required double trigger,
-  }) {
-    const double timeout = 3;
-    final double removeTime = trigger + timeout;
-
-    final Event event = EventDirectional(
-      trigger: trigger,
-      timeout: timeout,
-      tiles: [],
-    );
-
-    final List<Location> locations = tiles.locations(
+  }) => EventDirectional.create(
+    trigger: trigger,
+    locations: tiles.locations(
       amount: 1,
-      removeTime: removeTime,
-    );
-
-    for (final Location location in locations) {
-      final Direction direction = _randomEnum(Direction.values);
-
-      event.addTile(
-        TileDirectional(
-          location: location,
-          event: event,
-          direction: direction,
-        ),
-      );
-    }
-
-    return event;
-  }
+      removeTime: trigger + EventDirectional.duration,
+    ),
+  );
 
   Event _eventCountdown({
     required Tiles tiles,
@@ -430,7 +411,7 @@ class EventGenerator {
     required Tiles tiles,
     required double trigger,
   }) {
-    final Category validCategory = _randomEnum(Category.values);
+    final Category validCategory = randomEnum(Category.values);
     final int validTiles = Category.values.length;
     final int invalidTiles = Category.values.length - 1;
 
@@ -519,26 +500,25 @@ class EventGenerator {
   }
 
   static Direction _uniqueDirection(Set<Direction> usedDirections) {
-    Direction direction = _randomEnum(Direction.values);
+    Direction direction = randomEnum(Direction.values);
 
     while (usedDirections.contains(direction)) {
-      direction = _randomEnum(Direction.values);
+      direction = randomEnum(Direction.values);
     }
 
     usedDirections.add(direction);
 
     return direction;
   }
-
-  static int _randomInt(int min, int max) {
-    final Random random = Random();
-
-    return min + random.nextInt(max - min + 1);
-  }
-
-  static T _randomEnum<T>(List<T> values) =>
-      values[_randomInt(0, values.length - 1)];
 }
+
+int _randomInt(int min, int max) {
+  final Random random = Random();
+
+  return min + random.nextInt(max - min + 1);
+}
+
+T randomEnum<T>(List<T> values) => values[_randomInt(0, values.length - 1)];
 
 class Tiles {
   final int width;

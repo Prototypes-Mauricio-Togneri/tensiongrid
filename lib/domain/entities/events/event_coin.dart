@@ -31,7 +31,7 @@ class EventCoin extends Event<TileCoin> {
   }) {
     final EventCoin event = EventCoin(
       trigger: trigger,
-      timeout: EventCoin.duration,
+      timeout: duration,
       tiles: [],
     );
 
