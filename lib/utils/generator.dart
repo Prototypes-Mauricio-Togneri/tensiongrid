@@ -108,16 +108,16 @@ class GridGenerator {
           const Location(2, 2),
         ],
       ),
-      /*EventAlign.create(
-        trigger: 1,
+      EventAlign.create(
+        trigger: 38,
         timeout: 8,
         locations: [
-          const Location(0, 0),
-          const Location(1, 1),
-          const Location(2, 2),
-          const Location(3, 3),
+          const Location(1, 3),
+          const Location(2, 0),
+          const Location(3, 2),
+          const Location(4, 4),
         ],
-      ),*/
+      ),
     ],
     winnerId: '',
     winnerScore: 100,
