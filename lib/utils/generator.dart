@@ -15,7 +15,6 @@ import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
@@ -83,10 +82,28 @@ class GridGenerator {
         trigger: 1,
         locations: [const Location(2, 2)],
       ),*/
-      EventSequence.create(
+      /*EventSequence.create(
         trigger: 1,
         timeout: 8,
         locations: [
+          const Location(1, 1),
+          const Location(2, 2),
+          const Location(3, 3),
+          const Location(4, 4),
+        ],
+      ),*/
+      EventMatching.create(
+        trigger: 1,
+        timeout: 10,
+        values: [
+          ('😀', Category.face),
+          ('🦘', Category.animal),
+          ('😁', Category.face),
+          ('🌵', Category.plant),
+          ('😂', Category.face),
+        ],
+        locations: [
+          const Location(0, 0),
           const Location(1, 1),
           const Location(2, 2),
           const Location(3, 3),
@@ -348,20 +365,8 @@ class EventGenerator {
     final Category validCategory = randomEnum(Category.values);
     final int validTiles = Category.values.length;
     final int invalidTiles = Category.values.length - 1;
-
-    final double timeout = (2 * validTiles).toDouble();
-    final double removeTime = trigger + timeout;
-
-    final Event event = EventMatching(
-      trigger: trigger,
-      timeout: timeout,
-      tiles: [],
-    );
-
-    final List<Location> locations = tiles.locations(
-      amount: validTiles + invalidTiles,
-      removeTime: removeTime,
-    );
+    final double timeout = (EventMatching.durationPerTile * validTiles)
+        .toDouble();
 
     final List<String> goodValues = List.from(validCategory.list);
     goodValues.shuffle();
@@ -380,20 +385,15 @@ class EventGenerator {
       }
     }
 
-    for (int i = 0; i < locations.length; i++) {
-      final Location location = locations[i];
-
-      event.addTile(
-        TileMatching(
-          location: location,
-          event: event,
-          category: values[i].$2,
-          value: values[i].$1,
-        ),
-      );
-    }
-
-    return event;
+    return EventMatching.create(
+      trigger: trigger,
+      timeout: timeout,
+      values: values,
+      locations: tiles.locations(
+        amount: validTiles + invalidTiles,
+        removeTime: trigger + timeout,
+      ),
+    );
   }
 
   Event _eventAlign({

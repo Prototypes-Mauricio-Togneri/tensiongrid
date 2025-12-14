@@ -1,5 +1,6 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
@@ -8,6 +9,8 @@ class EventMatching extends Event<TileMatching> {
   Category? category;
   int validTiles = 0;
   int count = 0;
+
+  static const double durationPerTile = 2;
 
   EventMatching({
     required super.trigger,
@@ -64,5 +67,33 @@ class EventMatching extends Event<TileMatching> {
     } else {
       return ActionResult.mistake(this);
     }
+  }
+
+  factory EventMatching.create({
+    required double trigger,
+    required double timeout,
+    required List<(String, Category)> values,
+    required List<Location> locations,
+  }) {
+    final EventMatching event = EventMatching(
+      trigger: trigger,
+      timeout: timeout,
+      tiles: [],
+    );
+
+    for (int i = 0; i < locations.length; i++) {
+      final Location location = locations[i];
+
+      event.addTile(
+        TileMatching(
+          location: location,
+          event: event,
+          category: values[i].$2,
+          value: values[i].$1,
+        ),
+      );
+    }
+
+    return event;
   }
 }
