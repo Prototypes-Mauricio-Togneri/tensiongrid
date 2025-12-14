@@ -9,7 +9,7 @@ mixin Music {
 
   static const AudioSpec MUSIC = AudioSpec(
     path: Assets.AUDIO_MUSIC_MUSIC,
-    loop: false,
+    loop: true,
     volume: 0.2,
   );
 
