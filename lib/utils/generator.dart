@@ -80,7 +80,7 @@ class GridGenerator {
         locations: [const Location(2, 0)],
       ),
       EventSequence.create(
-        trigger: 25,
+        trigger: 28,
         timeout: 10,
         locations: [
           const Location(2, 3),
