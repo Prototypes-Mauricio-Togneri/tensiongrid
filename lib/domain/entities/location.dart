@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/json/json_location.dart';
 
 class Location {
@@ -23,12 +21,12 @@ class Location {
   @override
   String toString() => '$x,$y';
 
-  factory Location.random(Size size) {
+  factory Location.random(int width, int height) {
     final Random random = Random();
 
     return Location(
-      random.nextInt(size.width),
-      random.nextInt(size.height),
+      random.nextInt(width),
+      random.nextInt(height),
     );
   }
 }
