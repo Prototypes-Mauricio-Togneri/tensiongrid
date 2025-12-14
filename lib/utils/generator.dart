@@ -73,7 +73,7 @@ class EventGenerator {
     );
     double time = 0;
 
-    for (int i = 0; i < timeout; i++) {
+    for (int i = 0; i < timeout * 10; i++) {
       tiles.clean(time);
 
       while (tiles.ratio < 30) {
@@ -91,7 +91,7 @@ class EventGenerator {
         print('Event: ${event.type}, time $time, ratio ${tiles.ratio}%');
       }
 
-      time++;
+      time += 0.1;
     }
 
     return result;
