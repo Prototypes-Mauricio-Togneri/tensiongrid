@@ -15,7 +15,6 @@ import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
@@ -73,7 +72,11 @@ class GridGenerator {
         timeout: 3,
         locations: [const Location(2, 2)],
       ),*/
-      EventChest.create(
+      /*EventChest.create(
+        trigger: 1,
+        locations: [const Location(2, 2)],
+      ),*/
+      EventBomb.create(
         trigger: 1,
         locations: [const Location(2, 2)],
       ),
@@ -288,32 +291,13 @@ class EventGenerator {
   Event _eventBomb({
     required Tiles tiles,
     required double trigger,
-  }) {
-    const double timeout = 5;
-    final double removeTime = trigger + timeout;
-
-    final Event event = EventBomb(
-      trigger: trigger,
-      timeout: timeout,
-      tiles: [],
-    );
-
-    final List<Location> locations = tiles.locations(
+  }) => EventBomb.create(
+    trigger: trigger,
+    locations: tiles.locations(
       amount: 1,
-      removeTime: removeTime,
-    );
-
-    for (final Location location in locations) {
-      event.addTile(
-        TileBomb(
-          location: location,
-          event: event,
-        ),
-      );
-    }
-
-    return event;
-  }
+      removeTime: trigger + EventBomb.duration,
+    ),
+  );
 
   Event _eventQuantity({
     required Tiles tiles,

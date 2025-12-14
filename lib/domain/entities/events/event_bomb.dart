@@ -1,9 +1,12 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventBomb extends Event<TileBomb> {
+  static const double duration = 5;
+
   EventBomb({
     required super.trigger,
     required super.timeout,
@@ -40,5 +43,27 @@ class EventBomb extends Event<TileBomb> {
     } else {
       return ActionResult.penalty(this);
     }
+  }
+
+  factory EventBomb.create({
+    required double trigger,
+    required List<Location> locations,
+  }) {
+    final EventBomb event = EventBomb(
+      trigger: trigger,
+      timeout: duration,
+      tiles: [],
+    );
+
+    for (final Location location in locations) {
+      event.addTile(
+        TileBomb(
+          location: location,
+          event: event,
+        ),
+      );
+    }
+
+    return event;
   }
 }
