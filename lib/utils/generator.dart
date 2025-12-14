@@ -16,7 +16,6 @@ import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
@@ -75,14 +74,24 @@ class GridGenerator {
         trigger: 1,
         locations: [const Location(2, 2)],
       ),*/
+      /*EventQuantity.create(
+        trigger: 1,
+        quantity: 5,
+        locations: [const Location(2, 2)],
+      ),*/
       /*EventBomb.create(
         trigger: 1,
         locations: [const Location(2, 2)],
       ),*/
-      EventQuantity.create(
+      EventSequence.create(
         trigger: 1,
-        quantity: 5,
-        locations: [const Location(2, 2)],
+        timeout: 8,
+        locations: [
+          const Location(1, 1),
+          const Location(2, 2),
+          const Location(3, 3),
+          const Location(4, 4),
+        ],
       ),
     ],
     winnerId: Player.BOT.id,
@@ -320,33 +329,16 @@ class EventGenerator {
     required double trigger,
   }) {
     final int length = _randomInt(3, 4);
-    final double timeout = (2 * length).toDouble();
-    final double removeTime = trigger + timeout;
+    final double timeout = (EventSequence.durationPerTile * length).toDouble();
 
-    final Event event = EventSequence(
+    return EventSequence.create(
       trigger: trigger,
       timeout: timeout,
-      tiles: [],
+      locations: tiles.locations(
+        amount: length,
+        removeTime: trigger + timeout,
+      ),
     );
-
-    final List<Location> locations = tiles.locations(
-      amount: length,
-      removeTime: removeTime,
-    );
-
-    for (int i = 0; i < locations.length; i++) {
-      final Location location = locations[i];
-
-      event.addTile(
-        TileSequence(
-          location: location,
-          event: event,
-          number: i + 1,
-        ),
-      );
-    }
-
-    return event;
   }
 
   Event _eventMatching({

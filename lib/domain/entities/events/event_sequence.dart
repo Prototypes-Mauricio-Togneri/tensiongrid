@@ -1,9 +1,12 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
 class EventSequence extends Event<TileSequence> {
+  static const double durationPerTile = 2;
+
   EventSequence({
     required super.trigger,
     required super.timeout,
@@ -34,5 +37,31 @@ class EventSequence extends Event<TileSequence> {
     } else {
       return ActionResult.mistake(this);
     }
+  }
+
+  factory EventSequence.create({
+    required double trigger,
+    required double timeout,
+    required List<Location> locations,
+  }) {
+    final EventSequence event = EventSequence(
+      trigger: trigger,
+      timeout: timeout,
+      tiles: [],
+    );
+
+    for (int i = 0; i < locations.length; i++) {
+      final Location location = locations[i];
+
+      event.addTile(
+        TileSequence(
+          location: location,
+          event: event,
+          number: i + 1,
+        ),
+      );
+    }
+
+    return event;
   }
 }
