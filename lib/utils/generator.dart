@@ -11,7 +11,6 @@ import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
-import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/types/category.dart';
@@ -82,7 +81,7 @@ class GridGenerator {
         /*EventBomb.create(
         trigger: 1,
         locations: [const Location(2, 2)],
-      ),*/
+        ),*/
         /*EventSequence.create(
         trigger: 1,
         timeout: 8,
@@ -92,7 +91,7 @@ class GridGenerator {
           const Location(3, 3),
           const Location(4, 4),
         ],
-      ),*/
+        ),*/
         /*EventMatching.create(
         trigger: 1,
         timeout: 10,
@@ -110,7 +109,7 @@ class GridGenerator {
           const Location(3, 3),
           const Location(4, 4),
         ],
-      ),*/
+        ),*/
         /*EventAlign.create(
         trigger: 1,
         timeout: 8,
@@ -122,7 +121,7 @@ class GridGenerator {
         ],
       ),*/
       ],
-      winnerId: Player.BOT.id,
+      winnerId: '',
       winnerScore: 100,
       playerIds: [],
       results: [],
