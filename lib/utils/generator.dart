@@ -37,6 +37,8 @@ class GridGenerator {
     const EventGenerator generator = EventGenerator(
       size: size,
       timeout: timeout,
+      minActiveTiles: 7,
+      actionRate: 0.2,
     );
 
     return Grid(
@@ -59,10 +61,14 @@ class GridGenerator {
 class EventGenerator {
   final Size size;
   final int timeout;
+  final int minActiveTiles;
+  final double actionRate;
 
   const EventGenerator({
     required this.size,
     required this.timeout,
+    required this.minActiveTiles,
+    required this.actionRate,
   });
 
   List<Event> get events {
@@ -72,11 +78,12 @@ class EventGenerator {
       height: size.height,
     );
     double time = 0;
+    double currentOccupancy = 0;
 
     for (int i = 0; i < timeout * 10; i++) {
       tiles.clean(time);
 
-      while (tiles.ratio < 30) {
+      if (currentOccupancy < minActiveTiles) {
         final List<EventType> presentTypes = result
             .where((e) => (e.trigger + e.timeout) >= time)
             .map((e) => e.type)
@@ -88,9 +95,13 @@ class EventGenerator {
           presentTypes: presentTypes,
         );
         result.add(event);
-        print('Event: ${event.type}, time $time, ratio ${tiles.ratio}%');
+        currentOccupancy = tiles.occupancy.toDouble();
+        print(
+          'e=${event.type}, t=${time.toStringAsFixed(1)}, o=${tiles.occupancy}',
+        );
       }
 
+      currentOccupancy -= actionRate;
       time += 0.1;
     }
 
