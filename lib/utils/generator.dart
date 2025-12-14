@@ -67,11 +67,11 @@ class GridGenerator {
         locations: [const Location(3, 3)],
       ),
       EventChest.create(
-        trigger: 10,
+        trigger: 8,
         locations: [const Location(3, 1)],
       ),
       EventQuantity.create(
-        trigger: 14,
+        trigger: 16,
         quantity: 5,
         locations: [const Location(1, 3)],
       ),
