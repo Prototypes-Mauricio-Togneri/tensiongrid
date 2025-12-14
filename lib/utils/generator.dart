@@ -75,20 +75,21 @@ class GridGenerator {
         quantity: 5,
         locations: [const Location(1, 3)],
       ),
-      /*EventBomb.create(
-        trigger: 1,
-        locations: [const Location(2, 2)],
-        ),*/
-      /*EventSequence.create(
-        trigger: 1,
-        timeout: 8,
+      EventBomb.create(
+        trigger: 20,
+        locations: [const Location(2, 0)],
+      ),
+      EventSequence.create(
+        trigger: 25,
+        timeout: 10,
         locations: [
+          const Location(2, 3),
+          const Location(3, 0),
+          const Location(0, 4),
+          const Location(4, 2),
           const Location(1, 1),
-          const Location(2, 2),
-          const Location(3, 3),
-          const Location(4, 4),
         ],
-        ),*/
+      ),
       /*EventMatching.create(
         trigger: 1,
         timeout: 10,
