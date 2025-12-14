@@ -503,8 +503,10 @@ class EventGenerator {
       removeTime: removeTime,
     );
 
+    final Set<Direction> usedDirections = {};
+
     for (final Location location in locations) {
-      final Direction direction = _randomEnum(Direction.values);
+      final Direction direction = _uniqueDirection(usedDirections);
 
       event.addTile(
         TileAlign(
@@ -516,6 +518,18 @@ class EventGenerator {
     }
 
     return event;
+  }
+
+  static Direction _uniqueDirection(Set<Direction> usedDirections) {
+    Direction direction = _randomEnum(Direction.values);
+
+    while (usedDirections.contains(direction)) {
+      direction = _randomEnum(Direction.values);
+    }
+
+    usedDirections.add(direction);
+
+    return direction;
   }
 
   static int _randomInt(int min, int max) {
