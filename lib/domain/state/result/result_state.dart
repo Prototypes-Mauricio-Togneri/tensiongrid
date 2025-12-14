@@ -10,11 +10,13 @@ class ResultState extends BaseState {
 
   @override
   Future onLoad() async {
-    final GridRepository repository = await GridRepository.instance();
-    await repository.setResult(
-      gridId: match.gridId,
-      result: match.result,
-    );
+    if (match.gridId != 'tutorial') {
+      final GridRepository repository = await GridRepository.instance();
+      await repository.setResult(
+        gridId: match.gridId,
+        result: match.result,
+      );
+    }
   }
 
   void onClose() => Navigation.pop();
