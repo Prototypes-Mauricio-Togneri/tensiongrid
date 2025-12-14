@@ -90,24 +90,24 @@ class GridGenerator {
           const Location(1, 1),
         ],
       ),
-      /*EventMatching.create(
-        trigger: 1,
+      EventMatching.create(
+        trigger: 33,
         timeout: 10,
         values: [
           ('😀', Category.face),
-          ('🦘', Category.animal),
-          ('😁', Category.face),
-          ('🌵', Category.plant),
           ('😂', Category.face),
+          ('😁', Category.face),
+          ('🐎', Category.animal),
+          ('☘️', Category.plant),
         ],
         locations: [
-          const Location(0, 0),
-          const Location(1, 1),
+          const Location(1, 0),
+          const Location(3, 4),
+          const Location(4, 1),
+          const Location(0, 3),
           const Location(2, 2),
-          const Location(3, 3),
-          const Location(4, 4),
         ],
-        ),*/
+      ),
       /*EventAlign.create(
         trigger: 1,
         timeout: 8,
