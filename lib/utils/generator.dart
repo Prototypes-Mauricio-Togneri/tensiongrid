@@ -539,14 +539,12 @@ class Tiles {
 
   double get(int x, int y) => _tiles[y][x];
 
-  void set(int x, int y, double value) {
-    _tiles[y][x] = value;
-  }
+  void set(int x, int y, double value) => _tiles[y][x] = value;
 
   void clean(double time) {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        final double value = _tiles[y][x];
+        final double value = get(x, y);
 
         if (value != 0 && value <= time) {
           set(x, y, 0);
