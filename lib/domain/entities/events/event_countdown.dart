@@ -1,5 +1,6 @@
 import 'package:tensiongrid/domain/entities/action_result.dart';
 import 'package:tensiongrid/domain/entities/events/event.dart';
+import 'package:tensiongrid/domain/entities/location.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
 import 'package:tensiongrid/domain/types/event_type.dart';
 
@@ -21,4 +22,28 @@ class EventCountdown extends Event<TileCountdown> {
     required TileCountdown tile,
     required double time,
   }) => ActionResult.completed(this);
+
+  factory EventCountdown.create({
+    required double trigger,
+    required double timeout,
+    required List<Location> locations,
+  }) {
+    final EventCountdown event = EventCountdown(
+      trigger: trigger,
+      timeout: timeout,
+      tiles: [],
+    );
+
+    for (final Location location in locations) {
+      event.addTile(
+        TileCountdown(
+          location: location,
+          event: event,
+          timeout: timeout,
+        ),
+      );
+    }
+
+    return event;
+  }
 }
