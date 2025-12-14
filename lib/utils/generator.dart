@@ -11,12 +11,12 @@ import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
+import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_bomb.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_chest.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_coin.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_countdown.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_directional.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
@@ -56,6 +56,23 @@ class GridGenerator {
       results: [result],
     );
   }
+
+  static Grid tutorial() => Grid(
+    id: 'tutorial',
+    createdAt: DateTime.now(),
+    size: const Size(5, 5),
+    timeout: 60,
+    events: [
+      EventCoin.create(
+        trigger: 1,
+        locations: [const Location(2, 2)],
+      ),
+    ],
+    winnerId: Player.BOT.id,
+    winnerScore: 100,
+    playerIds: [],
+    results: [],
+  );
 }
 
 class EventGenerator {
@@ -211,32 +228,13 @@ class EventGenerator {
   Event _eventCoin({
     required Tiles tiles,
     required double trigger,
-  }) {
-    const double timeout = 3;
-    final double removeTime = trigger + timeout;
-
-    final Event event = EventCoin(
-      trigger: trigger,
-      timeout: timeout,
-      tiles: [],
-    );
-
-    final List<Location> locations = tiles.locations(
+  }) => EventCoin.create(
+    trigger: trigger,
+    locations: tiles.locations(
       amount: 1,
-      removeTime: removeTime,
-    );
-
-    for (final Location location in locations) {
-      event.addTile(
-        TileCoin(
-          location: location,
-          event: event,
-        ),
-      );
-    }
-
-    return event;
-  }
+      removeTime: trigger + EventCoin.duration,
+    ),
+  );
 
   Event _eventDirectional({
     required Tiles tiles,
