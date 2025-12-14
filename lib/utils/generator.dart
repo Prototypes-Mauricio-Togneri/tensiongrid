@@ -16,7 +16,6 @@ import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_align.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_matching.dart';
-import 'package:tensiongrid/domain/entities/tiles/tile_quantity.dart';
 import 'package:tensiongrid/domain/entities/tiles/tile_sequence.dart';
 import 'package:tensiongrid/domain/types/category.dart';
 import 'package:tensiongrid/domain/types/direction.dart';
@@ -76,8 +75,13 @@ class GridGenerator {
         trigger: 1,
         locations: [const Location(2, 2)],
       ),*/
-      EventBomb.create(
+      /*EventBomb.create(
         trigger: 1,
+        locations: [const Location(2, 2)],
+      ),*/
+      EventQuantity.create(
+        trigger: 1,
+        quantity: 5,
         locations: [const Location(2, 2)],
       ),
     ],
@@ -302,34 +306,14 @@ class EventGenerator {
   Event _eventQuantity({
     required Tiles tiles,
     required double trigger,
-  }) {
-    final int quantity = _randomInt(3, 6);
-    const double timeout = 5;
-    final double removeTime = trigger + timeout;
-
-    final Event event = EventQuantity(
-      trigger: trigger,
-      timeout: timeout,
-      tiles: [],
-    );
-
-    final List<Location> locations = tiles.locations(
+  }) => EventQuantity.create(
+    trigger: trigger,
+    quantity: _randomInt(3, 6),
+    locations: tiles.locations(
       amount: 1,
-      removeTime: removeTime,
-    );
-
-    for (final Location location in locations) {
-      event.addTile(
-        TileQuantity(
-          location: location,
-          event: event,
-          quantity: quantity,
-        ),
-      );
-    }
-
-    return event;
-  }
+      removeTime: trigger + EventQuantity.duration,
+    ),
+  );
 
   Event _eventSequence({
     required Tiles tiles,
