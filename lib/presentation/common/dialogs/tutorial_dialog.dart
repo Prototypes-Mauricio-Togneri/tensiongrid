@@ -38,7 +38,7 @@ class TutorialDialog extends StatelessWidget {
       case EventType.directional:
         return 'Swipe in the direction of the arrow to get points.';
       case EventType.countdown:
-        return 'Tap to stop the countdown. The closer to zero you stop it, the more points you get';
+        return 'Tap to stop the countdown. The closer to zero you stop it, the more points you get.';
       case EventType.chest:
         return 'Tap and hold for 3 seconds to get points.';
       case EventType.bomb:
@@ -50,7 +50,7 @@ class TutorialDialog extends StatelessWidget {
       case EventType.matching:
         return 'Tap the tiles belonging to the largest group to get points.';
       case EventType.align:
-        return 'Tap to rotate the shapes 90º and align them all to get points.';
+        return 'Tap to rotate the arrows 90º and align them all to get points.';
     }
   }
 
