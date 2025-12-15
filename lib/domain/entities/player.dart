@@ -23,7 +23,7 @@ class Player {
     isSelf: false,
     index: 1,
     name: 'Tutorial',
-    score: 100,
+    score: 200,
   );
 
   const Player({

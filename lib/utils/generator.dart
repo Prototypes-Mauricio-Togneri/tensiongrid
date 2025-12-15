@@ -11,6 +11,7 @@ import 'package:tensiongrid/domain/entities/events/event_quantity.dart';
 import 'package:tensiongrid/domain/entities/events/event_sequence.dart';
 import 'package:tensiongrid/domain/entities/grid.dart';
 import 'package:tensiongrid/domain/entities/location.dart';
+import 'package:tensiongrid/domain/entities/player.dart';
 import 'package:tensiongrid/domain/entities/result.dart';
 import 'package:tensiongrid/domain/entities/size.dart';
 import 'package:tensiongrid/domain/types/category.dart';
@@ -53,7 +54,7 @@ class GridGenerator {
     size: const Size(5, 5),
     timeout: 60,
     events: [
-      /*EventCoin.create(
+      EventCoin.create(
         trigger: 1,
         locations: [const Location(2, 2)],
       ),
@@ -151,18 +152,7 @@ class GridGenerator {
         trigger: 46,
         quantity: 5,
         locations: [const Location(1, 0)],
-      ),*/
-
-      // REMOVE
-      /*EventCoin.create(
-        trigger: 48,
-        locations: [const Location(4, 1)],
       ),
-      EventQuantity.create(
-        trigger: 49,
-        quantity: 5,
-        locations: [const Location(3, 3)],
-      ),*/
       EventSequence.create(
         trigger: 48,
         timeout: 6,
@@ -198,11 +188,6 @@ class GridGenerator {
           const Location(4, 2),
         ],
       ),
-      /*EventCountdown.create(
-        trigger: 53,
-        timeout: 5,
-        locations: [const Location(4, 4)],
-      ),*/
       EventBomb.create(
         trigger: 52,
         locations: [const Location(0, 4)],
@@ -216,26 +201,9 @@ class GridGenerator {
           const Location(3, 2),
         ],
       ),
-      /*EventQuantity.create(
-        trigger: 55,
-        quantity: 5,
-        locations: [const Location(2, 2)],
-      ),
-      EventDirectional.create(
-        trigger: 57,
-        locations: [const Location(2, 0)],
-      ),
-      EventCoin.create(
-        trigger: 56,
-        locations: [const Location(4, 3)],
-      ),
-      EventDirectional.create(
-        trigger: 59,
-        locations: [const Location(1, 4)],
-      ),*/
     ],
     winnerId: '',
-    winnerScore: 100,
+    winnerScore: Player.TUTORIAL.score,
     playerIds: [],
     results: [],
   );

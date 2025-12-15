@@ -50,7 +50,7 @@ class TutorialDialog extends StatelessWidget {
       case EventType.matching:
         return 'Tap the tiles belonging to the largest group to get points.';
       case EventType.align:
-        return 'Tap to rotate the shapes 90° and align them all to get points.';
+        return 'Tap to rotate the shapes 90º and align them all to get points.';
     }
   }
 
