@@ -34,23 +34,23 @@ class TutorialDialog extends StatelessWidget {
   String get _text {
     switch (type) {
       case EventType.coin:
-        return 'Tap it to get points. The sooner you tap it, the more points you get!';
+        return 'Tap to get points. The faster you tap, the more points you earn.';
       case EventType.directional:
-        return 'Swap it in the direction of the arrow to get points.';
+        return 'Swipe in the direction of the arrow to get points.';
       case EventType.countdown:
-        return 'Tap it to stop the countdown. The closer get are to zero, the more points you get!';
+        return 'Tap to stop the countdown. The closer to zero you stop it, the more points you get';
       case EventType.chest:
-        return 'Tap it and hold it for 3 seconds to get points.';
+        return 'Tap and hold for 3 seconds to get points.';
       case EventType.bomb:
-        return 'Tap it and hold it for 3 seconds to defuse it and avoid losing points.';
+        return 'Tap and hold for 3 seconds to defuse the tile and avoid losing points.';
       case EventType.quantity:
-        return 'Tap it as many times as the number shown to get points.';
+        return 'Tap the tile the number of times shown to get points.';
       case EventType.sequence:
-        return 'Tap them in order to get points.';
+        return 'Tap them in the correct sequential order to get points.';
       case EventType.matching:
-        return 'Tap only the related ones to get points.';
+        return 'Tap the tiles belonging to the largest group to get points.';
       case EventType.align:
-        return 'Tap them to rotate them 90º clockwise and align them all to get points.';
+        return 'Tap to rotate the shapes 90° and align them all to get points.';
     }
   }
 
