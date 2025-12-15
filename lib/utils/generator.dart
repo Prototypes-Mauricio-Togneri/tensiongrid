@@ -53,7 +53,7 @@ class GridGenerator {
     size: const Size(5, 5),
     timeout: 60,
     events: [
-      EventCoin.create(
+      /*EventCoin.create(
         trigger: 1,
         locations: [const Location(2, 2)],
       ),
@@ -117,7 +117,7 @@ class GridGenerator {
           const Location(3, 2),
           const Location(4, 4),
         ],
-      ),
+      ),*/
       EventCountdown.create(
         trigger: 42,
         timeout: 6,
@@ -142,6 +142,29 @@ class GridGenerator {
       EventDirectional.create(
         trigger: 44.5,
         locations: [const Location(3, 1)],
+      ),
+      EventChest.create(
+        trigger: 45,
+        locations: [const Location(1, 3)],
+      ),
+      EventQuantity.create(
+        trigger: 46,
+        quantity: 5,
+        locations: [const Location(1, 0)],
+      ),
+      EventQuantity.create(
+        trigger: 47,
+        quantity: 5,
+        locations: [const Location(0, 2)],
+      ),
+      EventCoin.create(
+        trigger: 48,
+        locations: [const Location(4, 1)],
+      ),
+      EventQuantity.create(
+        trigger: 49,
+        quantity: 5,
+        locations: [const Location(3, 3)],
       ),
     ],
     winnerId: '',
