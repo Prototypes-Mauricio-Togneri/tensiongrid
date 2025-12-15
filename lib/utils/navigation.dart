@@ -46,12 +46,23 @@ class Navigation {
     ),
   );
 
-  static void matchScreen(Match match) => get.routes.pushReplacement(
-    BasicRoute(
-      MatchScreen.instance(match),
-      name: 'match',
-    ),
-  );
+  static void matchScreen(Match match, [bool replace = true]) {
+    if (replace) {
+      get.routes.pushReplacement(
+        BasicRoute(
+          MatchScreen.instance(match),
+          name: 'match',
+        ),
+      );
+    } else {
+      get.routes.push(
+        BasicRoute(
+          MatchScreen.instance(match),
+          name: 'match',
+        ),
+      );
+    }
+  }
 
   static void resultScreen(Match match) => get.routes.pushReplacement(
     BasicRoute(

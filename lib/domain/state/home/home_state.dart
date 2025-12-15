@@ -39,7 +39,7 @@ class HomeState extends BaseState {
         opponent: Player.TUTORIAL,
       ),
     );
-    Navigation.matchScreen(match);
+    Navigation.matchScreen(match, false);
   }
 
   void onSettings() => Navigation.settingsScreen();

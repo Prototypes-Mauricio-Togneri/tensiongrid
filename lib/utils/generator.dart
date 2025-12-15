@@ -122,7 +122,7 @@ class GridGenerator {
       EventCountdown.create(
         trigger: 42,
         timeout: 6,
-        locations: [const Location(2, 2)],
+        locations: [const Location(2, 3)],
       ),
       EventCoin.create(
         trigger: 42.5,
