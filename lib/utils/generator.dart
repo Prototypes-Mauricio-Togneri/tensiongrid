@@ -143,6 +143,7 @@ class GridGenerator {
         trigger: 44.5,
         locations: [const Location(3, 1)],
       ),
+
       EventChest.create(
         trigger: 45,
         locations: [const Location(1, 3)],
@@ -152,11 +153,11 @@ class GridGenerator {
         quantity: 5,
         locations: [const Location(1, 0)],
       ),
-      EventQuantity.create(
+      /*EventQuantity.create(
         trigger: 47,
         quantity: 5,
         locations: [const Location(0, 2)],
-      ),
+      ),*/
       EventCoin.create(
         trigger: 48,
         locations: [const Location(4, 1)],
@@ -166,6 +167,76 @@ class GridGenerator {
         quantity: 5,
         locations: [const Location(3, 3)],
       ),
+      /*EventSequence.create(
+        trigger: 50,
+        timeout: 6,
+        locations: [
+          const Location(0, 1),
+          const Location(3, 1),
+          const Location(2, 4),
+        ],
+      ),
+      EventDirectional.create(
+        trigger: 50.5,
+        locations: [const Location(1, 4)],
+      ),
+      EventCoin.create(
+        trigger: 51,
+        locations: [const Location(4, 0)],
+      ),
+      EventMatching.create(
+        trigger: 52,
+        timeout: 10,
+        values: [
+          ('🐕', Category.animal),
+          ('😵', Category.face),
+          ('🪿', Category.animal),
+          ('🌳', Category.plant),
+          ('🐄', Category.animal),
+        ],
+        locations: [
+          const Location(1, 1),
+          const Location(3, 0),
+          const Location(2, 3),
+          const Location(0, 3),
+          const Location(4, 2),
+        ],
+      ),
+      EventCountdown.create(
+        trigger: 53,
+        timeout: 5,
+        locations: [const Location(4, 4)],
+      ),
+      EventBomb.create(
+        trigger: 54,
+        locations: [const Location(0, 4)],
+      ),
+      EventAlign.create(
+        trigger: 54,
+        timeout: 6,
+        locations: [
+          const Location(0, 0),
+          const Location(1, 3),
+          const Location(3, 2),
+        ],
+      ),
+      EventQuantity.create(
+        trigger: 55,
+        quantity: 5,
+        locations: [const Location(2, 2)],
+      ),
+      EventDirectional.create(
+        trigger: 57,
+        locations: [const Location(2, 0)],
+      ),
+      EventCoin.create(
+        trigger: 56,
+        locations: [const Location(4, 3)],
+      ),
+      EventDirectional.create(
+        trigger: 59,
+        locations: [const Location(1, 4)],
+      ),*/
     ],
     winnerId: '',
     winnerScore: 100,
