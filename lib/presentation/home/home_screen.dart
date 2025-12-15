@@ -32,7 +32,7 @@ class Content extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           PrimaryButton(
-            label: 'Play',
+            label: 'Play 1',
             enabled: true,
             backgroundColor: Palette.PRIMARY,
             onPressed: state.onPlay,

@@ -17,7 +17,7 @@ class Match {
   final List<Event> pastEvents = [];
   final List<Event> currentEvents = [];
   final List<Event> futureEvents = [];
-  double _elapsedTime = 40; // TODO(momo): change back to 0
+  double _elapsedTime = 0;
   int _score = 0;
 
   Match._({

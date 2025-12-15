@@ -53,7 +53,7 @@ class GridGenerator {
     size: const Size(5, 5),
     timeout: 60,
     events: [
-      /*EventCoin.create(
+      EventCoin.create(
         trigger: 1,
         locations: [const Location(2, 2)],
       ),
@@ -117,7 +117,7 @@ class GridGenerator {
           const Location(3, 2),
           const Location(4, 4),
         ],
-      ),*/
+      ),
       EventCountdown.create(
         trigger: 42,
         timeout: 6,
@@ -161,8 +161,7 @@ class GridGenerator {
         quantity: 5,
         locations: [const Location(3, 3)],
       ),
-
-      /*EventSequence.create(
+      EventSequence.create(
         trigger: 50,
         timeout: 6,
         locations: [
@@ -180,7 +179,7 @@ class GridGenerator {
         locations: [const Location(4, 0)],
       ),
       EventMatching.create(
-        trigger: 52,
+        trigger: 53,
         timeout: 10,
         values: [
           ('🐕', Category.animal),
@@ -197,11 +196,11 @@ class GridGenerator {
           const Location(4, 2),
         ],
       ),
-      EventCountdown.create(
+      /*EventCountdown.create(
         trigger: 53,
         timeout: 5,
         locations: [const Location(4, 4)],
-      ),
+      ),*/
       EventBomb.create(
         trigger: 54,
         locations: [const Location(0, 4)],
@@ -215,7 +214,7 @@ class GridGenerator {
           const Location(3, 2),
         ],
       ),
-      EventQuantity.create(
+      /*EventQuantity.create(
         trigger: 55,
         quantity: 5,
         locations: [const Location(2, 2)],
