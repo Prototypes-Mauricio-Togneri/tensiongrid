@@ -143,7 +143,6 @@ class GridGenerator {
         trigger: 44.5,
         locations: [const Location(3, 1)],
       ),
-
       EventChest.create(
         trigger: 45,
         locations: [const Location(1, 3)],
@@ -153,11 +152,6 @@ class GridGenerator {
         quantity: 5,
         locations: [const Location(1, 0)],
       ),
-      /*EventQuantity.create(
-        trigger: 47,
-        quantity: 5,
-        locations: [const Location(0, 2)],
-      ),*/
       EventCoin.create(
         trigger: 48,
         locations: [const Location(4, 1)],
@@ -167,6 +161,7 @@ class GridGenerator {
         quantity: 5,
         locations: [const Location(3, 3)],
       ),
+
       /*EventSequence.create(
         trigger: 50,
         timeout: 6,
