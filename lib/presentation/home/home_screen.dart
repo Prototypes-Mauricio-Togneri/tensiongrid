@@ -39,6 +39,13 @@ class Content extends StatelessWidget {
           ),
           const VBox(50),
           PrimaryButton(
+            label: 'Tutorial',
+            enabled: true,
+            backgroundColor: Palette.PRIMARY,
+            onPressed: state.onTutorial,
+          ),
+          const VBox(50),
+          PrimaryButton(
             label: 'Settings',
             enabled: true,
             backgroundColor: Palette.PRIMARY,

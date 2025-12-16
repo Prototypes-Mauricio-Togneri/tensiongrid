@@ -40,9 +40,9 @@ class TutorialDialog extends StatelessWidget {
       case EventType.countdown:
         return 'Tap to stop the countdown. The closer to zero you stop it, the more points you get.';
       case EventType.chest:
-        return 'Tap and hold for 3 seconds to get points.';
+        return 'Tap and hold until the chest is opened to get points.';
       case EventType.bomb:
-        return 'Tap and hold for 3 seconds to defuse the tile and avoid losing points.';
+        return 'Tap and hold until the bomb is defused to avoid losing points.';
       case EventType.quantity:
         return 'Tap the tile the number of times shown to get points.';
       case EventType.sequence:
