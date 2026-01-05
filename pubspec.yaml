@@ -4,25 +4,25 @@ publish_to: none
 version: 0.0.1+1
 
 environment:
-  sdk: ">=3.9.0 <4.0.0"
+  sdk: ">=3.10.4 <4.0.0"
 
 dependencies:
   web: ^1.1.1
   uuid: ^4.5.2
   flame: ^1.34.0
   logger: ^2.6.2
-  get_it: ^9.1.1
-  dafluta: 5.5.1 # Not compatible with current Flutter/Dart version
+  get_it: ^9.2.0
+  dafluta: ^5.6.0
   just_audio: ^0.10.5
   json_annotation: ^4.9.0
-  shared_preferences: ^2.5.3
+  shared_preferences: ^2.5.4
 
-  firebase_core: ^4.2.1
-  firebase_auth: ^6.1.2
-  firebase_analytics: ^12.0.4
-  firebase_crashlytics: ^5.0.5
-  cloud_functions: ^6.0.4
-  cloud_firestore: ^6.1.0
+  firebase_core: ^4.3.0
+  firebase_auth: ^6.1.3
+  firebase_analytics: ^12.1.0
+  firebase_crashlytics: ^5.0.6
+  cloud_functions: ^6.0.5
+  cloud_firestore: ^6.1.1
 
   flutter:
     sdk: flutter
@@ -33,9 +33,9 @@ dependencies:
 dev_dependencies:
   dalocale: ^2.6.0
   daassets: ^1.5.0
-  daunused: 1.6.1 # Not compatible with current Flutter/Dart version
+  daunused: ^1.8.0 # Not compatible with current Flutter/Dart version
   dapublock: ^1.1.0
-  build_runner: 2.7.1 # Not compatible with current Flutter/Dart version
+  build_runner: ^2.10.4 # Not compatible with current Flutter/Dart version
   flutter_lints: ^6.0.0
   json_serializable: ^6.11.2
 

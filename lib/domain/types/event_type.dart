@@ -34,7 +34,8 @@ enum EventType {
   align(
     probability: 11,
     isUnique: true,
-  );
+  )
+  ;
 
   final int probability;
   final bool isUnique;

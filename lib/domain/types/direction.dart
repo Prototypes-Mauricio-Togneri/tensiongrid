@@ -7,7 +7,8 @@ enum Direction {
   up,
   down,
   left,
-  right;
+  right
+  ;
 
   Direction get next {
     switch (this) {
