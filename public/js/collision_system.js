@@ -45,14 +45,14 @@ class CollisionSystem {
     }
 
     /**
-     * Check if player's grid position matches any trap position.
+     * Check if player's grid position matches any active trap position.
      * @param {Player} player - Player instance
      * @param {EnemyTrap[]} traps - Array of traps
-     * @returns {boolean} True if player is on a trap
+     * @returns {boolean} True if player is on an active trap
      */
     checkPlayerTrapCollision(player, traps) {
         for (const trap of traps) {
-            if (player.row === trap.row && player.col === trap.col) {
+            if (trap.isActive() && player.row === trap.row && player.col === trap.col) {
                 return true
             }
         }

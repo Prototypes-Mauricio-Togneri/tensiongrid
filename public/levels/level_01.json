@@ -11,11 +11,15 @@
     "enemy_trap": [
       {
         "x": 1,
-        "y": 3
+        "y": 3,
+        "timeOn": 2000,
+        "timeOff": 1500
       },
       {
         "x": 5,
-        "y": 3
+        "y": 3,
+        "timeOn": 1500,
+        "timeOff": 2000
       }
     ]
   }

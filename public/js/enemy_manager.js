@@ -47,7 +47,7 @@ class EnemyManager {
     initTraps() {
         if (!this.config.enemy_trap) return
         this.traps = this.config.enemy_trap.map(
-            trapConfig => new EnemyTrap(trapConfig.y, trapConfig.x, this.grid)
+            trapConfig => new EnemyTrap(trapConfig, this.grid)
         )
     }
 
@@ -67,6 +67,11 @@ class EnemyManager {
         // Update laser states (for intermittent lasers)
         for (const laser of this.lasers) {
             laser.update(delta)
+        }
+
+        // Update trap states (for intermittent traps)
+        for (const trap of this.traps) {
+            trap.update(delta)
         }
 
         // Handle bullet spawning for each configured spawner

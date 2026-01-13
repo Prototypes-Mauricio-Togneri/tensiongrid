@@ -379,6 +379,7 @@ class Renderer {
 
     /**
      * Draw traps with pulsing 4-pointed spike effect.
+     * Inactive traps are rendered dimmed.
      * @param {EnemyTrap[]} traps - Array of trap instances
      * @param {number} time - Current animation timestamp for pulse calculation
      */
@@ -393,6 +394,13 @@ class Renderer {
             const pos = this.toScreen(trap.x, trap.y)
             const size = trap.size * pulseIntensity
             const innerSize = size * 0.35 // Inner points are shorter
+            const isActive = trap.isActive()
+
+            // Apply reduced opacity for inactive traps
+            ctx.save()
+            if (!isActive) {
+                ctx.globalAlpha = 0.3
+            }
 
             // Outer glow
             ctx.save()
@@ -413,6 +421,8 @@ class Renderer {
             // Inner highlight
             ctx.fillStyle = this.colors.enemyHighlight
             this.drawSpike(pos.x, pos.y, size * 0.5, innerSize * 0.5)
+
+            ctx.restore() // Restore opacity
         }
     }
 

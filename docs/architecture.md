@@ -88,6 +88,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact (grid-based collision)
 - Other entities (bullets) pass through unaffected
 - Persists across player deaths (static level feature)
+- Optional intermittent mode: `timeOn`/`timeOff` (ms) to blink on/off (starts on, dimmed when inactive)
 
 **EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders
