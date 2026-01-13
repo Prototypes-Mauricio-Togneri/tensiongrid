@@ -455,4 +455,70 @@ class Renderer {
         ctx.closePath()
         ctx.fill()
     }
+
+    /**
+     * Draw mines with visual state indication.
+     * Dormant: subtle pulse, Triggered: accelerating blink, Exploded: not drawn.
+     * @param {EnemyMine[]} mines - Array of mine instances
+     * @param {number} time - Current animation timestamp for effects
+     */
+    drawMines(mines, time) {
+        const ctx = this.ctx
+
+        // Base pulse (subtle when dormant)
+        const basePulse = 0.8 + 0.2 * (0.5 + 0.5 * Math.sin(time * 0.003))
+
+        for (const mine of mines) {
+            if (mine.isExploded()) continue
+
+            const pos = this.toScreen(mine.x, mine.y)
+            const blinkIntensity = mine.getBlinkIntensity()
+            const size = mine.size * basePulse
+
+            ctx.save()
+            ctx.globalAlpha = blinkIntensity
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.mine
+            ctx.shadowBlur = 15 * blinkIntensity
+            ctx.fillStyle = this.colors.mineGlow
+            this.drawHexagon(pos.x, pos.y, size + 4)
+            ctx.restore()
+
+            // Main mine shape (hexagon for visual distinction)
+            ctx.save()
+            ctx.shadowColor = this.colors.mine
+            ctx.shadowBlur = 8 * blinkIntensity
+            ctx.fillStyle = this.colors.mine
+            this.drawHexagon(pos.x, pos.y, size)
+            ctx.restore()
+
+            // Inner highlight
+            ctx.fillStyle = '#ffffff33'
+            this.drawHexagon(pos.x, pos.y, size * 0.4)
+
+            ctx.restore()
+        }
+    }
+
+    /**
+     * Draw a hexagon shape.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Distance from center to vertices
+     */
+    drawHexagon(x, y, size) {
+        const ctx = this.ctx
+        ctx.beginPath()
+        for (let i = 0; i < 6; i++) {
+            const angle = (Math.PI / 3) * i - Math.PI / 2 // Start at top
+            const px = x + size * Math.cos(angle)
+            const py = y + size * Math.sin(angle)
+            if (i === 0) ctx.moveTo(px, py)
+            else ctx.lineTo(px, py)
+        }
+        ctx.closePath()
+        ctx.fill()
+    }
 }

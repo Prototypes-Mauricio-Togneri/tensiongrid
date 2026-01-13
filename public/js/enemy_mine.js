@@ -1,0 +1,125 @@
+/**
+ * Static mine enemy that detonates after player contact.
+ * Dormant until touched, then counts down and fires bullets in all directions.
+ */
+class EnemyMine {
+    /**
+     * @param {Object} config - Mine configuration from level data
+     * @param {Grid} grid - Grid instance for position calculation
+     */
+    constructor(config, grid) {
+        this.row = config.y   // Grid row position
+        this.col = config.x   // Grid column position
+        this.grid = grid      // Grid reference
+        this.delay = config.delay // Detonation delay in ms (mandatory)
+
+        const pos = grid.getNodePosition(this.row, this.col)
+        this.x = pos.x   // World X coordinate
+        this.y = pos.y   // World Y coordinate
+        this.size = Constants.game.enemies.mine.size // Mine size in pixels
+
+        this.state = 'dormant' // States: 'dormant', 'triggered', 'exploded'
+        this.timer = 0         // Time elapsed since triggered
+    }
+
+    /**
+     * Check if mine is dormant (waiting for player contact).
+     * @returns {boolean} True if mine has not been triggered
+     */
+    isDormant() {
+        return this.state === 'dormant'
+    }
+
+    /**
+     * Check if mine is triggered (counting down).
+     * @returns {boolean} True if mine is in countdown state
+     */
+    isTriggered() {
+        return this.state === 'triggered'
+    }
+
+    /**
+     * Check if mine has exploded.
+     * @returns {boolean} True if mine has detonated
+     */
+    isExploded() {
+        return this.state === 'exploded'
+    }
+
+    /**
+     * Trigger the mine countdown when player touches it.
+     */
+    trigger() {
+        if (this.state === 'dormant') {
+            this.state = 'triggered'
+            this.timer = 0
+        }
+    }
+
+    /**
+     * Update mine countdown timer.
+     * @param {number} delta - Time elapsed since last frame in ms
+     * @returns {boolean} True if mine just exploded this frame
+     */
+    update(delta) {
+        if (this.state !== 'triggered') return false
+
+        this.timer += delta
+        if (this.timer >= this.delay) {
+            this.state = 'exploded'
+            return true // Signal explosion occurred
+        }
+        return false
+    }
+
+    /**
+     * Get blink intensity for rendering (0-1, faster as detonation approaches).
+     * @returns {number} Blink intensity multiplier
+     */
+    getBlinkIntensity() {
+        if (this.state !== 'triggered') return 1
+
+        // Calculate progress toward detonation (0 to 1)
+        const progress = this.timer / this.delay
+
+        // Blink frequency increases as progress approaches 1
+        // Start at ~2Hz, end at ~10Hz
+        const frequency = 2 + progress * 8
+        const blinkCycle = Math.sin(this.timer * frequency * 0.01 * Math.PI * 2)
+
+        // Return 0.3 to 1.0 range (never fully invisible)
+        return 0.65 + 0.35 * blinkCycle
+    }
+
+    /**
+     * Get all valid directions from this mine's node for bullet spawning.
+     * @returns {Array} Array of {dirRow, dirCol} objects for valid edges
+     */
+    getValidDirections() {
+        const directions = []
+        const dirs = Constants.directions
+
+        for (const key of Object.keys(dirs)) {
+            if (key === 'none') continue
+
+            const dir = dirs[key]
+            const targetRow = this.row + dir.row
+            const targetCol = this.col + dir.col
+
+            // Check if target node is valid and edge is not excluded
+            if (this.grid.isValidPosition(targetRow, targetCol) &&
+                !this.grid.isEdgeExcluded(this.row, this.col, targetRow, targetCol)) {
+                directions.push({ dirRow: dir.row, dirCol: dir.col })
+            }
+        }
+        return directions
+    }
+
+    /**
+     * Get current world position.
+     * @returns {Vector2} Position in world coordinates
+     */
+    getPosition() {
+        return new Vector2(this.x, this.y)
+    }
+}

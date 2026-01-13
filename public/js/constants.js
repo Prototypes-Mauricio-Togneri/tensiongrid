@@ -142,6 +142,9 @@ const Constants = {
             },
             trap: {
                 size: 14   // Trap size in pixels
+            },
+            mine: {
+                size: 12   // Mine size in pixels
             }
         },
 
@@ -180,7 +183,11 @@ const Constants = {
 
             // Trap colors
             trap: '#cc2244',       // Trap fill color (matches enemy)
-            trapGlow: '#cc22444d'  // Trap glow effect
+            trapGlow: '#cc22444d', // Trap glow effect
+
+            // Mine colors
+            mine: '#ffaa00',       // Mine fill color (yellow/orange)
+            mineGlow: '#ffaa004d'  // Mine glow effect
         }
     }
 }

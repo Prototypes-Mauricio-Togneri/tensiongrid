@@ -58,4 +58,18 @@ class CollisionSystem {
         }
         return false
     }
+
+    /**
+     * Check if player's grid position matches any dormant mine position.
+     * Triggers the mine countdown on contact (does NOT return collision for death).
+     * @param {Player} player - Player instance
+     * @param {EnemyMine[]} mines - Array of mines
+     */
+    checkPlayerMineContact(player, mines) {
+        for (const mine of mines) {
+            if (mine.isDormant() && player.row === mine.row && player.col === mine.col) {
+                mine.trigger()
+            }
+        }
+    }
 }

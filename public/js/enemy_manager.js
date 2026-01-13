@@ -13,10 +13,12 @@ class EnemyManager {
         this.bullets = []             // Active bullet instances
         this.lasers = []              // Laser instances
         this.traps = []               // Static trap instances
+        this.mines = []               // Static mine instances
         this.instanceStates = []      // Per-spawner timing state
         this.initInstanceStates()
         this.initLasers()
         this.initTraps()
+        this.initMines()
     }
 
     /**
@@ -52,6 +54,16 @@ class EnemyManager {
     }
 
     /**
+     * Create mine instances from level configuration.
+     */
+    initMines() {
+        if (!this.config.enemy_mine) return
+        this.mines = this.config.enemy_mine.map(
+            mineConfig => new EnemyMine(mineConfig, this.grid)
+        )
+    }
+
+    /**
      * Update all enemies and handle spawning.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
@@ -72,6 +84,14 @@ class EnemyManager {
         // Update trap states (for intermittent traps)
         for (const trap of this.traps) {
             trap.update(delta)
+        }
+
+        // Update mines and spawn bullets on explosion
+        for (const mine of this.mines) {
+            const exploded = mine.update(delta)
+            if (exploded) {
+                this.spawnBulletsFromMine(mine)
+            }
         }
 
         // Handle bullet spawning for each configured spawner
@@ -118,6 +138,24 @@ class EnemyManager {
     }
 
     /**
+     * Spawn bullets in all valid directions from an exploding mine.
+     * @param {EnemyMine} mine - The mine that just exploded
+     */
+    spawnBulletsFromMine(mine) {
+        const directions = mine.getValidDirections()
+        const pos = this.grid.getNodePosition(mine.row, mine.col)
+
+        for (const dir of directions) {
+            this.bullets.push(new EnemyBullet(
+                mine.row, mine.col,
+                pos.x, pos.y,
+                dir.dirRow, dir.dirCol,
+                this.grid
+            ))
+        }
+    }
+
+    /**
      * Convert direction key to row/col delta vectors.
      * @param {string} direction - Direction key from Constants.keys
      * @returns {Object} Object with row and col deltas
@@ -135,11 +173,13 @@ class EnemyManager {
 
     /**
      * Clear all bullets and reset spawner states.
+     * Mines are re-initialized to reset their state to dormant.
      */
     clear() {
         this.bullets = []
         this.initInstanceStates()
         this.initLasers()
+        this.initMines()
     }
 
     /**
@@ -164,5 +204,21 @@ class EnemyManager {
      */
     getTraps() {
         return this.traps
+    }
+
+    /**
+     * Get array of mines (excluding exploded ones for rendering).
+     * @returns {EnemyMine[]} Non-exploded mine instances
+     */
+    getMines() {
+        return this.mines.filter(m => !m.isExploded())
+    }
+
+    /**
+     * Get array of all mines (for collision checking).
+     * @returns {EnemyMine[]} All mine instances
+     */
+    getAllMines() {
+        return this.mines
     }
 }
