@@ -7,5 +7,16 @@
     "startX": 3,
     "startY": 3
   },
-  "enemies": {}
+  "enemies": {
+    "enemy_trap": [
+      {
+        "x": 1,
+        "y": 3
+      },
+      {
+        "x": 5,
+        "y": 3
+      }
+    ]
+  }
 }
