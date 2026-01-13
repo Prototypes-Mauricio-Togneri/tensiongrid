@@ -7,24 +7,5 @@
     "startX": 3,
     "startY": 3
   },
-  "enemies": {
-    "enemy_shooter": [
-      {
-        "x": 0,
-        "y": 3,
-        "rightDelay": 2000
-      },
-      {
-        "x": 6,
-        "y": 3,
-        "leftDelay": 2500
-      },
-      {
-        "x": 3,
-        "y": 0,
-        "downDelay": 3000,
-        "rotationDelay": 3000
-      }
-    ]
-  }
+  "enemies": {}
 }
