@@ -19,8 +19,14 @@ class EnemyShooter {
         this.size = Constants.game.enemies.shooter.size // Cross arm length
 
         // Rotation state
-        this.rotation = 0                          // Current rotation in radians
-        this.rotationDelay = config.rotationDelay  // Time for 90-degree rotation (ms), undefined if no rotation
+        this.rotation = 0                          // Current visual rotation in radians
+        this.rotationDelay = config.rotationDelay  // Time between 90-degree rotations (ms), undefined if no rotation
+        this.targetRotation = 0                    // Target rotation to animate toward
+        this.startRotation = 0                     // Starting rotation for animation
+        this.rotationTimer = 0                     // Timer until next 90-degree rotation
+        this.isRotating = false                    // Currently animating rotation
+        this.rotationAnimDuration = 200            // Animation duration (ms)
+        this.rotationAnimTimer = 0                 // Animation progress timer
 
         // Direction firing timers (each is independent)
         this.directionTimers = this.initDirectionTimers(config)
@@ -73,16 +79,34 @@ class EnemyShooter {
     }
 
     /**
-     * Update rotation animation state.
-     * Continuous rotation at configured speed.
+     * Update rotation state with discrete 90-degree steps.
+     * Waits rotationDelay ms, then quickly animates 90 degrees.
      * @param {number} delta - Time elapsed since last frame in ms
      */
     updateRotation(delta) {
-        // Rotation speed: 90 degrees (PI/2 radians) per rotationDelay ms
-        const rotationSpeed = (Math.PI / 2) / this.rotationDelay
-        this.rotation += rotationSpeed * delta
-        // Normalize rotation to keep within 0 to 2*PI range
-        this.rotation = this.rotation % (Math.PI * 2)
+        if (this.isRotating) {
+            // Animate toward target rotation
+            this.rotationAnimTimer += delta
+            const progress = Math.min(this.rotationAnimTimer / this.rotationAnimDuration, 1)
+            // Ease-out for smooth stop
+            const eased = 1 - Math.pow(1 - progress, 2)
+            this.rotation = this.startRotation + (Math.PI / 2) * eased
+
+            if (progress >= 1) {
+                this.rotation = this.targetRotation
+                this.isRotating = false
+                this.rotationTimer = 0
+            }
+        } else {
+            // Wait for next rotation
+            this.rotationTimer += delta
+            if (this.rotationTimer >= this.rotationDelay) {
+                this.startRotation = this.rotation
+                this.targetRotation = this.rotation + Math.PI / 2
+                this.isRotating = true
+                this.rotationAnimTimer = 0
+            }
+        }
     }
 
     /**

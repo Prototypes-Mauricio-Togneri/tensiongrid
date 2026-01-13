@@ -592,34 +592,53 @@ class Renderer {
     }
 
     /**
-     * Draw individual arms for active directions only.
+     * Draw tapered barrel arms for active directions only.
+     * Arms are wider at the center hub and narrow toward the tip.
      * @param {number} x - Center X (0 when pre-translated)
      * @param {number} y - Center Y (0 when pre-translated)
      * @param {number} armLength - Length from center to arm tip
-     * @param {number} armWidth - Width/thickness of each arm
+     * @param {number} armWidth - Width at base of each arm
      * @param {string[]} directions - Active direction keys
      */
     drawArms(x, y, armLength, armWidth, directions) {
         const ctx = this.ctx
-        const halfWidth = armWidth / 2
+        const baseWidth = armWidth          // Width at center hub
+        const tipWidth = armWidth * 0.4     // Width at tip (tapered)
 
-        ctx.beginPath()
         for (const dir of directions) {
+            ctx.beginPath()
             switch (dir) {
                 case 'up':
-                    ctx.rect(x - halfWidth, y - armLength, armWidth, armLength)
+                    // Trapezoid pointing up
+                    ctx.moveTo(x - baseWidth / 2, y)
+                    ctx.lineTo(x + baseWidth / 2, y)
+                    ctx.lineTo(x + tipWidth / 2, y - armLength)
+                    ctx.lineTo(x - tipWidth / 2, y - armLength)
                     break
                 case 'down':
-                    ctx.rect(x - halfWidth, y, armWidth, armLength)
+                    // Trapezoid pointing down
+                    ctx.moveTo(x - baseWidth / 2, y)
+                    ctx.lineTo(x + baseWidth / 2, y)
+                    ctx.lineTo(x + tipWidth / 2, y + armLength)
+                    ctx.lineTo(x - tipWidth / 2, y + armLength)
                     break
                 case 'left':
-                    ctx.rect(x - armLength, y - halfWidth, armLength, armWidth)
+                    // Trapezoid pointing left
+                    ctx.moveTo(x, y - baseWidth / 2)
+                    ctx.lineTo(x, y + baseWidth / 2)
+                    ctx.lineTo(x - armLength, y + tipWidth / 2)
+                    ctx.lineTo(x - armLength, y - tipWidth / 2)
                     break
                 case 'right':
-                    ctx.rect(x, y - halfWidth, armLength, armWidth)
+                    // Trapezoid pointing right
+                    ctx.moveTo(x, y - baseWidth / 2)
+                    ctx.lineTo(x, y + baseWidth / 2)
+                    ctx.lineTo(x + armLength, y + tipWidth / 2)
+                    ctx.lineTo(x + armLength, y - tipWidth / 2)
                     break
             }
+            ctx.closePath()
+            ctx.fill()
         }
-        ctx.fill()
     }
 }
