@@ -65,6 +65,10 @@ class Game {
             this.player,
             this.enemyManager.getTraps()
         )
+        const hitByShooter = this.collisionSystem.checkPlayerShooterCollision(
+            this.player,
+            this.enemyManager.getShooters()
+        )
 
         // Check for mine trigger (does not kill player, just starts countdown)
         this.collisionSystem.checkPlayerMineContact(
@@ -73,7 +77,7 @@ class Game {
         )
 
         // Reset on collision
-        if (hitByEnemy || hitByLaser || hitByTrap) {
+        if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter) {
             this.ui.shake()
             this.reset()
         }
@@ -116,6 +120,7 @@ class Game {
         this.renderer.drawLasers(this.enemyManager.getLasers(), time)
         this.renderer.drawTraps(this.enemyManager.getTraps(), time)
         this.renderer.drawMines(this.enemyManager.getMines(), time)
+        this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawBullets(this.enemyManager.getBullets())
         this.renderer.drawPlayer(this.player)
     }

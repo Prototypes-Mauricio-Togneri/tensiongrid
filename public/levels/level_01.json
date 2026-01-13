@@ -19,6 +19,24 @@
         "y": 5,
         "delay": 1200
       }
+    ],
+    "enemy_shooter": [
+      {
+        "x": 0,
+        "y": 3,
+        "rightDelay": 2000
+      },
+      {
+        "x": 6,
+        "y": 3,
+        "leftDelay": 2500
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "downDelay": 1800,
+        "rotationDelay": 3000
+      }
     ]
   }
 }

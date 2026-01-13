@@ -37,7 +37,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), shooter size (14px)
 - `colors`: all game element colors with glow variants
 
 ### Core Classes
@@ -101,13 +101,23 @@ Cyberpunk/neon aesthetic with these design elements:
 - One-time use: disappears after explosion (resets with level reset)
 - Config: `x`, `y`, `delay` (ms, mandatory)
 
+**EnemyShooter** (`js/enemy_shooter.js`) - Static turret hazard:
+- Fixed position on a single grid node
+- Green cross/plus visual shape (#44ff88)
+- Fires EnemyBullet instances in configured directions
+- Each direction has independent timer (can fire multiple directions simultaneously)
+- Optional continuous rotation that affects bullet direction
+- Rotation snaps fired bullets to nearest cardinal direction
+- Kills player on contact (grid-based collision)
+- Config: `x`, `y`, plus optional `leftDelay`, `rightDelay`, `upDelay`, `downDelay` (ms between shots), `rotationDelay` (ms per 90-degree rotation)
+
 **EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
 - Circle collision for bullets with threshold multiplier (0.7)
-- Grid-based collision for lasers and traps (exact node match)
+- Grid-based collision for lasers, traps, and shooters (exact node match)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
 
 **Renderer** (`js/renderer.js`) - Canvas drawing:

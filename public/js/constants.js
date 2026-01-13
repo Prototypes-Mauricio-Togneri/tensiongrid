@@ -145,6 +145,10 @@ const Constants = {
             },
             mine: {
                 size: 12   // Mine size in pixels
+            },
+            shooter: {
+                size: 14,   // Cross arm length from center in pixels
+                armWidth: 4 // Cross arm thickness in pixels
             }
         },
 
@@ -187,7 +191,11 @@ const Constants = {
 
             // Mine colors
             mine: '#ffaa00',       // Mine fill color (yellow/orange)
-            mineGlow: '#ffaa004d'  // Mine glow effect
+            mineGlow: '#ffaa004d', // Mine glow effect
+
+            // Shooter colors
+            shooter: '#44ff88',      // Shooter cross color (green)
+            shooterGlow: '#44ff884d' // Shooter glow effect
         }
     }
 }

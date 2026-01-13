@@ -72,4 +72,20 @@ class CollisionSystem {
             }
         }
     }
+
+    /**
+     * Check if player's grid position matches any shooter position.
+     * Shooters kill player on contact.
+     * @param {Player} player - Player instance
+     * @param {EnemyShooter[]} shooters - Array of shooters
+     * @returns {boolean} True if player is on a shooter
+     */
+    checkPlayerShooterCollision(player, shooters) {
+        for (const shooter of shooters) {
+            if (player.row === shooter.row && player.col === shooter.col) {
+                return true
+            }
+        }
+        return false
+    }
 }

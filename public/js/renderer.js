@@ -521,4 +521,68 @@ class Renderer {
         ctx.closePath()
         ctx.fill()
     }
+
+    /**
+     * Draw shooters with rotating cross/plus shape and pulsing effect.
+     * @param {EnemyShooter[]} shooters - Array of shooter instances
+     * @param {number} time - Current animation timestamp for pulse calculation
+     */
+    drawShooters(shooters, time) {
+        const ctx = this.ctx
+
+        // Subtle pulse effect
+        const pulseSpeed = 0.003
+        const pulseIntensity = 0.85 + 0.15 * (0.5 + 0.5 * Math.sin(time * pulseSpeed))
+
+        for (const shooter of shooters) {
+            const pos = this.toScreen(shooter.x, shooter.y)
+            const size = shooter.size * pulseIntensity
+            const armWidth = Constants.game.enemies.shooter.armWidth
+
+            ctx.save()
+            ctx.translate(pos.x, pos.y)
+            ctx.rotate(shooter.getRotation())
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.shooter
+            ctx.shadowBlur = 15 * pulseIntensity
+            ctx.fillStyle = this.colors.shooterGlow
+            this.drawCross(0, 0, size + 3, armWidth + 2)
+            ctx.restore()
+
+            // Main cross shape
+            ctx.save()
+            ctx.shadowColor = this.colors.shooter
+            ctx.shadowBlur = 8 * pulseIntensity
+            ctx.fillStyle = this.colors.shooter
+            this.drawCross(0, 0, size, armWidth)
+            ctx.restore()
+
+            // Inner highlight
+            ctx.fillStyle = '#ffffff33'
+            this.drawCross(0, 0, size * 0.5, armWidth * 0.6)
+
+            ctx.restore() // Restore translation and rotation
+        }
+    }
+
+    /**
+     * Draw a cross/plus shape centered at given position.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} armLength - Length from center to arm tip
+     * @param {number} armWidth - Width/thickness of each arm
+     */
+    drawCross(x, y, armLength, armWidth) {
+        const ctx = this.ctx
+        const halfWidth = armWidth / 2
+
+        ctx.beginPath()
+        // Vertical arm
+        ctx.rect(x - halfWidth, y - armLength, armWidth, armLength * 2)
+        // Horizontal arm
+        ctx.rect(x - armLength, y - halfWidth, armLength * 2, armWidth)
+        ctx.fill()
+    }
 }

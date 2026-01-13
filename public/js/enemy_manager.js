@@ -14,11 +14,13 @@ class EnemyManager {
         this.lasers = []              // Laser instances
         this.traps = []               // Static trap instances
         this.mines = []               // Static mine instances
+        this.shooters = []            // Static shooter instances
         this.instanceStates = []      // Per-spawner timing state
         this.initInstanceStates()
         this.initLasers()
         this.initTraps()
         this.initMines()
+        this.initShooters()
     }
 
     /**
@@ -64,6 +66,16 @@ class EnemyManager {
     }
 
     /**
+     * Create shooter instances from level configuration.
+     */
+    initShooters() {
+        if (!this.config.enemy_shooter) return
+        this.shooters = this.config.enemy_shooter.map(
+            shooterConfig => new EnemyShooter(shooterConfig, this.grid)
+        )
+    }
+
+    /**
      * Update all enemies and handle spawning.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
@@ -91,6 +103,14 @@ class EnemyManager {
             const exploded = mine.update(delta)
             if (exploded) {
                 this.spawnBulletsFromMine(mine)
+            }
+        }
+
+        // Update shooters and spawn bullets they fire
+        for (const shooter of this.shooters) {
+            const bulletsToSpawn = shooter.update(delta)
+            for (const info of bulletsToSpawn) {
+                this.spawnBulletFromShooter(info)
             }
         }
 
@@ -156,6 +176,27 @@ class EnemyManager {
     }
 
     /**
+     * Spawn a bullet from a shooter in the specified direction.
+     * Validates that the target edge exists and is not excluded.
+     * @param {Object} info - Bullet spawn info from shooter {row, col, x, y, dirRow, dirCol}
+     */
+    spawnBulletFromShooter(info) {
+        const targetRow = info.row + info.dirRow
+        const targetCol = info.col + info.dirCol
+
+        // Only spawn if target position is valid and edge is not excluded
+        if (this.grid.isValidPosition(targetRow, targetCol) &&
+            !this.grid.isEdgeExcluded(info.row, info.col, targetRow, targetCol)) {
+            this.bullets.push(new EnemyBullet(
+                info.row, info.col,
+                info.x, info.y,
+                info.dirRow, info.dirCol,
+                this.grid
+            ))
+        }
+    }
+
+    /**
      * Convert direction key to row/col delta vectors.
      * @param {string} direction - Direction key from Constants.keys
      * @returns {Object} Object with row and col deltas
@@ -173,13 +214,14 @@ class EnemyManager {
 
     /**
      * Clear all bullets and reset spawner states.
-     * Mines are re-initialized to reset their state to dormant.
+     * Mines and shooters are re-initialized to reset their state.
      */
     clear() {
         this.bullets = []
         this.initInstanceStates()
         this.initLasers()
         this.initMines()
+        this.initShooters()
     }
 
     /**
@@ -220,5 +262,13 @@ class EnemyManager {
      */
     getAllMines() {
         return this.mines
+    }
+
+    /**
+     * Get array of shooters.
+     * @returns {EnemyShooter[]} Shooter instances
+     */
+    getShooters() {
+        return this.shooters
     }
 }
