@@ -139,6 +139,9 @@ const Constants = {
             bullet: {
                 size: 5,   // Bullet size in pixels
                 speed: 130 // Bullet speed in pixels/second
+            },
+            trap: {
+                size: 14   // Trap size in pixels
             }
         },
 
@@ -173,7 +176,11 @@ const Constants = {
 
             // Laser colors
             laser: '#ff2a6d',      // Laser beam color
-            laserGlow: '#ff2a6d80' // Laser glow effect
+            laserGlow: '#ff2a6d80', // Laser glow effect
+
+            // Trap colors
+            trap: '#cc2244',       // Trap fill color (matches enemy)
+            trapGlow: '#cc22444d'  // Trap glow effect
         }
     }
 }

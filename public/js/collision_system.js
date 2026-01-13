@@ -1,6 +1,6 @@
 /**
  * Handles collision detection between player and enemies.
- * Uses distance-based detection for bullets and grid-based detection for lasers.
+ * Uses distance-based detection for bullets and grid-based detection for lasers and traps.
  */
 class CollisionSystem {
     /**
@@ -38,6 +38,21 @@ class CollisionSystem {
     checkPlayerLaserCollision(player, lasers) {
         for (const laser of lasers) {
             if (laser.isActive() && laser.containsNode(player.row, player.col)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Check if player's grid position matches any trap position.
+     * @param {Player} player - Player instance
+     * @param {EnemyTrap[]} traps - Array of traps
+     * @returns {boolean} True if player is on a trap
+     */
+    checkPlayerTrapCollision(player, traps) {
+        for (const trap of traps) {
+            if (player.row === trap.row && player.col === trap.col) {
                 return true
             }
         }

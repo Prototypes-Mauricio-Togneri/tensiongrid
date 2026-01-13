@@ -37,7 +37,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
-- `enemies`: bullet size (9px), bullet speed (130px/s)
+- `enemies`: bullet size (9px), bullet speed (130px/s), trap size (14px)
 - `colors`: all game element colors with glow variants
 
 ### Core Classes
@@ -82,12 +82,20 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact with any node along the laser
 - Optional intermittent mode: `timeOn`/`timeOff` (ms) to blink on/off (starts on)
 
+**EnemyTrap** (`js/enemy_trap.js`) - Static point hazard:
+- Fixed position on a single grid node
+- Pulsing 4-pointed spike/star visual effect
+- Kills player on contact (grid-based collision)
+- Other entities (bullets) pass through unaffected
+- Persists across player deaths (static level feature)
+
 **EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
-- Circle collision with threshold multiplier (0.7)
+- Circle collision for bullets with threshold multiplier (0.7)
+- Grid-based collision for lasers and traps (exact node match)
 
 **Renderer** (`js/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
@@ -110,7 +118,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 - **Movement**: One grid cell at a time, smooth interpolation
 - **Edge wrapping**: Toroidal topology - exit one edge, appear on opposite
-- **Enemies**: Various threat types, each with unique movement and collision mechanics
+- **Enemies**: Various threat types (bullets, lasers, traps), each with unique movement and collision mechanics
 - **Collision**: Collisions cause score reset (infinite lives)
 - **Scoring**: 1 point per second survived
 

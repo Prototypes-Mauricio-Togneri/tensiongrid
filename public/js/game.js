@@ -61,9 +61,13 @@ class Game {
             this.player,
             this.enemyManager.getLasers()
         )
+        const hitByTrap = this.collisionSystem.checkPlayerTrapCollision(
+            this.player,
+            this.enemyManager.getTraps()
+        )
 
         // Reset on collision
-        if (hitByEnemy || hitByLaser) {
+        if (hitByEnemy || hitByLaser || hitByTrap) {
             this.ui.shake()
             this.reset()
         }
@@ -104,6 +108,7 @@ class Game {
         this.renderer.clear()
         this.renderer.drawGrid(this.grid)
         this.renderer.drawLasers(this.enemyManager.getLasers(), time)
+        this.renderer.drawTraps(this.enemyManager.getTraps(), time)
         this.renderer.drawBullets(this.enemyManager.getBullets())
         this.renderer.drawPlayer(this.player)
     }

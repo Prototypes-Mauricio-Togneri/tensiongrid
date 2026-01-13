@@ -1,5 +1,5 @@
 /**
- * Manages spawning and lifecycle of enemy bullets and lasers.
+ * Manages spawning and lifecycle of enemy bullets, lasers, and traps.
  * Handles timed spawning with configurable delays and intervals.
  */
 class EnemyManager {
@@ -12,9 +12,11 @@ class EnemyManager {
         this.config = config          // Level enemy configuration
         this.bullets = []             // Active bullet instances
         this.lasers = []              // Laser instances
+        this.traps = []               // Static trap instances
         this.instanceStates = []      // Per-spawner timing state
         this.initInstanceStates()
         this.initLasers()
+        this.initTraps()
     }
 
     /**
@@ -34,6 +36,16 @@ class EnemyManager {
     initLasers() {
         this.lasers = this.config.enemy_laser.map(
             laserConfig => new EnemyLaser(this.grid, laserConfig)
+        )
+    }
+
+    /**
+     * Create trap instances from level configuration.
+     */
+    initTraps() {
+        if (!this.config.enemy_trap) return
+        this.traps = this.config.enemy_trap.map(
+            trapConfig => new EnemyTrap(trapConfig.y, trapConfig.x, this.grid)
         )
     }
 
@@ -136,5 +148,13 @@ class EnemyManager {
      */
     getLasers() {
         return this.lasers
+    }
+
+    /**
+     * Get array of traps.
+     * @returns {EnemyTrap[]} Trap instances
+     */
+    getTraps() {
+        return this.traps
     }
 }

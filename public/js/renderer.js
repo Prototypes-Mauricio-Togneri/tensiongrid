@@ -376,4 +376,73 @@ class Renderer {
             ctx.restore()
         }
     }
+
+    /**
+     * Draw traps with pulsing 4-pointed spike effect.
+     * @param {EnemyTrap[]} traps - Array of trap instances
+     * @param {number} time - Current animation timestamp for pulse calculation
+     */
+    drawTraps(traps, time) {
+        const ctx = this.ctx
+
+        // Calculate pulse intensity based on time (sine wave oscillation)
+        const pulseSpeed = 0.004
+        const pulseIntensity = 0.6 + 0.4 * (0.5 + 0.5 * Math.sin(time * pulseSpeed))
+
+        for (const trap of traps) {
+            const pos = this.toScreen(trap.x, trap.y)
+            const size = trap.size * pulseIntensity
+            const innerSize = size * 0.35 // Inner points are shorter
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.trap
+            ctx.shadowBlur = 15 * pulseIntensity
+            ctx.fillStyle = this.colors.trapGlow
+            this.drawSpike(pos.x, pos.y, size + 4, innerSize + 2)
+            ctx.restore()
+
+            // Main spike shape
+            ctx.save()
+            ctx.shadowColor = this.colors.trap
+            ctx.shadowBlur = 8 * pulseIntensity
+            ctx.fillStyle = this.colors.trap
+            this.drawSpike(pos.x, pos.y, size, innerSize)
+            ctx.restore()
+
+            // Inner highlight
+            ctx.fillStyle = this.colors.enemyHighlight
+            this.drawSpike(pos.x, pos.y, size * 0.5, innerSize * 0.5)
+        }
+    }
+
+    /**
+     * Draw a 4-pointed spike (star) shape.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} outerSize - Distance from center to outer points
+     * @param {number} innerSize - Distance from center to inner points
+     */
+    drawSpike(x, y, outerSize, innerSize) {
+        const ctx = this.ctx
+        ctx.beginPath()
+        // Start at top point
+        ctx.moveTo(x, y - outerSize)
+        // Top-right inner
+        ctx.lineTo(x + innerSize, y - innerSize)
+        // Right point
+        ctx.lineTo(x + outerSize, y)
+        // Bottom-right inner
+        ctx.lineTo(x + innerSize, y + innerSize)
+        // Bottom point
+        ctx.lineTo(x, y + outerSize)
+        // Bottom-left inner
+        ctx.lineTo(x - innerSize, y + innerSize)
+        // Left point
+        ctx.lineTo(x - outerSize, y)
+        // Top-left inner
+        ctx.lineTo(x - innerSize, y - innerSize)
+        ctx.closePath()
+        ctx.fill()
+    }
 }
