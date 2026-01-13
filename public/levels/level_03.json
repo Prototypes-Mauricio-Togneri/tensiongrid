@@ -1,94 +1,11 @@
 {
   "grid": {
     "width": 15,
-    "height": 15,
-    "excludes": {
-      "nodes": [
-        {
-          "x": 2,
-          "y": 2
-        }
-      ],
-      "edges": [
-        {
-          "from": {
-            "x": 6,
-            "y": 2
-          },
-          "to": {
-            "x": 7,
-            "y": 2
-          }
-        },
-        {
-          "from": {
-            "x": 7,
-            "y": 2
-          },
-          "to": {
-            "x": 8,
-            "y": 2
-          }
-        }
-      ]
-    }
+    "height": 15
   },
   "player": {
     "startX": 7,
     "startY": 7
   },
-  "enemies": {
-    "enemy_bullet": [
-      {
-        "x": 0,
-        "y": 0,
-        "direction": "down",
-        "delay": 1000,
-        "interval": 3000
-      },
-      {
-        "x": 7,
-        "y": 0,
-        "direction": "down",
-        "delay": 1500,
-        "interval": 3500
-      },
-      {
-        "x": 14,
-        "y": 0,
-        "direction": "down",
-        "delay": 2000,
-        "interval": 3000
-      },
-      {
-        "x": 0,
-        "y": 7,
-        "direction": "right",
-        "delay": 1200,
-        "interval": 4000
-      },
-      {
-        "x": 14,
-        "y": 7,
-        "direction": "left",
-        "delay": 1800,
-        "interval": 4000
-      },
-      {
-        "x": 3,
-        "y": 14,
-        "direction": "up",
-        "delay": 2500,
-        "interval": 3500
-      },
-      {
-        "x": 11,
-        "y": 14,
-        "direction": "up",
-        "delay": 3000,
-        "interval": 3500
-      }
-    ],
-    "enemy_laser": []
-  }
+  "enemies": {}
 }

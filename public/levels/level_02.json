@@ -1,7 +1,37 @@
 {
   "grid": {
     "width": 11,
-    "height": 11
+    "height": 11,
+    "excludes": {
+      "nodes": [
+        {
+          "x": 2,
+          "y": 2
+        }
+      ],
+      "edges": [
+        {
+          "from": {
+            "x": 6,
+            "y": 2
+          },
+          "to": {
+            "x": 7,
+            "y": 2
+          }
+        },
+        {
+          "from": {
+            "x": 7,
+            "y": 2
+          },
+          "to": {
+            "x": 8,
+            "y": 2
+          }
+        }
+      ]
+    }
   },
   "player": {
     "startX": 5,
@@ -45,6 +75,41 @@
         "interval": 4500
       }
     ],
-    "enemy_laser": []
+    "enemy_laser": [
+      {
+        "startX": 1,
+        "startY": 3,
+        "endX": 9,
+        "endY": 3,
+        "timeOn": 2000,
+        "timeOff": 1500
+      },
+      {
+        "startX": 8,
+        "startY": 2,
+        "endX": 8,
+        "endY": 8,
+        "timeOn": 1500,
+        "timeOff": 2000
+      }
+    ],
+    "enemy_trap": [
+      {
+        "x": 2,
+        "y": 7
+      },
+      {
+        "x": 4,
+        "y": 9
+      },
+      {
+        "x": 6,
+        "y": 9
+      },
+      {
+        "x": 9,
+        "y": 4
+      }
+    ]
   }
 }

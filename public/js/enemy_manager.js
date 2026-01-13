@@ -24,6 +24,7 @@ class EnemyManager {
      * Tracks delay completion and elapsed time for spawn intervals.
      */
     initInstanceStates() {
+        if (!this.config.enemy_bullet) return
         this.instanceStates = this.config.enemy_bullet.map(() => ({
             delayElapsed: false, // Whether initial delay has passed
             timer: 0            // Time elapsed since last spawn/start
@@ -34,6 +35,7 @@ class EnemyManager {
      * Create laser instances from level configuration.
      */
     initLasers() {
+        if (!this.config.enemy_laser) return
         this.lasers = this.config.enemy_laser.map(
             laserConfig => new EnemyLaser(this.grid, laserConfig)
         )
@@ -68,6 +70,7 @@ class EnemyManager {
         }
 
         // Handle bullet spawning for each configured spawner
+        if (!this.config.enemy_bullet) return
         this.config.enemy_bullet.forEach((instanceConfig, index) => {
             const state = this.instanceStates[index]
             if (!state) return

@@ -8,45 +8,6 @@
     "startY": 3
   },
   "enemies": {
-    "enemy_bullet": [
-      {
-        "x": 0,
-        "y": 0,
-        "direction": "down",
-        "delay": 1000,
-        "interval": 4000
-      },
-      {
-        "x": 6,
-        "y": 0,
-        "direction": "down",
-        "delay": 2000,
-        "interval": 4000
-      },
-      {
-        "x": 0,
-        "y": 3,
-        "direction": "right",
-        "delay": 1500,
-        "interval": 5000
-      }
-    ],
-    "enemy_laser": [
-      {
-        "startX": 1,
-        "startY": 1,
-        "endX": 5,
-        "endY": 1
-      },
-      {
-        "startX": 1,
-        "startY": 5,
-        "endX": 5,
-        "endY": 5,
-        "timeOn": 1000,
-        "timeOff": 2000
-      }
-    ],
     "enemy_trap": [
       {
         "x": 1,
