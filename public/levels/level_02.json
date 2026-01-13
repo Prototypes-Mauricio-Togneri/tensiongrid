@@ -1,37 +1,7 @@
 {
   "grid": {
     "width": 11,
-    "height": 11,
-    "excludes": {
-      "nodes": [
-        {
-          "x": 2,
-          "y": 2
-        }
-      ],
-      "edges": [
-        {
-          "from": {
-            "x": 6,
-            "y": 2
-          },
-          "to": {
-            "x": 7,
-            "y": 2
-          }
-        },
-        {
-          "from": {
-            "x": 7,
-            "y": 2
-          },
-          "to": {
-            "x": 8,
-            "y": 2
-          }
-        }
-      ]
-    }
+    "height": 11
   },
   "player": {
     "startX": 5,
