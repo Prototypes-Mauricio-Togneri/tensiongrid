@@ -92,6 +92,7 @@ const Constants = {
         },
         pause: {
             continue: 'continue', // Resume game
+            restart: 'restart',   // Restart current level
             quit: 'quit'          // Return to main menu
         },
         levels: {

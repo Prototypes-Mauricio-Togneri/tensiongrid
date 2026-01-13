@@ -110,6 +110,10 @@
                 if (action === Constants.actions.pause.continue) {
                     hidePauseMenu()
                     game.resume()
+                } else if (action === Constants.actions.pause.restart) {
+                    hidePauseMenu()
+                    game.reset()
+                    game.resume()
                 } else if (action === Constants.actions.pause.quit) {
                     hidePauseMenu()
                     game.stop()
