@@ -2,3 +2,4 @@
 !.claude/settings.local.json
 !scripts/
 .firebase/
+firebase-debug.log
