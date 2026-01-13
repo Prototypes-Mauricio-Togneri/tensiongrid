@@ -1,7 +1,5 @@
 {
   "projects": {
-    "default": "tension-grid",
-    "local": "tension-grid",
-    "remote": "tension-grid"
+    "default": "tension-grid"
   }
 }

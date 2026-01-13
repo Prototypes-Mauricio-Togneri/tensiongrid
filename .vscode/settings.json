@@ -1,52 +1,34 @@
 {
-    "IDX.agenticWorkspace": true,
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.editor.enablePreview": false,
-    "editor.minimap.enabled": false,
-    "editor.tabSize": 4,
-    "editor.fontSize": 16,
-    "editor.detectIndentation": false,
-    "editor.formatOnSave": true,
-    "editor.fontFamily": "'Source Code Pro'",
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit"
-    },
-    "files.autoSave": "afterDelay",
-    "files.encoding": "utf8",
-    "dart.previewFlutterUiGuides": true,
-    "cSpell.words": [
-        "appbar",
-        "buildlog",
-        "daassets",
-        "dafluta",
-        "dalocale",
-        "dapublock",
-        "daunused",
-        "dblite",
-        "devicelab",
-        "errorlens",
-        "firebaseapp",
-        "firebasestorage",
-        "firestore",
-        "flutterfire",
-        "gornivv",
-        "gradlew",
-        "Gruntfuggly",
-        "interps",
-        "mingit",
-        "nixpkgs",
-        "pbxuser",
-        "perspectivev",
-        "podspec",
-        "pubspec",
-        "royale",
-        "sconsign",
-        "tensiongrid",
-        "Togneri",
-        "unawaited",
-        "usernamehw",
-        "xcconfig",
-        "xcuserdata",
-        "YLBGZJL"
-    ]
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.enablePreview": false,
+  "editor.minimap.enabled": false,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.fontSize": 16,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.fontFamily": "'Source Code Pro'",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "files.autoSave": "afterDelay",
+  "eslint.run": "onSave",
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "cSpell.words": [
+  ],
 }

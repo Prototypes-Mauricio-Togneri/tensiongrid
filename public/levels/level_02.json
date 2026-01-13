@@ -1,0 +1,80 @@
+{
+  "grid": {
+    "width": 11,
+    "height": 11,
+    "excludes": {
+      "nodes": [
+        {
+          "x": 2,
+          "y": 2
+        }
+      ],
+      "edges": [
+        {
+          "from": {
+            "x": 6,
+            "y": 2
+          },
+          "to": {
+            "x": 7,
+            "y": 2
+          }
+        },
+        {
+          "from": {
+            "x": 7,
+            "y": 2
+          },
+          "to": {
+            "x": 8,
+            "y": 2
+          }
+        }
+      ]
+    }
+  },
+  "player": {
+    "startX": 5,
+    "startY": 5
+  },
+  "enemies": {
+    "enemy_bullet": [
+      {
+        "x": 0,
+        "y": 0,
+        "direction": "down",
+        "delay": 1000,
+        "interval": 3500
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "direction": "down",
+        "delay": 1500,
+        "interval": 4000
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "direction": "down",
+        "delay": 2000,
+        "interval": 3500
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "direction": "right",
+        "delay": 1200,
+        "interval": 4500
+      },
+      {
+        "x": 10,
+        "y": 5,
+        "direction": "left",
+        "delay": 1800,
+        "interval": 4500
+      }
+    ],
+    "enemy_laser": []
+  }
+}

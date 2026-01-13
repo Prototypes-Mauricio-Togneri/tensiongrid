@@ -1,0 +1,196 @@
+/**
+ * Main game orchestrator.
+ * Coordinates game loop, entities, collision detection, and rendering.
+ */
+class Game {
+    /**
+     * @param {string} canvasId - DOM ID of the game canvas
+     * @param {InputManager} inputManager - Shared input manager instance
+     */
+    constructor(canvasId, inputManager) {
+        this.canvas = document.getElementById(canvasId) // Game canvas element
+        this.inputManager = inputManager // Shared input manager
+        this.ui = new UIManager()         // HUD manager
+        this.running = false              // True while game loop is active
+
+        window.addEventListener(Constants.events.resize, () => this.resizeCanvas())
+    }
+
+    /**
+     * Resize canvas to fit parent container and update camera viewport.
+     */
+    resizeCanvas() {
+        const wrapper = this.canvas.parentElement
+        const width = wrapper.clientWidth
+        const height = wrapper.clientHeight
+
+        this.canvas.width = width
+        this.canvas.height = height
+
+        if (!this.camera) return
+        this.camera.setViewport(width, height)
+        this.camera.follow(this.player.x, this.player.y)
+    }
+
+    /**
+     * Update game state for one frame.
+     * @param {number} delta - Time elapsed since last frame in milliseconds
+     */
+    update(delta) {
+        this.processInput()
+        this.player.update(delta)
+        this.enemyManager.update(delta)
+
+        // Camera follows player position
+        this.camera.follow(this.player.x, this.player.y)
+        this.player.teleported = false
+
+        // Award 1 point per second survived
+        this.scoreTimer += delta
+        if (this.scoreTimer >= 1000) {
+            this.ui.addScore(1)
+            this.scoreTimer -= 1000
+        }
+
+        // Check collisions
+        const hitByEnemy = this.collisionSystem.checkPlayerBulletCollision(
+            this.player,
+            this.enemyManager.getBullets()
+        )
+        const hitByLaser = this.collisionSystem.checkPlayerLaserCollision(
+            this.player,
+            this.enemyManager.getLasers()
+        )
+
+        // Reset on collision
+        if (hitByEnemy || hitByLaser) {
+            this.ui.shake()
+            this.reset()
+        }
+    }
+
+    /**
+     * Process input and move player if valid.
+     * Handles grid wrapping and edge exclusion checks.
+     */
+    processInput() {
+        // Only accept input when player is stationary
+        if (this.player.isMoving) return
+
+        const direction = this.inputManager.getDirection()
+        if (!direction) return
+
+        const newRow = this.player.row + direction.dRow
+        const newCol = this.player.col + direction.dCol
+        const wrapped = this.grid.wrapPosition(newRow, newCol)
+
+        // Block movement to excluded nodes
+        if (this.grid.isExcluded(wrapped.row, wrapped.col)) return
+        // Block movement across excluded edges (unless wrapping)
+        if (!wrapped.wrapped && this.grid.isEdgeExcluded(this.player.row, this.player.col, wrapped.row, wrapped.col)) return
+
+        this.player.moveTo(wrapped.row, wrapped.col, wrapped.wrapped)
+        // Disable input briefly after wrapping to prevent rapid teleporting
+        if (wrapped.wrapped) {
+            this.inputManager.disable()
+        }
+    }
+
+    /**
+     * Render all game entities.
+     * @param {number} time - Current animation timestamp for effects
+     */
+    render(time) {
+        this.renderer.clear()
+        this.renderer.drawGrid(this.grid)
+        this.renderer.drawLasers(this.enemyManager.getLasers(), time)
+        this.renderer.drawBullets(this.enemyManager.getBullets())
+        this.renderer.drawPlayer(this.player)
+    }
+
+    /**
+     * Reset player position and clear enemies.
+     */
+    reset() {
+        this.player.reset()
+        this.enemyManager.clear()
+        this.camera.follow(this.player.x, this.player.y)
+        this.ui.score = 0
+        this.scoreTimer = 0
+        this.ui.updateDisplay()
+    }
+
+    /**
+     * Main game loop using requestAnimationFrame.
+     * @param {number} currentTime - Current animation timestamp
+     */
+    gameLoop(currentTime) {
+        if (!this.running) return
+
+        const delta = currentTime - this.lastTime
+        this.lastTime = currentTime
+
+        // Skip frame if delta is too large (prevents tunneling on tab switch)
+        if (delta > Constants.game.physics.maxDeltaTime) {
+            requestAnimationFrame((t) => this.gameLoop(t))
+            return
+        }
+
+        this.update(delta)
+        this.render(currentTime)
+        requestAnimationFrame((t) => this.gameLoop(t))
+    }
+
+    /**
+     * Initialize game objects from level data.
+     * @param {Object} levelData - Level configuration from JSON
+     */
+    init(levelData) {
+        this.grid = new Grid({ ...Constants.game.grid, ...levelData.grid })
+        this.camera = new Camera(this.grid)
+        this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
+        this.enemyManager = new EnemyManager(this.grid, levelData.enemies)
+        this.collisionSystem = new CollisionSystem(Constants.game.physics)
+        this.renderer = new Renderer(this.canvas, this.camera)
+    }
+
+    /**
+     * Start a new game with the given level.
+     * @param {Object} levelData - Level configuration from JSON
+     */
+    start(levelData) {
+        if (this.running) return
+        this.init(levelData)
+        this.resizeCanvas()
+        this.reset()
+        this.ui.reset()
+        this.running = true
+        this.lastTime = 0              // Last frame timestamp
+        this.scoreTimer = 0            // Time since last score increment
+        requestAnimationFrame((t) => this.gameLoop(t))
+    }
+
+    /**
+     * Stop the game loop completely.
+     */
+    stop() {
+        this.running = false
+    }
+
+    /**
+     * Pause the game loop (for pause menu).
+     */
+    pause() {
+        this.running = false
+    }
+
+    /**
+     * Resume the game loop after pausing.
+     */
+    resume() {
+        if (this.running) return
+        this.running = true
+        this.lastTime = performance.now() // Reset time to prevent large delta
+        requestAnimationFrame((t) => this.gameLoop(t))
+    }
+}

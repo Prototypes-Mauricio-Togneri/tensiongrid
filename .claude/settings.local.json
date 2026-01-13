@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git mv:*)",
+      "Skill(frontend-design)",
+      "Bash(grep:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"Checking $f...\")",
+      "Bash(node --check:*)",
+      "Bash(echo:*)",
+      "Bash(done)"
+    ]
+  },
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/notify.sh 'Claude: Permission request'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/notify.sh 'Claude: Ready'"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "./scripts/statusline.sh",
+    "padding": 0
+  }
+}

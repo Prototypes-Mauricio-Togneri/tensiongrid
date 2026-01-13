@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Runner</title>
+    <meta name="description" content="Grid Runner - A retro-style grid-based game">
+    <link rel="icon" type="image/x-icon" href="img/ico/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Home Screen -->
+        <div class="screen active" id="homeScreen">
+            <h1 class="game-title">GRID RUNNER</h1>
+            <div class="menu">
+                <button class="menu-button selected" data-action="continue">Continue</button>
+                <button class="menu-button" data-action="levels">Levels</button>
+                <button class="menu-button" data-action="settings">Settings</button>
+                <button class="menu-button" data-action="about">About</button>
+            </div>
+        </div>
+
+        <!-- Levels Screen -->
+        <div class="screen" id="levelsScreen">
+            <h2 class="screen-title">LEVELS</h2>
+            <div class="menu">
+                <button class="menu-button" data-action="level_01">Level 1</button>
+                <button class="menu-button" data-action="level_02">Level 2</button>
+                <button class="menu-button" data-action="level_03">Level 3</button>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div class="screen" id="settingsScreen">
+            <h2 class="screen-title">SETTINGS</h2>
+            <div class="settings-panel">
+                <div class="settings-item">
+                    <span class="settings-label">Audio</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="audioToggle" checked>
+                        <span class="toggle-track">
+                            <span class="toggle-thumb"></span>
+                        </span>
+                        <span class="toggle-status" data-on="ON" data-off="OFF"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Screen -->
+        <div class="screen" id="aboutScreen">
+            <h2 class="screen-title">ABOUT</h2>
+            <div class="menu">
+                <button class="menu-button" data-action="credits">Credits</button>
+                <button class="menu-button" data-action="terms">Terms & Conditions</button>
+                <button class="menu-button" data-action="privacy">Privacy Policy</button>
+            </div>
+            <div class="version-text">v0.0.1</div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="screen" id="gameScreen">
+            <div class="hud">
+                <div class="hud-item">
+                    <span class="hud-label">Score</span>
+                    <span class="hud-value score" id="score">0</span>
+                </div>
+            </div>
+            <div class="canvas-wrapper" id="canvasWrapper">
+                <canvas id="gameCanvas"></canvas>
+            </div>
+
+            <!-- Pause Menu -->
+            <div class="pause-overlay" id="pauseOverlay">
+                <div class="pause-modal">
+                    <h2 class="pause-title">PAUSED</h2>
+                    <div class="menu">
+                        <button class="menu-button selected" data-action="continue">Resume</button>
+                        <button class="menu-button" data-action="quit">Exit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts in dependency order -->
+    <script src="js/constants.js"></script>
+    <script src="js/vector2.js"></script>
+    <script src="js/grid.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/input_manager.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/enemy_bullet.js"></script>
+    <script src="js/enemy_laser.js"></script>
+    <script src="js/enemy_manager.js"></script>
+    <script src="js/collision_system.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/ui_manager.js"></script>
+    <script src="js/screen_manager.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
