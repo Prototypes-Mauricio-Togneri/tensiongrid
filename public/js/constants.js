@@ -147,8 +147,8 @@ const Constants = {
                 size: 12   // Mine size in pixels
             },
             shooter: {
-                size: 18,   // Turret arm length from center in pixels
-                armWidth: 6 // Turret arm thickness in pixels
+                size: 28,   // Turret arm length from center in pixels
+                armWidth: 10 // Turret arm thickness in pixels
             }
         },
 

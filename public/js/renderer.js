@@ -523,20 +523,16 @@ class Renderer {
     }
 
     /**
-     * Draw shooters with arms only for active directions and pulsing effect.
+     * Draw shooters with arms only for active directions.
      * @param {EnemyShooter[]} shooters - Array of shooter instances
-     * @param {number} time - Current animation timestamp for pulse calculation
+     * @param {number} time - Current animation timestamp (unused, kept for consistency)
      */
     drawShooters(shooters, time) {
         const ctx = this.ctx
 
-        // Subtle pulse effect
-        const pulseSpeed = 0.003
-        const pulseIntensity = 0.85 + 0.15 * (0.5 + 0.5 * Math.sin(time * pulseSpeed))
-
         for (const shooter of shooters) {
             const pos = this.toScreen(shooter.x, shooter.y)
-            const size = shooter.size * pulseIntensity
+            const size = shooter.size
             const armWidth = Constants.game.enemies.shooter.armWidth
             const directions = shooter.getActiveDirections()
             const hubRadius = armWidth * 1.2 // Center hub size
@@ -548,7 +544,7 @@ class Renderer {
             // Outer glow - arms
             ctx.save()
             ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 15 * pulseIntensity
+            ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.shooterGlow
             this.drawArms(0, 0, size + 3, armWidth + 2, directions)
             ctx.restore()
@@ -556,7 +552,7 @@ class Renderer {
             // Outer glow - center hub
             ctx.save()
             ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 15 * pulseIntensity
+            ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.shooterGlow
             ctx.beginPath()
             ctx.arc(0, 0, hubRadius + 2, 0, Math.PI * 2)
@@ -566,7 +562,7 @@ class Renderer {
             // Main arms
             ctx.save()
             ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 8 * pulseIntensity
+            ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.shooter
             this.drawArms(0, 0, size, armWidth, directions)
             ctx.restore()
@@ -574,7 +570,7 @@ class Renderer {
             // Main center hub
             ctx.save()
             ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 8 * pulseIntensity
+            ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.shooter
             ctx.beginPath()
             ctx.arc(0, 0, hubRadius, 0, Math.PI * 2)
