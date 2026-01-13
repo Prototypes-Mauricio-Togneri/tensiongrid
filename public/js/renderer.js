@@ -523,7 +523,7 @@ class Renderer {
     }
 
     /**
-     * Draw shooters with rotating cross/plus shape and pulsing effect.
+     * Draw shooters with arms only for active directions and pulsing effect.
      * @param {EnemyShooter[]} shooters - Array of shooter instances
      * @param {number} time - Current animation timestamp for pulse calculation
      */
@@ -538,51 +538,88 @@ class Renderer {
             const pos = this.toScreen(shooter.x, shooter.y)
             const size = shooter.size * pulseIntensity
             const armWidth = Constants.game.enemies.shooter.armWidth
+            const directions = shooter.getActiveDirections()
+            const hubRadius = armWidth * 1.2 // Center hub size
 
             ctx.save()
             ctx.translate(pos.x, pos.y)
             ctx.rotate(shooter.getRotation())
 
-            // Outer glow
+            // Outer glow - arms
             ctx.save()
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 15 * pulseIntensity
             ctx.fillStyle = this.colors.shooterGlow
-            this.drawCross(0, 0, size + 3, armWidth + 2)
+            this.drawArms(0, 0, size + 3, armWidth + 2, directions)
             ctx.restore()
 
-            // Main cross shape
+            // Outer glow - center hub
+            ctx.save()
+            ctx.shadowColor = this.colors.shooter
+            ctx.shadowBlur = 15 * pulseIntensity
+            ctx.fillStyle = this.colors.shooterGlow
+            ctx.beginPath()
+            ctx.arc(0, 0, hubRadius + 2, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+
+            // Main arms
             ctx.save()
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 8 * pulseIntensity
             ctx.fillStyle = this.colors.shooter
-            this.drawCross(0, 0, size, armWidth)
+            this.drawArms(0, 0, size, armWidth, directions)
             ctx.restore()
 
-            // Inner highlight
+            // Main center hub
+            ctx.save()
+            ctx.shadowColor = this.colors.shooter
+            ctx.shadowBlur = 8 * pulseIntensity
+            ctx.fillStyle = this.colors.shooter
+            ctx.beginPath()
+            ctx.arc(0, 0, hubRadius, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+
+            // Inner highlight - center hub only
             ctx.fillStyle = '#ffffff33'
-            this.drawCross(0, 0, size * 0.5, armWidth * 0.6)
+            ctx.beginPath()
+            ctx.arc(0, 0, hubRadius * 0.5, 0, Math.PI * 2)
+            ctx.fill()
 
             ctx.restore() // Restore translation and rotation
         }
     }
 
     /**
-     * Draw a cross/plus shape centered at given position.
-     * @param {number} x - Center X position
-     * @param {number} y - Center Y position
+     * Draw individual arms for active directions only.
+     * @param {number} x - Center X (0 when pre-translated)
+     * @param {number} y - Center Y (0 when pre-translated)
      * @param {number} armLength - Length from center to arm tip
      * @param {number} armWidth - Width/thickness of each arm
+     * @param {string[]} directions - Active direction keys
      */
-    drawCross(x, y, armLength, armWidth) {
+    drawArms(x, y, armLength, armWidth, directions) {
         const ctx = this.ctx
         const halfWidth = armWidth / 2
 
         ctx.beginPath()
-        // Vertical arm
-        ctx.rect(x - halfWidth, y - armLength, armWidth, armLength * 2)
-        // Horizontal arm
-        ctx.rect(x - armLength, y - halfWidth, armLength * 2, armWidth)
+        for (const dir of directions) {
+            switch (dir) {
+                case 'up':
+                    ctx.rect(x - halfWidth, y - armLength, armWidth, armLength)
+                    break
+                case 'down':
+                    ctx.rect(x - halfWidth, y, armWidth, armLength)
+                    break
+                case 'left':
+                    ctx.rect(x - armLength, y - halfWidth, armLength, armWidth)
+                    break
+                case 'right':
+                    ctx.rect(x, y - halfWidth, armLength, armWidth)
+                    break
+            }
+        }
         ctx.fill()
     }
 }

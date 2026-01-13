@@ -1,6 +1,6 @@
 /**
  * Static shooter enemy that fires bullets in configured directions.
- * Fixed on one grid node, renders as a green cross/plus shape.
+ * Fixed on one grid node, renders with arms pointing in active fire directions.
  * Supports independent firing delays per direction and optional rotation.
  */
 class EnemyShooter {
@@ -172,5 +172,13 @@ class EnemyShooter {
      */
     getRotation() {
         return this.rotation
+    }
+
+    /**
+     * Get array of active direction keys.
+     * @returns {string[]} Array of direction keys ('left', 'right', 'up', 'down')
+     */
+    getActiveDirections() {
+        return Object.keys(this.directionTimers)
     }
 }
