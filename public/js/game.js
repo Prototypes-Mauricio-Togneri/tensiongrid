@@ -120,8 +120,8 @@ class Game {
         this.renderer.drawLasers(this.enemyManager.getLasers(), time)
         this.renderer.drawTraps(this.enemyManager.getTraps(), time)
         this.renderer.drawMines(this.enemyManager.getMines(), time)
-        this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawBullets(this.enemyManager.getBullets())
+        this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawPlayer(this.player)
     }
 

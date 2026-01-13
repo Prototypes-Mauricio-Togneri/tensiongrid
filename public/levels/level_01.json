@@ -8,18 +8,6 @@
     "startY": 3
   },
   "enemies": {
-    "enemy_mine": [
-      {
-        "x": 1,
-        "y": 1,
-        "delay": 1500
-      },
-      {
-        "x": 5,
-        "y": 5,
-        "delay": 1200
-      }
-    ],
     "enemy_shooter": [
       {
         "x": 0,
@@ -34,7 +22,7 @@
       {
         "x": 3,
         "y": 0,
-        "downDelay": 1800,
+        "downDelay": 3000,
         "rotationDelay": 3000
       }
     ]
