@@ -155,8 +155,7 @@ const Constants = {
                 size: 12   // Patrol size in pixels
             },
             snake: {
-                size: 10,          // Segment circle radius in pixels
-                segmentSpacing: 25 // Distance between segment centers in pixels
+                size: 10  // Half-width of snake body (line will be size * 2 thick)
             }
         },
 

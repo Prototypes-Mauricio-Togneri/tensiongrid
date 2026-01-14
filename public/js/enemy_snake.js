@@ -1,6 +1,6 @@
 /**
- * Snake enemy that moves along a cyclical path with body segments following the head.
- * Head moves like EnemyPatrol; body segments follow the exact trail the head traveled.
+ * Snake enemy that moves along a cyclical path with a continuous body following the head.
+ * Head moves like EnemyPatrol; body follows the exact trail the head traveled.
  */
 class EnemySnake {
     /**
@@ -11,9 +11,8 @@ class EnemySnake {
         this.grid = grid                                          // Grid reference
         this.path = config.path                                   // Array of {x, y} node coordinates
         this.speed = config.speed                                 // Movement speed in pixels/second
-        this.maxLength = config.length                            // Maximum number of segments (including head)
-        this.size = Constants.game.enemies.snake.size             // Segment size in pixels
-        this.segmentSpacing = Constants.game.enemies.snake.segmentSpacing // Distance between segments
+        this.maxBodyLength = config.length * grid.cellSize        // Maximum body length in pixels
+        this.size = Constants.game.enemies.snake.size             // Half-width of snake body
 
         this.pathIndex = 0                                        // Current position index in path array
         this.row = config.path[0].y                               // Current head grid row
@@ -26,7 +25,7 @@ class EnemySnake {
         this.positionHistory = [{ x: pos.x, y: pos.y }]           // Trail of head positions
         this.historyDistances = [0]                               // Cumulative distance at each history point
         this.totalDistance = 0                                    // Total distance head has traveled
-        this.currentLength = 1                                    // Current segment count (grows over time)
+        this.currentBodyLength = 0                                // Current body length in pixels (grows over time)
     }
 
     /**
@@ -70,12 +69,9 @@ class EnemySnake {
             this.totalDistance += movedDistance
             this.positionHistory.push({ x: this.x, y: this.y })
             this.historyDistances.push(this.totalDistance)
-        }
 
-        // Grow snake until max length reached
-        const requiredDistance = this.currentLength * this.segmentSpacing
-        if (this.currentLength < this.maxLength && this.totalDistance >= requiredDistance) {
-            this.currentLength++
+            // Grow body length (capped at max)
+            this.currentBodyLength = Math.min(this.currentBodyLength + movedDistance, this.maxBodyLength)
         }
 
         // Prune old history entries no longer needed for tail
@@ -83,13 +79,13 @@ class EnemySnake {
     }
 
     /**
-     * Remove history entries that are too old to be needed by any segment.
-     * Keeps enough history to position the tail segment.
+     * Remove history entries that are too old to be needed by the body.
+     * Keeps enough history to render the full body length.
      */
     pruneHistory() {
-        // Calculate minimum distance needed for tail segment
-        const tailDistance = this.totalDistance - (this.currentLength - 1) * this.segmentSpacing
-        const minRequiredDistance = tailDistance - this.segmentSpacing // Buffer
+        // Calculate minimum distance needed for tail
+        const tailDistance = this.totalDistance - this.currentBodyLength
+        const minRequiredDistance = tailDistance - this.grid.cellSize // Buffer
 
         // Find first history index still needed
         let pruneIndex = 0
@@ -106,23 +102,33 @@ class EnemySnake {
     }
 
     /**
-     * Calculate world positions for all segments (head + body).
-     * @returns {Array<{x: number, y: number}>} Array of segment positions, head first
+     * Get the path of positions along the snake body for rendering.
+     * Returns positions from head to tail.
+     * @returns {Array<{x: number, y: number}>} Array of positions along the body
      */
-    getSegmentPositions() {
-        const positions = []
+    getBodyPath() {
+        const path = []
 
         // Head is always at current position
-        positions.push({ x: this.x, y: this.y })
+        path.push({ x: this.x, y: this.y })
 
-        // Calculate body segment positions by looking back in history
-        for (let i = 1; i < this.currentLength; i++) {
-            const targetDistance = this.totalDistance - (i * this.segmentSpacing)
-            const pos = this.getPositionAtDistance(targetDistance)
-            positions.push(pos)
+        // If no body yet, return just the head
+        if (this.currentBodyLength < 1) {
+            return path
         }
 
-        return positions
+        // Sample positions along the body at regular intervals
+        const sampleInterval = this.grid.cellSize / 4 // Sample every quarter cell for smooth rendering
+        const numSamples = Math.ceil(this.currentBodyLength / sampleInterval)
+
+        for (let i = 1; i <= numSamples; i++) {
+            const distanceBack = Math.min(i * sampleInterval, this.currentBodyLength)
+            const targetDistance = this.totalDistance - distanceBack
+            const pos = this.getPositionAtDistance(targetDistance)
+            path.push(pos)
+        }
+
+        return path
     }
 
     /**
@@ -169,17 +175,36 @@ class EnemySnake {
     }
 
     /**
-     * Get grid positions (row, col) for all segments for collision detection.
-     * @returns {Array<{row: number, col: number}>} Array of segment grid positions
+     * Get grid positions (row, col) along the body for collision detection.
+     * Samples at regular intervals to cover the entire body.
+     * @returns {Array<{row: number, col: number}>} Array of grid positions along the body
      */
     getSegmentGridPositions() {
-        const worldPositions = this.getSegmentPositions()
-        return worldPositions.map(pos => {
-            // Convert world position back to nearest grid cell
+        const positions = []
+        const seen = new Set() // Avoid duplicates
+
+        // Sample at half-cell intervals to ensure coverage
+        const sampleInterval = this.grid.cellSize / 2
+        const numSamples = Math.ceil(this.currentBodyLength / sampleInterval) + 1
+
+        for (let i = 0; i <= numSamples; i++) {
+            const distanceBack = Math.min(i * sampleInterval, this.currentBodyLength)
+            const targetDistance = this.totalDistance - distanceBack
+            const pos = this.getPositionAtDistance(targetDistance)
+
+            // Convert world position to grid cell
             const col = Math.round(pos.x / this.grid.cellSize)
             const row = Math.round(pos.y / this.grid.cellSize)
-            return { row, col }
-        })
+            const key = `${row},${col}`
+
+            // Add if not already seen
+            if (!seen.has(key)) {
+                seen.add(key)
+                positions.push({ row, col })
+            }
+        }
+
+        return positions
     }
 
     /**

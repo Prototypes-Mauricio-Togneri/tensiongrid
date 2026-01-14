@@ -713,48 +713,65 @@ class Renderer {
     }
 
     /**
-     * Draw snakes with all segments rendered as uniform circles.
+     * Draw snakes as continuous thick lines with rounded ends.
      * @param {EnemySnake[]} snakes - Array of snake instances
      */
     drawSnakes(snakes) {
         const ctx = this.ctx
 
         for (const snake of snakes) {
-            const segments = snake.getSegmentPositions()
-            const size = snake.size
+            const path = snake.getBodyPath()
+            if (path.length < 2) continue
 
-            // Draw all segments (from tail to head for proper layering)
-            for (let i = segments.length - 1; i >= 0; i--) {
-                const segment = segments[i]
-                const pos = this.toScreen(segment.x, segment.y)
+            const lineWidth = snake.size * 2
 
-                // Outer glow
-                ctx.save()
-                ctx.shadowColor = this.colors.snake
-                ctx.shadowBlur = 12
-                ctx.fillStyle = this.colors.snakeGlow
-                ctx.beginPath()
-                ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.restore()
+            // Outer glow
+            ctx.save()
+            ctx.strokeStyle = this.colors.snakeGlow
+            ctx.lineWidth = lineWidth + 6
+            ctx.lineCap = 'round'
+            ctx.lineJoin = 'round'
+            ctx.shadowColor = this.colors.snake
+            ctx.shadowBlur = 15
+            this.drawPathLine(path)
+            ctx.restore()
 
-                // Main segment circle
-                ctx.save()
-                ctx.shadowColor = this.colors.snake
-                ctx.shadowBlur = 6
-                ctx.fillStyle = this.colors.snake
-                ctx.beginPath()
-                ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.restore()
+            // Main body
+            ctx.save()
+            ctx.strokeStyle = this.colors.snake
+            ctx.lineWidth = lineWidth
+            ctx.lineCap = 'round'
+            ctx.lineJoin = 'round'
+            ctx.shadowColor = this.colors.snake
+            ctx.shadowBlur = 8
+            this.drawPathLine(path)
+            ctx.restore()
 
-                // Inner highlight
-                ctx.fillStyle = '#ffffff33'
-                ctx.beginPath()
-                ctx.arc(pos.x - size * 0.3, pos.y - size * 0.3, size * 0.35, 0, Math.PI * 2)
-                ctx.fill()
-            }
+            // Inner highlight line
+            ctx.save()
+            ctx.strokeStyle = '#ffffff33'
+            ctx.lineWidth = lineWidth * 0.4
+            ctx.lineCap = 'round'
+            ctx.lineJoin = 'round'
+            this.drawPathLine(path)
+            ctx.restore()
         }
+    }
+
+    /**
+     * Draw a path as a stroked line.
+     * @param {Array<{x: number, y: number}>} path - Array of world positions
+     */
+    drawPathLine(path) {
+        const ctx = this.ctx
+        ctx.beginPath()
+        const first = this.toScreen(path[0].x, path[0].y)
+        ctx.moveTo(first.x, first.y)
+        for (let i = 1; i < path.length; i++) {
+            const p = this.toScreen(path[i].x, path[i].y)
+            ctx.lineTo(p.x, p.y)
+        }
+        ctx.stroke()
     }
 
     /**
