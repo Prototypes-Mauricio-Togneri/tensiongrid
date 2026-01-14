@@ -759,17 +759,32 @@ class Renderer {
     }
 
     /**
-     * Draw a path as a stroked line.
+     * Draw a path as a smooth stroked line using quadratic curves.
      * @param {Array<{x: number, y: number}>} path - Array of world positions
      */
     drawPathLine(path) {
         const ctx = this.ctx
+        if (path.length < 2) return
+
         ctx.beginPath()
         const first = this.toScreen(path[0].x, path[0].y)
         ctx.moveTo(first.x, first.y)
-        for (let i = 1; i < path.length; i++) {
-            const p = this.toScreen(path[i].x, path[i].y)
-            ctx.lineTo(p.x, p.y)
+
+        if (path.length === 2) {
+            const second = this.toScreen(path[1].x, path[1].y)
+            ctx.lineTo(second.x, second.y)
+        } else {
+            // Use quadratic curves through midpoints for smooth corners
+            for (let i = 1; i < path.length - 1; i++) {
+                const curr = this.toScreen(path[i].x, path[i].y)
+                const next = this.toScreen(path[i + 1].x, path[i + 1].y)
+                const midX = (curr.x + next.x) / 2
+                const midY = (curr.y + next.y) / 2
+                ctx.quadraticCurveTo(curr.x, curr.y, midX, midY)
+            }
+            // Draw to the last point
+            const last = this.toScreen(path[path.length - 1].x, path[path.length - 1].y)
+            ctx.lineTo(last.x, last.y)
         }
         ctx.stroke()
     }
