@@ -43,6 +43,7 @@ Read these when working on specific areas:
 - **Maintainability Check**: Ensure the solution is readable, consistent, maintainable, simple, robust, and strictly follows the requested requirements.
 - **Centralized Constants**: Declare all magic constants in `public/js/constants.js` and reference them from there. Do not hardcode values directly in other files.
 - **Root Cause Fixes**: If a bug exists, identify and fix the root cause. Do not apply temporary or partial fixes.
+- **Async Patterns**: Prefer `async` and `await` over `Promise` and `then` calls.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.
 - **Code Comments**: All JavaScript code must be commented following these conventions:
   - **Class level**: JSDoc block with class description (`/** ... */`)
