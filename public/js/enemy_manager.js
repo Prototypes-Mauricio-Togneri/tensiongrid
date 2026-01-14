@@ -16,6 +16,7 @@ class EnemyManager {
         this.mines = []               // Static mine instances
         this.shooters = []            // Static shooter instances
         this.patrols = []             // Patrol instances
+        this.snakes = []              // Snake instances
         this.instanceStates = []      // Per-spawner timing state
         this.initInstanceStates()
         this.initLasers()
@@ -23,6 +24,7 @@ class EnemyManager {
         this.initMines()
         this.initShooters()
         this.initPatrols()
+        this.initSnakes()
     }
 
     /**
@@ -88,6 +90,16 @@ class EnemyManager {
     }
 
     /**
+     * Create snake instances from level configuration.
+     */
+    initSnakes() {
+        if (!this.config.enemy_snake) return
+        this.snakes = this.config.enemy_snake.map(
+            snakeConfig => new EnemySnake(snakeConfig, this.grid)
+        )
+    }
+
+    /**
      * Update all enemies and handle spawning.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
@@ -129,6 +141,11 @@ class EnemyManager {
         // Update patrol positions
         for (const patrol of this.patrols) {
             patrol.update(delta)
+        }
+
+        // Update snake positions
+        for (const snake of this.snakes) {
+            snake.update(delta)
         }
 
         // Handle bullet spawning for each configured spawner
@@ -240,6 +257,7 @@ class EnemyManager {
         this.initMines()
         this.initShooters()
         this.initPatrols()
+        this.initSnakes()
     }
 
     /**
@@ -296,5 +314,13 @@ class EnemyManager {
      */
     getPatrols() {
         return this.patrols
+    }
+
+    /**
+     * Get array of snakes.
+     * @returns {EnemySnake[]} Snake instances
+     */
+    getSnakes() {
+        return this.snakes
     }
 }

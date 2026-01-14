@@ -104,4 +104,23 @@ class CollisionSystem {
         }
         return false
     }
+
+    /**
+     * Check if player's grid position matches any snake segment position.
+     * Snakes kill player on contact with any segment (head or body).
+     * @param {Player} player - Player instance
+     * @param {EnemySnake[]} snakes - Array of snakes
+     * @returns {boolean} True if player is on any snake segment
+     */
+    checkPlayerSnakeCollision(player, snakes) {
+        for (const snake of snakes) {
+            const segments = snake.getSegmentGridPositions()
+            for (const segment of segments) {
+                if (player.row === segment.row && player.col === segment.col) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }

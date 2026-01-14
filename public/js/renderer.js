@@ -713,6 +713,51 @@ class Renderer {
     }
 
     /**
+     * Draw snakes with all segments rendered as uniform circles.
+     * @param {EnemySnake[]} snakes - Array of snake instances
+     */
+    drawSnakes(snakes) {
+        const ctx = this.ctx
+
+        for (const snake of snakes) {
+            const segments = snake.getSegmentPositions()
+            const size = snake.size
+
+            // Draw all segments (from tail to head for proper layering)
+            for (let i = segments.length - 1; i >= 0; i--) {
+                const segment = segments[i]
+                const pos = this.toScreen(segment.x, segment.y)
+
+                // Outer glow
+                ctx.save()
+                ctx.shadowColor = this.colors.snake
+                ctx.shadowBlur = 12
+                ctx.fillStyle = this.colors.snakeGlow
+                ctx.beginPath()
+                ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.restore()
+
+                // Main segment circle
+                ctx.save()
+                ctx.shadowColor = this.colors.snake
+                ctx.shadowBlur = 6
+                ctx.fillStyle = this.colors.snake
+                ctx.beginPath()
+                ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.restore()
+
+                // Inner highlight
+                ctx.fillStyle = '#ffffff33'
+                ctx.beginPath()
+                ctx.arc(pos.x - size * 0.3, pos.y - size * 0.3, size * 0.35, 0, Math.PI * 2)
+                ctx.fill()
+            }
+        }
+    }
+
+    /**
      * Draw a pentagon shape.
      * @param {number} x - Center X position
      * @param {number} y - Center Y position

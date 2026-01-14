@@ -37,7 +37,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), shooter size (14px), patrol size (12px)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), shooter size (14px), patrol size (12px), snake size (10px), snake segment spacing (25px)
 - `colors`: all game element colors with glow variants
 
 ### Core Classes
@@ -120,13 +120,22 @@ Cyberpunk/neon aesthetic with these design elements:
 - Path wraps cyclically: after reaching last node, returns to first
 - Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates)
 
+**EnemySnake** (`js/enemy_snake.js`) - Multi-segment path-based hazard:
+- Moves along a predefined cyclical path like EnemyPatrol
+- Orange circle visual shape (#ffaa00)
+- Multiple body segments follow the head in a "train" effect
+- Starts as single segment, grows to max length as snake moves
+- Kills player on contact with ANY segment (head or body)
+- Config: `length` (max segments), `speed` (pixels/second), `path` (array of {x, y} node coordinates)
+
 **EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
 - Circle collision for bullets with threshold multiplier (0.7)
-- Grid-based collision for lasers, traps, shooters, and patrols (exact node match)
+- Grid-based collision for lasers, traps, shooters, patrols, and snakes (exact node match)
+- Snake collision checks all segments (head and body)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
 
 **Renderer** (`js/renderer.js`) - Canvas drawing:

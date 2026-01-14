@@ -153,6 +153,10 @@ const Constants = {
             },
             patrol: {
                 size: 12   // Patrol size in pixels
+            },
+            snake: {
+                size: 10,          // Segment circle radius in pixels
+                segmentSpacing: 25 // Distance between segment centers in pixels
             }
         },
 
@@ -203,7 +207,11 @@ const Constants = {
 
             // Patrol colors
             patrol: '#aa44ff',       // Patrol fill color (purple)
-            patrolGlow: '#aa44ff4d'  // Patrol glow effect
+            patrolGlow: '#aa44ff4d', // Patrol glow effect
+
+            // Snake colors
+            snake: '#ffaa00',       // Snake segment fill (orange)
+            snakeGlow: '#ffaa004d'  // Snake glow effect
         }
     }
 }
