@@ -150,6 +150,9 @@ const Constants = {
             shooter: {
                 size: 28,   // Turret arm length from center in pixels
                 armWidth: 10 // Turret arm thickness in pixels
+            },
+            patrol: {
+                size: 12   // Patrol size in pixels
             }
         },
 
@@ -196,7 +199,11 @@ const Constants = {
 
             // Shooter colors
             shooter: '#44ff88',      // Shooter cross color (green)
-            shooterGlow: '#44ff884d' // Shooter glow effect
+            shooterGlow: '#44ff884d', // Shooter glow effect
+
+            // Patrol colors
+            patrol: '#aa44ff',       // Patrol fill color (purple)
+            patrolGlow: '#aa44ff4d'  // Patrol glow effect
         }
     }
 }

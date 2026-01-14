@@ -637,4 +637,98 @@ class Renderer {
             ctx.fill()
         }
     }
+
+    /**
+     * Draw patrols with wake trail and glow effects.
+     * @param {EnemyPatrol[]} patrols - Array of patrol instances
+     */
+    drawPatrols(patrols) {
+        const ctx = this.ctx
+
+        for (const patrol of patrols) {
+            const pos = this.toScreen(patrol.x, patrol.y)
+            const size = patrol.size
+
+            // Draw tapered wake trail behind patrol
+            if (patrol.wakeIntensity > 0.01) {
+                const dx = patrol.wakeStartX - patrol.x
+                const dy = patrol.wakeStartY - patrol.y
+                const dist = Math.sqrt(dx * dx + dy * dy)
+
+                if (dist > 1) {
+                    const dirX = dx / dist
+                    const dirY = dy / dist
+
+                    const wakeStart = this.toScreen(patrol.wakeStartX, patrol.wakeStartY)
+
+                    // Gradient from patrol (bright) to wake end (transparent)
+                    const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
+                    gradient.addColorStop(0, this.hexWithAlpha(this.colors.patrol, 0.6 * patrol.wakeIntensity))
+                    gradient.addColorStop(0.5, this.hexWithAlpha(this.colors.patrol, 0.25 * patrol.wakeIntensity))
+                    gradient.addColorStop(1, this.hexWithAlpha(this.colors.patrol, 0))
+
+                    ctx.save()
+                    ctx.shadowColor = this.hexWithAlpha(this.colors.patrol, 0.5)
+                    ctx.shadowBlur = 10 * patrol.wakeIntensity
+
+                    // Calculate perpendicular for wake width
+                    const perpX = -dirY
+                    const perpY = dirX
+                    const startWidth = size * 0.5
+                    const endWidth = size * 0.1
+
+                    // Draw tapered quad shape
+                    ctx.beginPath()
+                    ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
+                    ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
+                    ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
+                    ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
+                    ctx.closePath()
+                    ctx.fillStyle = gradient
+                    ctx.fill()
+                    ctx.restore()
+                }
+            }
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.patrol
+            ctx.shadowBlur = 15
+            ctx.fillStyle = this.colors.patrolGlow
+            this.drawPentagon(pos.x, pos.y, size + 4)
+            ctx.restore()
+
+            // Main patrol shape
+            ctx.save()
+            ctx.shadowColor = this.colors.patrol
+            ctx.shadowBlur = 8
+            ctx.fillStyle = this.colors.patrol
+            this.drawPentagon(pos.x, pos.y, size)
+            ctx.restore()
+
+            // Inner highlight
+            ctx.fillStyle = '#ffffff33'
+            this.drawPentagon(pos.x, pos.y, size * 0.4)
+        }
+    }
+
+    /**
+     * Draw a pentagon shape.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Distance from center to vertices
+     */
+    drawPentagon(x, y, size) {
+        const ctx = this.ctx
+        ctx.beginPath()
+        for (let i = 0; i < 5; i++) {
+            const angle = (Math.PI * 2 / 5) * i - Math.PI / 2 // Start at top
+            const px = x + size * Math.cos(angle)
+            const py = y + size * Math.sin(angle)
+            if (i === 0) ctx.moveTo(px, py)
+            else ctx.lineTo(px, py)
+        }
+        ctx.closePath()
+        ctx.fill()
+    }
 }

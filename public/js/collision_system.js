@@ -88,4 +88,20 @@ class CollisionSystem {
         }
         return false
     }
+
+    /**
+     * Check if player's grid position matches any patrol position.
+     * Patrols kill player on contact.
+     * @param {Player} player - Player instance
+     * @param {EnemyPatrol[]} patrols - Array of patrols
+     * @returns {boolean} True if player is on a patrol's current node
+     */
+    checkPlayerPatrolCollision(player, patrols) {
+        for (const patrol of patrols) {
+            if (player.row === patrol.row && player.col === patrol.col) {
+                return true
+            }
+        }
+        return false
+    }
 }

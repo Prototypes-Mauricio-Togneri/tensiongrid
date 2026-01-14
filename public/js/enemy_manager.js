@@ -15,12 +15,14 @@ class EnemyManager {
         this.traps = []               // Static trap instances
         this.mines = []               // Static mine instances
         this.shooters = []            // Static shooter instances
+        this.patrols = []             // Patrol instances
         this.instanceStates = []      // Per-spawner timing state
         this.initInstanceStates()
         this.initLasers()
         this.initTraps()
         this.initMines()
         this.initShooters()
+        this.initPatrols()
     }
 
     /**
@@ -76,6 +78,16 @@ class EnemyManager {
     }
 
     /**
+     * Create patrol instances from level configuration.
+     */
+    initPatrols() {
+        if (!this.config.enemy_patrol) return
+        this.patrols = this.config.enemy_patrol.map(
+            patrolConfig => new EnemyPatrol(patrolConfig, this.grid)
+        )
+    }
+
+    /**
      * Update all enemies and handle spawning.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
@@ -112,6 +124,11 @@ class EnemyManager {
             for (const info of bulletsToSpawn) {
                 this.spawnBulletFromShooter(info)
             }
+        }
+
+        // Update patrol positions
+        for (const patrol of this.patrols) {
+            patrol.update(delta)
         }
 
         // Handle bullet spawning for each configured spawner
@@ -214,7 +231,7 @@ class EnemyManager {
 
     /**
      * Clear all bullets and reset spawner states.
-     * Mines and shooters are re-initialized to reset their state.
+     * Mines, shooters, and patrols are re-initialized to reset their state.
      */
     clear() {
         this.bullets = []
@@ -222,6 +239,7 @@ class EnemyManager {
         this.initLasers()
         this.initMines()
         this.initShooters()
+        this.initPatrols()
     }
 
     /**
@@ -270,5 +288,13 @@ class EnemyManager {
      */
     getShooters() {
         return this.shooters
+    }
+
+    /**
+     * Get array of patrols.
+     * @returns {EnemyPatrol[]} Patrol instances
+     */
+    getPatrols() {
+        return this.patrols
     }
 }
