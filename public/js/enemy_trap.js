@@ -22,6 +22,7 @@ class EnemyTrap {
         this.timeOff = config.timeOff // Time inactive in ms (undefined for persistent)
         this.active = true            // Whether trap is currently dangerous
         this.timer = 0                // Time elapsed in current state
+        this.ttl = config.ttl         // Time to live in ms (undefined for permanent)
     }
 
     /**
@@ -41,10 +42,15 @@ class EnemyTrap {
     }
 
     /**
-     * Update intermittent trap state.
+     * Update intermittent trap state and TTL countdown.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
+        // Decrement TTL if set
+        if (this.ttl !== undefined) {
+            this.ttl -= delta
+        }
+
         if (!this.isIntermittent()) return
 
         this.timer += delta
@@ -61,6 +67,14 @@ class EnemyTrap {
                 this.timer = 0
             }
         }
+    }
+
+    /**
+     * Check if trap has expired (TTL reached zero).
+     * @returns {boolean} True if trap should be removed
+     */
+    isExpired() {
+        return this.ttl !== undefined && this.ttl <= 0
     }
 
     /**

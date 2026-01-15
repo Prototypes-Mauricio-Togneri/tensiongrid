@@ -29,7 +29,8 @@
             "y": 6
           }
         ],
-        "trap": 2000
+        "trapFrequency": 2000,
+        "trapTtl": 3000
       },
       {
         "speed": 120,

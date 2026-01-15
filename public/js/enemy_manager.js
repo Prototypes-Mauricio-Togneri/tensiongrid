@@ -117,10 +117,11 @@ class EnemyManager {
             laser.update(delta)
         }
 
-        // Update trap states (for intermittent traps)
+        // Update trap states (for intermittent traps) and remove expired
         for (const trap of this.traps) {
             trap.update(delta)
         }
+        this.traps = this.traps.filter(trap => !trap.isExpired())
 
         // Update mines and spawn bullets on explosion
         for (const mine of this.mines) {
@@ -129,6 +130,7 @@ class EnemyManager {
                 this.spawnBulletsFromMine(mine)
             }
         }
+        this.mines = this.mines.filter(mine => !mine.isExpired())
 
         // Update shooters and spawn bullets they fire
         for (const shooter of this.shooters) {
@@ -236,13 +238,13 @@ class EnemyManager {
     /**
      * Handle spawn request from a patrol enemy.
      * Creates trap or mine at the specified node if no fixed enemy exists there.
-     * @param {Object} request - Spawn request {type: 'trap'|'mine', row, col}
+     * @param {Object} request - Spawn request {type: 'trap'|'mine', row, col, ttl}
      */
     handlePatrolSpawn(request) {
         // Skip if fixed enemy already exists at this node
         if (this.hasFixedEnemyAtNode(request.row, request.col)) return
 
-        const config = { x: request.col, y: request.row }
+        const config = { x: request.col, y: request.row, ttl: request.ttl }
 
         if (request.type === 'trap') {
             this.traps.push(new EnemyTrap(config, this.grid))

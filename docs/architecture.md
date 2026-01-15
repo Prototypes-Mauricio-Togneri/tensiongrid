@@ -89,6 +89,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Other entities (bullets) pass through unaffected
 - Persists across player deaths (static level feature)
 - Optional intermittent mode: `timeOn`/`timeOff` (ms) to blink on/off (starts on, dimmed when inactive)
+- Optional `ttl` (ms): time to live, trap is removed when TTL reaches zero
 
 **EnemyMine** (`js/enemy_mine.js`) - Triggered explosive hazard:
 - Fixed position on a single grid node
@@ -99,7 +100,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - On touch: begins countdown with accelerating blink frequency (2Hz → 10Hz)
 - After delay: spawns bullets in ALL valid directions from its node (one per connected edge)
 - One-time use: disappears after explosion (resets with level reset)
-- Config: `x`, `y`, `delay` (ms, mandatory)
+- Config: `x`, `y`, `delay` (ms, mandatory), optional `ttl` (ms, time to live)
 
 **EnemyShooter** (`js/enemy_shooter.js`) - Static turret hazard:
 - Fixed position on a single grid node
@@ -120,7 +121,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Path wraps cyclically: after reaching last node, returns to first
 - Optional trap/mine spawning: when timer fires, marks next node; spawns when patrol arrives there
 - Skips spawning if a fixed enemy (trap, mine, shooter) already exists at target node
-- Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates), optional `trap` (ms interval), optional `mine` (ms interval)
+- Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates), optional `trapFrequency`/`trapTtl` (ms), optional `mineFrequency`/`mineTtl` (ms)
 
 **EnemySnake** (`js/enemy_snake.js`) - Continuous body path-based hazard:
 - Moves along a predefined cyclical path like EnemyPatrol

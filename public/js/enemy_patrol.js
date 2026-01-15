@@ -25,8 +25,10 @@ class EnemyPatrol {
         this.wakeStartX = pos.x                               // Wake trail start X position
         this.wakeStartY = pos.y                               // Wake trail start Y position
 
-        this.trapInterval = config.trap                       // Trap spawn interval in ms (optional)
-        this.mineInterval = config.mine                       // Mine spawn interval in ms (optional)
+        this.trapFrequency = config.trapFrequency             // Trap spawn interval in ms (optional)
+        this.trapTtl = config.trapTtl                         // TTL for spawned traps in ms (optional)
+        this.mineFrequency = config.mineFrequency             // Mine spawn interval in ms (optional)
+        this.mineTtl = config.mineTtl                         // TTL for spawned mines in ms (optional)
         this.trapTimer = 0                                    // Time since last trap spawn
         this.mineTimer = 0                                    // Time since last mine spawn
         this.pendingTrapIndex = null                          // Path index where trap will spawn (null if none)
@@ -60,12 +62,12 @@ class EnemyPatrol {
             // Spawn pending trap/mine when arriving at marked node
             if (this.pendingTrapIndex === this.pathIndex) {
                 const node = this.path[this.pathIndex]
-                spawnRequests.push({ type: 'trap', row: node.y, col: node.x })
+                spawnRequests.push({ type: 'trap', row: node.y, col: node.x, ttl: this.trapTtl })
                 this.pendingTrapIndex = null
             }
             if (this.pendingMineIndex === this.pathIndex) {
                 const node = this.path[this.pathIndex]
-                spawnRequests.push({ type: 'mine', row: node.y, col: node.x })
+                spawnRequests.push({ type: 'mine', row: node.y, col: node.x, ttl: this.mineTtl })
                 this.pendingMineIndex = null
             }
 
@@ -86,19 +88,19 @@ class EnemyPatrol {
             this.wakeStartY = this.y - dir.y * trailDistance
         }
 
-        // Handle trap timer - mark next node for spawn when interval reached
-        if (this.trapInterval !== undefined) {
+        // Handle trap timer - mark next node for spawn when frequency reached
+        if (this.trapFrequency !== undefined) {
             this.trapTimer += delta
-            if (this.trapTimer >= this.trapInterval && this.pendingTrapIndex === null) {
+            if (this.trapTimer >= this.trapFrequency && this.pendingTrapIndex === null) {
                 this.trapTimer = 0
                 this.pendingTrapIndex = (this.pathIndex + 1) % this.path.length
             }
         }
 
-        // Handle mine timer - mark next node for spawn when interval reached
-        if (this.mineInterval !== undefined) {
+        // Handle mine timer - mark next node for spawn when frequency reached
+        if (this.mineFrequency !== undefined) {
             this.mineTimer += delta
-            if (this.mineTimer >= this.mineInterval && this.pendingMineIndex === null) {
+            if (this.mineTimer >= this.mineFrequency && this.pendingMineIndex === null) {
                 this.mineTimer = 0
                 this.pendingMineIndex = (this.pathIndex + 1) % this.path.length
             }
