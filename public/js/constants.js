@@ -183,10 +183,10 @@ const Constants = {
             enemyWakeShadow: '#cc224480', // Wake shadow effect
 
             // Grid colors
-            node: '#1a3a4a66',          // Grid node fill
-            nodeHighlight: '#ffffff15', // Node highlight effect
-            edge: '#00f5ff33',          // Grid edge color
-            edgeGlow: '#00f5ff15',      // Edge glow effect
+            node: '#1a3a4a44',          // Grid node fill
+            nodeHighlight: '#ffffff0d', // Node highlight effect
+            edge: '#00f5ff22',          // Grid edge color
+            edgeGlow: '#00f5ff0d',      // Edge glow effect
 
             // Laser colors
             laser: '#ff2a6d',       // Laser beam color
