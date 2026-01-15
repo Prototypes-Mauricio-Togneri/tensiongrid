@@ -90,15 +90,18 @@ class CollisionSystem {
     }
 
     /**
-     * Check if player's grid position matches any patrol position.
-     * Patrols kill player on contact.
+     * Check if player collides with any patrol using circle-to-circle detection.
      * @param {Player} player - Player instance
      * @param {EnemyPatrol[]} patrols - Array of patrols
-     * @returns {boolean} True if player is on a patrol's current node
+     * @returns {boolean} True if collision detected
      */
     checkPlayerPatrolCollision(player, patrols) {
+        const playerPos = player.getPosition()
+        const collisionDist = (player.size + Constants.game.enemies.patrol.size) * this.threshold
+
         for (const patrol of patrols) {
-            if (player.row === patrol.row && player.col === patrol.col) {
+            const patrolPos = patrol.getPosition()
+            if (Vector2.distance(playerPos, patrolPos) < collisionDist) {
                 return true
             }
         }
