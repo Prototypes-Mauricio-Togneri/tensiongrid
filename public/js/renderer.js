@@ -342,11 +342,16 @@ class Renderer {
         const pulseIntensity = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(time * pulseSpeed))
 
         for (const laser of lasers) {
-            if (!laser.isActive()) continue
-
             const positions = laser.getWorldPositions()
             const start = this.toScreen(positions.start.x, positions.start.y)
             const end = this.toScreen(positions.end.x, positions.end.y)
+            const isActive = laser.isActive()
+
+            // Apply reduced opacity for inactive lasers
+            ctx.save()
+            if (!isActive) {
+                ctx.globalAlpha = 0.3
+            }
 
             // Outer glow (wide, semi-transparent)
             ctx.save()
@@ -368,12 +373,14 @@ class Renderer {
             ctx.lineCap = 'round'
             ctx.shadowColor = this.colors.laser
             ctx.shadowBlur = 10 * pulseIntensity
-            ctx.globalAlpha = 0.7 + 0.3 * pulseIntensity
+            ctx.globalAlpha = (isActive ? 0.7 + 0.3 * pulseIntensity : 0.3)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
             ctx.stroke()
             ctx.restore()
+
+            ctx.restore() // Restore opacity
         }
     }
 
