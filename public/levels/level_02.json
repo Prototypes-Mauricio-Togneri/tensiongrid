@@ -38,6 +38,13 @@
     "startY": 5
   },
   "enemies": {
+    "enemy_follower": [
+      {
+        "startX": 9,
+        "startY": 9,
+        "speed": 70
+      }
+    ],
     "enemy_bullet": [
       {
         "x": 0,
