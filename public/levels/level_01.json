@@ -8,6 +8,13 @@
     "startY": 3
   },
   "enemies": {
+    "enemy_follower": [
+      {
+        "startX": 0,
+        "startY": 0,
+        "speed": 80
+      }
+    ],
     "enemy_patrol": [
       {
         "speed": 200,

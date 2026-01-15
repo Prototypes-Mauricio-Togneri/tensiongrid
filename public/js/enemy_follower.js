@@ -12,6 +12,7 @@ class EnemyFollower {
         this.grid = grid                                              // Grid reference
         this.speed = config.speed || Constants.game.enemies.follower.speed // Movement speed in pixels/second
         this.size = Constants.game.enemies.follower.size              // Follower size in pixels
+        this.rotationSpeed = Constants.game.enemies.follower.rotationSpeed // Rotation speed in radians/second
 
         this.row = config.startY                                      // Current grid row (y in config = row)
         this.col = config.startX                                      // Current grid column (x in config = col)
@@ -44,6 +45,9 @@ class EnemyFollower {
         this.playerRow = playerRow
         this.playerCol = playerCol
 
+        // Continuous rotation
+        this.rotation += this.rotationSpeed * delta / 1000
+
         const moveAmount = this.speed * delta / 1000
 
         // If not moving, calculate next best adjacent node
@@ -53,8 +57,6 @@ class EnemyFollower {
                 this.targetRow = nextNode.row
                 this.targetCol = nextNode.col
                 this.isMoving = true
-                // Update rotation to point toward target
-                this.updateRotation()
             }
             // If nextNode is null, all adjacent nodes blocked - stay in place
             return
@@ -129,19 +131,6 @@ class EnemyFollower {
         }
 
         return bestNode
-    }
-
-    /**
-     * Update rotation angle to point toward target node.
-     * Triangle points in the direction of movement.
-     */
-    updateRotation() {
-        const dx = this.targetCol - this.col
-        const dy = this.targetRow - this.row
-        // Math.atan2(dy, dx) gives angle from positive X axis
-        // Triangle default orientation: pointing up (negative Y)
-        // So we add PI/2 to rotate from "pointing right" to "pointing up" base
-        this.rotation = Math.atan2(dy, dx) + Math.PI / 2
     }
 
     /**

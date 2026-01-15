@@ -159,8 +159,9 @@ const Constants = {
                 size: 10  // Half-width of snake body (line will be size * 2 thick)
             },
             follower: {
-                size: 12,  // Follower size in pixels
-                speed: 100 // Default speed in pixels/second
+                size: 12,         // Follower size in pixels
+                speed: 100,       // Default speed in pixels/second
+                rotationSpeed: 3  // Rotation speed in radians/second
             }
         },
 
