@@ -19,6 +19,12 @@ Cyberpunk/neon aesthetic with these design elements:
 
 ### Visual Effects
 
+- **Menu background animation** - Multi-layered atmospheric effect (hidden during gameplay):
+  - Floating geometric shapes (hexagons in cyan, diamonds in pink) with glow effects
+  - Ambient pulsing glow orbs (cyan top-left, pink bottom-right)
+  - Rising neon particles that drift upward
+  - Perspective grid layer with infinite scroll
+  - Uses CSS `:has()` selector to hide when game screen is active
 - **Animated background grid** - Perspective-transformed grid with infinite scroll animation
 - **Scanline overlay** - Subtle horizontal lines for CRT effect (via `body::after`)
 - **Title flicker** - Subtle randomized opacity animation

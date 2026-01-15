@@ -12,6 +12,71 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Background Animation (hidden on game screen) -->
+    <div class="bg-animation" id="bgAnimation">
+        <div class="bg-grid"></div>
+        <div class="bg-shapes">
+            <!-- Large shapes (background layer) -->
+            <div class="bg-shape bg-shape--hex" style="--x: 5%; --y: 10%; --size: 120px; --delay: 0s; --duration: 40s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 80%; --y: 70%; --size: 140px; --delay: 12s; --duration: 45s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 60%; --y: 5%; --size: 110px; --delay: 6s; --duration: 38s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 20%; --y: 85%; --size: 100px; --delay: 18s; --duration: 42s"></div>
+            <!-- Medium shapes (mid layer) -->
+            <div class="bg-shape bg-shape--hex" style="--x: 15%; --y: 20%; --size: 80px; --delay: 0s; --duration: 25s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 85%; --y: 15%; --size: 60px; --delay: 2s; --duration: 30s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 70%; --y: 60%; --size: 100px; --delay: 5s; --duration: 35s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 25%; --y: 75%; --size: 50px; --delay: 8s; --duration: 28s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 50%; --y: 40%; --size: 70px; --delay: 3s; --duration: 32s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 10%; --y: 50%; --size: 45px; --delay: 6s; --duration: 26s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 90%; --y: 80%; --size: 55px; --delay: 10s; --duration: 29s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 40%; --y: 10%; --size: 65px; --delay: 4s; --duration: 33s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 35%; --y: 55%; --size: 75px; --delay: 7s; --duration: 31s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 75%; --y: 35%; --size: 55px; --delay: 11s; --duration: 27s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 55%; --y: 85%; --size: 65px; --delay: 14s; --duration: 34s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 5%; --y: 65%; --size: 70px; --delay: 9s; --duration: 29s"></div>
+            <!-- Small shapes (foreground layer) -->
+            <div class="bg-shape bg-shape--hex" style="--x: 30%; --y: 30%; --size: 35px; --delay: 1s; --duration: 22s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 65%; --y: 25%; --size: 30px; --delay: 4s; --duration: 20s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 45%; --y: 70%; --size: 40px; --delay: 7s; --duration: 24s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 80%; --y: 45%; --size: 25px; --delay: 2s; --duration: 18s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 12%; --y: 35%; --size: 30px; --delay: 5s; --duration: 21s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 92%; --y: 55%; --size: 35px; --delay: 8s; --duration: 23s"></div>
+            <div class="bg-shape bg-shape--hex" style="--x: 60%; --y: 90%; --size: 28px; --delay: 3s; --duration: 19s"></div>
+            <div class="bg-shape bg-shape--diamond" style="--x: 38%; --y: 5%; --size: 32px; --delay: 10s; --duration: 25s"></div>
+        </div>
+        <div class="bg-glow bg-glow--1"></div>
+        <div class="bg-glow bg-glow--2"></div>
+        <div class="bg-glow bg-glow--3"></div>
+        <div class="bg-particles">
+            <div class="bg-particle" style="--x: 3%; --delay: 0s"></div>
+            <div class="bg-particle" style="--x: 7%; --delay: 6s"></div>
+            <div class="bg-particle" style="--x: 12%; --delay: 2.5s"></div>
+            <div class="bg-particle" style="--x: 17%; --delay: 8s"></div>
+            <div class="bg-particle" style="--x: 22%; --delay: 1s"></div>
+            <div class="bg-particle" style="--x: 27%; --delay: 4.5s"></div>
+            <div class="bg-particle" style="--x: 32%; --delay: 7s"></div>
+            <div class="bg-particle" style="--x: 37%; --delay: 3s"></div>
+            <div class="bg-particle" style="--x: 42%; --delay: 9s"></div>
+            <div class="bg-particle" style="--x: 47%; --delay: 0.5s"></div>
+            <div class="bg-particle" style="--x: 52%; --delay: 5s"></div>
+            <div class="bg-particle" style="--x: 57%; --delay: 2s"></div>
+            <div class="bg-particle" style="--x: 62%; --delay: 7.5s"></div>
+            <div class="bg-particle" style="--x: 67%; --delay: 3.5s"></div>
+            <div class="bg-particle" style="--x: 72%; --delay: 10s"></div>
+            <div class="bg-particle" style="--x: 77%; --delay: 1.5s"></div>
+            <div class="bg-particle" style="--x: 82%; --delay: 6.5s"></div>
+            <div class="bg-particle" style="--x: 87%; --delay: 4s"></div>
+            <div class="bg-particle" style="--x: 92%; --delay: 8.5s"></div>
+            <div class="bg-particle" style="--x: 97%; --delay: 2s"></div>
+            <div class="bg-particle bg-particle--pink" style="--x: 10%; --delay: 3s"></div>
+            <div class="bg-particle bg-particle--pink" style="--x: 25%; --delay: 7s"></div>
+            <div class="bg-particle bg-particle--pink" style="--x: 45%; --delay: 1s"></div>
+            <div class="bg-particle bg-particle--pink" style="--x: 60%; --delay: 5.5s"></div>
+            <div class="bg-particle bg-particle--pink" style="--x: 75%; --delay: 9.5s"></div>
+            <div class="bg-particle bg-particle--pink" style="--x: 90%; --delay: 0s"></div>
+        </div>
+    </div>
+
     <div class="game-container">
         <!-- Home Screen -->
         <div class="screen active" id="homeScreen">

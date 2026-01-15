@@ -18,7 +18,8 @@ const Constants = {
             aboutScreen: 'aboutScreen',   // About/credits screen
             audioToggle: 'audioToggle',   // Audio toggle button
             pauseOverlay: 'pauseOverlay', // Pause menu overlay
-            gameCanvas: 'gameCanvas'      // Main game canvas
+            gameCanvas: 'gameCanvas',     // Main game canvas
+            bgAnimation: 'bgAnimation'    // Background animation container
         },
         classes: {
             shake: 'shake',       // Screen shake animation class
