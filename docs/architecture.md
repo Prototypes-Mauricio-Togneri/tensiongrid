@@ -113,7 +113,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **EnemyPatrol** (`js/enemy_patrol.js`) - Moving path-based hazard:
 - Moves along a predefined cyclical path of grid nodes
-- Purple pentagon visual shape (#aa44ff)
+- Purple flat-top hexagon visual shape (#aa44ff)
 - Smooth interpolation between nodes (like EnemyBullet)
 - Wake effect - gradient trail during movement
 - Kills player on contact (grid-based collision)

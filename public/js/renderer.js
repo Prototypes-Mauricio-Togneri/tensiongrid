@@ -510,7 +510,7 @@ class Renderer {
     }
 
     /**
-     * Draw a hexagon shape.
+     * Draw a hexagon shape with pointy top.
      * @param {number} x - Center X position
      * @param {number} y - Center Y position
      * @param {number} size - Distance from center to vertices
@@ -519,7 +519,27 @@ class Renderer {
         const ctx = this.ctx
         ctx.beginPath()
         for (let i = 0; i < 6; i++) {
-            const angle = (Math.PI / 3) * i - Math.PI / 2 // Start at top
+            const angle = (Math.PI / 3) * i - Math.PI / 2 // Start at top (pointy)
+            const px = x + size * Math.cos(angle)
+            const py = y + size * Math.sin(angle)
+            if (i === 0) ctx.moveTo(px, py)
+            else ctx.lineTo(px, py)
+        }
+        ctx.closePath()
+        ctx.fill()
+    }
+
+    /**
+     * Draw a hexagon shape with flat top.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Distance from center to vertices
+     */
+    drawFlatHexagon(x, y, size) {
+        const ctx = this.ctx
+        ctx.beginPath()
+        for (let i = 0; i < 6; i++) {
+            const angle = (Math.PI / 3) * i // Start at right (flat top)
             const px = x + size * Math.cos(angle)
             const py = y + size * Math.sin(angle)
             if (i === 0) ctx.moveTo(px, py)
@@ -702,7 +722,7 @@ class Renderer {
             ctx.shadowColor = this.colors.patrol
             ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.patrolGlow
-            this.drawPentagon(pos.x, pos.y, size + 4)
+            this.drawFlatHexagon(pos.x, pos.y, size + 4)
             ctx.restore()
 
             // Main patrol shape
@@ -710,12 +730,12 @@ class Renderer {
             ctx.shadowColor = this.colors.patrol
             ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.patrol
-            this.drawPentagon(pos.x, pos.y, size)
+            this.drawFlatHexagon(pos.x, pos.y, size)
             ctx.restore()
 
             // Inner highlight
             ctx.fillStyle = '#ffffff33'
-            this.drawPentagon(pos.x, pos.y, size * 0.4)
+            this.drawFlatHexagon(pos.x, pos.y, size * 0.4)
         }
     }
 
