@@ -138,9 +138,12 @@ class EnemyManager {
             }
         }
 
-        // Update patrol positions
+        // Update patrol positions and handle spawns
         for (const patrol of this.patrols) {
-            patrol.update(delta)
+            const spawnRequests = patrol.update(delta)
+            for (const request of spawnRequests) {
+                this.handlePatrolSpawn(request)
+            }
         }
 
         // Update snake positions
@@ -228,6 +231,51 @@ class EnemyManager {
                 this.grid
             ))
         }
+    }
+
+    /**
+     * Handle spawn request from a patrol enemy.
+     * Creates trap or mine at the specified node if no fixed enemy exists there.
+     * @param {Object} request - Spawn request {type: 'trap'|'mine', row, col}
+     */
+    handlePatrolSpawn(request) {
+        // Skip if fixed enemy already exists at this node
+        if (this.hasFixedEnemyAtNode(request.row, request.col)) return
+
+        const config = { x: request.col, y: request.row }
+
+        if (request.type === 'trap') {
+            this.traps.push(new EnemyTrap(config, this.grid))
+        } else if (request.type === 'mine') {
+            // Use default delay for patrol-spawned mines
+            config.delay = Constants.game.enemies.mine.patrolSpawnDelay
+            this.mines.push(new EnemyMine(config, this.grid))
+        }
+    }
+
+    /**
+     * Check if a fixed-position enemy exists at the given node.
+     * @param {number} row - Grid row
+     * @param {number} col - Grid column
+     * @returns {boolean} True if a trap, mine, or shooter occupies the node
+     */
+    hasFixedEnemyAtNode(row, col) {
+        // Check traps
+        for (const trap of this.traps) {
+            if (trap.row === row && trap.col === col) return true
+        }
+
+        // Check mines (including exploded ones to prevent stacking)
+        for (const mine of this.mines) {
+            if (mine.row === row && mine.col === col) return true
+        }
+
+        // Check shooters
+        for (const shooter of this.shooters) {
+            if (shooter.row === row && shooter.col === col) return true
+        }
+
+        return false
     }
 
     /**

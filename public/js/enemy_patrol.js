@@ -24,13 +24,20 @@ class EnemyPatrol {
         this.wakeIntensity = 0                                // Wake trail opacity (0-1)
         this.wakeStartX = pos.x                               // Wake trail start X position
         this.wakeStartY = pos.y                               // Wake trail start Y position
+
+        this.trapInterval = config.trap                       // Trap spawn interval in ms (optional)
+        this.mineInterval = config.mine                       // Mine spawn interval in ms (optional)
+        this.trapTimer = 0                                    // Time since last trap spawn
+        this.mineTimer = 0                                    // Time since last mine spawn
     }
 
     /**
      * Update patrol position along path with smooth interpolation.
      * @param {number} delta - Time elapsed since last frame in milliseconds
+     * @returns {Array} Array of spawn requests {type: 'trap'|'mine', row, col}
      */
     update(delta) {
+        const spawnRequests = []
         const moveAmount = this.speed * delta / 1000
 
         // Get next target in cyclical path
@@ -64,6 +71,38 @@ class EnemyPatrol {
             this.wakeStartX = this.x - dir.x * trailDistance
             this.wakeStartY = this.y - dir.y * trailDistance
         }
+
+        // Handle trap spawning
+        if (this.trapInterval !== undefined) {
+            this.trapTimer += delta
+            if (this.trapTimer >= this.trapInterval) {
+                this.trapTimer = 0
+                const spawnNode = this.getSpawnNode()
+                spawnRequests.push({ type: 'trap', row: spawnNode.row, col: spawnNode.col })
+            }
+        }
+
+        // Handle mine spawning
+        if (this.mineInterval !== undefined) {
+            this.mineTimer += delta
+            if (this.mineTimer >= this.mineInterval) {
+                this.mineTimer = 0
+                const spawnNode = this.getSpawnNode()
+                spawnRequests.push({ type: 'mine', row: spawnNode.row, col: spawnNode.col })
+            }
+        }
+
+        return spawnRequests
+    }
+
+    /**
+     * Get the node two positions ahead in the cyclical path for spawning.
+     * @returns {Object} Node coordinates {row, col}
+     */
+    getSpawnNode() {
+        const spawnIndex = (this.pathIndex + 2) % this.path.length
+        const node = this.path[spawnIndex]
+        return { row: node.y, col: node.x }
     }
 
     /**

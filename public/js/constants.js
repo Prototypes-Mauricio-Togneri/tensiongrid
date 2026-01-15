@@ -145,7 +145,8 @@ const Constants = {
                 size: 14   // Trap size in pixels
             },
             mine: {
-                size: 12   // Mine size in pixels
+                size: 12,              // Mine size in pixels
+                patrolSpawnDelay: 1500 // Detonation delay for patrol-spawned mines in ms
             },
             shooter: {
                 size: 28,   // Turret arm length from center in pixels

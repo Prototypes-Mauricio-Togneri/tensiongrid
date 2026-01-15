@@ -37,7 +37,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), shooter size (14px), patrol size (12px), snake body half-width (10px)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), snake body half-width (10px)
 - `colors`: all game element colors with glow variants
 
 ### Core Classes
@@ -118,7 +118,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - Wake effect - gradient trail during movement
 - Kills player on contact (grid-based collision)
 - Path wraps cyclically: after reaching last node, returns to first
-- Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates)
+- Optional trap/mine spawning: spawns at node 2 positions ahead in path
+- Skips spawning if a fixed enemy (trap, mine, shooter) already exists at target node
+- Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates), optional `trap` (ms interval), optional `mine` (ms interval)
 
 **EnemySnake** (`js/enemy_snake.js`) - Continuous body path-based hazard:
 - Moves along a predefined cyclical path like EnemyPatrol
