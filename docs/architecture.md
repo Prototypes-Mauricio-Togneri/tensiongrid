@@ -118,7 +118,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Wake effect - gradient trail during movement
 - Kills player on contact (grid-based collision)
 - Path wraps cyclically: after reaching last node, returns to first
-- Optional trap/mine spawning: spawns at node 2 positions ahead in path
+- Optional trap/mine spawning: when timer fires, marks next node; spawns when patrol arrives there
 - Skips spawning if a fixed enemy (trap, mine, shooter) already exists at target node
 - Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates), optional `trap` (ms interval), optional `mine` (ms interval)
 

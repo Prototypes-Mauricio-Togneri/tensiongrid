@@ -29,6 +29,8 @@ class EnemyPatrol {
         this.mineInterval = config.mine                       // Mine spawn interval in ms (optional)
         this.trapTimer = 0                                    // Time since last trap spawn
         this.mineTimer = 0                                    // Time since last mine spawn
+        this.pendingTrapIndex = null                          // Path index where trap will spawn (null if none)
+        this.pendingMineIndex = null                          // Path index where mine will spawn (null if none)
     }
 
     /**
@@ -55,6 +57,18 @@ class EnemyPatrol {
             this.col = targetNode.x
             this.pathIndex = nextIndex
 
+            // Spawn pending trap/mine when arriving at marked node
+            if (this.pendingTrapIndex === this.pathIndex) {
+                const node = this.path[this.pathIndex]
+                spawnRequests.push({ type: 'trap', row: node.y, col: node.x })
+                this.pendingTrapIndex = null
+            }
+            if (this.pendingMineIndex === this.pathIndex) {
+                const node = this.path[this.pathIndex]
+                spawnRequests.push({ type: 'mine', row: node.y, col: node.x })
+                this.pendingMineIndex = null
+            }
+
             // Reset wake at waypoint
             this.wakeStartX = this.x
             this.wakeStartY = this.y
@@ -72,37 +86,25 @@ class EnemyPatrol {
             this.wakeStartY = this.y - dir.y * trailDistance
         }
 
-        // Handle trap spawning
+        // Handle trap timer - mark next node for spawn when interval reached
         if (this.trapInterval !== undefined) {
             this.trapTimer += delta
-            if (this.trapTimer >= this.trapInterval) {
+            if (this.trapTimer >= this.trapInterval && this.pendingTrapIndex === null) {
                 this.trapTimer = 0
-                const spawnNode = this.getSpawnNode()
-                spawnRequests.push({ type: 'trap', row: spawnNode.row, col: spawnNode.col })
+                this.pendingTrapIndex = (this.pathIndex + 1) % this.path.length
             }
         }
 
-        // Handle mine spawning
+        // Handle mine timer - mark next node for spawn when interval reached
         if (this.mineInterval !== undefined) {
             this.mineTimer += delta
-            if (this.mineTimer >= this.mineInterval) {
+            if (this.mineTimer >= this.mineInterval && this.pendingMineIndex === null) {
                 this.mineTimer = 0
-                const spawnNode = this.getSpawnNode()
-                spawnRequests.push({ type: 'mine', row: spawnNode.row, col: spawnNode.col })
+                this.pendingMineIndex = (this.pathIndex + 1) % this.path.length
             }
         }
 
         return spawnRequests
-    }
-
-    /**
-     * Get the node two positions ahead in the cyclical path for spawning.
-     * @returns {Object} Node coordinates {row, col}
-     */
-    getSpawnNode() {
-        const spawnIndex = (this.pathIndex + 2) % this.path.length
-        const node = this.path[spawnIndex]
-        return { row: node.y, col: node.x }
     }
 
     /**
