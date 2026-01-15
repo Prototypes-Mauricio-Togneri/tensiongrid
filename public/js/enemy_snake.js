@@ -118,7 +118,7 @@ class EnemySnake {
         }
 
         // Sample positions along the body at regular intervals
-        const sampleInterval = this.grid.cellSize / 4 // Sample every quarter cell for smooth rendering
+        const sampleInterval = this.grid.cellSize / 10 // Sample every tenth cell for smooth rendering
         const numSamples = Math.ceil(this.currentBodyLength / sampleInterval)
 
         for (let i = 1; i <= numSamples; i++) {
