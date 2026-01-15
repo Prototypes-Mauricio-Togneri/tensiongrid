@@ -39,7 +39,7 @@ class Game {
     update(delta) {
         this.processInput()
         this.player.update(delta)
-        this.enemyManager.update(delta)
+        this.enemyManager.update(delta, this.player.row, this.player.col)
 
         // Camera follows player position
         this.camera.follow(this.player.x, this.player.y)
@@ -77,6 +77,10 @@ class Game {
             this.player,
             this.enemyManager.getSnakes()
         )
+        const hitByFollower = this.collisionSystem.checkPlayerFollowerCollision(
+            this.player,
+            this.enemyManager.getFollowers()
+        )
 
         // Check for mine trigger (does not kill player, just starts countdown)
         this.collisionSystem.checkPlayerMineContact(
@@ -85,7 +89,7 @@ class Game {
         )
 
         // Reset on collision
-        if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitBySnake) {
+        if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitBySnake || hitByFollower) {
             this.ui.shake()
             this.reset()
         }
@@ -132,6 +136,7 @@ class Game {
         this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawSnakes(this.enemyManager.getSnakes())
+        this.renderer.drawFollowers(this.enemyManager.getFollowers())
         this.renderer.drawPlayer(this.player)
     }
 

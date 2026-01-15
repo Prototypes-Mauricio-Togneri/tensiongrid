@@ -157,6 +157,10 @@ const Constants = {
             },
             snake: {
                 size: 10  // Half-width of snake body (line will be size * 2 thick)
+            },
+            follower: {
+                size: 12,  // Follower size in pixels
+                speed: 100 // Default speed in pixels/second
             }
         },
 
@@ -211,7 +215,11 @@ const Constants = {
 
             // Snake colors
             snake: '#ffaa00',       // Snake segment fill (orange)
-            snakeGlow: '#ffaa004d'  // Snake glow effect
+            snakeGlow: '#ffaa004d', // Snake glow effect
+
+            // Follower colors
+            follower: '#ff8800',       // Follower fill color (orange)
+            followerGlow: '#ff88004d'  // Follower glow effect
         }
     }
 }

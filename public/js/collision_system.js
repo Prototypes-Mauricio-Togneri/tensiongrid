@@ -126,4 +126,23 @@ class CollisionSystem {
         }
         return false
     }
+
+    /**
+     * Check if player collides with any follower using circle-to-circle detection.
+     * @param {Player} player - Player instance
+     * @param {EnemyFollower[]} followers - Array of followers
+     * @returns {boolean} True if collision detected
+     */
+    checkPlayerFollowerCollision(player, followers) {
+        const playerPos = player.getPosition()
+        const collisionDist = (player.size + Constants.game.enemies.follower.size) * this.threshold
+
+        for (const follower of followers) {
+            const followerPos = follower.getPosition()
+            if (Vector2.distance(playerPos, followerPos) < collisionDist) {
+                return true
+            }
+        }
+        return false
+    }
 }

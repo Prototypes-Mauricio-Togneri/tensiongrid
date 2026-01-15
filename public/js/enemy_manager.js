@@ -17,6 +17,7 @@ class EnemyManager {
         this.shooters = []            // Static shooter instances
         this.patrols = []             // Patrol instances
         this.snakes = []              // Snake instances
+        this.followers = []           // Follower instances
         this.instanceStates = []      // Per-spawner timing state
         this.initInstanceStates()
         this.initLasers()
@@ -25,6 +26,7 @@ class EnemyManager {
         this.initShooters()
         this.initPatrols()
         this.initSnakes()
+        this.initFollowers()
     }
 
     /**
@@ -104,10 +106,22 @@ class EnemyManager {
     }
 
     /**
+     * Create follower instances from level configuration.
+     */
+    initFollowers() {
+        if (!this.config.enemy_follower) return
+        this.followers = this.config.enemy_follower.map(
+            followerConfig => new EnemyFollower(followerConfig, this.grid)
+        )
+    }
+
+    /**
      * Update all enemies and handle spawning.
      * @param {number} delta - Time elapsed since last frame in milliseconds
+     * @param {number} playerRow - Current player grid row (for follower AI)
+     * @param {number} playerCol - Current player grid column (for follower AI)
      */
-    update(delta) {
+    update(delta, playerRow, playerCol) {
         // Update bullets and remove dead ones (iterate backwards for safe removal)
         for (let i = this.bullets.length - 1; i >= 0; i--) {
             const keepBullet = this.bullets[i].update(delta)
@@ -155,6 +169,11 @@ class EnemyManager {
         // Update snake positions
         for (const snake of this.snakes) {
             snake.update(delta)
+        }
+
+        // Update follower positions (need player position for pathfinding)
+        for (const follower of this.followers) {
+            follower.update(delta, playerRow, playerCol)
         }
 
         // Handle bullet spawning for each configured spawner
@@ -313,6 +332,7 @@ class EnemyManager {
         this.initShooters()
         this.initPatrols()
         this.initSnakes()
+        this.initFollowers()
     }
 
     /**
@@ -377,5 +397,13 @@ class EnemyManager {
      */
     getSnakes() {
         return this.snakes
+    }
+
+    /**
+     * Get array of followers.
+     * @returns {EnemyFollower[]} Follower instances
+     */
+    getFollowers() {
+        return this.followers
     }
 }

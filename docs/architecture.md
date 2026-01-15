@@ -37,7 +37,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), snake body half-width (10px)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), snake body half-width (10px), follower size (12px), follower default speed (100px/s)
 - `colors`: all game element colors with glow variants
 
 ### Core Classes
@@ -131,13 +131,24 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact with ANY part of the body
 - Config: `length` (body length in edges), `speed` (pixels/second), `path` (array of {x, y} node coordinates)
 
+**EnemyFollower** (`js/enemy_follower.js`) - Player-tracking hazard:
+- Actively pursues player by moving toward the best adjacent node
+- Orange rotating triangle visual shape (#ff8800)
+- Smooth interpolation between nodes (like EnemyPatrol)
+- Wake effect - gradient trail during movement
+- At each node, calculates which adjacent node minimizes distance to player
+- While moving between nodes, does NOT recalculate - continues to target
+- Handles blocked paths by choosing next best option; stays if all blocked
+- Kills player on contact (circle-based collision)
+- Config: `startX`, `startY` (starting node), `speed` (pixels/second)
+
 **EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
-- Circle collision for bullets with threshold multiplier (0.7)
-- Grid-based collision for lasers, traps, shooters, patrols, and snakes (exact node match)
+- Circle collision for bullets, patrols, and followers with threshold multiplier (0.7)
+- Grid-based collision for lasers, traps, shooters, and snakes (exact node match)
 - Snake collision checks all segments (head and body)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
 

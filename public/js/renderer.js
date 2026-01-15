@@ -835,4 +835,104 @@ class Renderer {
         ctx.closePath()
         ctx.fill()
     }
+
+    /**
+     * Draw followers as rotating triangles with wake trail and glow effects.
+     * @param {EnemyFollower[]} followers - Array of follower instances
+     */
+    drawFollowers(followers) {
+        const ctx = this.ctx
+
+        for (const follower of followers) {
+            const pos = this.toScreen(follower.x, follower.y)
+            const size = follower.size
+
+            // Draw tapered wake trail behind follower
+            if (follower.wakeIntensity > 0.01) {
+                const dx = follower.wakeStartX - follower.x
+                const dy = follower.wakeStartY - follower.y
+                const dist = Math.sqrt(dx * dx + dy * dy)
+
+                if (dist > 1) {
+                    const dirX = dx / dist
+                    const dirY = dy / dist
+
+                    const wakeStart = this.toScreen(follower.wakeStartX, follower.wakeStartY)
+
+                    // Gradient from follower (bright) to wake end (transparent)
+                    const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
+                    gradient.addColorStop(0, this.hexWithAlpha(this.colors.follower, 0.6 * follower.wakeIntensity))
+                    gradient.addColorStop(0.5, this.hexWithAlpha(this.colors.follower, 0.25 * follower.wakeIntensity))
+                    gradient.addColorStop(1, this.hexWithAlpha(this.colors.follower, 0))
+
+                    ctx.save()
+                    ctx.shadowColor = this.hexWithAlpha(this.colors.follower, 0.5)
+                    ctx.shadowBlur = 10 * follower.wakeIntensity
+
+                    // Calculate perpendicular for wake width
+                    const perpX = -dirY
+                    const perpY = dirX
+                    const startWidth = size * 0.5
+                    const endWidth = size * 0.1
+
+                    // Draw tapered quad shape
+                    ctx.beginPath()
+                    ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
+                    ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
+                    ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
+                    ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
+                    ctx.closePath()
+                    ctx.fillStyle = gradient
+                    ctx.fill()
+                    ctx.restore()
+                }
+            }
+
+            // Draw rotated triangle
+            ctx.save()
+            ctx.translate(pos.x, pos.y)
+            ctx.rotate(follower.getRotation())
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.follower
+            ctx.shadowBlur = 15
+            ctx.fillStyle = this.colors.followerGlow
+            this.drawTriangleAt(0, 0, size + 4)
+            ctx.restore()
+
+            // Main follower shape
+            ctx.save()
+            ctx.shadowColor = this.colors.follower
+            ctx.shadowBlur = 8
+            ctx.fillStyle = this.colors.follower
+            this.drawTriangleAt(0, 0, size)
+            ctx.restore()
+
+            // Inner highlight
+            ctx.fillStyle = '#ffffff33'
+            this.drawTriangleAt(0, 0, size * 0.4)
+
+            ctx.restore() // Restore translation and rotation
+        }
+    }
+
+    /**
+     * Draw an equilateral triangle pointing up (before rotation).
+     * @param {number} x - Center X position (0 when pre-translated)
+     * @param {number} y - Center Y position (0 when pre-translated)
+     * @param {number} size - Distance from center to vertices
+     */
+    drawTriangleAt(x, y, size) {
+        const ctx = this.ctx
+        ctx.beginPath()
+        // Top vertex (pointing up, before rotation)
+        ctx.moveTo(x, y - size)
+        // Bottom-right vertex (cos(30deg) = 0.866, sin(30deg) = 0.5)
+        ctx.lineTo(x + size * 0.866, y + size * 0.5)
+        // Bottom-left vertex
+        ctx.lineTo(x - size * 0.866, y + size * 0.5)
+        ctx.closePath()
+        ctx.fill()
+    }
 }
