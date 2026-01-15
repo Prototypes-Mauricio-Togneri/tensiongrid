@@ -51,8 +51,10 @@ class EnemyManager {
 
     /**
      * Create trap instances from level configuration.
+     * Clears any patrol-spawned traps.
      */
     initTraps() {
+        this.traps = []
         if (!this.config.enemy_trap) return
         this.traps = this.config.enemy_trap.map(
             trapConfig => new EnemyTrap(trapConfig, this.grid)
@@ -61,8 +63,10 @@ class EnemyManager {
 
     /**
      * Create mine instances from level configuration.
+     * Clears any patrol-spawned mines.
      */
     initMines() {
+        this.mines = []
         if (!this.config.enemy_mine) return
         this.mines = this.config.enemy_mine.map(
             mineConfig => new EnemyMine(mineConfig, this.grid)
@@ -304,6 +308,7 @@ class EnemyManager {
         this.bullets = []
         this.initInstanceStates()
         this.initLasers()
+        this.initTraps()
         this.initMines()
         this.initShooters()
         this.initPatrols()
