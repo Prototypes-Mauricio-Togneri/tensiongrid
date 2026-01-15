@@ -168,10 +168,10 @@ const Constants = {
         // Color palette (hex with optional alpha)
         colors: {
             // Player colors
-            player: '#ffffff',           // Player fill color
-            playerGlow: '#ffffff99',     // Player glow effect
-            playerHighlight: '#ffffff66', // Player inner highlight
-            playerWakeEnd: '#ffffff00',   // Wake trail end (transparent)
+            player: '#ffffff',             // Player fill color
+            playerGlow: '#ffffff99',       // Player glow effect
+            playerHighlight: '#ffffff66',  // Player inner highlight
+            playerWakeEnd: '#ffffff00',    // Wake trail end (transparent)
             playerWakeShadow: '#ffffff80', // Wake shadow effect
 
             // Enemy colors
@@ -183,13 +183,13 @@ const Constants = {
             enemyWakeShadow: '#cc224480', // Wake shadow effect
 
             // Grid colors
-            node: '#1a3a4a',          // Grid node fill
-            nodeHighlight: '#ffffff33', // Node highlight effect
-            edge: '#00f5ff66',         // Grid edge color
-            edgeGlow: '#00f5ff33',     // Edge glow effect
+            node: '#1a3a4a66',          // Grid node fill
+            nodeHighlight: '#ffffff15', // Node highlight effect
+            edge: '#00f5ff33',          // Grid edge color
+            edgeGlow: '#00f5ff15',      // Edge glow effect
 
             // Laser colors
-            laser: '#ff2a6d',      // Laser beam color
+            laser: '#ff2a6d',       // Laser beam color
             laserGlow: '#ff2a6d80', // Laser glow effect
 
             // Trap colors
@@ -201,7 +201,7 @@ const Constants = {
             mineGlow: '#ffaa004d', // Mine glow effect
 
             // Shooter colors
-            shooter: '#44ff88',      // Shooter cross color (green)
+            shooter: '#44ff88',       // Shooter cross color (green)
             shooterGlow: '#44ff884d', // Shooter glow effect
 
             // Patrol colors
