@@ -1,6 +1,6 @@
 # Architecture & Design
 
-Detailed reference for the "Grid Runner" game implementation.
+Detailed reference for the "Tension Grid" game implementation.
 
 ## Visual Design
 
@@ -27,7 +27,11 @@ Cyberpunk/neon aesthetic with these design elements:
   - Uses CSS `:has()` selector to hide when game screen is active
 - **Animated background grid** - Perspective-transformed grid with infinite scroll animation
 - **Scanline overlay** - Subtle horizontal lines for CRT effect (via `body::after`)
-- **Title flicker** - Subtle randomized opacity animation
+- **Title design** - Stacked "TENSION" / "GRID" layout with:
+  - "TENSION" in red (#ff2020) with molten heat glow and scan line overlay
+  - Warning bar with diagonal danger stripes
+  - "GRID" in white with angular corner accents
+  - Pulsing burn animation and subtle flicker effects
 - **Vignette** - Radial gradient darkening canvas edges
 - **Screen shake** - CSS keyframe animation on collision
 

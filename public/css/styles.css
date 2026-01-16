@@ -258,28 +258,164 @@ body:has(#gameScreen.active) .bg-animation {
 /* Title */
 .game-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 4rem;
     font-weight: 900;
-    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--neon-pink);
-    text-shadow: var(--glow-pink);
-    animation: titleFlicker 4s ease-in-out infinite;
     position: absolute;
-    top: 50px;
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
 }
 
-@keyframes titleFlicker {
-    0%, 100% { opacity: 1; }
-    92% { opacity: 1; }
-    93% { opacity: 0.8; }
-    94% { opacity: 1; }
-    96% { opacity: 0.9; }
-    97% { opacity: 1; }
+/* TENSION - Hero text with molten heat effect */
+.title-tension {
+    font-size: 5.5rem;
+    letter-spacing: 0.25em;
+    color: #ff2020;
+    text-shadow:
+        0 0 10px rgba(255, 32, 32, 0.7),
+        0 0 25px rgba(255, 32, 32, 0.4),
+        0 2px 0 #aa0000;
+    position: relative;
+    animation: tensionBurn 3s ease-in-out infinite;
+    padding-right: 0.25em;
 }
+
+/* Scan line overlay effect */
+.title-tension::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10%;
+    width: 120%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    pointer-events: none;
+    animation: scanDrift 8s linear infinite;
+}
+
+/* Hot core glow beneath */
+.title-tension::after {
+    content: 'TENSION';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-right: 0.25em;
+    color: transparent;
+    background: linear-gradient(180deg,
+        #ff6040 0%,
+        #ff2020 50%,
+        #cc0000 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: blur(6px);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+/* Warning bar between words */
+.title-bar {
+    width: 380px;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        #ff2020 10%,
+        #ff2020 90%,
+        transparent 100%
+    );
+    position: relative;
+    margin: 12px 0 8px 0;
+    box-shadow:
+        0 0 8px #ff2020,
+        0 0 16px rgba(255, 32, 32, 0.6);
+    animation: barWarning 1.5s ease-in-out infinite;
+}
+
+/* Danger stripes on bar */
+.title-bar::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 18px;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent 0px,
+        transparent 6px,
+        rgba(255, 32, 32, 0.1) 6px,
+        rgba(255, 32, 32, 0.1) 12px
+    );
+    opacity: 0.5;
+}
+
+/* GRID - Same style as TENSION */
+.title-grid {
+    font-size: 5.5rem;
+    letter-spacing: 0.25em;
+    color: #ff2020;
+    text-shadow:
+        0 0 10px rgba(255, 32, 32, 0.7),
+        0 0 25px rgba(255, 32, 32, 0.4),
+        0 2px 0 #aa0000;
+    position: relative;
+    padding-right: 0.25em;
+    animation: tensionBurn 3s ease-in-out infinite;
+}
+
+/* Keyframe animations */
+@keyframes tensionBurn {
+    0%, 100% {
+        text-shadow:
+            0 0 10px rgba(255, 32, 32, 0.7),
+            0 0 25px rgba(255, 32, 32, 0.4),
+            0 2px 0 #aa0000;
+        filter: brightness(1);
+    }
+    50% {
+        text-shadow:
+            0 0 12px rgba(255, 32, 32, 0.8),
+            0 0 30px rgba(255, 32, 32, 0.5),
+            0 2px 0 #aa0000;
+        filter: brightness(1.05);
+    }
+}
+
+@keyframes scanDrift {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+@keyframes barWarning {
+    0%, 100% {
+        opacity: 0.8;
+        box-shadow:
+            0 0 8px #ff2020,
+            0 0 16px rgba(255, 32, 32, 0.6);
+    }
+    50% {
+        opacity: 1;
+        box-shadow:
+            0 0 12px #ff4040,
+            0 0 24px rgba(255, 32, 32, 0.8),
+            0 0 36px rgba(255, 32, 32, 0.3);
+    }
+}
+
 
 /* HUD */
 .hud {

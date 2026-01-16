@@ -1,5 +1,5 @@
 /**
- * Global constants and configuration for Grid Runner.
+ * Global constants and configuration for Tension Grid.
  * All magic values are centralized here for easy adjustment.
  */
 const Constants = {

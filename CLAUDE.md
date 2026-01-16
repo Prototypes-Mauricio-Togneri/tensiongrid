@@ -2,7 +2,7 @@
 
 ## What
 
-HTML5 canvas game "Grid Runner" - a retro-futuristic arcade game. Player (white rhombus) navigates a grid avoiding enemies that traverse in straight lines. Supports grids of any size with camera system that follows the player.
+HTML5 canvas game "Tension Grid" - a retro-futuristic arcade game. Player (white rhombus) navigates a grid avoiding enemies that traverse in straight lines. Supports grids of any size with camera system that follows the player.
 
 **Stack**: Vanilla HTML/CSS/JavaScript, no build system, no dependencies.
 
