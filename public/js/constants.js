@@ -232,5 +232,14 @@ const Constants = {
         sounds: {
             shooterTurn: 'audio/sound/shooter_turn.wav' // Turret rotation sound effect
         }
+    },
+
+    // ==========================================
+    // Storage Configuration
+    // ==========================================
+    storage: {
+        keys: {
+            audioEnabled: 'audio.enabled' // localStorage key for audio toggle state
+        }
     }
 }

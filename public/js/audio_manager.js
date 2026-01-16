@@ -1,15 +1,42 @@
 /**
  * Manages audio playback for sound effects.
  * Respects the audio toggle setting and supports overlapping sounds.
+ * Persists toggle state to localStorage.
  */
 class AudioManager {
     /**
      * Initialize audio manager with toggle reference and sound cache.
+     * Loads persisted audio state and sets up change listener.
      */
     constructor() {
         this.audioToggle = document.getElementById(Constants.dom.ids.audioToggle) // Audio toggle checkbox
         this.sounds = {} // Cache of preloaded Audio elements by sound key
         this.preloadSounds()
+
+        // Load persisted state and sync checkbox
+        if (this.audioToggle) {
+            this.audioToggle.checked = this.loadAudioState()
+            this.audioToggle.addEventListener('change', () => this.saveAudioState())
+        }
+    }
+
+    /**
+     * Load audio enabled state from localStorage.
+     * @returns {boolean} True if audio should be enabled (default: true)
+     */
+    loadAudioState() {
+        const value = localStorage.getItem(Constants.storage.keys.audioEnabled)
+        // Default to true if key doesn't exist, only false if explicitly 'false'
+        return value !== 'false'
+    }
+
+    /**
+     * Save current audio toggle state to localStorage.
+     */
+    saveAudioState() {
+        if (this.audioToggle) {
+            localStorage.setItem(Constants.storage.keys.audioEnabled, this.audioToggle.checked)
+        }
     }
 
     /**

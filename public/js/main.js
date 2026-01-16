@@ -156,6 +156,7 @@
             if ((input.keys.left && !lastSettingsInput.left) ||
                 (input.keys.right && !lastSettingsInput.right)) {
                 audioToggle.checked = !audioToggle.checked
+                audioToggle.dispatchEvent(new Event('change'))
             }
             lastSettingsInput.left = input.keys.left
             lastSettingsInput.right = input.keys.right
