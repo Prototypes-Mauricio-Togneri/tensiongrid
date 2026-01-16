@@ -109,6 +109,7 @@
             // Handle selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
+                audioManager.playSound('menuSelect')
                 const action = pauseButtons[pauseIndex].dataset.action
                 if (action === Constants.actions.pause.continue) {
                     hidePauseMenu()
@@ -142,6 +143,7 @@
             // Handle selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
+                audioManager.playSound('menuSelect')
                 const action = screenManager.getSelectedAction()
                 if (action === Constants.actions.home.continue) {
                     openGameScreen('levels/level_01.json', Constants.screens.home)
@@ -199,6 +201,7 @@
             // Handle level selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
+                audioManager.playSound('menuSelect')
                 const action = screenManager.getSelectedLevelsAction()
                 const levelPath = `levels/${action}.json`
                 if (levelPath) {

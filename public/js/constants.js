@@ -231,7 +231,8 @@ const Constants = {
     audio: {
         sounds: {
             shooterTurn: 'audio/sound/shooter_turn.wav', // Turret rotation sound effect
-            menuChange: 'audio/sound/menu_change.wav'    // Menu navigation sound effect
+            menuChange: 'audio/sound/menu_change.wav',   // Menu navigation sound effect
+            menuSelect: 'audio/sound/menu_select.wav'    // Menu button selection sound effect
         }
     },
 
