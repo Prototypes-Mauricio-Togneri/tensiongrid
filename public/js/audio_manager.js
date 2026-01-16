@@ -99,12 +99,13 @@ class AudioManager {
         // Stop any currently playing music
         this.stopMusic()
 
-        const path = Constants.audio.music[musicKey]
-        if (!path) return
+        const config = Constants.audio.music[musicKey]
+        if (!config) return
 
         // Create and configure music element
-        this.currentMusic = new Audio(path)
+        this.currentMusic = new Audio(config.path)
         this.currentMusic.loop = true
+        this.currentMusic.volume = config.volume
         this.currentMusicKey = musicKey
 
         // Only play if audio is enabled

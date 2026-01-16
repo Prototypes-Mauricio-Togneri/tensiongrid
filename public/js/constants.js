@@ -231,7 +231,10 @@ const Constants = {
             pauseMenu: 'audio/sound/pause_menu.wav'      // Pause menu open sound effect
         },
         music: {
-            mainMenu: 'audio/music/main_menu.wav' // Main menu background music
+            mainMenu: {
+                path: 'audio/music/main_menu.wav', // Main menu background music
+                volume: 0.5 // Volume (0.0 to 1.0)
+            }
         }
     },
 
