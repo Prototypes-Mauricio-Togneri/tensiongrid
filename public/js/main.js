@@ -75,9 +75,11 @@
         if (currentScreen === Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
             if (isPaused) {
+                audioManager.playSound('close')
                 hidePauseMenu()
                 game.resume()
             } else {
+                audioManager.playSound('pauseMenu')
                 showPauseMenu()
             }
         }
@@ -85,6 +87,7 @@
         // ESC on other screens returns to home
         if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
+            audioManager.playSound('close')
             screenManager.show(Constants.screens.home)
         }
 
@@ -119,6 +122,7 @@
                     game.reset()
                     game.resume()
                 } else if (action === Constants.actions.pause.quit) {
+                    audioManager.playSound('close')
                     hidePauseMenu()
                     game.stop()
                     screenManager.show(gameStartedFrom)
@@ -164,6 +168,10 @@
                 (input.keys.right && !lastSettingsInput.right)) {
                 audioToggle.checked = !audioToggle.checked
                 audioToggle.dispatchEvent(new Event('change'))
+                // Play sound only when enabling audio (off → on)
+                if (audioToggle.checked) {
+                    audioManager.playSound('audioToggle')
+                }
             }
             lastSettingsInput.left = input.keys.left
             lastSettingsInput.right = input.keys.right
