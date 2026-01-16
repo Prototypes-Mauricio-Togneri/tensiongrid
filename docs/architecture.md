@@ -49,7 +49,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `player`: size (12px), speed (200px/s)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (12px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `colors`: all game element colors with glow variants
-- `audio.sounds`: paths to sound effect files (shooterTurn)
+- `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
+- `audio.music`: paths to music files (mainMenu)
 - `storage.keys`: localStorage key names (audioEnabled)
 
 ### Core Classes
@@ -146,12 +147,14 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact (circle-based collision)
 - Config: `startX`, `startY` (starting node), `speed` (pixels/second)
 
-**AudioManager** (`js/audio_manager.js`) - Sound effect playback:
+**AudioManager** (`js/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds
 - Respects audio toggle setting in UI
 - Persists toggle state to localStorage (defaults to enabled)
 - Clones audio elements to allow overlapping playback
 - `playSound(soundKey)` - Play sound by key if audio enabled
+- `playMusic(musicKey)` - Play looping background music (skips if same track already playing)
+- `stopMusic()` - Stop and reset current background music
 
 **EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders

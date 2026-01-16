@@ -9,6 +9,13 @@
     const screenManager = new ScreenManager()
     const audioManager = new AudioManager() // Audio manager for menu sounds
 
+    /**
+     * Play main menu background music.
+     */
+    function playMenuMusic() {
+        audioManager.playMusic('mainMenu')
+    }
+
     // Input edge detection state (tracks previous frame to detect key-down events)
     let lastMenuInput = { up: false, down: false }       // For menu navigation
     let lastSettingsInput = { left: false, right: false } // For settings toggles
@@ -56,6 +63,7 @@
      * @param {string} from - Screen to return to on quit
      */
     async function openGameScreen(level, from) {
+        audioManager.stopMusic()
         currentLevel = level
         gameStartedFrom = from
         const response = await fetch(currentLevel)
@@ -88,6 +96,7 @@
         if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
             audioManager.playSound('close')
+            playMenuMusic()
             screenManager.show(Constants.screens.home)
         }
 
@@ -125,6 +134,7 @@
                     audioManager.playSound('close')
                     hidePauseMenu()
                     game.stop()
+                    playMenuMusic()
                     screenManager.show(gameStartedFrom)
                 }
             }
@@ -223,5 +233,6 @@
 
     // Initialize and start
     screenManager.show(Constants.screens.home)
+    playMenuMusic()
     mainLoop()
 })()

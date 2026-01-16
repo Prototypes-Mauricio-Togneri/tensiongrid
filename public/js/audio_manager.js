@@ -11,12 +11,24 @@ class AudioManager {
     constructor() {
         this.audioToggle = document.getElementById(Constants.dom.ids.audioToggle) // Audio toggle checkbox
         this.sounds = {} // Cache of preloaded Audio elements by sound key
+        this.currentMusic = null    // Currently playing music Audio element
+        this.currentMusicKey = null // Key of current music track
         this.preloadSounds()
 
         // Load persisted state and sync checkbox
         if (this.audioToggle) {
             this.audioToggle.checked = this.loadAudioState()
-            this.audioToggle.addEventListener('change', () => this.saveAudioState())
+            this.audioToggle.addEventListener('change', () => {
+                this.saveAudioState()
+                // Pause or resume current music based on toggle state
+                if (this.currentMusic) {
+                    if (this.audioToggle.checked) {
+                        this.currentMusic.play().catch(() => {})
+                    } else {
+                        this.currentMusic.pause()
+                    }
+                }
+            })
         }
     }
 
@@ -73,5 +85,45 @@ class AudioManager {
         clone.play().catch(() => {
             // Silently ignore autoplay restrictions
         })
+    }
+
+    /**
+     * Play background music by key.
+     * Loops continuously. Does nothing if same track already playing.
+     * @param {string} musicKey - Key from Constants.audio.music
+     */
+    playMusic(musicKey) {
+        // Skip if same track is already playing
+        if (this.currentMusicKey === musicKey) return
+
+        // Stop any currently playing music
+        this.stopMusic()
+
+        const path = Constants.audio.music[musicKey]
+        if (!path) return
+
+        // Create and configure music element
+        this.currentMusic = new Audio(path)
+        this.currentMusic.loop = true
+        this.currentMusicKey = musicKey
+
+        // Only play if audio is enabled
+        if (this.isEnabled()) {
+            this.currentMusic.play().catch(() => {
+                // Silently ignore autoplay restrictions
+            })
+        }
+    }
+
+    /**
+     * Stop currently playing background music.
+     */
+    stopMusic() {
+        if (this.currentMusic) {
+            this.currentMusic.pause()
+            this.currentMusic.currentTime = 0
+        }
+        this.currentMusic = null
+        this.currentMusicKey = null
     }
 }

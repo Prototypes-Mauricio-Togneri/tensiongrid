@@ -229,6 +229,9 @@ const Constants = {
             audioToggle: 'audio/sound/audio_toggle.wav', // Audio switch toggle sound effect
             close: 'audio/sound/close.wav',              // Menu/screen close sound effect
             pauseMenu: 'audio/sound/pause_menu.wav'      // Pause menu open sound effect
+        },
+        music: {
+            mainMenu: 'audio/music/main_menu.wav' // Main menu background music
         }
     },
 
