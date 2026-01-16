@@ -156,9 +156,6 @@ const Constants = {
             patrol: {
                 size: 12   // Patrol size in pixels
             },
-            snake: {
-                size: 10  // Half-width of snake body (line will be size * 2 thick)
-            },
             follower: {
                 size: 12,         // Follower size in pixels
                 speed: 100,       // Default speed in pixels/second
@@ -214,10 +211,6 @@ const Constants = {
             // Patrol colors
             patrol: '#aa44ff',       // Patrol fill color (purple)
             patrolGlow: '#aa44ff4d', // Patrol glow effect
-
-            // Snake colors
-            snake: '#ffaa00',       // Snake segment fill (orange)
-            snakeGlow: '#ffaa004d', // Snake glow effect
 
             // Follower colors
             follower: '#ff8800',       // Follower fill color (orange)

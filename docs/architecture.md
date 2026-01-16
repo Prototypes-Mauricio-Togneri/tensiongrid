@@ -47,7 +47,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), snake body half-width (10px), follower size (12px), follower default speed (100px/s), follower rotation speed (3 rad/s)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (12px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn)
 - `storage.keys`: localStorage key names (audioEnabled)
@@ -135,14 +135,6 @@ Cyberpunk/neon aesthetic with these design elements:
 - Skips spawning if a fixed enemy (trap, mine, shooter) already exists at target node
 - Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates), optional `trapFrequency`/`trapTtl` (ms), optional `mineFrequency`/`mineTtl` (ms)
 
-**EnemySnake** (`js/enemy_snake.js`) - Continuous body path-based hazard:
-- Moves along a predefined cyclical path like EnemyPatrol
-- Orange continuous body (#ffaa00) with rounded ends
-- Body follows the exact trail the head traveled
-- Starts as head only, grows to full length as snake moves
-- Kills player on contact with ANY part of the body
-- Config: `length` (body length in edges), `speed` (pixels/second), `path` (array of {x, y} node coordinates)
-
 **EnemyFollower** (`js/enemy_follower.js`) - Player-tracking hazard:
 - Actively pursues player by moving toward the best adjacent node
 - Orange triangle visual shape (#ff8800) that continuously rotates on its center
@@ -168,8 +160,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
 - Circle collision for bullets, patrols, and followers with threshold multiplier (0.7)
-- Grid-based collision for lasers, traps, shooters, and snakes (exact node match)
-- Snake collision checks all segments (head and body)
+- Grid-based collision for lasers, traps, and shooters (exact node match)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
 
 **Renderer** (`js/renderer.js`) - Canvas drawing:

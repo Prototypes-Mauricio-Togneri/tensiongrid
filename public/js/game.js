@@ -73,10 +73,6 @@ class Game {
             this.player,
             this.enemyManager.getPatrols()
         )
-        const hitBySnake = this.collisionSystem.checkPlayerSnakeCollision(
-            this.player,
-            this.enemyManager.getSnakes()
-        )
         const hitByFollower = this.collisionSystem.checkPlayerFollowerCollision(
             this.player,
             this.enemyManager.getFollowers()
@@ -89,7 +85,7 @@ class Game {
         )
 
         // Reset on collision
-        if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitBySnake || hitByFollower) {
+        if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
             this.ui.shake()
             this.reset()
         }
@@ -135,7 +131,6 @@ class Game {
         this.renderer.drawBullets(this.enemyManager.getBullets())
         this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
-        this.renderer.drawSnakes(this.enemyManager.getSnakes())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
         this.renderer.drawPlayer(this.player)
     }

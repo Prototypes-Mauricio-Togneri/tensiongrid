@@ -18,7 +18,6 @@ class EnemyManager {
         this.mines = []               // Static mine instances
         this.shooters = []            // Static shooter instances
         this.patrols = []             // Patrol instances
-        this.snakes = []              // Snake instances
         this.followers = []           // Follower instances
         this.instanceStates = []      // Per-spawner timing state
         this.initInstanceStates()
@@ -27,7 +26,6 @@ class EnemyManager {
         this.initMines()
         this.initShooters()
         this.initPatrols()
-        this.initSnakes()
         this.initFollowers()
     }
 
@@ -98,16 +96,6 @@ class EnemyManager {
     }
 
     /**
-     * Create snake instances from level configuration.
-     */
-    initSnakes() {
-        if (!this.config.enemy_snake) return
-        this.snakes = this.config.enemy_snake.map(
-            snakeConfig => new EnemySnake(snakeConfig, this.grid)
-        )
-    }
-
-    /**
      * Create follower instances from level configuration.
      */
     initFollowers() {
@@ -169,11 +157,6 @@ class EnemyManager {
             for (const request of spawnRequests) {
                 this.handlePatrolSpawn(request)
             }
-        }
-
-        // Update snake positions
-        for (const snake of this.snakes) {
-            snake.update(delta)
         }
 
         // Update follower positions (need player position for pathfinding)
@@ -336,7 +319,6 @@ class EnemyManager {
         this.initMines()
         this.initShooters()
         this.initPatrols()
-        this.initSnakes()
         this.initFollowers()
     }
 
@@ -394,14 +376,6 @@ class EnemyManager {
      */
     getPatrols() {
         return this.patrols
-    }
-
-    /**
-     * Get array of snakes.
-     * @returns {EnemySnake[]} Snake instances
-     */
-    getSnakes() {
-        return this.snakes
     }
 
     /**
