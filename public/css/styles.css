@@ -326,44 +326,25 @@ body:has(#gameScreen.active) .bg-animation {
     z-index: -1;
 }
 
-/* Warning bar between words */
-.title-bar {
-    width: 380px;
-    height: 2px;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        #ff2020 10%,
-        #ff2020 90%,
-        transparent 100%
-    );
-    position: relative;
-    margin: 12px 0 8px 0;
-    box-shadow:
-        0 0 8px #ff2020,
-        0 0 16px rgba(255, 32, 32, 0.6);
-    animation: barWarning 1.5s ease-in-out infinite;
+/* Keyframe animations */
+@keyframes tensionBurn {
+    0%, 100% {
+        text-shadow:
+            0 0 10px rgba(255, 32, 32, 0.7),
+            0 0 25px rgba(255, 32, 32, 0.4),
+            0 2px 0 #aa0000;
+        filter: brightness(1);
+    }
+    50% {
+        text-shadow:
+            0 0 12px rgba(255, 32, 32, 0.8),
+            0 0 30px rgba(255, 32, 32, 0.5),
+            0 2px 0 #aa0000;
+        filter: brightness(1.05);
+    }
 }
 
-/* Danger stripes on bar */
-.title-bar::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 18px;
-    background: repeating-linear-gradient(
-        -45deg,
-        transparent 0px,
-        transparent 6px,
-        rgba(255, 32, 32, 0.1) 6px,
-        rgba(255, 32, 32, 0.1) 12px
-    );
-    opacity: 0.5;
-}
-
-/* GRID - Same style as TENSION */
+/* GRID - Hero text with molten heat effect */
 .title-grid {
     font-size: 5.5rem;
     letter-spacing: 0.25em;
@@ -373,12 +354,53 @@ body:has(#gameScreen.active) .bg-animation {
         0 0 25px rgba(255, 32, 32, 0.4),
         0 2px 0 #aa0000;
     position: relative;
+    animation: gridBurn 3s ease-in-out infinite;
     padding-right: 0.25em;
-    animation: tensionBurn 3s ease-in-out infinite;
+}
+
+/* Scan line overlay effect */
+.title-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10%;
+    width: 120%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    pointer-events: none;
+    animation: scanDrift 8s linear infinite;
+}
+
+/* Hot core glow beneath */
+.title-grid::after {
+    content: 'GRID';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-right: 0.25em;
+    color: transparent;
+    background: linear-gradient(180deg,
+        #ff6040 0%,
+        #ff2020 50%,
+        #cc0000 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: blur(6px);
+    opacity: 0.4;
+    z-index: -1;
 }
 
 /* Keyframe animations */
-@keyframes tensionBurn {
+@keyframes gridBurn {
     0%, 100% {
         text-shadow:
             0 0 10px rgba(255, 32, 32, 0.7),
