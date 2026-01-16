@@ -7,6 +7,7 @@
     const input = new InputManager()
     const game = new Game(Constants.dom.ids.gameCanvas, input)
     const screenManager = new ScreenManager()
+    const audioManager = new AudioManager() // Audio manager for menu sounds
 
     // Input edge detection state (tracks previous frame to detect key-down events)
     let lastMenuInput = { up: false, down: false }       // For menu navigation
@@ -95,10 +96,12 @@
             if (input.keys.up && !lastMenuInput.up) {
                 pauseIndex = (pauseIndex - 1 + pauseLen) % pauseLen
                 updatePauseButtonSelection()
+                audioManager.playSound('menuChange')
             }
             if (input.keys.down && !lastMenuInput.down) {
                 pauseIndex = (pauseIndex + 1) % pauseLen
                 updatePauseButtonSelection()
+                audioManager.playSound('menuChange')
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
@@ -127,9 +130,11 @@
             // Navigate menu (edge detection)
             if (input.keys.up && !lastMenuInput.up) {
                 screenManager.navigateMenu(Constants.keys.up)
+                audioManager.playSound('menuChange')
             }
             if (input.keys.down && !lastMenuInput.down) {
                 screenManager.navigateMenu(Constants.keys.down)
+                audioManager.playSound('menuChange')
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
@@ -167,9 +172,11 @@
             // Navigate menu (edge detection)
             if (input.keys.up && !lastMenuInput.up) {
                 screenManager.navigateAbout(Constants.keys.up)
+                audioManager.playSound('menuChange')
             }
             if (input.keys.down && !lastMenuInput.down) {
                 screenManager.navigateAbout(Constants.keys.down)
+                audioManager.playSound('menuChange')
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
@@ -180,9 +187,11 @@
             // Navigate menu (edge detection)
             if (input.keys.up && !lastMenuInput.up) {
                 screenManager.navigateLevels(Constants.keys.up)
+                audioManager.playSound('menuChange')
             }
             if (input.keys.down && !lastMenuInput.down) {
                 screenManager.navigateLevels(Constants.keys.down)
+                audioManager.playSound('menuChange')
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
