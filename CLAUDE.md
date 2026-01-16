@@ -54,4 +54,4 @@ Read these when working on specific areas:
 ## Verification
 
 - **Mental Execution**: Before finalizing your response, simulate the code path mentally and identify edge cases, failure modes, and race conditions.
-- **Maintenance**: Always check if the files `CLAUDE.md` and `docs/architecture.md` are up-to-date after making changes. If not, update it accordingly.
+- **Maintenance**: Always check if the files `CLAUDE.md` and `docs/architecture.md` are up-to-date after making changes. If not, update them accordingly.
