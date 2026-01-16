@@ -63,7 +63,7 @@
      * @param {string} from - Screen to return to on quit
      */
     async function openGameScreen(level, from) {
-        audioManager.stopMusic()
+        audioManager.playMusic('game')
         currentLevel = level
         gameStartedFrom = from
         const response = await fetch(currentLevel)
