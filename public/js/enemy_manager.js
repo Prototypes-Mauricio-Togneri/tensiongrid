@@ -6,10 +6,12 @@ class EnemyManager {
     /**
      * @param {Grid} grid - Grid instance for position calculations
      * @param {Object} config - Enemy configuration from level data
+     * @param {AudioManager} audioManager - Audio manager for sound effects
      */
-    constructor(grid, config) {
+    constructor(grid, config, audioManager) {
         this.grid = grid              // Grid reference
         this.config = config          // Level enemy configuration
+        this.audioManager = audioManager // Audio manager for sound effects
         this.bullets = []             // Active bullet instances
         this.lasers = []              // Laser instances
         this.traps = []               // Static trap instances
@@ -152,9 +154,12 @@ class EnemyManager {
 
         // Update shooters and spawn bullets they fire
         for (const shooter of this.shooters) {
-            const bulletsToSpawn = shooter.update(delta)
-            for (const info of bulletsToSpawn) {
+            const result = shooter.update(delta)
+            for (const info of result.bullets) {
                 this.spawnBulletFromShooter(info)
+            }
+            if (result.rotationStarted) {
+                this.audioManager.playSound('shooterTurn')
             }
         }
 

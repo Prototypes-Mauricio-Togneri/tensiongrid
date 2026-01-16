@@ -223,5 +223,14 @@ const Constants = {
             follower: '#ff8800',       // Follower fill color (orange)
             followerGlow: '#ff88004d'  // Follower glow effect
         }
+    },
+
+    // ==========================================
+    // Audio Configuration
+    // ==========================================
+    audio: {
+        sounds: {
+            shooterTurn: 'audio/sound/shooter_turn.wav' // Turret rotation sound effect
+        }
     }
 }

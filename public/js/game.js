@@ -181,7 +181,8 @@ class Game {
         this.grid = new Grid({ ...Constants.game.grid, ...levelData.grid })
         this.camera = new Camera(this.grid)
         this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
-        this.enemyManager = new EnemyManager(this.grid, levelData.enemies)
+        this.audioManager = new AudioManager() // Audio manager for sound effects
+        this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collisionSystem = new CollisionSystem(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
     }

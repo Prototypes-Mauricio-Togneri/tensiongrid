@@ -56,14 +56,15 @@ class EnemyShooter {
     /**
      * Update shooter state: rotation animation and firing timers.
      * @param {number} delta - Time elapsed since last frame in ms
-     * @returns {Array} Array of bullet spawn info objects (empty if none fired)
+     * @returns {Object} Object with bullets array and rotationStarted flag
      */
     update(delta) {
         const bulletsToSpawn = []
+        let rotationStarted = false
 
         // Update rotation if configured
         if (this.rotationDelay !== undefined) {
-            this.updateRotation(delta)
+            rotationStarted = this.updateRotation(delta)
         }
 
         // Update each direction timer and check for firing
@@ -75,13 +76,14 @@ class EnemyShooter {
             }
         }
 
-        return bulletsToSpawn
+        return { bullets: bulletsToSpawn, rotationStarted }
     }
 
     /**
      * Update rotation state with discrete 90-degree steps.
      * Waits rotationDelay ms, then quickly animates 90 degrees.
      * @param {number} delta - Time elapsed since last frame in ms
+     * @returns {boolean} True if rotation just started this frame
      */
     updateRotation(delta) {
         if (this.isRotating) {
@@ -97,6 +99,7 @@ class EnemyShooter {
                 this.isRotating = false
                 this.rotationTimer = 0
             }
+            return false
         } else {
             // Wait for next rotation
             this.rotationTimer += delta
@@ -105,7 +108,9 @@ class EnemyShooter {
                 this.targetRotation = this.rotation + Math.PI / 2
                 this.isRotating = true
                 this.rotationAnimTimer = 0
+                return true // Rotation just started
             }
+            return false
         }
     }
 

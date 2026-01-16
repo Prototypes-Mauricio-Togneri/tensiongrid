@@ -45,6 +45,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `player`: size (12px), speed (200px/s)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), snake body half-width (10px), follower size (12px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `colors`: all game element colors with glow variants
+- `audio.sounds`: paths to sound effect files (shooterTurn)
 
 ### Core Classes
 
@@ -148,9 +149,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact (circle-based collision)
 - Config: `startX`, `startY` (starting node), `speed` (pixels/second)
 
+**AudioManager** (`js/audio_manager.js`) - Sound effect playback:
+- Preloads sound files from Constants.audio.sounds
+- Respects audio toggle setting in UI
+- Clones audio elements to allow overlapping playback
+- `playSound(soundKey)` - Play sound by key if audio enabled
+
 **EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
+- Triggers sound effects via AudioManager (turret rotation)
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
 - Circle collision for bullets, patrols, and followers with threshold multiplier (0.7)
@@ -169,6 +177,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Game** (`js/game.js`) - Main orchestrator:
 - `start(levelData)` - Initializes game with level configuration (grid, player, enemies)
+- Creates AudioManager and passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Score accumulation (1 point/second)
 - Collision → reset flow (infinite lives)

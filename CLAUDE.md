@@ -12,7 +12,7 @@ HTML5 canvas game "Grid Runner" - a retro-futuristic arcade game. Player (white 
 - `public/css/styles.css` - All CSS styles
 - `public/js/` - JavaScript files (one per class):
   - `constants.js`, `vector2.js`, `grid.js`, `camera.js`, `input_manager.js`
-  - `player.js`, `enemy_bullet.js`, `enemy_laser.js`, `enemy_manager.js`, `collision_system.js`
+  - `player.js`, `enemy_bullet.js`, `enemy_laser.js`, `audio_manager.js`, `enemy_manager.js`, `collision_system.js`
   - `renderer.js`, `ui_manager.js`, `screen_manager.js`
   - `game.js`, `main.js`
 
