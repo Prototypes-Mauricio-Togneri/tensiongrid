@@ -18,10 +18,6 @@ public/
 └── index.html
 ```
 
-## Why
-
-A simple arcade game demonstrating canvas rendering, game loops, collision detection, and cyberpunk visual aesthetics (neon glows, scanlines, screen shake).
-
 ## Reference Docs
 
 Read these when working on specific areas:
