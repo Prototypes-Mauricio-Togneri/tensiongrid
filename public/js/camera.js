@@ -7,12 +7,12 @@ class Camera {
      * @param {Grid} grid - Grid instance for boundary calculations
      */
     constructor(grid) {
-        this.grid = grid              // Grid reference for bounds
-        this.x = 0                    // Camera center X in world space
-        this.y = 0                    // Camera center Y in world space
-        this.viewportWidth = 800      // Canvas width in pixels
-        this.viewportHeight = 600     // Canvas height in pixels
-        this.padding = 60             // Minimum padding from grid edge to viewport edge
+        this.grid = grid          // Grid reference for bounds
+        this.x = 0                // Camera center X in world space
+        this.y = 0                // Camera center Y in world space
+        this.viewportWidth = 800  // Canvas width in pixels
+        this.viewportHeight = 600 // Canvas height in pixels
+        this.padding = 60         // Minimum padding from grid edge to viewport edge
     }
 
     /**
