@@ -1,3 +1,7 @@
+/* ============================================
+   CSS Variables & Base Reset
+   ============================================ */
+
 :root {
     --neon-cyan: #00f5ff;
     --neon-pink: #ff2a6d;
@@ -6,12 +10,14 @@
     --glow-pink: 0 0 10px rgba(255, 42, 109, 0.8), 0 0 20px rgba(255, 42, 109, 0.8), 0 0 30px rgba(255, 42, 109, 0.8);
 }
 
+/* Reset default browser styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Main body container */
 body {
     min-height: 100vh;
     display: flex;
@@ -67,6 +73,7 @@ body::after {
    Background Animation (Menu Screens)
    ============================================ */
 
+/* Background animation container */
 .bg-animation {
     position: fixed;
     top: 0;
@@ -114,6 +121,7 @@ body:has(#gameScreen.active) .bg-animation {
     perspective-origin: 50% 30%;
 }
 
+/* Individual particle element */
 .bg-particle {
     position: absolute;
     left: var(--x);
@@ -143,6 +151,11 @@ body:has(#gameScreen.active) .bg-animation {
     }
 }
 
+/* ============================================
+   Game Container & Title
+   ============================================ */
+
+/* Main game container */
 .game-container {
     position: relative;
     display: flex;
@@ -151,7 +164,7 @@ body:has(#gameScreen.active) .bg-animation {
     gap: 20px;
 }
 
-/* Title */
+/* Title wrapper */
 .game-title {
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
@@ -222,7 +235,7 @@ body:has(#gameScreen.active) .bg-animation {
     z-index: -1;
 }
 
-/* Keyframe animations */
+/* TENSION burn pulse animation */
 @keyframes tensionBurn {
     0%, 100% {
         text-shadow:
@@ -295,7 +308,7 @@ body:has(#gameScreen.active) .bg-animation {
     z-index: -1;
 }
 
-/* Keyframe animations */
+/* GRID burn pulse animation */
 @keyframes gridBurn {
     0%, 100% {
         text-shadow:
@@ -313,6 +326,7 @@ body:has(#gameScreen.active) .bg-animation {
     }
 }
 
+/* Title red glitch flicker effect */
 @keyframes titleRedGlitch {
     0%, 100% {
         opacity: 1;
@@ -344,12 +358,17 @@ body:has(#gameScreen.active) .bg-animation {
     }
 }
 
+/* Scan line drift animation */
 @keyframes scanDrift {
     0% { transform: translateY(0); }
     100% { transform: translateY(4px); }
 }
 
-/* HUD */
+/* ============================================
+   HUD (Heads-Up Display)
+   ============================================ */
+
+/* HUD container */
 .hud {
     position: fixed;
     top: 0;
@@ -364,6 +383,7 @@ body:has(#gameScreen.active) .bg-animation {
     box-shadow: 0 0 15px rgba(0, 245, 255, 0.1), inset 0 0 20px rgba(0, 245, 255, 0.03);
 }
 
+/* HUD item wrapper */
 .hud-item {
     display: flex;
     flex-direction: column;
@@ -371,6 +391,7 @@ body:has(#gameScreen.active) .bg-animation {
     gap: 4px;
 }
 
+/* HUD label text */
 .hud-label {
     font-size: 0.7rem;
     color: rgba(0, 245, 255, 0.6);
@@ -378,6 +399,7 @@ body:has(#gameScreen.active) .bg-animation {
     text-transform: uppercase;
 }
 
+/* HUD value display */
 .hud-value {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
@@ -386,10 +408,15 @@ body:has(#gameScreen.active) .bg-animation {
     text-shadow: var(--glow-cyan);
 }
 
+/* Score value with fixed width */
 .hud-value.score {
     min-width: 120px;
     text-align: center;
 }
+
+/* ============================================
+   Canvas & Game Screen
+   ============================================ */
 
 /* Canvas wrapper */
 .canvas-wrapper {
@@ -398,6 +425,7 @@ body:has(#gameScreen.active) .bg-animation {
     height: 100%;
 }
 
+/* Game canvas element */
 canvas {
     display: block;
     width: 100%;
@@ -405,7 +433,7 @@ canvas {
     background: radial-gradient(ellipse at center, #0f0f1a 0%, #0a0a0f 100%);
 }
 
-/* Game Screen */
+/* Game screen container */
 #gameScreen {
     position: fixed;
     top: 0;
@@ -414,6 +442,7 @@ canvas {
     height: 100vh;
 }
 
+/* Game screen canvas wrapper */
 #gameScreen .canvas-wrapper {
     position: absolute;
     top: 0;
@@ -446,9 +475,10 @@ canvas {
 }
 
 /* ============================================
-   Screen System
+   Menu System
    ============================================ */
 
+/* Base screen container (hidden by default) */
 .screen {
     display: none;
     flex-direction: column;
@@ -457,16 +487,18 @@ canvas {
     width: 100%;
 }
 
+/* Active screen visibility */
 .screen.active {
     display: flex;
 }
 
-/* Home Screen */
+/* Home screen layout */
 #homeScreen {
     min-height: 100vh;
     justify-content: center;
 }
 
+/* Menu button container */
 .menu {
     display: flex;
     flex-direction: column;
@@ -475,6 +507,7 @@ canvas {
     margin-top: 300px;
 }
 
+/* Base menu button style */
 .menu-button {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.8rem;
@@ -491,6 +524,7 @@ canvas {
     outline: none;
 }
 
+/* Button hover/focus background effect */
 .menu-button::before {
     content: '';
     position: absolute;
@@ -503,29 +537,31 @@ canvas {
     transition: opacity 0.2s ease;
 }
 
+/* Selected button glow state */
 .menu-button.selected {
     color: var(--neon-cyan);
     text-shadow: var(--glow-cyan);
 }
 
+/* Selected button animated background */
 .menu-button.selected::before {
     opacity: 1;
     animation: buttonScan 2s linear infinite;
 }
 
-
+/* Button scan line animation */
 @keyframes buttonScan {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
 
-
-/* Levels Screen */
+/* Levels screen layout */
 #levelsScreen {
     min-height: 100vh;
     justify-content: center;
 }
 
+/* Settings screen layout */
 #settingsScreen {
     min-height: 100vh;
     justify-content: center;
@@ -535,6 +571,7 @@ canvas {
    Settings Screen
    ============================================ */
 
+/* Screen title heading */
 .screen-title {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
@@ -548,6 +585,7 @@ canvas {
     transform: translateX(-50%);
 }
 
+/* Settings panel container */
 .settings-panel {
     display: flex;
     flex-direction: column;
@@ -557,6 +595,7 @@ canvas {
     margin-top: 300px;
 }
 
+/* Settings row with label and control */
 .settings-item {
     display: flex;
     justify-content: space-between;
@@ -564,6 +603,7 @@ canvas {
     gap: 60px;
 }
 
+/* Settings label text */
 .settings-label {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.8rem;
@@ -573,7 +613,7 @@ canvas {
     text-transform: uppercase;
 }
 
-/* Toggle Switch */
+/* Toggle switch wrapper */
 .toggle-switch {
     display: flex;
     align-items: center;
@@ -581,10 +621,12 @@ canvas {
     cursor: pointer;
 }
 
+/* Hide native checkbox */
 .toggle-switch input {
     display: none;
 }
 
+/* Toggle track background */
 .toggle-track {
     position: relative;
     width: 84px;
@@ -593,6 +635,7 @@ canvas {
     transition: all 0.3s ease;
 }
 
+/* Toggle thumb (diamond shape) */
 .toggle-thumb {
     position: absolute;
     top: 5px;
@@ -604,12 +647,14 @@ canvas {
     transition: all 0.3s ease;
 }
 
+/* Checked state track */
 .toggle-switch input:checked + .toggle-track {
     background: rgba(0, 245, 255, 0.15);
     border-color: var(--neon-cyan);
     box-shadow: inset 0 0 10px rgba(0, 245, 255, 0.2);
 }
 
+/* Checked state thumb with glow */
 .toggle-switch input:checked + .toggle-track .toggle-thumb {
     left: 49px;
     background: var(--neon-cyan);
@@ -620,6 +665,7 @@ canvas {
    Pause Menu
    ============================================ */
 
+/* Pause overlay backdrop */
 .pause-overlay {
     display: none;
     position: absolute;
@@ -634,16 +680,19 @@ canvas {
     align-items: center;
 }
 
+/* Active pause overlay with fade-in */
 .pause-overlay.active {
     display: flex;
     animation: overlayFadeIn 0.3s ease-out;
 }
 
+/* Overlay fade-in animation */
 @keyframes overlayFadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
 
+/* Pause modal container */
 .pause-modal {
     display: flex;
     flex-direction: column;
@@ -657,6 +706,7 @@ canvas {
     animation: modalFadeIn 0.3s ease-out;
 }
 
+/* Modal scale-in animation */
 @keyframes modalFadeIn {
     0% {
         opacity: 0;
@@ -668,6 +718,7 @@ canvas {
     }
 }
 
+/* Pause title with glitch effect */
 .pause-title {
     font-family: 'Orbitron', sans-serif;
     font-size: 2.2rem;
@@ -679,6 +730,7 @@ canvas {
     animation: titleGlitch 4s ease-in-out infinite;
 }
 
+/* Title glitch chromatic aberration effect */
 @keyframes titleGlitch {
     0%, 100% {
         opacity: 1;
@@ -710,11 +762,13 @@ canvas {
     }
 }
 
+/* Pause modal menu override */
 .pause-modal .menu {
     margin-top: 8px;
     min-width: 220px;
 }
 
+/* Blur HUD when pause overlay is active */
 #gameScreen:has(.pause-overlay.active) .hud {
     filter: blur(3px);
     transition: filter 0.3s ease-out;
