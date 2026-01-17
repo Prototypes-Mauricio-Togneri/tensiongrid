@@ -177,7 +177,7 @@ body:has(#gameScreen.active) .bg-animation {
         0 0 25px rgba(255, 32, 32, 0.4),
         0 2px 0 #aa0000;
     position: relative;
-    animation: tensionBurn 3s ease-in-out infinite;
+    animation: tensionBurn 3s ease-in-out infinite, titleRedGlitch 2s ease-in-out infinite;
     padding-right: 0.25em;
 }
 
@@ -250,7 +250,7 @@ body:has(#gameScreen.active) .bg-animation {
         0 0 25px rgba(255, 32, 32, 0.4),
         0 2px 0 #aa0000;
     position: relative;
-    animation: gridBurn 3s ease-in-out infinite;
+    animation: gridBurn 3s ease-in-out infinite, titleRedGlitch 2s ease-in-out infinite 0.15s;
     padding-right: 0.25em;
 }
 
@@ -310,6 +310,37 @@ body:has(#gameScreen.active) .bg-animation {
             0 0 30px rgba(255, 32, 32, 0.5),
             0 2px 0 #aa0000;
         filter: brightness(1.05);
+    }
+}
+
+@keyframes titleRedGlitch {
+    0%, 100% {
+        opacity: 1;
+    }
+    92% {
+        opacity: 1;
+    }
+    93% {
+        opacity: 0.8;
+        text-shadow: -2px 0 var(--neon-cyan), 2px 0 #ff2020,
+            0 0 10px rgba(255, 32, 32, 0.7),
+            0 0 25px rgba(255, 32, 32, 0.4);
+        transform: translateX(-2px);
+    }
+    94% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    96% {
+        opacity: 0.9;
+        text-shadow: 2px 0 var(--neon-cyan), -2px 0 #ff2020,
+            0 0 10px rgba(255, 32, 32, 0.7),
+            0 0 25px rgba(255, 32, 32, 0.4);
+        transform: translateX(1px);
+    }
+    97% {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
