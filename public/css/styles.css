@@ -569,6 +569,7 @@ canvas {
     gap: 20px;
     min-width: 320px;
     padding: 30px 40px;
+    margin-top: 300px;
 }
 
 .settings-item {
