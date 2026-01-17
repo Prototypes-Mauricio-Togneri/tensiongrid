@@ -21,7 +21,7 @@ class AudioManager {
         // Load persisted state and sync checkbox
         if (this.audioToggle) {
             this.audioToggle.checked = this.loadAudioState()
-            this.audioToggle.addEventListener('change', () => {
+            this.audioToggle.addEventListener(Constants.events.change, () => {
                 this.saveAudioState()
                 // Pause or resume current music based on toggle state
                 if (this.currentMusic) {
@@ -136,7 +136,7 @@ class AudioManager {
      * Required to unlock audio playback due to browser autoplay policies.
      */
     setupInteractionListeners() {
-        const events = ['click', 'keydown', 'touchstart']
+        const events = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
         events.forEach(event => {
             document.addEventListener(event, this.boundHandleFirstInteraction, { once: true })
         })
@@ -151,7 +151,7 @@ class AudioManager {
         this.userInteracted = true
 
         // Remove all interaction listeners
-        const events = ['click', 'keydown', 'touchstart']
+        const events = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
         events.forEach(event => {
             document.removeEventListener(event, this.boundHandleFirstInteraction)
         })

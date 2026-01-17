@@ -36,9 +36,12 @@ const Constants = {
     // Event Types
     // ==========================================
     events: {
-        keydown: 'keydown', // Key press event
-        keyup: 'keyup',     // Key release event
-        resize: 'resize'    // Window resize event
+        keydown: 'keydown',       // Key press event
+        keyup: 'keyup',           // Key release event
+        resize: 'resize',         // Window resize event
+        change: 'change',         // Input change event
+        click: 'click',           // Mouse click event
+        touchstart: 'touchstart'  // Touch start event
     },
 
     // ==========================================
