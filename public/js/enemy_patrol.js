@@ -3,6 +3,10 @@
  * Moves with smooth interpolation between nodes, killing player on contact.
  */
 class EnemyPatrol {
+    // Spawn type constants
+    static SPAWN_TYPE_TRAP = 'trap'
+    static SPAWN_TYPE_MINE = 'mine'
+
     /**
      * @param {Object} config - Patrol configuration from level data
      * @param {Grid} grid - Grid instance for position calculations
@@ -62,12 +66,12 @@ class EnemyPatrol {
             // Spawn pending trap/mine when arriving at marked node
             if (this.pendingTrapIndex === this.pathIndex) {
                 const node = this.path[this.pathIndex]
-                spawnRequests.push({ type: 'trap', row: node.y, col: node.x, ttl: this.trapTtl })
+                spawnRequests.push({ type: EnemyPatrol.SPAWN_TYPE_TRAP, row: node.y, col: node.x, ttl: this.trapTtl })
                 this.pendingTrapIndex = null
             }
             if (this.pendingMineIndex === this.pathIndex) {
                 const node = this.path[this.pathIndex]
-                spawnRequests.push({ type: 'mine', row: node.y, col: node.x, ttl: this.mineTtl })
+                spawnRequests.push({ type: EnemyPatrol.SPAWN_TYPE_MINE, row: node.y, col: node.x, ttl: this.mineTtl })
                 this.pendingMineIndex = null
             }
 

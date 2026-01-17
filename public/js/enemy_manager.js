@@ -259,9 +259,9 @@ class EnemyManager {
 
         const config = { x: request.col, y: request.row, ttl: request.ttl }
 
-        if (request.type === 'trap') {
+        if (request.type === EnemyPatrol.SPAWN_TYPE_TRAP) {
             this.traps.push(new EnemyTrap(config, this.grid))
-        } else if (request.type === 'mine') {
+        } else if (request.type === EnemyPatrol.SPAWN_TYPE_MINE) {
             // Use default delay for patrol-spawned mines
             config.delay = Constants.game.enemies.mine.patrolSpawnDelay
             this.mines.push(new EnemyMine(config, this.grid))
