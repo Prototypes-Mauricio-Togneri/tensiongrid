@@ -197,8 +197,8 @@ const Constants = {
             laserGlow: '#ff2a6d80', // Laser glow effect
 
             // Trap colors
-            trap: '#cc2244',       // Trap fill color (matches enemy)
-            trapGlow: '#cc22444d', // Trap glow effect
+            trap: '#00ccff',       // Trap fill color (cyan/electric blue)
+            trapGlow: '#00ccff4d', // Trap glow effect
 
             // Mine colors
             mine: '#ffaa00',       // Mine fill color (yellow/orange)
