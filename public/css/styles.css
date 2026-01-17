@@ -760,26 +760,6 @@ canvas {
 }
 
 /* ============================================
-   About Screen
-   ============================================ */
-
-#aboutScreen {
-    min-height: 100vh;
-    justify-content: center;
-}
-
-.version-text {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    color: rgba(0, 245, 255, 0.3);
-}
-
-/* ============================================
    Pause Menu
    ============================================ */
 

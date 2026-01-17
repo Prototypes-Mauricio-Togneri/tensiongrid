@@ -165,8 +165,6 @@
                     screenManager.show(Constants.screens.levels)
                 } else if (action === Constants.actions.home.settings) {
                     screenManager.show(Constants.screens.settings)
-                } else if (action === Constants.actions.home.about) {
-                    screenManager.show(Constants.screens.about)
                 }
             }
         }
@@ -185,21 +183,6 @@
             }
             lastSettingsInput.left = input.keys.left
             lastSettingsInput.right = input.keys.right
-        }
-
-        // About screen input handling
-        if (currentScreen === Constants.screens.about) {
-            // Navigate menu (edge detection)
-            if (input.keys.up && !lastMenuInput.up) {
-                screenManager.navigateAbout(Constants.keys.up)
-                audioManager.playSound('menuChange')
-            }
-            if (input.keys.down && !lastMenuInput.down) {
-                screenManager.navigateAbout(Constants.keys.down)
-                audioManager.playSound('menuChange')
-            }
-            lastMenuInput.up = input.keys.up
-            lastMenuInput.down = input.keys.down
         }
 
         // Levels screen input handling

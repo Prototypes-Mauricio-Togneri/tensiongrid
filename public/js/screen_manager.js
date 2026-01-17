@@ -8,19 +8,15 @@ class ScreenManager {
             [Constants.screens.home]: document.getElementById(Constants.dom.ids.homeScreen),
             [Constants.screens.game]: document.getElementById(Constants.dom.ids.gameScreen),
             [Constants.screens.levels]: document.getElementById(Constants.dom.ids.levelsScreen),
-            [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen),
-            [Constants.screens.about]: document.getElementById(Constants.dom.ids.aboutScreen)
+            [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen)
         }
         this.buttons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)        // Home menu buttons
-        this.aboutButtons = document.querySelectorAll(Constants.dom.selectors.aboutMenuButtons)  // About screen buttons
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons
         this.menuIndex = 0      // Selected index in home menu
-        this.aboutIndex = 0     // Selected index in about menu
         this.levelsIndex = 0    // Selected index in levels menu
         this.currentScreen = Constants.screens.home // Currently active screen
 
         this.updateButtonSelection()
-        this.updateAboutButtonSelection()
         this.updateLevelsButtonSelection()
     }
 
@@ -41,11 +37,6 @@ class ScreenManager {
         }
 
         // Reset menu index when entering screen
-        if (screenName === Constants.screens.about) {
-            this.aboutIndex = 0
-            this.updateAboutButtonSelection()
-        }
-
         if (screenName === Constants.screens.levels) {
             this.levelsIndex = 0
             this.updateLevelsButtonSelection()
@@ -67,23 +58,6 @@ class ScreenManager {
         }
 
         this.updateButtonSelection()
-    }
-
-    /**
-     * Navigate about screen menu up or down.
-     * @param {string} direction - Direction key from Constants.keys
-     */
-    navigateAbout(direction) {
-        if (this.currentScreen !== Constants.screens.about) return
-
-        const len = this.aboutButtons.length
-        if (direction === Constants.keys.up) {
-            this.aboutIndex = (this.aboutIndex - 1 + len) % len
-        } else if (direction === Constants.keys.down) {
-            this.aboutIndex = (this.aboutIndex + 1) % len
-        }
-
-        this.updateAboutButtonSelection()
     }
 
     /**
@@ -109,15 +83,6 @@ class ScreenManager {
     updateButtonSelection() {
         this.buttons.forEach((btn, i) => {
             btn.classList.toggle(Constants.dom.classes.selected, i === this.menuIndex)
-        })
-    }
-
-    /**
-     * Update visual selection state for about menu buttons.
-     */
-    updateAboutButtonSelection() {
-        this.aboutButtons.forEach((btn, i) => {
-            btn.classList.toggle(Constants.dom.classes.selected, i === this.aboutIndex)
         })
     }
 

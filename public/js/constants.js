@@ -15,7 +15,6 @@ const Constants = {
             gameScreen: 'gameScreen',     // Game play screen
             levelsScreen: 'levelsScreen', // Level selection screen
             settingsScreen: 'settingsScreen', // Settings screen
-            aboutScreen: 'aboutScreen',   // About/credits screen
             audioToggle: 'audioToggle',   // Audio toggle button
             pauseOverlay: 'pauseOverlay', // Pause menu overlay
             gameCanvas: 'gameCanvas',     // Main game canvas
@@ -29,7 +28,6 @@ const Constants = {
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',   // Home menu buttons
-            aboutMenuButtons: '#aboutScreen .menu-button', // About menu buttons
             levelsMenuButtons: '#levelsScreen .menu-button' // Level select buttons
         }
     },
@@ -88,8 +86,7 @@ const Constants = {
         home: {
             continue: 'continue', // Continue last game
             levels: 'levels',     // Open level select
-            settings: 'settings', // Open settings
-            about: 'about'        // Open about screen
+            settings: 'settings'  // Open settings
         },
         pause: {
             continue: 'continue', // Resume game
@@ -100,11 +97,6 @@ const Constants = {
             level_01: 'level_01', // Level 1 filename
             level_02: 'level_02', // Level 2 filename
             level_03: 'level_03'  // Level 3 filename
-        },
-        about: {
-            credits: 'credits', // Credits section
-            terms: 'terms',     // Terms of service
-            privacy: 'privacy'  // Privacy policy
         }
     },
 
@@ -115,8 +107,7 @@ const Constants = {
         home: 'home',         // Main menu screen
         game: 'game',         // Game play screen
         levels: 'levels',     // Level selection screen
-        settings: 'settings', // Settings screen
-        about: 'about'        // About/info screen
+        settings: 'settings'  // Settings screen
     },
 
     // ==========================================
