@@ -199,6 +199,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 - No semicolons
 - One class per file
+- Naming: `snake_case` for files, `PascalCase` for classes, `camelCase` for functions
 - All magic values in `constants.js`
 
 ### Comment Conventions

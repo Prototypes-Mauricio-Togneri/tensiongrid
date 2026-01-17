@@ -8,13 +8,15 @@ HTML5 canvas game "Tension Grid" - a retro-futuristic arcade game. Player (white
 
 **Structure**:
 
-- `public/index.html` - HTML structure only
-- `public/css/styles.css` - All CSS styles
-- `public/js/` - JavaScript files (one per class):
-  - `constants.js`, `vector2.js`, `grid.js`, `camera.js`, `input_manager.js`
-  - `player.js`, `enemy_bullet.js`, `enemy_laser.js`, `audio_manager.js`, `enemy_manager.js`, `collision_system.js`
-  - `renderer.js`, `ui_manager.js`, `screen_manager.js`
-  - `game.js`, `main.js`
+```
+public/
+├── audio/    → Sound effects and background music
+├── css/      → Stylesheets
+├── img/      → Images and icons
+├── js/       → JavaScript (one class per file)
+├── levels/   → Level definitions (JSON)
+└── index.html
+```
 
 ## Why
 
