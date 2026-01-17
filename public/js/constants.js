@@ -179,8 +179,8 @@ const Constants = {
             edgeGlow: '#00f5ff0d',      // Edge glow effect
 
             // Laser colors
-            laser: '#ff2a6d',       // Laser beam color
-            laserGlow: '#ff2a6d80', // Laser glow effect
+            laser: '#ff4da6',       // Laser beam color
+            laserGlow: '#ff4da680', // Laser glow effect
 
             // Trap colors
             trap: '#00ccff',       // Trap fill color (cyan/electric blue)

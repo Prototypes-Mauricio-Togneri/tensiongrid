@@ -96,8 +96,8 @@
         "startY": 2,
         "endX": 8,
         "endY": 8,
-        "timeOn": 1500,
-        "timeOff": 2000
+        "timeOn": 2000,
+        "timeOff": 1500
       }
     ],
     "enemy_trap": [
