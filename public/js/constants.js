@@ -220,7 +220,7 @@ const Constants = {
             audioToggle: 'audio/sound/audio_toggle.wav', // Audio switch toggle sound effect
             closeScreen: 'audio/sound/close_screen.wav',     // Menu/screen close sound effect
             pauseMenu: 'audio/sound/pause_menu.wav',         // Pause menu open sound effect
-            playerExplosion: 'audio/sound/player_explosion.wav' // Player death sound effect
+            explosionPlayer: 'audio/sound/explosion_player.wav' // Player death sound effect
         },
         music: {
             menu: {

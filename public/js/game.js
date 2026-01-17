@@ -86,7 +86,7 @@ class Game {
 
         // Reset on collision
         if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
-            this.audioManager.playSound('playerExplosion')
+            this.audioManager.playSound('explosionPlayer')
             this.ui.shake()
             this.reset()
         }
