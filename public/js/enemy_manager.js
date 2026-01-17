@@ -136,6 +136,7 @@ class EnemyManager {
             const exploded = mine.update(delta)
             if (exploded) {
                 this.spawnBulletsFromMine(mine)
+                this.audioManager.playSound('explosionMine')
             }
         }
         this.mines = this.mines.filter(mine => !mine.isExpired())
