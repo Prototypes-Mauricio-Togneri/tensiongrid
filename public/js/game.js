@@ -79,10 +79,13 @@ class Game {
         )
 
         // Check for mine trigger (does not kill player, just starts countdown)
-        this.collisionSystem.checkPlayerMineContact(
+        const mineTriggered = this.collisionSystem.checkPlayerMineContact(
             this.player,
             this.enemyManager.getAllMines()
         )
+        if (mineTriggered) {
+            this.audioManager.playSound('mineAlarm')
+        }
 
         // Reset on collision
         if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {

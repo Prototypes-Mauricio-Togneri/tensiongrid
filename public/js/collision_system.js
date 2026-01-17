@@ -64,13 +64,17 @@ class CollisionSystem {
      * Triggers the mine countdown on contact (does NOT return collision for death).
      * @param {Player} player - Player instance
      * @param {EnemyMine[]} mines - Array of mines
+     * @returns {boolean} True if any mine was triggered this frame
      */
     checkPlayerMineContact(player, mines) {
+        let triggered = false
         for (const mine of mines) {
             if (mine.isDormant() && player.row === mine.row && player.col === mine.col) {
                 mine.trigger()
+                triggered = true
             }
         }
+        return triggered
     }
 
     /**
