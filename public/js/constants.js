@@ -216,6 +216,10 @@ const Constants = {
     // Audio Configuration
     // ==========================================
     audio: {
+        musicKeys: {
+            menu: 'menu',  // Main menu music key
+            game: 'game'   // Game screen music key
+        },
         keys: {
             shooterTurn: 'shooterTurn',
             shooterShot: 'shooterShot',

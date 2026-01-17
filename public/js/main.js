@@ -13,7 +13,7 @@
      * Play main menu background music.
      */
     function playMenuMusic() {
-        audioManager.playMusic('menu')
+        audioManager.playMusic(Constants.audio.musicKeys.menu)
     }
 
     // Input edge detection state (tracks previous frame to detect key-down events)
@@ -63,7 +63,7 @@
      * @param {string} from - Screen to return to on quit
      */
     async function openGameScreen(level, from) {
-        audioManager.playMusic('game')
+        audioManager.playMusic(Constants.audio.musicKeys.game)
         currentLevel = level
         gameStartedFrom = from
         const response = await fetch(currentLevel)
@@ -175,7 +175,7 @@
             if ((input.keys.left && !lastSettingsInput.left) ||
                 (input.keys.right && !lastSettingsInput.right)) {
                 audioToggle.checked = !audioToggle.checked
-                audioToggle.dispatchEvent(new Event('change'))
+                audioToggle.dispatchEvent(new Event(Constants.events.change))
                 // Play sound only when enabling audio (off → on)
                 if (audioToggle.checked) {
                     audioManager.playSound(Constants.audio.keys.audioToggle)
