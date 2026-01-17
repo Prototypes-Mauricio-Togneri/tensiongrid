@@ -91,7 +91,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **EnemyLaser** (`js/enemy_laser.js`) - Static threat entity:
 - Axis-aligned line segment between two grid nodes
-- Pulsing pink/red visual effect
+- Pink/magenta glow that transitions with state (ramps up when activating, ramps down when deactivating, holds steady while on/off)
 - Kills player on contact with any node along the laser
 - Optional intermittent mode: `timeOn`/`timeOff` (ms) to blink on/off (starts on)
 

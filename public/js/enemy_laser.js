@@ -18,6 +18,13 @@ class EnemyLaser {
         this.timeOff = config.timeOff // Time inactive in ms (undefined for persistent)
         this.active = true            // Whether laser is currently dangerous
         this.timer = 0                // Time elapsed in current state
+
+        // Glow intensity for visual transitions
+        const laserConfig = Constants.game.enemies.laser
+        this.glowIntensity = laserConfig.glowMax // Start at max since laser starts active
+        this.glowMin = laserConfig.glowMin
+        this.glowMax = laserConfig.glowMax
+        this.glowSpeed = laserConfig.glowTransitionSpeed
     }
 
     /**
@@ -37,10 +44,23 @@ class EnemyLaser {
     }
 
     /**
-     * Update intermittent laser state.
+     * Update intermittent laser state and glow transitions.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
+        // Update glow intensity based on active state
+        if (this.active) {
+            // Ramp up to max when active
+            if (this.glowIntensity < this.glowMax) {
+                this.glowIntensity = Math.min(this.glowMax, this.glowIntensity + this.glowSpeed * delta)
+            }
+        } else {
+            // Ramp down to min when inactive
+            if (this.glowIntensity > this.glowMin) {
+                this.glowIntensity = Math.max(this.glowMin, this.glowIntensity - this.glowSpeed * delta)
+            }
+        }
+
         if (!this.isIntermittent()) return
 
         this.timer += delta

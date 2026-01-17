@@ -1,4 +1,6 @@
-## description: Perform a structured audit of unused JS and CSS code.
+---
+description: Perform a structured audit of unused JS and CSS code.
+---
 
 I want you to audit this codebase for dead code. Follow this exact methodology:
 

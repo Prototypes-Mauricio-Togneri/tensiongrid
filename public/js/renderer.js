@@ -330,57 +330,43 @@ class Renderer {
     }
 
     /**
-     * Draw lasers with pulsing glow effect.
+     * Draw lasers with glow effect based on active state transitions.
      * @param {EnemyLaser[]} lasers - Array of laser instances
-     * @param {number} time - Current animation timestamp for pulse calculation
      */
-    drawLasers(lasers, time) {
+    drawLasers(lasers) {
         const ctx = this.ctx
-
-        // Calculate pulse intensity based on time (sine wave oscillation)
-        const pulseSpeed = 0.003
-        const pulseIntensity = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(time * pulseSpeed))
 
         for (const laser of lasers) {
             const positions = laser.getWorldPositions()
             const start = this.toScreen(positions.start.x, positions.start.y)
             const end = this.toScreen(positions.end.x, positions.end.y)
-            const isActive = laser.isActive()
+            const glowIntensity = laser.glowIntensity
 
-            // Apply reduced opacity for inactive lasers
+            // Apply overall transparency based on glow state
             ctx.save()
-            if (!isActive) {
-                ctx.globalAlpha = 0.3
-            }
+            ctx.globalAlpha = glowIntensity
 
             // Outer glow (wide, semi-transparent)
-            ctx.save()
             ctx.strokeStyle = this.colors.laserGlow
-            ctx.lineWidth = 12 * pulseIntensity
+            ctx.lineWidth = 12
             ctx.lineCap = 'round'
             ctx.shadowColor = this.colors.laser
-            ctx.shadowBlur = 20 * pulseIntensity
+            ctx.shadowBlur = 20
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
             ctx.stroke()
-            ctx.restore()
 
             // Main laser line (thin core)
-            ctx.save()
             ctx.strokeStyle = this.colors.laser
             ctx.lineWidth = 3
-            ctx.lineCap = 'round'
-            ctx.shadowColor = this.colors.laser
-            ctx.shadowBlur = 10 * pulseIntensity
-            ctx.globalAlpha = (isActive ? 0.7 + 0.3 * pulseIntensity : 0.3)
+            ctx.shadowBlur = 10
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
             ctx.stroke()
-            ctx.restore()
 
-            ctx.restore() // Restore opacity
+            ctx.restore()
         }
     }
 

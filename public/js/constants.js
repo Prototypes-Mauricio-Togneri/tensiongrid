@@ -128,6 +128,11 @@ const Constants = {
                 size: 5,   // Bullet size in pixels
                 speed: 130 // Bullet speed in pixels/second
             },
+            laser: {
+                glowTransitionSpeed: 0.004, // Glow change per ms during transitions
+                glowMin: 0.3,               // Minimum glow intensity (off state, faded but visible)
+                glowMax: 1.0                // Maximum glow intensity (on state)
+            },
             trap: {
                 size: 14   // Trap size in pixels
             },
