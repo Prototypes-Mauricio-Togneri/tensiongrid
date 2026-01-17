@@ -233,7 +233,7 @@ const Constants = {
         music: {
             mainMenu: {
                 path: 'audio/music/main_menu.wav', // Main menu background music
-                volume: 0.5 // Volume (0.0 to 1.0)
+                volume: 0.3 // Volume (0.0 to 1.0)
             },
             game: {
                 path: 'audio/music/game.mp3', // Game screen background music

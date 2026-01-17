@@ -152,6 +152,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Respects audio toggle setting in UI
 - Persists toggle state to localStorage (defaults to enabled)
 - Clones audio elements to allow overlapping playback
+- Unlocks audio playback on first user interaction (click/key/touch) due to browser autoplay policies
 - `playSound(soundKey)` - Play sound by key if audio enabled
 - `playMusic(musicKey)` - Play looping background music (skips if same track already playing)
 - `stopMusic()` - Stop and reset current background music

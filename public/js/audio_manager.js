@@ -13,7 +13,10 @@ class AudioManager {
         this.sounds = {} // Cache of preloaded Audio elements by sound key
         this.currentMusic = null    // Currently playing music Audio element
         this.currentMusicKey = null // Key of current music track
+        this.userInteracted = false // Whether user has interacted with the page
+        this.boundHandleFirstInteraction = this.handleFirstInteraction.bind(this) // Bound handler for cleanup
         this.preloadSounds()
+        this.setupInteractionListeners()
 
         // Load persisted state and sync checkbox
         if (this.audioToggle) {
@@ -126,5 +129,36 @@ class AudioManager {
         }
         this.currentMusic = null
         this.currentMusicKey = null
+    }
+
+    /**
+     * Set up event listeners to detect first user interaction.
+     * Required to unlock audio playback due to browser autoplay policies.
+     */
+    setupInteractionListeners() {
+        const events = ['click', 'keydown', 'touchstart']
+        events.forEach(event => {
+            document.addEventListener(event, this.boundHandleFirstInteraction, { once: true })
+        })
+    }
+
+    /**
+     * Handle first user interaction to unlock audio playback.
+     * Attempts to play current music if one is pending, then removes listeners.
+     */
+    handleFirstInteraction() {
+        if (this.userInteracted) return
+        this.userInteracted = true
+
+        // Remove all interaction listeners
+        const events = ['click', 'keydown', 'touchstart']
+        events.forEach(event => {
+            document.removeEventListener(event, this.boundHandleFirstInteraction)
+        })
+
+        // Resume music if audio is enabled and music was requested
+        if (this.currentMusic && this.isEnabled()) {
+            this.currentMusic.play().catch(() => {})
+        }
     }
 }
