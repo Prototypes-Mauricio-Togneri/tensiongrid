@@ -17,7 +17,7 @@
     }
 
     // Input edge detection state (tracks previous frame to detect key-down events)
-    let lastMenuInput = { up: false, down: false }       // For menu navigation
+    let lastMenuInput = { up: false, down: false }        // For menu navigation
     let lastSettingsInput = { left: false, right: false } // For settings toggles
     const audioToggle = document.getElementById(Constants.dom.ids.audioToggle)
 
