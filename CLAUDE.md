@@ -42,11 +42,6 @@ Read these when working on specific areas:
 - **Root Cause Fixes**: If a bug exists, identify and fix the root cause. Do not apply temporary or partial fixes.
 - **Async Patterns**: Prefer `async` and `await` over `Promise` and `then` calls.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.
-- **Code Comments**: All JavaScript code must be commented following these conventions:
-  - **Class level**: JSDoc block with class description (`/** ... */`)
-  - **Function level**: JSDoc with `@param` and `@returns` tags
-  - **Field level**: Inline end-of-line comment on first declaration (e.g., `this.x = 0 // Current X position`)
-  - **Code blocks**: Plain comments (`//`) for complex or non-obvious logic
 
 ## Verification
 
