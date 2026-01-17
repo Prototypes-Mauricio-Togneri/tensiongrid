@@ -199,7 +199,10 @@ Cyberpunk/neon aesthetic with these design elements:
 
 - No semicolons
 - One class per file
-- Naming: `snake_case` for files, `PascalCase` for classes, `camelCase` for functions
+- Naming
+  - Files: `snake_case`
+  - Classes: `PascalCase`
+  - Functions: `camelCase`
 - All magic values in `constants.js`
 
 ### Comment Conventions
@@ -215,7 +218,7 @@ All JavaScript code uses a mixed comment style:
 class ClassName {
 ```
 
-**Method Level** - JSDoc with parameters and return type:
+**Function Level** - JSDoc with parameters and return type:
 ```javascript
 /**
  * Brief description of what the method does.
@@ -227,7 +230,7 @@ methodName(paramName) {
 
 **Field Level** - Inline end-of-line comment on first declaration:
 ```javascript
-this.x = 0              // Current X position
+this.x = 0                // Current X position
 this.speed = config.speed // Movement speed in pixels/second
 ```
 
