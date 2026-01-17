@@ -44,7 +44,7 @@ Read these when working on specific areas:
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.
 - **Code Comments**: All JavaScript code must be commented following these conventions:
   - **Class level**: JSDoc block with class description (`/** ... */`)
-  - **Method level**: JSDoc with `@param` and `@returns` tags
+  - **Function level**: JSDoc with `@param` and `@returns` tags
   - **Field level**: Inline end-of-line comment on first declaration (e.g., `this.x = 0 // Current X position`)
   - **Code blocks**: Plain comments (`//`) for complex or non-obvious logic
 
