@@ -3,6 +3,11 @@
  * Dormant until touched, then counts down and fires bullets in all directions.
  */
 class EnemyMine {
+    // State constants
+    static STATE_DORMANT = 'dormant'
+    static STATE_TRIGGERED = 'triggered'
+    static STATE_EXPLODED = 'exploded'
+
     /**
      * @param {Object} config - Mine configuration from level data
      * @param {Grid} grid - Grid instance for position calculation
@@ -18,7 +23,7 @@ class EnemyMine {
         this.y = pos.y   // World Y coordinate
         this.size = Constants.game.enemies.mine.size // Mine size in pixels
 
-        this.state = 'dormant' // States: 'dormant', 'triggered', 'exploded'
+        this.state = EnemyMine.STATE_DORMANT
         this.timer = 0         // Time elapsed since triggered
         this.ttl = config.ttl  // Time to live in ms (undefined for permanent)
     }
@@ -28,7 +33,7 @@ class EnemyMine {
      * @returns {boolean} True if mine has not been triggered
      */
     isDormant() {
-        return this.state === 'dormant'
+        return this.state === EnemyMine.STATE_DORMANT
     }
 
     /**
@@ -36,7 +41,7 @@ class EnemyMine {
      * @returns {boolean} True if mine is in countdown state
      */
     isTriggered() {
-        return this.state === 'triggered'
+        return this.state === EnemyMine.STATE_TRIGGERED
     }
 
     /**
@@ -44,15 +49,15 @@ class EnemyMine {
      * @returns {boolean} True if mine has detonated
      */
     isExploded() {
-        return this.state === 'exploded'
+        return this.state === EnemyMine.STATE_EXPLODED
     }
 
     /**
      * Trigger the mine countdown when player touches it.
      */
     trigger() {
-        if (this.state === 'dormant') {
-            this.state = 'triggered'
+        if (this.state === EnemyMine.STATE_DORMANT) {
+            this.state = EnemyMine.STATE_TRIGGERED
             this.timer = 0
         }
     }
@@ -64,15 +69,15 @@ class EnemyMine {
      */
     update(delta) {
         // Decrement TTL if set and mine hasn't exploded
-        if (this.ttl !== undefined && this.state !== 'exploded') {
+        if (this.ttl !== undefined && this.state !== EnemyMine.STATE_EXPLODED) {
             this.ttl -= delta
         }
 
-        if (this.state !== 'triggered') return false
+        if (this.state !== EnemyMine.STATE_TRIGGERED) return false
 
         this.timer += delta
         if (this.timer >= this.delay) {
-            this.state = 'exploded'
+            this.state = EnemyMine.STATE_EXPLODED
             return true // Signal explosion occurred
         }
         return false
@@ -91,7 +96,7 @@ class EnemyMine {
      * @returns {number} Blink intensity multiplier
      */
     getBlinkIntensity() {
-        if (this.state !== 'triggered') return 1
+        if (this.state !== EnemyMine.STATE_TRIGGERED) return 1
 
         // Calculate progress toward detonation (0 to 1)
         const progress = this.timer / this.delay
