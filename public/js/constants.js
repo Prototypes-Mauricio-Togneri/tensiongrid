@@ -216,6 +216,18 @@ const Constants = {
     // Audio Configuration
     // ==========================================
     audio: {
+        keys: {
+            shooterTurn: 'shooterTurn',
+            shooterShot: 'shooterShot',
+            explosionMine: 'explosionMine',
+            mineAlarm: 'mineAlarm',
+            menuChange: 'menuChange',
+            menuSelect: 'menuSelect',
+            audioToggle: 'audioToggle',
+            closeScreen: 'closeScreen',
+            pauseMenu: 'pauseMenu',
+            explosionPlayer: 'explosionPlayer'
+        },
         sounds: {
             shooterTurn: 'audio/sound/shooter_turn.wav',        // Turret rotation sound effect
             shooterShot: 'audio/sound/shooter_shot.wav',        // Turret firing sound effect

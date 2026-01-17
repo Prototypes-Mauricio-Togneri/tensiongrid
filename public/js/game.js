@@ -84,12 +84,12 @@ class Game {
             this.enemyManager.getAllMines()
         )
         if (mineTriggered) {
-            this.audioManager.playSound('mineAlarm')
+            this.audioManager.playSound(Constants.audio.keys.mineAlarm)
         }
 
         // Reset on collision
         if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
-            this.audioManager.playSound('explosionPlayer')
+            this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
             this.ui.shake()
             this.reset()
         }

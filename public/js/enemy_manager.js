@@ -136,7 +136,7 @@ class EnemyManager {
             const exploded = mine.update(delta)
             if (exploded) {
                 this.spawnBulletsFromMine(mine)
-                this.audioManager.playSound('explosionMine')
+                this.audioManager.playSound(Constants.audio.keys.explosionMine)
             }
         }
         this.mines = this.mines.filter(mine => !mine.isExpired())
@@ -146,10 +146,10 @@ class EnemyManager {
             const result = shooter.update(delta)
             for (const info of result.bullets) {
                 this.spawnBulletFromShooter(info)
-                this.audioManager.playSound('shooterShot')
+                this.audioManager.playSound(Constants.audio.keys.shooterShot)
             }
             if (result.rotationStarted) {
-                this.audioManager.playSound('shooterTurn')
+                this.audioManager.playSound(Constants.audio.keys.shooterTurn)
             }
         }
 

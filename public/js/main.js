@@ -83,11 +83,11 @@
         if (currentScreen === Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
             if (isPaused) {
-                audioManager.playSound('closeScreen')
+                audioManager.playSound(Constants.audio.keys.closeScreen)
                 hidePauseMenu()
                 game.resume()
             } else {
-                audioManager.playSound('pauseMenu')
+                audioManager.playSound(Constants.audio.keys.pauseMenu)
                 showPauseMenu()
             }
         }
@@ -95,7 +95,7 @@
         // ESC on other screens returns to home
         if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
-            audioManager.playSound('closeScreen')
+            audioManager.playSound(Constants.audio.keys.closeScreen)
             playMenuMusic()
             screenManager.show(Constants.screens.home)
         }
@@ -108,12 +108,12 @@
             if (input.keys.up && !lastMenuInput.up) {
                 pauseIndex = (pauseIndex - 1 + pauseLen) % pauseLen
                 updatePauseButtonSelection()
-                audioManager.playSound('menuChange')
+                audioManager.playSound(Constants.audio.keys.menuChange)
             }
             if (input.keys.down && !lastMenuInput.down) {
                 pauseIndex = (pauseIndex + 1) % pauseLen
                 updatePauseButtonSelection()
-                audioManager.playSound('menuChange')
+                audioManager.playSound(Constants.audio.keys.menuChange)
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
@@ -121,7 +121,7 @@
             // Handle selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
-                audioManager.playSound('menuSelect')
+                audioManager.playSound(Constants.audio.keys.menuSelect)
                 const action = pauseButtons[pauseIndex].dataset.action
                 if (action === Constants.actions.pause.continue) {
                     hidePauseMenu()
@@ -131,7 +131,7 @@
                     game.reset()
                     game.resume()
                 } else if (action === Constants.actions.pause.quit) {
-                    audioManager.playSound('closeScreen')
+                    audioManager.playSound(Constants.audio.keys.closeScreen)
                     hidePauseMenu()
                     game.stop()
                     playMenuMusic()
@@ -145,11 +145,11 @@
             // Navigate menu (edge detection)
             if (input.keys.up && !lastMenuInput.up) {
                 screenManager.navigateMenu(Constants.keys.up)
-                audioManager.playSound('menuChange')
+                audioManager.playSound(Constants.audio.keys.menuChange)
             }
             if (input.keys.down && !lastMenuInput.down) {
                 screenManager.navigateMenu(Constants.keys.down)
-                audioManager.playSound('menuChange')
+                audioManager.playSound(Constants.audio.keys.menuChange)
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
@@ -157,7 +157,7 @@
             // Handle selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
-                audioManager.playSound('menuSelect')
+                audioManager.playSound(Constants.audio.keys.menuSelect)
                 const action = screenManager.getSelectedAction()
                 if (action === Constants.actions.home.continue) {
                     openGameScreen('levels/level_01.json', Constants.screens.home)
@@ -178,7 +178,7 @@
                 audioToggle.dispatchEvent(new Event('change'))
                 // Play sound only when enabling audio (off → on)
                 if (audioToggle.checked) {
-                    audioManager.playSound('audioToggle')
+                    audioManager.playSound(Constants.audio.keys.audioToggle)
                 }
             }
             lastSettingsInput.left = input.keys.left
@@ -190,11 +190,11 @@
             // Navigate menu (edge detection)
             if (input.keys.up && !lastMenuInput.up) {
                 screenManager.navigateLevels(Constants.keys.up)
-                audioManager.playSound('menuChange')
+                audioManager.playSound(Constants.audio.keys.menuChange)
             }
             if (input.keys.down && !lastMenuInput.down) {
                 screenManager.navigateLevels(Constants.keys.down)
-                audioManager.playSound('menuChange')
+                audioManager.playSound(Constants.audio.keys.menuChange)
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
@@ -202,7 +202,7 @@
             // Handle level selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
-                audioManager.playSound('menuSelect')
+                audioManager.playSound(Constants.audio.keys.menuSelect)
                 const action = screenManager.getSelectedLevelsAction()
                 const levelPath = `levels/${action}.json`
                 if (levelPath) {
