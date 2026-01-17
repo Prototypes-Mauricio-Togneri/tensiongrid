@@ -617,28 +617,28 @@ class Renderer {
         for (const dir of directions) {
             ctx.beginPath()
             switch (dir) {
-                case 'up':
+                case Constants.cardinalDirections.up:
                     // Trapezoid pointing up
                     ctx.moveTo(x - baseWidth / 2, y)
                     ctx.lineTo(x + baseWidth / 2, y)
                     ctx.lineTo(x + tipWidth / 2, y - armLength)
                     ctx.lineTo(x - tipWidth / 2, y - armLength)
                     break
-                case 'down':
+                case Constants.cardinalDirections.down:
                     // Trapezoid pointing down
                     ctx.moveTo(x - baseWidth / 2, y)
                     ctx.lineTo(x + baseWidth / 2, y)
                     ctx.lineTo(x + tipWidth / 2, y + armLength)
                     ctx.lineTo(x - tipWidth / 2, y + armLength)
                     break
-                case 'left':
+                case Constants.cardinalDirections.left:
                     // Trapezoid pointing left
                     ctx.moveTo(x, y - baseWidth / 2)
                     ctx.lineTo(x, y + baseWidth / 2)
                     ctx.lineTo(x - armLength, y + tipWidth / 2)
                     ctx.lineTo(x - armLength, y - tipWidth / 2)
                     break
-                case 'right':
+                case Constants.cardinalDirections.right:
                     // Trapezoid pointing right
                     ctx.moveTo(x, y - baseWidth / 2)
                     ctx.lineTo(x, y + baseWidth / 2)

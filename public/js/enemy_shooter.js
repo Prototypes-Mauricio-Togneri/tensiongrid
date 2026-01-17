@@ -39,7 +39,7 @@ class EnemyShooter {
      */
     initDirectionTimers(config) {
         const timers = {}
-        const directionKeys = [Constants.keys.left, Constants.keys.right, Constants.keys.up, Constants.keys.down]
+        const directionKeys = Object.values(Constants.cardinalDirections)
 
         for (const dir of directionKeys) {
             const delayKey = `${dir}Delay`

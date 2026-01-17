@@ -57,6 +57,16 @@ const Constants = {
     },
 
     // ==========================================
+    // Cardinal Direction Names
+    // ==========================================
+    cardinalDirections: {
+        up: 'up',
+        down: 'down',
+        left: 'left',
+        right: 'right'
+    },
+
+    // ==========================================
     // Direction Vectors (row/col deltas)
     // ==========================================
     directions: {
