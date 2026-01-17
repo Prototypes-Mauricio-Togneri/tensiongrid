@@ -4,7 +4,7 @@
  */
 class ScreenManager {
     constructor() {
-        this.screens = {                          // Map of screen name to DOM element
+        this.screens = { // Map of screen name to DOM element
             [Constants.screens.home]: document.getElementById(Constants.dom.ids.homeScreen),
             [Constants.screens.game]: document.getElementById(Constants.dom.ids.gameScreen),
             [Constants.screens.levels]: document.getElementById(Constants.dom.ids.levelsScreen),
@@ -12,8 +12,8 @@ class ScreenManager {
         }
         this.buttons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)        // Home menu buttons
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons
-        this.menuIndex = 0      // Selected index in home menu
-        this.levelsIndex = 0    // Selected index in levels menu
+        this.menuIndex = 0    // Selected index in home menu
+        this.levelsIndex = 0  // Selected index in levels menu
         this.currentScreen = Constants.screens.home // Currently active screen
 
         this.updateButtonSelection()

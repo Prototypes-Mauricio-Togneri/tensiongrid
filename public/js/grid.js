@@ -7,13 +7,13 @@ class Grid {
      * @param {Object} config - Grid configuration from level data
      */
     constructor(config) {
-        this.height = config.height       // Number of rows
-        this.width = config.width         // Number of columns
-        this.cellSize = config.cellSize   // Pixels between nodes
+        this.height = config.height         // Number of rows
+        this.width = config.width           // Number of columns
+        this.cellSize = config.cellSize     // Pixels between nodes
         this.nodeRadius = config.nodeRadius // Node visual radius
-        this.edgeWidth = config.edgeWidth // Edge line thickness
-        this.excludedNodes = new Set()    // Set of "row,col" keys for excluded nodes
-        this.excludedEdges = new Set()    // Set of edge keys for excluded edges
+        this.edgeWidth = config.edgeWidth   // Edge line thickness
+        this.excludedNodes = new Set()      // Set of "row,col" keys for excluded nodes
+        this.excludedEdges = new Set()      // Set of edge keys for excluded edges
 
         // Parse excluded nodes from config
         if (config.excludes?.nodes) {

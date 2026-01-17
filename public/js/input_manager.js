@@ -4,7 +4,7 @@
  */
 class InputManager {
     constructor() {
-        this.keys = {                           // Current state of tracked keys
+        this.keys = { // Current state of tracked keys
             [Constants.keys.up]: false,
             [Constants.keys.down]: false,
             [Constants.keys.left]: false,
@@ -12,7 +12,7 @@ class InputManager {
             [Constants.keys.escape]: false,
             [Constants.keys.select]: false
         }
-        this.enabled = true                     // False to ignore movement input
+        this.enabled = true // False to ignore movement input
         this.bindEvents()
     }
 

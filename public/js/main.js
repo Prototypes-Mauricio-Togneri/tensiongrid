@@ -24,8 +24,8 @@
     // Pause menu state
     const pauseOverlay = document.getElementById(Constants.dom.ids.pauseOverlay)
     const pauseButtons = pauseOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
-    let pauseIndex = 0   // Currently selected pause menu item
-    let isPaused = false // True when pause menu is visible
+    let pauseIndex = 0       // Currently selected pause menu item
+    let isPaused = false     // True when pause menu is visible
     let gameStartedFrom = '' // Screen to return to when quitting (home or levels)
     let currentLevel = ''    // Path to current level JSON
 

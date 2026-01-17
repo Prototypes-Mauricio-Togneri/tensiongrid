@@ -9,7 +9,7 @@ class Game {
      */
     constructor(canvasId, inputManager) {
         this.canvas = document.getElementById(canvasId) // Game canvas element
-        this.inputManager = inputManager // Shared input manager
+        this.inputManager = inputManager  // Shared input manager
         this.ui = new UIManager()         // HUD manager
         this.running = false              // True while game loop is active
 
@@ -197,8 +197,8 @@ class Game {
         this.reset()
         this.ui.reset()
         this.running = true
-        this.lastTime = 0              // Last frame timestamp
-        this.scoreTimer = 0            // Time since last score increment
+        this.lastTime = 0   // Last frame timestamp
+        this.scoreTimer = 0 // Time since last score increment
         requestAnimationFrame((t) => this.gameLoop(t))
     }
 

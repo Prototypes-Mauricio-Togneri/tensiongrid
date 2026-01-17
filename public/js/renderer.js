@@ -8,10 +8,10 @@ class Renderer {
      * @param {Camera} camera - Camera for coordinate transforms
      */
     constructor(canvas, camera) {
-        this.canvas = canvas                   // Canvas element
-        this.ctx = canvas.getContext('2d')     // 2D rendering context
-        this.colors = Constants.game.colors    // Color palette reference
-        this.camera = camera                   // Camera for world-to-screen transforms
+        this.canvas = canvas                 // Canvas element
+        this.ctx = canvas.getContext('2d')   // 2D rendering context
+        this.colors = Constants.game.colors  // Color palette reference
+        this.camera = camera                 // Camera for world-to-screen transforms
     }
 
     /**
