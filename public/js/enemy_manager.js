@@ -295,16 +295,16 @@ class EnemyManager {
 
     /**
      * Convert direction key to row/col delta vectors.
-     * @param {string} direction - Direction key from Constants.keys
+     * @param {string} direction - Direction key from Constants.cardinalDirections
      * @returns {Object} Object with row and col deltas
      */
     getDirectionVectors(direction) {
         const dirs = Constants.directions
         switch (direction) {
-            case Constants.keys.up: return dirs.up
-            case Constants.keys.down: return dirs.down
-            case Constants.keys.left: return dirs.left
-            case Constants.keys.right: return dirs.right
+            case Constants.cardinalDirections.up: return dirs.up
+            case Constants.cardinalDirections.down: return dirs.down
+            case Constants.cardinalDirections.left: return dirs.left
+            case Constants.cardinalDirections.right: return dirs.right
             default: return dirs.none
         }
     }
