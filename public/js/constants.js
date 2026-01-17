@@ -9,25 +9,25 @@ const Constants = {
     // ==========================================
     dom: {
         ids: {
-            score: 'score',               // Score display element
-            canvasWrapper: 'canvasWrapper', // Wrapper for shake effect
-            homeScreen: 'homeScreen',     // Home menu screen
-            gameScreen: 'gameScreen',     // Game play screen
-            levelsScreen: 'levelsScreen', // Level selection screen
+            score: 'score',                   // Score display element
+            canvasWrapper: 'canvasWrapper',   // Wrapper for shake effect
+            homeScreen: 'homeScreen',         // Home menu screen
+            gameScreen: 'gameScreen',         // Game play screen
+            levelsScreen: 'levelsScreen',     // Level selection screen
             settingsScreen: 'settingsScreen', // Settings screen
-            audioToggle: 'audioToggle',   // Audio toggle button
-            pauseOverlay: 'pauseOverlay', // Pause menu overlay
-            gameCanvas: 'gameCanvas',     // Main game canvas
-            bgAnimation: 'bgAnimation'    // Background animation container
+            audioToggle: 'audioToggle',       // Audio toggle button
+            pauseOverlay: 'pauseOverlay',     // Pause menu overlay
+            gameCanvas: 'gameCanvas',         // Main game canvas
+            bgAnimation: 'bgAnimation'        // Background animation container
         },
         classes: {
-            shake: 'shake',       // Screen shake animation class
-            active: 'active',     // Visible screen class
-            selected: 'selected', // Selected menu item class
+            shake: 'shake',           // Screen shake animation class
+            active: 'active',         // Visible screen class
+            selected: 'selected',     // Selected menu item class
             menuButton: 'menu-button' // Menu button class
         },
         selectors: {
-            homeMenuButtons: '#homeScreen .menu-button',   // Home menu buttons
+            homeMenuButtons: '#homeScreen .menu-button',    // Home menu buttons
             levelsMenuButtons: '#levelsScreen .menu-button' // Level select buttons
         }
     },
@@ -141,11 +141,11 @@ const Constants = {
                 patrolSpawnDelay: 1500 // Detonation delay for patrol-spawned mines in ms
             },
             shooter: {
-                size: 28,   // Turret arm length from center in pixels
+                size: 28,    // Turret arm length from center in pixels
                 armWidth: 10 // Turret arm thickness in pixels
             },
             patrol: {
-                size: 12   // Patrol size in pixels
+                size: 12 // Patrol size in pixels
             },
             follower: {
                 size: 12,         // Follower size in pixels
@@ -214,15 +214,15 @@ const Constants = {
     // ==========================================
     audio: {
         sounds: {
-            shooterTurn: 'audio/sound/shooter_turn.wav', // Turret rotation sound effect
-            shooterShot: 'audio/sound/shooter_shot.wav', // Turret firing sound effect
-            explosionMine: 'audio/sound/explosion_mine.wav', // Mine detonation sound effect
-            mineAlarm: 'audio/sound/mine_alarm.wav', // Mine trigger alarm sound effect
-            menuChange: 'audio/sound/menu_change.wav',   // Menu navigation sound effect
-            menuSelect: 'audio/sound/menu_select.wav',   // Menu button selection sound effect
-            audioToggle: 'audio/sound/audio_toggle.wav', // Audio switch toggle sound effect
-            closeScreen: 'audio/sound/close_screen.wav',     // Menu/screen close sound effect
-            pauseMenu: 'audio/sound/pause_menu.wav',         // Pause menu open sound effect
+            shooterTurn: 'audio/sound/shooter_turn.wav',        // Turret rotation sound effect
+            shooterShot: 'audio/sound/shooter_shot.wav',        // Turret firing sound effect
+            explosionMine: 'audio/sound/explosion_mine.wav',    // Mine detonation sound effect
+            mineAlarm: 'audio/sound/mine_alarm.wav',            // Mine trigger alarm sound effect
+            menuChange: 'audio/sound/menu_change.wav',          // Menu navigation sound effect
+            menuSelect: 'audio/sound/menu_select.wav',          // Menu button selection sound effect
+            audioToggle: 'audio/sound/audio_toggle.wav',        // Audio switch toggle sound effect
+            closeScreen: 'audio/sound/close_screen.wav',        // Menu/screen close sound effect
+            pauseMenu: 'audio/sound/pause_menu.wav',            // Pause menu open sound effect
             explosionPlayer: 'audio/sound/explosion_player.wav' // Player death sound effect
         },
         music: {
