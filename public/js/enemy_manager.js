@@ -145,6 +145,7 @@ class EnemyManager {
             const result = shooter.update(delta)
             for (const info of result.bullets) {
                 this.spawnBulletFromShooter(info)
+                this.audioManager.playSound('shooterShot')
             }
             if (result.rotationStarted) {
                 this.audioManager.playSound('shooterTurn')
