@@ -218,12 +218,13 @@ const Constants = {
             menuChange: 'audio/sound/menu_change.wav',   // Menu navigation sound effect
             menuSelect: 'audio/sound/menu_select.wav',   // Menu button selection sound effect
             audioToggle: 'audio/sound/audio_toggle.wav', // Audio switch toggle sound effect
-            close: 'audio/sound/close.wav',              // Menu/screen close sound effect
-            pauseMenu: 'audio/sound/pause_menu.wav'      // Pause menu open sound effect
+            closeScreen: 'audio/sound/close_screen.wav',     // Menu/screen close sound effect
+            pauseMenu: 'audio/sound/pause_menu.wav',         // Pause menu open sound effect
+            playerExplosion: 'audio/sound/player_explosion.wav' // Player death sound effect
         },
         music: {
-            mainMenu: {
-                path: 'audio/music/main_menu.wav', // Main menu background music
+            menu: {
+                path: 'audio/music/menu.wav', // Main menu background music
                 volume: 0.3 // Volume (0.0 to 1.0)
             },
             game: {

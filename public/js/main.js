@@ -13,7 +13,7 @@
      * Play main menu background music.
      */
     function playMenuMusic() {
-        audioManager.playMusic('mainMenu')
+        audioManager.playMusic('menu')
     }
 
     // Input edge detection state (tracks previous frame to detect key-down events)
@@ -83,7 +83,7 @@
         if (currentScreen === Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
             if (isPaused) {
-                audioManager.playSound('close')
+                audioManager.playSound('closeScreen')
                 hidePauseMenu()
                 game.resume()
             } else {
@@ -95,7 +95,7 @@
         // ESC on other screens returns to home
         if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
-            audioManager.playSound('close')
+            audioManager.playSound('closeScreen')
             playMenuMusic()
             screenManager.show(Constants.screens.home)
         }
@@ -131,7 +131,7 @@
                     game.reset()
                     game.resume()
                 } else if (action === Constants.actions.pause.quit) {
-                    audioManager.playSound('close')
+                    audioManager.playSound('closeScreen')
                     hidePauseMenu()
                     game.stop()
                     playMenuMusic()
