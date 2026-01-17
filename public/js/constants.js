@@ -92,11 +92,6 @@ const Constants = {
             continue: 'continue', // Resume game
             restart: 'restart',   // Restart current level
             quit: 'quit'          // Return to main menu
-        },
-        levels: {
-            level_01: 'level_01', // Level 1 filename
-            level_02: 'level_02', // Level 2 filename
-            level_03: 'level_03'  // Level 3 filename
         }
     },
 

@@ -740,26 +740,6 @@ class Renderer {
     }
 
     /**
-     * Draw a pentagon shape.
-     * @param {number} x - Center X position
-     * @param {number} y - Center Y position
-     * @param {number} size - Distance from center to vertices
-     */
-    drawPentagon(x, y, size) {
-        const ctx = this.ctx
-        ctx.beginPath()
-        for (let i = 0; i < 5; i++) {
-            const angle = (Math.PI * 2 / 5) * i - Math.PI / 2 // Start at top
-            const px = x + size * Math.cos(angle)
-            const py = y + size * Math.sin(angle)
-            if (i === 0) ctx.moveTo(px, py)
-            else ctx.lineTo(px, py)
-        }
-        ctx.closePath()
-        ctx.fill()
-    }
-
-    /**
      * Draw followers as rotating triangles with wake trail and glow effects.
      * @param {EnemyFollower[]} followers - Array of follower instances
      */

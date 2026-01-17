@@ -349,23 +349,6 @@ body:has(#gameScreen.active) .bg-animation {
     100% { transform: translateY(4px); }
 }
 
-@keyframes barWarning {
-    0%, 100% {
-        opacity: 0.8;
-        box-shadow:
-            0 0 8px #ff2020,
-            0 0 16px rgba(255, 32, 32, 0.6);
-    }
-    50% {
-        opacity: 1;
-        box-shadow:
-            0 0 12px #ff4040,
-            0 0 24px rgba(255, 32, 32, 0.8),
-            0 0 36px rgba(255, 32, 32, 0.3);
-    }
-}
-
-
 /* HUD */
 .hud {
     position: fixed;
@@ -548,27 +531,6 @@ canvas {
     justify-content: center;
 }
 
-.screen-placeholder {
-    text-align: center;
-    padding: 60px 40px;
-    border: 1px solid rgba(0, 245, 255, 0.2);
-    background: rgba(0, 245, 255, 0.02);
-}
-
-.screen-placeholder p {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.1rem;
-    color: rgba(0, 245, 255, 0.6);
-    letter-spacing: 0.1em;
-}
-
-.screen-placeholder .hint {
-    margin-top: 20px;
-    font-size: 0.8rem;
-    color: rgba(0, 245, 255, 0.4);
-    text-transform: uppercase;
-}
-
 /* ============================================
    Settings Screen
    ============================================ */
@@ -584,14 +546,6 @@ canvas {
     top: 100px;
     left: 50%;
     transform: translateX(-50%);
-}
-
-.screen-hint {
-    margin-top: 40px;
-    font-size: 0.8rem;
-    color: rgba(0, 245, 255, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
 }
 
 .settings-panel {
@@ -660,30 +614,6 @@ canvas {
     left: 49px;
     background: var(--neon-cyan);
     box-shadow: 0 0 8px var(--neon-cyan), 0 0 16px var(--neon-cyan);
-}
-
-.toggle-status {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    min-width: 48px;
-    text-align: left;
-    color: rgba(0, 245, 255, 0.4);
-    transition: all 0.3s ease;
-}
-
-.toggle-status::after {
-    content: attr(data-off);
-}
-
-.toggle-switch input:checked ~ .toggle-status {
-    color: var(--neon-cyan);
-    text-shadow: 0 0 8px var(--neon-cyan);
-}
-
-.toggle-switch input:checked ~ .toggle-status::after {
-    content: attr(data-on);
 }
 
 /* ============================================
