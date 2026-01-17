@@ -488,7 +488,7 @@ class Renderer {
             ctx.restore()
 
             // Inner highlight
-            ctx.fillStyle = '#ffffff33'
+            ctx.fillStyle = this.colors.enemyHighlight
             this.drawHexagon(pos.x, pos.y, size * 0.4)
 
             ctx.restore()
@@ -591,7 +591,7 @@ class Renderer {
             ctx.restore()
 
             // Inner highlight - center hub only
-            ctx.fillStyle = '#ffffff33'
+            ctx.fillStyle = this.colors.enemyHighlight
             ctx.beginPath()
             ctx.arc(0, 0, hubRadius * 0.5, 0, Math.PI * 2)
             ctx.fill()
@@ -720,7 +720,7 @@ class Renderer {
             ctx.restore()
 
             // Inner highlight
-            ctx.fillStyle = '#ffffff33'
+            ctx.fillStyle = this.colors.enemyHighlight
             this.drawFlatHexagon(pos.x, pos.y, size * 0.4)
         }
     }
@@ -799,7 +799,7 @@ class Renderer {
             ctx.restore()
 
             // Inner highlight
-            ctx.fillStyle = '#ffffff33'
+            ctx.fillStyle = this.colors.enemyHighlight
             this.drawTriangleAt(0, 0, size * 0.4)
 
             ctx.restore() // Restore translation and rotation
