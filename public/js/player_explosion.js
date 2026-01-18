@@ -10,19 +10,22 @@ class PlayerExplosion {
     constructor(x, y) {
         const config = Constants.game.player
         this.fragmentSize = config.explosionFragmentSize
-        this.speed = config.explosionSpeed
         this.rotationSpeed = config.explosionRotationSpeed
 
-        // Initialize fragments with evenly distributed directions
+        // Initialize fragments with evenly distributed directions and random speeds
         const count = config.explosionFragments
+        const speedMin = config.explosionSpeedMin
+        const speedMax = config.explosionSpeedMax
         this.fragments = []
         for (let i = 0; i < count; i++) {
             const angle = (Math.PI * 2 * i) / count
+            const speed = speedMin + Math.random() * (speedMax - speedMin)
             this.fragments.push({
                 x: x,
                 y: y,
                 dx: Math.cos(angle),
                 dy: Math.sin(angle),
+                speed: speed,
                 rotation: 0
             })
         }
@@ -33,9 +36,9 @@ class PlayerExplosion {
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
-        const moveAmount = this.speed * delta / 1000
         const rotateAmount = this.rotationSpeed * delta / 1000
         for (const fragment of this.fragments) {
+            const moveAmount = fragment.speed * delta / 1000
             fragment.x += fragment.dx * moveAmount
             fragment.y += fragment.dy * moveAmount
             fragment.rotation += rotateAmount

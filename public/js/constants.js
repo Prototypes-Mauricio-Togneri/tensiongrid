@@ -135,7 +135,8 @@ const Constants = {
             speed: 200,               // Movement speed in pixels/second
             explosionFragments: 7,    // Number of explosion fragments
             explosionFragmentSize: 5, // Size of each fragment rhombus in pixels
-            explosionSpeed: 50,       // Fragment outward speed in pixels/second
+            explosionSpeedMin: 30,    // Fragment minimum outward speed in pixels/second
+            explosionSpeedMax: 50,    // Fragment maximum outward speed in pixels/second
             explosionRotationSpeed: 3 // Fragment rotation speed in radians/second
         },
 
