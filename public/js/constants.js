@@ -166,7 +166,7 @@ const Constants = {
                 size: 12 // Patrol size in pixels
             },
             follower: {
-                size: 12,         // Follower size in pixels
+                size: 8,          // Follower size in pixels
                 speed: 100,       // Default speed in pixels/second
                 rotationSpeed: 3  // Rotation speed in radians/second
             }

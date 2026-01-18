@@ -48,7 +48,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s), explosion fragments (7), explosion fragment size (5px), explosion speed (30-50px/s random), explosion rotation speed (3 rad/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (12px), follower default speed (100px/s), follower rotation speed (3 rad/s)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -146,7 +146,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **EnemyFollower** (`js/enemy_follower.js`) - Player-tracking hazard:
 - Actively pursues player by moving toward the best adjacent node
-- Orange triangle visual shape (#ff8800) that continuously rotates on its center
+- Orange square visual shape (#ff8800) that continuously rotates on its center
 - Smooth interpolation between nodes (like EnemyPatrol)
 - Wake effect - gradient trail during movement
 - At each node, calculates which adjacent node minimizes distance to player

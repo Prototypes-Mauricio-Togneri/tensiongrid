@@ -760,7 +760,7 @@ class Renderer {
     }
 
     /**
-     * Draw followers as rotating triangles with wake trail and glow effects.
+     * Draw followers as rotating squares with wake trail and glow effects.
      * @param {EnemyFollower[]} followers - Array of follower instances
      */
     drawFollowers(followers) {
@@ -821,7 +821,7 @@ class Renderer {
             ctx.shadowColor = this.colors.follower
             ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.followerGlow
-            this.drawTriangleAt(0, 0, size + 4)
+            this.drawSquareAt(0, 0, size + 4)
             ctx.restore()
 
             // Main follower shape
@@ -829,12 +829,12 @@ class Renderer {
             ctx.shadowColor = this.colors.follower
             ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.follower
-            this.drawTriangleAt(0, 0, size)
+            this.drawSquareAt(0, 0, size)
             ctx.restore()
 
             // Inner highlight
             ctx.fillStyle = this.colors.enemyHighlight
-            this.drawTriangleAt(0, 0, size * 0.4)
+            this.drawSquareAt(0, 0, size * 0.4)
 
             ctx.restore() // Restore translation and rotation
         }
@@ -855,6 +855,23 @@ class Renderer {
         ctx.lineTo(x + size * 0.866, y + size * 0.5)
         // Bottom-left vertex
         ctx.lineTo(x - size * 0.866, y + size * 0.5)
+        ctx.closePath()
+        ctx.fill()
+    }
+
+    /**
+     * Draw a square centered at position (before rotation).
+     * @param {number} x - Center X position (0 when pre-translated)
+     * @param {number} y - Center Y position (0 when pre-translated)
+     * @param {number} size - Distance from center to edge midpoints
+     */
+    drawSquareAt(x, y, size) {
+        const ctx = this.ctx
+        ctx.beginPath()
+        ctx.moveTo(x - size, y - size)
+        ctx.lineTo(x + size, y - size)
+        ctx.lineTo(x + size, y + size)
+        ctx.lineTo(x - size, y + size)
         ctx.closePath()
         ctx.fill()
     }
