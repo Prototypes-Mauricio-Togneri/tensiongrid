@@ -6,7 +6,7 @@
     --neon-cyan: #00f5ff;
     --neon-pink: #ff2a6d;
     --deep-black: #0a0a0f;
-    --glow-cyan: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff;
+    --glow-cyan: 0 0 10px #00f5ff, 0 0 20px rgba(0, 245, 255, 0.6), 0 0 40px rgba(0, 245, 255, 0.3), 0 0 60px rgba(0, 245, 255, 0.1);
     --glow-pink: 0 0 10px rgba(255, 42, 109, 0.8), 0 0 20px rgba(255, 42, 109, 0.8), 0 0 30px rgba(255, 42, 109, 0.8);
 }
 
@@ -405,7 +405,7 @@ body:has(#gameScreen.active) .bg-animation {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--neon-cyan);
-    text-shadow: var(--glow-cyan);
+    filter: drop-shadow(0 0 6px #00f5ff) drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.25));
 }
 
 /* Score value with fixed width */
@@ -528,31 +528,25 @@ canvas {
 .menu-button::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.05), transparent);
+    top: -10px;
+    left: -20px;
+    right: -20px;
+    bottom: -10px;
+    background: radial-gradient(ellipse at center, rgba(0, 245, 255, 0.08) 0%, transparent 70%);
     opacity: 0;
+    filter: blur(8px);
     transition: opacity 0.2s ease;
 }
 
 /* Selected button glow state */
 .menu-button.selected {
     color: var(--neon-cyan);
-    text-shadow: var(--glow-cyan);
+    filter: drop-shadow(0 0 6px #00f5ff) drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.25));
 }
 
 /* Selected button animated background */
 .menu-button.selected::before {
     opacity: 1;
-    animation: buttonScan 2s linear infinite;
-}
-
-/* Button scan line animation */
-@keyframes buttonScan {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
 }
 
 /* Levels screen layout */
