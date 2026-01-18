@@ -214,6 +214,40 @@ class Renderer {
     }
 
     /**
+     * Draw player explosion fragments with rotation.
+     * @param {PlayerExplosion} explosion - Explosion instance with fragment data
+     */
+    drawPlayerExplosion(explosion) {
+        const ctx = this.ctx
+        const fragments = explosion.getFragments()
+        const size = explosion.fragmentSize
+
+        for (const fragment of fragments) {
+            const pos = this.toScreen(fragment.x, fragment.y)
+
+            ctx.save()
+            ctx.translate(pos.x, pos.y)
+            ctx.rotate(fragment.rotation)
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.player
+            ctx.shadowBlur = 12
+            this.drawRhombus(0, 0, size + 2, this.colors.playerGlow)
+            ctx.restore()
+
+            // Main fragment rhombus
+            ctx.save()
+            ctx.shadowColor = this.colors.player
+            ctx.shadowBlur = 8
+            this.drawRhombus(0, 0, size, this.colors.player)
+            ctx.restore()
+
+            ctx.restore()
+        }
+    }
+
+    /**
      * Draw enemy bullets with wake effects, threat rings, and glows.
      * @param {EnemyBullet[]} enemies - Array of bullet instances
      */

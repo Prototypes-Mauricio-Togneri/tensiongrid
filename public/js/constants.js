@@ -131,8 +131,12 @@ const Constants = {
 
         // Player settings
         player: {
-            size: 12,  // Player rhombus size in pixels
-            speed: 200 // Movement speed in pixels/second
+            size: 12,                  // Player rhombus size in pixels
+            speed: 200,                // Movement speed in pixels/second
+            explosionFragments: 7,       // Number of explosion fragments
+            explosionFragmentSize: 5,    // Size of each fragment rhombus in pixels
+            explosionSpeed: 60,          // Fragment outward speed in pixels/second
+            explosionRotationSpeed: 8    // Fragment rotation speed in radians/second
         },
 
         // Enemy settings

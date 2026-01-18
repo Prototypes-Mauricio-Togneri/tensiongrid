@@ -46,7 +46,8 @@ Cyberpunk/neon aesthetic with these design elements:
 **Constants** (`js/constants.js`) - Immutable game constants:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
-- `player`: size (12px), speed (200px/s)
+- `player`: size (12px), speed (200px/s), explosion fragments (7), explosion fragment size (5px), explosion speed (60px/s), explosion rotation speed (8 rad/s)
+- `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (12px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
@@ -83,6 +84,13 @@ Cyberpunk/neon aesthetic with these design elements:
 - Grid-snapped target-based movement
 - Wake effect - gradient trail during movement
 - `moveTo(row, col, teleport)` - Movement with optional teleport
+
+**PlayerExplosion** (`js/player_explosion.js`) - Death effect:
+- Visual effect for player death, fragments fly outward and rotate from center
+- 7 small rhombus fragments with evenly distributed directions
+- Each fragment rotates on its own center as it flies
+- `update(delta)` - Move fragments outward and update rotation
+- `getFragments()` - Returns fragment data {x, y, rotation} for rendering
 
 **EnemyBullet** (`js/enemy_bullet.js`) - Threat entity:
 - Linear movement along grid lines
@@ -181,7 +189,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Creates AudioManager and passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Score accumulation (1 point/second)
-- Collision → reset flow (infinite lives)
+- Death pause: 1000ms freeze with explosion effect before reset
+- Collision → death pause → reset flow (infinite lives)
 - Camera follows player each frame (instant jump on teleport)
 - Responsive canvas with window resize handling
 

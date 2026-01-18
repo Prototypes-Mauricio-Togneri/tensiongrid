@@ -37,8 +37,9 @@ class Game {
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
-        // During death pause, only count down timer then reset
+        // During death pause, update explosion and count down timer
         if (this.dead) {
+            this.explosion.update(delta)
             this.deathTimer -= delta
             if (this.deathTimer <= 0) {
                 this.reset()
@@ -102,6 +103,7 @@ class Game {
             this.ui.shake()
             this.dead = true
             this.deathTimer = Constants.game.physics.deathPauseMs
+            this.explosion = new PlayerExplosion(this.player.x, this.player.y)
         }
     }
 
@@ -146,7 +148,13 @@ class Game {
         this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
-        this.renderer.drawPlayer(this.player)
+
+        // Draw explosion instead of player during death pause
+        if (this.dead) {
+            this.renderer.drawPlayerExplosion(this.explosion)
+        } else {
+            this.renderer.drawPlayer(this.player)
+        }
     }
 
     /**
@@ -155,6 +163,7 @@ class Game {
     reset() {
         this.dead = false
         this.deathTimer = 0
+        this.explosion = null
         this.player.reset()
         this.enemyManager.clear()
         this.camera.follow(this.player.x, this.player.y)
