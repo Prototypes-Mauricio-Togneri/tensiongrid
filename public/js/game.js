@@ -37,6 +37,15 @@ class Game {
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
+        // During death pause, only count down timer then reset
+        if (this.dead) {
+            this.deathTimer -= delta
+            if (this.deathTimer <= 0) {
+                this.reset()
+            }
+            return
+        }
+
         this.processInput()
         this.player.update(delta)
         this.enemyManager.update(delta, this.player.row, this.player.col)
@@ -87,11 +96,12 @@ class Game {
             this.audioManager.playSound(Constants.audio.keys.mineAlarm)
         }
 
-        // Reset on collision
+        // Start death pause on collision
         if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
             this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
             this.ui.shake()
-            this.reset()
+            this.dead = true
+            this.deathTimer = Constants.game.physics.deathPauseMs
         }
     }
 
@@ -143,6 +153,8 @@ class Game {
      * Reset player position and clear enemies.
      */
     reset() {
+        this.dead = false
+        this.deathTimer = 0
         this.player.reset()
         this.enemyManager.clear()
         this.camera.follow(this.player.x, this.player.y)

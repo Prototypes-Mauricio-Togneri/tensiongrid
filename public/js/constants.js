@@ -170,7 +170,8 @@ const Constants = {
         // Physics settings
         physics: {
             maxDeltaTime: 100,       // Max delta cap to prevent tunneling (ms)
-            collisionThreshold: 0.7  // Collision distance multiplier
+            collisionThreshold: 0.7, // Collision distance multiplier
+            deathPauseMs: 1000       // Pause duration after player death before reset (ms)
         },
 
         // Color palette (hex with optional alpha)
