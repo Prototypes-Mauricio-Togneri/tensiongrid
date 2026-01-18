@@ -46,7 +46,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **Constants** (`js/constants.js`) - Immutable game constants:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
-- `player`: size (12px), speed (200px/s), explosion fragments (7), explosion fragment size (5px), explosion speed (60px/s), explosion rotation speed (8 rad/s)
+- `player`: size (12px), speed (200px/s), explosion fragments (7), explosion fragment size (5px), explosion speed (50px/s), explosion rotation speed (8 rad/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (12px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `colors`: all game element colors with glow variants
