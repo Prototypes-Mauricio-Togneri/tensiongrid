@@ -8,10 +8,18 @@
     "startY": 3
   },
   "powerUps": [
-    { "x": 5, "y": 5, "type": "fast" }
+    {
+      "x": 5,
+      "y": 5,
+      "type": "fast"
+    }
   ],
   "powerDown": [
-    { "x": 1, "y": 1, "type": "slow" }
+    {
+      "x": 1,
+      "y": 1,
+      "type": "slow"
+    }
   ],
   "enemies": {
     "enemy_follower": [
