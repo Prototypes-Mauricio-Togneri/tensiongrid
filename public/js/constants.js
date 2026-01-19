@@ -262,7 +262,7 @@ const Constants = {
             pauseMenu: 'pauseMenu',
             explosionPlayer: 'explosionPlayer',
             powerUp: 'powerUp',
-            powerDown: 'powerDown'
+            powerExpired: 'powerExpired'
         },
         sounds: {
             shooterTurn: 'audio/sound/shooter_turn.wav',        // Turret rotation sound effect
@@ -276,7 +276,7 @@ const Constants = {
             pauseMenu: 'audio/sound/pause_menu.wav',            // Pause menu open sound effect
             explosionPlayer: 'audio/sound/explosion_player.wav', // Player death sound effect
             powerUp: 'audio/sound/power_up.wav',               // Power-up collection sound effect
-            powerDown: 'audio/sound/power_down.wav'            // Power-up expiration sound effect
+            powerExpired: 'audio/sound/power_expired.wav'      // Power-up expiration sound effect
         },
         music: {
             menu: {

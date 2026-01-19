@@ -48,7 +48,10 @@ class Game {
         }
 
         this.processInput()
-        this.player.update(delta)
+        const boostExpired = this.player.update(delta)
+        if (boostExpired) {
+            this.audioManager.playSound(Constants.audio.keys.powerExpired)
+        }
         this.enemyManager.update(delta, this.player.row, this.player.col)
 
         // Camera follows player position
