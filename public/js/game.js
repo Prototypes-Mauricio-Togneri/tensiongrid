@@ -196,7 +196,7 @@ class Game {
         this.player.reset()
         this.enemyManager.clear()
         this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups
-        this.initPowerDowns(this.levelData.powerDown) // Respawn power-downs
+        this.initPowerDowns(this.levelData.powerDowns) // Respawn power-downs
         this.camera.follow(this.player.x, this.player.y)
         this.ui.score = 0
         this.scoreTimer = 0
@@ -240,7 +240,7 @@ class Game {
         this.powerUps = []           // Active power-ups
         this.powerDowns = []         // Active power-downs
         this.initPowerUps(levelData.powerUps)
-        this.initPowerDowns(levelData.powerDown)
+        this.initPowerDowns(levelData.powerDowns)
     }
 
     /**
