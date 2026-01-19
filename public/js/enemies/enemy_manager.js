@@ -34,8 +34,8 @@ class EnemyManager {
      * Tracks delay completion and elapsed time for spawn intervals.
      */
     initInstanceStates() {
-        if (!this.config.enemy_bullet) return
-        this.instanceStates = this.config.enemy_bullet.map(() => ({
+        if (!this.config.enemyBullet) return
+        this.instanceStates = this.config.enemyBullet.map(() => ({
             delayElapsed: false, // Whether initial delay has passed
             timer: 0             // Time elapsed since last spawn/start
         }))
@@ -45,8 +45,8 @@ class EnemyManager {
      * Create laser instances from level configuration.
      */
     initLasers() {
-        if (!this.config.enemy_laser) return
-        this.lasers = this.config.enemy_laser.map(
+        if (!this.config.enemyLaser) return
+        this.lasers = this.config.enemyLaser.map(
             laserConfig => new EnemyLaser(this.grid, laserConfig)
         )
     }
@@ -57,8 +57,8 @@ class EnemyManager {
      */
     initTraps() {
         this.traps = []
-        if (!this.config.enemy_trap) return
-        this.traps = this.config.enemy_trap.map(
+        if (!this.config.enemyTrap) return
+        this.traps = this.config.enemyTrap.map(
             trapConfig => new EnemyTrap(trapConfig, this.grid)
         )
     }
@@ -69,8 +69,8 @@ class EnemyManager {
      */
     initMines() {
         this.mines = []
-        if (!this.config.enemy_mine) return
-        this.mines = this.config.enemy_mine.map(
+        if (!this.config.enemyMine) return
+        this.mines = this.config.enemyMine.map(
             mineConfig => new EnemyMine(mineConfig, this.grid)
         )
     }
@@ -79,8 +79,8 @@ class EnemyManager {
      * Create shooter instances from level configuration.
      */
     initShooters() {
-        if (!this.config.enemy_shooter) return
-        this.shooters = this.config.enemy_shooter.map(
+        if (!this.config.enemyShooter) return
+        this.shooters = this.config.enemyShooter.map(
             shooterConfig => new EnemyShooter(shooterConfig, this.grid)
         )
     }
@@ -89,8 +89,8 @@ class EnemyManager {
      * Create patrol instances from level configuration.
      */
     initPatrols() {
-        if (!this.config.enemy_patrol) return
-        this.patrols = this.config.enemy_patrol.map(
+        if (!this.config.enemyPatrol) return
+        this.patrols = this.config.enemyPatrol.map(
             patrolConfig => new EnemyPatrol(patrolConfig, this.grid)
         )
     }
@@ -99,8 +99,8 @@ class EnemyManager {
      * Create follower instances from level configuration.
      */
     initFollowers() {
-        if (!this.config.enemy_follower) return
-        this.followers = this.config.enemy_follower.map(
+        if (!this.config.enemyFollower) return
+        this.followers = this.config.enemyFollower.map(
             followerConfig => new EnemyFollower(followerConfig, this.grid)
         )
     }
@@ -167,8 +167,8 @@ class EnemyManager {
         }
 
         // Handle bullet spawning for each configured spawner
-        if (!this.config.enemy_bullet) return
-        this.config.enemy_bullet.forEach((instanceConfig, index) => {
+        if (!this.config.enemyBullet) return
+        this.config.enemyBullet.forEach((instanceConfig, index) => {
             const state = this.instanceStates[index]
             if (!state) return
 

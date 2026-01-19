@@ -22,14 +22,14 @@
     }
   ],
   "enemies": {
-    "enemy_follower": [
+    "enemyFollower": [
       {
         "startX": 0,
         "startY": 0,
         "speed": 80
       }
     ],
-    "enemy_patrol": [
+    "enemyPatrol": [
       {
         "speed": 200,
         "path": [
