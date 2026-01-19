@@ -152,4 +152,26 @@ class CollisionSystem {
         }
         return null
     }
+
+    /**
+     * Check if player collides with any uncollected power-down using circle-to-circle detection.
+     * @param {Player} player - Player instance
+     * @param {PowerDown[]} powerDowns - Array of power-downs
+     * @returns {PowerDown|null} The collected power-down, or null if none
+     */
+    checkPlayerPowerDownCollision(player, powerDowns) {
+        const playerPos = player.getPosition()
+
+        for (const powerDown of powerDowns) {
+            if (powerDown.isCollected()) continue
+
+            const collisionDist = (player.size + powerDown.size) * this.threshold
+            const powerDownPos = powerDown.getPosition()
+
+            if (Vector2.distance(playerPos, powerDownPos) < collisionDist) {
+                return powerDown
+            }
+        }
+        return null
+    }
 }

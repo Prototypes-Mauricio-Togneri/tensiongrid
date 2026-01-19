@@ -877,7 +877,7 @@ class Renderer {
     }
 
     /**
-     * Draw power-ups with pulsing circle and type-specific icon.
+     * Draw power-ups with pulsing circle and lightning bolt icon.
      * @param {PowerUp[]} powerUps - Array of power-up instances
      * @param {number} time - Current animation timestamp for pulse calculation
      */
@@ -893,13 +893,12 @@ class Renderer {
 
             const pos = this.toScreen(powerUp.x, powerUp.y)
             const size = powerUp.size * pulseIntensity
-            const colors = this.getPowerUpColors(powerUp.type)
 
             // Outer glow
             ctx.save()
-            ctx.shadowColor = colors.fill
+            ctx.shadowColor = this.colors.powerUpFast
             ctx.shadowBlur = 20 * pulseIntensity
-            ctx.fillStyle = colors.glow
+            ctx.fillStyle = this.colors.powerUpFastGlow
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 4, 0, Math.PI * 2)
             ctx.fill()
@@ -907,20 +906,59 @@ class Renderer {
 
             // Main circle
             ctx.save()
-            ctx.shadowColor = colors.fill
+            ctx.shadowColor = this.colors.powerUpFast
             ctx.shadowBlur = 10 * pulseIntensity
-            ctx.fillStyle = colors.fill
+            ctx.fillStyle = this.colors.powerUpFast
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
             ctx.fill()
             ctx.restore()
 
-            // Draw type-specific icon
-            if (powerUp.type === 'slow') {
-                this.drawTurtleIcon(pos.x, pos.y, size * 0.65, colors.icon)
-            } else {
-                this.drawLightningBolt(pos.x, pos.y, size * 0.65, colors.icon)
-            }
+            // Draw lightning bolt icon
+            this.drawLightningBolt(pos.x, pos.y, size * 0.65, this.colors.powerUpFastIcon)
+        }
+    }
+
+    /**
+     * Draw power-downs with pulsing circle and turtle icon.
+     * @param {PowerDown[]} powerDowns - Array of power-down instances
+     * @param {number} time - Current animation timestamp for pulse calculation
+     */
+    drawPowerDowns(powerDowns, time) {
+        const ctx = this.ctx
+
+        // Calculate pulse intensity based on time (sine wave oscillation)
+        const pulseSpeed = 0.005
+        const pulseIntensity = 0.85 + 0.15 * Math.sin(time * pulseSpeed)
+
+        for (const powerDown of powerDowns) {
+            if (powerDown.isCollected()) continue
+
+            const pos = this.toScreen(powerDown.x, powerDown.y)
+            const size = powerDown.size * pulseIntensity
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.powerDownSlow
+            ctx.shadowBlur = 20 * pulseIntensity
+            ctx.fillStyle = this.colors.powerDownSlowGlow
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, size + 4, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+
+            // Main circle
+            ctx.save()
+            ctx.shadowColor = this.colors.powerDownSlow
+            ctx.shadowBlur = 10 * pulseIntensity
+            ctx.fillStyle = this.colors.powerDownSlow
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+
+            // Draw turtle icon
+            this.drawTurtleIcon(pos.x, pos.y, size * 0.65, this.colors.powerDownSlowIcon)
         }
     }
 
@@ -948,27 +986,6 @@ class Renderer {
         ctx.fill()
 
         ctx.restore()
-    }
-
-    /**
-     * Get color palette for a power-up type.
-     * @param {string} type - Power-up type ('fast' or 'slow')
-     * @returns {Object} Colors {fill, glow, icon}
-     */
-    getPowerUpColors(type) {
-        if (type === 'slow') {
-            return {
-                fill: this.colors.powerDownSlow,
-                glow: this.colors.powerDownSlowGlow,
-                icon: this.colors.powerDownSlowIcon
-            }
-        }
-        // Default to fast power-up colors
-        return {
-            fill: this.colors.powerUpFast,
-            glow: this.colors.powerUpFastGlow,
-            icon: this.colors.powerUpFastIcon
-        }
     }
 
     /**

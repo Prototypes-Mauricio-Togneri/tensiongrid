@@ -50,7 +50,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `powerUp.fast`: size (14px), speed multiplier (1.5x), duration (5000ms)
-- `powerUp.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
+- `powerDown.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -162,14 +162,23 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **PowerUp** (`js/power_up.js`) - Collectible bonus item:
 - Fixed position on a single grid node
+- Light blue circle (#00ccff) with white lightning bolt icon
 - Pulsing glow animation for visibility
 - Collected on player contact (circle-based collision)
-- Types:
-  - `fast`: Light blue circle (#00ccff) with white lightning bolt icon. Grants 1.5x speed for 5 seconds. Player shows cyan glow.
-  - `slow`: Red circle (#ff4444) with white turtle icon. Reduces to 0.5x speed for 5 seconds. Player shows red glow.
-- New effect replaces current (collecting slow while boosted makes player slow, and vice versa)
+- Grants 1.5x speed for 5 seconds. Player shows cyan glow.
+- New effect replaces current (collecting power-down while boosted makes player slow, and vice versa)
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast' or 'slow')
+- Config: `x`, `y` (node position), `type` ('fast')
+
+**PowerDown** (`js/power_down.js`) - Collectible debuff item:
+- Fixed position on a single grid node
+- Red circle (#ff4444) with white turtle icon
+- Pulsing glow animation for visibility
+- Collected on player contact (circle-based collision)
+- Reduces to 0.5x speed for 5 seconds. Player shows red glow.
+- New effect replaces current (collecting power-up while slowed makes player fast, and vice versa)
+- Respawns on player death (level reset)
+- Config: `x`, `y` (node position), `type` ('slow')
 
 **AudioManager** (`js/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds
@@ -187,32 +196,35 @@ Cyberpunk/neon aesthetic with these design elements:
 - Triggers sound effects via AudioManager (turret rotation)
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
-- Circle collision for bullets, patrols, followers, and power-ups with threshold multiplier (0.7)
+- Circle collision for bullets, patrols, followers, power-ups, and power-downs with threshold multiplier (0.7)
 - Grid-based collision for lasers, traps, and shooters (exact node match)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
 - Power-up collection detection: returns collected power-up for effect application
+- Power-down collection detection: returns collected power-down for effect application
 
 **Renderer** (`js/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
-- Power-up rendering with pulsing circle and lightning bolt icon
-- Player boost indicator: cyan glow when speed boost is active
+- Power-up rendering with pulsing blue circle and lightning bolt icon
+- Power-down rendering with pulsing red circle and turtle icon
+- Player boost indicator: cyan glow when speed boost is active, red glow when slowed
 
 **UIManager** (`js/ui_manager.js`) - DOM-based HUD:
 - Score display with zero-padding
 - Screen shake trigger on collision
 
 **Game** (`js/game.js`) - Main orchestrator:
-- `start(levelData)` - Initializes game with level configuration (grid, player, enemies, power-ups)
+- `start(levelData)` - Initializes game with level configuration (grid, player, enemies, power-ups, power-downs)
 - Creates AudioManager and passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Score accumulation (1 point/second)
 - Death pause: 1000ms freeze with explosion effect before reset
 - Collision → death pause → reset flow (infinite lives)
 - Camera follows player each frame (instant jump on teleport)
-- Power-up collection and effect application (speed boost)
-- Power-ups respawn on player death
+- Separate arrays for power-ups and power-downs with independent collision checks
+- Power-up/power-down collection and effect application (speed boost/slow)
+- Power-ups and power-downs respawn on player death
 - Responsive canvas with window resize handling
 
 ## Game Mechanics

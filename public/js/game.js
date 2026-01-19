@@ -109,8 +109,19 @@ class Game {
             collectedPowerUp.collect()
             const effect = collectedPowerUp.getEffect()
             this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
-            const soundKey = effect.type === 'slow' ? Constants.audio.keys.powerDown : Constants.audio.keys.powerUp
-            this.audioManager.playSound(soundKey)
+            this.audioManager.playSound(Constants.audio.keys.powerUp)
+        }
+
+        // Check for power-down collection
+        const collectedPowerDown = this.collisionSystem.checkPlayerPowerDownCollision(
+            this.player,
+            this.powerDowns
+        )
+        if (collectedPowerDown) {
+            collectedPowerDown.collect()
+            const effect = collectedPowerDown.getEffect()
+            this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
+            this.audioManager.playSound(Constants.audio.keys.powerDown)
         }
 
         // Start death pause on collision
@@ -165,6 +176,7 @@ class Game {
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
         this.renderer.drawPowerUps(this.powerUps, time)
+        this.renderer.drawPowerDowns(this.powerDowns, time)
 
         // Draw explosion instead of player during death pause
         if (this.dead) {
@@ -183,7 +195,8 @@ class Game {
         this.explosion = null
         this.player.reset()
         this.enemyManager.clear()
-        this.initPowerUps(this.levelData.powerUps, this.levelData.powerDown) // Respawn power-ups
+        this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups
+        this.initPowerDowns(this.levelData.powerDown) // Respawn power-downs
         this.camera.follow(this.player.x, this.player.y)
         this.ui.score = 0
         this.scoreTimer = 0
@@ -224,25 +237,34 @@ class Game {
         this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collisionSystem = new CollisionSystem(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
-        this.powerUps = []           // Active power-ups and power-downs
-        this.initPowerUps(levelData.powerUps, levelData.powerDown)
+        this.powerUps = []           // Active power-ups
+        this.powerDowns = []         // Active power-downs
+        this.initPowerUps(levelData.powerUps)
+        this.initPowerDowns(levelData.powerDown)
     }
 
     /**
-     * Initialize power-ups and power-downs from level data.
+     * Initialize power-ups from level data.
      * @param {Object[]} powerUpData - Array of power-up configurations
-     * @param {Object[]} powerDownData - Array of power-down configurations
      */
-    initPowerUps(powerUpData, powerDownData) {
+    initPowerUps(powerUpData) {
         this.powerUps = []
         if (powerUpData) {
             for (const config of powerUpData) {
                 this.powerUps.push(new PowerUp(config, this.grid))
             }
         }
+    }
+
+    /**
+     * Initialize power-downs from level data.
+     * @param {Object[]} powerDownData - Array of power-down configurations
+     */
+    initPowerDowns(powerDownData) {
+        this.powerDowns = []
         if (powerDownData) {
             for (const config of powerDownData) {
-                this.powerUps.push(new PowerUp(config, this.grid))
+                this.powerDowns.push(new PowerDown(config, this.grid))
             }
         }
     }
