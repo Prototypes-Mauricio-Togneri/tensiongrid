@@ -171,17 +171,7 @@ const Constants = {
                 rotationSpeed: 3  // Rotation speed in radians/second
             }
         },
-
-        // Power ups
-        powerUps: {
-          fast: 'fast',
-        },
-
-        // Power downs
-        powerDowns: {
-          slow: 'slow'
-        },
-
+        
         // Power-up settings
         powerUp: {
             fast: {
