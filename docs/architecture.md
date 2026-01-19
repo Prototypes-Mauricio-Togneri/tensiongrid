@@ -97,18 +97,18 @@ Cyberpunk/neon aesthetic with these design elements:
 - `update(delta)` - Move fragments outward and update rotation
 - `getFragments()` - Returns fragment data {x, y, rotation} for rendering
 
-**EnemyBullet** (`js/enemy_bullet.js`) - Threat entity:
+**EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
 - Linear movement along grid lines
 - Wake effect - gradient trail during movement
 - Removed when exiting bounds
 
-**EnemyLaser** (`js/enemy_laser.js`) - Static threat entity:
+**EnemyLaser** (`js/enemies/enemy_laser.js`) - Static threat entity:
 - Axis-aligned line segment between two grid nodes
 - Pink/magenta glow that transitions with state (ramps up when activating, ramps down when deactivating, holds steady while on/off)
 - Kills player on contact with any node along the laser
 - Optional intermittent mode: `timeOn`/`timeOff` (ms) to blink on/off (starts on)
 
-**EnemyTrap** (`js/enemy_trap.js`) - Static point hazard:
+**EnemyTrap** (`js/enemies/enemy_trap.js`) - Static point hazard:
 - Fixed position on a single grid node
 - Pulsing 4-pointed spike/star visual effect
 - Kills player on contact (grid-based collision)
@@ -117,7 +117,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Optional intermittent mode: `timeOn`/`timeOff` (ms) to blink on/off (starts on, dimmed when inactive)
 - Optional `ttl` (ms): time to live, trap is removed when TTL reaches zero
 
-**EnemyMine** (`js/enemy_mine.js`) - Triggered explosive hazard:
+**EnemyMine** (`js/enemies/enemy_mine.js`) - Triggered explosive hazard:
 - Fixed position on a single grid node
 - Hexagonal visual shape (distinguishes from trap spike)
 - Yellow/orange color (#ffaa00)
@@ -128,7 +128,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - One-time use: disappears after explosion (resets with level reset)
 - Config: `x`, `y`, `delay` (ms, mandatory), optional `ttl` (ms, time to live)
 
-**EnemyShooter** (`js/enemy_shooter.js`) - Static turret hazard:
+**EnemyShooter** (`js/enemies/enemy_shooter.js`) - Static turret hazard:
 - Fixed position on a single grid node
 - Green cross/plus visual shape (#44ff88)
 - Fires EnemyBullet instances in configured directions
@@ -138,7 +138,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact (grid-based collision)
 - Config: `x`, `y`, plus optional `leftDelay`, `rightDelay`, `upDelay`, `downDelay` (ms between shots), `rotationDelay` (ms per 90-degree rotation)
 
-**EnemyPatrol** (`js/enemy_patrol.js`) - Moving path-based hazard:
+**EnemyPatrol** (`js/enemies/enemy_patrol.js`) - Moving path-based hazard:
 - Moves along a predefined cyclical path of grid nodes
 - Purple flat-top hexagon visual shape (#aa44ff)
 - Smooth interpolation between nodes (like EnemyBullet)
@@ -149,7 +149,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Skips spawning if a fixed enemy (trap, mine, shooter) already exists at target node
 - Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates), optional `trapFrequency`/`trapTtl` (ms), optional `mineFrequency`/`mineTtl` (ms)
 
-**EnemyFollower** (`js/enemy_follower.js`) - Player-tracking hazard:
+**EnemyFollower** (`js/enemies/enemy_follower.js`) - Player-tracking hazard:
 - Actively pursues player by moving toward the best adjacent node
 - Orange square visual shape (#ff8800) that continuously rotates on its center
 - Smooth interpolation between nodes (like EnemyPatrol)
@@ -181,7 +181,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `playMusic(musicKey)` - Play looping background music (skips if same track already playing)
 - `stopMusic()` - Stop and reset current background music
 
-**EnemyManager** (`js/enemy_manager.js`) - Spawning and lifecycle:
+**EnemyManager** (`js/enemies/enemy_manager.js`) - Spawning and lifecycle:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 - Triggers sound effects via AudioManager (turret rotation)
