@@ -18,9 +18,9 @@ class PowerUp {
         this.y = pos.y   // World Y coordinate
 
         const powerUpConfig = Constants.game.powerUp[this.type]
-        this.size = powerUpConfig.size                   // Size in pixels
+        this.size = powerUpConfig.size                       // Size in pixels
         this.speedMultiplier = powerUpConfig.speedMultiplier // Speed multiplier for fast type
-        this.duration = powerUpConfig.duration           // Effect duration in ms
+        this.duration = powerUpConfig.duration               // Effect duration in ms
 
         this.collected = false   // Whether power-up has been collected
     }

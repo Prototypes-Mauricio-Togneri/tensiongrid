@@ -183,7 +183,7 @@ class Game {
         this.explosion = null
         this.player.reset()
         this.enemyManager.clear()
-        this.initPowerUps(this.levelData.powerUps) // Respawn power-ups
+        this.initPowerUps(this.levelData.powerUps, this.levelData.powerDown) // Respawn power-ups
         this.camera.follow(this.player.x, this.player.y)
         this.ui.score = 0
         this.scoreTimer = 0
@@ -224,19 +224,26 @@ class Game {
         this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collisionSystem = new CollisionSystem(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
-        this.powerUps = []           // Active power-ups
-        this.initPowerUps(levelData.powerUps)
+        this.powerUps = []           // Active power-ups and power-downs
+        this.initPowerUps(levelData.powerUps, levelData.powerDown)
     }
 
     /**
-     * Initialize power-ups from level data.
+     * Initialize power-ups and power-downs from level data.
      * @param {Object[]} powerUpData - Array of power-up configurations
+     * @param {Object[]} powerDownData - Array of power-down configurations
      */
-    initPowerUps(powerUpData) {
+    initPowerUps(powerUpData, powerDownData) {
         this.powerUps = []
-        if (!powerUpData) return
-        for (const config of powerUpData) {
-            this.powerUps.push(new PowerUp(config, this.grid))
+        if (powerUpData) {
+            for (const config of powerUpData) {
+                this.powerUps.push(new PowerUp(config, this.grid))
+            }
+        }
+        if (powerDownData) {
+            for (const config of powerDownData) {
+                this.powerUps.push(new PowerUp(config, this.grid))
+            }
         }
     }
 
