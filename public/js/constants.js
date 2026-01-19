@@ -173,7 +173,7 @@ const Constants = {
         },
         
         // Power-up settings
-        powerUp: {
+        powerUps: {
             fast: {
                 size: 14,             // Power-up size in pixels
                 speedMultiplier: 1.5, // Player speed multiplier when active
@@ -182,7 +182,7 @@ const Constants = {
         },
 
         // Power-down settings
-        powerDown: {
+        powerDowns: {
             slow: {
                 size: 14,             // Power-down size in pixels
                 speedMultiplier: 0.5, // Player speed multiplier when active (50% speed)

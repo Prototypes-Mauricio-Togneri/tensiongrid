@@ -17,7 +17,7 @@ class PowerDown {
         this.x = pos.x   // World X coordinate
         this.y = pos.y   // World Y coordinate
 
-        const powerDownConfig = Constants.game.powerDown[this.type]
+        const powerDownConfig = Constants.game.powerDowns[this.type]
         this.size = powerDownConfig.size                       // Size in pixels
         this.speedMultiplier = powerDownConfig.speedMultiplier // Speed multiplier for slow type
         this.duration = powerDownConfig.duration               // Effect duration in ms
