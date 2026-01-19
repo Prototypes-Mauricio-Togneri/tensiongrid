@@ -197,6 +197,14 @@ const Constants = {
             deathPauseMs: 1000       // Pause duration after player death before reset (ms)
         },
 
+        // Pixel scatter effect settings (wrap teleport)
+        pixelScatter: {
+            particleCount: 16,  // Number of particles
+            particleSize: 3,    // Size of each square particle in pixels
+            spawnRadius: 45,    // Initial scatter radius in pixels
+            duration: 250       // Time for particles to converge in ms
+        },
+
         // Color palette (hex with optional alpha)
         colors: {
             // Player colors

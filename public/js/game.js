@@ -58,6 +58,14 @@ class Game {
         this.camera.follow(this.player.x, this.player.y)
         this.player.teleported = false
 
+        // Update pixel scatter effect
+        if (this.pixelScatter) {
+            this.pixelScatter.update(delta)
+            if (this.pixelScatter.isComplete()) {
+                this.pixelScatter = null
+            }
+        }
+
         // Award 1 point per second survived
         this.scoreTimer += delta
         if (this.scoreTimer >= 1000) {
@@ -158,6 +166,9 @@ class Game {
         // Disable input briefly after wrapping to prevent rapid teleporting
         if (wrapped.wrapped) {
             this.inputManager.disable()
+            // Spawn pixel scatter effect at arrival position
+            const newPos = this.grid.getNodePosition(wrapped.row, wrapped.col)
+            this.pixelScatter = new PixelScatter(newPos.x, newPos.y)
         }
     }
 
@@ -178,6 +189,11 @@ class Game {
         this.renderer.drawPowerUps(this.powerUps, time)
         this.renderer.drawPowerDowns(this.powerDowns, time)
 
+        // Draw pixel scatter effect behind player
+        if (this.pixelScatter) {
+            this.renderer.drawPixelScatter(this.pixelScatter)
+        }
+
         // Draw explosion instead of player during death pause
         if (this.dead) {
             this.renderer.drawPlayerExplosion(this.explosion)
@@ -193,6 +209,7 @@ class Game {
         this.dead = false
         this.deathTimer = 0
         this.explosion = null
+        this.pixelScatter = null
         this.player.reset()
         this.enemyManager.clear()
         this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups
@@ -239,6 +256,7 @@ class Game {
         this.renderer = new Renderer(this.canvas, this.camera)
         this.powerUps = []           // Active power-ups
         this.powerDowns = []         // Active power-downs
+        this.pixelScatter = null     // Wrap pixel scatter effect
         this.initPowerUps(levelData.powerUps)
         this.initPowerDowns(levelData.powerDowns)
     }
