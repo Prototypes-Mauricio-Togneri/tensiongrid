@@ -206,7 +206,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 ### JavaScript Conventions
 
-- No semicolons
+- Do not use semicolons in Javascript code
 - One class per file
 - Naming
   - Files: `snake_case`
