@@ -155,4 +155,12 @@ class Player {
     hasSpeedBoost() {
         return this.speedBoostTimer > 0
     }
+
+    /**
+     * Check if player currently has a speed slow effect active.
+     * @returns {boolean} True if speed multiplier is less than 1
+     */
+    isSlowed() {
+        return this.speedBoostTimer > 0 && this.speedMultiplier < 1
+    }
 }

@@ -49,7 +49,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `player`: size (12px), speed (200px/s), explosion fragments (7), explosion fragment size (5px), explosion speed (30-50px/s random), explosion rotation speed (3 rad/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
-- `powerUp.fast`: size (14px), speed multiplier (2x), duration (5000ms)
+- `powerUp.fast`: size (14px), speed multiplier (1.5x), duration (5000ms)
+- `powerUp.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -85,8 +86,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - Grid-snapped target-based movement
 - Wake effect - gradient trail during movement
 - `moveTo(row, col, teleport)` - Movement with optional teleport
-- `applySpeedBoost(multiplier, duration)` - Apply temporary speed boost
-- `hasSpeedBoost()` - Check if speed boost is active
+- `applySpeedBoost(multiplier, duration)` - Apply temporary speed effect (boost or slow)
+- `hasSpeedBoost()` - Check if any speed effect is active
+- `isSlowed()` - Check if speed slow effect is active (multiplier < 1)
 
 **PlayerExplosion** (`js/player_explosion.js`) - Death effect:
 - Visual effect for player death, fragments fly outward and rotate from center
@@ -160,13 +162,14 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **PowerUp** (`js/power_up.js`) - Collectible bonus item:
 - Fixed position on a single grid node
-- Light blue circle visual shape (#00ccff) with white lightning bolt icon
 - Pulsing glow animation for visibility
 - Collected on player contact (circle-based collision)
-- Grants temporary speed boost (2x speed for 5 seconds)
-- Player shows cyan glow while boost is active
+- Types:
+  - `fast`: Light blue circle (#00ccff) with white lightning bolt icon. Grants 1.5x speed for 5 seconds. Player shows cyan glow.
+  - `slow`: Red circle (#ff4444) with white turtle icon. Reduces to 0.5x speed for 5 seconds. Player shows red glow.
+- New effect replaces current (collecting slow while boosted makes player slow, and vice versa)
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast')
+- Config: `x`, `y` (node position), `type` ('fast' or 'slow')
 
 **AudioManager** (`js/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds

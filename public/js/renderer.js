@@ -877,7 +877,7 @@ class Renderer {
     }
 
     /**
-     * Draw power-ups with pulsing circle and lightning bolt icon.
+     * Draw power-ups with pulsing circle and type-specific icon.
      * @param {PowerUp[]} powerUps - Array of power-up instances
      * @param {number} time - Current animation timestamp for pulse calculation
      */
@@ -893,12 +893,13 @@ class Renderer {
 
             const pos = this.toScreen(powerUp.x, powerUp.y)
             const size = powerUp.size * pulseIntensity
+            const colors = this.getPowerUpColors(powerUp.type)
 
             // Outer glow
             ctx.save()
-            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowColor = colors.fill
             ctx.shadowBlur = 20 * pulseIntensity
-            ctx.fillStyle = this.colors.powerUpFastGlow
+            ctx.fillStyle = colors.glow
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 4, 0, Math.PI * 2)
             ctx.fill()
@@ -906,16 +907,20 @@ class Renderer {
 
             // Main circle
             ctx.save()
-            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowColor = colors.fill
             ctx.shadowBlur = 10 * pulseIntensity
-            ctx.fillStyle = this.colors.powerUpFast
+            ctx.fillStyle = colors.fill
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
             ctx.fill()
             ctx.restore()
 
-            // Lightning bolt icon
-            this.drawLightningBolt(pos.x, pos.y, size * 0.65)
+            // Draw type-specific icon
+            if (powerUp.type === 'slow') {
+                this.drawTurtleIcon(pos.x, pos.y, size * 0.65, colors.icon)
+            } else {
+                this.drawLightningBolt(pos.x, pos.y, size * 0.65, colors.icon)
+            }
         }
     }
 
@@ -924,11 +929,12 @@ class Renderer {
      * @param {number} x - Center X position
      * @param {number} y - Center Y position
      * @param {number} size - Size of the icon
+     * @param {string} iconColor - Fill color for the icon
      */
-    drawLightningBolt(x, y, size) {
+    drawLightningBolt(x, y, size, iconColor) {
         const ctx = this.ctx
         ctx.save()
-        ctx.fillStyle = this.colors.powerUpFastIcon
+        ctx.fillStyle = iconColor || this.colors.powerUpFastIcon
 
         ctx.beginPath()
         // Lightning bolt shape (7 points)
@@ -945,13 +951,77 @@ class Renderer {
     }
 
     /**
-     * Draw the player with wake effect, glow, and optional speed boost indicator.
+     * Get color palette for a power-up type.
+     * @param {string} type - Power-up type ('fast' or 'slow')
+     * @returns {Object} Colors {fill, glow, icon}
+     */
+    getPowerUpColors(type) {
+        if (type === 'slow') {
+            return {
+                fill: this.colors.powerDownSlow,
+                glow: this.colors.powerDownSlowGlow,
+                icon: this.colors.powerDownSlowIcon
+            }
+        }
+        // Default to fast power-up colors
+        return {
+            fill: this.colors.powerUpFast,
+            glow: this.colors.powerUpFastGlow,
+            icon: this.colors.powerUpFastIcon
+        }
+    }
+
+    /**
+     * Draw a turtle icon centered at position.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Size of the icon
+     * @param {string} iconColor - Fill color for the icon
+     */
+    drawTurtleIcon(x, y, size, iconColor) {
+        const ctx = this.ctx
+        ctx.save()
+        ctx.fillStyle = iconColor
+
+        // Shell (oval dome)
+        ctx.beginPath()
+        ctx.ellipse(x, y, size * 0.7, size * 0.5, 0, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Head (small circle protruding right)
+        ctx.beginPath()
+        ctx.arc(x + size * 0.7, y, size * 0.25, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Front leg (small rectangle)
+        ctx.fillRect(x + size * 0.2, y + size * 0.3, size * 0.25, size * 0.35)
+
+        // Back leg (small rectangle)
+        ctx.fillRect(x - size * 0.45, y + size * 0.3, size * 0.25, size * 0.35)
+
+        ctx.restore()
+    }
+
+    /**
+     * Draw the player with wake effect, glow, and optional speed effect indicator.
      * @param {Player} player - Player instance to draw
      */
     drawPlayerWithBoost(player) {
         const ctx = this.ctx
         const pos = this.toScreen(player.x, player.y)
-        const hasBoost = player.hasSpeedBoost()
+        const hasBoost = player.hasSpeedBoost() && player.speedMultiplier > 1
+        const isSlowed = player.isSlowed()
+
+        // Determine effect color based on current state
+        let effectColor = this.colors.player
+        let effectGlow = this.colors.playerGlow
+        if (hasBoost) {
+            effectColor = this.colors.powerUpFast
+            effectGlow = this.colors.powerUpFastGlow
+        } else if (isSlowed) {
+            effectColor = this.colors.powerDownSlow
+            effectGlow = this.colors.powerDownSlowGlow
+        }
 
         // Draw tapered wake trail behind player
         if (player.wakeIntensity > 0.01) {
@@ -964,7 +1034,7 @@ class Renderer {
                 const dirY = dy / dist
 
                 const wakeStart = this.toScreen(player.wakeStartX, player.wakeStartY)
-                const wakeColor = hasBoost ? this.colors.powerUpFast : this.colors.player
+                const wakeColor = effectColor
 
                 // Gradient from player (bright) to wake end (transparent)
                 const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
@@ -995,25 +1065,25 @@ class Renderer {
             }
         }
 
-        // Speed boost glow (larger cyan glow behind player)
-        if (hasBoost) {
+        // Speed effect glow (larger glow behind player when boosted or slowed)
+        if (hasBoost || isSlowed) {
             ctx.save()
-            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowColor = effectColor
             ctx.shadowBlur = 30
-            this.drawRhombus(pos.x, pos.y, player.size + 8, this.colors.powerUpFastGlow)
+            this.drawRhombus(pos.x, pos.y, player.size + 8, effectGlow)
             ctx.restore()
         }
 
         // Outer glow (larger, transparent rhombus)
         ctx.save()
-        ctx.shadowColor = hasBoost ? this.colors.powerUpFast : this.colors.player
+        ctx.shadowColor = effectColor
         ctx.shadowBlur = 20
         this.drawRhombus(pos.x, pos.y, player.size + 4, this.colors.playerGlow)
         ctx.restore()
 
         // Main player rhombus
         ctx.save()
-        ctx.shadowColor = hasBoost ? this.colors.powerUpFast : this.colors.player
+        ctx.shadowColor = effectColor
         ctx.shadowBlur = 15
         this.drawRhombus(pos.x, pos.y, player.size, this.colors.player)
         ctx.restore()

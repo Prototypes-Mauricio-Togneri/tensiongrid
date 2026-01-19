@@ -178,6 +178,11 @@ const Constants = {
                 size: 14,             // Power-up size in pixels
                 speedMultiplier: 1.5, // Player speed multiplier when active
                 duration: 5000        // Effect duration in ms
+            },
+            slow: {
+                size: 14,             // Power-down size in pixels
+                speedMultiplier: 0.5, // Player speed multiplier when active (50% speed)
+                duration: 5000        // Effect duration in ms
             }
         },
 
@@ -238,7 +243,12 @@ const Constants = {
             // Power-up colors
             powerUpFast: '#00ccff',       // Fast power-up fill color (light blue)
             powerUpFastGlow: '#00ccff4d', // Fast power-up glow effect
-            powerUpFastIcon: '#ffffff'    // Fast power-up icon color (white)
+            powerUpFastIcon: '#ffffff',   // Fast power-up icon color (white)
+
+            // Power-down colors
+            powerDownSlow: '#ff4444',       // Slow power-down fill color (red)
+            powerDownSlowGlow: '#ff44444d', // Slow power-down glow effect
+            powerDownSlowIcon: '#ffffff'    // Slow power-down icon color (white)
         }
     },
 
@@ -262,21 +272,23 @@ const Constants = {
             pauseMenu: 'pauseMenu',
             explosionPlayer: 'explosionPlayer',
             powerUp: 'powerUp',
+            powerDown: 'powerDown',
             powerExpired: 'powerExpired'
         },
         sounds: {
-            shooterTurn: 'audio/sound/shooter_turn.wav',        // Turret rotation sound effect
-            shooterShot: 'audio/sound/shooter_shot.wav',        // Turret firing sound effect
-            explosionMine: 'audio/sound/explosion_mine.wav',    // Mine detonation sound effect
-            mineAlarm: 'audio/sound/mine_alarm.wav',            // Mine trigger alarm sound effect
-            menuChange: 'audio/sound/menu_change.wav',          // Menu navigation sound effect
-            menuSelect: 'audio/sound/menu_select.wav',          // Menu button selection sound effect
-            audioToggle: 'audio/sound/audio_toggle.wav',        // Audio switch toggle sound effect
-            closeScreen: 'audio/sound/close_screen.wav',        // Menu/screen close sound effect
-            pauseMenu: 'audio/sound/pause_menu.wav',            // Pause menu open sound effect
+            shooterTurn: 'audio/sound/shooter_turn.wav',         // Turret rotation sound effect
+            shooterShot: 'audio/sound/shooter_shot.wav',         // Turret firing sound effect
+            explosionMine: 'audio/sound/explosion_mine.wav',     // Mine detonation sound effect
+            mineAlarm: 'audio/sound/mine_alarm.wav',             // Mine trigger alarm sound effect
+            menuChange: 'audio/sound/menu_change.wav',           // Menu navigation sound effect
+            menuSelect: 'audio/sound/menu_select.wav',           // Menu button selection sound effect
+            audioToggle: 'audio/sound/audio_toggle.wav',         // Audio switch toggle sound effect
+            closeScreen: 'audio/sound/close_screen.wav',         // Menu/screen close sound effect
+            pauseMenu: 'audio/sound/pause_menu.wav',             // Pause menu open sound effect
             explosionPlayer: 'audio/sound/explosion_player.wav', // Player death sound effect
-            powerUp: 'audio/sound/power_up.wav',               // Power-up collection sound effect
-            powerExpired: 'audio/sound/power_expired.wav'      // Power-up expiration sound effect
+            powerUp: 'audio/sound/power_up.wav',                 // Power-up collection sound effect
+            powerDown: 'audio/sound/power_down.wav',             // Power-down collection sound effect
+            powerExpired: 'audio/sound/power_expired.wav'        // Power-up expiration sound effect
         },
         music: {
             menu: {

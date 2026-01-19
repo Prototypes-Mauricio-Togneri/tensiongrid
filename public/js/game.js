@@ -109,7 +109,8 @@ class Game {
             collectedPowerUp.collect()
             const effect = collectedPowerUp.getEffect()
             this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
-            this.audioManager.playSound(Constants.audio.keys.powerUp)
+            const soundKey = effect.type === 'slow' ? Constants.audio.keys.powerDown : Constants.audio.keys.powerUp
+            this.audioManager.playSound(soundKey)
         }
 
         // Start death pause on collision
