@@ -875,4 +875,157 @@ class Renderer {
         ctx.closePath()
         ctx.fill()
     }
+
+    /**
+     * Draw power-ups with pulsing circle and lightning bolt icon.
+     * @param {PowerUp[]} powerUps - Array of power-up instances
+     * @param {number} time - Current animation timestamp for pulse calculation
+     */
+    drawPowerUps(powerUps, time) {
+        const ctx = this.ctx
+
+        // Calculate pulse intensity based on time (sine wave oscillation)
+        const pulseSpeed = 0.005
+        const pulseIntensity = 0.85 + 0.15 * Math.sin(time * pulseSpeed)
+
+        for (const powerUp of powerUps) {
+            if (powerUp.isCollected()) continue
+
+            const pos = this.toScreen(powerUp.x, powerUp.y)
+            const size = powerUp.size * pulseIntensity
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowBlur = 20 * pulseIntensity
+            ctx.fillStyle = this.colors.powerUpFastGlow
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, size + 4, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+
+            // Main circle
+            ctx.save()
+            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowBlur = 10 * pulseIntensity
+            ctx.fillStyle = this.colors.powerUpFast
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+
+            // Lightning bolt icon
+            this.drawLightningBolt(pos.x, pos.y, size * 0.65)
+        }
+    }
+
+    /**
+     * Draw a lightning bolt icon centered at position.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Size of the icon
+     */
+    drawLightningBolt(x, y, size) {
+        const ctx = this.ctx
+        ctx.save()
+        ctx.fillStyle = this.colors.powerUpFastIcon
+
+        ctx.beginPath()
+        // Lightning bolt shape (7 points)
+        ctx.moveTo(x + size * 0.1, y - size)        // Top right of upper segment
+        ctx.lineTo(x - size * 0.5, y + size * 0.1)  // Left middle point
+        ctx.lineTo(x - size * 0.05, y + size * 0.1) // Inner notch left
+        ctx.lineTo(x - size * 0.25, y + size)       // Bottom left point
+        ctx.lineTo(x + size * 0.5, y - size * 0.1)  // Right middle point
+        ctx.lineTo(x + size * 0.05, y - size * 0.1) // Inner notch right
+        ctx.closePath()
+        ctx.fill()
+
+        ctx.restore()
+    }
+
+    /**
+     * Draw the player with wake effect, glow, and optional speed boost indicator.
+     * @param {Player} player - Player instance to draw
+     */
+    drawPlayerWithBoost(player) {
+        const ctx = this.ctx
+        const pos = this.toScreen(player.x, player.y)
+        const hasBoost = player.hasSpeedBoost()
+
+        // Draw tapered wake trail behind player
+        if (player.wakeIntensity > 0.01) {
+            const dx = player.wakeStartX - player.x
+            const dy = player.wakeStartY - player.y
+            const dist = Math.sqrt(dx * dx + dy * dy)
+
+            if (dist > 1) {
+                const dirX = dx / dist
+                const dirY = dy / dist
+
+                const wakeStart = this.toScreen(player.wakeStartX, player.wakeStartY)
+                const wakeColor = hasBoost ? this.colors.powerUpFast : this.colors.player
+
+                // Gradient from player (bright) to wake end (transparent)
+                const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
+                gradient.addColorStop(0, this.hexWithAlpha(wakeColor, 0.6 * player.wakeIntensity))
+                gradient.addColorStop(0.5, this.hexWithAlpha(wakeColor, 0.25 * player.wakeIntensity))
+                gradient.addColorStop(1, this.hexWithAlpha(wakeColor, 0))
+
+                ctx.save()
+                ctx.shadowColor = this.hexWithAlpha(wakeColor, 0.5)
+                ctx.shadowBlur = 10 * player.wakeIntensity
+
+                // Calculate perpendicular for wake width
+                const perpX = -dirY
+                const perpY = dirX
+                const startWidth = player.size * 0.5
+                const endWidth = player.size * 0.1
+
+                // Draw tapered quad shape
+                ctx.beginPath()
+                ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
+                ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
+                ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
+                ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
+                ctx.closePath()
+                ctx.fillStyle = gradient
+                ctx.fill()
+                ctx.restore()
+            }
+        }
+
+        // Speed boost glow (larger cyan glow behind player)
+        if (hasBoost) {
+            ctx.save()
+            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowBlur = 30
+            this.drawRhombus(pos.x, pos.y, player.size + 8, this.colors.powerUpFastGlow)
+            ctx.restore()
+        }
+
+        // Outer glow (larger, transparent rhombus)
+        ctx.save()
+        ctx.shadowColor = hasBoost ? this.colors.powerUpFast : this.colors.player
+        ctx.shadowBlur = 20
+        this.drawRhombus(pos.x, pos.y, player.size + 4, this.colors.playerGlow)
+        ctx.restore()
+
+        // Main player rhombus
+        ctx.save()
+        ctx.shadowColor = hasBoost ? this.colors.powerUpFast : this.colors.player
+        ctx.shadowBlur = 15
+        this.drawRhombus(pos.x, pos.y, player.size, this.colors.player)
+        ctx.restore()
+
+        // Inner highlight (smaller rhombus offset upward)
+        ctx.fillStyle = this.colors.playerHighlight
+        ctx.beginPath()
+        ctx.moveTo(pos.x, pos.y - player.size * 0.5)
+        ctx.lineTo(pos.x + player.size * 0.3, pos.y)
+        ctx.lineTo(pos.x, pos.y + player.size * 0.2)
+        ctx.lineTo(pos.x - player.size * 0.3, pos.y)
+        ctx.closePath()
+        ctx.fill()
+    }
 }

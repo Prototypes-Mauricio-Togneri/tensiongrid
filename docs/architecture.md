@@ -49,6 +49,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `player`: size (12px), speed (200px/s), explosion fragments (7), explosion fragment size (5px), explosion speed (30-50px/s random), explosion rotation speed (3 rad/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
+- `powerUp.fast`: size (14px), speed multiplier (2x), duration (5000ms)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -84,6 +85,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Grid-snapped target-based movement
 - Wake effect - gradient trail during movement
 - `moveTo(row, col, teleport)` - Movement with optional teleport
+- `applySpeedBoost(multiplier, duration)` - Apply temporary speed boost
+- `hasSpeedBoost()` - Check if speed boost is active
 
 **PlayerExplosion** (`js/player_explosion.js`) - Death effect:
 - Visual effect for player death, fragments fly outward and rotate from center
@@ -155,6 +158,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact (circle-based collision)
 - Config: `startX`, `startY` (starting node), `speed` (pixels/second)
 
+**PowerUp** (`js/power_up.js`) - Collectible bonus item:
+- Fixed position on a single grid node
+- Light blue circle visual shape (#00ccff) with white lightning bolt icon
+- Pulsing glow animation for visibility
+- Collected on player contact (circle-based collision)
+- Grants temporary speed boost (2x speed for 5 seconds)
+- Player shows cyan glow while boost is active
+- Respawns on player death (level reset)
+- Config: `x`, `y` (node position), `type` ('fast')
+
 **AudioManager** (`js/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds
 - Respects audio toggle setting in UI
@@ -171,27 +184,32 @@ Cyberpunk/neon aesthetic with these design elements:
 - Triggers sound effects via AudioManager (turret rotation)
 
 **CollisionSystem** (`js/collision_system.js`) - Collision detection:
-- Circle collision for bullets, patrols, and followers with threshold multiplier (0.7)
+- Circle collision for bullets, patrols, followers, and power-ups with threshold multiplier (0.7)
 - Grid-based collision for lasers, traps, and shooters (exact node match)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
+- Power-up collection detection: returns collected power-up for effect application
 
 **Renderer** (`js/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
+- Power-up rendering with pulsing circle and lightning bolt icon
+- Player boost indicator: cyan glow when speed boost is active
 
 **UIManager** (`js/ui_manager.js`) - DOM-based HUD:
 - Score display with zero-padding
 - Screen shake trigger on collision
 
 **Game** (`js/game.js`) - Main orchestrator:
-- `start(levelData)` - Initializes game with level configuration (grid, player, enemies)
+- `start(levelData)` - Initializes game with level configuration (grid, player, enemies, power-ups)
 - Creates AudioManager and passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Score accumulation (1 point/second)
 - Death pause: 1000ms freeze with explosion effect before reset
 - Collision → death pause → reset flow (infinite lives)
 - Camera follows player each frame (instant jump on teleport)
+- Power-up collection and effect application (speed boost)
+- Power-ups respawn on player death
 - Responsive canvas with window resize handling
 
 ## Game Mechanics

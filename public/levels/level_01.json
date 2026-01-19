@@ -7,6 +7,9 @@
     "startX": 3,
     "startY": 3
   },
+  "powerUps": [
+    { "x": 5, "y": 5, "type": "fast" }
+  ],
   "enemies": {
     "enemy_follower": [
       {

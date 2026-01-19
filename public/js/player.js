@@ -10,13 +10,17 @@ class Player {
     constructor(grid, config) {
         this.grid = grid              // Grid instance for position calculations
         this.size = config.size       // Player size in pixels
-        this.speed = config.speed     // Movement speed in pixels/second
+        this.baseSpeed = config.speed // Base movement speed in pixels/second
+        this.speed = config.speed     // Current movement speed (affected by boosts)
         this.startY = config.startY   // Starting grid row
         this.startX = config.startX   // Starting grid column
 
         this.wakeIntensity = 0        // Wake trail opacity (0-1)
         this.wakeStartX = 0           // Wake trail start X position
         this.wakeStartY = 0           // Wake trail start Y position
+
+        this.speedMultiplier = 1      // Current speed multiplier (1 = normal)
+        this.speedBoostTimer = 0      // Time remaining on speed boost in ms
 
         this.reset()
     }
@@ -40,17 +44,36 @@ class Player {
         this.wakeIntensity = 0
         this.wakeStartX = pos.x
         this.wakeStartY = pos.y
+
+        // Clear speed boost state
+        this.speedMultiplier = 1
+        this.speedBoostTimer = 0
+        this.speed = this.baseSpeed
     }
 
     /**
      * Update player position with smooth interpolation toward target.
      * @param {number} delta - Time elapsed since last frame in milliseconds
+     * @returns {boolean} True if speed boost expired this frame
      */
     update(delta) {
+        let boostExpired = false
+
+        // Update speed boost timer
+        if (this.speedBoostTimer > 0) {
+            this.speedBoostTimer -= delta
+            if (this.speedBoostTimer <= 0) {
+                this.speedBoostTimer = 0
+                this.speedMultiplier = 1
+                this.speed = this.baseSpeed
+                boostExpired = true
+            }
+        }
+
         // Fade wake when stationary
         if (!this.isMoving) {
             this.wakeIntensity = Math.max(0, this.wakeIntensity - delta * 0.004)
-            return
+            return boostExpired
         }
 
         const moveAmount = this.speed * delta / 1000
@@ -76,6 +99,8 @@ class Player {
             this.wakeStartX = this.x - dir.x * trailDistance
             this.wakeStartY = this.y - dir.y * trailDistance
         }
+
+        return boostExpired
     }
 
     /**
@@ -110,5 +135,24 @@ class Player {
      */
     getPosition() {
         return new Vector2(this.x, this.y)
+    }
+
+    /**
+     * Apply a speed boost to the player.
+     * @param {number} multiplier - Speed multiplier (e.g., 2 for double speed)
+     * @param {number} duration - Duration in milliseconds
+     */
+    applySpeedBoost(multiplier, duration) {
+        this.speedMultiplier = multiplier
+        this.speedBoostTimer = duration
+        this.speed = this.baseSpeed * multiplier
+    }
+
+    /**
+     * Check if player currently has a speed boost active.
+     * @returns {boolean} True if speed boost is active
+     */
+    hasSpeedBoost() {
+        return this.speedBoostTimer > 0
     }
 }

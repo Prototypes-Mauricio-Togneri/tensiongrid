@@ -130,4 +130,26 @@ class CollisionSystem {
         }
         return false
     }
+
+    /**
+     * Check if player collides with any uncollected power-up using circle-to-circle detection.
+     * @param {Player} player - Player instance
+     * @param {PowerUp[]} powerUps - Array of power-ups
+     * @returns {PowerUp|null} The collected power-up, or null if none
+     */
+    checkPlayerPowerUpCollision(player, powerUps) {
+        const playerPos = player.getPosition()
+
+        for (const powerUp of powerUps) {
+            if (powerUp.isCollected()) continue
+
+            const collisionDist = (player.size + powerUp.size) * this.threshold
+            const powerUpPos = powerUp.getPosition()
+
+            if (Vector2.distance(playerPos, powerUpPos) < collisionDist) {
+                return powerUp
+            }
+        }
+        return null
+    }
 }

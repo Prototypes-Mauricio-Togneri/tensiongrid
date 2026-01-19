@@ -172,6 +172,15 @@ const Constants = {
             }
         },
 
+        // Power-up settings
+        powerUp: {
+            fast: {
+                size: 14,             // Power-up size in pixels
+                speedMultiplier: 1.5, // Player speed multiplier when active
+                duration: 5000        // Effect duration in ms
+            }
+        },
+
         // Physics settings
         physics: {
             maxDeltaTime: 100,       // Max delta cap to prevent tunneling (ms)
@@ -224,7 +233,12 @@ const Constants = {
 
             // Follower colors
             follower: '#ff8800',       // Follower fill color (orange)
-            followerGlow: '#ff88004d'  // Follower glow effect
+            followerGlow: '#ff88004d', // Follower glow effect
+
+            // Power-up colors
+            powerUpFast: '#00ccff',       // Fast power-up fill color (light blue)
+            powerUpFastGlow: '#00ccff4d', // Fast power-up glow effect
+            powerUpFastIcon: '#ffffff'    // Fast power-up icon color (white)
         }
     },
 
@@ -246,7 +260,9 @@ const Constants = {
             audioToggle: 'audioToggle',
             closeScreen: 'closeScreen',
             pauseMenu: 'pauseMenu',
-            explosionPlayer: 'explosionPlayer'
+            explosionPlayer: 'explosionPlayer',
+            powerUp: 'powerUp',
+            powerDown: 'powerDown'
         },
         sounds: {
             shooterTurn: 'audio/sound/shooter_turn.wav',        // Turret rotation sound effect
@@ -258,7 +274,9 @@ const Constants = {
             audioToggle: 'audio/sound/audio_toggle.wav',        // Audio switch toggle sound effect
             closeScreen: 'audio/sound/close_screen.wav',        // Menu/screen close sound effect
             pauseMenu: 'audio/sound/pause_menu.wav',            // Pause menu open sound effect
-            explosionPlayer: 'audio/sound/explosion_player.wav' // Player death sound effect
+            explosionPlayer: 'audio/sound/explosion_player.wav', // Player death sound effect
+            powerUp: 'audio/sound/power_up.wav',               // Power-up collection sound effect
+            powerDown: 'audio/sound/power_down.wav'            // Power-up expiration sound effect
         },
         music: {
             menu: {

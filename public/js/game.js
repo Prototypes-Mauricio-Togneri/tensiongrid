@@ -97,6 +97,18 @@ class Game {
             this.audioManager.playSound(Constants.audio.keys.mineAlarm)
         }
 
+        // Check for power-up collection
+        const collectedPowerUp = this.collisionSystem.checkPlayerPowerUpCollision(
+            this.player,
+            this.powerUps
+        )
+        if (collectedPowerUp) {
+            collectedPowerUp.collect()
+            const effect = collectedPowerUp.getEffect()
+            this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
+            this.audioManager.playSound(Constants.audio.keys.powerUp)
+        }
+
         // Start death pause on collision
         if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
             this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
@@ -148,12 +160,13 @@ class Game {
         this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
+        this.renderer.drawPowerUps(this.powerUps, time)
 
         // Draw explosion instead of player during death pause
         if (this.dead) {
             this.renderer.drawPlayerExplosion(this.explosion)
         } else {
-            this.renderer.drawPlayer(this.player)
+            this.renderer.drawPlayerWithBoost(this.player)
         }
     }
 
@@ -166,6 +179,7 @@ class Game {
         this.explosion = null
         this.player.reset()
         this.enemyManager.clear()
+        this.initPowerUps(this.levelData.powerUps) // Respawn power-ups
         this.camera.follow(this.player.x, this.player.y)
         this.ui.score = 0
         this.scoreTimer = 0
@@ -198,6 +212,7 @@ class Game {
      * @param {Object} levelData - Level configuration from JSON
      */
     init(levelData) {
+        this.levelData = levelData // Store for reset
         this.grid = new Grid({ ...Constants.game.grid, ...levelData.grid })
         this.camera = new Camera(this.grid)
         this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
@@ -205,6 +220,20 @@ class Game {
         this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collisionSystem = new CollisionSystem(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
+        this.powerUps = []           // Active power-ups
+        this.initPowerUps(levelData.powerUps)
+    }
+
+    /**
+     * Initialize power-ups from level data.
+     * @param {Object[]} powerUpData - Array of power-up configurations
+     */
+    initPowerUps(powerUpData) {
+        this.powerUps = []
+        if (!powerUpData) return
+        for (const config of powerUpData) {
+            this.powerUps.push(new PowerUp(config, this.grid))
+        }
     }
 
     /**
