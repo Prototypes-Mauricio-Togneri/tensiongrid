@@ -166,6 +166,7 @@ class Game {
         // Disable input briefly after wrapping to prevent rapid teleporting
         if (wrapped.wrapped) {
             this.inputManager.disable()
+            this.audioManager.playSound(Constants.audio.keys.wrapAround)
             // Spawn pixel scatter effect at arrival position
             const newPos = this.grid.getNodePosition(wrapped.row, wrapped.col)
             this.pixelScatter = new PixelScatter(newPos.x, newPos.y)
