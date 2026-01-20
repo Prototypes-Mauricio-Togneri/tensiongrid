@@ -169,6 +169,35 @@ class Renderer {
     }
 
     /**
+     * Draw collection wave effect (expanding ring).
+     * @param {CollectionWaveAnimation} wave - CollectionWaveAnimation instance
+     */
+    drawCollectionWave(wave) {
+        const ctx = this.ctx
+        const worldPos = wave.getPosition()
+        const pos = this.toScreen(worldPos.x, worldPos.y)
+        const data = wave.getWaveData()
+        const color = wave.getColor()
+
+        if (data.opacity <= 0) return
+
+        ctx.save()
+
+        // Glow effect
+        ctx.shadowColor = color
+        ctx.shadowBlur = 15 * data.opacity
+
+        // Draw expanding ring
+        ctx.strokeStyle = this.hexWithAlpha(color, data.opacity)
+        ctx.lineWidth = wave.lineWidth
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, data.radius, 0, Math.PI * 2)
+        ctx.stroke()
+
+        ctx.restore()
+    }
+
+    /**
      * Draw the player with wake effect, glow, and inner highlight.
      * @param {Player} player - Player instance to draw
      */

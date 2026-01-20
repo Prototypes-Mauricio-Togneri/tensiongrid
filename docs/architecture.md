@@ -51,6 +51,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `powerUp.fast`: size (14px), speed multiplier (1.5x), duration (5000ms)
 - `powerDown.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
+- `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -106,6 +107,17 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isComplete()` - Returns true when animation finished
 - `getParticles()` - Returns particle data {x, y, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
+
+**CollectionWaveAnimation** (`js/animations/collection_wave_animation.js`) - Power-up/down collection effect:
+- Visual effect for power-up/power-down collection
+- Single expanding ring that fades out as it grows
+- Color passed as constructor parameter (blue for power-up, red for power-down)
+- Ease-out expansion over 300ms
+- `update(delta)` - Advance animation
+- `isComplete()` - Returns true when animation finished
+- `getWaveData()` - Returns wave data {radius, opacity} for rendering
+- `getPosition()` - Returns center position in world coordinates
+- `getColor()` - Returns wave color
 
 **EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
 - Linear movement along grid lines
@@ -234,6 +246,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Camera follows player each frame (instant jump on teleport)
 - Separate arrays for power-ups and power-downs with independent collision checks
 - Power-up/power-down collection and effect application (speed boost/slow)
+- Collection wave animation on power-up/power-down pickup (blue/red expanding ring)
 - Power-ups and power-downs respawn on player death
 - Responsive canvas with window resize handling
 

@@ -206,6 +206,14 @@ const Constants = {
             duration: 250       // Time for particles to converge in ms
         },
 
+        // Collection wave effect settings (power-up/power-down pickup)
+        collectionWave: {
+            startRadius: 8,   // Initial ring radius in pixels
+            endRadius: 35,    // Final ring radius in pixels
+            duration: 300,    // Animation duration in ms
+            lineWidth: 3      // Ring stroke width in pixels
+        },
+
         // Color palette (hex with optional alpha)
         colors: {
             // Player colors

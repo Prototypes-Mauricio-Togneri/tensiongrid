@@ -66,6 +66,14 @@ class Game {
             }
         }
 
+        // Update collection wave effect
+        if (this.collectionWave) {
+            this.collectionWave.update(delta)
+            if (this.collectionWave.isComplete()) {
+                this.collectionWave = null
+            }
+        }
+
         // Award 1 point per second survived
         this.scoreTimer += delta
         if (this.scoreTimer >= 1000) {
@@ -118,6 +126,11 @@ class Game {
             const effect = collectedPowerUp.getEffect()
             this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
             this.audioManager.playSound(Constants.audio.keys.powerUp)
+            this.collectionWave = new CollectionWaveAnimation(
+                collectedPowerUp.x,
+                collectedPowerUp.y,
+                Constants.game.colors.powerUpFast
+            )
         }
 
         // Check for power-down collection
@@ -130,6 +143,11 @@ class Game {
             const effect = collectedPowerDown.getEffect()
             this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
             this.audioManager.playSound(Constants.audio.keys.powerDown)
+            this.collectionWave = new CollectionWaveAnimation(
+                collectedPowerDown.x,
+                collectedPowerDown.y,
+                Constants.game.colors.powerDownSlow
+            )
         }
 
         // Start death pause on collision
@@ -195,6 +213,11 @@ class Game {
             this.renderer.drawPixelScatter(this.pixelScatter)
         }
 
+        // Draw collection wave effect
+        if (this.collectionWave) {
+            this.renderer.drawCollectionWave(this.collectionWave)
+        }
+
         // Draw explosion instead of player during death pause
         if (this.dead) {
             this.renderer.drawPlayerExplosion(this.explosion)
@@ -211,6 +234,7 @@ class Game {
         this.deathTimer = 0
         this.explosion = null
         this.pixelScatter = null
+        this.collectionWave = null
         this.player.reset()
         this.enemyManager.clear()
         this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups
@@ -258,6 +282,7 @@ class Game {
         this.powerUps = []           // Active power-ups
         this.powerDowns = []         // Active power-downs
         this.pixelScatter = null     // Wrap pixel scatter effect
+        this.collectionWave = null   // Collection wave effect
         this.initPowerUps(levelData.powerUps)
         this.initPowerDowns(levelData.powerDowns)
     }
