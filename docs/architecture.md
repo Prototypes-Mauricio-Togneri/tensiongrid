@@ -77,7 +77,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `worldToScreen(worldX, worldY)` - Transform world coordinates to screen coordinates
 - `clamp()` - Constrain camera so viewport stays within grid bounds (centers grid if smaller than viewport)
 
-**InputManager** (`js/input_manager.js`) - Keyboard input:
+**InputManager** (`js/io/input_manager.js`) - Keyboard input:
 - Supports arrow keys and WASD
 - `getDirection()` - Returns movement delta or null
 - Auto-disables after edge wrap
@@ -190,7 +190,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Respawns on player death (level reset)
 - Config: `x`, `y` (node position), `type` ('slow')
 
-**AudioManager** (`js/audio_manager.js`) - Sound and music playback:
+**AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds
 - Respects audio toggle setting in UI
 - Persists toggle state to localStorage (defaults to enabled)
@@ -220,7 +220,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Power-down rendering with pulsing red circle and turtle icon
 - Player boost indicator: cyan glow when speed boost is active, red glow when slowed
 
-**UIManager** (`js/ui_manager.js`) - DOM-based HUD:
+**UIManager** (`js/io/ui_manager.js`) - DOM-based HUD:
 - Score display with zero-padding
 - Screen shake trigger on collision
 
