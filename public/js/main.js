@@ -163,6 +163,12 @@
                     openGameScreen('levels/level_01.json', Constants.screens.home)
                 } else if (action === Constants.actions.home.levels) {
                     screenManager.show(Constants.screens.levels)
+                } else if (action === Constants.actions.home.fullscreen) {
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen()
+                    } else {
+                        document.documentElement.requestFullscreen()
+                    }
                 } else if (action === Constants.actions.home.settings) {
                     screenManager.show(Constants.screens.settings)
                 }

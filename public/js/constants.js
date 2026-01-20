@@ -97,9 +97,10 @@ const Constants = {
     // ==========================================
     actions: {
         home: {
-            continue: 'continue', // Continue last game
-            levels: 'levels',     // Open level select
-            settings: 'settings'  // Open settings
+            continue: 'continue',   // Continue last game
+            levels: 'levels',       // Open level select
+            fullscreen: 'fullscreen', // Toggle fullscreen mode
+            settings: 'settings'    // Open settings
         },
         pause: {
             continue: 'continue', // Resume game
