@@ -97,6 +97,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - `update(delta)` - Move fragments outward and update rotation
 - `getFragments()` - Returns fragment data {x, y, rotation} for rendering
 
+**PixelScatter** (`js/pixel_scatter.js`) - Wrap teleport effect:
+- Visual effect for player wrap-around teleportation
+- 16 small square particles converge from scattered positions to center
+- Particles start at random angles within 45px radius
+- Ease in-out animation for smooth convergence over 250ms
+- `update(delta)` - Advance animation
+- `isComplete()` - Returns true when animation finished
+- `getParticles()` - Returns particle data {x, y, opacity} for rendering
+- `getPosition()` - Returns center position in world coordinates
+
 **EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
 - Linear movement along grid lines
 - Wake effect - gradient trail during movement

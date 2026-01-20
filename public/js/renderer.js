@@ -140,6 +140,35 @@ class Renderer {
     }
 
     /**
+     * Draw pixel scatter effect (particles converging to center).
+     * @param {PixelScatter} scatter - PixelScatter instance with particle data
+     */
+    drawPixelScatter(scatter) {
+        const ctx = this.ctx
+        const worldPos = scatter.getPosition()
+        const pos = this.toScreen(worldPos.x, worldPos.y)
+        const particles = scatter.getParticles()
+        const size = scatter.particleSize
+
+        ctx.save()
+
+        for (const particle of particles) {
+            if (particle.opacity <= 0) continue
+
+            const px = pos.x + particle.x
+            const py = pos.y + particle.y
+
+            // Draw glow
+            ctx.shadowColor = this.colors.player
+            ctx.shadowBlur = 8 * particle.opacity
+            ctx.fillStyle = this.hexWithAlpha(this.colors.player, particle.opacity)
+            ctx.fillRect(px - size / 2, py - size / 2, size, size)
+        }
+
+        ctx.restore()
+    }
+
+    /**
      * Draw the player with wake effect, glow, and inner highlight.
      * @param {Player} player - Player instance to draw
      */
