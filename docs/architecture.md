@@ -90,14 +90,14 @@ Cyberpunk/neon aesthetic with these design elements:
 - `hasSpeedBoost()` - Check if any speed effect is active
 - `isSlowed()` - Check if speed slow effect is active (multiplier < 1)
 
-**PlayerExplosion** (`js/player_explosion.js`) - Death effect:
+**PlayerExplosionAnimation** (`js/animations/player_explosion_animation.js`) - Death effect:
 - Visual effect for player death, fragments fly outward and rotate from center
 - 7 small rhombus fragments with evenly distributed directions
 - Each fragment has random speed (30-50px/s) and rotates on its own center
 - `update(delta)` - Move fragments outward and update rotation
 - `getFragments()` - Returns fragment data {x, y, rotation} for rendering
 
-**PixelScatter** (`js/pixel_scatter.js`) - Wrap teleport effect:
+**WrapAnimation** (`js/animations/wrap_animation.js`) - Wrap teleport effect:
 - Visual effect for player wrap-around teleportation
 - 16 small square particles converge from scattered positions to center
 - Particles start at random angles within 45px radius

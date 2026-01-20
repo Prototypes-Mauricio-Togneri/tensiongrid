@@ -138,7 +138,7 @@ class Game {
             this.ui.shake()
             this.dead = true
             this.deathTimer = Constants.game.physics.deathPauseMs
-            this.explosion = new PlayerExplosion(this.player.x, this.player.y)
+            this.explosion = new PlayerExplosionAnimation(this.player.x, this.player.y)
         }
     }
 
@@ -169,7 +169,7 @@ class Game {
             this.audioManager.playSound(Constants.audio.keys.wrapAround)
             // Spawn pixel scatter effect at arrival position
             const newPos = this.grid.getNodePosition(wrapped.row, wrapped.col)
-            this.pixelScatter = new PixelScatter(newPos.x, newPos.y)
+            this.pixelScatter = new WrapAnimation(newPos.x, newPos.y)
         }
     }
 

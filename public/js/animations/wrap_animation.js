@@ -2,7 +2,7 @@
  * Visual effect for player wrap-around teleportation.
  * Small square particles that converge into the player position.
  */
-class PixelScatter {
+class WrapAnimation {
     /**
      * @param {number} x - Center X position in world coordinates
      * @param {number} y - Center Y position in world coordinates

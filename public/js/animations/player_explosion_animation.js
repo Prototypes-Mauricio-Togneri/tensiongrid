@@ -2,7 +2,7 @@
  * Visual effect for player death explosion.
  * Creates fragments that fly outward and rotate from the player's position.
  */
-class PlayerExplosion {
+class PlayerExplosionAnimation {
     /**
      * @param {number} x - Center X position in world coordinates
      * @param {number} y - Center Y position in world coordinates

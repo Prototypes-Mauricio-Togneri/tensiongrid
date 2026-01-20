@@ -141,7 +141,7 @@ class Renderer {
 
     /**
      * Draw pixel scatter effect (particles converging to center).
-     * @param {PixelScatter} scatter - PixelScatter instance with particle data
+     * @param {WrapAnimation} scatter - WrapAnimation instance with particle data
      */
     drawPixelScatter(scatter) {
         const ctx = this.ctx
@@ -244,7 +244,7 @@ class Renderer {
 
     /**
      * Draw player explosion fragments with rotation.
-     * @param {PlayerExplosion} explosion - Explosion instance with fragment data
+     * @param {PlayerExplosionAnimation} explosion - PlayerExplosionAnimation instance with fragment data
      */
     drawPlayerExplosion(explosion) {
         const ctx = this.ctx
