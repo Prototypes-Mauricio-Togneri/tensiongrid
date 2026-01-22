@@ -52,7 +52,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `powerUp.fast`: size (14px), speed multiplier (1.5x), duration (5000ms)
 - `powerDown.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
 - `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
-- `pixelExplosion`: particle count (16), particle size (3px), end radius (45px), duration (800ms)
+- `pixelExplosion`: particle count (16), particle size (5px), end radius (45px), duration (800ms)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)

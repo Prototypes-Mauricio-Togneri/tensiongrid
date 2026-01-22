@@ -204,7 +204,7 @@ const Constants = {
         // Pixel explosion effect settings (player death)
         pixelExplosion: {
             particleCount: 16, // Number of particles
-            particleSize: 3,   // Size of each square particle in pixels
+            particleSize: 5,   // Size of each square particle in pixels
             endRadius: 45,     // Final scatter radius in pixels
             duration: 800      // Time for particles to scatter in ms
         },
