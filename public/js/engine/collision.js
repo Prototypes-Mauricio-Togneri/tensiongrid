@@ -144,9 +144,11 @@ class Collision {
             if (powerUp.isCollected()) continue
 
             const collisionDist = (player.size + powerUp.size) * this.threshold
-            const powerUpPos = powerUp.getPosition()
+            const dx = playerPos.x - powerUp.x
+            const dy = playerPos.y - powerUp.y
+            const dist = Math.sqrt(dx * dx + dy * dy)
 
-            if (Vector2.distance(playerPos, powerUpPos) < collisionDist) {
+            if (dist < collisionDist) {
                 return powerUp
             }
         }
@@ -166,9 +168,11 @@ class Collision {
             if (powerDown.isCollected()) continue
 
             const collisionDist = (player.size + powerDown.size) * this.threshold
-            const powerDownPos = powerDown.getPosition()
+            const dx = playerPos.x - powerDown.x
+            const dy = playerPos.y - powerDown.y
+            const dist = Math.sqrt(dx * dx + dy * dy)
 
-            if (Vector2.distance(playerPos, powerDownPos) < collisionDist) {
+            if (dist < collisionDist) {
                 return powerDown
             }
         }

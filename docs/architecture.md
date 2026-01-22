@@ -49,9 +49,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `player`: size (12px), speed (200px/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
-- `powerUp.fast`: size (14px) - collectible item size
-- `powerUp.shield`: size (14px) - collectible item size
-- `powerDown.slow`: size (14px) - collectible item size
+- `powers.size`: (14px) - collectible power-up/down item size
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x) - effect behavior
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x) - effect behavior
 - `effects.shield`: duration (5000ms) - effect behavior
@@ -220,22 +218,15 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **PowerUp** (`js/power_up.js`) - Collectible bonus item:
 - Fixed position on a single grid node
-- Pulsing glow animation for visibility
-- Collected on player contact (circle-based collision)
+- Holds position (x, y), type, size, and collected state
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
 - Config: `x`, `y` (node position), `type` ('fast' or 'shield')
-- **Fast type**: Light blue circle (#00ccff) with white lightning bolt icon. Grants 1.5x speed for 5 seconds. Player shows cyan glow. New effect replaces current speed effect.
-- **Shield type**: Light blue circle (#00aaff) with white shield icon. Grants 5-second shield (light blue circular aura around player). If hit while shielded, shield breaks and grants 2 seconds of blinking immunity. If shield expires naturally (not hit), no immunity is granted. Shield and speed effects can coexist.
 
 **PowerDown** (`js/power_down.js`) - Collectible debuff item:
 - Fixed position on a single grid node
-- Red circle (#ff4444) with white turtle icon
-- Pulsing glow animation for visibility
-- Collected on player contact (circle-based collision)
+- Holds position (x, y), type, size, and collected state
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
-- Reduces to 0.5x speed for 5 seconds. Player shows red glow.
-- New effect replaces current (collecting power-up while slowed makes player fast, and vice versa)
 - Respawns on player death (level reset)
 - Config: `x`, `y` (node position), `type` ('slow')
 

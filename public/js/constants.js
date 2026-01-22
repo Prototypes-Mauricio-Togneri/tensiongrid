@@ -178,21 +178,9 @@ const Constants = {
             }
         },
         
-        // Power-up settings (collectible item visuals only, effect behavior in `effects`)
-        powerUps: {
-            fast: {
-              size: 14
-            },
-            shield: {
-              size: 14
-            }
-        },
-
-        // Power-down settings (collectible item visuals only, effect behavior in `effects`)
-        powerDowns: {
-            slow: {
-              size: 14
-            }
+        // Power-up/down collectible item settings (effect behavior in `effects`)
+        powers: {
+            size: 14  // Collectible size in pixels
         },
 
         // Effect configurations (used by EffectManager)

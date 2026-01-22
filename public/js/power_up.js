@@ -10,26 +10,14 @@ class PowerUp {
     constructor(config, grid) {
         this.row = config.y        // Grid row position
         this.col = config.x        // Grid column position
-        this.type = config.type    // Power-up type (e.g., 'fast')
-        this.grid = grid           // Grid reference
+        this.type = config.type    // Power-up type (e.g., 'fast', 'shield')
 
         const pos = grid.getNodePosition(this.row, this.col)
-        this.x = pos.x   // World X coordinate
-        this.y = pos.y   // World Y coordinate
+        this.x = pos.x             // World X coordinate
+        this.y = pos.y             // World Y coordinate
 
-        const powerUpConfig = Constants.game.powerUps[this.type]
-        this.size = powerUpConfig.size       // Size in pixels
-        this.duration = powerUpConfig.duration // Effect duration in ms
-
-        // Type-specific properties (only set if defined in config)
-        if (powerUpConfig.speedMultiplier !== undefined) {
-            this.speedMultiplier = powerUpConfig.speedMultiplier // Speed multiplier for fast type
-        }
-        if (powerUpConfig.immuneDuration !== undefined) {
-            this.immuneDuration = powerUpConfig.immuneDuration // Post-break immunity for shield type
-        }
-
-        this.collected = false   // Whether power-up has been collected
+        this.size = Constants.game.powers.size  // Size in pixels
+        this.collected = false     // Whether power-up has been collected
     }
 
     /**
@@ -45,31 +33,5 @@ class PowerUp {
      */
     isCollected() {
         return this.collected
-    }
-
-    /**
-     * Get the effect data for this power-up type.
-     * @returns {Object} Effect data with type-specific properties
-     */
-    getEffect() {
-        const effect = {
-            type: this.type,
-            duration: this.duration
-        }
-        if (this.speedMultiplier !== undefined) {
-            effect.speedMultiplier = this.speedMultiplier
-        }
-        if (this.immuneDuration !== undefined) {
-            effect.immuneDuration = this.immuneDuration
-        }
-        return effect
-    }
-
-    /**
-     * Get current world position.
-     * @returns {Vector2} Position in world coordinates
-     */
-    getPosition() {
-        return new Vector2(this.x, this.y)
     }
 }
