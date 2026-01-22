@@ -6,7 +6,7 @@
     // Core instances
     const input = new InputManager()
     const game = new Game(Constants.dom.ids.gameCanvas, input)
-    const screenManager = new ScreenManager()
+    const screen = new Screen()
     const audioManager = new AudioManager() // Audio manager for menu sounds
 
     /**
@@ -68,7 +68,7 @@
         gameStartedFrom = from
         const response = await fetch(currentLevel)
         const levelData = await response.json()
-        screenManager.show(Constants.screens.game)
+        screen.show(Constants.screens.game)
         game.start(levelData)
     }
 
@@ -77,7 +77,7 @@
      * Handles all input routing based on current screen state.
      */
     function mainLoop() {
-        const currentScreen = screenManager.getCurrentScreen()
+        const currentScreen = screen.getCurrentScreen()
 
         // ESC on game screen toggles pause menu
         if (currentScreen === Constants.screens.game && input.isEscapePressed()) {
@@ -97,7 +97,7 @@
             input.consumeEscape()
             audioManager.playSound(Constants.audio.keys.closeScreen)
             playMenuMusic()
-            screenManager.show(Constants.screens.home)
+            screen.show(Constants.screens.home)
         }
 
         // Pause menu input handling
@@ -135,7 +135,7 @@
                     hidePauseMenu()
                     game.stop()
                     playMenuMusic()
-                    screenManager.show(gameStartedFrom)
+                    screen.show(gameStartedFrom)
                 }
             }
         }
@@ -144,11 +144,11 @@
         if (currentScreen === Constants.screens.home) {
             // Navigate menu (edge detection)
             if (input.keys.up && !lastMenuInput.up) {
-                screenManager.navigateMenu(Constants.keys.up)
+                screen.navigateMenu(Constants.keys.up)
                 audioManager.playSound(Constants.audio.keys.menuChange)
             }
             if (input.keys.down && !lastMenuInput.down) {
-                screenManager.navigateMenu(Constants.keys.down)
+                screen.navigateMenu(Constants.keys.down)
                 audioManager.playSound(Constants.audio.keys.menuChange)
             }
             lastMenuInput.up = input.keys.up
@@ -158,11 +158,11 @@
             if (input.isSelectPressed()) {
                 input.consumeSelect()
                 audioManager.playSound(Constants.audio.keys.menuSelect)
-                const action = screenManager.getSelectedAction()
+                const action = screen.getSelectedAction()
                 if (action === Constants.actions.home.continue) {
                     openGameScreen('levels/level_01.json', Constants.screens.home)
                 } else if (action === Constants.actions.home.levels) {
-                    screenManager.show(Constants.screens.levels)
+                    screen.show(Constants.screens.levels)
                 } else if (action === Constants.actions.home.fullscreen) {
                     if (document.fullscreenElement) {
                         document.exitFullscreen()
@@ -170,7 +170,7 @@
                         document.documentElement.requestFullscreen()
                     }
                 } else if (action === Constants.actions.home.settings) {
-                    screenManager.show(Constants.screens.settings)
+                    screen.show(Constants.screens.settings)
                 }
             }
         }
@@ -195,11 +195,11 @@
         if (currentScreen === Constants.screens.levels) {
             // Navigate menu (edge detection)
             if (input.keys.up && !lastMenuInput.up) {
-                screenManager.navigateLevels(Constants.keys.up)
+                screen.navigateLevels(Constants.keys.up)
                 audioManager.playSound(Constants.audio.keys.menuChange)
             }
             if (input.keys.down && !lastMenuInput.down) {
-                screenManager.navigateLevels(Constants.keys.down)
+                screen.navigateLevels(Constants.keys.down)
                 audioManager.playSound(Constants.audio.keys.menuChange)
             }
             lastMenuInput.up = input.keys.up
@@ -209,7 +209,7 @@
             if (input.isSelectPressed()) {
                 input.consumeSelect()
                 audioManager.playSound(Constants.audio.keys.menuSelect)
-                const action = screenManager.getSelectedLevelsAction()
+                const action = screen.getSelectedLevelsAction()
                 const levelPath = `levels/${action}.json`
                 if (levelPath) {
                     openGameScreen(levelPath, Constants.screens.levels)
@@ -221,7 +221,7 @@
     }
 
     // Initialize and start
-    screenManager.show(Constants.screens.home)
+    screen.show(Constants.screens.home)
     playMenuMusic()
     mainLoop()
 })()

@@ -82,33 +82,33 @@ class Game {
         }
 
         // Check collisions
-        const hitByEnemy = this.collisionSystem.checkPlayerBulletCollision(
+        const hitByEnemy = this.collision.checkPlayerBulletCollision(
             this.player,
             this.enemyManager.getBullets()
         )
-        const hitByLaser = this.collisionSystem.checkPlayerLaserCollision(
+        const hitByLaser = this.collision.checkPlayerLaserCollision(
             this.player,
             this.enemyManager.getLasers()
         )
-        const hitByTrap = this.collisionSystem.checkPlayerTrapCollision(
+        const hitByTrap = this.collision.checkPlayerTrapCollision(
             this.player,
             this.enemyManager.getTraps()
         )
-        const hitByShooter = this.collisionSystem.checkPlayerShooterCollision(
+        const hitByShooter = this.collision.checkPlayerShooterCollision(
             this.player,
             this.enemyManager.getShooters()
         )
-        const hitByPatrol = this.collisionSystem.checkPlayerPatrolCollision(
+        const hitByPatrol = this.collision.checkPlayerPatrolCollision(
             this.player,
             this.enemyManager.getPatrols()
         )
-        const hitByFollower = this.collisionSystem.checkPlayerFollowerCollision(
+        const hitByFollower = this.collision.checkPlayerFollowerCollision(
             this.player,
             this.enemyManager.getFollowers()
         )
 
         // Check for mine trigger (does not kill player, just starts countdown)
-        const mineTriggered = this.collisionSystem.checkPlayerMineContact(
+        const mineTriggered = this.collision.checkPlayerMineContact(
             this.player,
             this.enemyManager.getAllMines()
         )
@@ -117,7 +117,7 @@ class Game {
         }
 
         // Check for power-up collection
-        const collectedPowerUp = this.collisionSystem.checkPlayerPowerUpCollision(
+        const collectedPowerUp = this.collision.checkPlayerPowerUpCollision(
             this.player,
             this.powerUps
         )
@@ -134,7 +134,7 @@ class Game {
         }
 
         // Check for power-down collection
-        const collectedPowerDown = this.collisionSystem.checkPlayerPowerDownCollision(
+        const collectedPowerDown = this.collision.checkPlayerPowerDownCollision(
             this.player,
             this.powerDowns
         )
@@ -279,7 +279,7 @@ class Game {
         this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
         this.audioManager = new AudioManager() // Audio manager for sound effects
         this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
-        this.collisionSystem = new CollisionSystem(Constants.game.physics)
+        this.collision = new Collision(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
         this.powerUps = []           // Active power-ups
         this.powerDowns = []         // Active power-downs

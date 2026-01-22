@@ -2,7 +2,7 @@
  * Manages UI screens and menu navigation.
  * Handles showing/hiding screens and tracking selected menu items.
  */
-class ScreenManager {
+class Screen {
     constructor() {
         this.screens = { // Map of screen name to DOM element
             [Constants.screens.home]: document.getElementById(Constants.dom.ids.homeScreen),

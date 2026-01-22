@@ -217,7 +217,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Minimum distance check prevents clustering
 - Triggers sound effects via AudioManager (turret rotation)
 
-**CollisionSystem** (`js/collision_system.js`) - Collision detection:
+**Collision** (`js/engine/collision.js`) - Collision detection:
 - Circle collision for bullets, patrols, followers, power-ups, and power-downs with threshold multiplier (0.7)
 - Grid-based collision for lasers, traps, and shooters (exact node match)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)

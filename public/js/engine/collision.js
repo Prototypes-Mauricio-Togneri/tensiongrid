@@ -2,7 +2,7 @@
  * Handles collision detection between player and enemies.
  * Uses distance-based detection for bullets and grid-based detection for lasers and traps.
  */
-class CollisionSystem {
+class Collision {
     /**
      * @param {Object} config - Collision configuration from Constants
      */
