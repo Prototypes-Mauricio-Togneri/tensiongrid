@@ -9,17 +9,17 @@ class EnemyManager {
      * @param {AudioManager} audioManager - Audio manager for sound effects
      */
     constructor(grid, config, audioManager) {
-        this.grid = grid                 // Grid reference
-        this.config = config             // Level enemy configuration
+        this.grid = grid // Grid reference
+        this.config = config // Level enemy configuration
         this.audioManager = audioManager // Audio manager for sound effects
-        this.bullets = []                // Active bullet instances
-        this.lasers = []                 // Laser instances
-        this.traps = []                  // Static trap instances
-        this.mines = []                  // Static mine instances
-        this.shooters = []               // Static shooter instances
-        this.patrols = []                // Patrol instances
-        this.followers = []              // Follower instances
-        this.instanceStates = []         // Per-spawner timing state
+        this.bullets = [] // Active bullet instances
+        this.lasers = [] // Laser instances
+        this.traps = [] // Static trap instances
+        this.mines = [] // Static mine instances
+        this.shooters = [] // Static shooter instances
+        this.patrols = [] // Patrol instances
+        this.followers = [] // Follower instances
+        this.instanceStates = [] // Per-spawner timing state
         this.initInstanceStates()
         this.initLasers()
         this.initTraps()

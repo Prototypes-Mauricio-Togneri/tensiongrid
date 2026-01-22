@@ -13,19 +13,19 @@ class EnemyMine {
      * @param {Grid} grid - Grid instance for position calculation
      */
     constructor(config, grid) {
-        this.row = config.y   // Grid row position
-        this.col = config.x   // Grid column position
-        this.grid = grid      // Grid reference
+        this.row = config.y // Grid row position
+        this.col = config.x // Grid column position
+        this.grid = grid // Grid reference
         this.delay = config.delay // Detonation delay in ms (mandatory)
 
         const pos = grid.getNodePosition(this.row, this.col)
-        this.x = pos.x   // World X coordinate
-        this.y = pos.y   // World Y coordinate
+        this.x = pos.x // World X coordinate
+        this.y = pos.y // World Y coordinate
         this.size = Constants.game.enemies.mine.size // Mine size in pixels
 
         this.state = EnemyMine.STATE_DORMANT
-        this.timer = 0         // Time elapsed since triggered
-        this.ttl = config.ttl  // Time to live in ms (undefined for permanent)
+        this.timer = 0 // Time elapsed since triggered
+        this.ttl = config.ttl // Time to live in ms (undefined for permanent)
     }
 
     /**

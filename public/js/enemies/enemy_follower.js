@@ -9,29 +9,29 @@ class EnemyFollower {
      * @param {Grid} grid - Grid instance for position calculations
      */
     constructor(config, grid) {
-        this.grid = grid                                              // Grid reference
+        this.grid = grid // Grid reference
         this.speed = config.speed || Constants.game.enemies.follower.speed // Movement speed in pixels/second
-        this.size = Constants.game.enemies.follower.size              // Follower size in pixels
+        this.size = Constants.game.enemies.follower.size // Follower size in pixels
         this.rotationSpeed = Constants.game.enemies.follower.rotationSpeed // Rotation speed in radians/second
 
-        this.row = config.startY                                      // Current grid row (y in config = row)
-        this.col = config.startX                                      // Current grid column (x in config = col)
-        this.targetRow = this.row                                     // Target grid row for current move
-        this.targetCol = this.col                                     // Target grid column for current move
+        this.row = config.startY // Current grid row (y in config = row)
+        this.col = config.startX // Current grid column (x in config = col)
+        this.targetRow = this.row // Target grid row for current move
+        this.targetCol = this.col // Target grid column for current move
 
         const pos = grid.getNodePosition(this.row, this.col)
-        this.x = pos.x                                                // Current world X position
-        this.y = pos.y                                                // Current world Y position
+        this.x = pos.x // Current world X position
+        this.y = pos.y // Current world Y position
 
-        this.isMoving = false                                         // True while interpolating to target
-        this.rotation = 0                                             // Current rotation angle in radians
+        this.isMoving = false // True while interpolating to target
+        this.rotation = 0 // Current rotation angle in radians
 
-        this.wakeIntensity = 0                                        // Wake trail opacity (0-1)
-        this.wakeStartX = pos.x                                       // Wake trail start X position
-        this.wakeStartY = pos.y                                       // Wake trail start Y position
+        this.wakeIntensity = 0 // Wake trail opacity (0-1)
+        this.wakeStartX = pos.x // Wake trail start X position
+        this.wakeStartY = pos.y // Wake trail start Y position
 
-        this.playerRow = 0                                            // Cached player row for pathfinding
-        this.playerCol = 0                                            // Cached player column for pathfinding
+        this.playerRow = 0 // Cached player row for pathfinding
+        this.playerCol = 0 // Cached player column for pathfinding
     }
 
     /**

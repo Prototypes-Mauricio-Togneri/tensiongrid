@@ -13,22 +13,22 @@ class EnemyBullet {
      * @param {Grid} grid - Grid instance for position/validity checks
      */
     constructor(row, col, x, y, dirRow, dirCol, grid) {
-        this.row = row                // Current grid row
-        this.col = col                // Current grid column
-        this.x = x                    // Current world X position
-        this.y = y                    // Current world Y position
+        this.row = row // Current grid row
+        this.col = col // Current grid column
+        this.x = x // Current world X position
+        this.y = y // Current world Y position
         this.targetRow = row + dirRow // Target grid row for current move
         this.targetCol = col + dirCol // Target grid column for current move
-        this.dirRow = dirRow          // Row direction for movement
-        this.dirCol = dirCol          // Column direction for movement
+        this.dirRow = dirRow // Row direction for movement
+        this.dirCol = dirCol // Column direction for movement
         this.speed = Constants.game.enemies.bullet.speed // Movement speed in pixels/second
-        this.size = Constants.game.enemies.bullet.size   // Bullet size in pixels
-        this.grid = grid              // Grid reference
-        this.isMoving = true          // False when bullet should be removed
+        this.size = Constants.game.enemies.bullet.size // Bullet size in pixels
+        this.grid = grid // Grid reference
+        this.isMoving = true // False when bullet should be removed
 
-        this.wakeIntensity = 0        // Wake trail opacity (0-1)
-        this.wakeStartX = x           // Wake trail start X position
-        this.wakeStartY = y           // Wake trail start Y position
+        this.wakeIntensity = 0 // Wake trail opacity (0-1)
+        this.wakeStartX = x // Wake trail start X position
+        this.wakeStartY = y // Wake trail start Y position
     }
 
     /**

@@ -8,16 +8,16 @@ class EnemyLaser {
      * @param {Object} config - Laser configuration from level data
      */
     constructor(grid, config) {
-        this.grid = grid          // Grid reference
+        this.grid = grid // Grid reference
         this.startX = config.startX // Start node column
         this.startY = config.startY // Start node row
-        this.endX = config.endX     // End node column
-        this.endY = config.endY     // End node row
+        this.endX = config.endX // End node column
+        this.endY = config.endY // End node row
 
-        this.timeOn = config.timeOn   // Time active in ms (undefined for persistent)
+        this.timeOn = config.timeOn // Time active in ms (undefined for persistent)
         this.timeOff = config.timeOff // Time inactive in ms (undefined for persistent)
-        this.active = true            // Whether laser is currently dangerous
-        this.timer = 0                // Time elapsed in current state
+        this.active = true // Whether laser is currently dangerous
+        this.timer = 0 // Time elapsed in current state
 
         // Glow intensity for visual transitions
         const laserConfig = Constants.game.enemies.laser

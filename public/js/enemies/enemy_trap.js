@@ -9,20 +9,20 @@ class EnemyTrap {
      * @param {Grid} grid - Grid instance for position calculation
      */
     constructor(config, grid) {
-        this.row = config.y   // Grid row position
-        this.col = config.x   // Grid column position
-        this.grid = grid      // Grid reference
+        this.row = config.y // Grid row position
+        this.col = config.x // Grid column position
+        this.grid = grid // Grid reference
 
         const pos = grid.getNodePosition(this.row, this.col)
-        this.x = pos.x   // World X coordinate
-        this.y = pos.y   // World Y coordinate
+        this.x = pos.x // World X coordinate
+        this.y = pos.y // World Y coordinate
         this.size = Constants.game.enemies.trap.size // Trap size in pixels
 
-        this.timeOn = config.timeOn   // Time active in ms (undefined for persistent)
+        this.timeOn = config.timeOn // Time active in ms (undefined for persistent)
         this.timeOff = config.timeOff // Time inactive in ms (undefined for persistent)
-        this.active = true            // Whether trap is currently dangerous
-        this.timer = 0                // Time elapsed in current state
-        this.ttl = config.ttl         // Time to live in ms (undefined for permanent)
+        this.active = true // Whether trap is currently dangerous
+        this.timer = 0 // Time elapsed in current state
+        this.ttl = config.ttl // Time to live in ms (undefined for permanent)
     }
 
     /**

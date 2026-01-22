@@ -11,22 +11,22 @@ class EnemyShooter {
     constructor(config, grid) {
         this.row = config.y // Grid row position
         this.col = config.x // Grid column position
-        this.grid = grid    // Grid reference
+        this.grid = grid // Grid reference
 
         const pos = grid.getNodePosition(this.row, this.col)
-        this.x = pos.x   // World X coordinate
-        this.y = pos.y   // World Y coordinate
+        this.x = pos.x // World X coordinate
+        this.y = pos.y // World Y coordinate
         this.size = Constants.game.enemies.shooter.size // Cross arm length
 
         // Rotation state
-        this.rotation = 0                          // Current visual rotation in radians
-        this.rotationDelay = config.rotationDelay  // Time between 90-degree rotations (ms), undefined if no rotation
-        this.targetRotation = 0                    // Target rotation to animate toward
-        this.startRotation = 0                     // Starting rotation for animation
-        this.rotationTimer = 0                     // Timer until next 90-degree rotation
-        this.isRotating = false                    // Currently animating rotation
-        this.rotationAnimDuration = 200            // Animation duration (ms)
-        this.rotationAnimTimer = 0                 // Animation progress timer
+        this.rotation = 0 // Current visual rotation in radians
+        this.rotationDelay = config.rotationDelay // Time between 90-degree rotations (ms), undefined if no rotation
+        this.targetRotation = 0 // Target rotation to animate toward
+        this.startRotation = 0 // Starting rotation for animation
+        this.rotationTimer = 0 // Timer until next 90-degree rotation
+        this.isRotating = false // Currently animating rotation
+        this.rotationAnimDuration = 200 // Animation duration (ms)
+        this.rotationAnimTimer = 0 // Animation progress timer
 
         // Direction firing timers (each is independent)
         this.directionTimers = this.initDirectionTimers(config)
