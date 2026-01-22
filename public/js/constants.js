@@ -172,9 +172,9 @@ const Constants = {
                 size: 12 // Patrol size in pixels
             },
             follower: {
-                size: 8,          // Follower size in pixels
-                speed: 100,       // Default speed in pixels/second
-                rotationSpeed: 3  // Rotation speed in radians/second
+                size: 8,         // Follower size in pixels
+                speed: 100,      // Default speed in pixels/second
+                rotationSpeed: 3 // Rotation speed in radians/second
             }
         },
         
@@ -186,19 +186,19 @@ const Constants = {
         // Effect configurations (used by EffectManager)
         effects: {
             fast: {
-                duration: 5000,        // Effect duration in ms
-                speedMultiplier: 1.5   // Player speed multiplier
+                duration: 5000,       // Effect duration in ms
+                speedMultiplier: 1.5  // Player speed multiplier
             },
             slow: {
-                duration: 5000,        // Effect duration in ms
-                speedMultiplier: 0.5   // Player speed multiplier
+                duration: 5000,       // Effect duration in ms
+                speedMultiplier: 0.5  // Player speed multiplier
             },
             shield: {
-                duration: 5000         // Shield active duration in ms
+                duration: 5000        // Shield active duration in ms
             },
             immunity: {
-                duration: 2000,        // Post-shield immunity duration in ms
-                blinkFrequency: 0.015  // Blink speed during immunity (radians per ms)
+                duration: 2000,       // Post-shield immunity duration in ms
+                blinkFrequency: 0.015 // Blink speed during immunity (radians per ms)
             }
         },
 
