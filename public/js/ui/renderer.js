@@ -1081,11 +1081,12 @@ class Renderer {
      * Draw the player with wake effect, glow, and optional speed effect indicator.
      * @param {Player} player - Player instance to draw
      */
-    drawPlayerWithBoost(player) {
+    drawPlayerWithBoost(player, scale = 1) {
         const ctx = this.ctx
         const pos = this.toScreen(player.x, player.y)
         const hasBoost = player.hasSpeedBoost() && player.speedMultiplier > 1
         const isSlowed = player.isSlowed()
+        const size = player.size * scale
 
         // Determine effect color based on current state
         let effectColor = this.colors.player
@@ -1145,7 +1146,7 @@ class Renderer {
             ctx.save()
             ctx.shadowColor = effectColor
             ctx.shadowBlur = 30
-            this.drawRhombus(pos.x, pos.y, player.size + 8, effectGlow)
+            this.drawRhombus(pos.x, pos.y, size + 8, effectGlow)
             ctx.restore()
         }
 
@@ -1153,23 +1154,23 @@ class Renderer {
         ctx.save()
         ctx.shadowColor = effectColor
         ctx.shadowBlur = 20
-        this.drawRhombus(pos.x, pos.y, player.size + 4, this.colors.playerGlow)
+        this.drawRhombus(pos.x, pos.y, size + 4, this.colors.playerGlow)
         ctx.restore()
 
         // Main player rhombus
         ctx.save()
         ctx.shadowColor = effectColor
         ctx.shadowBlur = 15
-        this.drawRhombus(pos.x, pos.y, player.size, this.colors.player)
+        this.drawRhombus(pos.x, pos.y, size, this.colors.player)
         ctx.restore()
 
         // Inner highlight (smaller rhombus offset upward)
         ctx.fillStyle = this.colors.playerHighlight
         ctx.beginPath()
-        ctx.moveTo(pos.x, pos.y - player.size * 0.5)
-        ctx.lineTo(pos.x + player.size * 0.3, pos.y)
-        ctx.lineTo(pos.x, pos.y + player.size * 0.2)
-        ctx.lineTo(pos.x - player.size * 0.3, pos.y)
+        ctx.moveTo(pos.x, pos.y - size * 0.5)
+        ctx.lineTo(pos.x + size * 0.3, pos.y)
+        ctx.lineTo(pos.x, pos.y + size * 0.2)
+        ctx.lineTo(pos.x - size * 0.3, pos.y)
         ctx.closePath()
         ctx.fill()
     }

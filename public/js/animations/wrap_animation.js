@@ -6,11 +6,13 @@ class WrapAnimation {
     /**
      * @param {number} x - Center X position in world coordinates
      * @param {number} y - Center Y position in world coordinates
+     * @param {boolean} scalePlayer - If true, player scales from 0 to 1 during animation
      */
-    constructor(x, y) {
+    constructor(x, y, scalePlayer = false) {
         const config = Constants.game.pixelScatter
         this.x = x
         this.y = y
+        this.scalePlayer = scalePlayer
         this.particleSize = config.particleSize
         this.duration = config.duration
         this.elapsed = 0
@@ -94,5 +96,14 @@ class WrapAnimation {
      */
     getPosition() {
         return { x: this.x, y: this.y }
+    }
+
+    /**
+     * Get player scale factor for spawn animations.
+     * @returns {number} Scale from 0 to 1, or 1 if not a spawn animation
+     */
+    getPlayerScale() {
+        if (!this.scalePlayer) return 1
+        return this.getProgress()
     }
 }

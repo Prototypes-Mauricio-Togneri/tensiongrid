@@ -222,7 +222,8 @@ class Game {
         if (this.dead) {
             this.renderer.drawPlayerExplosion(this.explosion)
         } else {
-            this.renderer.drawPlayerWithBoost(this.player)
+            const playerScale = this.pixelScatter ? this.pixelScatter.getPlayerScale() : 1
+            this.renderer.drawPlayerWithBoost(this.player, playerScale)
         }
     }
 
@@ -233,9 +234,9 @@ class Game {
         this.dead = false
         this.deathTimer = 0
         this.explosion = null
-        this.pixelScatter = null
         this.collectionWave = null
         this.player.reset()
+        this.pixelScatter = new WrapAnimation(this.player.x, this.player.y, true)
         this.enemyManager.clear()
         this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups
         this.initPowerDowns(this.levelData.powerDowns) // Respawn power-downs
