@@ -187,7 +187,7 @@ class Game {
             this.audioManager.playSound(Constants.audio.keys.wrapAround)
             // Spawn pixel scatter effect at arrival position
             const newPos = this.grid.getNodePosition(wrapped.row, wrapped.col)
-            this.pixelScatter = new WrapAnimation(newPos.x, newPos.y)
+            this.pixelScatter = new PlayerWrapAnimation(newPos.x, newPos.y)
         }
     }
 
@@ -236,7 +236,7 @@ class Game {
         this.explosion = null
         this.collectionWave = null
         this.player.reset()
-        this.pixelScatter = new WrapAnimation(this.player.x, this.player.y, true)
+        this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
         this.audioManager.playSound(Constants.audio.keys.wrapAround)
         this.enemyManager.clear()
         this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups

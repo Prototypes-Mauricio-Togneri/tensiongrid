@@ -141,7 +141,7 @@ class Renderer {
 
     /**
      * Draw pixel scatter effect (particles converging to center).
-     * @param {WrapAnimation} scatter - WrapAnimation instance with particle data
+     * @param {PlayerWrapAnimation} scatter - PlayerWrapAnimation instance with particle data
      */
     drawPixelScatter(scatter) {
         const ctx = this.ctx
