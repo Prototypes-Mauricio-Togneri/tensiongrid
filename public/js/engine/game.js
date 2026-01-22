@@ -116,44 +116,35 @@ class Game {
             this.audioManager.playSound(Constants.audio.keys.mineAlarm)
         }
 
-        // Check for power-up collection
-        const collectedPowerUp = this.collision.checkPlayerPowerUpCollision(
+        // Check for power collection
+        const collectedPower = this.collision.checkPlayerPowerCollision(
             this.player,
-            this.powerUps
+            this.powers
         )
-        if (collectedPowerUp) {
-            collectedPowerUp.collect()
-            const effectType = collectedPowerUp.type
+        if (collectedPower) {
+            collectedPower.collect()
+            const effectType = collectedPower.type
             const effectConfig = Constants.game.effects[effectType]
             this.player.effectManager.addEffect(effectType, effectConfig)
 
-            this.audioManager.playSound(Constants.audio.keys.powerUp)
-            this.collectionWave = new CollectionWaveAnimation(
-                collectedPowerUp.x,
-                collectedPowerUp.y,
-                effectType === Constants.effectTypes.shield
-                    ? Constants.game.colors.shield
-                    : Constants.game.colors.powerUpFast
-            )
-        }
-
-        // Check for power-down collection
-        const collectedPowerDown = this.collision.checkPlayerPowerDownCollision(
-            this.player,
-            this.powerDowns
-        )
-        if (collectedPowerDown) {
-            collectedPowerDown.collect()
-            const effectType = collectedPowerDown.type
-            const effectConfig = Constants.game.effects[effectType]
-            this.player.effectManager.addEffect(effectType, effectConfig)
-
-            this.audioManager.playSound(Constants.audio.keys.powerDown)
-            this.collectionWave = new CollectionWaveAnimation(
-                collectedPowerDown.x,
-                collectedPowerDown.y,
-                Constants.game.colors.powerDownSlow
-            )
+            // Play sound and create wave effect based on power type
+            if (collectedPower.isNegative) {
+                this.audioManager.playSound(Constants.audio.keys.powerDown)
+                this.collectionWave = new CollectionWaveAnimation(
+                    collectedPower.x,
+                    collectedPower.y,
+                    Constants.game.colors.powerDownSlow
+                )
+            } else {
+                this.audioManager.playSound(Constants.audio.keys.powerUp)
+                this.collectionWave = new CollectionWaveAnimation(
+                    collectedPower.x,
+                    collectedPower.y,
+                    effectType === Constants.effectTypes.shield
+                        ? Constants.game.colors.shield
+                        : Constants.game.colors.powerUpFast
+                )
+            }
         }
 
         // Start death pause on collision (unless protected)
@@ -218,8 +209,7 @@ class Game {
         this.renderer.drawShooters(this.enemyManager.getShooters(), time)
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
-        this.renderer.drawPowerUps(this.powerUps, time)
-        this.renderer.drawPowerDowns(this.powerDowns, time)
+        this.renderer.drawPowers(this.powers, time)
 
         // Draw pixel scatter effect behind player
         if (this.pixelScatter) {
@@ -252,8 +242,7 @@ class Game {
         this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
         this.audioManager.playSound(Constants.audio.keys.wrapAround)
         this.enemyManager.clear()
-        this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups
-        this.initPowerDowns(this.levelData.powerDowns) // Respawn power-downs
+        this.initPowers(this.levelData) // Respawn powers
         this.camera.follow(this.player.x, this.player.y)
         this.ui.score = 0
         this.scoreTimer = 0
@@ -294,36 +283,26 @@ class Game {
         this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collision = new Collision(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
-        this.powerUps = []           // Active power-ups
-        this.powerDowns = []         // Active power-downs
+        this.powers = []             // Active powers (power-ups and power-downs)
         this.pixelScatter = null     // Wrap pixel scatter effect
         this.collectionWave = null   // Collection wave effect
-        this.initPowerUps(levelData.powerUps)
-        this.initPowerDowns(levelData.powerDowns)
+        this.initPowers(levelData)
     }
 
     /**
-     * Initialize power-ups from level data.
-     * @param {Object[]} powerUpData - Array of power-up configurations
+     * Initialize powers from level data.
+     * @param {Object} levelData - Level configuration containing powerUps and powerDowns arrays
      */
-    initPowerUps(powerUpData) {
-        this.powerUps = []
-        if (powerUpData) {
-            for (const config of powerUpData) {
-                this.powerUps.push(new PowerUp(config, this.grid))
+    initPowers(levelData) {
+        this.powers = []
+        if (levelData.powerUps) {
+            for (const config of levelData.powerUps) {
+                this.powers.push(new Power(config, this.grid, false))
             }
         }
-    }
-
-    /**
-     * Initialize power-downs from level data.
-     * @param {Object[]} powerDownData - Array of power-down configurations
-     */
-    initPowerDowns(powerDownData) {
-        this.powerDowns = []
-        if (powerDownData) {
-            for (const config of powerDownData) {
-                this.powerDowns.push(new PowerDown(config, this.grid))
+        if (levelData.powerDowns) {
+            for (const config of levelData.powerDowns) {
+                this.powers.push(new Power(config, this.grid, true))
             }
         }
     }

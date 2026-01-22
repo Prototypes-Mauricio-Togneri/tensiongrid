@@ -1,34 +1,37 @@
 /**
- * Collectible power-up entity that grants temporary effects to the player.
+ * Collectible power entity that grants temporary effects to the player.
  * Sits at a grid position and is collected on player contact.
+ * Can be positive (power-up) or negative (power-down) based on isNegative flag.
  */
-class PowerUp {
+class Power {
     /**
-     * @param {Object} config - Power-up configuration from level data
+     * @param {Object} config - Power configuration from level data
      * @param {Grid} grid - Grid instance for position calculation
+     * @param {boolean} isNegative - True for power-downs, false for power-ups
      */
-    constructor(config, grid) {
+    constructor(config, grid, isNegative = false) {
         this.row = config.y        // Grid row position
         this.col = config.x        // Grid column position
-        this.type = config.type    // Power-up type (e.g., 'fast', 'shield')
+        this.type = config.type    // Power type (e.g., 'fast', 'shield', 'slow')
+        this.isNegative = isNegative // True for power-downs
 
         const pos = grid.getNodePosition(this.row, this.col)
         this.x = pos.x             // World X coordinate
         this.y = pos.y             // World Y coordinate
 
         this.size = Constants.game.powers.size  // Size in pixels
-        this.collected = false     // Whether power-up has been collected
+        this.collected = false     // Whether power has been collected
     }
 
     /**
-     * Mark power-up as collected.
+     * Mark power as collected.
      */
     collect() {
         this.collected = true
     }
 
     /**
-     * Check if power-up has been collected.
+     * Check if power has been collected.
      * @returns {boolean} True if collected
      */
     isCollected() {

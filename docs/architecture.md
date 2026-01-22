@@ -216,19 +216,13 @@ Cyberpunk/neon aesthetic with these design elements:
 - Kills player on contact (circle-based collision)
 - Config: `startX`, `startY` (starting node), `speed` (pixels/second)
 
-**PowerUp** (`js/power_up.js`) - Collectible bonus item:
+**Power** (`js/engine/power.js`) - Collectible power item:
 - Fixed position on a single grid node
-- Holds position (x, y), type, size, and collected state
+- Holds position (x, y), type, size, isNegative flag, and collected state
+- `isNegative: false` for power-ups (fast, shield), `true` for power-downs (slow)
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast' or 'shield')
-
-**PowerDown** (`js/power_down.js`) - Collectible debuff item:
-- Fixed position on a single grid node
-- Holds position (x, y), type, size, and collected state
-- On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
-- Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('slow')
+- Config: `x`, `y` (node position), `type` ('fast', 'shield', or 'slow')
 
 **AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds
@@ -246,18 +240,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - Triggers sound effects via AudioManager (turret rotation)
 
 **Collision** (`js/engine/collision.js`) - Collision detection:
-- Circle collision for bullets, patrols, followers, power-ups, and power-downs with threshold multiplier (0.7)
+- Circle collision for bullets, patrols, followers, and powers with threshold multiplier (0.7)
 - Grid-based collision for lasers, traps, and shooters (exact node match)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
-- Power-up collection detection: returns collected power-up for effect application
-- Power-down collection detection: returns collected power-down for effect application
+- Power collection detection: returns collected power for effect application
 
-**Renderer** (`js/renderer.js`) - Canvas drawing:
+**Renderer** (`js/ui/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
-- Power-up rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield)
-- Power-down rendering with pulsing red circle and turtle icon
+- Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, turtle for slow)
 - Player boost indicator: cyan glow when speed boost is active, red glow when slowed
 - Shield rendering: light blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
@@ -266,8 +258,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Score display with zero-padding
 - Screen shake trigger on collision
 
-**Game** (`js/game.js`) - Main orchestrator:
-- `start(levelData)` - Initializes game with level configuration (grid, player, enemies, power-ups, power-downs)
+**Game** (`js/engine/game.js`) - Main orchestrator:
+- `start(levelData)` - Initializes game with level configuration (grid, player, enemies, powers)
 - Creates AudioManager and passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Score accumulation (1 point/second)
@@ -275,10 +267,10 @@ Cyberpunk/neon aesthetic with these design elements:
 - Collision → death pause → reset flow (infinite lives)
 - Collision handling via `player.effectManager.handleCollision()` - returns true if effect absorbed hit
 - Camera follows player each frame (instant jump on teleport)
-- Separate arrays for power-ups and power-downs with independent collision checks
-- Power-up/power-down collection creates effects via `player.effectManager.addEffect(type, config)`
-- Collection wave animation on power-up/power-down pickup (blue/red expanding ring)
-- Power-ups and power-downs respawn on player death
+- Single powers array for both power-ups and power-downs
+- Power collection creates effects via `player.effectManager.addEffect(type, config)`
+- Collection wave animation on power pickup (cyan/blue for power-ups, red for power-downs)
+- Powers respawn on player death
 - Responsive canvas with window resize handling
 
 ## Game Mechanics

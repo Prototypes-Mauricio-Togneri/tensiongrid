@@ -930,28 +930,41 @@ class Renderer {
     }
 
     /**
-     * Draw power-ups with pulsing circle and type-specific icon.
-     * @param {PowerUp[]} powerUps - Array of power-up instances
+     * Draw powers with pulsing circle and type-specific icon.
+     * @param {Power[]} powers - Array of power instances (both power-ups and power-downs)
      * @param {number} time - Current animation timestamp for pulse calculation
      */
-    drawPowerUps(powerUps, time) {
+    drawPowers(powers, time) {
         const ctx = this.ctx
 
         // Calculate pulse intensity based on time (sine wave oscillation)
         const pulseSpeed = 0.005
         const pulseIntensity = 0.85 + 0.15 * Math.sin(time * pulseSpeed)
 
-        for (const powerUp of powerUps) {
-            if (powerUp.isCollected()) continue
+        for (const power of powers) {
+            if (power.isCollected()) continue
 
-            const pos = this.toScreen(powerUp.x, powerUp.y)
-            const size = powerUp.size * pulseIntensity
-            const isShield = powerUp.type === 'shield'
+            const pos = this.toScreen(power.x, power.y)
+            const size = power.size * pulseIntensity
 
-            // Select colors based on power-up type
-            const color = isShield ? this.colors.shield : this.colors.powerUpFast
-            const glowColor = isShield ? this.colors.shieldGlow : this.colors.powerUpFastGlow
-            const iconColor = isShield ? this.colors.shieldIcon : this.colors.powerUpFastIcon
+            // Select colors and icon based on power type
+            let color, glowColor, iconColor, drawIcon
+            if (power.isNegative) {
+                color = this.colors.powerDownSlow
+                glowColor = this.colors.powerDownSlowGlow
+                iconColor = this.colors.powerDownSlowIcon
+                drawIcon = (x, y, s, c) => this.drawTurtleIcon(x, y, s, c)
+            } else if (power.type === 'shield') {
+                color = this.colors.shield
+                glowColor = this.colors.shieldGlow
+                iconColor = this.colors.shieldIcon
+                drawIcon = (x, y, s, c) => this.drawShieldIcon(x, y, s, c)
+            } else {
+                color = this.colors.powerUpFast
+                glowColor = this.colors.powerUpFastGlow
+                iconColor = this.colors.powerUpFastIcon
+                drawIcon = (x, y, s, c) => this.drawLightningBolt(x, y, s, c)
+            }
 
             // Outer glow
             ctx.save()
@@ -973,55 +986,8 @@ class Renderer {
             ctx.fill()
             ctx.restore()
 
-            // Draw icon based on type
-            if (isShield) {
-                this.drawShieldIcon(pos.x, pos.y, size * 0.65, iconColor)
-            } else {
-                this.drawLightningBolt(pos.x, pos.y, size * 0.65, iconColor)
-            }
-        }
-    }
-
-    /**
-     * Draw power-downs with pulsing circle and turtle icon.
-     * @param {PowerDown[]} powerDowns - Array of power-down instances
-     * @param {number} time - Current animation timestamp for pulse calculation
-     */
-    drawPowerDowns(powerDowns, time) {
-        const ctx = this.ctx
-
-        // Calculate pulse intensity based on time (sine wave oscillation)
-        const pulseSpeed = 0.005
-        const pulseIntensity = 0.85 + 0.15 * Math.sin(time * pulseSpeed)
-
-        for (const powerDown of powerDowns) {
-            if (powerDown.isCollected()) continue
-
-            const pos = this.toScreen(powerDown.x, powerDown.y)
-            const size = powerDown.size * pulseIntensity
-
-            // Outer glow
-            ctx.save()
-            ctx.shadowColor = this.colors.powerDownSlow
-            ctx.shadowBlur = 20 * pulseIntensity
-            ctx.fillStyle = this.colors.powerDownSlowGlow
-            ctx.beginPath()
-            ctx.arc(pos.x, pos.y, size + 4, 0, Math.PI * 2)
-            ctx.fill()
-            ctx.restore()
-
-            // Main circle
-            ctx.save()
-            ctx.shadowColor = this.colors.powerDownSlow
-            ctx.shadowBlur = 10 * pulseIntensity
-            ctx.fillStyle = this.colors.powerDownSlow
-            ctx.beginPath()
-            ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
-            ctx.fill()
-            ctx.restore()
-
-            // Draw turtle icon
-            this.drawTurtleIcon(pos.x, pos.y, size * 0.65, this.colors.powerDownSlowIcon)
+            // Draw icon
+            drawIcon(pos.x, pos.y, size * 0.65, iconColor)
         }
     }
 

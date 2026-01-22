@@ -132,48 +132,24 @@ class Collision {
     }
 
     /**
-     * Check if player collides with any uncollected power-up using circle-to-circle detection.
+     * Check if player collides with any uncollected power using circle-to-circle detection.
      * @param {Player} player - Player instance
-     * @param {PowerUp[]} powerUps - Array of power-ups
-     * @returns {PowerUp|null} The collected power-up, or null if none
+     * @param {Power[]} powers - Array of powers (both power-ups and power-downs)
+     * @returns {Power|null} The collected power, or null if none
      */
-    checkPlayerPowerUpCollision(player, powerUps) {
+    checkPlayerPowerCollision(player, powers) {
         const playerPos = player.getPosition()
 
-        for (const powerUp of powerUps) {
-            if (powerUp.isCollected()) continue
+        for (const power of powers) {
+            if (power.isCollected()) continue
 
-            const collisionDist = (player.size + powerUp.size) * this.threshold
-            const dx = playerPos.x - powerUp.x
-            const dy = playerPos.y - powerUp.y
+            const collisionDist = (player.size + power.size) * this.threshold
+            const dx = playerPos.x - power.x
+            const dy = playerPos.y - power.y
             const dist = Math.sqrt(dx * dx + dy * dy)
 
             if (dist < collisionDist) {
-                return powerUp
-            }
-        }
-        return null
-    }
-
-    /**
-     * Check if player collides with any uncollected power-down using circle-to-circle detection.
-     * @param {Player} player - Player instance
-     * @param {PowerDown[]} powerDowns - Array of power-downs
-     * @returns {PowerDown|null} The collected power-down, or null if none
-     */
-    checkPlayerPowerDownCollision(player, powerDowns) {
-        const playerPos = player.getPosition()
-
-        for (const powerDown of powerDowns) {
-            if (powerDown.isCollected()) continue
-
-            const collisionDist = (player.size + powerDown.size) * this.threshold
-            const dx = playerPos.x - powerDown.x
-            const dy = playerPos.y - powerDown.y
-            const dist = Math.sqrt(dx * dx + dy * dy)
-
-            if (dist < collisionDist) {
-                return powerDown
+                return power
             }
         }
         return null
