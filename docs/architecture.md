@@ -49,9 +49,13 @@ Cyberpunk/neon aesthetic with these design elements:
 - `player`: size (12px), speed (200px/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
-- `powerUp.fast`: size (14px), speed multiplier (1.5x), duration (5000ms)
-- `powerUp.shield`: size (14px), duration (5000ms), immunity duration (2000ms), blink frequency (0.015)
-- `powerDown.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
+- `powerUp.fast`: size (14px) - collectible item size
+- `powerUp.shield`: size (14px) - collectible item size
+- `powerDown.slow`: size (14px) - collectible item size
+- `effects.fast`: duration (5000ms), speed multiplier (1.5x) - effect behavior
+- `effects.slow`: duration (5000ms), speed multiplier (0.5x) - effect behavior
+- `effects.shield`: duration (5000ms) - effect behavior
+- `effects.immunity`: duration (2000ms), blink frequency (0.015) - effect behavior
 - `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `pixelExplosion`: particle count (16), particle size (5px), end radius (45px), duration (800ms)
 - `colors`: all game element colors with glow variants
@@ -85,17 +89,39 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getDirection()` - Returns movement delta or null
 - Auto-disables after edge wrap
 
-**Player** (`js/player.js`) - Player entity:
+### Effect System
+
+**Effect** (`js/effects/effect.js`) - Effect instance data:
+- Holds type, duration, remaining time, and config for an active effect
+- `update(delta)` - Decrements timer, returns true if effect just expired
+- `getProgress()` - Returns 0-1 ratio (1 = just started, 0 = expired)
+
+**EffectTypes** (`js/effects/effect_types.js`) - Effect behavior registry:
+- Defines behavior for each effect type without subclassing
+- Each type specifies: `category` (player/enemy/world), `stackMode` (replace), `stackGroup` (effects in same group replace each other)
+- Handler functions: `apply(target, effect)`, `remove(target, effect)`, optional `onHit(target, effect, manager)`
+- `renderHint` object provides data for renderer (glowColor, showShield, blink)
+- Current types: `fast`, `slow`, `shield`, `immunity`
+
+**EffectManager** (`js/effects/effect_manager.js`) - Effect lifecycle manager:
+- Manages active effects on a target entity (player, enemy, etc.)
+- `addEffect(type, config)` - Creates effect, handles stacking rules, calls apply()
+- `removeEffect(type)` - Calls remove(), deletes effect
+- `update(delta)` - Updates all effects, removes expired, returns expired type names
+- `hasEffect(type)` - Check if effect is active
+- `handleCollision()` - Delegates to onHit handlers, returns true if hit absorbed
+- `getRenderHints()` - Returns combined render data for all active effects
+- `clear()` - Removes all effects (on death/reset)
+
+**Player** (`js/engine/player.js`) - Player entity:
 - Grid-snapped target-based movement
 - Wake effect - gradient trail during movement
+- `effectManager` - EffectManager instance for handling active effects
 - `moveTo(row, col, teleport)` - Movement with optional teleport
-- `applySpeedBoost(multiplier, duration)` - Apply temporary speed effect (boost or slow)
-- `hasSpeedBoost()` - Check if any speed effect is active
-- `isSlowed()` - Check if speed slow effect is active (multiplier < 1)
-- `applyShield(duration)` - Apply shield protection
-- `hasShield()` - Check if shield is active
-- `breakShield(immuneDuration)` - Break shield and grant post-shield immunity
-- `isImmune()` - Check if post-shield immunity is active
+- `hasSpeedBoost()` - Check if fast effect is active (delegates to effectManager)
+- `isSlowed()` - Check if slow effect is active (delegates to effectManager)
+- `hasShield()` - Check if shield effect is active (delegates to effectManager)
+- `isImmune()` - Check if immunity effect is active (delegates to effectManager)
 - `isProtected()` - Check if player has shield OR immunity (cannot die from collision)
 
 **PlayerExplosionAnimation** (`js/animations/player_explosion_animation.js`) - Death effect:
@@ -196,6 +222,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Fixed position on a single grid node
 - Pulsing glow animation for visibility
 - Collected on player contact (circle-based collision)
+- On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
 - Config: `x`, `y` (node position), `type` ('fast' or 'shield')
 - **Fast type**: Light blue circle (#00ccff) with white lightning bolt icon. Grants 1.5x speed for 5 seconds. Player shows cyan glow. New effect replaces current speed effect.
@@ -206,6 +233,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Red circle (#ff4444) with white turtle icon
 - Pulsing glow animation for visibility
 - Collected on player contact (circle-based collision)
+- On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Reduces to 0.5x speed for 5 seconds. Player shows red glow.
 - New effect replaces current (collecting power-up while slowed makes player fast, and vice versa)
 - Respawns on player death (level reset)
@@ -254,11 +282,10 @@ Cyberpunk/neon aesthetic with these design elements:
 - Score accumulation (1 point/second)
 - Death pause: 1000ms freeze with explosion effect before reset
 - Collision → death pause → reset flow (infinite lives)
-- Shield protection: if player has shield when hit, shield breaks and grants immunity instead of death
-- Immunity protection: player is invulnerable during post-shield immunity (blinking period)
+- Collision handling via `player.effectManager.handleCollision()` - returns true if effect absorbed hit
 - Camera follows player each frame (instant jump on teleport)
 - Separate arrays for power-ups and power-downs with independent collision checks
-- Power-up/power-down collection and effect application (speed boost/slow/shield)
+- Power-up/power-down collection creates effects via `player.effectManager.addEffect(type, config)`
 - Collection wave animation on power-up/power-down pickup (blue/red expanding ring)
 - Power-ups and power-downs respawn on player death
 - Responsive canvas with window resize handling

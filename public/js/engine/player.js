@@ -19,13 +19,7 @@ class Player {
         this.wakeStartX = 0           // Wake trail start X position
         this.wakeStartY = 0           // Wake trail start Y position
 
-        this.speedMultiplier = 1      // Current speed multiplier (1 = normal)
-        this.speedBoostTimer = 0      // Time remaining on speed boost in ms
-
-        this.shieldActive = false     // Whether shield is protecting player
-        this.shieldTimer = 0          // Time remaining on shield in ms
-        this.immuneActive = false     // Whether post-shield immunity is active
-        this.immuneTimer = 0          // Time remaining on immunity in ms
+        this.effectManager = new EffectManager(this)
 
         this.reset()
     }
@@ -50,60 +44,23 @@ class Player {
         this.wakeStartX = pos.x
         this.wakeStartY = pos.y
 
-        // Clear speed boost state
-        this.speedMultiplier = 1
-        this.speedBoostTimer = 0
+        // Clear all active effects and reset speed
+        this.effectManager.clear()
         this.speed = this.baseSpeed
-
-        // Clear shield/immunity state
-        this.shieldActive = false
-        this.shieldTimer = 0
-        this.immuneActive = false
-        this.immuneTimer = 0
     }
 
     /**
      * Update player position with smooth interpolation toward target.
      * @param {number} delta - Time elapsed since last frame in milliseconds
-     * @returns {Object} Object with expiration flags: { speedBoost, shield }
+     * @returns {string[]} Array of effect types that expired this frame
      */
     update(delta) {
-        const expired = { speedBoost: false, shield: false }
-
-        // Update speed boost timer
-        if (this.speedBoostTimer > 0) {
-            this.speedBoostTimer -= delta
-            if (this.speedBoostTimer <= 0) {
-                this.speedBoostTimer = 0
-                this.speedMultiplier = 1
-                this.speed = this.baseSpeed
-                expired.speedBoost = true
-            }
-        }
-
-        // Update shield timer
-        if (this.shieldTimer > 0) {
-            this.shieldTimer -= delta
-            if (this.shieldTimer <= 0) {
-                this.shieldTimer = 0
-                this.shieldActive = false
-                expired.shield = true
-            }
-        }
-
-        // Update immunity timer
-        if (this.immuneTimer > 0) {
-            this.immuneTimer -= delta
-            if (this.immuneTimer <= 0) {
-                this.immuneTimer = 0
-                this.immuneActive = false
-            }
-        }
+        const expiredEffects = this.effectManager.update(delta)
 
         // Fade wake when stationary
         if (!this.isMoving) {
             this.wakeIntensity = Math.max(0, this.wakeIntensity - delta * 0.004)
-            return expired
+            return expiredEffects
         }
 
         const moveAmount = this.speed * delta / 1000
@@ -130,7 +87,7 @@ class Player {
             this.wakeStartY = this.y - dir.y * trailDistance
         }
 
-        return expired
+        return expiredEffects
     }
 
     /**
@@ -168,42 +125,19 @@ class Player {
     }
 
     /**
-     * Apply a speed boost to the player.
-     * @param {number} multiplier - Speed multiplier (e.g., 2 for double speed)
-     * @param {number} duration - Duration in milliseconds
-     */
-    applySpeedBoost(multiplier, duration) {
-        this.speedMultiplier = multiplier
-        this.speedBoostTimer = duration
-        this.speed = this.baseSpeed * multiplier
-    }
-
-    /**
      * Check if player currently has a speed boost active.
      * @returns {boolean} True if speed boost is active
      */
     hasSpeedBoost() {
-        return this.speedBoostTimer > 0
+        return this.effectManager.hasEffect(Constants.effectTypes.fast)
     }
 
     /**
      * Check if player currently has a speed slow effect active.
-     * @returns {boolean} True if speed multiplier is less than 1
+     * @returns {boolean} True if slow effect is active
      */
     isSlowed() {
-        return this.speedBoostTimer > 0 && this.speedMultiplier < 1
-    }
-
-    /**
-     * Apply shield protection to the player.
-     * @param {number} duration - Shield duration in milliseconds
-     */
-    applyShield(duration) {
-        this.shieldActive = true
-        this.shieldTimer = duration
-        // Shield replaces immunity (collecting new shield while immune gives full shield)
-        this.immuneActive = false
-        this.immuneTimer = 0
+        return this.effectManager.hasEffect(Constants.effectTypes.slow)
     }
 
     /**
@@ -211,18 +145,7 @@ class Player {
      * @returns {boolean} True if shield is active
      */
     hasShield() {
-        return this.shieldActive
-    }
-
-    /**
-     * Break the shield and grant post-shield immunity.
-     * @param {number} immuneDuration - Immunity duration in milliseconds
-     */
-    breakShield(immuneDuration) {
-        this.shieldActive = false
-        this.shieldTimer = 0
-        this.immuneActive = true
-        this.immuneTimer = immuneDuration
+        return this.effectManager.hasEffect(Constants.effectTypes.shield)
     }
 
     /**
@@ -230,7 +153,7 @@ class Player {
      * @returns {boolean} True if immune
      */
     isImmune() {
-        return this.immuneActive
+        return this.effectManager.hasEffect(Constants.effectTypes.immunity)
     }
 
     /**
@@ -238,6 +161,6 @@ class Player {
      * @returns {boolean} True if player cannot die from collision
      */
     isProtected() {
-        return this.shieldActive || this.immuneActive
+        return this.hasShield() || this.isImmune()
     }
 }

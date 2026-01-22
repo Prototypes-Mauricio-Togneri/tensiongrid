@@ -1148,33 +1148,24 @@ class Renderer {
     drawPlayerWithBoost(player, scale = 1, time = 0) {
         const ctx = this.ctx
         const pos = this.toScreen(player.x, player.y)
-        const hasBoost = player.hasSpeedBoost() && player.speedMultiplier > 1
-        const isSlowed = player.isSlowed()
-        const hasShield = player.hasShield()
-        const isImmune = player.isImmune()
+        const hints = player.effectManager.getRenderHints()
+        const hasSpeedEffect = player.hasSpeedBoost() || player.isSlowed()
         const size = player.size * scale
 
         // Apply blinking effect during immunity
-        if (isImmune) {
-            const blinkFreq = Constants.game.powerUps.shield.blinkFrequency
+        if (hints.blink) {
+            const blinkFreq = Constants.game.effects.immunity.blinkFrequency
             const blinkAlpha = 0.3 + 0.7 * Math.abs(Math.sin(time * blinkFreq))
             ctx.save()
             ctx.globalAlpha = blinkAlpha
         }
 
-        // Determine effect color based on current state
-        // Shield takes visual priority for player color
+        // Determine effect color based on render hints
         let effectColor = this.colors.player
         let effectGlow = this.colors.playerGlow
-        if (hasShield || isImmune) {
-            effectColor = this.colors.shield
-            effectGlow = this.colors.shieldGlow
-        } else if (hasBoost) {
-            effectColor = this.colors.powerUpFast
-            effectGlow = this.colors.powerUpFastGlow
-        } else if (isSlowed) {
-            effectColor = this.colors.powerDownSlow
-            effectGlow = this.colors.powerDownSlowGlow
+        if (hints.glowColor) {
+            effectColor = this.colors[hints.glowColor]
+            effectGlow = this.colors[hints.glowColorAlpha]
         }
 
         // Draw tapered wake trail behind player
@@ -1220,7 +1211,7 @@ class Renderer {
         }
 
         // Speed effect glow (larger glow behind player when boosted or slowed)
-        if (hasBoost || isSlowed) {
+        if (hasSpeedEffect) {
             ctx.save()
             ctx.shadowColor = effectColor
             ctx.shadowBlur = 30
@@ -1253,12 +1244,12 @@ class Renderer {
         ctx.fill()
 
         // Draw shield circle if active
-        if (hasShield) {
+        if (hints.showShield) {
             this.drawShield(pos.x, pos.y, player.size)
         }
 
         // Restore alpha if blinking was applied
-        if (isImmune) {
+        if (hints.blink) {
             ctx.restore()
         }
     }

@@ -48,8 +48,8 @@ class Game {
         }
 
         this.processInput()
-        const expired = this.player.update(delta)
-        if (expired.speedBoost || expired.shield) {
+        const expiredEffects = this.player.update(delta)
+        if (expiredEffects.length > 0) {
             this.audioManager.playSound(Constants.audio.keys.powerExpired)
         }
         this.enemyManager.update(delta, this.player.row, this.player.col)
@@ -123,20 +123,15 @@ class Game {
         )
         if (collectedPowerUp) {
             collectedPowerUp.collect()
-            const effect = collectedPowerUp.getEffect()
-
-            // Apply effect based on power-up type
-            if (effect.type === 'fast') {
-                this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
-            } else if (effect.type === 'shield') {
-                this.player.applyShield(effect.duration)
-            }
+            const effectType = collectedPowerUp.type
+            const effectConfig = Constants.game.effects[effectType]
+            this.player.effectManager.addEffect(effectType, effectConfig)
 
             this.audioManager.playSound(Constants.audio.keys.powerUp)
             this.collectionWave = new CollectionWaveAnimation(
                 collectedPowerUp.x,
                 collectedPowerUp.y,
-                effect.type === 'shield'
+                effectType === Constants.effectTypes.shield
                     ? Constants.game.colors.shield
                     : Constants.game.colors.powerUpFast
             )
@@ -149,8 +144,10 @@ class Game {
         )
         if (collectedPowerDown) {
             collectedPowerDown.collect()
-            const effect = collectedPowerDown.getEffect()
-            this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
+            const effectType = collectedPowerDown.type
+            const effectConfig = Constants.game.effects[effectType]
+            this.player.effectManager.addEffect(effectType, effectConfig)
+
             this.audioManager.playSound(Constants.audio.keys.powerDown)
             this.collectionWave = new CollectionWaveAnimation(
                 collectedPowerDown.x,
@@ -161,16 +158,12 @@ class Game {
 
         // Start death pause on collision (unless protected)
         if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
-            if (this.player.hasShield()) {
-                // Shield absorbs the hit
-                const shieldConfig = Constants.game.powerUps.shield
-                this.player.breakShield(shieldConfig.immuneDuration)
+            if (this.player.effectManager.handleCollision()) {
+                // Effect absorbed the hit (shield broke, immunity granted)
                 this.audioManager.playSound(Constants.audio.keys.shieldBreak)
                 this.ui.shake()
-            } else if (this.player.isImmune()) {
-                // Player is immune, do nothing
-            } else {
-                // Normal death
+            } else if (!this.player.isImmune()) {
+                // Normal death (not protected)
                 this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
                 this.ui.shake()
                 this.dead = true

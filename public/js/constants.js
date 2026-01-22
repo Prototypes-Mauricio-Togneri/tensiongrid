@@ -120,6 +120,16 @@ const Constants = {
     },
 
     // ==========================================
+    // Effect Type Identifiers
+    // ==========================================
+    effectTypes: {
+        fast: 'fast',         // Speed boost effect
+        slow: 'slow',         // Speed slow effect
+        shield: 'shield',     // Shield protection effect
+        immunity: 'immunity'  // Post-shield immunity effect
+    },
+
+    // ==========================================
     // Game Configuration
     // ==========================================
     game: {
@@ -168,27 +178,39 @@ const Constants = {
             }
         },
         
-        // Power-up settings
+        // Power-up settings (collectible item visuals only, effect behavior in `effects`)
         powerUps: {
             fast: {
-                size: 14,             // Power-up size in pixels
-                speedMultiplier: 1.5, // Player speed multiplier when active
-                duration: 5000        // Effect duration in ms
+              size: 14
             },
             shield: {
-                size: 14,              // Power-up size in pixels
-                duration: 5000,        // Shield active duration in ms
-                immuneDuration: 2000,  // Post-break immunity duration in ms
-                blinkFrequency: 0.015  // Blink speed during immunity (radians per ms)
+              size: 14
             }
         },
 
-        // Power-down settings
+        // Power-down settings (collectible item visuals only, effect behavior in `effects`)
         powerDowns: {
             slow: {
-                size: 14,             // Power-down size in pixels
-                speedMultiplier: 0.5, // Player speed multiplier when active (50% speed)
-                duration: 5000        // Effect duration in ms
+              size: 14
+            }
+        },
+
+        // Effect configurations (used by EffectManager)
+        effects: {
+            fast: {
+                duration: 5000,        // Effect duration in ms
+                speedMultiplier: 1.5   // Player speed multiplier
+            },
+            slow: {
+                duration: 5000,        // Effect duration in ms
+                speedMultiplier: 0.5   // Player speed multiplier
+            },
+            shield: {
+                duration: 5000         // Shield active duration in ms
+            },
+            immunity: {
+                duration: 2000,        // Post-shield immunity duration in ms
+                blinkFrequency: 0.015  // Blink speed during immunity (radians per ms)
             }
         },
 
