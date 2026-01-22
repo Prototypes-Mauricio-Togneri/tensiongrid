@@ -48,8 +48,8 @@ class Game {
         }
 
         this.processInput()
-        const boostExpired = this.player.update(delta)
-        if (boostExpired) {
+        const expired = this.player.update(delta)
+        if (expired.speedBoost || expired.shield) {
             this.audioManager.playSound(Constants.audio.keys.powerExpired)
         }
         this.enemyManager.update(delta, this.player.row, this.player.col)
@@ -124,12 +124,21 @@ class Game {
         if (collectedPowerUp) {
             collectedPowerUp.collect()
             const effect = collectedPowerUp.getEffect()
-            this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
+
+            // Apply effect based on power-up type
+            if (effect.type === 'fast') {
+                this.player.applySpeedBoost(effect.speedMultiplier, effect.duration)
+            } else if (effect.type === 'shield') {
+                this.player.applyShield(effect.duration)
+            }
+
             this.audioManager.playSound(Constants.audio.keys.powerUp)
             this.collectionWave = new CollectionWaveAnimation(
                 collectedPowerUp.x,
                 collectedPowerUp.y,
-                Constants.game.colors.powerUpFast
+                effect.type === 'shield'
+                    ? Constants.game.colors.shield
+                    : Constants.game.colors.powerUpFast
             )
         }
 
@@ -150,13 +159,24 @@ class Game {
             )
         }
 
-        // Start death pause on collision
+        // Start death pause on collision (unless protected)
         if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
-            this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
-            this.ui.shake()
-            this.dead = true
-            this.deathTimer = Constants.game.physics.deathPauseMs
-            this.explosion = new PlayerExplosionAnimation(this.player.x, this.player.y)
+            if (this.player.hasShield()) {
+                // Shield absorbs the hit
+                const shieldConfig = Constants.game.powerUps.shield
+                this.player.breakShield(shieldConfig.immuneDuration)
+                this.audioManager.playSound(Constants.audio.keys.shieldBreak)
+                this.ui.shake()
+            } else if (this.player.isImmune()) {
+                // Player is immune, do nothing
+            } else {
+                // Normal death
+                this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
+                this.ui.shake()
+                this.dead = true
+                this.deathTimer = Constants.game.physics.deathPauseMs
+                this.explosion = new PlayerExplosionAnimation(this.player.x, this.player.y)
+            }
         }
     }
 
@@ -223,7 +243,7 @@ class Game {
             this.renderer.drawPlayerExplosion(this.explosion)
         } else {
             const playerScale = this.pixelScatter ? this.pixelScatter.getPlayerScale() : 1
-            this.renderer.drawPlayerWithBoost(this.player, playerScale)
+            this.renderer.drawPlayerWithBoost(this.player, playerScale, time)
         }
     }
 

@@ -22,6 +22,11 @@ class Player {
         this.speedMultiplier = 1      // Current speed multiplier (1 = normal)
         this.speedBoostTimer = 0      // Time remaining on speed boost in ms
 
+        this.shieldActive = false     // Whether shield is protecting player
+        this.shieldTimer = 0          // Time remaining on shield in ms
+        this.immuneActive = false     // Whether post-shield immunity is active
+        this.immuneTimer = 0          // Time remaining on immunity in ms
+
         this.reset()
     }
 
@@ -49,15 +54,21 @@ class Player {
         this.speedMultiplier = 1
         this.speedBoostTimer = 0
         this.speed = this.baseSpeed
+
+        // Clear shield/immunity state
+        this.shieldActive = false
+        this.shieldTimer = 0
+        this.immuneActive = false
+        this.immuneTimer = 0
     }
 
     /**
      * Update player position with smooth interpolation toward target.
      * @param {number} delta - Time elapsed since last frame in milliseconds
-     * @returns {boolean} True if speed boost expired this frame
+     * @returns {Object} Object with expiration flags: { speedBoost, shield }
      */
     update(delta) {
-        let boostExpired = false
+        const expired = { speedBoost: false, shield: false }
 
         // Update speed boost timer
         if (this.speedBoostTimer > 0) {
@@ -66,14 +77,33 @@ class Player {
                 this.speedBoostTimer = 0
                 this.speedMultiplier = 1
                 this.speed = this.baseSpeed
-                boostExpired = true
+                expired.speedBoost = true
+            }
+        }
+
+        // Update shield timer
+        if (this.shieldTimer > 0) {
+            this.shieldTimer -= delta
+            if (this.shieldTimer <= 0) {
+                this.shieldTimer = 0
+                this.shieldActive = false
+                expired.shield = true
+            }
+        }
+
+        // Update immunity timer
+        if (this.immuneTimer > 0) {
+            this.immuneTimer -= delta
+            if (this.immuneTimer <= 0) {
+                this.immuneTimer = 0
+                this.immuneActive = false
             }
         }
 
         // Fade wake when stationary
         if (!this.isMoving) {
             this.wakeIntensity = Math.max(0, this.wakeIntensity - delta * 0.004)
-            return boostExpired
+            return expired
         }
 
         const moveAmount = this.speed * delta / 1000
@@ -100,7 +130,7 @@ class Player {
             this.wakeStartY = this.y - dir.y * trailDistance
         }
 
-        return boostExpired
+        return expired
     }
 
     /**
@@ -162,5 +192,52 @@ class Player {
      */
     isSlowed() {
         return this.speedBoostTimer > 0 && this.speedMultiplier < 1
+    }
+
+    /**
+     * Apply shield protection to the player.
+     * @param {number} duration - Shield duration in milliseconds
+     */
+    applyShield(duration) {
+        this.shieldActive = true
+        this.shieldTimer = duration
+        // Shield replaces immunity (collecting new shield while immune gives full shield)
+        this.immuneActive = false
+        this.immuneTimer = 0
+    }
+
+    /**
+     * Check if player currently has shield active.
+     * @returns {boolean} True if shield is active
+     */
+    hasShield() {
+        return this.shieldActive
+    }
+
+    /**
+     * Break the shield and grant post-shield immunity.
+     * @param {number} immuneDuration - Immunity duration in milliseconds
+     */
+    breakShield(immuneDuration) {
+        this.shieldActive = false
+        this.shieldTimer = 0
+        this.immuneActive = true
+        this.immuneTimer = immuneDuration
+    }
+
+    /**
+     * Check if player currently has immunity active.
+     * @returns {boolean} True if immune
+     */
+    isImmune() {
+        return this.immuneActive
+    }
+
+    /**
+     * Check if player is protected from death (shield OR immunity).
+     * @returns {boolean} True if player cannot die from collision
+     */
+    isProtected() {
+        return this.shieldActive || this.immuneActive
     }
 }

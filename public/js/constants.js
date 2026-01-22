@@ -174,6 +174,12 @@ const Constants = {
                 size: 14,             // Power-up size in pixels
                 speedMultiplier: 1.5, // Player speed multiplier when active
                 duration: 5000        // Effect duration in ms
+            },
+            shield: {
+                size: 14,              // Power-up size in pixels
+                duration: 5000,        // Shield active duration in ms
+                immuneDuration: 2000,  // Post-break immunity duration in ms
+                blinkFrequency: 0.015  // Blink speed during immunity (radians per ms)
             }
         },
 
@@ -272,7 +278,12 @@ const Constants = {
             // Power-down colors
             powerDownSlow: '#ff4444',       // Slow power-down fill color (red)
             powerDownSlowGlow: '#ff44444d', // Slow power-down glow effect
-            powerDownSlowIcon: '#ffffff'    // Slow power-down icon color (white)
+            powerDownSlowIcon: '#ffffff',   // Slow power-down icon color (white)
+
+            // Shield colors (same blue as fast power-up)
+            shield: '#00ccff',       // Shield circle color (light blue)
+            shieldGlow: '#00ccff4d', // Shield glow effect
+            shieldIcon: '#ffffff'    // Shield icon color (white)
         }
     },
 
@@ -298,6 +309,7 @@ const Constants = {
             powerUp: 'powerUp',
             powerDown: 'powerDown',
             powerExpired: 'powerExpired',
+            shieldBreak: 'shieldBreak',
             wrapAround: 'wrapAround'
         },
         sounds: {
@@ -314,6 +326,7 @@ const Constants = {
             powerUp: 'audio/sound/power_up.wav',                 // Power-up collection sound effect
             powerDown: 'audio/sound/power_down.wav',             // Power-down collection sound effect
             powerExpired: 'audio/sound/power_expired.wav',       // Power-up expiration sound effect
+            shieldBreak: 'audio/sound/shield_break.wav',         // Shield break sound effect
             wrapAround: 'audio/sound/wrap_around.wav'            // Grid wrap teleport sound effect
         },
         music: {

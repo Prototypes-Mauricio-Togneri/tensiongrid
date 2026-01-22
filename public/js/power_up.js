@@ -18,9 +18,16 @@ class PowerUp {
         this.y = pos.y   // World Y coordinate
 
         const powerUpConfig = Constants.game.powerUps[this.type]
-        this.size = powerUpConfig.size                       // Size in pixels
-        this.speedMultiplier = powerUpConfig.speedMultiplier // Speed multiplier for fast type
-        this.duration = powerUpConfig.duration               // Effect duration in ms
+        this.size = powerUpConfig.size       // Size in pixels
+        this.duration = powerUpConfig.duration // Effect duration in ms
+
+        // Type-specific properties (only set if defined in config)
+        if (powerUpConfig.speedMultiplier !== undefined) {
+            this.speedMultiplier = powerUpConfig.speedMultiplier // Speed multiplier for fast type
+        }
+        if (powerUpConfig.immuneDuration !== undefined) {
+            this.immuneDuration = powerUpConfig.immuneDuration // Post-break immunity for shield type
+        }
 
         this.collected = false   // Whether power-up has been collected
     }
@@ -45,11 +52,17 @@ class PowerUp {
      * @returns {Object} Effect data with type-specific properties
      */
     getEffect() {
-        return {
+        const effect = {
             type: this.type,
-            speedMultiplier: this.speedMultiplier,
             duration: this.duration
         }
+        if (this.speedMultiplier !== undefined) {
+            effect.speedMultiplier = this.speedMultiplier
+        }
+        if (this.immuneDuration !== undefined) {
+            effect.immuneDuration = this.immuneDuration
+        }
+        return effect
     }
 
     /**

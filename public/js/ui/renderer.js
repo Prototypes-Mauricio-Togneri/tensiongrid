@@ -930,7 +930,7 @@ class Renderer {
     }
 
     /**
-     * Draw power-ups with pulsing circle and lightning bolt icon.
+     * Draw power-ups with pulsing circle and type-specific icon.
      * @param {PowerUp[]} powerUps - Array of power-up instances
      * @param {number} time - Current animation timestamp for pulse calculation
      */
@@ -946,12 +946,18 @@ class Renderer {
 
             const pos = this.toScreen(powerUp.x, powerUp.y)
             const size = powerUp.size * pulseIntensity
+            const isShield = powerUp.type === 'shield'
+
+            // Select colors based on power-up type
+            const color = isShield ? this.colors.shield : this.colors.powerUpFast
+            const glowColor = isShield ? this.colors.shieldGlow : this.colors.powerUpFastGlow
+            const iconColor = isShield ? this.colors.shieldIcon : this.colors.powerUpFastIcon
 
             // Outer glow
             ctx.save()
-            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowColor = color
             ctx.shadowBlur = 20 * pulseIntensity
-            ctx.fillStyle = this.colors.powerUpFastGlow
+            ctx.fillStyle = glowColor
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 4, 0, Math.PI * 2)
             ctx.fill()
@@ -959,16 +965,20 @@ class Renderer {
 
             // Main circle
             ctx.save()
-            ctx.shadowColor = this.colors.powerUpFast
+            ctx.shadowColor = color
             ctx.shadowBlur = 10 * pulseIntensity
-            ctx.fillStyle = this.colors.powerUpFast
+            ctx.fillStyle = color
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
             ctx.fill()
             ctx.restore()
 
-            // Draw lightning bolt icon
-            this.drawLightningBolt(pos.x, pos.y, size * 0.65, this.colors.powerUpFastIcon)
+            // Draw icon based on type
+            if (isShield) {
+                this.drawShieldIcon(pos.x, pos.y, size * 0.65, iconColor)
+            } else {
+                this.drawLightningBolt(pos.x, pos.y, size * 0.65, iconColor)
+            }
         }
     }
 
@@ -1073,20 +1083,93 @@ class Renderer {
     }
 
     /**
-     * Draw the player with wake effect, glow, and optional speed effect indicator.
-     * @param {Player} player - Player instance to draw
+     * Draw a shield icon centered at position.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Size of the icon
+     * @param {string} iconColor - Fill color for the icon
      */
-    drawPlayerWithBoost(player, scale = 1) {
+    drawShieldIcon(x, y, size, iconColor) {
+        const ctx = this.ctx
+        ctx.save()
+        ctx.fillStyle = iconColor
+
+        // Shield shape: flat top, tapered sides, pointed bottom
+        ctx.beginPath()
+        ctx.moveTo(x - size * 0.8, y - size * 0.9)  // Top left
+        ctx.lineTo(x + size * 0.8, y - size * 0.9)  // Top right
+        ctx.lineTo(x + size * 0.8, y - size * 0.2)  // Right upper side
+        ctx.quadraticCurveTo(x + size * 0.7, y + size * 0.5, x, y + size) // Right curve to bottom
+        ctx.quadraticCurveTo(x - size * 0.7, y + size * 0.5, x - size * 0.8, y - size * 0.2) // Left curve from bottom
+        ctx.closePath()
+        ctx.fill()
+
+        ctx.restore()
+    }
+
+    /**
+     * Draw shield circle around player.
+     * @param {number} x - Screen X position
+     * @param {number} y - Screen Y position
+     * @param {number} playerSize - Player size for shield radius calculation
+     */
+    drawShield(x, y, playerSize) {
+        const ctx = this.ctx
+        const radius = playerSize + 10
+
+        ctx.save()
+
+        // Outer glow
+        ctx.shadowColor = this.colors.shield
+        ctx.shadowBlur = 20
+        ctx.strokeStyle = this.colors.shieldGlow
+        ctx.lineWidth = 4
+        ctx.beginPath()
+        ctx.arc(x, y, radius + 3, 0, Math.PI * 2)
+        ctx.stroke()
+
+        // Main shield circle
+        ctx.shadowBlur = 12
+        ctx.strokeStyle = this.colors.shield
+        ctx.lineWidth = 2
+        ctx.beginPath()
+        ctx.arc(x, y, radius, 0, Math.PI * 2)
+        ctx.stroke()
+
+        ctx.restore()
+    }
+
+    /**
+     * Draw the player with wake effect, glow, shield, and optional speed effect indicator.
+     * @param {Player} player - Player instance to draw
+     * @param {number} scale - Scale factor for player size (default 1)
+     * @param {number} time - Animation timestamp for effects (default 0)
+     */
+    drawPlayerWithBoost(player, scale = 1, time = 0) {
         const ctx = this.ctx
         const pos = this.toScreen(player.x, player.y)
         const hasBoost = player.hasSpeedBoost() && player.speedMultiplier > 1
         const isSlowed = player.isSlowed()
+        const hasShield = player.hasShield()
+        const isImmune = player.isImmune()
         const size = player.size * scale
 
+        // Apply blinking effect during immunity
+        if (isImmune) {
+            const blinkFreq = Constants.game.powerUps.shield.blinkFrequency
+            const blinkAlpha = 0.3 + 0.7 * Math.abs(Math.sin(time * blinkFreq))
+            ctx.save()
+            ctx.globalAlpha = blinkAlpha
+        }
+
         // Determine effect color based on current state
+        // Shield takes visual priority for player color
         let effectColor = this.colors.player
         let effectGlow = this.colors.playerGlow
-        if (hasBoost) {
+        if (hasShield || isImmune) {
+            effectColor = this.colors.shield
+            effectGlow = this.colors.shieldGlow
+        } else if (hasBoost) {
             effectColor = this.colors.powerUpFast
             effectGlow = this.colors.powerUpFastGlow
         } else if (isSlowed) {
@@ -1168,5 +1251,15 @@ class Renderer {
         ctx.lineTo(pos.x - size * 0.3, pos.y)
         ctx.closePath()
         ctx.fill()
+
+        // Draw shield circle if active
+        if (hasShield) {
+            this.drawShield(pos.x, pos.y, player.size)
+        }
+
+        // Restore alpha if blinking was applied
+        if (isImmune) {
+            ctx.restore()
+        }
     }
 }

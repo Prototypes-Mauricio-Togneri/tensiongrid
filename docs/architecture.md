@@ -50,6 +50,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `powerUp.fast`: size (14px), speed multiplier (1.5x), duration (5000ms)
+- `powerUp.shield`: size (14px), duration (5000ms), immunity duration (2000ms), blink frequency (0.015)
 - `powerDown.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
 - `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `pixelExplosion`: particle count (16), particle size (5px), end radius (45px), duration (800ms)
@@ -91,6 +92,11 @@ Cyberpunk/neon aesthetic with these design elements:
 - `applySpeedBoost(multiplier, duration)` - Apply temporary speed effect (boost or slow)
 - `hasSpeedBoost()` - Check if any speed effect is active
 - `isSlowed()` - Check if speed slow effect is active (multiplier < 1)
+- `applyShield(duration)` - Apply shield protection
+- `hasShield()` - Check if shield is active
+- `breakShield(immuneDuration)` - Break shield and grant post-shield immunity
+- `isImmune()` - Check if post-shield immunity is active
+- `isProtected()` - Check if player has shield OR immunity (cannot die from collision)
 
 **PlayerExplosionAnimation** (`js/animations/player_explosion_animation.js`) - Death effect:
 - Visual effect for player death, particles scatter outward from center
@@ -188,13 +194,12 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **PowerUp** (`js/power_up.js`) - Collectible bonus item:
 - Fixed position on a single grid node
-- Light blue circle (#00ccff) with white lightning bolt icon
 - Pulsing glow animation for visibility
 - Collected on player contact (circle-based collision)
-- Grants 1.5x speed for 5 seconds. Player shows cyan glow.
-- New effect replaces current (collecting power-down while boosted makes player slow, and vice versa)
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast')
+- Config: `x`, `y` (node position), `type` ('fast' or 'shield')
+- **Fast type**: Light blue circle (#00ccff) with white lightning bolt icon. Grants 1.5x speed for 5 seconds. Player shows cyan glow. New effect replaces current speed effect.
+- **Shield type**: Light blue circle (#00aaff) with white shield icon. Grants 5-second shield (light blue circular aura around player). If hit while shielded, shield breaks and grants 2 seconds of blinking immunity. If shield expires naturally (not hit), no immunity is granted. Shield and speed effects can coexist.
 
 **PowerDown** (`js/power_down.js`) - Collectible debuff item:
 - Fixed position on a single grid node
@@ -232,9 +237,11 @@ Cyberpunk/neon aesthetic with these design elements:
 - Multi-layer rendering: glow → main → highlight
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
-- Power-up rendering with pulsing blue circle and lightning bolt icon
+- Power-up rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield)
 - Power-down rendering with pulsing red circle and turtle icon
 - Player boost indicator: cyan glow when speed boost is active, red glow when slowed
+- Shield rendering: light blue pulsing circular aura around player when shield is active
+- Immunity blinking: player blinks rapidly during post-shield immunity period
 
 **UIManager** (`js/io/ui_manager.js`) - DOM-based HUD:
 - Score display with zero-padding
@@ -247,9 +254,11 @@ Cyberpunk/neon aesthetic with these design elements:
 - Score accumulation (1 point/second)
 - Death pause: 1000ms freeze with explosion effect before reset
 - Collision → death pause → reset flow (infinite lives)
+- Shield protection: if player has shield when hit, shield breaks and grants immunity instead of death
+- Immunity protection: player is invulnerable during post-shield immunity (blinking period)
 - Camera follows player each frame (instant jump on teleport)
 - Separate arrays for power-ups and power-downs with independent collision checks
-- Power-up/power-down collection and effect application (speed boost/slow)
+- Power-up/power-down collection and effect application (speed boost/slow/shield)
 - Collection wave animation on power-up/power-down pickup (blue/red expanding ring)
 - Power-ups and power-downs respawn on player death
 - Responsive canvas with window resize handling
