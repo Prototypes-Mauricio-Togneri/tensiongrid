@@ -237,6 +237,7 @@ class Game {
         this.collectionWave = null
         this.player.reset()
         this.pixelScatter = new WrapAnimation(this.player.x, this.player.y, true)
+        this.audioManager.playSound(Constants.audio.keys.wrapAround)
         this.enemyManager.clear()
         this.initPowerUps(this.levelData.powerUps)   // Respawn power-ups
         this.initPowerDowns(this.levelData.powerDowns) // Respawn power-downs
