@@ -44,9 +44,9 @@ class Renderer {
 
     /**
      * Append alpha value to hex color string.
-     * @param {string} hex - Base hex color (e.g., '#ffffff')
+     * @param {string} hex - Base hex color
      * @param {number} alpha - Alpha value 0-1
-     * @returns {string} Hex color with alpha (e.g., '#ffffff80')
+     * @returns {string} Hex color with alpha
      */
     hexWithAlpha(hex, alpha) {
         const alphaHex = Math.round(alpha * 255).toString(16).padStart(2, '0')
