@@ -132,13 +132,8 @@ const Constants = {
 
         // Player settings
         player: {
-            size: 12,                 // Player rhombus size in pixels
-            speed: 200,               // Movement speed in pixels/second
-            explosionFragments: 7,    // Number of explosion fragments
-            explosionFragmentSize: 5, // Size of each fragment rhombus in pixels
-            explosionSpeedMin: 30,    // Fragment minimum outward speed in pixels/second
-            explosionSpeedMax: 50,    // Fragment maximum outward speed in pixels/second
-            explosionRotationSpeed: 3 // Fragment rotation speed in radians/second
+            size: 12, // Player rhombus size in pixels
+            speed: 200 // Movement speed in pixels/second
         },
 
         // Enemy settings
@@ -204,6 +199,14 @@ const Constants = {
             particleSize: 3,    // Size of each square particle in pixels
             spawnRadius: 45,    // Initial scatter radius in pixels
             duration: 250       // Time for particles to converge in ms
+        },
+
+        // Pixel explosion effect settings (player death)
+        pixelExplosion: {
+            particleCount: 16, // Number of particles
+            particleSize: 3,   // Size of each square particle in pixels
+            endRadius: 45,     // Final scatter radius in pixels
+            duration: 800      // Time for particles to scatter in ms
         },
 
         // Collection wave effect settings (power-up/power-down pickup)

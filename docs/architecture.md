@@ -46,12 +46,13 @@ Cyberpunk/neon aesthetic with these design elements:
 **Constants** (`js/constants.js`) - Immutable game constants:
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
-- `player`: size (12px), speed (200px/s), explosion fragments (7), explosion fragment size (5px), explosion speed (30-50px/s random), explosion rotation speed (3 rad/s)
+- `player`: size (12px), speed (200px/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `powerUp.fast`: size (14px), speed multiplier (1.5x), duration (5000ms)
 - `powerDown.slow`: size (14px), speed multiplier (0.5x), duration (5000ms)
 - `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
+- `pixelExplosion`: particle count (16), particle size (3px), end radius (45px), duration (800ms)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -92,11 +93,14 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isSlowed()` - Check if speed slow effect is active (multiplier < 1)
 
 **PlayerExplosionAnimation** (`js/animations/player_explosion_animation.js`) - Death effect:
-- Visual effect for player death, fragments fly outward and rotate from center
-- 7 small rhombus fragments with evenly distributed directions
-- Each fragment has random speed (30-50px/s) and rotates on its own center
-- `update(delta)` - Move fragments outward and update rotation
-- `getFragments()` - Returns fragment data {x, y, rotation} for rendering
+- Visual effect for player death, particles scatter outward from center
+- 16 small square particles with random angles (uses pixelExplosion config)
+- Ease-out animation for smooth deceleration over 800ms
+- Particles fade out as they scatter
+- `update(delta)` - Advance animation
+- `isComplete()` - Returns true when animation finished
+- `getParticles()` - Returns particle data {x, y, opacity} for rendering
+- `getPosition()` - Returns center position in world coordinates
 
 **PlayerWrapAnimation** (`js/animations/player_wrap_animation.js`) - Wrap teleport effect:
 - Visual effect for player wrap-around teleportation

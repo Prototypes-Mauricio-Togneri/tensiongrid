@@ -272,37 +272,32 @@ class Renderer {
     }
 
     /**
-     * Draw player explosion fragments with rotation.
-     * @param {PlayerExplosionAnimation} explosion - PlayerExplosionAnimation instance with fragment data
+     * Draw player explosion particles scattering outward.
+     * @param {PlayerExplosionAnimation} explosion - PlayerExplosionAnimation instance with particle data
      */
     drawPlayerExplosion(explosion) {
         const ctx = this.ctx
-        const fragments = explosion.getFragments()
-        const size = explosion.fragmentSize
+        const worldPos = explosion.getPosition()
+        const pos = this.toScreen(worldPos.x, worldPos.y)
+        const particles = explosion.getParticles()
+        const size = explosion.particleSize
 
-        for (const fragment of fragments) {
-            const pos = this.toScreen(fragment.x, fragment.y)
+        ctx.save()
 
-            ctx.save()
-            ctx.translate(pos.x, pos.y)
-            ctx.rotate(fragment.rotation)
+        for (const particle of particles) {
+            if (particle.opacity <= 0) continue
 
-            // Outer glow
-            ctx.save()
+            const px = pos.x + particle.x
+            const py = pos.y + particle.y
+
+            // Draw glow
             ctx.shadowColor = this.colors.player
-            ctx.shadowBlur = 12
-            this.drawRhombus(0, 0, size + 2, this.colors.playerGlow)
-            ctx.restore()
-
-            // Main fragment rhombus
-            ctx.save()
-            ctx.shadowColor = this.colors.player
-            ctx.shadowBlur = 8
-            this.drawRhombus(0, 0, size, this.colors.player)
-            ctx.restore()
-
-            ctx.restore()
+            ctx.shadowBlur = 8 * particle.opacity
+            ctx.fillStyle = this.hexWithAlpha(this.colors.player, particle.opacity)
+            ctx.fillRect(px - size / 2, py - size / 2, size, size)
         }
+
+        ctx.restore()
     }
 
     /**
