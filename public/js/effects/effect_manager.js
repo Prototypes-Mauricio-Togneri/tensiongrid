@@ -115,7 +115,8 @@ class EffectManager {
             glowColor: null,
             glowColorAlpha: null,
             showShield: false,
-            blink: false
+            blink: false,
+            blinkFrequency: null
         }
 
         // Apply hints from all active effects
@@ -124,11 +125,18 @@ class EffectManager {
             const typeInfo = EffectTypes[type]
             if (typeInfo.renderHint) {
                 Object.assign(hints, typeInfo.renderHint)
+                // If effect has blink in renderHint, grab its frequency
+                if (typeInfo.renderHint.blink && effect.config.blinkFrequency) {
+                    hints.blinkFrequency = effect.config.blinkFrequency
+                }
             }
 
             // Check if effect is about to expire and has warning configured
             if (effect.config.warningDuration && effect.remaining <= effect.config.warningDuration) {
                 hints.blink = true
+                if (effect.config.blinkFrequency) {
+                    hints.blinkFrequency = effect.config.blinkFrequency
+                }
             }
         }
 

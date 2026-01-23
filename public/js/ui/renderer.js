@@ -1070,10 +1070,9 @@ class Renderer {
         const hasSpeedEffect = player.hasSpeedBoost() || player.isSlowed()
         const size = player.size * scale
 
-        // Apply blinking effect during immunity
-        if (hints.blink) {
-            const blinkFreq = Constants.game.effects.immunity.blinkFrequency
-            const blinkAlpha = 0.3 + 0.7 * Math.abs(Math.sin(time * blinkFreq))
+        // Apply blinking effect (immunity or warning before effect expires)
+        if (hints.blink && hints.blinkFrequency) {
+            const blinkAlpha = 0.3 + 0.7 * Math.abs(Math.sin(time * hints.blinkFrequency))
             ctx.save()
             ctx.globalAlpha = blinkAlpha
         }
@@ -1127,7 +1126,7 @@ class Renderer {
         }
 
         // Restore alpha if blinking was applied
-        if (hints.blink) {
+        if (hints.blink && hints.blinkFrequency) {
             ctx.restore()
         }
     }
