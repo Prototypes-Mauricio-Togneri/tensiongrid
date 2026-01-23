@@ -292,6 +292,7 @@ Cyberpunk/neon aesthetic with these design elements:
   - Classes: `PascalCase`
   - Functions: `camelCase`
 - All magic values in `constants.js`
+- Unused parameters: use `_`, `__`, `___`, etc.
 
 ### JavaScript Comment Conventions
 
