@@ -59,8 +59,8 @@ class AudioManager {
      * Creates Audio elements for each sound to enable fast playback.
      */
     preloadSounds() {
-        for (const [key, path] of Object.entries(Constants.audio.sounds)) {
-            this.sounds[key] = new Audio(path)
+        for (const path of Object.values(Constants.audio.sounds)) {
+            this.sounds[path] = new Audio(path)
         }
     }
 
@@ -73,14 +73,14 @@ class AudioManager {
     }
 
     /**
-     * Play a sound effect by key.
+     * Play a sound effect by path.
      * Clones the audio element to allow overlapping plays.
-     * @param {string} soundKey - Key from Constants.audio.sounds
+     * @param {string} soundPath - Path from Constants.audio.sounds
      */
-    playSound(soundKey) {
+    playSound(soundPath) {
         if (!this.isEnabled()) return
 
-        const sound = this.sounds[soundKey]
+        const sound = this.sounds[soundPath]
         if (!sound) return
 
         // Clone audio to allow overlapping playback

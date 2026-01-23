@@ -50,7 +50,7 @@ class Game {
         this.processInput()
         const expiredEffects = this.player.update(delta)
         if (expiredEffects.length > 0) {
-            this.audioManager.playSound(Constants.audio.keys.powerExpired)
+            this.audioManager.playSound(Constants.audio.sounds.powerExpired)
         }
         this.enemyManager.update(delta, this.player.row, this.player.col)
 
@@ -101,7 +101,7 @@ class Game {
     checkCollisionsAndHandle() {
         // Check for mine trigger (does not kill player, just starts countdown)
         if (this.collision.checkPlayerMineContact(this.player, this.enemyManager.getAllMines())) {
-            this.audioManager.playSound(Constants.audio.keys.mineAlarm)
+            this.audioManager.playSound(Constants.audio.sounds.mineAlarm)
         }
 
         // Check for power collection
@@ -139,11 +139,11 @@ class Game {
     handleEnemyHit() {
         if (this.player.effectManager.handleCollision()) {
             // Effect absorbed the hit (shield broke, immunity granted)
-            this.audioManager.playSound(Constants.audio.keys.shieldBreak)
+            this.audioManager.playSound(Constants.audio.sounds.shieldBreak)
             this.ui.shake()
         } else if (!this.player.isImmune()) {
             // Normal death (not protected)
-            this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
+            this.audioManager.playSound(Constants.audio.sounds.explosionPlayer)
             this.ui.shake()
             this.dead = true
             this.deathTimer = Constants.game.physics.deathPauseMs
@@ -164,10 +164,10 @@ class Game {
         // Determine color for wave effect
         let waveColor
         if (power.isNegative) {
-            this.audioManager.playSound(Constants.audio.keys.powerDown)
+            this.audioManager.playSound(Constants.audio.sounds.powerDown)
             waveColor = Constants.game.colors.powerDownSlow
         } else {
-            this.audioManager.playSound(Constants.audio.keys.powerUp)
+            this.audioManager.playSound(Constants.audio.sounds.powerUp)
             waveColor = effectType === Constants.game.effects.shield.type
                 ? Constants.game.colors.shield
                 : Constants.game.colors.powerUpFast
@@ -205,7 +205,7 @@ class Game {
         // Disable input briefly after wrapping to prevent rapid teleporting
         if (wrapped.wrapped) {
             this.inputManager.disable()
-            this.audioManager.playSound(Constants.audio.keys.wrapAround)
+            this.audioManager.playSound(Constants.audio.sounds.wrapAround)
             // Spawn pixel scatter effect at arrival position
             const newPos = this.grid.getNodePosition(wrapped.row, wrapped.col)
             this.pixelScatter = new PlayerWrapAnimation(newPos.x, newPos.y)
@@ -257,7 +257,7 @@ class Game {
         this.collectionWave = null
         this.player.reset()
         this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
-        this.audioManager.playSound(Constants.audio.keys.wrapAround)
+        this.audioManager.playSound(Constants.audio.sounds.wrapAround)
         this.enemyManager.clear()
         this.initPowers(this.levelData) // Respawn powers
         this.camera.follow(this.player.x, this.player.y)

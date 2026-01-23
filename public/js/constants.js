@@ -326,23 +326,6 @@ const Constants = {
             menu: 'menu',  // Main menu music key
             game: 'game'   // Game screen music key
         },
-        keys: {
-            shooterTurn: 'shooterTurn',
-            shooterShot: 'shooterShot',
-            explosionMine: 'explosionMine',
-            mineAlarm: 'mineAlarm',
-            menuChange: 'menuChange',
-            menuSelect: 'menuSelect',
-            audioToggle: 'audioToggle',
-            closeScreen: 'closeScreen',
-            pauseMenu: 'pauseMenu',
-            explosionPlayer: 'explosionPlayer',
-            powerUp: 'powerUp',
-            powerDown: 'powerDown',
-            powerExpired: 'powerExpired',
-            shieldBreak: 'shieldBreak',
-            wrapAround: 'wrapAround'
-        },
         sounds: {
             shooterTurn: 'audio/sound/shooter_turn.wav',         // Turret rotation sound effect
             shooterShot: 'audio/sound/shooter_shot.wav',         // Turret firing sound effect
