@@ -125,6 +125,11 @@ class EffectManager {
             if (typeInfo.renderHint) {
                 Object.assign(hints, typeInfo.renderHint)
             }
+
+            // Check if effect is about to expire and has warning configured
+            if (effect.config.warningDuration && effect.remaining <= effect.config.warningDuration) {
+                hints.blink = true
+            }
         }
 
         return hints

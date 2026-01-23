@@ -196,7 +196,8 @@ const Constants = {
             },
             mirror: {
                 type: 'mirror',       // Effect type identifier
-                duration: 5000        // Control inversion duration in ms
+                duration: 5000,       // Control inversion duration in ms
+                warningDuration: 1000 // Start blinking this many ms before expiration
             }
         },
 
