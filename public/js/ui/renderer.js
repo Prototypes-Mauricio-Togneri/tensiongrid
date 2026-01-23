@@ -947,21 +947,24 @@ class Renderer {
         ctx.save()
         ctx.fillStyle = iconColor
 
+        // Offset to center the turtle (head extends right more than shell extends left)
+        const offsetX = x - size * 0.125
+
         // Shell (oval dome)
         ctx.beginPath()
-        ctx.ellipse(x, y, size * 0.7, size * 0.5, 0, 0, Math.PI * 2)
+        ctx.ellipse(offsetX, y, size * 0.7, size * 0.5, 0, 0, Math.PI * 2)
         ctx.fill()
 
         // Head (small circle protruding right)
         ctx.beginPath()
-        ctx.arc(x + size * 0.7, y, size * 0.25, 0, Math.PI * 2)
+        ctx.arc(offsetX + size * 0.7, y, size * 0.25, 0, Math.PI * 2)
         ctx.fill()
 
         // Front leg (small rectangle)
-        ctx.fillRect(x + size * 0.2, y + size * 0.3, size * 0.25, size * 0.35)
+        ctx.fillRect(offsetX + size * 0.2, y + size * 0.3, size * 0.25, size * 0.35)
 
         // Back leg (small rectangle)
-        ctx.fillRect(x - size * 0.45, y + size * 0.3, size * 0.25, size * 0.35)
+        ctx.fillRect(offsetX - size * 0.45, y + size * 0.3, size * 0.25, size * 0.35)
 
         ctx.restore()
     }
