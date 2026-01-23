@@ -50,7 +50,7 @@ const EffectTypes = {
         stackGroup: 'shield',
         apply: () => {},
         remove: () => {},
-        onHit: (player, effect, manager) => {
+        onHit: (_, __, manager) => {
             manager.removeEffect(Constants.game.effects.shield.type)
             manager.addEffect(Constants.game.effects.immunity.type, Constants.game.effects.immunity)
             return true
