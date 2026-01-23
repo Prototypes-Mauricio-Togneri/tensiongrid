@@ -176,33 +176,35 @@ const Constants = {
         // Effect configurations (used by EffectManager)
         effects: {
             fast: {
-                type: 'fast',         // Effect type identifier
-                duration: 5000,       // Effect duration in ms
-                speedMultiplier: 1.5, // Player speed multiplier
+                type: 'fast',          // Effect type identifier
+                duration: 5000,        // Effect duration in ms
+                speedMultiplier: 1.5,  // Player speed multiplier
                 warningDuration: 1000, // Start blinking this many ms before expiration
-                blinkFrequency: 0.015 // Blink speed (radians per ms)
+                blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
             slow: {
-                type: 'slow',         // Effect type identifier
-                duration: 5000,       // Effect duration in ms
-                speedMultiplier: 0.5, // Player speed multiplier
+                type: 'slow',          // Effect type identifier
+                duration: 5000,        // Effect duration in ms
+                speedMultiplier: 0.5,  // Player speed multiplier
                 warningDuration: 1000, // Start blinking this many ms before expiration
-                blinkFrequency: 0.015 // Blink speed (radians per ms)
+                blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
             shield: {
-                type: 'shield',       // Effect type identifier
-                duration: 5000        // Shield active duration in ms
+                type: 'shield',        // Effect type identifier
+                duration: 5000,        // Shield active duration in ms
+                warningDuration: 1000, // Start blinking this many ms before expiration
+                blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
             immunity: {
-                type: 'immunity',     // Effect type identifier
-                duration: 2000,       // Post-shield immunity duration in ms
-                blinkFrequency: 0.015 // Blink speed during immunity (radians per ms)
+                type: 'immunity',      // Effect type identifier
+                duration: 2000,        // Post-shield immunity duration in ms
+                blinkFrequency: 0.015  // Blink speed during immunity (radians per ms)
             },
             mirror: {
-                type: 'mirror',       // Effect type identifier
-                duration: 5000,       // Control inversion duration in ms
+                type: 'mirror',        // Effect type identifier
+                duration: 5000,        // Control inversion duration in ms
                 warningDuration: 1000, // Start blinking this many ms before expiration
-                blinkFrequency: 0.015 // Blink speed (radians per ms)
+                blinkFrequency: 0.015  // Blink speed (radians per ms)
             }
         },
 

@@ -52,7 +52,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `powers.size`: (14px) - collectible power-up/down item size
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
-- `effects.shield`: duration (5000ms) - effect behavior
+- `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
 - `effects.immunity`: duration (2000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
 - `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
