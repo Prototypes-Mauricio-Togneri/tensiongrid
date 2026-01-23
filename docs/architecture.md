@@ -265,6 +265,13 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Game** (`js/engine/game.js`) - Main orchestrator:
 - `start(levelData)` - Initializes game with level configuration (grid, player, enemies, powers)
+- `update(delta)` - Main update loop, delegates to helper methods
+- `updateAnimations(delta)` - Updates visual effect animations
+- `updateScore(delta)` - Awards points based on survival time
+- `checkCollisionsAndHandle()` - Coordinates all collision checks and responses
+- `checkEnemyCollisions()` - Returns true if player hit by any enemy
+- `handleEnemyHit()` - Processes enemy collision (shield break or death)
+- `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - Creates AudioManager and passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Score accumulation (1 point/second)

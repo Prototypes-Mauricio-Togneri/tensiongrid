@@ -58,7 +58,16 @@ class Game {
         this.camera.follow(this.player.x, this.player.y)
         this.player.teleported = false
 
-        // Update pixel scatter effect
+        this.updateAnimations(delta)
+        this.updateScore(delta)
+        this.checkCollisionsAndHandle()
+    }
+
+    /**
+     * Update visual effect animations.
+     * @param {number} delta - Time elapsed since last frame in milliseconds
+     */
+    updateAnimations(delta) {
         if (this.pixelScatter) {
             this.pixelScatter.update(delta)
             if (this.pixelScatter.isComplete()) {
@@ -66,102 +75,105 @@ class Game {
             }
         }
 
-        // Update collection wave effect
         if (this.collectionWave) {
             this.collectionWave.update(delta)
             if (this.collectionWave.isComplete()) {
                 this.collectionWave = null
             }
         }
+    }
 
-        // Award 1 point per second survived
+    /**
+     * Update score based on survival time.
+     * @param {number} delta - Time elapsed since last frame in milliseconds
+     */
+    updateScore(delta) {
         this.scoreTimer += delta
         if (this.scoreTimer >= 1000) {
             this.ui.addScore(1)
             this.scoreTimer -= 1000
         }
+    }
 
-        // Check collisions
-        const hitByEnemy = this.collision.checkPlayerBulletCollision(
-            this.player,
-            this.enemyManager.getBullets()
-        )
-        const hitByLaser = this.collision.checkPlayerLaserCollision(
-            this.player,
-            this.enemyManager.getLasers()
-        )
-        const hitByTrap = this.collision.checkPlayerTrapCollision(
-            this.player,
-            this.enemyManager.getTraps()
-        )
-        const hitByShooter = this.collision.checkPlayerShooterCollision(
-            this.player,
-            this.enemyManager.getShooters()
-        )
-        const hitByPatrol = this.collision.checkPlayerPatrolCollision(
-            this.player,
-            this.enemyManager.getPatrols()
-        )
-        const hitByFollower = this.collision.checkPlayerFollowerCollision(
-            this.player,
-            this.enemyManager.getFollowers()
-        )
-
+    /**
+     * Check all collisions and handle results.
+     */
+    checkCollisionsAndHandle() {
         // Check for mine trigger (does not kill player, just starts countdown)
-        const mineTriggered = this.collision.checkPlayerMineContact(
-            this.player,
-            this.enemyManager.getAllMines()
-        )
-        if (mineTriggered) {
+        if (this.collision.checkPlayerMineContact(this.player, this.enemyManager.getAllMines())) {
             this.audioManager.playSound(Constants.audio.keys.mineAlarm)
         }
 
         // Check for power collection
-        const collectedPower = this.collision.checkPlayerPowerCollision(
-            this.player,
-            this.powers
-        )
+        const collectedPower = this.collision.checkPlayerPowerCollision(this.player, this.powers)
         if (collectedPower) {
-            collectedPower.collect()
-            const effectType = collectedPower.type
-            const effectConfig = Constants.game.effects[effectType]
-            this.player.effectManager.addEffect(effectType, effectConfig)
-
-            // Play sound and create wave effect based on power type
-            if (collectedPower.isNegative) {
-                this.audioManager.playSound(Constants.audio.keys.powerDown)
-                this.collectionWave = new CollectionWaveAnimation(
-                    collectedPower.x,
-                    collectedPower.y,
-                    Constants.game.colors.powerDownSlow
-                )
-            } else {
-                this.audioManager.playSound(Constants.audio.keys.powerUp)
-                this.collectionWave = new CollectionWaveAnimation(
-                    collectedPower.x,
-                    collectedPower.y,
-                    effectType === Constants.game.effects.shield.type
-                        ? Constants.game.colors.shield
-                        : Constants.game.colors.powerUpFast
-                )
-            }
+            this.handlePowerCollection(collectedPower)
         }
 
-        // Start death pause on collision (unless protected)
-        if (hitByEnemy || hitByLaser || hitByTrap || hitByShooter || hitByPatrol || hitByFollower) {
-            if (this.player.effectManager.handleCollision()) {
-                // Effect absorbed the hit (shield broke, immunity granted)
-                this.audioManager.playSound(Constants.audio.keys.shieldBreak)
-                this.ui.shake()
-            } else if (!this.player.isImmune()) {
-                // Normal death (not protected)
-                this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
-                this.ui.shake()
-                this.dead = true
-                this.deathTimer = Constants.game.physics.deathPauseMs
-                this.explosion = new PlayerExplosionAnimation(this.player.x, this.player.y)
-            }
+        // Check enemy collisions and handle death
+        if (this.checkEnemyCollisions()) {
+            this.handleEnemyHit()
         }
+    }
+
+    /**
+     * Check if player collides with any enemy.
+     * @returns {boolean} True if player hit by any enemy
+     */
+    checkEnemyCollisions() {
+        const p = this.player
+        const em = this.enemyManager
+        const c = this.collision
+
+        return c.checkPlayerBulletCollision(p, em.getBullets())
+            || c.checkPlayerLaserCollision(p, em.getLasers())
+            || c.checkPlayerTrapCollision(p, em.getTraps())
+            || c.checkPlayerShooterCollision(p, em.getShooters())
+            || c.checkPlayerPatrolCollision(p, em.getPatrols())
+            || c.checkPlayerFollowerCollision(p, em.getFollowers())
+    }
+
+    /**
+     * Handle player being hit by an enemy.
+     */
+    handleEnemyHit() {
+        if (this.player.effectManager.handleCollision()) {
+            // Effect absorbed the hit (shield broke, immunity granted)
+            this.audioManager.playSound(Constants.audio.keys.shieldBreak)
+            this.ui.shake()
+        } else if (!this.player.isImmune()) {
+            // Normal death (not protected)
+            this.audioManager.playSound(Constants.audio.keys.explosionPlayer)
+            this.ui.shake()
+            this.dead = true
+            this.deathTimer = Constants.game.physics.deathPauseMs
+            this.explosion = new PlayerExplosionAnimation(this.player.x, this.player.y)
+        }
+    }
+
+    /**
+     * Handle power collection: apply effect, play sound, create wave animation.
+     * @param {Power} power - The collected power
+     */
+    handlePowerCollection(power) {
+        power.collect()
+        const effectType = power.type
+        const effectConfig = Constants.game.effects[effectType]
+        this.player.effectManager.addEffect(effectType, effectConfig)
+
+        // Determine color for wave effect
+        let waveColor
+        if (power.isNegative) {
+            this.audioManager.playSound(Constants.audio.keys.powerDown)
+            waveColor = Constants.game.colors.powerDownSlow
+        } else {
+            this.audioManager.playSound(Constants.audio.keys.powerUp)
+            waveColor = effectType === Constants.game.effects.shield.type
+                ? Constants.game.colors.shield
+                : Constants.game.colors.powerUpFast
+        }
+
+        this.collectionWave = new CollectionWaveAnimation(power.x, power.y, waveColor)
     }
 
     /**
