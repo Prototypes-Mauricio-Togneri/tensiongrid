@@ -954,7 +954,7 @@ class Renderer {
                 glowColor = this.colors.powerDownSlowGlow
                 iconColor = this.colors.powerDownSlowIcon
                 drawIcon = (x, y, s, c) => this.drawTurtleIcon(x, y, s, c)
-            } else if (power.type === 'shield') {
+            } else if (power.type === Constants.game.effects.shield.type) {
                 color = this.colors.shield
                 glowColor = this.colors.shieldGlow
                 iconColor = this.colors.shieldIcon
