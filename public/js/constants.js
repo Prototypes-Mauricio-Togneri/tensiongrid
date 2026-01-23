@@ -197,7 +197,7 @@ const Constants = {
             },
             immunity: {
                 type: 'immunity',      // Effect type identifier
-                duration: 2000,        // Post-shield immunity duration in ms
+                duration: 1000,        // Post-shield immunity duration in ms
                 blinkFrequency: 0.015  // Blink speed during immunity (radians per ms)
             },
             mirror: {
