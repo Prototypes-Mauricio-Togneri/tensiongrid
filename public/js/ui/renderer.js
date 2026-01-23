@@ -845,8 +845,9 @@ class Renderer {
         const ctx = this.ctx
 
         // Calculate pulse intensity based on time (sine wave oscillation)
-        const pulseSpeed = 0.005
-        const pulseIntensity = 0.85 + 0.15 * Math.sin(time * pulseSpeed)
+        const { pulseSpeed, pulseMin, pulseMax } = Constants.game.powers
+        const pulseRange = pulseMax - pulseMin
+        const pulseIntensity = pulseMin + pulseRange * (0.5 + 0.5 * Math.sin(time * pulseSpeed))
 
         for (const power of powers) {
             if (power.isCollected()) continue
