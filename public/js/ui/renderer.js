@@ -625,9 +625,8 @@ class Renderer {
     /**
      * Draw shooters with arms only for active directions.
      * @param {EnemyShooter[]} shooters - Array of shooter instances
-     * @param {number} time - Current animation timestamp (unused, kept for consistency)
      */
-    drawShooters(shooters, time) {
+    drawShooters(shooters) {
         const ctx = this.ctx
 
         for (const shooter of shooters) {
