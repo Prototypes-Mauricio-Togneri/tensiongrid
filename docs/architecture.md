@@ -239,6 +239,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 - Triggers sound effects via AudioManager (turret rotation)
+- `patrolSpawnRegistry` - Extensible registry for patrol spawn types (trap, mine); add new types without modifying `handlePatrolSpawn()`
 
 **Collision** (`js/engine/collision.js`) - Collision detection:
 - Strategy helpers: `circleCollides(player, entity, size)`, `gridCollides(player, entity)`

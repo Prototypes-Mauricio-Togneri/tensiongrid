@@ -20,6 +20,22 @@ class EnemyManager {
         this.patrols = [] // Patrol instances
         this.followers = [] // Follower instances
         this.instanceStates = [] // Per-spawner timing state
+
+        // Registry for patrol spawn types (extensible without modifying handlePatrolSpawn)
+        this.patrolSpawnRegistry = {
+            [EnemyPatrol.SPAWN_TYPE_TRAP]: {
+                create: (cfg) => new EnemyTrap(cfg, this.grid),
+                getArray: () => this.traps
+            },
+            [EnemyPatrol.SPAWN_TYPE_MINE]: {
+                create: (cfg) => {
+                    cfg.delay = Constants.game.enemies.mine.patrolSpawnDelay
+                    return new EnemyMine(cfg, this.grid)
+                },
+                getArray: () => this.mines
+            }
+        }
+
         this.initInstanceStates()
         this.initLasers()
         this.initTraps()
@@ -254,18 +270,13 @@ class EnemyManager {
      * @param {Object} request - Spawn request {type: 'trap'|'mine', row, col, ttl}
      */
     handlePatrolSpawn(request) {
-        // Skip if fixed enemy already exists at this node
         if (this.hasFixedEnemyAtNode(request.row, request.col)) return
 
-        const config = { x: request.col, y: request.row, ttl: request.ttl }
+        const entry = this.patrolSpawnRegistry[request.type]
+        if (!entry) return
 
-        if (request.type === EnemyPatrol.SPAWN_TYPE_TRAP) {
-            this.traps.push(new EnemyTrap(config, this.grid))
-        } else if (request.type === EnemyPatrol.SPAWN_TYPE_MINE) {
-            // Use default delay for patrol-spawned mines
-            config.delay = Constants.game.enemies.mine.patrolSpawnDelay
-            this.mines.push(new EnemyMine(config, this.grid))
-        }
+        const config = { x: request.col, y: request.row, ttl: request.ttl }
+        entry.getArray().push(entry.create(config))
     }
 
     /**
