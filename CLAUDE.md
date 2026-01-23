@@ -11,11 +11,11 @@ HTML5 canvas game "Tension Grid" - a retro-futuristic arcade game. Player (white
 ```
 public/
 ├── audio/
-│   ├── music/   → Background music
-│   └── sound/   → Sound effects
-├── css/         → Stylesheets
+│   ├── music/       → Background music
+│   └── sound/       → Sound effects
+├── css/             → Stylesheets
 ├── img/
-│   └── ico/     → Icons
+│   └── ico/         → Icons
 ├── js/
 │   ├── animations/  → Animation classes
 │   ├── effects/     → Visual effects
@@ -23,7 +23,7 @@ public/
 │   ├── engine/      → Core game engine
 │   ├── io/          → Input/output handling
 │   └── ui/          → UI components
-├── levels/      → Level definitions (JSON)
+├── levels/          → Level definitions (JSON)
 └── index.html
 ```
 
