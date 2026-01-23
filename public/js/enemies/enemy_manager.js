@@ -311,7 +311,7 @@ class EnemyManager {
 
     /**
      * Convert direction key to row/col delta vectors.
-     * @param {string} direction - Direction key from Constants.cardinalDirections
+     * @param {string} direction - Direction key from Constants.directions
      * @returns {Object} Object with row and col deltas
      */
     getDirectionVectors(direction) {

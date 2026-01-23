@@ -57,36 +57,31 @@ const Constants = {
     },
 
     // ==========================================
-    // Cardinal Direction Names
-    // ==========================================
-    cardinalDirections: {
-        up: 'up',
-        down: 'down',
-        left: 'left',
-        right: 'right'
-    },
-
-    // ==========================================
     // Direction Vectors (row/col deltas)
     // ==========================================
     directions: {
         up: {
+          key: 'up',
           row: -1, // Move up decreases row
           col: 0
         },
         down: {
+          key: 'down',
           row: 1,  // Move down increases row
           col: 0
         },
         left: {
+          key: 'left',
           row: 0,
           col: -1  // Move left decreases column
         },
         right: {
+          key: 'right',
           row: 0,
           col: 1   // Move right increases column
         },
         none: {
+          key: 'none',
           row: 0,  // No movement
           col: 0
         }
@@ -97,15 +92,15 @@ const Constants = {
     // ==========================================
     actions: {
         home: {
-            continue: 'continue',   // Continue last game
-            levels: 'levels',       // Open level select
+            continue: 'continue',     // Continue last game
+            levels: 'levels',         // Open level select
             fullscreen: 'fullscreen', // Toggle fullscreen mode
-            settings: 'settings'    // Open settings
+            settings: 'settings'      // Open settings
         },
         pause: {
-            continue: 'continue', // Resume game
-            restart: 'restart',   // Restart current level
-            quit: 'quit'          // Return to main menu
+            continue: 'continue',     // Resume game
+            restart: 'restart',       // Restart current level
+            quit: 'quit'              // Return to main menu
         }
     },
 
