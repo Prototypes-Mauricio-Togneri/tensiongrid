@@ -21,10 +21,10 @@ const Constants = {
             bgAnimation: 'bgAnimation'        // Background animation container
         },
         classes: {
-            shake: 'shake',           // Screen shake animation class
-            active: 'active',         // Visible screen class
-            selected: 'selected',     // Selected menu item class
-            menuButton: 'menu-button' // Menu button class
+            shake: 'shake',                   // Screen shake animation class
+            active: 'active',                 // Visible screen class
+            selected: 'selected',             // Selected menu item class
+            menuButton: 'menu-button'         // Menu button class
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',    // Home menu buttons
@@ -322,10 +322,6 @@ const Constants = {
     // Audio Configuration
     // ==========================================
     audio: {
-        musicKeys: {
-            menu: 'menu',  // Main menu music key
-            game: 'game'   // Game screen music key
-        },
         sounds: {
             shooterTurn: 'audio/sound/shooter_turn.wav',         // Turret rotation sound effect
             shooterShot: 'audio/sound/shooter_shot.wav',         // Turret firing sound effect
@@ -359,8 +355,6 @@ const Constants = {
     // Storage Configuration
     // ==========================================
     storage: {
-        keys: {
-            audioEnabled: 'audio.enabled' // localStorage key for audio toggle state
-        }
+        audioEnabled: 'audio.enabled' // localStorage key for audio toggle state
     }
 }

@@ -13,7 +13,7 @@
      * Play main menu background music.
      */
     function playMenuMusic() {
-        audioManager.playMusic(Constants.audio.musicKeys.menu)
+        audioManager.playMusic(Constants.audio.music.menu)
     }
 
     // Input edge detection state (tracks previous frame to detect key-down events)
@@ -63,7 +63,7 @@
      * @param {string} from - Screen to return to on quit
      */
     async function openGameScreen(level, from) {
-        audioManager.playMusic(Constants.audio.musicKeys.game)
+        audioManager.playMusic(Constants.audio.music.game)
         currentLevel = level
         gameStartedFrom = from
         const response = await fetch(currentLevel)

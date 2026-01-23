@@ -61,7 +61,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
-- `storage.keys`: localStorage key names (audioEnabled)
+- `storage`: localStorage key names (audioEnabled)
 
 ### Core Classes
 

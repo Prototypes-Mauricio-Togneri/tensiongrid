@@ -10,9 +10,9 @@ class AudioManager {
      */
     constructor() {
         this.audioToggle = document.getElementById(Constants.dom.ids.audioToggle) // Audio toggle checkbox
-        this.sounds = {} // Cache of preloaded Audio elements by sound key
-        this.currentMusic = null    // Currently playing music Audio element
-        this.currentMusicKey = null // Key of current music track
+        this.sounds = {} // Cache of preloaded Audio elements by sound path
+        this.currentMusic = null     // Currently playing music Audio element
+        this.currentMusicPath = null // Path of current music track
         this.userInteracted = false // Whether user has interacted with the page
         this.boundHandleFirstInteraction = this.handleFirstInteraction.bind(this) // Bound handler for cleanup
         this.preloadSounds()
@@ -40,7 +40,7 @@ class AudioManager {
      * @returns {boolean} True if audio should be enabled (default: true)
      */
     loadAudioState() {
-        const value = localStorage.getItem(Constants.storage.keys.audioEnabled)
+        const value = localStorage.getItem(Constants.storage.audioEnabled)
         // Default to true if key doesn't exist, only false if explicitly 'false'
         return value !== 'false'
     }
@@ -50,7 +50,7 @@ class AudioManager {
      */
     saveAudioState() {
         if (this.audioToggle) {
-            localStorage.setItem(Constants.storage.keys.audioEnabled, this.audioToggle.checked)
+            localStorage.setItem(Constants.storage.audioEnabled, this.audioToggle.checked)
         }
     }
 
@@ -91,25 +91,24 @@ class AudioManager {
     }
 
     /**
-     * Play background music by key.
+     * Play background music.
      * Loops continuously. Does nothing if same track already playing.
-     * @param {string} musicKey - Key from Constants.audio.music
+     * @param {Object} config - Music config with path and volume from Constants.audio.music
      */
-    playMusic(musicKey) {
+    playMusic(config) {
+        if (!config) return
+
         // Skip if same track is already playing
-        if (this.currentMusicKey === musicKey) return
+        if (this.currentMusicPath === config.path) return
 
         // Stop any currently playing music
         this.stopMusic()
-
-        const config = Constants.audio.music[musicKey]
-        if (!config) return
 
         // Create and configure music element
         this.currentMusic = new Audio(config.path)
         this.currentMusic.loop = true
         this.currentMusic.volume = config.volume
-        this.currentMusicKey = musicKey
+        this.currentMusicPath = config.path
 
         // Only play if audio is enabled
         if (this.isEnabled()) {
@@ -128,7 +127,7 @@ class AudioManager {
             this.currentMusic.currentTime = 0
         }
         this.currentMusic = null
-        this.currentMusicKey = null
+        this.currentMusicPath = null
     }
 
     /**
