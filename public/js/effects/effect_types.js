@@ -6,7 +6,7 @@ const EffectTypes = {
     /**
      * Speed boost effect - increases player movement speed.
      */
-    [Constants.effectTypes.fast]: {
+    [Constants.game.effects.fast.type]: {
         category: 'player',
         stackMode: 'replace',
         stackGroup: 'speed',
@@ -25,7 +25,7 @@ const EffectTypes = {
     /**
      * Speed slow effect - decreases player movement speed.
      */
-    [Constants.effectTypes.slow]: {
+    [Constants.game.effects.slow.type]: {
         category: 'player',
         stackMode: 'replace',
         stackGroup: 'speed',
@@ -44,15 +44,15 @@ const EffectTypes = {
     /**
      * Shield effect - protects player from one hit.
      */
-    [Constants.effectTypes.shield]: {
+    [Constants.game.effects.shield.type]: {
         category: 'player',
         stackMode: 'replace',
         stackGroup: 'shield',
         apply: () => {},
         remove: () => {},
         onHit: (player, effect, manager) => {
-            manager.removeEffect(Constants.effectTypes.shield)
-            manager.addEffect(Constants.effectTypes.immunity, Constants.game.effects.immunity)
+            manager.removeEffect(Constants.game.effects.shield.type)
+            manager.addEffect(Constants.game.effects.immunity.type, Constants.game.effects.immunity)
             return true
         },
         renderHint: {
@@ -65,7 +65,7 @@ const EffectTypes = {
     /**
      * Immunity effect - temporary invincibility after shield breaks.
      */
-    [Constants.effectTypes.immunity]: {
+    [Constants.game.effects.immunity.type]: {
         category: 'player',
         stackMode: 'replace',
         stackGroup: 'immunity',

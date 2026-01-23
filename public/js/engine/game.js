@@ -140,7 +140,7 @@ class Game {
                 this.collectionWave = new CollectionWaveAnimation(
                     collectedPower.x,
                     collectedPower.y,
-                    effectType === Constants.effectTypes.shield
+                    effectType === Constants.game.effects.shield.type
                         ? Constants.game.colors.shield
                         : Constants.game.colors.powerUpFast
                 )

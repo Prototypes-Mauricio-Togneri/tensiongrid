@@ -129,7 +129,7 @@ class Player {
      * @returns {boolean} True if speed boost is active
      */
     hasSpeedBoost() {
-        return this.effectManager.hasEffect(Constants.effectTypes.fast)
+        return this.effectManager.hasEffect(Constants.game.effects.fast.type)
     }
 
     /**
@@ -137,7 +137,7 @@ class Player {
      * @returns {boolean} True if slow effect is active
      */
     isSlowed() {
-        return this.effectManager.hasEffect(Constants.effectTypes.slow)
+        return this.effectManager.hasEffect(Constants.game.effects.slow.type)
     }
 
     /**
@@ -145,7 +145,7 @@ class Player {
      * @returns {boolean} True if shield is active
      */
     hasShield() {
-        return this.effectManager.hasEffect(Constants.effectTypes.shield)
+        return this.effectManager.hasEffect(Constants.game.effects.shield.type)
     }
 
     /**
@@ -153,7 +153,7 @@ class Player {
      * @returns {boolean} True if immune
      */
     isImmune() {
-        return this.effectManager.hasEffect(Constants.effectTypes.immunity)
+        return this.effectManager.hasEffect(Constants.game.effects.immunity.type)
     }
 
     /**

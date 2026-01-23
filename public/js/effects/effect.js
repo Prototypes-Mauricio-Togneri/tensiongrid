@@ -4,7 +4,7 @@
  */
 class Effect {
   /**
-   * @param {string} type - Effect type identifier from Constants.effectTypes
+   * @param {string} type - Effect type identifier from Constants.game.effects.X.type
    * @param {Object} config - Effect configuration from Constants.effects
    */
   constructor(type, config) {

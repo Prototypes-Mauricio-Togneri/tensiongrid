@@ -120,16 +120,6 @@ const Constants = {
     },
 
     // ==========================================
-    // Effect Type Identifiers
-    // ==========================================
-    effectTypes: {
-        fast: 'fast',         // Speed boost effect
-        slow: 'slow',         // Speed slow effect
-        shield: 'shield',     // Shield protection effect
-        immunity: 'immunity'  // Post-shield immunity effect
-    },
-
-    // ==========================================
     // Game Configuration
     // ==========================================
     game: {
@@ -186,17 +176,21 @@ const Constants = {
         // Effect configurations (used by EffectManager)
         effects: {
             fast: {
+                type: 'fast',         // Effect type identifier
                 duration: 5000,       // Effect duration in ms
                 speedMultiplier: 1.5  // Player speed multiplier
             },
             slow: {
+                type: 'slow',         // Effect type identifier
                 duration: 5000,       // Effect duration in ms
                 speedMultiplier: 0.5  // Player speed multiplier
             },
             shield: {
+                type: 'shield',       // Effect type identifier
                 duration: 5000        // Shield active duration in ms
             },
             immunity: {
+                type: 'immunity',     // Effect type identifier
                 duration: 2000,       // Post-shield immunity duration in ms
                 blinkFrequency: 0.015 // Blink speed during immunity (radians per ms)
             }
