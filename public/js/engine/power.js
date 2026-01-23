@@ -19,7 +19,7 @@ class Power {
         this.x = pos.x             // World X coordinate
         this.y = pos.y             // World Y coordinate
 
-        this.size = Constants.game.powers.size  // Size in pixels
+        this.size = Constants.game.powers[this.type].size  // Size in pixels
         this.collected = false     // Whether power has been collected
     }
 

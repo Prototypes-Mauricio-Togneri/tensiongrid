@@ -170,7 +170,22 @@ const Constants = {
         
         // Power-up/down collectible item settings (effect behavior in `effects`)
         powers: {
-            size: 14  // Collectible size in pixels
+            fast: {
+                size: 16,        // Collectible size in pixels
+                iconScale: 0.7   // Icon size multiplier
+            },
+            slow: {
+                size: 16,        // Collectible size in pixels
+                iconScale: 0.9   // Icon size multiplier
+            },
+            shield: {
+                size: 16,        // Collectible size in pixels
+                iconScale: 0.6   // Icon size multiplier
+            },
+            mirror: {
+                size: 16,        // Collectible size in pixels
+                iconScale: 0.8   // Icon size multiplier
+            }
         },
 
         // Effect configurations (used by EffectManager)

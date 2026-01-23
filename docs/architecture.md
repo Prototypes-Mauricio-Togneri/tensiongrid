@@ -49,7 +49,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `player`: size (12px), speed (200px/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
-- `powers.size`: (14px) - collectible power-up/down item size
+- `powers.[type].size`: (16px) - collectible size per power type (fast, slow, shield, mirror)
+- `powers.[type].iconScale`: (0.65) - icon size multiplier per power type
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally

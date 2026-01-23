@@ -855,28 +855,32 @@ class Renderer {
             const size = power.size * pulseIntensity
 
             // Select colors and icon based on power type
-            let color, glowColor, iconColor, drawIcon
+            let color, glowColor, iconColor, iconScale, drawIcon
             if (power.isNegative) {
                 if (power.type === Constants.game.effects.mirror.type) {
                     color = this.colors.powerDownMirror
                     glowColor = this.colors.powerDownMirrorGlow
                     iconColor = this.colors.powerDownMirrorIcon
+                    iconScale = Constants.game.powers.mirror.iconScale
                     drawIcon = (x, y, s, c) => this.drawMirrorIcon(x, y, s, c)
                 } else {
                     color = this.colors.powerDownSlow
                     glowColor = this.colors.powerDownSlowGlow
                     iconColor = this.colors.powerDownSlowIcon
+                    iconScale = Constants.game.powers.slow.iconScale
                     drawIcon = (x, y, s, c) => this.drawTurtleIcon(x, y, s, c)
                 }
             } else if (power.type === Constants.game.effects.shield.type) {
                 color = this.colors.shield
                 glowColor = this.colors.shieldGlow
                 iconColor = this.colors.shieldIcon
+                iconScale = Constants.game.powers.shield.iconScale
                 drawIcon = (x, y, s, c) => this.drawShieldIcon(x, y, s, c)
             } else {
                 color = this.colors.powerUpFast
                 glowColor = this.colors.powerUpFastGlow
                 iconColor = this.colors.powerUpFastIcon
+                iconScale = Constants.game.powers.fast.iconScale
                 drawIcon = (x, y, s, c) => this.drawLightningBolt(x, y, s, c)
             }
 
@@ -901,7 +905,7 @@ class Renderer {
             ctx.restore()
 
             // Draw icon
-            drawIcon(pos.x, pos.y, size * 0.65, iconColor)
+            drawIcon(pos.x, pos.y, size * iconScale, iconColor)
         }
     }
 
