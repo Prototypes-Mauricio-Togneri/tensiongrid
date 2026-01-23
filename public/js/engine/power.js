@@ -37,4 +37,12 @@ class Power {
     isCollected() {
         return this.collected
     }
+
+    /**
+     * Get current world position.
+     * @returns {Vector2} Position in world coordinates
+     */
+    getPosition() {
+        return new Vector2(this.x, this.y)
+    }
 }

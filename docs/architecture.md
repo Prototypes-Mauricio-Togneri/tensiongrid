@@ -219,6 +219,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **Power** (`js/engine/power.js`) - Collectible power item:
 - Fixed position on a single grid node
 - Holds position (x, y), type, size, isNegative flag, and collected state
+- `getPosition()` - Returns world position as Vector2
 - `isNegative: false` for power-ups (fast, shield), `true` for power-downs (slow)
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
@@ -240,6 +241,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Triggers sound effects via AudioManager (turret rotation)
 
 **Collision** (`js/engine/collision.js`) - Collision detection:
+- Strategy helpers: `circleCollides(player, entity, size)`, `gridCollides(player, entity)`
+- Generic methods: `checkAny(player, entities, checkFn)`, `findFirst(player, entities, checkFn)`
 - Circle collision for bullets, patrols, followers, and powers with threshold multiplier (0.7)
 - Grid-based collision for lasers, traps, and shooters (exact node match)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
@@ -292,7 +295,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Naming
   - Files: `snake_case`
   - Classes: `PascalCase`
-  - Functions: `camelCase`
+  - Functions: `camelCase` (no underscore prefixes)
 - All magic values in `constants.js`
 - Unused parameters: use `_`, `__`, `___`, etc.
 

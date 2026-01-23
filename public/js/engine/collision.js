@@ -10,6 +10,74 @@ class Collision {
         this.threshold = config.collisionThreshold // Multiplier for collision distance
     }
 
+    // ========================================
+    // Collision Strategy Helpers
+    // ========================================
+
+    /**
+     * Check circle-to-circle collision using distance.
+     * @param {Player} player - Player instance
+     * @param {Object} entity - Entity with getPosition() method
+     * @param {number} entitySize - Size of the entity
+     * @returns {boolean} True if collision detected
+     */
+    circleCollides(player, entity, entitySize) {
+        const playerPos = player.getPosition()
+        const entityPos = entity.getPosition()
+        const collisionDist = (player.size + entitySize) * this.threshold
+        return Vector2.distance(playerPos, entityPos) < collisionDist
+    }
+
+    /**
+     * Check grid-based collision using exact row/col match.
+     * @param {Player} player - Player instance
+     * @param {Object} entity - Entity with row and col properties
+     * @returns {boolean} True if on same grid node
+     */
+    gridCollides(player, entity) {
+        return player.row === entity.row && player.col === entity.col
+    }
+
+    // ========================================
+    // Generic Check Methods
+    // ========================================
+
+    /**
+     * Check if player collides with any entity in the array.
+     * @param {Player} player - Player instance
+     * @param {Array} entities - Array of entities to check
+     * @param {Function} checkFn - Function (player, entity) => boolean
+     * @returns {boolean} True if any collision detected
+     */
+    checkAny(player, entities, checkFn) {
+        for (const entity of entities) {
+            if (checkFn(player, entity)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Find first entity that collides with player.
+     * @param {Player} player - Player instance
+     * @param {Array} entities - Array of entities to check
+     * @param {Function} checkFn - Function (player, entity) => boolean
+     * @returns {Object|null} First matching entity or null
+     */
+    findFirst(player, entities, checkFn) {
+        for (const entity of entities) {
+            if (checkFn(player, entity)) {
+                return entity
+            }
+        }
+        return null
+    }
+
+    // ========================================
+    // Public Collision Check Methods
+    // ========================================
+
     /**
      * Check if player collides with any bullet using circle-to-circle detection.
      * @param {Player} player - Player instance
@@ -17,16 +85,9 @@ class Collision {
      * @returns {boolean} True if collision detected
      */
     checkPlayerBulletCollision(player, bullets) {
-        const playerPos = player.getPosition()
-        const collisionDist = (player.size + Constants.game.enemies.bullet.size) * this.threshold
-
-        for (const bullet of bullets) {
-            const bulletPos = bullet.getPosition()
-            if (Vector2.distance(playerPos, bulletPos) < collisionDist) {
-                return true
-            }
-        }
-        return false
+        return this.checkAny(player, bullets, (p, bullet) =>
+            this.circleCollides(p, bullet, Constants.game.enemies.bullet.size)
+        )
     }
 
     /**
@@ -36,12 +97,9 @@ class Collision {
      * @returns {boolean} True if player is on an active laser
      */
     checkPlayerLaserCollision(player, lasers) {
-        for (const laser of lasers) {
-            if (laser.isActive() && laser.containsNode(player.row, player.col)) {
-                return true
-            }
-        }
-        return false
+        return this.checkAny(player, lasers, (p, laser) =>
+            laser.isActive() && laser.containsNode(p.row, p.col)
+        )
     }
 
     /**
@@ -51,12 +109,9 @@ class Collision {
      * @returns {boolean} True if player is on an active trap
      */
     checkPlayerTrapCollision(player, traps) {
-        for (const trap of traps) {
-            if (trap.isActive() && player.row === trap.row && player.col === trap.col) {
-                return true
-            }
-        }
-        return false
+        return this.checkAny(player, traps, (p, trap) =>
+            trap.isActive() && this.gridCollides(p, trap)
+        )
     }
 
     /**
@@ -69,7 +124,7 @@ class Collision {
     checkPlayerMineContact(player, mines) {
         let triggered = false
         for (const mine of mines) {
-            if (mine.isDormant() && player.row === mine.row && player.col === mine.col) {
+            if (mine.isDormant() && this.gridCollides(player, mine)) {
                 mine.trigger()
                 triggered = true
             }
@@ -85,12 +140,9 @@ class Collision {
      * @returns {boolean} True if player is on a shooter
      */
     checkPlayerShooterCollision(player, shooters) {
-        for (const shooter of shooters) {
-            if (player.row === shooter.row && player.col === shooter.col) {
-                return true
-            }
-        }
-        return false
+        return this.checkAny(player, shooters, (p, shooter) =>
+            this.gridCollides(p, shooter)
+        )
     }
 
     /**
@@ -100,16 +152,9 @@ class Collision {
      * @returns {boolean} True if collision detected
      */
     checkPlayerPatrolCollision(player, patrols) {
-        const playerPos = player.getPosition()
-        const collisionDist = (player.size + Constants.game.enemies.patrol.size) * this.threshold
-
-        for (const patrol of patrols) {
-            const patrolPos = patrol.getPosition()
-            if (Vector2.distance(playerPos, patrolPos) < collisionDist) {
-                return true
-            }
-        }
-        return false
+        return this.checkAny(player, patrols, (p, patrol) =>
+            this.circleCollides(p, patrol, Constants.game.enemies.patrol.size)
+        )
     }
 
     /**
@@ -119,16 +164,9 @@ class Collision {
      * @returns {boolean} True if collision detected
      */
     checkPlayerFollowerCollision(player, followers) {
-        const playerPos = player.getPosition()
-        const collisionDist = (player.size + Constants.game.enemies.follower.size) * this.threshold
-
-        for (const follower of followers) {
-            const followerPos = follower.getPosition()
-            if (Vector2.distance(playerPos, followerPos) < collisionDist) {
-                return true
-            }
-        }
-        return false
+        return this.checkAny(player, followers, (p, follower) =>
+            this.circleCollides(p, follower, Constants.game.enemies.follower.size)
+        )
     }
 
     /**
@@ -138,20 +176,8 @@ class Collision {
      * @returns {Power|null} The collected power, or null if none
      */
     checkPlayerPowerCollision(player, powers) {
-        const playerPos = player.getPosition()
-
-        for (const power of powers) {
-            if (power.isCollected()) continue
-
-            const collisionDist = (player.size + power.size) * this.threshold
-            const dx = playerPos.x - power.x
-            const dy = playerPos.y - power.y
-            const dist = Math.sqrt(dx * dx + dy * dy)
-
-            if (dist < collisionDist) {
-                return power
-            }
-        }
-        return null
+        return this.findFirst(player, powers, (p, power) =>
+            !power.isCollected() && this.circleCollides(p, power, power.size)
+        )
     }
 }
