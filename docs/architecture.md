@@ -50,8 +50,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
 - `powers.size`: (14px) - collectible power-up/down item size
-- `effects.fast`: duration (5000ms), speed multiplier (1.5x) - effect behavior
-- `effects.slow`: duration (5000ms), speed multiplier (0.5x) - effect behavior
+- `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms) - blinks before expiring
+- `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms) - blinks before expiring
 - `effects.shield`: duration (5000ms) - effect behavior
 - `effects.immunity`: duration (2000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms) - inverts player controls, blinks before expiring

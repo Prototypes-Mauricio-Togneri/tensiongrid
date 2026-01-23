@@ -178,12 +178,14 @@ const Constants = {
             fast: {
                 type: 'fast',         // Effect type identifier
                 duration: 5000,       // Effect duration in ms
-                speedMultiplier: 1.5  // Player speed multiplier
+                speedMultiplier: 1.5, // Player speed multiplier
+                warningDuration: 1000 // Start blinking this many ms before expiration
             },
             slow: {
                 type: 'slow',         // Effect type identifier
                 duration: 5000,       // Effect duration in ms
-                speedMultiplier: 0.5  // Player speed multiplier
+                speedMultiplier: 0.5, // Player speed multiplier
+                warningDuration: 1000 // Start blinking this many ms before expiration
             },
             shield: {
                 type: 'shield',       // Effect type identifier
