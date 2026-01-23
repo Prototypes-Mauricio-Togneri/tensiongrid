@@ -59,14 +59,14 @@ class InputManager {
 
     /**
      * Get current movement direction based on pressed keys.
-     * @returns {Object|null} Direction {dRow, dCol} or null if no movement
+     * @returns {Object|null} Direction {row, col} or null if no movement
      */
     getDirection() {
         if (!this.enabled) return null
-        if (this.keys.up) return { dRow: -1, dCol: 0 }
-        if (this.keys.down) return { dRow: 1, dCol: 0 }
-        if (this.keys.left) return { dRow: 0, dCol: -1 }
-        if (this.keys.right) return { dRow: 0, dCol: 1 }
+        if (this.keys.up) return Constants.directions.up
+        if (this.keys.down) return Constants.directions.down
+        if (this.keys.left) return Constants.directions.left
+        if (this.keys.right) return Constants.directions.right
         return null
     }
 

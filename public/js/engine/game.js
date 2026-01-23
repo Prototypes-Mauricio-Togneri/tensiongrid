@@ -175,8 +175,8 @@ class Game {
         const direction = this.inputManager.getDirection()
         if (!direction) return
 
-        const newRow = this.player.row + direction.dRow
-        const newCol = this.player.col + direction.dCol
+        const newRow = this.player.row + direction.row
+        const newCol = this.player.col + direction.col
         const wrapped = this.grid.wrapPosition(newRow, newCol)
 
         // Block movement to excluded nodes
