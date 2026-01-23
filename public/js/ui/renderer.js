@@ -857,10 +857,17 @@ class Renderer {
             // Select colors and icon based on power type
             let color, glowColor, iconColor, drawIcon
             if (power.isNegative) {
-                color = this.colors.powerDownSlow
-                glowColor = this.colors.powerDownSlowGlow
-                iconColor = this.colors.powerDownSlowIcon
-                drawIcon = (x, y, s, c) => this.drawTurtleIcon(x, y, s, c)
+                if (power.type === Constants.game.effects.mirror.type) {
+                    color = this.colors.powerDownMirror
+                    glowColor = this.colors.powerDownMirrorGlow
+                    iconColor = this.colors.powerDownMirrorIcon
+                    drawIcon = (x, y, s, c) => this.drawMirrorIcon(x, y, s, c)
+                } else {
+                    color = this.colors.powerDownSlow
+                    glowColor = this.colors.powerDownSlowGlow
+                    iconColor = this.colors.powerDownSlowIcon
+                    drawIcon = (x, y, s, c) => this.drawTurtleIcon(x, y, s, c)
+                }
             } else if (power.type === Constants.game.effects.shield.type) {
                 color = this.colors.shield
                 glowColor = this.colors.shieldGlow
@@ -951,6 +958,44 @@ class Renderer {
 
         // Back leg (small rectangle)
         ctx.fillRect(x - size * 0.45, y + size * 0.3, size * 0.25, size * 0.35)
+
+        ctx.restore()
+    }
+
+    /**
+     * Draw a mirror icon (two vertical parallel arrows) centered at position.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Size of the icon
+     * @param {string} iconColor - Fill color for the icon
+     */
+    drawMirrorIcon(x, y, size, iconColor) {
+        const ctx = this.ctx
+        ctx.save()
+        ctx.fillStyle = iconColor
+
+        const arrowWidth = size * 0.25
+        const spacing = size * 0.4
+
+        // Left arrow pointing down
+        const leftX = x - spacing
+        ctx.fillRect(leftX - arrowWidth / 2, y - size * 0.6, arrowWidth, size * 0.8)
+        ctx.beginPath()
+        ctx.moveTo(leftX - size * 0.35, y + size * 0.2)
+        ctx.lineTo(leftX + size * 0.35, y + size * 0.2)
+        ctx.lineTo(leftX, y + size * 0.8)
+        ctx.closePath()
+        ctx.fill()
+
+        // Right arrow pointing up
+        const rightX = x + spacing
+        ctx.fillRect(rightX - arrowWidth / 2, y - size * 0.2, arrowWidth, size * 0.8)
+        ctx.beginPath()
+        ctx.moveTo(rightX - size * 0.35, y - size * 0.2)
+        ctx.lineTo(rightX + size * 0.35, y - size * 0.2)
+        ctx.lineTo(rightX, y - size * 0.8)
+        ctx.closePath()
+        ctx.fill()
 
         ctx.restore()
     }

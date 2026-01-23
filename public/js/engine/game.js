@@ -184,8 +184,13 @@ class Game {
         // Only accept input when player is stationary
         if (this.player.isMoving) return
 
-        const direction = this.inputManager.getDirection()
+        let direction = this.inputManager.getDirection()
         if (!direction) return
+
+        // Invert direction if mirror effect is active
+        if (this.player.effectManager.hasEffect(Constants.game.effects.mirror.type)) {
+            direction = { row: -direction.row, col: -direction.col }
+        }
 
         const newRow = this.player.row + direction.row
         const newCol = this.player.col + direction.col

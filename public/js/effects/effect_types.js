@@ -79,5 +79,20 @@ const EffectTypes = {
             glowColor: 'shield',
             glowColorAlpha: 'shieldGlow'
         }
+    },
+
+    /**
+     * Mirror effect - inverts player movement controls.
+     */
+    [Constants.game.effects.mirror.type]: {
+        category: 'player',
+        stackMode: 'replace',
+        stackGroup: 'controls',
+        apply: () => {},
+        remove: () => {},
+        renderHint: {
+            glowColor: 'powerDownMirror',
+            glowColorAlpha: 'powerDownMirrorGlow'
+        }
     }
 }

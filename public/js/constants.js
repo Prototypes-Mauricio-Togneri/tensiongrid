@@ -193,6 +193,10 @@ const Constants = {
                 type: 'immunity',     // Effect type identifier
                 duration: 2000,       // Post-shield immunity duration in ms
                 blinkFrequency: 0.015 // Blink speed during immunity (radians per ms)
+            },
+            mirror: {
+                type: 'mirror',       // Effect type identifier
+                duration: 5000        // Control inversion duration in ms
             }
         },
 
@@ -287,7 +291,12 @@ const Constants = {
             // Shield colors (same blue as fast power-up)
             shield: '#00ccff',       // Shield circle color (light blue)
             shieldGlow: '#00ccff4d', // Shield glow effect
-            shieldIcon: '#ffffff'    // Shield icon color (white)
+            shieldIcon: '#ffffff',   // Shield icon color (white)
+
+            // Mirror power-down colors (same red as slow)
+            powerDownMirror: '#ff4444',       // Mirror power-down fill color (red)
+            powerDownMirrorGlow: '#ff44444d', // Mirror power-down glow effect
+            powerDownMirrorIcon: '#ffffff'    // Mirror power-down icon color (white)
         }
     },
 

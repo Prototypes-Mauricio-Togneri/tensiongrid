@@ -54,6 +54,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x) - effect behavior
 - `effects.shield`: duration (5000ms) - effect behavior
 - `effects.immunity`: duration (2000ms), blink frequency (0.015) - effect behavior
+- `effects.mirror`: duration (5000ms) - inverts player controls
 - `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `pixelExplosion`: particle count (16), particle size (5px), end radius (45px), duration (800ms)
 - `colors`: all game element colors with glow variants
@@ -99,7 +100,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Each type specifies: `category` (player/enemy/world), `stackMode` (replace), `stackGroup` (effects in same group replace each other)
 - Handler functions: `apply(target, effect)`, `remove(target, effect)`, optional `onHit(target, effect, manager)`
 - `renderHint` object provides data for renderer (glowColor, showShield, blink)
-- Current types: `fast`, `slow`, `shield`, `immunity`
+- Current types: `fast`, `slow`, `shield`, `immunity`, `mirror`
 
 **EffectManager** (`js/effects/effect_manager.js`) - Effect lifecycle manager:
 - Manages active effects on a target entity (player, enemy, etc.)
@@ -220,7 +221,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Fixed position on a single grid node
 - Holds position (x, y), type, size, isNegative flag, and collected state
 - `getPosition()` - Returns world position as Vector2
-- `isNegative: false` for power-ups (fast, shield), `true` for power-downs (slow)
+- `isNegative: false` for power-ups (fast, shield), `true` for power-downs (slow, mirror)
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
 - Config: `x`, `y` (node position), `type` ('fast', 'shield', or 'slow')
@@ -255,7 +256,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
 - `drawWakeTrail(entity, size, color, shadowColor?, endColor?)` - Unified wake trail rendering for moving entities
 - `drawGlowedShape(x, y, size, color, glowColor, drawShape)` - Standard 3-layer glow effect (outer glow → main → highlight)
-- Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, turtle for slow)
+- Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, turtle for slow, parallel arrows for mirror)
 - Player boost indicator: cyan glow when speed boost is active, red glow when slowed
 - Shield rendering: light blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
