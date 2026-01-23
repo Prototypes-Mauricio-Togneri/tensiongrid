@@ -249,6 +249,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Multi-layer rendering: glow → main → highlight
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
+- `drawWakeTrail(entity, size, color, shadowColor?, endColor?)` - Unified wake trail rendering for moving entities
+- `drawGlowedShape(x, y, size, color, glowColor, drawShape)` - Standard 3-layer glow effect (outer glow → main → highlight)
 - Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, turtle for slow)
 - Player boost indicator: cyan glow when speed boost is active, red glow when slowed
 - Shield rendering: light blue pulsing circular aura around player when shield is active

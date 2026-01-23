@@ -54,6 +54,90 @@ class Renderer {
     }
 
     /**
+     * Draw a tapered wake trail behind a moving entity.
+     * @param {Object} entity - Entity with x, y, wakeIntensity, wakeStartX, wakeStartY properties
+     * @param {number} size - Entity size for calculating wake width
+     * @param {string} color - Main wake color
+     * @param {string} [shadowColor] - Shadow color (defaults to color at 50% alpha)
+     * @param {string} [endColor] - Gradient end color (defaults to color at 0% alpha)
+     */
+    drawWakeTrail(entity, size, color, shadowColor, endColor) {
+        if (entity.wakeIntensity <= 0.01) return
+
+        const dx = entity.wakeStartX - entity.x
+        const dy = entity.wakeStartY - entity.y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist <= 1) return
+
+        const ctx = this.ctx
+        const pos = this.toScreen(entity.x, entity.y)
+        const wakeStart = this.toScreen(entity.wakeStartX, entity.wakeStartY)
+        const dirX = dx / dist
+        const dirY = dy / dist
+
+        // Gradient from entity (bright) to wake end (transparent)
+        const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
+        gradient.addColorStop(0, this.hexWithAlpha(color, 0.6 * entity.wakeIntensity))
+        gradient.addColorStop(0.5, this.hexWithAlpha(color, 0.25 * entity.wakeIntensity))
+        gradient.addColorStop(1, endColor || this.hexWithAlpha(color, 0))
+
+        ctx.save()
+        ctx.shadowColor = shadowColor || this.hexWithAlpha(color, 0.5)
+        ctx.shadowBlur = 10 * entity.wakeIntensity
+
+        // Calculate perpendicular for wake width
+        const perpX = -dirY
+        const perpY = dirX
+        const startWidth = size * 0.5
+        const endWidth = size * 0.1
+
+        // Draw tapered quad shape
+        ctx.beginPath()
+        ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
+        ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
+        ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
+        ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
+        ctx.closePath()
+        ctx.fillStyle = gradient
+        ctx.fill()
+        ctx.restore()
+    }
+
+    /**
+     * Draw an entity shape with the standard 3-layer glow effect.
+     * Renders: outer glow → main shape → inner highlight.
+     * @param {number} x - Screen X position
+     * @param {number} y - Screen Y position
+     * @param {number} size - Entity size
+     * @param {string} color - Main color
+     * @param {string} glowColor - Outer glow color
+     * @param {Function} drawShape - Shape drawing function (x, y, size) => void
+     */
+    drawGlowedShape(x, y, size, color, glowColor, drawShape) {
+        const ctx = this.ctx
+
+        // Outer glow
+        ctx.save()
+        ctx.shadowColor = color
+        ctx.shadowBlur = 15
+        ctx.fillStyle = glowColor
+        drawShape(x, y, size + 4)
+        ctx.restore()
+
+        // Main shape
+        ctx.save()
+        ctx.shadowColor = color
+        ctx.shadowBlur = 8
+        ctx.fillStyle = color
+        drawShape(x, y, size)
+        ctx.restore()
+
+        // Inner highlight
+        ctx.fillStyle = this.colors.enemyHighlight
+        drawShape(x, y, size * 0.4)
+    }
+
+    /**
      * Draw the grid with edges, edge glows, and nodes.
      * @param {Grid} grid - Grid instance to draw
      */
@@ -205,46 +289,13 @@ class Renderer {
         const ctx = this.ctx
         const pos = this.toScreen(player.x, player.y)
 
-        // Draw tapered wake trail behind player
-        if (player.wakeIntensity > 0.01) {
-            const dx = player.wakeStartX - player.x
-            const dy = player.wakeStartY - player.y
-            const dist = Math.sqrt(dx * dx + dy * dy)
-
-            if (dist > 1) {
-                const dirX = dx / dist
-                const dirY = dy / dist
-
-                const wakeStart = this.toScreen(player.wakeStartX, player.wakeStartY)
-
-                // Gradient from player (bright) to wake end (transparent)
-                const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
-                gradient.addColorStop(0, this.hexWithAlpha(this.colors.player, 0.6 * player.wakeIntensity))
-                gradient.addColorStop(0.5, this.hexWithAlpha(this.colors.player, 0.25 * player.wakeIntensity))
-                gradient.addColorStop(1, this.colors.playerWakeEnd)
-
-                ctx.save()
-                ctx.shadowColor = this.colors.playerWakeShadow
-                ctx.shadowBlur = 10 * player.wakeIntensity
-
-                // Calculate perpendicular for wake width
-                const perpX = -dirY
-                const perpY = dirX
-                const startWidth = player.size * 0.5
-                const endWidth = player.size * 0.1
-
-                // Draw tapered quad shape
-                ctx.beginPath()
-                ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
-                ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
-                ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
-                ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
-                ctx.closePath()
-                ctx.fillStyle = gradient
-                ctx.fill()
-                ctx.restore()
-            }
-        }
+        this.drawWakeTrail(
+            player,
+            player.size,
+            this.colors.player,
+            this.colors.playerWakeShadow,
+            this.colors.playerWakeEnd
+        )
 
         // Outer glow (larger, transparent rhombus)
         ctx.save()
@@ -311,46 +362,13 @@ class Renderer {
             const size = enemy.size
             const pos = this.toScreen(enemy.x, enemy.y)
 
-            // Draw tapered wake trail behind bullet
-            if (enemy.wakeIntensity > 0.01) {
-                const dx = enemy.wakeStartX - enemy.x
-                const dy = enemy.wakeStartY - enemy.y
-                const dist = Math.sqrt(dx * dx + dy * dy)
-
-                if (dist > 1) {
-                    const dirX = dx / dist
-                    const dirY = dy / dist
-
-                    const wakeStart = this.toScreen(enemy.wakeStartX, enemy.wakeStartY)
-
-                    // Gradient from enemy (bright) to wake end (transparent)
-                    const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
-                    gradient.addColorStop(0, this.hexWithAlpha(this.colors.enemy, 0.6 * enemy.wakeIntensity))
-                    gradient.addColorStop(0.5, this.hexWithAlpha(this.colors.enemy, 0.25 * enemy.wakeIntensity))
-                    gradient.addColorStop(1, this.colors.enemyWakeEnd)
-
-                    ctx.save()
-                    ctx.shadowColor = this.colors.enemyWakeShadow
-                    ctx.shadowBlur = 10 * enemy.wakeIntensity
-
-                    // Calculate perpendicular for wake width
-                    const perpX = -dirY
-                    const perpY = dirX
-                    const startWidth = size * 0.5
-                    const endWidth = size * 0.1
-
-                    // Draw tapered quad shape
-                    ctx.beginPath()
-                    ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
-                    ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
-                    ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
-                    ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
-                    ctx.closePath()
-                    ctx.fillStyle = gradient
-                    ctx.fill()
-                    ctx.restore()
-                }
-            }
+            this.drawWakeTrail(
+                enemy,
+                size,
+                this.colors.enemy,
+                this.colors.enemyWakeShadow,
+                this.colors.enemyWakeEnd
+            )
 
             // Threat ring (subtle danger indicator around bullet)
             ctx.beginPath()
@@ -360,21 +378,21 @@ class Renderer {
 
             // Outer glow
             ctx.save()
-            ctx.shadowColor = Constants.game.colors.enemy
+            ctx.shadowColor = this.colors.enemy
             ctx.shadowBlur = 8
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
-            ctx.fillStyle = Constants.game.colors.enemyGlow
+            ctx.fillStyle = this.colors.enemyGlow
             ctx.fill()
             ctx.restore()
 
             // Main enemy circle
             ctx.save()
-            ctx.shadowColor = Constants.game.colors.enemy
+            ctx.shadowColor = this.colors.enemy
             ctx.shadowBlur = 5
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
-            ctx.fillStyle = Constants.game.colors.enemy
+            ctx.fillStyle = this.colors.enemy
             ctx.fill()
             ctx.restore()
 
@@ -742,72 +760,16 @@ class Renderer {
      * @param {EnemyPatrol[]} patrols - Array of patrol instances
      */
     drawPatrols(patrols) {
-        const ctx = this.ctx
-
         for (const patrol of patrols) {
             const pos = this.toScreen(patrol.x, patrol.y)
-            const size = patrol.size
 
-            // Draw tapered wake trail behind patrol
-            if (patrol.wakeIntensity > 0.01) {
-                const dx = patrol.wakeStartX - patrol.x
-                const dy = patrol.wakeStartY - patrol.y
-                const dist = Math.sqrt(dx * dx + dy * dy)
+            this.drawWakeTrail(patrol, patrol.size, this.colors.patrol)
 
-                if (dist > 1) {
-                    const dirX = dx / dist
-                    const dirY = dy / dist
-
-                    const wakeStart = this.toScreen(patrol.wakeStartX, patrol.wakeStartY)
-
-                    // Gradient from patrol (bright) to wake end (transparent)
-                    const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
-                    gradient.addColorStop(0, this.hexWithAlpha(this.colors.patrol, 0.6 * patrol.wakeIntensity))
-                    gradient.addColorStop(0.5, this.hexWithAlpha(this.colors.patrol, 0.25 * patrol.wakeIntensity))
-                    gradient.addColorStop(1, this.hexWithAlpha(this.colors.patrol, 0))
-
-                    ctx.save()
-                    ctx.shadowColor = this.hexWithAlpha(this.colors.patrol, 0.5)
-                    ctx.shadowBlur = 10 * patrol.wakeIntensity
-
-                    // Calculate perpendicular for wake width
-                    const perpX = -dirY
-                    const perpY = dirX
-                    const startWidth = size * 0.5
-                    const endWidth = size * 0.1
-
-                    // Draw tapered quad shape
-                    ctx.beginPath()
-                    ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
-                    ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
-                    ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
-                    ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
-                    ctx.closePath()
-                    ctx.fillStyle = gradient
-                    ctx.fill()
-                    ctx.restore()
-                }
-            }
-
-            // Outer glow
-            ctx.save()
-            ctx.shadowColor = this.colors.patrol
-            ctx.shadowBlur = 15
-            ctx.fillStyle = this.colors.patrolGlow
-            this.drawFlatHexagon(pos.x, pos.y, size + 4)
-            ctx.restore()
-
-            // Main patrol shape
-            ctx.save()
-            ctx.shadowColor = this.colors.patrol
-            ctx.shadowBlur = 8
-            ctx.fillStyle = this.colors.patrol
-            this.drawFlatHexagon(pos.x, pos.y, size)
-            ctx.restore()
-
-            // Inner highlight
-            ctx.fillStyle = this.colors.enemyHighlight
-            this.drawFlatHexagon(pos.x, pos.y, size * 0.4)
+            this.drawGlowedShape(
+                pos.x, pos.y, patrol.size,
+                this.colors.patrol, this.colors.patrolGlow,
+                (x, y, s) => this.drawFlatHexagon(x, y, s)
+            )
         }
     }
 
@@ -820,75 +782,21 @@ class Renderer {
 
         for (const follower of followers) {
             const pos = this.toScreen(follower.x, follower.y)
-            const size = follower.size
 
-            // Draw tapered wake trail behind follower
-            if (follower.wakeIntensity > 0.01) {
-                const dx = follower.wakeStartX - follower.x
-                const dy = follower.wakeStartY - follower.y
-                const dist = Math.sqrt(dx * dx + dy * dy)
+            this.drawWakeTrail(follower, follower.size, this.colors.follower)
 
-                if (dist > 1) {
-                    const dirX = dx / dist
-                    const dirY = dy / dist
-
-                    const wakeStart = this.toScreen(follower.wakeStartX, follower.wakeStartY)
-
-                    // Gradient from follower (bright) to wake end (transparent)
-                    const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
-                    gradient.addColorStop(0, this.hexWithAlpha(this.colors.follower, 0.6 * follower.wakeIntensity))
-                    gradient.addColorStop(0.5, this.hexWithAlpha(this.colors.follower, 0.25 * follower.wakeIntensity))
-                    gradient.addColorStop(1, this.hexWithAlpha(this.colors.follower, 0))
-
-                    ctx.save()
-                    ctx.shadowColor = this.hexWithAlpha(this.colors.follower, 0.5)
-                    ctx.shadowBlur = 10 * follower.wakeIntensity
-
-                    // Calculate perpendicular for wake width
-                    const perpX = -dirY
-                    const perpY = dirX
-                    const startWidth = size * 0.5
-                    const endWidth = size * 0.1
-
-                    // Draw tapered quad shape
-                    ctx.beginPath()
-                    ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
-                    ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
-                    ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
-                    ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
-                    ctx.closePath()
-                    ctx.fillStyle = gradient
-                    ctx.fill()
-                    ctx.restore()
-                }
-            }
-
-            // Draw rotated triangle
+            // Draw rotated square
             ctx.save()
             ctx.translate(pos.x, pos.y)
             ctx.rotate(follower.getRotation())
 
-            // Outer glow
-            ctx.save()
-            ctx.shadowColor = this.colors.follower
-            ctx.shadowBlur = 15
-            ctx.fillStyle = this.colors.followerGlow
-            this.drawSquareAt(0, 0, size + 4)
+            this.drawGlowedShape(
+                0, 0, follower.size,
+                this.colors.follower, this.colors.followerGlow,
+                (x, y, s) => this.drawSquareAt(x, y, s)
+            )
+
             ctx.restore()
-
-            // Main follower shape
-            ctx.save()
-            ctx.shadowColor = this.colors.follower
-            ctx.shadowBlur = 8
-            ctx.fillStyle = this.colors.follower
-            this.drawSquareAt(0, 0, size)
-            ctx.restore()
-
-            // Inner highlight
-            ctx.fillStyle = this.colors.enemyHighlight
-            this.drawSquareAt(0, 0, size * 0.4)
-
-            ctx.restore() // Restore translation and rotation
         }
     }
 
@@ -1133,47 +1041,7 @@ class Renderer {
             effectGlow = this.colors[hints.glowColorAlpha]
         }
 
-        // Draw tapered wake trail behind player
-        if (player.wakeIntensity > 0.01) {
-            const dx = player.wakeStartX - player.x
-            const dy = player.wakeStartY - player.y
-            const dist = Math.sqrt(dx * dx + dy * dy)
-
-            if (dist > 1) {
-                const dirX = dx / dist
-                const dirY = dy / dist
-
-                const wakeStart = this.toScreen(player.wakeStartX, player.wakeStartY)
-                const wakeColor = effectColor
-
-                // Gradient from player (bright) to wake end (transparent)
-                const gradient = ctx.createLinearGradient(pos.x, pos.y, wakeStart.x, wakeStart.y)
-                gradient.addColorStop(0, this.hexWithAlpha(wakeColor, 0.6 * player.wakeIntensity))
-                gradient.addColorStop(0.5, this.hexWithAlpha(wakeColor, 0.25 * player.wakeIntensity))
-                gradient.addColorStop(1, this.hexWithAlpha(wakeColor, 0))
-
-                ctx.save()
-                ctx.shadowColor = this.hexWithAlpha(wakeColor, 0.5)
-                ctx.shadowBlur = 10 * player.wakeIntensity
-
-                // Calculate perpendicular for wake width
-                const perpX = -dirY
-                const perpY = dirX
-                const startWidth = player.size * 0.5
-                const endWidth = player.size * 0.1
-
-                // Draw tapered quad shape
-                ctx.beginPath()
-                ctx.moveTo(pos.x + perpX * startWidth, pos.y + perpY * startWidth)
-                ctx.lineTo(pos.x - perpX * startWidth, pos.y - perpY * startWidth)
-                ctx.lineTo(wakeStart.x - perpX * endWidth, wakeStart.y - perpY * endWidth)
-                ctx.lineTo(wakeStart.x + perpX * endWidth, wakeStart.y + perpY * endWidth)
-                ctx.closePath()
-                ctx.fillStyle = gradient
-                ctx.fill()
-                ctx.restore()
-            }
-        }
+        this.drawWakeTrail(player, player.size, effectColor)
 
         // Speed effect glow (larger glow behind player when boosted or slowed)
         if (hasSpeedEffect) {
