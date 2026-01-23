@@ -1,6 +1,9 @@
 /**
  * Registry of effect type handlers.
  * Defines how each effect type applies, removes, and stacks.
+ *
+ * SIDE EFFECTS: Effect handlers directly mutate the target entity (e.g., player.speed).
+ * This is intentional - when debugging player state changes, check active effects first.
  */
 const EffectTypes = {
     /**

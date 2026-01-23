@@ -185,26 +185,31 @@ class EnemyManager {
         // Handle bullet spawning for each configured spawner
         if (!this.config.enemyBullet) return
         this.config.enemyBullet.forEach((instanceConfig, index) => {
-            const state = this.instanceStates[index]
-            if (!state) return
-
-            state.timer += delta
-
-            // Wait for initial delay before first spawn
-            if (!state.delayElapsed) {
-                if (state.timer >= instanceConfig.delay) {
-                    this.spawnFromInstance(instanceConfig)
-                    state.delayElapsed = true
-                    state.timer = 0
-                }
-            } else {
-                // Spawn at regular intervals after delay
-                if (state.timer >= instanceConfig.interval) {
-                    this.spawnFromInstance(instanceConfig)
-                    state.timer = 0
-                }
+            if (this.updateSpawnerState(this.instanceStates[index], instanceConfig, delta)) {
+                this.spawnFromInstance(instanceConfig)
             }
         })
+    }
+
+    /**
+     * Update spawner timing state and determine if spawn should occur.
+     * @param {Object} state - Spawner state {delayElapsed, timer}
+     * @param {Object} config - Spawner config {delay, interval}
+     * @param {number} delta - Time elapsed in ms
+     * @returns {boolean} True if a spawn should occur this frame
+     */
+    updateSpawnerState(state, config, delta) {
+        if (!state) return false
+
+        state.timer += delta
+        const threshold = state.delayElapsed ? config.interval : config.delay
+
+        if (state.timer >= threshold) {
+            state.delayElapsed = true
+            state.timer = 0
+            return true
+        }
+        return false
     }
 
     /**
@@ -310,14 +315,12 @@ class EnemyManager {
      * @returns {Object} Object with row and col deltas
      */
     getDirectionVectors(direction) {
-        const dirs = Constants.directions
-        switch (direction) {
-            case Constants.cardinalDirections.up: return dirs.up
-            case Constants.cardinalDirections.down: return dirs.down
-            case Constants.cardinalDirections.left: return dirs.left
-            case Constants.cardinalDirections.right: return dirs.right
-            default: return dirs.none
+        const result = Constants.directions[direction]
+        if (!result) {
+            console.warn(`Invalid direction "${direction}", defaulting to none`)
+            return Constants.directions.none
         }
+        return result
     }
 
     /**
