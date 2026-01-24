@@ -283,8 +283,16 @@
         input.triggerEscape()
     })
 
-    // Initialize version display
-    document.getElementById('versionDisplay').textContent = Constants.version
+    // Initialize version display (convert UTC to local time)
+    const utcDate = new Date(Constants.version + ' UTC')
+    const localVersion = utcDate.toLocaleString(undefined, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    })
+    document.getElementById('versionDisplay').textContent = localVersion
 
     // Initialize and start
     screen.show(Constants.screens.home)
