@@ -168,7 +168,7 @@ const Constants = {
         
         // Power-up/down collectible item settings (effect behavior in `effects`)
         powers: {
-            size: 14,            // Collectible size in pixels
+            size: 12,            // Collectible size in pixels
             pulseSpeed: 0.003,   // Pulse oscillation speed (radians per ms)
             pulseMin: 1,         // Minimum pulse scale
             pulseMax: 1.15,      // Maximum pulse scale
