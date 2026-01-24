@@ -557,6 +557,21 @@ canvas {
     text-transform: uppercase;
 }
 
+/* Version display styling */
+.version-info {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.version-value {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    color: rgba(0, 245, 255, 0.4);
+    letter-spacing: 0.1em;
+}
+
 /* Toggle switch wrapper */
 .toggle-switch {
     display: flex;

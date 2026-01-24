@@ -283,6 +283,9 @@
         input.triggerEscape()
     })
 
+    // Initialize version display
+    document.getElementById('versionDisplay').textContent = Version
+
     // Initialize and start
     screen.show(Constants.screens.home)
     playMenuMusic()
