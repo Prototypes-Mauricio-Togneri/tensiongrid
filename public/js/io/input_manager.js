@@ -76,11 +76,20 @@ class InputManager {
             if (e.touches.length === 1) {
                 this.touchStartX = e.touches[0].clientX
                 this.touchStartY = e.touches[0].clientY
+                // Re-enable input on touch (same as keydown behavior)
+                if (!this.enabled) {
+                    this.enabled = true
+                }
             }
         })
 
         document.addEventListener(Constants.events.touchmove, (e) => {
             if (this.touchStartX === null || !this.isSwipeEnabled?.()) return
+
+            // Re-enable input on drag (same as keydown behavior)
+            if (!this.enabled) {
+                this.enabled = true
+            }
 
             const touch = e.touches[0]
             const deltaX = touch.clientX - this.touchStartX
