@@ -20,8 +20,8 @@ const EffectTypes = {
             player.speed = player.baseSpeed
         },
         renderHint: {
-            glowColor: 'powerUpFast',
-            glowColorAlpha: 'powerUpFastGlow'
+            glowColor: 'powerUp',
+            glowColorAlpha: 'powerUpGlow'
         }
     },
 

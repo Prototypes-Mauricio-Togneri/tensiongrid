@@ -170,7 +170,7 @@ class Game {
             this.audioManager.playSound(Constants.audio.sounds.powerUp)
             waveColor = effectType === Constants.game.effects.shield.type
                 ? Constants.game.colors.shield
-                : Constants.game.colors.powerUpFast
+                : Constants.game.colors.powerUp
         }
 
         this.collectionWave = new CollectionWaveAnimation(power.x, power.y, waveColor)

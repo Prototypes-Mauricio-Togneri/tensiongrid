@@ -875,9 +875,9 @@ class Renderer {
                 iconScale = Constants.game.powers.shield.iconScale
                 drawIcon = (x, y, s, c) => this.drawShieldIcon(x, y, s, c)
             } else {
-                color = this.colors.powerUpFast
-                glowColor = this.colors.powerUpFastGlow
-                iconColor = this.colors.powerUpFastIcon
+                color = this.colors.powerUp
+                glowColor = this.colors.powerUpGlow
+                iconColor = this.colors.powerUpIcon
                 iconScale = Constants.game.powers.fast.iconScale
                 drawIcon = (x, y, s, c) => this.drawLightningBolt(x, y, s, c)
             }
@@ -917,7 +917,7 @@ class Renderer {
     drawLightningBolt(x, y, size, iconColor) {
         const ctx = this.ctx
         ctx.save()
-        ctx.fillStyle = iconColor || this.colors.powerUpFastIcon
+        ctx.fillStyle = iconColor || this.colors.powerUpIcon
 
         ctx.beginPath()
         // Lightning bolt shape (7 points)
