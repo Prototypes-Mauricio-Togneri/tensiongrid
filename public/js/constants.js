@@ -41,6 +41,7 @@ const Constants = {
         change: 'change',         // Input change event
         click: 'click',           // Mouse click event
         touchstart: 'touchstart', // Touch start event
+        touchmove: 'touchmove',   // Touch move event
         touchend: 'touchend',     // Touch end event
         popstate: 'popstate'      // Browser history navigation event
     },

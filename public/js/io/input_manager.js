@@ -71,7 +71,7 @@ class InputManager {
             }
         })
 
-        // Touch events for swipe detection
+        // Touch events for continuous drag detection
         document.addEventListener(Constants.events.touchstart, (e) => {
             if (e.touches.length === 1) {
                 this.touchStartX = e.touches[0].clientX
@@ -79,14 +79,10 @@ class InputManager {
             }
         })
 
-        document.addEventListener(Constants.events.touchend, (e) => {
-            if (this.touchStartX === null || !this.isSwipeEnabled?.()) {
-                this.touchStartX = null
-                this.touchStartY = null
-                return
-            }
+        document.addEventListener(Constants.events.touchmove, (e) => {
+            if (this.touchStartX === null || !this.isSwipeEnabled?.()) return
 
-            const touch = e.changedTouches[0]
+            const touch = e.touches[0]
             const deltaX = touch.clientX - this.touchStartX
             const deltaY = touch.clientY - this.touchStartY
 
@@ -97,12 +93,20 @@ class InputManager {
 
             if (absX > absY && absX >= minDist) {
                 this.swipeDirection = deltaX > 0 ? Constants.directions.right : Constants.directions.left
+                // Reset start position for chaining moves
+                this.touchStartX = touch.clientX
+                this.touchStartY = touch.clientY
                 e.preventDefault()
             } else if (absY >= minDist) {
                 this.swipeDirection = deltaY > 0 ? Constants.directions.down : Constants.directions.up
+                // Reset start position for chaining moves
+                this.touchStartX = touch.clientX
+                this.touchStartY = touch.clientY
                 e.preventDefault()
             }
+        }, { passive: false })
 
+        document.addEventListener(Constants.events.touchend, () => {
             this.touchStartX = null
             this.touchStartY = null
         })

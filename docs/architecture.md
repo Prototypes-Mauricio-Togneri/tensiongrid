@@ -82,12 +82,12 @@ Cyberpunk/neon aesthetic with these design elements:
 - `clamp()` - Constrain camera so viewport stays within grid bounds (centers grid if smaller than viewport)
 
 **InputManager** (`js/io/input_manager.js`) - Keyboard and touch input:
-- Supports arrow keys, WASD, and touch swipe gestures
+- Supports arrow keys, WASD, and touch drag gestures
 - `getDirection()` - Returns movement delta or null (checks swipe first, then keyboard)
 - `setSwipeEnabled(callback)` - Set callback to determine if swipes trigger movement
 - `triggerEscape()` - Programmatically trigger escape (used by browser back button)
 - Auto-disables after edge wrap
-- Swipe detection: tracks touch start/end, calculates dominant axis, minimum 30px threshold
+- Continuous drag detection: triggers move when drag exceeds 30px threshold, resets start position for chaining multiple moves without lifting finger
 
 ### Effect System
 
