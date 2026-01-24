@@ -220,7 +220,7 @@ class Game {
         this.renderer.clear()
         this.renderer.drawGrid(this.grid)
         this.renderer.drawLasers(this.enemyManager.getLasers())
-        this.renderer.drawTraps(this.enemyManager.getTraps(), time)
+        this.renderer.drawTraps(this.enemyManager.getTraps())
         this.renderer.drawMines(this.enemyManager.getMines(), time)
         this.renderer.drawBullets(this.enemyManager.getBullets())
         this.renderer.drawShooters(this.enemyManager.getShooters())

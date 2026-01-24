@@ -476,21 +476,16 @@ class Renderer {
     }
 
     /**
-     * Draw traps with pulsing 4-pointed spike effect.
+     * Draw traps with 4-pointed spike effect.
      * Inactive traps are rendered dimmed.
      * @param {EnemyTrap[]} traps - Array of trap instances
-     * @param {number} time - Current animation timestamp for pulse calculation
      */
-    drawTraps(traps, time) {
+    drawTraps(traps) {
         const ctx = this.ctx
-
-        // Calculate pulse intensity based on time (sine wave oscillation)
-        const pulseSpeed = 0.004
-        const pulseIntensity = 0.6 + 0.4 * (0.5 + 0.5 * Math.sin(time * pulseSpeed))
 
         for (const trap of traps) {
             const pos = this.toScreen(trap.x, trap.y)
-            const size = trap.size * pulseIntensity
+            const size = trap.size
             const innerSize = size * 0.35 // Inner points are shorter
             const isActive = trap.isActive()
 
@@ -503,7 +498,7 @@ class Renderer {
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.trap
-            ctx.shadowBlur = 15 * pulseIntensity
+            ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.trapGlow
             this.drawSpike(pos.x, pos.y, size + 4, innerSize + 2)
             ctx.restore()
@@ -511,7 +506,7 @@ class Renderer {
             // Main spike shape
             ctx.save()
             ctx.shadowColor = this.colors.trap
-            ctx.shadowBlur = 8 * pulseIntensity
+            ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.trap
             this.drawSpike(pos.x, pos.y, size, innerSize)
             ctx.restore()
