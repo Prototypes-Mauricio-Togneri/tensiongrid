@@ -18,6 +18,7 @@ class Game {
 
     /**
      * Resize canvas to fit parent container and update camera viewport.
+     * Applies mobile scaling when viewport is below breakpoint.
      */
     resizeCanvas() {
         const wrapper = this.canvas.parentElement
@@ -27,8 +28,18 @@ class Game {
         this.canvas.width = width
         this.canvas.height = height
 
+        // Calculate scale factor based on viewport width
+        const { mobileBreakpoint, mobileFactor } = Constants.game.scale
+        const scale = window.innerWidth < mobileBreakpoint ? mobileFactor : 1
+
+        // Apply scale to renderer
+        if (this.renderer) {
+            this.renderer.setScale(scale)
+        }
+
         if (!this.camera) return
-        this.camera.setViewport(width, height)
+        // Divide viewport by scale so camera shows more of the world when scaled down
+        this.camera.setViewport(width / scale, height / scale)
         this.camera.follow(this.player.x, this.player.y)
     }
 
@@ -232,6 +243,8 @@ class Game {
             const playerScale = this.pixelScatter ? this.pixelScatter.getPlayerScale() : 1
             this.renderer.drawPlayerWithBoost(this.player, playerScale, time)
         }
+
+        this.renderer.endFrame()
     }
 
     /**

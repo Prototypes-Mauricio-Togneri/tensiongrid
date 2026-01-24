@@ -12,6 +12,15 @@ class Renderer {
         this.ctx = canvas.getContext('2d')   // 2D rendering context
         this.colors = Constants.game.colors  // Color palette reference
         this.camera = camera                 // Camera for world-to-screen transforms
+        this.scale = 1                       // Render scale (0.5 for mobile)
+    }
+
+    /**
+     * Set render scale factor (used for mobile scaling).
+     * @param {number} scale - Scale factor (1 = normal, 0.5 = half size)
+     */
+    setScale(scale) {
+        this.scale = scale
     }
 
     /**
@@ -36,10 +45,21 @@ class Renderer {
     }
 
     /**
-     * Clear the canvas.
+     * Clear the canvas and set up scale transform for this frame.
+     * Call endFrame() after all drawing is complete.
      */
     clear() {
+        this.ctx.save()
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0) // Reset to identity for clear
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.ctx.scale(this.scale, this.scale)
+    }
+
+    /**
+     * End the current frame and restore transform state.
+     */
+    endFrame() {
+        this.ctx.restore()
     }
 
     /**

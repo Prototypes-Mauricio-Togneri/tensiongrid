@@ -127,6 +127,12 @@ const Constants = {
     // Game Configuration
     // ==========================================
     game: {
+        // Mobile scaling settings
+        scale: {
+            mobileBreakpoint: 768, // Viewport width threshold in pixels
+            mobileFactor: 0.73     // Scale factor for mobile (0.5 = 50% size)
+        },
+
         // Grid rendering settings
         grid: {
             cellSize: 80,   // Pixels between grid nodes
@@ -368,5 +374,5 @@ const Constants = {
     // ==========================================
     // Build Version (auto-generated)
     // ==========================================
-    version: '2026-01-24 15:48'
+    version: '2026-01-24 16:34'
 }

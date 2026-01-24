@@ -40,6 +40,7 @@ Cyberpunk/neon aesthetic with these design elements:
 ### Configuration
 
 **Constants** (`js/constants.js`) - Immutable game constants:
+- `scale`: mobile breakpoint (768px), mobile scale factor (0.5)
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
@@ -252,6 +253,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Renderer** (`js/ui/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
+- Mobile scaling: `setScale(factor)` applies canvas context transform for 50% size on mobile
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
 - `drawWakeTrail(entity, size, color, shadowColor?, endColor?)` - Unified wake trail rendering for moving entities
@@ -282,7 +284,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Power collection creates effects via `player.effectManager.addEffect(type, config)`
 - Collection wave animation on power pickup (cyan/blue for power-ups, red for power-downs)
 - Powers respawn on player death
-- Responsive canvas with window resize handling
+- Responsive canvas with window resize handling and mobile scaling (50% at <768px viewport)
 
 ## Game Mechanics
 
