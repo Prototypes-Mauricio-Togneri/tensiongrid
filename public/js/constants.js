@@ -240,7 +240,7 @@ const Constants = {
         pixelExplosion: {
             particleCount: 16, // Number of particles
             particleSize: 5,   // Size of each square particle in pixels
-            endRadius: 45,     // Final scatter radius in pixels
+            endRadius: 40,     // Final scatter radius in pixels
             duration: 800      // Time for particles to scatter in ms
         },
 
