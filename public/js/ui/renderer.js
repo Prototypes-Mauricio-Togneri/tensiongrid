@@ -551,22 +551,19 @@ class Renderer {
 
     /**
      * Draw mines with visual state indication.
-     * Dormant: subtle pulse, Triggered: accelerating blink, Exploded: not drawn.
+     * Dormant: static, Triggered: accelerating blink, Exploded: not drawn.
      * @param {EnemyMine[]} mines - Array of mine instances
      * @param {number} time - Current animation timestamp for effects
      */
     drawMines(mines, time) {
         const ctx = this.ctx
 
-        // Base pulse (subtle when dormant)
-        const basePulse = 0.8 + 0.2 * (0.5 + 0.5 * Math.sin(time * 0.003))
-
         for (const mine of mines) {
             if (mine.isExploded()) continue
 
             const pos = this.toScreen(mine.x, mine.y)
             const blinkIntensity = mine.getBlinkIntensity()
-            const size = mine.size * basePulse
+            const size = mine.size
 
             ctx.save()
             ctx.globalAlpha = blinkIntensity
