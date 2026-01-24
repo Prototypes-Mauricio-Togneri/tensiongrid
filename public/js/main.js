@@ -284,7 +284,7 @@
     })
 
     // Initialize version display
-    document.getElementById('versionDisplay').textContent = Version
+    document.getElementById('versionDisplay').textContent = Constants.version
 
     // Initialize and start
     screen.show(Constants.screens.home)

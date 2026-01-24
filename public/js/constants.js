@@ -363,5 +363,10 @@ const Constants = {
     // ==========================================
     storage: {
         audioEnabled: 'audio.enabled' // localStorage key for audio toggle state
-    }
+    },
+
+    // ==========================================
+    // Build Version (auto-generated)
+    // ==========================================
+    version: '2026-01-24 15:48'
 }

@@ -5,9 +5,7 @@ set -e
 # Get UTC timestamp
 TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M")
 
-# Generate version.js
-cat > public/js/version.js << EOF
-const Version = '${TIMESTAMP}'
-EOF
+# Update version in constants.js
+sed -i "s/version: '.*'/version: '${TIMESTAMP}'/" public/js/constants.js
 
-echo "Generated version.js: ${TIMESTAMP}"
+echo "Updated version: ${TIMESTAMP}"
