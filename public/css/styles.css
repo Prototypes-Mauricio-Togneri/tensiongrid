@@ -365,56 +365,6 @@ body:has(#gameScreen.active) .bg-animation {
 }
 
 /* ============================================
-   HUD (Heads-Up Display)
-   ============================================ */
-
-/* HUD container */
-.hud {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 500;
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    padding: 12px 24px;
-    background: rgba(10, 10, 15, 0.85);
-    border: 1px solid rgba(0, 245, 255, 0.3);
-    box-shadow: 0 0 15px rgba(0, 245, 255, 0.1), inset 0 0 20px rgba(0, 245, 255, 0.03);
-}
-
-/* HUD item wrapper */
-.hud-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-}
-
-/* HUD label text */
-.hud-label {
-    font-size: 0.7rem;
-    color: rgba(0, 245, 255, 0.6);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-}
-
-/* HUD value display */
-.hud-value {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--neon-cyan);
-    filter: drop-shadow(0 0 6px #00f5ff) drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.25));
-}
-
-/* Score value with fixed width */
-.hud-value.score {
-    min-width: 120px;
-    text-align: center;
-}
-
-/* ============================================
    Canvas & Game Screen
    ============================================ */
 

@@ -35,10 +35,6 @@ Cyberpunk/neon aesthetic with these design elements:
 - **Vignette** - Radial gradient darkening canvas edges
 - **Screen shake** - CSS keyframe animation on collision
 
-### HUD Layout
-
-- Score displayed with 6-digit zero-padding
-
 ## Class Architecture
 
 ### Configuration
@@ -259,22 +255,19 @@ Cyberpunk/neon aesthetic with these design elements:
 - Shield rendering: light blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
 
-**UIManager** (`js/io/ui_manager.js`) - DOM-based HUD:
-- Score display with zero-padding
+**UIManager** (`js/io/ui_manager.js`) - UI effects:
 - Screen shake trigger on collision
 
 **Game** (`js/engine/game.js`) - Main orchestrator:
 - `start(levelData)` - Initializes game with level configuration (grid, player, enemies, powers)
 - `update(delta)` - Main update loop, delegates to helper methods
 - `updateAnimations(delta)` - Updates visual effect animations
-- `updateScore(delta)` - Awards points based on survival time
 - `checkCollisionsAndHandle()` - Coordinates all collision checks and responses
 - `checkEnemyCollisions()` - Returns true if player hit by any enemy
 - `handleEnemyHit()` - Processes enemy collision (shield break or death)
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - Creates AudioManager and passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
-- Score accumulation (1 point/second)
 - Death pause: 1000ms freeze with explosion effect before reset
 - Collision → death pause → reset flow (infinite lives)
 - Collision handling via `player.effectManager.handleCollision()` - returns true if effect absorbed hit
@@ -290,8 +283,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - **Movement**: One grid cell at a time, smooth interpolation
 - **Edge wrapping**: Toroidal topology - exit one edge, appear on opposite
 - **Enemies**: Various threat types (bullets, lasers, traps), each with unique movement and collision mechanics
-- **Collision**: Collisions cause score reset (infinite lives)
-- **Scoring**: 1 point per second survived
+- **Collision**: Collisions reset the level (infinite lives)
 
 ## Code Style
 

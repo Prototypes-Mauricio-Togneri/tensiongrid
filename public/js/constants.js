@@ -9,7 +9,6 @@ const Constants = {
     // ==========================================
     dom: {
         ids: {
-            score: 'score',                   // Score display element
             canvasWrapper: 'canvasWrapper',   // Wrapper for shake effect
             homeScreen: 'homeScreen',         // Home menu screen
             gameScreen: 'gameScreen',         // Game play screen

@@ -59,7 +59,6 @@ class Game {
         this.player.teleported = false
 
         this.updateAnimations(delta)
-        this.updateScore(delta)
         this.checkCollisionsAndHandle()
     }
 
@@ -80,18 +79,6 @@ class Game {
             if (this.collectionWave.isComplete()) {
                 this.collectionWave = null
             }
-        }
-    }
-
-    /**
-     * Update score based on survival time.
-     * @param {number} delta - Time elapsed since last frame in milliseconds
-     */
-    updateScore(delta) {
-        this.scoreTimer += delta
-        if (this.scoreTimer >= 1000) {
-            this.ui.addScore(1)
-            this.scoreTimer -= 1000
         }
     }
 
@@ -261,9 +248,6 @@ class Game {
         this.enemyManager.clear()
         this.initPowers(this.levelData) // Respawn powers
         this.camera.follow(this.player.x, this.player.y)
-        this.ui.score = 0
-        this.scoreTimer = 0
-        this.ui.updateDisplay()
     }
 
     /**
@@ -333,10 +317,8 @@ class Game {
         this.init(levelData)
         this.resizeCanvas()
         this.reset()
-        this.ui.reset()
         this.running = true
-        this.lastTime = 0   // Last frame timestamp
-        this.scoreTimer = 0 // Time since last score increment
+        this.lastTime = 0 // Last frame timestamp
         requestAnimationFrame((t) => this.gameLoop(t))
     }
 
