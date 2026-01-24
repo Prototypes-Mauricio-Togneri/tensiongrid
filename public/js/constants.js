@@ -40,7 +40,8 @@ const Constants = {
         resize: 'resize',         // Window resize event
         change: 'change',         // Input change event
         click: 'click',           // Mouse click event
-        touchstart: 'touchstart'  // Touch start event
+        touchstart: 'touchstart', // Touch start event
+        popstate: 'popstate'      // Browser history navigation event
     },
 
     // ==========================================

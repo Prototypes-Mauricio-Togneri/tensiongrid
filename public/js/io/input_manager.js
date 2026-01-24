@@ -106,4 +106,11 @@ class InputManager {
     consumeSelect() {
         this.keys.select = false
     }
+
+    /**
+     * Programmatically trigger escape key (e.g., from browser back button).
+     */
+    triggerEscape() {
+        this.keys.escape = true
+    }
 }

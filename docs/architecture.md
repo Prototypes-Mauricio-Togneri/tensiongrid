@@ -83,6 +83,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **InputManager** (`js/io/input_manager.js`) - Keyboard input:
 - Supports arrow keys and WASD
 - `getDirection()` - Returns movement delta or null
+- `triggerEscape()` - Programmatically trigger escape (used by browser back button)
 - Auto-disables after edge wrap
 
 ### Effect System

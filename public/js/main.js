@@ -271,6 +271,13 @@
         })
     })
 
+    // Capture browser back button and treat it as escape key
+    history.pushState(null, '')
+    window.addEventListener(Constants.events.popstate, () => {
+        history.pushState(null, '')
+        input.triggerEscape()
+    })
+
     // Initialize and start
     screen.show(Constants.screens.home)
     playMenuMusic()
