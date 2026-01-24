@@ -18,6 +18,7 @@ class InputManager {
         this.touchStartX = null       // Touch start X coordinate
         this.touchStartY = null       // Touch start Y coordinate
         this.swipeDirection = null    // Pending swipe direction (consumed on read)
+        this.lastSwipeDirection = null // Last swipe direction (persists while finger is on screen)
         this.isSwipeEnabled = null    // Callback to check if swipes should trigger movement
 
         this.bindEvents()
@@ -101,13 +102,17 @@ class InputManager {
             const minDist = Constants.swipe.minDistance
 
             if (absX > absY && absX >= minDist) {
-                this.swipeDirection = deltaX > 0 ? Constants.directions.right : Constants.directions.left
+                const direction = deltaX > 0 ? Constants.directions.right : Constants.directions.left
+                this.swipeDirection = direction
+                this.lastSwipeDirection = direction
                 // Reset start position for chaining moves
                 this.touchStartX = touch.clientX
                 this.touchStartY = touch.clientY
                 if (e.cancelable) e.preventDefault()
             } else if (absY >= minDist) {
-                this.swipeDirection = deltaY > 0 ? Constants.directions.down : Constants.directions.up
+                const direction = deltaY > 0 ? Constants.directions.down : Constants.directions.up
+                this.swipeDirection = direction
+                this.lastSwipeDirection = direction
                 // Reset start position for chaining moves
                 this.touchStartX = touch.clientX
                 this.touchStartY = touch.clientY
@@ -118,6 +123,7 @@ class InputManager {
         document.addEventListener(Constants.events.touchend, () => {
             this.touchStartX = null
             this.touchStartY = null
+            this.lastSwipeDirection = null
         })
     }
 
@@ -126,6 +132,12 @@ class InputManager {
      * @returns {Object|null} Direction {row, col} or null if no movement
      */
     getDirection() {
+        // Continue moving in last swipe direction while finger is on screen.
+        // Bypasses enabled check since touch requires intentional swipe gestures.
+        if (this.touchStartX !== null && this.lastSwipeDirection) {
+            return this.lastSwipeDirection
+        }
+
         if (!this.enabled) return null
 
         // Check swipe first (consumed on read)
