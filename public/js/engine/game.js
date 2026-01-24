@@ -165,7 +165,7 @@ class Game {
         let waveColor
         if (power.isNegative) {
             this.audioManager.playSound(Constants.audio.sounds.powerDown)
-            waveColor = Constants.game.colors.powerDownSlow
+            waveColor = Constants.game.colors.powerDown
         } else {
             this.audioManager.playSound(Constants.audio.sounds.powerUp)
             waveColor = effectType === Constants.game.effects.shield.type

@@ -302,19 +302,14 @@ const Constants = {
             powerUpFastIcon: '#ffffff',       // Fast power-up icon color (white)
 
             // Power-down colors
-            powerDownSlow: '#ff4444',         // Slow power-down fill color (red)
-            powerDownSlowGlow: '#ff44444d',   // Slow power-down glow effect
-            powerDownSlowIcon: '#ffffff',     // Slow power-down icon color (white)
+            powerDown: '#ff4444',             // Power-down fill color (red)
+            powerDownGlow: '#ff44444d',       // Power-down glow effect
+            powerDownIcon: '#ffffff',         // Power-down icon color (white)
 
             // Shield colors
             shield: '#00ccff',                // Shield circle color (light blue)
             shieldGlow: '#00ccff4d',          // Shield glow effect
-            shieldIcon: '#ffffff',            // Shield icon color (white)
-
-            // Mirror power-down colors (same red as slow)
-            powerDownMirror: '#ff4444',       // Mirror power-down fill color (red)
-            powerDownMirrorGlow: '#ff44444d', // Mirror power-down glow effect
-            powerDownMirrorIcon: '#ffffff'    // Mirror power-down icon color (white)
+            shieldIcon: '#ffffff'             // Shield icon color (white)
         }
     },
 

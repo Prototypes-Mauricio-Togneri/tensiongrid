@@ -39,8 +39,8 @@ const EffectTypes = {
             player.speed = player.baseSpeed
         },
         renderHint: {
-            glowColor: 'powerDownSlow',
-            glowColorAlpha: 'powerDownSlowGlow'
+            glowColor: 'powerDown',
+            glowColorAlpha: 'powerDownGlow'
         }
     },
 
@@ -91,8 +91,8 @@ const EffectTypes = {
         apply: () => {},
         remove: () => {},
         renderHint: {
-            glowColor: 'powerDownMirror',
-            glowColorAlpha: 'powerDownMirrorGlow'
+            glowColor: 'powerDown',
+            glowColorAlpha: 'powerDownGlow'
         }
     }
 }
