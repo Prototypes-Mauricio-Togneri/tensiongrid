@@ -3,10 +3,6 @@
  * Moves with smooth interpolation between nodes, killing player on contact.
  */
 class EnemyPatrol {
-    // Spawn type constants
-    static SPAWN_TYPE_TRAP = 'trap'
-    static SPAWN_TYPE_MINE = 'mine'
-
     /**
      * @param {Object} config - Patrol configuration from level data
      * @param {Grid} grid - Grid instance for position calculations
@@ -28,24 +24,13 @@ class EnemyPatrol {
         this.wakeIntensity = 0 // Wake trail opacity (0-1)
         this.wakeStartX = pos.x // Wake trail start X position
         this.wakeStartY = pos.y // Wake trail start Y position
-
-        this.trapFrequency = config.trapFrequency // Trap spawn interval in ms (optional)
-        this.trapTtl = config.trapTtl // TTL for spawned traps in ms (optional)
-        this.mineFrequency = config.mineFrequency // Mine spawn interval in ms (optional)
-        this.mineTtl = config.mineTtl // TTL for spawned mines in ms (optional)
-        this.trapTimer = 0 // Time since last trap spawn
-        this.mineTimer = 0 // Time since last mine spawn
-        this.pendingTrapIndex = null // Path index where trap will spawn (null if none)
-        this.pendingMineIndex = null // Path index where mine will spawn (null if none)
     }
 
     /**
      * Update patrol position along path with smooth interpolation.
      * @param {number} delta - Time elapsed since last frame in milliseconds
-     * @returns {Array} Array of spawn requests {type: 'trap'|'mine', row, col}
      */
     update(delta) {
-        const spawnRequests = []
         const moveAmount = this.speed * delta / 1000
 
         // Get next target in cyclical path
@@ -63,18 +48,6 @@ class EnemyPatrol {
             this.col = targetNode.x
             this.pathIndex = nextIndex
 
-            // Spawn pending trap/mine when arriving at marked node
-            if (this.pendingTrapIndex === this.pathIndex) {
-                const node = this.path[this.pathIndex]
-                spawnRequests.push({ type: EnemyPatrol.SPAWN_TYPE_TRAP, row: node.y, col: node.x, ttl: this.trapTtl })
-                this.pendingTrapIndex = null
-            }
-            if (this.pendingMineIndex === this.pathIndex) {
-                const node = this.path[this.pathIndex]
-                spawnRequests.push({ type: EnemyPatrol.SPAWN_TYPE_MINE, row: node.y, col: node.x, ttl: this.mineTtl })
-                this.pendingMineIndex = null
-            }
-
             // Reset wake at waypoint
             this.wakeStartX = this.x
             this.wakeStartY = this.y
@@ -91,26 +64,6 @@ class EnemyPatrol {
             this.wakeStartX = this.x - dir.x * trailDistance
             this.wakeStartY = this.y - dir.y * trailDistance
         }
-
-        // Handle trap timer - mark next node for spawn when frequency reached
-        if (this.trapFrequency !== undefined) {
-            this.trapTimer += delta
-            if (this.trapTimer >= this.trapFrequency && this.pendingTrapIndex === null) {
-                this.trapTimer = 0
-                this.pendingTrapIndex = (this.pathIndex + 1) % this.path.length
-            }
-        }
-
-        // Handle mine timer - mark next node for spawn when frequency reached
-        if (this.mineFrequency !== undefined) {
-            this.mineTimer += delta
-            if (this.mineTimer >= this.mineFrequency && this.pendingMineIndex === null) {
-                this.mineTimer = 0
-                this.pendingMineIndex = (this.pathIndex + 1) % this.path.length
-            }
-        }
-
-        return spawnRequests
     }
 
     /**

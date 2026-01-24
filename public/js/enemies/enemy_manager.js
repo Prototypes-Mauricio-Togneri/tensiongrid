@@ -21,21 +21,6 @@ class EnemyManager {
         this.followers = [] // Follower instances
         this.instanceStates = [] // Per-spawner timing state
 
-        // Registry for patrol spawn types (extensible without modifying handlePatrolSpawn)
-        this.patrolSpawnRegistry = {
-            [EnemyPatrol.SPAWN_TYPE_TRAP]: {
-                create: (cfg) => new EnemyTrap(cfg, this.grid),
-                getArray: () => this.traps
-            },
-            [EnemyPatrol.SPAWN_TYPE_MINE]: {
-                create: (cfg) => {
-                    cfg.delay = Constants.game.enemies.mine.patrolSpawnDelay
-                    return new EnemyMine(cfg, this.grid)
-                },
-                getArray: () => this.mines
-            }
-        }
-
         this.initInstanceStates()
         this.initLasers()
         this.initTraps()
@@ -169,12 +154,9 @@ class EnemyManager {
             }
         }
 
-        // Update patrol positions and handle spawns
+        // Update patrol positions
         for (const patrol of this.patrols) {
-            const spawnRequests = patrol.update(delta)
-            for (const request of spawnRequests) {
-                this.handlePatrolSpawn(request)
-            }
+            patrol.update(delta)
         }
 
         // Update follower positions (need player position for pathfinding)
@@ -267,46 +249,6 @@ class EnemyManager {
                 this.grid
             ))
         }
-    }
-
-    /**
-     * Handle spawn request from a patrol enemy.
-     * Creates trap or mine at the specified node if no fixed enemy exists there.
-     * @param {Object} request - Spawn request {type: 'trap'|'mine', row, col, ttl}
-     */
-    handlePatrolSpawn(request) {
-        if (this.hasFixedEnemyAtNode(request.row, request.col)) return
-
-        const entry = this.patrolSpawnRegistry[request.type]
-        if (!entry) return
-
-        const config = { x: request.col, y: request.row, ttl: request.ttl }
-        entry.getArray().push(entry.create(config))
-    }
-
-    /**
-     * Check if a fixed-position enemy exists at the given node.
-     * @param {number} row - Grid row
-     * @param {number} col - Grid column
-     * @returns {boolean} True if a trap, mine, or shooter occupies the node
-     */
-    hasFixedEnemyAtNode(row, col) {
-        // Check traps
-        for (const trap of this.traps) {
-            if (trap.row === row && trap.col === col) return true
-        }
-
-        // Check mines (including exploded ones to prevent stacking)
-        for (const mine of this.mines) {
-            if (mine.row === row && mine.col === col) return true
-        }
-
-        // Check shooters
-        for (const shooter of this.shooters) {
-            if (shooter.row === row && shooter.col === col) return true
-        }
-
-        return false
     }
 
     /**

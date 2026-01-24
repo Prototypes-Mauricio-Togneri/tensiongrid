@@ -203,9 +203,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Wake effect - gradient trail during movement
 - Kills player on contact (grid-based collision)
 - Path wraps cyclically: after reaching last node, returns to first
-- Optional trap/mine spawning: when timer fires, marks next node; spawns when patrol arrives there
-- Skips spawning if a fixed enemy (trap, mine, shooter) already exists at target node
-- Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates), optional `trapFrequency`/`trapTtl` (ms), optional `mineFrequency`/`mineTtl` (ms)
+- Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates)
 
 **EnemyFollower** (`js/enemies/enemy_follower.js`) - Player-tracking hazard:
 - Actively pursues player by moving toward the best adjacent node
@@ -241,7 +239,6 @@ Cyberpunk/neon aesthetic with these design elements:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 - Triggers sound effects via AudioManager (turret rotation)
-- `patrolSpawnRegistry` - Extensible registry for patrol spawn types (trap, mine); add new types without modifying `handlePatrolSpawn()`
 
 **Collision** (`js/engine/collision.js`) - Collision detection:
 - Strategy helpers: `circleCollides(player, entity, size)`, `gridCollides(player, entity)`
