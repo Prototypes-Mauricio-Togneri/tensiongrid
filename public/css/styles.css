@@ -735,3 +735,270 @@ canvas {
     filter: blur(3px);
     transition: filter 0.3s ease-out;
 }
+
+/* ============================================
+   Mobile Responsive Breakpoints
+   ============================================ */
+
+/* Tablet breakpoint */
+@media (max-width: 768px) {
+    /* Title scaling for tablets */
+    .title-tension,
+    .title-grid {
+        font-size: 3.5rem;
+        letter-spacing: 0.2em;
+    }
+
+    .game-title {
+        top: 70px;
+    }
+
+    /* Menu adjustments */
+    .menu {
+        margin-top: 220px;
+        min-width: 240px;
+        gap: 14px;
+    }
+
+    .menu-button {
+        font-size: 1.5rem;
+        padding: 14px 28px;
+        letter-spacing: 0.12em;
+    }
+
+    /* Settings panel */
+    .settings-panel {
+        min-width: 280px;
+        margin-top: 220px;
+        padding: 24px 32px;
+    }
+
+    .settings-label {
+        font-size: 1.5rem;
+    }
+
+    .settings-item {
+        gap: 40px;
+    }
+
+    /* Screen title */
+    .screen-title {
+        top: 70px;
+        font-size: 1.8rem;
+        letter-spacing: 0.25em;
+    }
+
+    /* Pause modal */
+    .pause-modal {
+        padding: 28px 48px 24px 48px;
+    }
+
+    .pause-title {
+        font-size: 1.9rem;
+        letter-spacing: 0.3em;
+    }
+
+    .pause-modal .menu {
+        margin-top: 4px;
+        min-width: 180px;
+    }
+}
+
+/* Phone breakpoint */
+@media (max-width: 480px) {
+    /* Title scaling for phones */
+    .title-tension,
+    .title-grid {
+        font-size: 2.4rem;
+        letter-spacing: 0.15em;
+    }
+
+    .game-title {
+        top: 50px;
+    }
+
+    /* Menu adjustments */
+    .menu {
+        margin-top: 160px;
+        min-width: 200px;
+        gap: 12px;
+    }
+
+    .menu-button {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+        letter-spacing: 0.1em;
+    }
+
+    .menu-button::before {
+        top: -6px;
+        left: -12px;
+        right: -12px;
+        bottom: -6px;
+    }
+
+    /* Settings panel */
+    .settings-panel {
+        min-width: 220px;
+        margin-top: 160px;
+        padding: 20px 24px;
+        gap: 16px;
+    }
+
+    .settings-label {
+        font-size: 1.2rem;
+    }
+
+    .settings-item {
+        gap: 24px;
+    }
+
+    /* Toggle switch scaling */
+    .toggle-track {
+        width: 68px;
+        height: 34px;
+    }
+
+    .toggle-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    .toggle-switch input:checked + .toggle-track .toggle-thumb {
+        left: 40px;
+    }
+
+    /* Screen title */
+    .screen-title {
+        top: 50px;
+        font-size: 1.5rem;
+        letter-spacing: 0.2em;
+    }
+
+    /* Pause modal */
+    .pause-modal {
+        padding: 24px 32px 20px 32px;
+        gap: 24px;
+    }
+
+    .pause-title {
+        font-size: 1.6rem;
+        letter-spacing: 0.25em;
+    }
+
+    .pause-modal .menu {
+        min-width: 160px;
+        gap: 10px;
+    }
+
+    /* Version info */
+    .version-info {
+        bottom: 20px;
+    }
+
+    .version-value {
+        font-size: 0.8rem;
+    }
+
+    /* Background particles - reduce count visually */
+    .bg-particle:nth-child(n+16) {
+        display: none;
+    }
+}
+
+/* Extra small phone breakpoint */
+@media (max-width: 360px) {
+    /* Title scaling for small phones */
+    .title-tension,
+    .title-grid {
+        font-size: 2rem;
+        letter-spacing: 0.1em;
+    }
+
+    .game-title {
+        top: 40px;
+    }
+
+    /* Menu adjustments */
+    .menu {
+        margin-top: 130px;
+        min-width: 180px;
+        gap: 10px;
+    }
+
+    .menu-button {
+        font-size: 1rem;
+        padding: 10px 16px;
+        letter-spacing: 0.08em;
+    }
+
+    /* Settings panel */
+    .settings-panel {
+        min-width: 180px;
+        margin-top: 130px;
+        padding: 16px 20px;
+        gap: 14px;
+    }
+
+    .settings-label {
+        font-size: 1rem;
+    }
+
+    .settings-item {
+        gap: 16px;
+    }
+
+    /* Toggle switch scaling */
+    .toggle-track {
+        width: 56px;
+        height: 28px;
+    }
+
+    .toggle-thumb {
+        width: 20px;
+        height: 20px;
+        top: 4px;
+        left: 4px;
+    }
+
+    .toggle-switch input:checked + .toggle-track .toggle-thumb {
+        left: 32px;
+    }
+
+    /* Screen title */
+    .screen-title {
+        top: 40px;
+        font-size: 1.3rem;
+        letter-spacing: 0.15em;
+    }
+
+    /* Pause modal */
+    .pause-modal {
+        padding: 20px 24px 16px 24px;
+        gap: 20px;
+    }
+
+    .pause-title {
+        font-size: 1.4rem;
+        letter-spacing: 0.2em;
+    }
+
+    /* Version info */
+    .version-info {
+        bottom: 16px;
+    }
+
+    .version-value {
+        font-size: 0.75rem;
+    }
+
+    /* Background grid - reduce visual complexity */
+    .bg-grid {
+        background-size: 40px 40px;
+    }
+
+    /* Reduce particle count further */
+    .bg-particle:nth-child(n+10) {
+        display: none;
+    }
+}
