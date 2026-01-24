@@ -29,6 +29,11 @@
     let gameStartedFrom = '' // Screen to return to when quitting (home or levels)
     let currentLevel = ''    // Path to current level JSON
 
+    // Enable swipe input only on game screen when not paused
+    input.setSwipeEnabled(() =>
+        screen.getCurrentScreen() === Constants.screens.game && !isPaused
+    )
+
     /**
      * Update pause menu button selection visual state.
      */

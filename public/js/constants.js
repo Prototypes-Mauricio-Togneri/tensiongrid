@@ -41,7 +41,15 @@ const Constants = {
         change: 'change',         // Input change event
         click: 'click',           // Mouse click event
         touchstart: 'touchstart', // Touch start event
+        touchend: 'touchend',     // Touch end event
         popstate: 'popstate'      // Browser history navigation event
+    },
+
+    // ==========================================
+    // Swipe Configuration
+    // ==========================================
+    swipe: {
+        minDistance: 30 // Minimum swipe distance in pixels
     },
 
     // ==========================================

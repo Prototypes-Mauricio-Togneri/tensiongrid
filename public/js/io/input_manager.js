@@ -1,6 +1,6 @@
 /**
- * Handles keyboard input for player movement and menu navigation.
- * Supports both arrow keys and WASD, with consume pattern for one-shot actions.
+ * Handles keyboard and touch input for player movement and menu navigation.
+ * Supports arrow keys, WASD, and swipe gestures with consume pattern for one-shot actions.
  */
 class InputManager {
     constructor() {
@@ -13,11 +13,26 @@ class InputManager {
             [Constants.keys.select]: false
         }
         this.enabled = true // False to ignore movement input
+
+        // Touch/swipe state
+        this.touchStartX = null       // Touch start X coordinate
+        this.touchStartY = null       // Touch start Y coordinate
+        this.swipeDirection = null    // Pending swipe direction (consumed on read)
+        this.isSwipeEnabled = null    // Callback to check if swipes should trigger movement
+
         this.bindEvents()
     }
 
     /**
-     * Set up keyboard event listeners with key mapping.
+     * Set callback to determine if swipes should trigger movement.
+     * @param {Function} callback - Returns true if swipes should be processed
+     */
+    setSwipeEnabled(callback) {
+        this.isSwipeEnabled = callback
+    }
+
+    /**
+     * Set up keyboard and touch event listeners.
      */
     bindEvents() {
         const keyMap = {
@@ -55,14 +70,59 @@ class InputManager {
                 this.keys[keyMap[e.key]] = false
             }
         })
+
+        // Touch events for swipe detection
+        document.addEventListener(Constants.events.touchstart, (e) => {
+            if (e.touches.length === 1) {
+                this.touchStartX = e.touches[0].clientX
+                this.touchStartY = e.touches[0].clientY
+            }
+        })
+
+        document.addEventListener(Constants.events.touchend, (e) => {
+            if (this.touchStartX === null || !this.isSwipeEnabled?.()) {
+                this.touchStartX = null
+                this.touchStartY = null
+                return
+            }
+
+            const touch = e.changedTouches[0]
+            const deltaX = touch.clientX - this.touchStartX
+            const deltaY = touch.clientY - this.touchStartY
+
+            // Determine dominant axis and check threshold
+            const absX = Math.abs(deltaX)
+            const absY = Math.abs(deltaY)
+            const minDist = Constants.swipe.minDistance
+
+            if (absX > absY && absX >= minDist) {
+                this.swipeDirection = deltaX > 0 ? Constants.directions.right : Constants.directions.left
+                e.preventDefault()
+            } else if (absY >= minDist) {
+                this.swipeDirection = deltaY > 0 ? Constants.directions.down : Constants.directions.up
+                e.preventDefault()
+            }
+
+            this.touchStartX = null
+            this.touchStartY = null
+        })
     }
 
     /**
-     * Get current movement direction based on pressed keys.
+     * Get current movement direction based on pressed keys or swipe.
      * @returns {Object|null} Direction {row, col} or null if no movement
      */
     getDirection() {
         if (!this.enabled) return null
+
+        // Check swipe first (consumed on read)
+        if (this.swipeDirection) {
+            const direction = this.swipeDirection
+            this.swipeDirection = null
+            return direction
+        }
+
+        // Check keyboard keys
         if (this.keys.up) return Constants.directions.up
         if (this.keys.down) return Constants.directions.down
         if (this.keys.left) return Constants.directions.left

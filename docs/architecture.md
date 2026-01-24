@@ -58,6 +58,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
 - `storage`: localStorage key names (audioEnabled)
+- `swipe.minDistance`: minimum swipe distance in pixels (30px)
 
 ### Core Classes
 
@@ -80,11 +81,13 @@ Cyberpunk/neon aesthetic with these design elements:
 - `worldToScreen(worldX, worldY)` - Transform world coordinates to screen coordinates
 - `clamp()` - Constrain camera so viewport stays within grid bounds (centers grid if smaller than viewport)
 
-**InputManager** (`js/io/input_manager.js`) - Keyboard input:
-- Supports arrow keys and WASD
-- `getDirection()` - Returns movement delta or null
+**InputManager** (`js/io/input_manager.js`) - Keyboard and touch input:
+- Supports arrow keys, WASD, and touch swipe gestures
+- `getDirection()` - Returns movement delta or null (checks swipe first, then keyboard)
+- `setSwipeEnabled(callback)` - Set callback to determine if swipes trigger movement
 - `triggerEscape()` - Programmatically trigger escape (used by browser back button)
 - Auto-disables after edge wrap
+- Swipe detection: tracks touch start/end, calculates dominant axis, minimum 30px threshold
 
 ### Effect System
 
