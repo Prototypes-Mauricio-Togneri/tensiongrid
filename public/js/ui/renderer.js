@@ -440,6 +440,7 @@ class Renderer {
      */
     drawLasers(lasers) {
         const ctx = this.ctx
+        const settings = Constants.game.enemies.laser
 
         for (const laser of lasers) {
             const positions = laser.getWorldPositions()
@@ -453,10 +454,10 @@ class Renderer {
 
             // Outer glow (wide, semi-transparent)
             ctx.strokeStyle = this.colors.laserGlow
-            ctx.lineWidth = 12
-            ctx.lineCap = 'round'
+            ctx.lineWidth = settings.glowWidth
+            ctx.lineCap = settings.lineCap
             ctx.shadowColor = this.colors.laser
-            ctx.shadowBlur = 20
+            ctx.shadowBlur = settings.glowShadowBlur
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
@@ -464,8 +465,8 @@ class Renderer {
 
             // Main laser line (thin core)
             ctx.strokeStyle = this.colors.laser
-            ctx.lineWidth = 3
-            ctx.shadowBlur = 10
+            ctx.lineWidth = settings.coreWidth
+            ctx.shadowBlur = settings.coreShadowBlur
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)

@@ -139,8 +139,13 @@ const Constants = {
             },
             laser: {
                 glowTransitionSpeed: 0.004, // Glow change per ms during transitions
-                glowMin: 0.3,               // Minimum glow intensity (off state, faded but visible)
-                glowMax: 1.0                // Maximum glow intensity (on state)
+                glowMin: 0.2,               // Minimum glow intensity (off state, faded but visible)
+                glowMax: 1.0,               // Maximum glow intensity (on state)
+                coreWidth: 5,               // Main beam line thickness in pixels
+                glowWidth: 10,              // Outer glow line thickness in pixels
+                coreShadowBlur: 10,         // Core line shadow blur radius in pixels
+                glowShadowBlur: 20,         // Outer glow shadow blur radius in pixels
+                lineCap: 'round'            // Line end cap style ('round', 'butt', 'square')
             },
             trap: {
                 size: 14                    // Trap size in pixels
@@ -148,12 +153,12 @@ const Constants = {
             mine: {
                 size: 12                    // Mine size in pixels
             },
+            patrol: {
+                size: 12                    // Patrol size in pixels
+            },
             shooter: {
                 size: 28,                   // Turret arm length from center in pixels
                 armWidth: 10                // Turret arm thickness in pixels
-            },
-            patrol: {
-                size: 12                    // Patrol size in pixels
             },
             follower: {
                 size: 8,                    // Follower size in pixels
