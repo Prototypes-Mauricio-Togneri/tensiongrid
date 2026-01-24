@@ -10,7 +10,7 @@ class EnemyFollower {
      */
     constructor(config, grid) {
         this.grid = grid // Grid reference
-        this.speed = config.speed || Constants.game.enemies.follower.speed // Movement speed in pixels/second
+        this.speed = config.speed // Movement speed in pixels/second
         this.size = Constants.game.enemies.follower.size // Follower size in pixels
         this.rotationSpeed = Constants.game.enemies.follower.rotationSpeed // Rotation speed in radians/second
 
