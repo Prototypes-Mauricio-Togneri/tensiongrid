@@ -73,6 +73,59 @@
     }
 
     /**
+     * Handle home menu action selection.
+     * @param {string} action - The action identifier from button dataset
+     */
+    function handleHomeMenuAction(action) {
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
+        if (action === Constants.actions.home.continue) {
+            openGameScreen('levels/level_01.json', Constants.screens.home)
+        } else if (action === Constants.actions.home.levels) {
+            screen.show(Constants.screens.levels)
+        } else if (action === Constants.actions.home.fullscreen) {
+            if (document.fullscreenElement) {
+                document.exitFullscreen()
+            } else {
+                document.documentElement.requestFullscreen()
+            }
+        } else if (action === Constants.actions.home.settings) {
+            screen.show(Constants.screens.settings)
+        }
+    }
+
+    /**
+     * Handle pause menu action selection.
+     * @param {string} action - The action identifier from button dataset
+     */
+    function handlePauseMenuAction(action) {
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
+        if (action === Constants.actions.pause.continue) {
+            hidePauseMenu()
+            game.resume()
+        } else if (action === Constants.actions.pause.restart) {
+            hidePauseMenu()
+            game.reset()
+            game.resume()
+        } else if (action === Constants.actions.pause.quit) {
+            audioManager.playSound(Constants.audio.sounds.closeScreen)
+            hidePauseMenu()
+            game.stop()
+            playMenuMusic()
+            screen.show(gameStartedFrom)
+        }
+    }
+
+    /**
+     * Handle levels menu action selection.
+     * @param {string} action - The action identifier from button dataset
+     */
+    function handleLevelsMenuAction(action) {
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
+        const levelPath = `levels/${action}.json`
+        openGameScreen(levelPath, Constants.screens.levels)
+    }
+
+    /**
      * Main application loop.
      * Handles all input routing based on current screen state.
      */
@@ -121,22 +174,7 @@
             // Handle selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
-                audioManager.playSound(Constants.audio.sounds.menuSelect)
-                const action = pauseButtons[pauseIndex].dataset.action
-                if (action === Constants.actions.pause.continue) {
-                    hidePauseMenu()
-                    game.resume()
-                } else if (action === Constants.actions.pause.restart) {
-                    hidePauseMenu()
-                    game.reset()
-                    game.resume()
-                } else if (action === Constants.actions.pause.quit) {
-                    audioManager.playSound(Constants.audio.sounds.closeScreen)
-                    hidePauseMenu()
-                    game.stop()
-                    playMenuMusic()
-                    screen.show(gameStartedFrom)
-                }
+                handlePauseMenuAction(pauseButtons[pauseIndex].dataset.action)
             }
         }
 
@@ -157,21 +195,7 @@
             // Handle selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
-                audioManager.playSound(Constants.audio.sounds.menuSelect)
-                const action = screen.getSelectedAction()
-                if (action === Constants.actions.home.continue) {
-                    openGameScreen('levels/level_01.json', Constants.screens.home)
-                } else if (action === Constants.actions.home.levels) {
-                    screen.show(Constants.screens.levels)
-                } else if (action === Constants.actions.home.fullscreen) {
-                    if (document.fullscreenElement) {
-                        document.exitFullscreen()
-                    } else {
-                        document.documentElement.requestFullscreen()
-                    }
-                } else if (action === Constants.actions.home.settings) {
-                    screen.show(Constants.screens.settings)
-                }
+                handleHomeMenuAction(screen.getSelectedAction())
             }
         }
 
@@ -208,12 +232,7 @@
             // Handle level selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
-                audioManager.playSound(Constants.audio.sounds.menuSelect)
-                const action = screen.getSelectedLevelsAction()
-                const levelPath = `levels/${action}.json`
-                if (levelPath) {
-                    openGameScreen(levelPath, Constants.screens.levels)
-                }
+                handleLevelsMenuAction(screen.getSelectedLevelsAction())
             }
         }
 
@@ -229,21 +248,7 @@
         btn.addEventListener(Constants.events.click, () => {
             screen.menuIndex = i
             screen.updateButtonSelection()
-            audioManager.playSound(Constants.audio.sounds.menuSelect)
-            const action = btn.dataset.action
-            if (action === Constants.actions.home.continue) {
-                openGameScreen('levels/level_01.json', Constants.screens.home)
-            } else if (action === Constants.actions.home.levels) {
-                screen.show(Constants.screens.levels)
-            } else if (action === Constants.actions.home.fullscreen) {
-                if (document.fullscreenElement) {
-                    document.exitFullscreen()
-                } else {
-                    document.documentElement.requestFullscreen()
-                }
-            } else if (action === Constants.actions.home.settings) {
-                screen.show(Constants.screens.settings)
-            }
+            handleHomeMenuAction(btn.dataset.action)
         })
     })
 
@@ -252,10 +257,7 @@
         btn.addEventListener(Constants.events.click, () => {
             screen.levelsIndex = i
             screen.updateLevelsButtonSelection()
-            audioManager.playSound(Constants.audio.sounds.menuSelect)
-            const action = btn.dataset.action
-            const levelPath = `levels/${action}.json`
-            openGameScreen(levelPath, Constants.screens.levels)
+            handleLevelsMenuAction(btn.dataset.action)
         })
     })
 
@@ -265,22 +267,7 @@
             if (!isPaused) return
             pauseIndex = i
             updatePauseButtonSelection()
-            audioManager.playSound(Constants.audio.sounds.menuSelect)
-            const action = btn.dataset.action
-            if (action === Constants.actions.pause.continue) {
-                hidePauseMenu()
-                game.resume()
-            } else if (action === Constants.actions.pause.restart) {
-                hidePauseMenu()
-                game.reset()
-                game.resume()
-            } else if (action === Constants.actions.pause.quit) {
-                audioManager.playSound(Constants.audio.sounds.closeScreen)
-                hidePauseMenu()
-                game.stop()
-                playMenuMusic()
-                screen.show(gameStartedFrom)
-            }
+            handlePauseMenuAction(btn.dataset.action)
         })
     })
 
