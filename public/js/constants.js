@@ -127,15 +127,15 @@ const Constants = {
 
         // Player settings
         player: {
-            size: 12, // Player rhombus size in pixels
+            size: 12,  // Player rhombus size in pixels
             speed: 200 // Movement speed in pixels/second
         },
 
         // Enemy settings
         enemies: {
             bullet: {
-                size: 5,   // Bullet size in pixels
-                speed: 130 // Bullet speed in pixels/second
+                size: 5,                    // Bullet size in pixels
+                speed: 130                  // Bullet speed in pixels/second
             },
             laser: {
                 glowTransitionSpeed: 0.004, // Glow change per ms during transitions
@@ -143,23 +143,23 @@ const Constants = {
                 glowMax: 1.0                // Maximum glow intensity (on state)
             },
             trap: {
-                size: 14   // Trap size in pixels
+                size: 14                    // Trap size in pixels
             },
             mine: {
-                size: 12,              // Mine size in pixels
-                patrolSpawnDelay: 1500 // Detonation delay for patrol-spawned mines in ms
+                size: 12,                   // Mine size in pixels
+                patrolSpawnDelay: 1500      // Detonation delay for patrol-spawned mines in ms
             },
             shooter: {
-                size: 28,    // Turret arm length from center in pixels
-                armWidth: 10 // Turret arm thickness in pixels
+                size: 28,                   // Turret arm length from center in pixels
+                armWidth: 10                // Turret arm thickness in pixels
             },
             patrol: {
-                size: 12 // Patrol size in pixels
+                size: 12                    // Patrol size in pixels
             },
             follower: {
-                size: 8,         // Follower size in pixels
-                speed: 100,      // Default speed in pixels/second
-                rotationSpeed: 3 // Rotation speed in radians/second
+                size: 8,                    // Follower size in pixels
+                speed: 100,                 // Default speed in pixels/second
+                rotationSpeed: 3            // Rotation speed in radians/second
             }
         },
         
@@ -252,64 +252,64 @@ const Constants = {
         // Color palette (hex with optional alpha)
         colors: {
             // Player colors
-            player: '#ffffff',             // Player fill color
-            playerGlow: '#ffffff99',       // Player glow effect
-            playerHighlight: '#ffffff66',  // Player inner highlight
-            playerWakeEnd: '#ffffff00',    // Wake trail end (transparent)
-            playerWakeShadow: '#ffffff80', // Wake shadow effect
+            player: '#ffffff',                // Player fill color
+            playerGlow: '#ffffff99',          // Player glow effect
+            playerHighlight: '#ffffff66',     // Player inner highlight
+            playerWakeEnd: '#ffffff00',       // Wake trail end (transparent)
+            playerWakeShadow: '#ffffff80',    // Wake shadow effect
 
             // Enemy colors
-            enemy: '#cc2244',             // Enemy fill color
-            enemyGlow: '#cc22444d',       // Enemy glow effect
-            enemyHighlight: '#ffffff26',  // Enemy inner highlight
-            enemyThreatRing: '#cc22440d', // Threat proximity ring
-            enemyWakeEnd: '#cc224400',    // Wake trail end (transparent)
-            enemyWakeShadow: '#cc224480', // Wake shadow effect
+            enemy: '#cc2244',                 // Enemy fill color
+            enemyGlow: '#cc22444d',           // Enemy glow effect
+            enemyHighlight: '#ffffff26',      // Enemy inner highlight
+            enemyThreatRing: '#cc22440d',     // Threat proximity ring
+            enemyWakeEnd: '#cc224400',        // Wake trail end (transparent)
+            enemyWakeShadow: '#cc224480',     // Wake shadow effect
 
             // Grid colors
-            node: '#1a3a4a44',          // Grid node fill
-            nodeHighlight: '#ffffff0d', // Node highlight effect
-            edge: '#00f5ff22',          // Grid edge color
-            edgeGlow: '#00f5ff0d',      // Edge glow effect
+            node: '#1a3a4a44',                // Grid node fill
+            nodeHighlight: '#ffffff0d',       // Node highlight effect
+            edge: '#00f5ff22',                // Grid edge color
+            edgeGlow: '#00f5ff0d',            // Edge glow effect
 
             // Laser colors
-            laser: '#ff4da6',       // Laser beam color
-            laserGlow: '#ff4da680', // Laser glow effect
+            laser: '#ff4da6',                 // Laser beam color
+            laserGlow: '#ff4da680',           // Laser glow effect
 
             // Trap colors
-            trap: '#00ccff',       // Trap fill color (cyan/electric blue)
-            trapGlow: '#00ccff4d', // Trap glow effect
+            trap: '#00ccff',                  // Trap fill color (cyan/electric blue)
+            trapGlow: '#00ccff4d',            // Trap glow effect
 
             // Mine colors
-            mine: '#ffaa00',       // Mine fill color (yellow/orange)
-            mineGlow: '#ffaa004d', // Mine glow effect
+            mine: '#ffaa00',                  // Mine fill color (yellow/orange)
+            mineGlow: '#ffaa004d',            // Mine glow effect
 
             // Shooter colors
-            shooter: '#44ff88',       // Shooter cross color (green)
-            shooterGlow: '#44ff884d', // Shooter glow effect
+            shooter: '#44ff88',               // Shooter cross color (green)
+            shooterGlow: '#44ff884d',         // Shooter glow effect
 
             // Patrol colors
-            patrol: '#aa44ff',       // Patrol fill color (purple)
-            patrolGlow: '#aa44ff4d', // Patrol glow effect
+            patrol: '#aa44ff',                // Patrol fill color (purple)
+            patrolGlow: '#aa44ff4d',          // Patrol glow effect
 
             // Follower colors
-            follower: '#ff8800',       // Follower fill color (orange)
-            followerGlow: '#ff88004d', // Follower glow effect
+            follower: '#ff8800',              // Follower fill color (orange)
+            followerGlow: '#ff88004d',        // Follower glow effect
 
             // Power-up colors
-            powerUpFast: '#00ccff',       // Fast power-up fill color (light blue)
-            powerUpFastGlow: '#00ccff4d', // Fast power-up glow effect
-            powerUpFastIcon: '#ffffff',   // Fast power-up icon color (white)
+            powerUpFast: '#00ccff',           // Fast power-up fill color (light blue)
+            powerUpFastGlow: '#00ccff4d',     // Fast power-up glow effect
+            powerUpFastIcon: '#ffffff',       // Fast power-up icon color (white)
 
             // Power-down colors
-            powerDownSlow: '#ff4444',       // Slow power-down fill color (red)
-            powerDownSlowGlow: '#ff44444d', // Slow power-down glow effect
-            powerDownSlowIcon: '#ffffff',   // Slow power-down icon color (white)
+            powerDownSlow: '#ff4444',         // Slow power-down fill color (red)
+            powerDownSlowGlow: '#ff44444d',   // Slow power-down glow effect
+            powerDownSlowIcon: '#ffffff',     // Slow power-down icon color (white)
 
-            // Shield colors (same blue as fast power-up)
-            shield: '#00ccff',       // Shield circle color (light blue)
-            shieldGlow: '#00ccff4d', // Shield glow effect
-            shieldIcon: '#ffffff',   // Shield icon color (white)
+            // Shield colors
+            shield: '#00ccff',                // Shield circle color (light blue)
+            shieldGlow: '#00ccff4d',          // Shield glow effect
+            shieldIcon: '#ffffff',            // Shield icon color (white)
 
             // Mirror power-down colors (same red as slow)
             powerDownMirror: '#ff4444',       // Mirror power-down fill color (red)

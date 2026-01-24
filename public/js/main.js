@@ -220,6 +220,70 @@
         requestAnimationFrame(mainLoop)
     }
 
+    // ==========================================
+    // Click Handlers for Menu Buttons
+    // ==========================================
+
+    // Home menu button clicks
+    screen.buttons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            screen.menuIndex = i
+            screen.updateButtonSelection()
+            audioManager.playSound(Constants.audio.sounds.menuSelect)
+            const action = btn.dataset.action
+            if (action === Constants.actions.home.continue) {
+                openGameScreen('levels/level_01.json', Constants.screens.home)
+            } else if (action === Constants.actions.home.levels) {
+                screen.show(Constants.screens.levels)
+            } else if (action === Constants.actions.home.fullscreen) {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen()
+                } else {
+                    document.documentElement.requestFullscreen()
+                }
+            } else if (action === Constants.actions.home.settings) {
+                screen.show(Constants.screens.settings)
+            }
+        })
+    })
+
+    // Levels menu button clicks
+    screen.levelsButtons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            screen.levelsIndex = i
+            screen.updateLevelsButtonSelection()
+            audioManager.playSound(Constants.audio.sounds.menuSelect)
+            const action = btn.dataset.action
+            const levelPath = `levels/${action}.json`
+            openGameScreen(levelPath, Constants.screens.levels)
+        })
+    })
+
+    // Pause menu button clicks
+    pauseButtons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            if (!isPaused) return
+            pauseIndex = i
+            updatePauseButtonSelection()
+            audioManager.playSound(Constants.audio.sounds.menuSelect)
+            const action = btn.dataset.action
+            if (action === Constants.actions.pause.continue) {
+                hidePauseMenu()
+                game.resume()
+            } else if (action === Constants.actions.pause.restart) {
+                hidePauseMenu()
+                game.reset()
+                game.resume()
+            } else if (action === Constants.actions.pause.quit) {
+                audioManager.playSound(Constants.audio.sounds.closeScreen)
+                hidePauseMenu()
+                game.stop()
+                playMenuMusic()
+                screen.show(gameStartedFrom)
+            }
+        })
+    })
+
     // Initialize and start
     screen.show(Constants.screens.home)
     playMenuMusic()
