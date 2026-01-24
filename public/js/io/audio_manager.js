@@ -137,7 +137,7 @@ class AudioManager {
     setupInteractionListeners() {
         const events = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
         events.forEach(event => {
-            document.addEventListener(event, this.boundHandleFirstInteraction, { once: true })
+            document.addEventListener(event, this.boundHandleFirstInteraction, { once: true, capture: true })
         })
     }
 
@@ -152,7 +152,7 @@ class AudioManager {
         // Remove all interaction listeners
         const events = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
         events.forEach(event => {
-            document.removeEventListener(event, this.boundHandleFirstInteraction)
+            document.removeEventListener(event, this.boundHandleFirstInteraction, { capture: true })
         })
 
         // Resume music if audio is enabled and music was requested
