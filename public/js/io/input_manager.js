@@ -105,13 +105,13 @@ class InputManager {
                 // Reset start position for chaining moves
                 this.touchStartX = touch.clientX
                 this.touchStartY = touch.clientY
-                e.preventDefault()
+                if (e.cancelable) e.preventDefault()
             } else if (absY >= minDist) {
                 this.swipeDirection = deltaY > 0 ? Constants.directions.down : Constants.directions.up
                 // Reset start position for chaining moves
                 this.touchStartX = touch.clientX
                 this.touchStartY = touch.clientY
-                e.preventDefault()
+                if (e.cancelable) e.preventDefault()
             }
         }, { passive: false })
 
