@@ -672,7 +672,7 @@ class Renderer {
     }
 
     /**
-     * Draw shooters with square hub and rectangular barrels.
+     * Draw shooters with square hub and rectangular barrels as unified shapes.
      * @param {EnemyShooter[]} shooters - Array of shooter instances
      */
     drawShooters(shooters) {
@@ -689,36 +689,20 @@ class Renderer {
             ctx.translate(pos.x, pos.y)
             ctx.rotate(shooter.getRotation())
 
-            // Outer glow - arms
+            // Outer glow (hub + arms combined)
             ctx.save()
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.shooterGlow
-            this.drawRectBarrels(0, 0, armLength + 3, size + 3, directions)
+            this.drawShooterShape(0, 0, armLength + 3, size + 3, hubSize + 2, directions)
             ctx.restore()
 
-            // Outer glow - center hub (square)
-            ctx.save()
-            ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 15
-            ctx.fillStyle = this.colors.shooterGlow
-            this.drawSquareAt(0, 0, hubSize + 2)
-            ctx.restore()
-
-            // Main arms
+            // Main shape (hub + arms combined)
             ctx.save()
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.shooter
-            this.drawRectBarrels(0, 0, armLength, size, directions)
-            ctx.restore()
-
-            // Main center hub (square)
-            ctx.save()
-            ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 8
-            ctx.fillStyle = this.colors.shooter
-            this.drawSquareAt(0, 0, hubSize)
+            this.drawShooterShape(0, 0, armLength, size, hubSize, directions)
             ctx.restore()
 
             // Inner highlight - center hub only
@@ -730,20 +714,25 @@ class Renderer {
     }
 
     /**
-     * Draw rectangular barrels for active directions.
-     * Each barrel is a rectangle extending outward from center with flat end.
+     * Draw complete shooter shape (hub + barrels) as a single unified path.
      * @param {number} x - Center X (0 when pre-translated)
      * @param {number} y - Center Y (0 when pre-translated)
      * @param {number} armLength - Length from center to arm tip
      * @param {number} size - Width of each arm
+     * @param {number} hubSize - Half-width of center hub
      * @param {string[]} directions - Active direction keys
      */
-    drawRectBarrels(x, y, armLength, size, directions) {
+    drawShooterShape(x, y, armLength, size, hubSize, directions) {
         const ctx = this.ctx
         const halfWidth = size / 2
 
+        ctx.beginPath()
+
+        // Draw center hub
+        ctx.rect(x - hubSize, y - hubSize, hubSize * 2, hubSize * 2)
+
+        // Draw arms for active directions
         for (const dir of directions) {
-            ctx.beginPath()
             switch (dir) {
                 case Constants.directions.up.key:
                     ctx.rect(x - halfWidth, y - armLength, size, armLength)
@@ -758,8 +747,9 @@ class Renderer {
                     ctx.rect(x, y - halfWidth, armLength, size)
                     break
             }
-            ctx.fill()
         }
+
+        ctx.fill()
     }
 
     /**
