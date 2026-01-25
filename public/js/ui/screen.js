@@ -33,6 +33,8 @@ class Screen {
      * @param {string} screenName - Screen name from Constants.screens
      */
     show(screenName) {
+        const previousScreen = this.currentScreen
+
         // Hide all screens
         Object.values(this.screens).forEach(screen => {
             screen.classList.remove(Constants.dom.classes.active)
@@ -44,8 +46,8 @@ class Screen {
             this.currentScreen = screenName
         }
 
-        // Reset menu index when entering screen
-        if (screenName === Constants.screens.levels) {
+        // Reset menu index when entering levels screen (except when returning from game)
+        if (screenName === Constants.screens.levels && previousScreen !== Constants.screens.game) {
             this.levelsIndex = 0
             this.updateLevelsButtonSelection()
         }
