@@ -554,7 +554,7 @@ class Renderer {
             ctx.restore()
 
             // Inner highlight
-            this.drawRhombus(pos.x, pos.y, size * 0.4, this.hexWithAlpha('#ffffff', 0.15 * opacity))
+            this.drawRhombus(pos.x, pos.y, size * 0.4, this.hexWithAlpha('#ffffff', 0.25 * opacity))
         }
     }
 
