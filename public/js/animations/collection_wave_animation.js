@@ -9,7 +9,7 @@ class CollectionWaveAnimation {
      * @param {string} color - Wave color (hex string)
      */
     constructor(x, y, color) {
-        const config = Constants.game.collectionWave
+        const config = Constants.game.animations.collectionWave
         this.x = x
         this.y = y
         this.color = color

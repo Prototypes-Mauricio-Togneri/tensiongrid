@@ -8,7 +8,7 @@ class PlayerExplosionAnimation {
      * @param {number} y - Center Y position in world coordinates
      */
     constructor(x, y) {
-        const config = Constants.game.pixelExplosion
+        const config = Constants.game.animations.pixelExplosion
         this.x = x
         this.y = y
         this.particleSize = config.particleSize

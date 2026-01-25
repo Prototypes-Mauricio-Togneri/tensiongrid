@@ -9,7 +9,7 @@ class PlayerWrapAnimation {
      * @param {boolean} scalePlayer - If true, player scales from 0 to 1 during animation
      */
     constructor(x, y, scalePlayer = false) {
-        const config = Constants.game.pixelScatter
+        const config = Constants.game.animations.pixelScatter
         this.x = x
         this.y = y
         this.scalePlayer = scalePlayer

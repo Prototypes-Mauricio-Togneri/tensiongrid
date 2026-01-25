@@ -251,36 +251,39 @@ const Constants = {
             deathPauseMs: 1000       // Pause duration after player death before reset (ms)
         },
 
-        // Pixel scatter effect settings (wrap teleport)
-        pixelScatter: {
-            particleCount: 16,  // Number of particles
-            particleSize: 3,    // Size of each square particle in pixels
-            spawnRadius: 45,    // Initial scatter radius in pixels
-            duration: 250       // Time for particles to converge in ms
-        },
+        // Animation effect settings
+        animations: {
+            // Pixel scatter effect settings (wrap teleport)
+            pixelScatter: {
+                particleCount: 16,  // Number of particles
+                particleSize: 3,    // Size of each square particle in pixels
+                spawnRadius: 45,    // Initial scatter radius in pixels
+                duration: 250       // Time for particles to converge in ms
+            },
 
-        // Pixel explosion effect settings (player death)
-        pixelExplosion: {
-            particleCount: 16, // Number of particles
-            particleSize: 5,   // Size of each square particle in pixels
-            endRadius: 40,     // Final scatter radius in pixels
-            duration: 800      // Time for particles to scatter in ms
-        },
+            // Pixel explosion effect settings (player death)
+            pixelExplosion: {
+                particleCount: 16,  // Number of particles
+                particleSize: 5,    // Size of each square particle in pixels
+                endRadius: 40,      // Final scatter radius in pixels
+                duration: 800       // Time for particles to scatter in ms
+            },
 
-        // Collection wave effect settings (power-up/power-down pickup)
-        collectionWave: {
-            startRadius: 8,   // Initial ring radius in pixels
-            endRadius: 35,    // Final ring radius in pixels
-            duration: 300,    // Animation duration in ms
-            lineWidth: 3      // Ring stroke width in pixels
-        },
+            // Collection wave effect settings (power-up/power-down pickup)
+            collectionWave: {
+                startRadius: 8,     // Initial ring radius in pixels
+                endRadius: 35,      // Final ring radius in pixels
+                duration: 300,      // Animation duration in ms
+                lineWidth: 3        // Ring stroke width in pixels
+            },
 
-        // Mine explosion effect settings
-        mineExplosion: {
-            particleCount: 12, // Number of particles
-            particleSize: 4,   // Size of each hexagonal particle in pixels
-            endRadius: 35,     // Final scatter radius in pixels
-            duration: 600      // Time for particles to scatter in ms
+            // Mine explosion effect settings
+            mineExplosion: {
+                particleCount: 12,  // Number of particles
+                particleSize: 4,    // Size of each hexagonal particle in pixels
+                endRadius: 35,      // Final scatter radius in pixels
+                duration: 600       // Time for particles to scatter in ms
+            }
         },
 
         // Color palette (hex with optional alpha)
@@ -344,7 +347,7 @@ const Constants = {
             shield: '#00ccff',             // Shield circle color (light blue)
             shieldGlow: '#00ccff4d',       // Shield glow effect
             shieldIcon: '#ffffff'          // Shield icon color (white)
-        }
+        },
     },
 
     // ==========================================

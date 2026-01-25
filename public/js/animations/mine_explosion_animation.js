@@ -8,7 +8,7 @@ class MineExplosionAnimation {
      * @param {number} y - Center Y position in world coordinates
      */
     constructor(x, y) {
-        const config = Constants.game.mineExplosion
+        const config = Constants.game.animations.mineExplosion
         this.x = x
         this.y = y
         this.particleSize = config.particleSize
