@@ -15,7 +15,8 @@ class Game {
         this.ui = new UIManager()         // HUD manager
         this.running = false              // True while game loop is active
 
-        window.addEventListener(Constants.events.resize, () => this.resizeCanvas())
+        this.boundResizeCanvas = () => this.resizeCanvas() // Bound handler for cleanup
+        window.addEventListener(Constants.events.resize, this.boundResizeCanvas)
     }
 
     /**
@@ -39,7 +40,7 @@ class Game {
             this.renderer.setScale(scale)
         }
 
-        if (!this.camera) return
+        if (!this.camera || !this.player) return
         // Divide viewport by scale so camera shows more of the world when scaled down
         this.camera.setViewport(width / scale, height / scale)
         this.camera.follow(this.player.x, this.player.y)
@@ -362,6 +363,7 @@ class Game {
      */
     stop() {
         this.running = false
+        window.removeEventListener(Constants.events.resize, this.boundResizeCanvas)
     }
 
     /**

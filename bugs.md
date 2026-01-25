@@ -1,19 +1,3 @@
-### 4. Resize Listener Not Removed
-
-- **File**: `public/js/engine/game.js`
-- **Issue Type**: Memory Leak
-- **Line #**: 18
-- **Severity**: Warning
-- **Description & Suggested Fix**: Resize listener added in constructor but never removed in `stop()`. Multiple game instances accumulate listeners. **Fix**: Store handler reference and remove in `stop()`.
-
-### 5. Camera Null Check Incomplete
-
-- **File**: `public/js/engine/game.js`
-- **Issue Type**: Null Check
-- **Line #**: 42-45
-- **Severity**: Warning
-- **Description & Suggested Fix**: `resizeCanvas()` checks `if (!this.camera)` before `setViewport()` but calls `this.camera.follow()` at line 45 outside the guard. Early resize during init could crash. **Fix**: Move line 45 inside the guard or add separate check.
-
 ### 6. Redundant Event Listener Removal
 
 - **File**: `public/js/io/audio_manager.js`
