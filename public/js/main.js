@@ -106,6 +106,11 @@
         gameStartedFrom = from
         const response = await fetch(currentLevel)
         const levelData = await response.json()
+        // Update current level in storage if this level is higher than saved progress
+        const savedLevel = localStorage.getItem(Constants.storage.gameCurrentLevel)
+        if (savedLevel === null || levelData.id > parseInt(savedLevel, 10)) {
+            localStorage.setItem(Constants.storage.gameCurrentLevel, levelData.id)
+        }
         screen.show(Constants.screens.game)
         game.start(levelData)
     }
