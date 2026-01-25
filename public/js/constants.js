@@ -319,7 +319,7 @@ const Constants = {
             // Mine colors
             mine: '#ffcc00',                // Mine fill color (yellow)
             mineGlow: '#ffcc004d',          // Mine glow effect
-            mineHighlight: '#ffffff26',     // Mine inner highlight
+            mineHighlight: '#ffffff70',     // Mine inner highlight
 
             // Shooter colors
             shooter: '#44ff88',             // Shooter cross color (green)
