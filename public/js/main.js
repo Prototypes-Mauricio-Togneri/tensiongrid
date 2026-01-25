@@ -25,13 +25,20 @@
     }
 
     /**
-     * Update the continue button text based on firstPlay state and fade in home screen.
+     * Update the continue button text based on firstPlay state.
      */
-    function initHomeScreen() {
+    function updateContinueButtonText() {
         const button = document.querySelector(`[data-action="${Constants.actions.home.continue}"]`)
         if (button) {
             button.textContent = isFirstPlay() ? 'Play' : 'Continue'
         }
+    }
+
+    /**
+     * Update the continue button text based on firstPlay state and fade in home screen.
+     */
+    function initHomeScreen() {
+        updateContinueButtonText()
         const title = document.getElementById(Constants.dom.ids.homeTitle)
         const menu = document.getElementById(Constants.dom.ids.homeMenu)
         if (title) {
@@ -146,6 +153,9 @@
             game.stop()
             playMenuMusic()
             screen.show(gameStartedFrom)
+            if (gameStartedFrom === Constants.screens.home) {
+                updateContinueButtonText()
+            }
         }
     }
 
@@ -185,6 +195,7 @@
             audioManager.playSound(Constants.audio.sounds.closeScreen)
             playMenuMusic()
             screen.show(Constants.screens.home)
+            updateContinueButtonText()
         }
 
         // Pause menu input handling
