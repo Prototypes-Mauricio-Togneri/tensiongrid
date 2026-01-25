@@ -166,11 +166,15 @@ const Constants = {
             trap: {
                 size: 14,                   // Trap size in pixels
                 opacityTransitionSpeed: 0.004, // Opacity change per ms during transitions
-                opacityMin: 0.3,            // Minimum opacity (off state)
+                opacityMin: 0.2,            // Minimum opacity (off state)
                 opacityMax: 1.0             // Maximum opacity (on state)
             },
             mine: {
-                size: 12                    // Mine size in pixels
+                size: 12,                   // Mine size in pixels
+                blinkFrequencyStart: 2,     // Starting blink frequency (Hz)
+                blinkFrequencyRange: 8,     // Blink frequency increase (Hz)
+                blinkIntensityMin: 0.3,     // Minimum blink intensity
+                blinkIntensityMax: 1.0      // Maximum blink intensity
             },
             patrol: {
                 size: 12                    // Patrol size in pixels

@@ -98,16 +98,19 @@ class EnemyMine {
     getBlinkIntensity() {
         if (this.state !== EnemyMine.STATE_TRIGGERED) return 1
 
+        const config = Constants.game.enemies.mine
+
         // Calculate progress toward detonation (0 to 1)
         const progress = this.timer / this.delay
 
         // Blink frequency increases as progress approaches 1
-        // Start at ~2Hz, end at ~10Hz
-        const frequency = 2 + progress * 8
+        const frequency = config.blinkFrequencyStart + progress * config.blinkFrequencyRange
         const blinkCycle = Math.sin(this.timer * frequency * 0.01 * Math.PI * 2)
 
-        // Return 0.3 to 1.0 range (never fully invisible)
-        return 0.65 + 0.35 * blinkCycle
+        // Return min to max range (never fully invisible)
+        const center = (config.blinkIntensityMin + config.blinkIntensityMax) / 2
+        const amplitude = (config.blinkIntensityMax - config.blinkIntensityMin) / 2
+        return center + amplitude * blinkCycle
     }
 
     /**
