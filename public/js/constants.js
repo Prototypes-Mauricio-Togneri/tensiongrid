@@ -396,8 +396,9 @@ const Constants = {
     // Storage Configuration
     // ==========================================
     storage: {
-        audioEnabled: 'audio.enabled', // localStorage key for audio toggle state
-        firstPlay: 'game.firstPlay'    // localStorage key for first play detection
+        settingsAudioEnabled: 'settings.audioEnabled', // localStorage key for audio toggle state
+        gameFirstPlay: 'game.firstPlay',     // localStorage key for first play detection
+        gameCurrentLevel: 'game.currentLevel' // localStorage key for current level (default: 1)
     },
 
     // ==========================================

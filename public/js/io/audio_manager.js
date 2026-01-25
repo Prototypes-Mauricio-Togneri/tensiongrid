@@ -52,7 +52,7 @@ class AudioManager {
      * @returns {boolean} True if audio should be enabled (default: true)
      */
     loadAudioState() {
-        const value = localStorage.getItem(Constants.storage.audioEnabled)
+        const value = localStorage.getItem(Constants.storage.settingsAudioEnabled)
         // Default to true if key doesn't exist, only false if explicitly 'false'
         return value !== 'false'
     }
@@ -62,7 +62,7 @@ class AudioManager {
      */
     saveAudioState() {
         if (this.audioToggle) {
-            localStorage.setItem(Constants.storage.audioEnabled, this.audioToggle.checked)
+            localStorage.setItem(Constants.storage.settingsAudioEnabled, this.audioToggle.checked)
         }
     }
 

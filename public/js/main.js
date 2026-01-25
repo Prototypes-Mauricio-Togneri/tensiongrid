@@ -21,7 +21,7 @@
      * @returns {boolean} True if first play (default), false otherwise
      */
     function isFirstPlay() {
-        return localStorage.getItem(Constants.storage.firstPlay) !== 'false'
+        return localStorage.getItem(Constants.storage.gameFirstPlay) !== 'false'
     }
 
     /**
@@ -117,7 +117,7 @@
     function handleHomeMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
         if (action === Constants.actions.home.continue) {
-            localStorage.setItem(Constants.storage.firstPlay, 'false')
+            localStorage.setItem(Constants.storage.gameFirstPlay, 'false')
             openGameScreen('levels/level_01.json', Constants.screens.home)
         } else if (action === Constants.actions.home.gym) {
             openGameScreen(Constants.game.gym, Constants.screens.home)
