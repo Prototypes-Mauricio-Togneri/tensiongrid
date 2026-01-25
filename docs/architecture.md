@@ -55,6 +55,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
 - `collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `pixelExplosion`: particle count (16), particle size (5px), end radius (45px), duration (800ms)
+- `mineExplosion`: particle count (12), particle size (4px), end radius (50px), duration (600ms)
 - `colors`: all game element colors with glow variants
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -158,6 +159,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getWaveData()` - Returns wave data {radius, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
 - `getColor()` - Returns wave color
+
+**MineExplosionAnimation** (`js/animations/mine_explosion_animation.js`) - Mine detonation effect:
+- Visual effect for mine explosion
+- 12 yellow square particles scatter outward from center
+- Ease-out animation for smooth deceleration over 600ms
+- Particles fade out as they scatter
+- `update(delta)` - Advance animation
+- `isComplete()` - Returns true when animation finished
+- `getParticles()` - Returns particle data {x, y, opacity} for rendering
+- `getPosition()` - Returns center position in world coordinates
 
 **EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
 - Linear movement along grid lines

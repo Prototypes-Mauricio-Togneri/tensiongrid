@@ -65,6 +65,11 @@ class Game {
         }
         this.enemyManager.update(delta, this.player.row, this.player.col)
 
+        // Create explosion animations for mines that just exploded
+        for (const pos of this.enemyManager.getExplodedMinePositions()) {
+            this.mineExplosions.push(new MineExplosionAnimation(pos.x, pos.y))
+        }
+
         // Camera follows player position
         this.camera.follow(this.player.x, this.player.y)
         this.player.teleported = false
@@ -89,6 +94,14 @@ class Game {
             this.collectionWave.update(delta)
             if (this.collectionWave.isComplete()) {
                 this.collectionWave = null
+            }
+        }
+
+        // Update mine explosions (iterate backwards for safe removal)
+        for (let i = this.mineExplosions.length - 1; i >= 0; i--) {
+            this.mineExplosions[i].update(delta)
+            if (this.mineExplosions[i].isComplete()) {
+                this.mineExplosions.splice(i, 1)
             }
         }
     }
@@ -236,6 +249,11 @@ class Game {
             this.renderer.drawCollectionWave(this.collectionWave)
         }
 
+        // Draw mine explosion effects
+        for (const explosion of this.mineExplosions) {
+            this.renderer.drawMineExplosion(explosion)
+        }
+
         // Draw explosion instead of player during death pause
         if (this.dead) {
             this.renderer.drawPlayerExplosion(this.explosion)
@@ -255,6 +273,7 @@ class Game {
         this.deathTimer = 0
         this.explosion = null
         this.collectionWave = null
+        this.mineExplosions = []
         this.inputManager.clearPendingInput()
         this.player.reset()
         this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
@@ -301,6 +320,7 @@ class Game {
         this.powers = []             // Active powers (power-ups and power-downs)
         this.pixelScatter = null     // Wrap pixel scatter effect
         this.collectionWave = null   // Collection wave effect
+        this.mineExplosions = []     // Active mine explosion effects
         this.initPowers(levelData)
     }
 

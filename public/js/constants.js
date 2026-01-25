@@ -275,6 +275,14 @@ const Constants = {
             lineWidth: 3      // Ring stroke width in pixels
         },
 
+        // Mine explosion effect settings
+        mineExplosion: {
+            particleCount: 12, // Number of particles
+            particleSize: 4,   // Size of each hexagonal particle in pixels
+            endRadius: 35,     // Final scatter radius in pixels
+            duration: 600      // Time for particles to scatter in ms
+        },
+
         // Color palette (hex with optional alpha)
         colors: {
             // Player colors

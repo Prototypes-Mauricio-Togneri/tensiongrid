@@ -20,6 +20,7 @@ class EnemyManager {
         this.patrols = [] // Patrol instances
         this.followers = [] // Follower instances
         this.instanceStates = [] // Per-spawner timing state
+        this.explodedMinePositions = [] // Positions of mines that exploded this frame
 
         this.initInstanceStates()
         this.initLasers()
@@ -133,10 +134,12 @@ class EnemyManager {
         this.traps = this.traps.filter(trap => !trap.isExpired())
 
         // Update mines and spawn bullets on explosion
+        this.explodedMinePositions = []
         for (const mine of this.mines) {
             const exploded = mine.update(delta)
             if (exploded) {
                 this.spawnBulletsFromMine(mine)
+                this.explodedMinePositions.push(mine.getPosition())
                 this.audioManager.playSound(Constants.audio.sounds.explosionMine)
             }
         }
@@ -342,5 +345,13 @@ class EnemyManager {
      */
     getFollowers() {
         return this.followers
+    }
+
+    /**
+     * Get positions of mines that exploded this frame.
+     * @returns {Vector2[]} Array of explosion positions
+     */
+    getExplodedMinePositions() {
+        return this.explodedMinePositions
     }
 }

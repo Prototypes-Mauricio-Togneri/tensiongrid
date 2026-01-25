@@ -372,6 +372,35 @@ class Renderer {
     }
 
     /**
+     * Draw mine explosion particles scattering outward.
+     * @param {MineExplosionAnimation} explosion - MineExplosionAnimation instance with particle data
+     */
+    drawMineExplosion(explosion) {
+        const ctx = this.ctx
+        const worldPos = explosion.getPosition()
+        const pos = this.toScreen(worldPos.x, worldPos.y)
+        const particles = explosion.getParticles()
+        const size = explosion.particleSize
+
+        ctx.save()
+
+        for (const particle of particles) {
+            if (particle.opacity <= 0) continue
+
+            const px = pos.x + particle.x
+            const py = pos.y + particle.y
+
+            // Draw glow
+            ctx.shadowColor = this.colors.mine
+            ctx.shadowBlur = 10 * particle.opacity
+            ctx.fillStyle = this.hexWithAlpha(this.colors.mine, particle.opacity)
+            ctx.fillRect(px - size / 2, py - size / 2, size, size)
+        }
+
+        ctx.restore()
+    }
+
+    /**
      * Draw enemy bullets with wake effects, threat rings, and glows.
      * @param {EnemyBullet[]} enemies - Array of bullet instances
      */
