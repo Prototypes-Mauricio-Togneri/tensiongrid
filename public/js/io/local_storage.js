@@ -40,14 +40,20 @@ class LocalStorage {
 
     /**
      * Get current game level from localStorage.
-     * @returns {number} Current level number
+     * @returns {number} Current level number (defaults to 1 if invalid)
      */
     getCurrentLevel() {
         if (!this.hasCurrentLevel()) {
             this.setCurrentLevel(1)
         }
 
-        return parseInt(localStorage.getItem(Constants.storage.gameCurrentLevel), 10)
+        const level = parseInt(localStorage.getItem(Constants.storage.gameCurrentLevel), 10)
+        // Validate: must be a positive integer
+        if (isNaN(level) || level < 1) {
+            this.setCurrentLevel(1)
+            return 1
+        }
+        return level
     }
 
     /**
