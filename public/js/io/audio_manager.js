@@ -33,6 +33,16 @@ class AudioManager {
                 }
             })
         }
+
+        // Pause music when tab loses focus, resume when it regains focus
+        document.addEventListener(Constants.events.visibilitychange, () => {
+            if (!this.currentMusic) return
+            if (document.hidden) {
+                this.currentMusic.pause()
+            } else if (this.isEnabled()) {
+                this.currentMusic.play().catch(() => {})
+            }
+        })
     }
 
     /**

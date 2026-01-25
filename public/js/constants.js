@@ -35,15 +35,16 @@ const Constants = {
     // Event Types
     // ==========================================
     events: {
-        keydown: 'keydown',       // Key press event
-        keyup: 'keyup',           // Key release event
-        resize: 'resize',         // Window resize event
-        change: 'change',         // Input change event
-        click: 'click',           // Mouse click event
-        touchstart: 'touchstart', // Touch start event
-        touchmove: 'touchmove',   // Touch move event
-        touchend: 'touchend',     // Touch end event
-        popstate: 'popstate'      // Browser history navigation event
+        keydown: 'keydown',                  // Key press event
+        keyup: 'keyup',                      // Key release event
+        resize: 'resize',                    // Window resize event
+        change: 'change',                    // Input change event
+        click: 'click',                      // Mouse click event
+        touchstart: 'touchstart',            // Touch start event
+        touchmove: 'touchmove',              // Touch move event
+        touchend: 'touchend',                // Touch end event
+        popstate: 'popstate',                // Browser history navigation event
+        visibilitychange: 'visibilitychange' // Tab visibility change event
     },
 
     // ==========================================
