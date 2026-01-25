@@ -109,7 +109,7 @@ class InputManager {
                 this.touchStartX = touch.clientX
                 this.touchStartY = touch.clientY
                 if (e.cancelable) e.preventDefault()
-            } else if (absY >= minDist) {
+            } else if (absY > absX && absY >= minDist) {
                 const direction = deltaY > 0 ? Constants.directions.down : Constants.directions.up
                 this.swipeDirection = direction
                 this.lastSwipeDirection = direction

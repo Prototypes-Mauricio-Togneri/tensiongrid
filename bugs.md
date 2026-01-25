@@ -1,11 +1,3 @@
-### 2. Diagonal Swipe Detection
-
-- **File**: `public/js/io/input_manager.js`
-- **Issue Type**: Logic
-- **Line #**: 112
-- **Severity**: Warning
-- **Description & Suggested Fix**: Swipe detection uses `else if (absY >= minDist)` without requiring `absY > absX`. On perfectly diagonal swipes where `absX == absY`, vertical takes precedence unexpectedly. **Fix**: Change to `else if (absY > absX && absY >= minDist)`.
-
 ### 3. Shake Timeout Not Cleared
 
 - **File**: `public/js/io/ui_manager.js`
