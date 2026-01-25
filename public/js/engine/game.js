@@ -354,7 +354,7 @@ class Game {
         this.resizeCanvas()
         this.reset()
         this.running = true
-        this.lastTime = 0 // Last frame timestamp
+        this.lastTime = performance.now() // Initialize to avoid large first-frame delta
         requestAnimationFrame((t) => this.gameLoop(t))
     }
 
