@@ -1,0 +1,11 @@
+{
+  "grid": {
+    "width": 15,
+    "height": 15
+  },
+  "player": {
+    "startX": 7,
+    "startY": 7
+  },
+  "enemies": {}
+}

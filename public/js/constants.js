@@ -102,6 +102,7 @@ const Constants = {
     // ==========================================
     actions: {
         home: {
+            gym: 'gym',               // Open gym mode
             continue: 'continue',     // Continue last game
             levels: 'levels',         // Open level select
             fullscreen: 'fullscreen', // Toggle fullscreen mode
@@ -128,6 +129,9 @@ const Constants = {
     // Game Configuration
     // ==========================================
     game: {
+        // Gym mode configuration path
+        gym: 'gyms/gym_01.json',
+
         // Mobile scaling settings
         scale: {
             mobileBreakpoint: 768, // Viewport width threshold in pixels

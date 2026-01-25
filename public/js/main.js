@@ -85,6 +85,8 @@
         audioManager.playSound(Constants.audio.sounds.menuSelect)
         if (action === Constants.actions.home.continue) {
             openGameScreen('levels/level_01.json', Constants.screens.home)
+        } else if (action === Constants.actions.home.gym) {
+            openGameScreen(Constants.game.gym, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
             screen.show(Constants.screens.levels)
         } else if (action === Constants.actions.home.fullscreen) {
