@@ -74,6 +74,9 @@ class LocalStorage {
      * @param {number} level - Level number to preload
      */
     preloadLevel(level) {
-        fetch(this.getLevelPath(level)).catch(() => {})
+        const path = this.getLevelPath(level)
+        fetch(path).catch((_) => {
+            // Ignore errors during preloading
+        })
     }
 }

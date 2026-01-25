@@ -177,6 +177,10 @@ class EnemyShooter {
      * @returns {Object} {dirRow, dirCol}
      */
     snapToCardinalDirection(x, y) {
+        // Handle zero vector
+        if (x === 0 && y === 0) {
+            return { dirRow: 0, dirCol: 0 }
+        }
         // Determine dominant axis
         if (Math.abs(x) > Math.abs(y)) {
             // Horizontal dominant

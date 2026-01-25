@@ -1,19 +1,3 @@
-### 8. Zero Vector Not Handled in Snap
-
-- **File**: `public/js/enemies/enemy_shooter.js`
-- **Issue Type**: Edge Case
-- **Line #**: 179-187
-- **Severity**: Warning
-- **Description & Suggested Fix**: `snapToCardinalDirection()` uses `Math.abs(x) > Math.abs(y)` which returns `dirCol: -1` when both x and y are 0. Zero vector should return zero movement. **Fix**: Add early return for zero vector case.
-
-### 9. Silent Preload Failure
-
-- **File**: `public/js/io/local_storage.js`
-- **Issue Type**: Silent Failure
-- **Line #**: 77
-- **Severity**: Style
-- **Description & Suggested Fix**: `preloadLevel()` catches errors with `.catch(() => {})`. Preload failures are invisible, making debugging harder. **Suggestion**: Add debug logging in development mode.
-
 ### 10. Missing Level Number Validation
 
 - **File**: `public/js/io/local_storage.js`
