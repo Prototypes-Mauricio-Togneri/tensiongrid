@@ -40,18 +40,18 @@ Cyberpunk/neon aesthetic with these design elements:
 ### Configuration
 
 **Constants** (`js/constants.js`) - Immutable game constants:
-- `scale`: mobile breakpoint (768px), mobile scale factor (0.5)
+- `scale`: mobile breakpoint (768px), mobile scale factor (0.73)
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.3/1.0), mine size (12px), mine patrol spawn delay (1500ms), shooter size (14px), patrol size (12px), follower size (8px), follower default speed (100px/s), follower rotation speed (3 rad/s)
-- `powers.[type].size`: (16px) - collectible size per power type (fast, slow, shield, mirror)
-- `powers.[type].iconScale`: (0.65) - icon size multiplier per power type
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s)
+- `powers.size`: (12px) - collectible size for all power types
+- `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
-- `effects.immunity`: duration (2000ms), blink frequency (0.015) - effect behavior
+- `effects.immunity`: duration (1000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
 - `colors`: all game element colors with glow variants
 - `game.animations.pixelScatter`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
@@ -67,11 +67,11 @@ Cyberpunk/neon aesthetic with these design elements:
 
 ### Core Classes
 
-**Vector2** (`js/vector2.js`) - 2D vector utility:
+**Vector2** (`js/engine/vector2.js`) - 2D vector utility:
 - `distance(a, b)` - Euclidean distance
 - `direction(from, to)` - Normalized direction vector
 
-**Grid** (`js/grid.js`) - Grid coordinate system:
+**Grid** (`js/engine/grid.js`) - Grid coordinate system:
 - `getNodePosition(row, col)` - Grid coords to world pixels
 - `isValidPosition(row, col)` - Bounds and exclusion checking
 - `isExcluded(row, col)` - Check if node is excluded
@@ -80,9 +80,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - Supports `excludes.nodes` config to remove nodes and their edges from the grid
 - Supports `excludes.edges` config to remove specific edges (bidirectional)
 
-**Camera** (`js/camera.js`) - Viewport and camera system:
+**Camera** (`js/ui/camera.js`) - Viewport and camera system:
 - `setViewport(width, height)` - Update viewport size on canvas resize
-- `follow(targetX, targetY, instant)` - Center camera on target with edge clamping
+- `follow(targetX, targetY)` - Center camera on target with edge clamping
 - `worldToScreen(worldX, worldY)` - Transform world coordinates to screen coordinates
 - `clamp()` - Constrain camera so viewport stays within grid bounds (centers grid if smaller than viewport)
 
@@ -92,6 +92,11 @@ Cyberpunk/neon aesthetic with these design elements:
 - `setSwipeEnabled(callback)` - Set callback to determine if swipes trigger movement
 - `triggerEscape()` - Programmatically trigger escape (used by browser back button)
 - `clearPendingInput()` - Clear buffered swipe state (called on player death/reset)
+- `disable()` - Disable all input handling
+- `isEscapePressed()` - Check if escape key is pressed
+- `consumeEscape()` - Consume escape key press (resets state)
+- `isSelectPressed()` - Check if select key (Enter/Space) is pressed
+- `consumeSelect()` - Consume select key press (resets state)
 - Auto-disables after edge wrap
 - Continuous drag detection: triggers move when drag exceeds 30px threshold, resets start position for chaining multiple moves without lifting finger
 
@@ -124,6 +129,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `removeEffect(type)` - Calls remove(), deletes effect
 - `update(delta)` - Updates all effects, removes expired, returns expired type names
 - `hasEffect(type)` - Check if effect is active
+- `getEffect(type)` - Get active effect by type (returns Effect or null)
 - `handleCollision()` - Delegates to onHit handlers, returns true if hit absorbed
 - `getRenderHints()` - Returns combined render data for all active effects (includes warning blink for effects with warningDuration)
 - `clear()` - Removes all effects (on death/reset)
@@ -148,6 +154,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isComplete()` - Returns true when animation finished
 - `getParticles()` - Returns particle data {x, y, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
+- `getProgress()` - Returns animation progress 0-1
 
 **PlayerWrapAnimation** (`js/animations/player_wrap_animation.js`) - Wrap teleport effect:
 - Visual effect for player wrap-around teleportation
@@ -158,6 +165,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isComplete()` - Returns true when animation finished
 - `getParticles()` - Returns particle data {x, y, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
+- `getProgress()` - Returns animation progress 0-1
+- `getPlayerScale()` - Returns player scale during wrap (for optional scalePlayer mode)
 
 **PowerCollectionAnimation** (`js/animations/power_collection_animation.js`) - Power-up/down collection effect:
 - Visual effect for power-up/power-down collection
@@ -169,6 +178,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getWaveData()` - Returns wave data {radius, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
 - `getColor()` - Returns wave color
+- `getProgress()` - Returns animation progress 0-1
 
 **MineExplosionAnimation** (`js/animations/mine_explosion_animation.js`) - Mine detonation effect:
 - Visual effect for mine explosion
@@ -179,6 +189,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isComplete()` - Returns true when animation finished
 - `getParticles()` - Returns particle data {x, y, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
+- `getProgress()` - Returns animation progress 0-1
 
 **EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
 - Linear movement along grid lines
@@ -249,7 +260,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isNegative: false` for power-ups (fast, shield), `true` for power-downs (slow, mirror)
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast', 'shield', or 'slow')
+- Config: `x`, `y` (node position), `type` ('fast', 'shield', 'slow', or 'mirror')
 
 **AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds
@@ -276,7 +287,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Renderer** (`js/ui/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
-- Mobile scaling: `setScale(factor)` applies canvas context transform for 50% size on mobile
+- Mobile scaling: `setScale(factor)` applies canvas context transform for 73% size on mobile
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
 - `drawWakeTrail(entity, size, color, shadowColor?, endColor?)` - Unified wake trail rendering for moving entities
@@ -307,7 +318,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Power collection creates effects via `player.effectManager.addEffect(type, config)`
 - Collection wave animation on power pickup (cyan/blue for power-ups, red for power-downs)
 - Powers respawn on player death
-- Responsive canvas with window resize handling and mobile scaling (50% at <768px viewport)
+- Responsive canvas with window resize handling and mobile scaling (73% at <768px viewport)
 
 ## Game Mechanics
 
