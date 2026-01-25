@@ -692,7 +692,7 @@ canvas {
     color: var(--neon-pink);
     text-shadow: var(--glow-pink);
     position: relative;
-    animation: titleGlitch 4s ease-in-out infinite;
+    animation: titleGlitch 1s ease-in-out infinite;
 }
 
 /* Title glitch chromatic aberration effect */
