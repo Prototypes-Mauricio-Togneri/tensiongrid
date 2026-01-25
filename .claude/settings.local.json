@@ -14,7 +14,8 @@
       "mcp__ide__getDiagnostics",
       "Bash(chmod:*)",
       "Bash(./scripts/generate-version.sh:*)",
-      "Bash(./scripts/version.sh:*)"
+      "Bash(./scripts/version.sh:*)",
+      "Bash(git -C /home/max/Repositories/atomic/tensiongrid show HEAD:public/js/io/local_storage.js)"
     ]
   },
   "hooks": {

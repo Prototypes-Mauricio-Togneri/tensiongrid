@@ -100,7 +100,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - `setAudioEnabled(enabled)` - Set audio enabled state
 - `hasCurrentLevel()` - Check if current game level exists
 - `getCurrentLevel()` - Get current game level
-- `setCurrentLevel(level)` - Set current game level
+- `setCurrentLevel(level)` - Set current game level, preloads next level
+- `getLevelPath(level)` - Build level file path from level number
+- `preloadLevel(level)` - Preload level JSON into browser cache
 
 ### Effect System
 
@@ -295,7 +297,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `checkEnemyCollisions()` - Returns true if player hit by any enemy
 - `handleEnemyHit()` - Processes enemy collision (shield break or death)
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
-- Creates AudioManager and passes to EnemyManager for sound effects
+- Receives shared AudioManager from main.js, passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Death pause: 1000ms freeze with explosion effect before reset
 - Collision → death pause → reset flow (infinite lives)

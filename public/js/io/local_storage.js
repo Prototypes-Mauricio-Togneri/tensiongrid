@@ -28,10 +28,12 @@ class LocalStorage {
         const value =  localStorage.getItem(Constants.storage.gameCurrentLevel)
 
         if (value === null) {
-            this.setCurrentLevel(1)
+            this.preloadLevel(1)
 
             return false
         } else {
+            this.preloadLevel(parseInt(value, 10))
+
             return true
         }
     }
@@ -50,9 +52,28 @@ class LocalStorage {
 
     /**
      * Set current game level in localStorage.
+     * Triggers preloading of the level.
      * @param {number} level - Level number to save
      */
     setCurrentLevel(level) {
         localStorage.setItem(Constants.storage.gameCurrentLevel, level)
+        this.preloadLevel(level)
+    }
+
+    /**
+     * Build level file path from level number.
+     * @param {number} level - Level number
+     * @returns {string} Path to level JSON file
+     */
+    getLevelPath(level) {
+        return `levels/level_${String(level).padStart(3, '0')}.json`
+    }
+
+    /**
+     * Preload a level's JSON file into browser cache.
+     * @param {number} level - Level number to preload
+     */
+    preloadLevel(level) {
+        fetch(this.getLevelPath(level)).catch(() => {})
     }
 }

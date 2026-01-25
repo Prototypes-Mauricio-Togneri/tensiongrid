@@ -6,9 +6,9 @@
     // Core instances
     const storage = new LocalStorage()
     const input = new InputManager()
-    const game = new Game(Constants.dom.ids.gameCanvas, input)
+    const audioManager = new AudioManager(storage)
+    const game = new Game(Constants.dom.ids.gameCanvas, input, audioManager)
     const screen = new Screen()
-    const audioManager = new AudioManager(storage) // Audio manager for menu sounds
 
     /**
      * Play main menu background music.

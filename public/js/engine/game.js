@@ -6,10 +6,12 @@ class Game {
     /**
      * @param {string} canvasId - DOM ID of the game canvas
      * @param {InputManager} inputManager - Shared input manager instance
+     * @param {AudioManager} audioManager - Shared audio manager instance
      */
-    constructor(canvasId, inputManager) {
+    constructor(canvasId, inputManager, audioManager) {
         this.canvas = document.getElementById(canvasId) // Game canvas element
         this.inputManager = inputManager  // Shared input manager
+        this.audioManager = audioManager  // Shared audio manager
         this.ui = new UIManager()         // HUD manager
         this.running = false              // True while game loop is active
 
@@ -313,7 +315,6 @@ class Game {
         this.grid = new Grid({ ...Constants.game.grid, ...levelData.grid })
         this.camera = new Camera(this.grid)
         this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
-        this.audioManager = new AudioManager() // Audio manager for sound effects
         this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collision = new Collision(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
