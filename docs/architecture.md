@@ -173,7 +173,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **EnemyTrap** (`js/enemies/enemy_trap.js`) - Static point hazard:
 - Fixed position on a single grid node
 - Orange color (#ff8800)
-- Pulsing 4-pointed spike/star visual effect
+- Rhombus visual shape
 - Kills player on contact (grid-based collision)
 - Other entities (bullets) pass through unaffected
 - Persists across player deaths (static level feature)

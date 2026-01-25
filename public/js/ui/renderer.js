@@ -497,8 +497,8 @@ class Renderer {
     }
 
     /**
-     * Draw traps with 4-pointed spike effect.
-     * Inactive traps are rendered dimmed.
+     * Draw traps with rhombus shape.
+     * Inactive traps are rendered dimmed but same size.
      * @param {EnemyTrap[]} traps - Array of trap instances
      */
     drawTraps(traps) {
@@ -507,36 +507,25 @@ class Renderer {
         for (const trap of traps) {
             const pos = this.toScreen(trap.x, trap.y)
             const size = trap.size
-            const innerSize = size * 0.35 // Inner points are shorter
             const isActive = trap.isActive()
-
-            // Apply reduced opacity for inactive traps
-            ctx.save()
-            if (!isActive) {
-                ctx.globalAlpha = 0.3
-            }
+            const dimFactor = isActive ? 1 : 0.3
 
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.trap
             ctx.shadowBlur = 15
-            ctx.fillStyle = this.colors.trapGlow
-            this.drawSpike(pos.x, pos.y, size + 4, innerSize + 2)
+            this.drawRhombus(pos.x, pos.y, size + 4, this.hexWithAlpha(this.colors.trap.slice(0, 7), 0.3 * dimFactor))
             ctx.restore()
 
-            // Main spike shape
+            // Main rhombus shape
             ctx.save()
             ctx.shadowColor = this.colors.trap
             ctx.shadowBlur = 8
-            ctx.fillStyle = this.colors.trap
-            this.drawSpike(pos.x, pos.y, size, innerSize)
+            this.drawRhombus(pos.x, pos.y, size, this.hexWithAlpha(this.colors.trap.slice(0, 7), dimFactor))
             ctx.restore()
 
             // Inner highlight
-            ctx.fillStyle = this.colors.enemyHighlight
-            this.drawSpike(pos.x, pos.y, size * 0.5, innerSize * 0.5)
-
-            ctx.restore() // Restore opacity
+            this.drawRhombus(pos.x, pos.y, size * 0.4, this.hexWithAlpha('#ffffff', 0.15 * dimFactor))
         }
     }
 
