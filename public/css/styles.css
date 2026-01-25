@@ -390,6 +390,9 @@ canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browser UI */
+    padding-bottom: env(safe-area-inset-bottom, 0px); /* Safe area for home indicators */
+    box-sizing: border-box;
 }
 
 /* Game screen canvas wrapper */
