@@ -461,6 +461,7 @@ canvas {
 /* Home screen fade-in transition */
 #homeTitle,
 #homeMenu {
+    opacity: 0;
     transition: opacity 1000ms ease-out;
 }
 
