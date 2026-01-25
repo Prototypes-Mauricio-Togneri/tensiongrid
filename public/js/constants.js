@@ -150,42 +150,42 @@ const Constants = {
         // Enemy settings
         enemies: {
             bullet: {
-                size: 5,                    // Bullet size in pixels
-                speed: 130                  // Bullet speed in pixels/second
+                size: 5,                       // Bullet size in pixels
+                speed: 130                     // Bullet speed in pixels/second
             },
             laser: {
-                glowTransitionSpeed: 0.004, // Glow change per ms during transitions
-                glowMin: 0.2,               // Minimum glow intensity (off state, faded but visible)
-                glowMax: 1.0,               // Maximum glow intensity (on state)
-                coreWidth: 5,               // Main beam line thickness in pixels
-                glowWidth: 10,              // Outer glow line thickness in pixels
-                coreShadowBlur: 10,         // Core line shadow blur radius in pixels
-                glowShadowBlur: 20,         // Outer glow shadow blur radius in pixels
-                lineCap: 'round'            // Line end cap style ('round', 'butt', 'square')
+                glowTransitionSpeed: 0.004,    // Glow change per ms during transitions
+                glowMin: 0.2,                  // Minimum glow intensity (off state, faded but visible)
+                glowMax: 1.0,                  // Maximum glow intensity (on state)
+                coreWidth: 5,                  // Main beam line thickness in pixels
+                glowWidth: 10,                 // Outer glow line thickness in pixels
+                coreShadowBlur: 10,            // Core line shadow blur radius in pixels
+                glowShadowBlur: 20,            // Outer glow shadow blur radius in pixels
+                lineCap: 'round'               // Line end cap style ('round', 'butt', 'square')
             },
             trap: {
-                size: 14,                   // Trap size in pixels
+                size: 14,                      // Trap size in pixels
                 opacityTransitionSpeed: 0.004, // Opacity change per ms during transitions
-                opacityMin: 0.2,            // Minimum opacity (off state)
-                opacityMax: 1.0             // Maximum opacity (on state)
+                opacityMin: 0.2,               // Minimum opacity (off state)
+                opacityMax: 1.0                // Maximum opacity (on state)
             },
             mine: {
-                size: 12,                   // Mine size in pixels
-                blinkFrequencyStart: 2,     // Starting blink frequency (Hz)
-                blinkFrequencyRange: 8,     // Blink frequency increase (Hz)
-                blinkIntensityMin: 0.3,     // Minimum blink intensity
-                blinkIntensityMax: 1.0      // Maximum blink intensity
+                size: 12,                      // Mine size in pixels
+                blinkFrequencyStart: 2,        // Starting blink frequency (Hz)
+                blinkFrequencyRange: 8,        // Blink frequency increase (Hz)
+                blinkIntensityMin: 0.3,        // Minimum blink intensity
+                blinkIntensityMax: 1.0         // Maximum blink intensity
             },
             patrol: {
-                size: 12                    // Patrol size in pixels
+                size: 12                       // Patrol size in pixels
             },
             shooter: {
-                size: 28,                   // Turret arm length from center in pixels
-                armWidth: 10                // Turret arm thickness in pixels
+                size: 28,                      // Turret arm length from center in pixels
+                armWidth: 10                   // Turret arm thickness in pixels
             },
             follower: {
-                size: 8,                    // Follower size in pixels
-                rotationSpeed: 3            // Rotation speed in radians/second
+                size: 8,                       // Follower size in pixels
+                rotationSpeed: 3               // Rotation speed in radians/second
             }
         },
         
