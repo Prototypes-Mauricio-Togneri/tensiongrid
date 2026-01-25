@@ -2,7 +2,7 @@
  * Visual effect for power-up/power-down collection.
  * Single expanding ring that fades out as it grows.
  */
-class CollectionWaveAnimation {
+class PowerCollectionAnimation {
     /**
      * @param {number} x - Center X position in world coordinates
      * @param {number} y - Center Y position in world coordinates

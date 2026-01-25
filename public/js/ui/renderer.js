@@ -275,7 +275,7 @@ class Renderer {
 
     /**
      * Draw collection wave effect (expanding ring).
-     * @param {CollectionWaveAnimation} wave - CollectionWaveAnimation instance
+     * @param {PowerCollectionAnimation} wave - PowerCollectionAnimation instance
      */
     drawCollectionWave(wave) {
         const ctx = this.ctx

@@ -150,7 +150,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getParticles()` - Returns particle data {x, y, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
 
-**CollectionWaveAnimation** (`js/animations/collection_wave_animation.js`) - Power-up/down collection effect:
+**PowerCollectionAnimation** (`js/animations/power_collection_animation.js`) - Power-up/down collection effect:
 - Visual effect for power-up/power-down collection
 - Single expanding ring that fades out as it grows
 - Color passed as constructor parameter (blue for power-up, red for power-down)

@@ -184,7 +184,7 @@ class Game {
                 : Constants.game.colors.powerUp
         }
 
-        this.collectionWave = new CollectionWaveAnimation(power.x, power.y, waveColor)
+        this.collectionWave = new PowerCollectionAnimation(power.x, power.y, waveColor)
     }
 
     /**
