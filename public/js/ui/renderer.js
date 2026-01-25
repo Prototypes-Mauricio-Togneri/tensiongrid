@@ -504,7 +504,7 @@ class Renderer {
             // Outer glow (wide, semi-transparent)
             ctx.strokeStyle = this.colors.laserGlow
             ctx.lineWidth = settings.glowWidth
-            ctx.lineCap = settings.lineCap
+            ctx.lineCap = 'round'
             ctx.shadowColor = this.colors.laser
             ctx.shadowBlur = settings.glowShadowBlur
             ctx.beginPath()

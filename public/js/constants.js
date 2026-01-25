@@ -160,8 +160,7 @@ const Constants = {
                 coreWidth: 5,                  // Main beam line thickness in pixels
                 glowWidth: 10,                 // Outer glow line thickness in pixels
                 coreShadowBlur: 10,            // Core line shadow blur radius in pixels
-                glowShadowBlur: 20,            // Outer glow shadow blur radius in pixels
-                lineCap: 'round'               // Line end cap style ('round', 'butt', 'square')
+                glowShadowBlur: 20             // Outer glow shadow blur radius in pixels
             },
             trap: {
                 size: 14,                      // Trap size in pixels
