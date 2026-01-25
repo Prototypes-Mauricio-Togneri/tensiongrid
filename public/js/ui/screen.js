@@ -15,17 +15,32 @@ class Screen {
         this.menuIndex = 0    // Selected index in home menu
         this.levelsIndex = 0  // Selected index in levels menu
         this.currentScreen = Constants.screens.home // Currently active screen
+        this.cachedVisibleButtons = null // Cached visible buttons (invalidated on resize)
+
+        // Invalidate button cache on resize (visibility may change)
+        window.addEventListener(Constants.events.resize, () => this.invalidateButtonCache())
 
         this.updateButtonSelection()
         this.updateLevelsButtonSelection()
     }
 
     /**
+     * Invalidate cached visible buttons (called on resize).
+     */
+    invalidateButtonCache() {
+        this.cachedVisibleButtons = null
+    }
+
+    /**
      * Get visible home menu buttons (excludes hidden mobile-only buttons on desktop).
+     * Cached to avoid expensive offsetParent checks on every call.
      * @returns {HTMLElement[]} Array of visible button elements
      */
     get buttons() {
-        return Array.from(this.allButtons).filter(btn => btn.offsetParent !== null)
+        if (this.cachedVisibleButtons === null) {
+            this.cachedVisibleButtons = Array.from(this.allButtons).filter(btn => btn.offsetParent !== null)
+        }
+        return this.cachedVisibleButtons
     }
 
     /**

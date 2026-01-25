@@ -56,6 +56,7 @@
     const audioToggle = document.getElementById(Constants.dom.ids.audioToggle)
 
     // Pause menu state
+    // Note: pauseButtons is queried once at init. Button count assumed fixed in HTML.
     const pauseOverlay = document.getElementById(Constants.dom.ids.pauseOverlay)
     const pauseButtons = pauseOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
     let pauseIndex = 0       // Currently selected pause menu item
