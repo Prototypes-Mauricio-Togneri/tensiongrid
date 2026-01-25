@@ -121,10 +121,13 @@
      */
     function handleHomeMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
-        if (action === Constants.actions.home.continue) {
-            openGameScreen('levels/level_001.json', Constants.screens.home)
-        } else if (action === Constants.actions.home.gym) {
+        if (action === Constants.actions.home.gym) {
             openGameScreen(Constants.game.gym, Constants.screens.home)
+        } else if (action === Constants.actions.home.continue) {
+            const savedLevel = localStorage.getItem(Constants.storage.gameCurrentLevel)
+            const levelNumber = savedLevel === null ? 1 : parseInt(savedLevel, 10)
+            const levelPath = `levels/level_${String(levelNumber).padStart(3, '0')}.json`
+            openGameScreen(levelPath, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
             screen.show(Constants.screens.levels)
         } else if (action === Constants.actions.home.fullscreen) {
