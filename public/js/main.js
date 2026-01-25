@@ -16,6 +16,32 @@
         audioManager.playMusic(Constants.audio.music.menu)
     }
 
+    /**
+     * Check if this is the user's first play session.
+     * @returns {boolean} True if first play (default), false otherwise
+     */
+    function isFirstPlay() {
+        return localStorage.getItem(Constants.storage.firstPlay) !== 'false'
+    }
+
+    /**
+     * Update the continue button text based on firstPlay state and fade in home screen.
+     */
+    function initHomeScreen() {
+        const button = document.querySelector(`[data-action="${Constants.actions.home.continue}"]`)
+        if (button) {
+            button.textContent = isFirstPlay() ? 'Play' : 'Continue'
+        }
+        const title = document.getElementById(Constants.dom.ids.homeTitle)
+        const menu = document.getElementById(Constants.dom.ids.homeMenu)
+        if (title) {
+            title.style.opacity = '1'
+        }
+        if (menu) {
+            menu.style.opacity = '1'
+        }
+    }
+
     // Input edge detection state (tracks previous frame to detect key-down events)
     let lastMenuInput = { up: false, down: false }        // For menu navigation
     let lastSettingsInput = { left: false, right: false } // For settings toggles
@@ -84,6 +110,7 @@
     function handleHomeMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
         if (action === Constants.actions.home.continue) {
+            localStorage.setItem(Constants.storage.firstPlay, 'false')
             openGameScreen('levels/level_01.json', Constants.screens.home)
         } else if (action === Constants.actions.home.gym) {
             openGameScreen(Constants.game.gym, Constants.screens.home)
@@ -305,6 +332,7 @@
     // Initialize and start
     screen.menuIndex = 0
     screen.updateButtonSelection()
+    initHomeScreen()
     screen.show(Constants.screens.home)
     playMenuMusic()
     mainLoop()

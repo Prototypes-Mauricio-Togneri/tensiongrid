@@ -11,6 +11,8 @@ const Constants = {
         ids: {
             canvasWrapper: 'canvasWrapper',   // Wrapper for shake effect
             homeScreen: 'homeScreen',         // Home menu screen
+            homeTitle: 'homeTitle',           // Home screen title
+            homeMenu: 'homeMenu',             // Home menu container
             gameScreen: 'gameScreen',         // Game play screen
             levelsScreen: 'levelsScreen',     // Level selection screen
             settingsScreen: 'settingsScreen', // Settings screen
@@ -394,7 +396,8 @@ const Constants = {
     // Storage Configuration
     // ==========================================
     storage: {
-        audioEnabled: 'audio.enabled' // localStorage key for audio toggle state
+        audioEnabled: 'audio.enabled', // localStorage key for audio toggle state
+        firstPlay: 'game.firstPlay'    // localStorage key for first play detection
     },
 
     // ==========================================

@@ -60,7 +60,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `game.animations.mineExplosion`: particle count (12), particle size (4px), end radius (35px), duration (600ms)
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
 - `audio.music`: paths to music files (mainMenu)
-- `storage`: localStorage key names (audioEnabled)
+- `storage`: localStorage key names (audioEnabled, firstPlay)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
 
 - `version`: UTC build timestamp (auto-updated by `scripts/version.sh` at deploy time)

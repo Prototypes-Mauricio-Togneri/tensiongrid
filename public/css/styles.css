@@ -458,6 +458,12 @@ canvas {
     margin-top: 300px;
 }
 
+/* Home screen fade-in transition */
+#homeTitle,
+#homeMenu {
+    transition: opacity 1000ms ease-out;
+}
+
 /* Base menu button style */
 .menu-button {
     font-family: 'Orbitron', sans-serif;
