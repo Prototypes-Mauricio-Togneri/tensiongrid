@@ -23,6 +23,13 @@ class EnemyTrap {
         this.active = true // Whether trap is currently dangerous
         this.timer = 0 // Time elapsed in current state
         this.ttl = config.ttl // Time to live in ms (undefined for permanent)
+
+        // Opacity for visual transitions
+        const trapConfig = Constants.game.enemies.trap
+        this.opacity = trapConfig.opacityMax // Start at max since trap starts active
+        this.opacityMin = trapConfig.opacityMin
+        this.opacityMax = trapConfig.opacityMax
+        this.opacitySpeed = trapConfig.opacityTransitionSpeed
     }
 
     /**
@@ -42,13 +49,26 @@ class EnemyTrap {
     }
 
     /**
-     * Update intermittent trap state and TTL countdown.
+     * Update intermittent trap state, opacity transitions, and TTL countdown.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
         // Decrement TTL if set
         if (this.ttl !== undefined) {
             this.ttl -= delta
+        }
+
+        // Update opacity based on active state
+        if (this.active) {
+            // Ramp up to max when active
+            if (this.opacity < this.opacityMax) {
+                this.opacity = Math.min(this.opacityMax, this.opacity + this.opacitySpeed * delta)
+            }
+        } else {
+            // Ramp down to min when inactive
+            if (this.opacity > this.opacityMin) {
+                this.opacity = Math.max(this.opacityMin, this.opacity - this.opacitySpeed * delta)
+            }
         }
 
         if (!this.isIntermittent()) return

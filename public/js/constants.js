@@ -164,7 +164,10 @@ const Constants = {
                 lineCap: 'round'            // Line end cap style ('round', 'butt', 'square')
             },
             trap: {
-                size: 14                    // Trap size in pixels
+                size: 14,                   // Trap size in pixels
+                opacityTransitionSpeed: 0.004, // Opacity change per ms during transitions
+                opacityMin: 0.3,            // Minimum opacity (off state)
+                opacityMax: 1.0             // Maximum opacity (on state)
             },
             mine: {
                 size: 12                    // Mine size in pixels

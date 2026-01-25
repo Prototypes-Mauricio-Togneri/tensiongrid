@@ -498,7 +498,7 @@ class Renderer {
 
     /**
      * Draw traps with rhombus shape.
-     * Inactive traps are rendered dimmed but same size.
+     * Opacity transitions smoothly based on active state.
      * @param {EnemyTrap[]} traps - Array of trap instances
      */
     drawTraps(traps) {
@@ -507,25 +507,24 @@ class Renderer {
         for (const trap of traps) {
             const pos = this.toScreen(trap.x, trap.y)
             const size = trap.size
-            const isActive = trap.isActive()
-            const dimFactor = isActive ? 1 : 0.3
+            const opacity = trap.opacity
 
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.trap
             ctx.shadowBlur = 15
-            this.drawRhombus(pos.x, pos.y, size + 4, this.hexWithAlpha(this.colors.trap.slice(0, 7), 0.3 * dimFactor))
+            this.drawRhombus(pos.x, pos.y, size + 4, this.hexWithAlpha(this.colors.trap.slice(0, 7), 0.3 * opacity))
             ctx.restore()
 
             // Main rhombus shape
             ctx.save()
             ctx.shadowColor = this.colors.trap
             ctx.shadowBlur = 8
-            this.drawRhombus(pos.x, pos.y, size, this.hexWithAlpha(this.colors.trap.slice(0, 7), dimFactor))
+            this.drawRhombus(pos.x, pos.y, size, this.hexWithAlpha(this.colors.trap.slice(0, 7), opacity))
             ctx.restore()
 
             // Inner highlight
-            this.drawRhombus(pos.x, pos.y, size * 0.4, this.hexWithAlpha('#ffffff', 0.15 * dimFactor))
+            this.drawRhombus(pos.x, pos.y, size * 0.4, this.hexWithAlpha('#ffffff', 0.15 * opacity))
         }
     }
 
