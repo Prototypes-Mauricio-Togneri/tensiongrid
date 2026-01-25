@@ -10,7 +10,7 @@ class Screen {
             [Constants.screens.levels]: document.getElementById(Constants.dom.ids.levelsScreen),
             [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen)
         }
-        this.buttons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)        // Home menu buttons
+        this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)      // All home menu buttons
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons
         this.menuIndex = 0    // Selected index in home menu
         this.levelsIndex = 0  // Selected index in levels menu
@@ -18,6 +18,14 @@ class Screen {
 
         this.updateButtonSelection()
         this.updateLevelsButtonSelection()
+    }
+
+    /**
+     * Get visible home menu buttons (excludes hidden mobile-only buttons on desktop).
+     * @returns {HTMLElement[]} Array of visible button elements
+     */
+    get buttons() {
+        return Array.from(this.allButtons).filter(btn => btn.offsetParent !== null)
     }
 
     /**

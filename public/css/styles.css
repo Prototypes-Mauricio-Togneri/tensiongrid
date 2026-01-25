@@ -750,11 +750,24 @@ canvas {
 }
 
 /* ============================================
+   Mobile-Only Elements
+   ============================================ */
+
+/* Hide mobile-only elements on desktop */
+.mobile-only {
+    display: none;
+}
+
+/* ============================================
    Mobile Responsive Breakpoints
    ============================================ */
 
 /* Tablet breakpoint */
 @media (max-width: 768px) {
+    /* Show mobile-only elements */
+    .mobile-only {
+        display: block;
+    }
     /* Title scaling for tablets */
     .title-tension,
     .title-grid {
