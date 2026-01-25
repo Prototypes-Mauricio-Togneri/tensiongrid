@@ -750,12 +750,6 @@ canvas {
     min-width: 220px;
 }
 
-/* Blur HUD when pause overlay is active */
-#gameScreen:has(.pause-overlay.active) .hud {
-    filter: blur(3px);
-    transition: filter 0.3s ease-out;
-}
-
 /* ============================================
    Mobile-Only Elements
    ============================================ */

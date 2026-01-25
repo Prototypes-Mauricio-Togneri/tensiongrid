@@ -114,7 +114,6 @@ Cyberpunk/neon aesthetic with these design elements:
 **Effect** (`js/effects/effect.js`) - Effect instance data:
 - Holds type, duration, remaining time, and config for an active effect
 - `update(delta)` - Decrements timer, returns true if effect just expired
-- `getProgress()` - Returns 0-1 ratio (1 = just started, 0 = expired)
 
 **EffectTypes** (`js/effects/effect_types.js`) - Effect behavior registry:
 - Defines behavior for each effect type without subclassing
@@ -129,7 +128,6 @@ Cyberpunk/neon aesthetic with these design elements:
 - `removeEffect(type)` - Calls remove(), deletes effect
 - `update(delta)` - Updates all effects, removes expired, returns expired type names
 - `hasEffect(type)` - Check if effect is active
-- `getEffect(type)` - Get active effect by type (returns Effect or null)
 - `handleCollision()` - Delegates to onHit handlers, returns true if hit absorbed
 - `getRenderHints()` - Returns combined render data for all active effects (includes warning blink for effects with warningDuration)
 - `clear()` - Removes all effects (on death/reset)

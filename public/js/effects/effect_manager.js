@@ -82,15 +82,6 @@ class EffectManager {
     }
 
     /**
-     * Get active effect by type.
-     * @param {string} type - Effect type
-     * @returns {Effect|null} Active effect or null
-     */
-    getEffect(type) {
-        return this.effects.get(type) || null
-    }
-
-    /**
      * Handle collision - check if any effect absorbs it.
      * @returns {boolean} True if collision was absorbed
      */

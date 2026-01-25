@@ -24,14 +24,6 @@ class Renderer {
     }
 
     /**
-     * Update camera reference (called when game reinitializes).
-     * @param {Camera} camera - New camera instance
-     */
-    setCamera(camera) {
-        this.camera = camera
-    }
-
-    /**
      * Convert world coordinates to screen coordinates.
      * @param {number} worldX - X position in world space
      * @param {number} worldY - Y position in world space

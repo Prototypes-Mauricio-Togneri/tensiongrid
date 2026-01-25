@@ -31,12 +31,4 @@ class Effect {
         }
         return false
     }
-
-    /**
-     * Get progress as 0-1 value (1 = just started, 0 = expired).
-     * @returns {number} Progress ratio
-     */
-    getProgress() {
-        return this.remaining / this.duration
-    }
 }
