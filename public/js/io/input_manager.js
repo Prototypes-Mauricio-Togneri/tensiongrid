@@ -73,6 +73,8 @@ class InputManager {
         })
 
         // Touch events for continuous drag detection
+        // Note: touchstart always tracks position (no isSwipeEnabled check) so swipe
+        // detection works immediately when enabled. Only touchmove checks isSwipeEnabled.
         document.addEventListener(Constants.events.touchstart, (e) => {
             if (e.touches.length === 1) {
                 this.touchStartX = e.touches[0].clientX

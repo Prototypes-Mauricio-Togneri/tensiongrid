@@ -161,17 +161,12 @@ class AudioManager {
 
     /**
      * Handle first user interaction to unlock audio playback.
-     * Attempts to play current music if one is pending, then removes listeners.
+     * Attempts to play current music if one is pending.
+     * Listeners auto-remove via { once: true }.
      */
     handleFirstInteraction() {
         if (this.userInteracted) return
         this.userInteracted = true
-
-        // Remove all interaction listeners
-        const events = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
-        events.forEach(event => {
-            document.removeEventListener(event, this.boundHandleFirstInteraction, { capture: true })
-        })
 
         // Resume music if audio is enabled and music was requested but blocked
         if (this.currentMusicPath && this.isEnabled() && !this.musicStarted) {

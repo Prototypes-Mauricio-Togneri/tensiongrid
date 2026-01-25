@@ -1,19 +1,3 @@
-### 6. Redundant Event Listener Removal
-
-- **File**: `public/js/io/audio_manager.js`
-- **Issue Type**: Event Cleanup
-- **Line #**: 155-174
-- **Severity**: Warning
-- **Description & Suggested Fix**: Interaction listeners use `{ once: true, capture: true }` but `removeEventListener` also specifies `{ capture: true }`. The `once: true` triggers auto-removal, but manual removal tries to remove already-removed listener. Harmless but redundant. **Fix**: Remove manual removal since `once: true` handles it.
-
-### 7. Touch Event Enable Check Inconsistency
-
-- **File**: `public/js/io/input_manager.js`
-- **Issue Type**: Consistency
-- **Line #**: 76, 87-88
-- **Severity**: Style
-- **Description & Suggested Fix**: `touchstart` doesn't check `isSwipeEnabled?.()` but `touchmove` does. This is intentional (touch position is tracked regardless), but could be confusing. **Suggestion**: Add comment clarifying intent.
-
 ### 8. Zero Vector Not Handled in Snap
 
 - **File**: `public/js/enemies/enemy_shooter.js`
