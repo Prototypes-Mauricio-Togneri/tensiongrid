@@ -672,7 +672,7 @@ class Renderer {
     }
 
     /**
-     * Draw shooters with arms only for active directions.
+     * Draw shooters with square hub and rectangular barrels.
      * @param {EnemyShooter[]} shooters - Array of shooter instances
      */
     drawShooters(shooters) {
@@ -680,10 +680,10 @@ class Renderer {
 
         for (const shooter of shooters) {
             const pos = this.toScreen(shooter.x, shooter.y)
-            const size = shooter.size
-            const armWidth = Constants.game.enemies.shooter.armWidth
+            const armLength = shooter.armLength
+            const size = Constants.game.enemies.shooter.size
             const directions = shooter.getActiveDirections()
-            const hubRadius = armWidth * 1.2 // Center hub size
+            const hubSize = size / 2 // Center hub half-width (matches arm width)
 
             ctx.save()
             ctx.translate(pos.x, pos.y)
@@ -694,17 +694,15 @@ class Renderer {
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.shooterGlow
-            this.drawArms(0, 0, size + 3, armWidth + 2, directions)
+            this.drawRectBarrels(0, 0, armLength + 3, size + 3, directions)
             ctx.restore()
 
-            // Outer glow - center hub
+            // Outer glow - center hub (square)
             ctx.save()
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 15
             ctx.fillStyle = this.colors.shooterGlow
-            ctx.beginPath()
-            ctx.arc(0, 0, hubRadius + 2, 0, Math.PI * 2)
-            ctx.fill()
+            this.drawSquareAt(0, 0, hubSize + 2)
             ctx.restore()
 
             // Main arms
@@ -712,76 +710,54 @@ class Renderer {
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.shooter
-            this.drawArms(0, 0, size, armWidth, directions)
+            this.drawRectBarrels(0, 0, armLength, size, directions)
             ctx.restore()
 
-            // Main center hub
+            // Main center hub (square)
             ctx.save()
             ctx.shadowColor = this.colors.shooter
             ctx.shadowBlur = 8
             ctx.fillStyle = this.colors.shooter
-            ctx.beginPath()
-            ctx.arc(0, 0, hubRadius, 0, Math.PI * 2)
-            ctx.fill()
+            this.drawSquareAt(0, 0, hubSize)
             ctx.restore()
 
             // Inner highlight - center hub only
             ctx.fillStyle = this.colors.shooterHighlight
-            ctx.beginPath()
-            ctx.arc(0, 0, hubRadius * 0.5, 0, Math.PI * 2)
-            ctx.fill()
+            this.drawSquareAt(0, 0, hubSize * 0.5)
 
             ctx.restore() // Restore translation and rotation
         }
     }
 
     /**
-     * Draw tapered barrel arms for active directions only.
-     * Arms are wider at the center hub and narrow toward the tip.
+     * Draw rectangular barrels for active directions.
+     * Each barrel is a rectangle extending outward from center with flat end.
      * @param {number} x - Center X (0 when pre-translated)
      * @param {number} y - Center Y (0 when pre-translated)
      * @param {number} armLength - Length from center to arm tip
-     * @param {number} armWidth - Width at base of each arm
+     * @param {number} size - Width of each arm
      * @param {string[]} directions - Active direction keys
      */
-    drawArms(x, y, armLength, armWidth, directions) {
+    drawRectBarrels(x, y, armLength, size, directions) {
         const ctx = this.ctx
-        const baseWidth = armWidth          // Width at center hub
-        const tipWidth = armWidth * 0.4     // Width at tip (tapered)
+        const halfWidth = size / 2
 
         for (const dir of directions) {
             ctx.beginPath()
             switch (dir) {
                 case Constants.directions.up.key:
-                    // Trapezoid pointing up
-                    ctx.moveTo(x - baseWidth / 2, y)
-                    ctx.lineTo(x + baseWidth / 2, y)
-                    ctx.lineTo(x + tipWidth / 2, y - armLength)
-                    ctx.lineTo(x - tipWidth / 2, y - armLength)
+                    ctx.rect(x - halfWidth, y - armLength, size, armLength)
                     break
                 case Constants.directions.down.key:
-                    // Trapezoid pointing down
-                    ctx.moveTo(x - baseWidth / 2, y)
-                    ctx.lineTo(x + baseWidth / 2, y)
-                    ctx.lineTo(x + tipWidth / 2, y + armLength)
-                    ctx.lineTo(x - tipWidth / 2, y + armLength)
+                    ctx.rect(x - halfWidth, y, size, armLength)
                     break
                 case Constants.directions.left.key:
-                    // Trapezoid pointing left
-                    ctx.moveTo(x, y - baseWidth / 2)
-                    ctx.lineTo(x, y + baseWidth / 2)
-                    ctx.lineTo(x - armLength, y + tipWidth / 2)
-                    ctx.lineTo(x - armLength, y - tipWidth / 2)
+                    ctx.rect(x - armLength, y - halfWidth, armLength, size)
                     break
                 case Constants.directions.right.key:
-                    // Trapezoid pointing right
-                    ctx.moveTo(x, y - baseWidth / 2)
-                    ctx.lineTo(x, y + baseWidth / 2)
-                    ctx.lineTo(x + armLength, y + tipWidth / 2)
-                    ctx.lineTo(x + armLength, y - tipWidth / 2)
+                    ctx.rect(x, y - halfWidth, armLength, size)
                     break
             }
-            ctx.closePath()
             ctx.fill()
         }
     }

@@ -16,7 +16,7 @@ class EnemyShooter {
         const pos = grid.getNodePosition(this.row, this.col)
         this.x = pos.x // World X coordinate
         this.y = pos.y // World Y coordinate
-        this.size = Constants.game.enemies.shooter.size // Cross arm length
+        this.armLength = Constants.game.enemies.shooter.armLength // Arm length from center
 
         // Rotation state
         this.rotation = 0 // Current visual rotation in radians

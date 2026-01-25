@@ -186,8 +186,8 @@ const Constants = {
                 size: 12                       // Patrol size in pixels
             },
             shooter: {
-                size: 28,                      // Turret arm length from center in pixels
-                armWidth: 10                   // Turret arm thickness in pixels
+                size: 14,                      // Turret arm and hub thickness in pixels
+                armLength: 28                  // Turret arm length from center in pixels
             },
             follower: {
                 size: 8,                       // Follower size in pixels
