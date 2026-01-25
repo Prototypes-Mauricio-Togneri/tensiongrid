@@ -286,7 +286,7 @@
     })
 
     // Initialize version display (convert UTC to local time)
-    const utcDate = new Date(Constants.version + ' UTC')
+    const utcDate = new Date(Constants.version)
     const localVersion = utcDate.toLocaleString(undefined, {
         year: 'numeric',
         month: '2-digit',
