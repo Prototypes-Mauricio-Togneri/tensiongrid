@@ -122,7 +122,7 @@
     function handleHomeMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
         if (action === Constants.actions.home.continue) {
-            openGameScreen('levels/level_01.json', Constants.screens.home)
+            openGameScreen('levels/level_001.json', Constants.screens.home)
         } else if (action === Constants.actions.home.gym) {
             openGameScreen(Constants.game.gym, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
