@@ -102,11 +102,24 @@
      * @param {string} from - Screen to return to on quit
      */
     async function openGameScreen(level, from) {
-        audioManager.playMusic(Constants.audio.music.game)
         currentLevel = level
         gameStartedFrom = from
-        const response = await fetch(currentLevel)
-        const levelData = await response.json()
+
+        let levelData
+        try {
+            const response = await fetch(currentLevel)
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`)
+            }
+            levelData = await response.json()
+        } catch {
+            // Failed to load level - return to previous screen
+            console.error(`Failed to load level: ${currentLevel}`)
+            audioManager.playSound(Constants.audio.sounds.closeScreen)
+            return
+        }
+
+        audioManager.playMusic(Constants.audio.music.game)
         // Update current level in storage if this level is higher than saved progress
         if (levelData.id > storage.getCurrentLevel()) {
             storage.setCurrentLevel(levelData.id)
