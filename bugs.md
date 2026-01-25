@@ -1,11 +1,3 @@
-### 1. Missing Fetch Error Handling
-
-- **File**: `public/js/main.js`
-- **Issue Type**: Error Handling
-- **Line #**: 108-109
-- **Severity**: Critical
-- **Description & Suggested Fix**: `openGameScreen()` calls `fetch()` and `.json()` without try-catch. Network failure or missing level file causes unhandled promise rejection crash. **Fix**: Wrap in try-catch, show error to user or fallback.
-
 ### 2. Diagonal Swipe Detection
 
 - **File**: `public/js/io/input_manager.js`
