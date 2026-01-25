@@ -414,34 +414,34 @@ class Renderer {
             this.drawWakeTrail(
                 enemy,
                 size,
-                this.colors.enemy,
-                this.colors.enemyWakeShadow,
-                this.colors.enemyWakeEnd
+                this.colors.bullet,
+                this.colors.bulletWakeShadow,
+                this.colors.bulletWakeEnd
             )
 
             // Threat ring (subtle danger indicator around bullet)
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 10, 0, Math.PI * 2)
-            ctx.fillStyle = this.colors.enemyThreatRing
+            ctx.fillStyle = this.colors.bulletThreatRing
             ctx.fill()
 
             // Outer glow
             ctx.save()
-            ctx.shadowColor = this.colors.enemy
+            ctx.shadowColor = this.colors.bullet
             ctx.shadowBlur = 8
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
-            ctx.fillStyle = this.colors.enemyGlow
+            ctx.fillStyle = this.colors.bulletGlow
             ctx.fill()
             ctx.restore()
 
-            // Main enemy circle
+            // Main bullet circle
             ctx.save()
-            ctx.shadowColor = this.colors.enemy
+            ctx.shadowColor = this.colors.bullet
             ctx.shadowBlur = 5
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
-            ctx.fillStyle = this.colors.enemy
+            ctx.fillStyle = this.colors.bullet
             ctx.fill()
             ctx.restore()
 

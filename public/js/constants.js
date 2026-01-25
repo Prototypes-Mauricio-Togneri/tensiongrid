@@ -287,6 +287,12 @@ const Constants = {
 
         // Color palette (hex with optional alpha)
         colors: {
+            // Grid colors
+            node: '#1a3a4a44',             // Grid node fill
+            nodeHighlight: '#ffffff0d',    // Node highlight effect
+            edge: '#00f5ff22',             // Grid edge color
+            edgeGlow: '#00f5ff0d',         // Edge glow effect
+
             // Player colors
             player: '#ffffff',             // Player fill color
             playerGlow: '#ffffff99',       // Player glow effect
@@ -294,19 +300,15 @@ const Constants = {
             playerWakeEnd: '#ffffff00',    // Wake trail end (transparent)
             playerWakeShadow: '#ffffff80', // Wake shadow effect
 
-            // Enemy colors
-            enemy: '#cc2244',              // Enemy fill color
-            enemyGlow: '#cc22444d',        // Enemy glow effect
+            // Enemy colors (shared)
             enemyHighlight: '#ffffff26',   // Enemy inner highlight
-            enemyThreatRing: '#cc22440d',  // Threat proximity ring
-            enemyWakeEnd: '#cc224400',     // Wake trail end (transparent)
-            enemyWakeShadow: '#cc224480',  // Wake shadow effect
 
-            // Grid colors
-            node: '#1a3a4a44',             // Grid node fill
-            nodeHighlight: '#ffffff0d',    // Node highlight effect
-            edge: '#00f5ff22',             // Grid edge color
-            edgeGlow: '#00f5ff0d',         // Edge glow effect
+            // Bullet colors
+            bullet: '#cc2244',              // Bullet fill color
+            bulletGlow: '#cc22444d',        // Bullet glow effect
+            bulletThreatRing: '#cc22440d',  // Threat proximity ring
+            bulletWakeEnd: '#cc224400',     // Wake trail end (transparent)
+            bulletWakeShadow: '#cc224480',  // Wake shadow effect
 
             // Laser colors
             laser: '#ff4da6',              // Laser beam color
