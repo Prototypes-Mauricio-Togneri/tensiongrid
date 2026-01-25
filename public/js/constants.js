@@ -296,12 +296,12 @@ const Constants = {
             laserGlow: '#ff4da680',        // Laser glow effect
 
             // Trap colors
-            trap: '#00ccff',               // Trap fill color (cyan/electric blue)
-            trapGlow: '#00ccff4d',         // Trap glow effect
+            trap: '#ff8800',               // Trap fill color (orange)
+            trapGlow: '#ff88004d',         // Trap glow effect
 
             // Mine colors
-            mine: '#ffaa00',               // Mine fill color (yellow/orange)
-            mineGlow: '#ffaa004d',         // Mine glow effect
+            mine: '#ffcc00',               // Mine fill color (yellow)
+            mineGlow: '#ffcc004d',         // Mine glow effect
 
             // Shooter colors
             shooter: '#44ff88',            // Shooter cross color (green)
@@ -312,8 +312,8 @@ const Constants = {
             patrolGlow: '#aa44ff4d',       // Patrol glow effect
 
             // Follower colors
-            follower: '#ff8800',           // Follower fill color (orange)
-            followerGlow: '#ff88004d',     // Follower glow effect
+            follower: '#00ccff',           // Follower fill color (cyan)
+            followerGlow: '#00ccff4d',     // Follower glow effect
 
             // Power-up colors
             powerUp: '#00ccff',            // Power-up fill color (light blue)

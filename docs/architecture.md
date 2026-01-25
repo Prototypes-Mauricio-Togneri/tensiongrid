@@ -172,6 +172,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **EnemyTrap** (`js/enemies/enemy_trap.js`) - Static point hazard:
 - Fixed position on a single grid node
+- Orange color (#ff8800)
 - Pulsing 4-pointed spike/star visual effect
 - Kills player on contact (grid-based collision)
 - Other entities (bullets) pass through unaffected
@@ -182,7 +183,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **EnemyMine** (`js/enemies/enemy_mine.js`) - Triggered explosive hazard:
 - Fixed position on a single grid node
 - Hexagonal visual shape (distinguishes from trap spike)
-- Yellow/orange color (#ffaa00)
+- Yellow color (#ffcc00)
 - States: `dormant` → `triggered` → `exploded`
 - Dormant until player touches the same node (touch does NOT kill)
 - On touch: begins countdown with accelerating blink frequency (2Hz → 10Hz)
@@ -211,7 +212,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **EnemyFollower** (`js/enemies/enemy_follower.js`) - Player-tracking hazard:
 - Actively pursues player by moving toward the best adjacent node
-- Orange square visual shape (#ff8800) that continuously rotates on its center
+- Cyan square visual shape (#00ccff) that continuously rotates on its center
 - Smooth interpolation between nodes (like EnemyPatrol)
 - Wake effect - gradient trail during movement
 - At each node, calculates which adjacent node minimizes distance to player
