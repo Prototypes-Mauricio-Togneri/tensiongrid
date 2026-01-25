@@ -132,7 +132,7 @@ const Constants = {
     // ==========================================
     game: {
         // Gym mode configuration path
-        gym: 'gyms/gym_01.json',
+        gym: 'gyms/gym_1.json',
 
         // Mobile scaling settings
         scale: {
