@@ -1,11 +1,3 @@
-### 3. Shake Timeout Not Cleared
-
-- **File**: `public/js/io/ui_manager.js`
-- **Issue Type**: Resource Leak
-- **Line #**: 13-16
-- **Severity**: Warning
-- **Description & Suggested Fix**: `shake()` sets timeout without storing ID. Rapid consecutive calls cause multiple pending timeouts, leading to premature class removal. **Fix**: Store timeout ID and `clearTimeout()` before setting new one.
-
 ### 4. Resize Listener Not Removed
 
 - **File**: `public/js/engine/game.js`
