@@ -196,7 +196,7 @@ const Constants = {
                 armLength: 28                  // Turret arm length from center in pixels
             },
             follower: {
-                size: 8,                       // Follower size in pixels
+                size: 10,                       // Follower size in pixels
                 rotationSpeed: 3               // Rotation speed in radians/second
             }
         },

@@ -230,6 +230,7 @@ class Game {
     render(time) {
         this.renderer.clear()
         this.renderer.drawGrid(this.grid)
+        this.renderer.drawPowers(this.powers, time)
         this.renderer.drawLasers(this.enemyManager.getLasers())
         this.renderer.drawTraps(this.enemyManager.getTraps())
         this.renderer.drawMines(this.enemyManager.getMines(), time)
@@ -237,7 +238,6 @@ class Game {
         this.renderer.drawShooters(this.enemyManager.getShooters())
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
-        this.renderer.drawPowers(this.powers, time)
 
         // Draw pixel scatter effect behind player
         if (this.pixelScatter) {
