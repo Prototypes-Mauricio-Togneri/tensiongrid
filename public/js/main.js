@@ -18,10 +18,10 @@
 
     /**
      * Check if this is the user's first play session.
-     * @returns {boolean} True if first play (default), false otherwise
+     * @returns {boolean} True if no saved level exists, false otherwise
      */
     function isFirstPlay() {
-        return localStorage.getItem(Constants.storage.gameFirstPlay) !== 'false'
+        return localStorage.getItem(Constants.storage.gameCurrentLevel) === null
     }
 
     /**
@@ -117,7 +117,6 @@
     function handleHomeMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
         if (action === Constants.actions.home.continue) {
-            localStorage.setItem(Constants.storage.gameFirstPlay, 'false')
             openGameScreen('levels/level_01.json', Constants.screens.home)
         } else if (action === Constants.actions.home.gym) {
             openGameScreen(Constants.game.gym, Constants.screens.home)

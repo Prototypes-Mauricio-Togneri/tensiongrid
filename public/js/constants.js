@@ -383,11 +383,11 @@ const Constants = {
         music: {
             menu: {
                 path: 'audio/music/menu.wav', // Main menu background music
-                volume: 0.3 // Volume (0.0 to 1.0)
+                volume: 0.3                   // Volume (0.0 to 1.0)
             },
             game: {
                 path: 'audio/music/game.mp3', // Game screen background music
-                volume: 0.5 // Volume (0.0 to 1.0)
+                volume: 0.5                   // Volume (0.0 to 1.0)
             }
         }
     },
@@ -397,8 +397,7 @@ const Constants = {
     // ==========================================
     storage: {
         settingsAudioEnabled: 'settings.audioEnabled', // localStorage key for audio toggle state
-        gameFirstPlay: 'game.firstPlay',     // localStorage key for first play detection
-        gameCurrentLevel: 'game.currentLevel' // localStorage key for current level (default: 1)
+        gameCurrentLevel: 'game.currentLevel'          // localStorage key for current level (default: 1)
     },
 
     // ==========================================
