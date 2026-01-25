@@ -255,6 +255,7 @@ class Game {
         this.deathTimer = 0
         this.explosion = null
         this.collectionWave = null
+        this.inputManager.clearPendingInput()
         this.player.reset()
         this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
         this.audioManager.playSound(Constants.audio.sounds.wrapAround)

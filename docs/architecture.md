@@ -89,6 +89,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getDirection()` - Returns movement delta or null (checks swipe first, then keyboard)
 - `setSwipeEnabled(callback)` - Set callback to determine if swipes trigger movement
 - `triggerEscape()` - Programmatically trigger escape (used by browser back button)
+- `clearPendingInput()` - Clear buffered swipe state (called on player death/reset)
 - Auto-disables after edge wrap
 - Continuous drag detection: triggers move when drag exceeds 30px threshold, resets start position for chaining multiple moves without lifting finger
 

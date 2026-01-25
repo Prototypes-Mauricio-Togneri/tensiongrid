@@ -163,6 +163,14 @@ class InputManager {
     }
 
     /**
+     * Clear pending swipe input (e.g., on player death/reset).
+     */
+    clearPendingInput() {
+        this.swipeDirection = null
+        this.lastSwipeDirection = null
+    }
+
+    /**
      * Check if escape key is currently pressed.
      * @returns {boolean} True if escape is pressed
      */
