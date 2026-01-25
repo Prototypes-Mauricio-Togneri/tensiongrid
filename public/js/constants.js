@@ -147,6 +147,13 @@ const Constants = {
             speed: 200 // Movement speed in pixels/second
         },
 
+        // Physics settings
+        physics: {
+            maxDeltaTime: 100,       // Max delta cap to prevent tunneling (ms)
+            collisionThreshold: 0.7, // Collision distance multiplier
+            deathPauseMs: 1000       // Pause duration after player death before reset (ms)
+        },
+
         // Enemy settings
         enemies: {
             bullet: {
@@ -241,13 +248,6 @@ const Constants = {
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             }
-        },
-
-        // Physics settings
-        physics: {
-            maxDeltaTime: 100,       // Max delta cap to prevent tunneling (ms)
-            collisionThreshold: 0.7, // Collision distance multiplier
-            deathPauseMs: 1000       // Pause duration after player death before reset (ms)
         },
 
         // Animation effect settings
