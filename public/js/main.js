@@ -296,7 +296,15 @@
     })
     document.getElementById('versionDisplay').textContent = localVersion
 
+    // Hide dev-only elements when not on localhost
+    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+    if (!isLocalhost) {
+        document.querySelectorAll('.dev-only').forEach(el => el.style.display = 'none')
+    }
+
     // Initialize and start
+    screen.menuIndex = 0
+    screen.updateButtonSelection()
     screen.show(Constants.screens.home)
     playMenuMusic()
     mainLoop()
