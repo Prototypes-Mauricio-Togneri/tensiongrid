@@ -4,10 +4,11 @@
  */
 (() => {
     // Core instances
+    const storage = new LocalStorage()
     const input = new InputManager()
     const game = new Game(Constants.dom.ids.gameCanvas, input)
     const screen = new Screen()
-    const audioManager = new AudioManager() // Audio manager for menu sounds
+    const audioManager = new AudioManager(storage) // Audio manager for menu sounds
 
     /**
      * Play main menu background music.
@@ -21,7 +22,7 @@
      * @returns {boolean} True if no saved level exists, false otherwise
      */
     function isFirstPlay() {
-        return localStorage.getItem(Constants.storage.gameCurrentLevel) === null
+        return !storage.hasCurrentLevel()
     }
 
     /**
@@ -107,9 +108,8 @@
         const response = await fetch(currentLevel)
         const levelData = await response.json()
         // Update current level in storage if this level is higher than saved progress
-        const savedLevel = localStorage.getItem(Constants.storage.gameCurrentLevel)
-        if (savedLevel === null || levelData.id > parseInt(savedLevel, 10)) {
-            localStorage.setItem(Constants.storage.gameCurrentLevel, levelData.id)
+        if (levelData.id > storage.getCurrentLevel()) {
+            storage.setCurrentLevel(levelData.id)
         }
         screen.show(Constants.screens.game)
         game.start(levelData)
@@ -124,8 +124,7 @@
         if (action === Constants.actions.home.gym) {
             openGameScreen(Constants.game.gym, Constants.screens.home)
         } else if (action === Constants.actions.home.continue) {
-            const savedLevel = localStorage.getItem(Constants.storage.gameCurrentLevel)
-            const levelNumber = savedLevel === null ? 1 : parseInt(savedLevel, 10)
+            const levelNumber = storage.getCurrentLevel()
             const levelPath = `levels/level_${String(levelNumber).padStart(3, '0')}.json`
             openGameScreen(levelPath, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {

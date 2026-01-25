@@ -95,6 +95,13 @@ Cyberpunk/neon aesthetic with these design elements:
 - Auto-disables after edge wrap
 - Continuous drag detection: triggers move when drag exceeds 30px threshold, resets start position for chaining multiple moves without lifting finger
 
+**LocalStorage** (`js/io/local_storage.js`) - Centralized localStorage operations:
+- `getAudioEnabled()` - Get audio enabled state (default: true)
+- `setAudioEnabled(enabled)` - Set audio enabled state
+- `hasCurrentLevel()` - Check if current game level exists
+- `getCurrentLevel()` - Get current game level
+- `setCurrentLevel(level)` - Set current game level
+
 ### Effect System
 
 **Effect** (`js/effects/effect.js`) - Effect instance data:

@@ -7,8 +7,10 @@ class AudioManager {
     /**
      * Initialize audio manager with toggle reference and sound cache.
      * Loads persisted audio state and sets up change listener.
+     * @param {LocalStorage} storage - LocalStorage instance for persistence
      */
-    constructor() {
+    constructor(storage) {
+        this.storage = storage // LocalStorage instance for persistence
         this.audioToggle = document.getElementById(Constants.dom.ids.audioToggle) // Audio toggle checkbox
         this.sounds = {} // Cache of preloaded Audio elements by sound path
         this.currentMusic = null         // Currently playing music Audio element
@@ -52,9 +54,7 @@ class AudioManager {
      * @returns {boolean} True if audio should be enabled (default: true)
      */
     loadAudioState() {
-        const value = localStorage.getItem(Constants.storage.settingsAudioEnabled)
-        // Default to true if key doesn't exist, only false if explicitly 'false'
-        return value !== 'false'
+        return this.storage.getAudioEnabled()
     }
 
     /**
@@ -62,7 +62,7 @@ class AudioManager {
      */
     saveAudioState() {
         if (this.audioToggle) {
-            localStorage.setItem(Constants.storage.settingsAudioEnabled, this.audioToggle.checked)
+            this.storage.setAudioEnabled(this.audioToggle.checked)
         }
     }
 
