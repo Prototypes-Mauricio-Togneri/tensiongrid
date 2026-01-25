@@ -11,8 +11,10 @@ class AudioManager {
     constructor() {
         this.audioToggle = document.getElementById(Constants.dom.ids.audioToggle) // Audio toggle checkbox
         this.sounds = {} // Cache of preloaded Audio elements by sound path
-        this.currentMusic = null     // Currently playing music Audio element
-        this.currentMusicPath = null // Path of current music track
+        this.currentMusic = null         // Currently playing music Audio element
+        this.currentMusicPath = null     // Path of current music track
+        this.currentMusicVolume = null   // Volume of current music track
+        this.musicStarted = false        // Whether music playback started successfully
         this.userInteracted = false // Whether user has interacted with the page
         this.boundHandleFirstInteraction = this.handleFirstInteraction.bind(this) // Bound handler for cleanup
         this.preloadSounds()
@@ -119,10 +121,14 @@ class AudioManager {
         this.currentMusic.loop = true
         this.currentMusic.volume = config.volume
         this.currentMusicPath = config.path
+        this.currentMusicVolume = config.volume
 
         // Only play if audio is enabled
         if (this.isEnabled()) {
-            this.currentMusic.play().catch(() => {
+            this.musicStarted = false
+            this.currentMusic.play().then(() => {
+                this.musicStarted = true
+            }).catch(() => {
                 // Silently ignore autoplay restrictions
             })
         }
@@ -138,6 +144,8 @@ class AudioManager {
         }
         this.currentMusic = null
         this.currentMusicPath = null
+        this.currentMusicVolume = null
+        this.musicStarted = false
     }
 
     /**
@@ -165,9 +173,20 @@ class AudioManager {
             document.removeEventListener(event, this.boundHandleFirstInteraction, { capture: true })
         })
 
-        // Resume music if audio is enabled and music was requested
-        if (this.currentMusic && this.isEnabled()) {
-            this.currentMusic.play().catch(() => {})
+        // Resume music if audio is enabled and music was requested but blocked
+        if (this.currentMusicPath && this.isEnabled() && !this.musicStarted) {
+            // Stop old blocked element before creating new one
+            if (this.currentMusic) {
+                this.currentMusic.pause()
+            }
+            // Re-create Audio element within user gesture to unlock on mobile
+            this.currentMusic = new Audio(this.currentMusicPath)
+            this.currentMusic.loop = true
+            this.currentMusic.volume = this.currentMusicVolume
+            this.musicStarted = true
+            this.currentMusic.play().catch(() => {
+                this.musicStarted = false
+            })
         }
     }
 }
