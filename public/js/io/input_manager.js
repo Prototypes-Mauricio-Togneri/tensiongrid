@@ -123,6 +123,7 @@ class InputManager {
         document.addEventListener(Constants.events.touchend, () => {
             this.touchStartX = null
             this.touchStartY = null
+            this.swipeDirection = null
             this.lastSwipeDirection = null
         })
     }
