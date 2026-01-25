@@ -131,9 +131,10 @@ class Renderer {
      * @param {number} size - Entity size
      * @param {string} color - Main color
      * @param {string} glowColor - Outer glow color
+     * @param {string} highlightColor - Inner highlight color
      * @param {Function} drawShape - Shape drawing function (x, y, size) => void
      */
-    drawGlowedShape(x, y, size, color, glowColor, drawShape) {
+    drawGlowedShape(x, y, size, color, glowColor, highlightColor, drawShape) {
         const ctx = this.ctx
 
         // Outer glow
@@ -153,7 +154,7 @@ class Renderer {
         ctx.restore()
 
         // Inner highlight
-        ctx.fillStyle = this.colors.enemyHighlight
+        ctx.fillStyle = highlightColor
         drawShape(x, y, size * 0.4)
     }
 
@@ -448,7 +449,7 @@ class Renderer {
             // Inner highlight (small offset for 3D effect)
             ctx.beginPath()
             ctx.arc(pos.x - size * 0.3, pos.y - size * 0.3, size * 0.35, 0, Math.PI * 2)
-            ctx.fillStyle = this.colors.enemyHighlight
+            ctx.fillStyle = this.colors.bulletHighlight
             ctx.fill()
         }
     }
@@ -623,7 +624,7 @@ class Renderer {
             ctx.restore()
 
             // Inner highlight
-            ctx.fillStyle = this.colors.enemyHighlight
+            ctx.fillStyle = this.colors.mineHighlight
             this.drawHexagon(pos.x, pos.y, size * 0.4)
 
             ctx.restore()
@@ -725,7 +726,7 @@ class Renderer {
             ctx.restore()
 
             // Inner highlight - center hub only
-            ctx.fillStyle = this.colors.enemyHighlight
+            ctx.fillStyle = this.colors.shooterHighlight
             ctx.beginPath()
             ctx.arc(0, 0, hubRadius * 0.5, 0, Math.PI * 2)
             ctx.fill()
@@ -797,7 +798,7 @@ class Renderer {
 
             this.drawGlowedShape(
                 pos.x, pos.y, patrol.size,
-                this.colors.patrol, this.colors.patrolGlow,
+                this.colors.patrol, this.colors.patrolGlow, this.colors.patrolHighlight,
                 (x, y, s) => this.drawFlatHexagon(x, y, s)
             )
         }
@@ -822,7 +823,7 @@ class Renderer {
 
             this.drawGlowedShape(
                 0, 0, follower.size,
-                this.colors.follower, this.colors.followerGlow,
+                this.colors.follower, this.colors.followerGlow, this.colors.followerHighlight,
                 (x, y, s) => this.drawSquareAt(x, y, s)
             )
 

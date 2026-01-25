@@ -288,66 +288,68 @@ const Constants = {
         // Color palette (hex with optional alpha)
         colors: {
             // Grid colors
-            node: '#1a3a4a44',             // Grid node fill
-            nodeHighlight: '#ffffff0d',    // Node highlight effect
-            edge: '#00f5ff22',             // Grid edge color
-            edgeGlow: '#00f5ff0d',         // Edge glow effect
+            node: '#1a3a4a44',              // Grid node fill
+            nodeHighlight: '#ffffff0d',     // Node highlight effect
+            edge: '#00f5ff22',              // Grid edge color
+            edgeGlow: '#00f5ff0d',          // Edge glow effect
 
             // Player colors
-            player: '#ffffff',             // Player fill color
-            playerGlow: '#ffffff99',       // Player glow effect
-            playerHighlight: '#ffffff66',  // Player inner highlight
-            playerWakeEnd: '#ffffff00',    // Wake trail end (transparent)
-            playerWakeShadow: '#ffffff80', // Wake shadow effect
-
-            // Enemy colors (shared)
-            enemyHighlight: '#ffffff26',   // Enemy inner highlight
+            player: '#ffffff',              // Player fill color
+            playerGlow: '#ffffff99',        // Player glow effect
+            playerHighlight: '#ffffff66',   // Player inner highlight
+            playerWakeEnd: '#ffffff00',     // Wake trail end (transparent)
+            playerWakeShadow: '#ffffff80',  // Wake shadow effect
 
             // Bullet colors
             bullet: '#cc2244',              // Bullet fill color
             bulletGlow: '#cc22444d',        // Bullet glow effect
+            bulletHighlight: '#ffffff26',   // Bullet inner highlight
             bulletThreatRing: '#cc22440d',  // Threat proximity ring
             bulletWakeEnd: '#cc224400',     // Wake trail end (transparent)
             bulletWakeShadow: '#cc224480',  // Wake shadow effect
 
             // Laser colors
-            laser: '#ff4da6',              // Laser beam color
-            laserGlow: '#ff4da680',        // Laser glow effect
+            laser: '#ff4da6',               // Laser beam color
+            laserGlow: '#ff4da680',         // Laser glow effect
 
             // Trap colors
-            trap: '#ff8800',               // Trap fill color (orange)
-            trapGlow: '#ff88004d',         // Trap glow effect
+            trap: '#ff8800',                // Trap fill color (orange)
+            trapGlow: '#ff88004d',          // Trap glow effect
 
             // Mine colors
-            mine: '#ffcc00',               // Mine fill color (yellow)
-            mineGlow: '#ffcc004d',         // Mine glow effect
+            mine: '#ffcc00',                // Mine fill color (yellow)
+            mineGlow: '#ffcc004d',          // Mine glow effect
+            mineHighlight: '#ffffff26',     // Mine inner highlight
 
             // Shooter colors
-            shooter: '#44ff88',            // Shooter cross color (green)
-            shooterGlow: '#44ff884d',      // Shooter glow effect
+            shooter: '#44ff88',             // Shooter cross color (green)
+            shooterGlow: '#44ff884d',       // Shooter glow effect
+            shooterHighlight: '#ffffff26',  // Shooter inner highlight
 
             // Patrol colors
-            patrol: '#aa44ff',             // Patrol fill color (purple)
-            patrolGlow: '#aa44ff4d',       // Patrol glow effect
+            patrol: '#aa44ff',              // Patrol fill color (purple)
+            patrolGlow: '#aa44ff4d',        // Patrol glow effect
+            patrolHighlight: '#ffffff26',   // Patrol inner highlight
 
             // Follower colors
-            follower: '#00ccff',           // Follower fill color (cyan)
-            followerGlow: '#00ccff4d',     // Follower glow effect
+            follower: '#00ccff',            // Follower fill color (cyan)
+            followerGlow: '#00ccff4d',      // Follower glow effect
+            followerHighlight: '#ffffff26', // Follower inner highlight
 
             // Power-up colors
-            powerUp: '#00ccff',            // Power-up fill color (light blue)
-            powerUpGlow: '#00ccff4d',      // Power-up glow effect
-            powerUpIcon: '#ffffff',        // Power-up icon color (white)
+            powerUp: '#00ccff',             // Power-up fill color (light blue)
+            powerUpGlow: '#00ccff4d',       // Power-up glow effect
+            powerUpIcon: '#ffffff',         // Power-up icon color (white)
 
             // Power-down colors
-            powerDown: '#ff4444',          // Power-down fill color (red)
-            powerDownGlow: '#ff44444d',    // Power-down glow effect
-            powerDownIcon: '#ffffff',      // Power-down icon color (white)
+            powerDown: '#ff4444',           // Power-down fill color (red)
+            powerDownGlow: '#ff44444d',     // Power-down glow effect
+            powerDownIcon: '#ffffff',       // Power-down icon color (white)
 
             // Shield colors
-            shield: '#00ccff',             // Shield circle color (light blue)
-            shieldGlow: '#00ccff4d',       // Shield glow effect
-            shieldIcon: '#ffffff'          // Shield icon color (white)
+            shield: '#00ccff',              // Shield circle color (light blue)
+            shieldGlow: '#00ccff4d',        // Shield glow effect
+            shieldIcon: '#ffffff'           // Shield icon color (white)
         },
     },
 
