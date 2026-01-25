@@ -334,7 +334,7 @@ const Constants = {
             // Follower colors
             follower: '#00ccff',            // Follower fill color (cyan)
             followerGlow: '#00ccff4d',      // Follower glow effect
-            followerHighlight: '#ffffff26', // Follower inner highlight
+            followerHighlight: '#ffffff70', // Follower inner highlight
 
             // Power-up colors
             powerUp: '#00ccff',             // Power-up fill color (light blue)
