@@ -9,7 +9,7 @@ class PlayerWrapAnimation {
      * @param {boolean} scalePlayer - If true, player scales from 0 to 1 during animation
      */
     constructor(x, y, scalePlayer = false) {
-        const config = Constants.game.animations.pixelScatter
+        const config = Constants.game.animations.playerWrap
         this.x = x
         this.y = y
         this.scalePlayer = scalePlayer
@@ -32,7 +32,7 @@ class PlayerWrapAnimation {
     }
 
     /**
-     * Update pixel scatter animation.
+     * Update player wrap animation.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {

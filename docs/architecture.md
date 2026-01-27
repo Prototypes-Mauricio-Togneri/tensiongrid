@@ -56,11 +56,11 @@ Cyberpunk/neon aesthetic with these design elements:
 - `effects.immunity`: duration (1000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
 - `colors`: all game element colors with glow variants (includes switch: gold #ffd700)
-- `game.animations.pixelScatter`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
+- `game.animations.playerWrap`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
 - `game.animations.collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
-- `game.animations.pixelExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
+- `game.animations.playerExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
 - `game.animations.mineExplosion`: particle count (12), particle size (4px), end radius (35px), duration (600ms)
-- `game.animations.exitWarp`: duration (1000ms) - player shrink/fade into exit portal
+- `game.animations.playerExit`: duration (1000ms) - player shrink/fade into exit portal
 - `game.animations.wakeTrail`: fast profile (buildRate 0.05, trailDistance 60, fadeRate 0.004), slow profile (buildRate 0.005, trailDistance 50, fadeRate 0) - wake trail effect behind moving entities
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -181,7 +181,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isProtected()` - Check if player has shield OR immunity (cannot die from collision)
 
 **PlayerExplosionAnimation** (`js/animations/player_explosion_animation.js`) - Death effect:
-- Extends ParticleExplosion with `pixelExplosion` config
+- Extends ParticleExplosion with `playerExplosion` config
 - Visual effect for player death (16 particles, 5px size, 40px radius, 800ms)
 
 **PlayerWrapAnimation** (`js/animations/player_wrap_animation.js`) - Wrap teleport effect:
@@ -196,10 +196,10 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getProgress()` - Returns animation progress 0-1
 - `getPlayerScale()` - Returns player scale during wrap (for optional scalePlayer mode)
 
-**PowerCollectionAnimation** (`js/animations/power_collection_animation.js`) - Power-up/down collection effect:
-- Visual effect for power-up/power-down collection
+**CollectionWaveAnimation** (`js/animations/collection_wave_animation.js`) - Collectible pickup effect:
+- Visual effect for collectible item pickup (powers, switches)
 - Single expanding ring that fades out as it grows
-- Color passed as constructor parameter (blue for power-up, red for power-down)
+- Color passed as constructor parameter (cyan for power-up, red for power-down, gold for switch)
 - Ease-out expansion over 300ms
 - `update(delta)` - Advance animation
 - `isComplete()` - Returns true when animation finished

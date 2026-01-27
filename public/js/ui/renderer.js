@@ -237,10 +237,10 @@ class Renderer {
     }
 
     /**
-     * Draw pixel scatter effect (particles converging to center).
+     * Draw player wrap effect (particles converging to center).
      * @param {PlayerWrapAnimation} scatter - PlayerWrapAnimation instance with particle data
      */
-    drawPixelScatter(scatter) {
+    drawPlayerWrap(scatter) {
         const ctx = this.ctx
         const worldPos = scatter.getPosition()
         const pos = this.toScreen(worldPos.x, worldPos.y)
@@ -267,7 +267,7 @@ class Renderer {
 
     /**
      * Draw collection wave effect (expanding ring).
-     * @param {PowerCollectionAnimation} wave - PowerCollectionAnimation instance
+     * @param {CollectionWaveAnimation} wave - CollectionWaveAnimation instance
      */
     drawCollectionWave(wave) {
         const ctx = this.ctx

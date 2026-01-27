@@ -272,28 +272,20 @@ const Constants = {
 
         // Animation effect settings
         animations: {
-            // Pixel scatter effect settings (wrap teleport)
-            pixelScatter: {
+            // Player wrap effect settings (wrap teleport)
+            playerWrap: {
                 particleCount: 16,  // Number of particles
                 particleSize: 3,    // Size of each square particle in pixels
                 spawnRadius: 45,    // Initial scatter radius in pixels
                 duration: 250       // Time for particles to converge in ms
             },
 
-            // Pixel explosion effect settings (player death)
-            pixelExplosion: {
+            // Player explosion effect settings (player death)
+            playerExplosion: {
                 particleCount: 16,  // Number of particles
                 particleSize: 5,    // Size of each square particle in pixels
                 endRadius: 40,      // Final scatter radius in pixels
                 duration: 800       // Time for particles to scatter in ms
-            },
-
-            // Collection wave effect settings (power-up/power-down pickup)
-            collectionWave: {
-                startRadius: 8,     // Initial ring radius in pixels
-                endRadius: 35,      // Final ring radius in pixels
-                duration: 300,      // Animation duration in ms
-                lineWidth: 3        // Ring stroke width in pixels
             },
 
             // Mine explosion effect settings
@@ -304,8 +296,16 @@ const Constants = {
                 duration: 600       // Time for particles to scatter in ms
             },
 
-            // Player exit warp effect settings
-            exitWarp: {
+            // Collection wave effect settings (power-up/power-down pickup)
+            collectionWave: {
+                startRadius: 8,     // Initial ring radius in pixels
+                endRadius: 35,      // Final ring radius in pixels
+                duration: 300,      // Animation duration in ms
+                lineWidth: 3        // Ring stroke width in pixels
+            },
+
+            // Player exit effect settings
+            playerExit: {
                 duration: 1000      // Time for player to shrink and fade into exit in ms
             },
 

@@ -8,6 +8,6 @@ class PlayerExplosionAnimation extends ParticleExplosion {
      * @param {number} y - Center Y position in world coordinates
      */
     constructor(x, y) {
-        super(x, y, Constants.game.animations.pixelExplosion)
+        super(x, y, Constants.game.animations.playerExplosion)
     }
 }

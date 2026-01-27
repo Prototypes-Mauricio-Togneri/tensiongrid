@@ -118,10 +118,10 @@ class Game {
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     updateAnimations(delta) {
-        if (this.pixelScatter) {
-            this.pixelScatter.update(delta)
-            if (this.pixelScatter.isComplete()) {
-                this.pixelScatter = null
+        if (this.playerWrap) {
+            this.playerWrap.update(delta)
+            if (this.playerWrap.isComplete()) {
+                this.playerWrap = null
             }
         }
 
@@ -244,7 +244,7 @@ class Game {
                 : Constants.game.colors.powerUp
         }
 
-        this.collectionWave = new PowerCollectionAnimation(power.x, power.y, waveColor)
+        this.collectionWave = new CollectionWaveAnimation(power.x, power.y, waveColor)
     }
 
     /**
@@ -261,7 +261,7 @@ class Game {
 
         // Play sound and create wave animation
         this.audioManager.playSound(Constants.audio.sounds.switchCollected)
-        this.collectionWave = new PowerCollectionAnimation(sw.x, sw.y, Constants.game.colors.switch)
+        this.collectionWave = new CollectionWaveAnimation(sw.x, sw.y, Constants.game.colors.switch)
     }
 
     /**
@@ -294,9 +294,9 @@ class Game {
         if (wrapped.wrapped) {
             this.inputManager.disable()
             this.audioManager.playSound(Constants.audio.sounds.wrapAround)
-            // Spawn pixel scatter effect at arrival position
+            // Spawn player wrap effect at arrival position
             const newPos = this.grid.getNodePosition(wrapped.row, wrapped.col)
-            this.pixelScatter = new PlayerWrapAnimation(newPos.x, newPos.y)
+            this.playerWrap = new PlayerWrapAnimation(newPos.x, newPos.y)
         }
     }
 
@@ -325,9 +325,9 @@ class Game {
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
 
-        // Draw pixel scatter effect behind player
-        if (this.pixelScatter) {
-            this.renderer.drawPixelScatter(this.pixelScatter)
+        // Draw player wrap effect behind player
+        if (this.playerWrap) {
+            this.renderer.drawPlayerWrap(this.playerWrap)
         }
 
         // Draw collection wave effect
@@ -348,7 +348,7 @@ class Game {
             const opacity = this.exitAnimation.getOpacity()
             this.renderer.drawPlayerWithBoost(this.player, scale, time, opacity)
         } else {
-            const playerScale = this.pixelScatter ? this.pixelScatter.getPlayerScale() : 1
+            const playerScale = this.playerWrap ? this.playerWrap.getPlayerScale() : 1
             this.renderer.drawPlayerWithBoost(this.player, playerScale, time)
         }
 
@@ -369,7 +369,7 @@ class Game {
         this.exitAnimation = null
         this.inputManager.clearPendingInput()
         this.player.reset()
-        this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
+        this.playerWrap = new PlayerWrapAnimation(this.player.x, this.player.y, true)
         this.audioManager.playSound(Constants.audio.sounds.wrapAround)
         this.enemyManager.clear()
         this.initPowers(this.levelData)   // Respawn powers
@@ -414,7 +414,7 @@ class Game {
         this.powers = []             // Active powers (power-ups and power-downs)
         this.exit = null             // Exit portal (single per level, optional)
         this.switches = []           // Switches that unlock the exit
-        this.pixelScatter = null     // Wrap pixel scatter effect
+        this.playerWrap = null       // Player wrap effect
         this.collectionWave = null   // Collection wave effect
         this.mineExplosions = []     // Active mine explosion effects
         this.touchingExit = false    // True while player is on exit node

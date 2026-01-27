@@ -1,8 +1,8 @@
 /**
- * Visual effect for power-up/power-down collection.
+ * Visual effect for collectible item pickup (powers, switches).
  * Single expanding ring that fades out as it grows.
  */
-class PowerCollectionAnimation {
+class CollectionWaveAnimation {
     /**
      * @param {number} x - Center X position in world coordinates
      * @param {number} y - Center Y position in world coordinates

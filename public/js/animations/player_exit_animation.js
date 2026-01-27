@@ -14,7 +14,7 @@ class PlayerExitAnimation {
         this.startY = playerY
         this.targetX = exitX
         this.targetY = exitY
-        this.duration = Constants.game.animations.exitWarp.duration
+        this.duration = Constants.game.animations.playerExit.duration
         this.elapsed = 0
     }
 
