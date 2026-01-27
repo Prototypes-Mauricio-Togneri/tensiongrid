@@ -972,28 +972,27 @@ class Renderer {
     }
 
     /**
-     * Draw a horizontal key shape (square head on left, stem with teeth extending right).
+     * Draw a horizontal key shape (square head on left, stem with tooth extending right).
      * @param {number} x - Center X position
      * @param {number} y - Center Y position
      * @param {number} size - Overall size of the key
      */
     drawKeyShape(x, y, size) {
         const ctx = this.ctx
-        const headSize = size * 0.5
+        const headSize = size * 0.65
         const stemHeight = size * 0.35
-        const stemLength = size * 0.6
+        const stemLength = size * 0.8
 
         // Key head (square on left)
         ctx.fillRect(x - size * 0.5, y - headSize / 2, headSize, headSize)
 
         // Key stem (rectangle extending right)
-        ctx.fillRect(x, y - stemHeight / 2, stemLength, stemHeight)
+        ctx.fillRect(x + size * 0.15, y - stemHeight / 2, stemLength, stemHeight)
 
-        // Key teeth (small rectangles below stem)
-        const toothHeight = stemHeight * 0.7
-        const toothWidth = stemHeight * 0.4
-        ctx.fillRect(x + size * 0.15, y + stemHeight / 2, toothWidth, toothHeight)
-        ctx.fillRect(x + size * 0.35, y + stemHeight / 2, toothWidth, toothHeight * 0.7)
+        // Key tooth (single rectangle below stem at the end)
+        const toothHeight = stemHeight * 0.25
+        const toothWidth = stemHeight * 0.7
+        ctx.fillRect(x + size * 0.15 + stemLength - toothWidth, y + stemHeight / 2, toothWidth, toothHeight)
     }
 
     /**
