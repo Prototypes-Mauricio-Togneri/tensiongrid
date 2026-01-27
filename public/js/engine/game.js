@@ -130,11 +130,21 @@ class Game {
     checkCollisionsAndHandle() {
         // Check for exit collision (level completion)
         if (this.exit && this.collision.checkPlayerExitCollision(this.player, this.exit)) {
+            // Play sound only on first contact
+            if (!this.touchingExit) {
+                this.touchingExit = true
+                const sound = this.exit.canExit()
+                    ? Constants.audio.sounds.exitOpen
+                    : Constants.audio.sounds.exitClosed
+                this.audioManager.playSound(sound)
+            }
             if (this.exit.canExit()) {
                 this.handleLevelComplete()
                 return
             }
             // Closed exit: do nothing, player can walk through
+        } else {
+            this.touchingExit = false
         }
 
         // Check for mine trigger (does not kill player, just starts countdown)
@@ -333,6 +343,7 @@ class Game {
         this.explosion = null
         this.collectionWave = null
         this.mineExplosions = []
+        this.touchingExit = false
         this.inputManager.clearPendingInput()
         this.player.reset()
         this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
@@ -383,6 +394,7 @@ class Game {
         this.pixelScatter = null     // Wrap pixel scatter effect
         this.collectionWave = null   // Collection wave effect
         this.mineExplosions = []     // Active mine explosion effects
+        this.touchingExit = false    // True while player is on exit node
         this.initPowers(levelData)
         this.initExit(levelData)
         this.initSwitches(levelData)
