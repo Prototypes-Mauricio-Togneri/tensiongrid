@@ -897,7 +897,7 @@ class Renderer {
     }
 
     /**
-     * Draw exit portal with radial gradient and orbiting particles.
+     * Draw exit portal with tunnel animation (shrinking rings).
      * @param {Exit} exit - Exit instance to draw
      */
     drawExit(exit) {
@@ -905,62 +905,33 @@ class Renderer {
         const pos = this.toScreen(exit.x, exit.y)
         const size = exit.size
         const borderColor = exit.getBorderColor()
-        const exitConfig = Constants.game.exit
-        const intensity = exit.getPulseIntensity()
+        const { ringThickness, ringOpacity } = Constants.game.exit
 
-        // Calculate pulsing glow blur
-        const { glowBlurMin, glowBlurMax } = exitConfig
-        const glowBlur = glowBlurMin + (glowBlurMax - glowBlurMin) * intensity
-
-        // Orbiting particles with curved wakes
-        const particles = exit.getParticles()
-        const wakeLength = 0.4 // Radians of arc for wake trail
-
-        for (const p of particles) {
-            // Draw curved wake trail (arc behind particle)
-            const wakeStartAngle = p.angle - wakeLength
-            const gradient = ctx.createConicGradient(p.angle - Math.PI, pos.x, pos.y)
-            gradient.addColorStop(0, 'transparent')
-            gradient.addColorStop(wakeLength / (Math.PI * 2), borderColor)
-            gradient.addColorStop(1, 'transparent')
+        // Draw shrinking rings (tunnel effect)
+        const rings = exit.getRings()
+        for (const ring of rings) {
+            const progress = 1 - (ring.radius / size)  // 0 at outer, 1 at center
+            const opacity = ringOpacity * (1 - progress)  // Fade as it shrinks
+            const thickness = ringThickness * (1 - progress * 0.7)  // Thinner toward center
 
             ctx.save()
+            ctx.globalAlpha = opacity
             ctx.strokeStyle = borderColor
-            ctx.lineWidth = exitConfig.particleSize * 2
-            ctx.lineCap = 'round'
-            ctx.globalAlpha = 0.5
+            ctx.lineWidth = thickness
             ctx.beginPath()
-            ctx.arc(pos.x, pos.y, p.radius, wakeStartAngle, p.angle)
+            ctx.arc(pos.x, pos.y, ring.radius, 0, Math.PI * 2)
             ctx.stroke()
-            ctx.restore()
-
-            // Draw particle
-            ctx.save()
-            ctx.globalAlpha = 0.6
-            ctx.shadowColor = borderColor
-            ctx.shadowBlur = 6
-            ctx.fillStyle = borderColor
-            ctx.beginPath()
-            ctx.arc(pos.x + p.x, pos.y + p.y, exitConfig.particleSize, 0, Math.PI * 2)
-            ctx.fill()
             ctx.restore()
         }
 
-        // Radial gradient from border color (outside) to transparent (center)
-        const gradient = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, size)
-        gradient.addColorStop(0, 'transparent')
-        gradient.addColorStop(0.3, 'transparent')
-        gradient.addColorStop(1, borderColor)
-
-        // Portal with pulsing glow
+        // Draw static outer ring (always visible)
         ctx.save()
-        ctx.globalAlpha = intensity
-        ctx.shadowColor = borderColor
-        ctx.shadowBlur = glowBlur
-        ctx.fillStyle = gradient
+        ctx.globalAlpha = ringOpacity
+        ctx.strokeStyle = borderColor
+        ctx.lineWidth = ringThickness
         ctx.beginPath()
         ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
-        ctx.fill()
+        ctx.stroke()
         ctx.restore()
     }
 

@@ -1,6 +1,6 @@
 /**
  * Exit portal entity that allows player to complete the level.
- * Sits at a grid position with pulsing glow border and orbiting particles.
+ * Features a tunnel animation with shrinking rings that create depth illusion.
  * Can be open (green) or closed (red) based on level configuration.
  */
 class Exit {
@@ -21,64 +21,39 @@ class Exit {
         this.y = pos.y
 
         this.size = Constants.game.exit.size
-        this.pulsePhase = 0
-        this.particles = this.initParticles()
+        this.rings = []      // Array of active shrinking rings
+        this.spawnTimer = 0  // Timer for spawning new rings
     }
 
     /**
-     * Initialize orbiting particles with varied orbit radii and speeds.
-     * @returns {Array} Array of particle objects
-     */
-    initParticles() {
-        const { particleCount, particleOrbitMin, particleOrbitMax, particleSpeedMin, particleSpeedMax } = Constants.game.exit
-        const particles = []
-        const orbitRange = particleOrbitMax - particleOrbitMin
-        const speedRange = particleSpeedMax - particleSpeedMin
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push({
-                angle: Math.random() * Math.PI * 2,
-                radius: particleOrbitMin + Math.random() * orbitRange,
-                speed: particleSpeedMin + Math.random() * speedRange
-            })
-        }
-        return particles
-    }
-
-    /**
-     * Update pulse and particle animations.
+     * Update ring spawning and animation.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
-        this.pulsePhase += Constants.game.exit.pulseSpeed * delta
+        const { ringSpawnInterval, ringSpeed } = Constants.game.exit
 
-        // Update orbiting particles
-        for (const p of this.particles) {
-            p.angle += p.speed * delta
+        // Spawn new ring every interval
+        this.spawnTimer += delta
+        if (this.spawnTimer >= ringSpawnInterval) {
+            this.spawnTimer = 0
+            this.rings.push({ radius: this.size })
         }
+
+        // Update existing rings (shrink toward center)
+        for (const ring of this.rings) {
+            ring.radius -= ringSpeed * delta
+        }
+
+        // Remove rings that reached center
+        this.rings = this.rings.filter(ring => ring.radius > 0)
     }
 
     /**
-     * Get current pulse intensity (0-1 range).
-     * @returns {number} Current intensity based on sine wave oscillation
+     * Get active shrinking rings for rendering.
+     * @returns {Array} Array of ring objects with radius property
      */
-    getPulseIntensity() {
-        const { pulseMin, pulseMax } = Constants.game.exit
-        const range = pulseMax - pulseMin
-        return pulseMin + range * (0.5 + 0.5 * Math.sin(this.pulsePhase))
-    }
-
-    /**
-     * Get particle positions for rendering.
-     * @returns {Array} Array of particle objects with x, y offsets, angle, and radius
-     */
-    getParticles() {
-        return this.particles.map(p => ({
-            x: Math.cos(p.angle) * p.radius,
-            y: Math.sin(p.angle) * p.radius,
-            angle: p.angle,
-            radius: p.radius
-        }))
+    getRings() {
+        return this.rings
     }
 
     /**
@@ -105,15 +80,5 @@ class Exit {
         return this.isOpen
             ? Constants.game.colors.exitOpen
             : Constants.game.colors.exitClosed
-    }
-
-    /**
-     * Get glow color based on open/closed state.
-     * @returns {string} Color hex string with alpha from Constants
-     */
-    getGlowColor() {
-        return this.isOpen
-            ? Constants.game.colors.exitOpenGlow
-            : Constants.game.colors.exitClosedGlow
     }
 }

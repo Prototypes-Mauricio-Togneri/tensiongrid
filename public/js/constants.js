@@ -223,18 +223,11 @@ const Constants = {
 
         // Exit portal settings
         exit: {
-            size: 20,                 // Circle radius in pixels
-            pulseSpeed: 0.004,        // Pulse oscillation speed (radians per ms)
-            pulseMin: 0.4,            // Minimum glow intensity
-            pulseMax: 0.8,            // Maximum glow intensity
-            glowBlurMin: 12,          // Minimum glow blur radius in pixels
-            glowBlurMax: 25,          // Maximum glow blur radius in pixels
-            particleCount: 20,        // Number of orbiting particles
-            particleSize: 2,          // Particle radius in pixels
-            particleOrbitMin: 19,     // Minimum orbit radius in pixels
-            particleOrbitMax: 21,     // Maximum orbit radius in pixels
-            particleSpeedMin: 0.001,  // Minimum orbit speed (radians per ms)
-            particleSpeedMax: 0.004   // Maximum orbit speed (radians per ms)
+            size: 18,               // Outer ring radius in pixels
+            ringThickness: 3,       // Ring stroke width in pixels
+            ringOpacity: 0.5,       // Base opacity for outer ring
+            ringSpawnInterval: 500, // Ms between ring spawns
+            ringSpeed: 0.01         // Shrink speed (radius reduction per ms)
         },
 
         // Effect configurations (used by EffectManager)

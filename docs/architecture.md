@@ -263,12 +263,14 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Exit** (`js/engine/exit.js`) - Level completion portal:
 - Fixed position on a single grid node
-- Circle shape with black center, pulsing glow border, and orbiting particles
-- Two states: `open` (green border) or `closed` (red border), fixed at level load
+- Tunnel animation: static outer ring with shrinking rings that create depth illusion
+- Two states: `open` (green rings) or `closed` (red rings), fixed at level load
 - Open exit: touching completes level and returns to previous screen
 - Closed exit: player can walk through without effect
-- Border pulses with breathing glow effect (intensity oscillates between 0.4-1.0)
-- 12 tiny particles orbit around the portal at different speeds like a black hole
+- Static outer ring always visible at 50% opacity
+- New rings spawn every second at outer radius, then shrink toward center
+- Rings fade out and get thinner as they approach the center
+- Multiple rings visible simultaneously create tunnel/portal effect
 - Config: `x`, `y` (node position), `status` ('open' or 'closed')
 
 **AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:
