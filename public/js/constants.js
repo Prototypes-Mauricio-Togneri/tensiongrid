@@ -302,6 +302,11 @@ const Constants = {
                 particleSize: 4,    // Size of each hexagonal particle in pixels
                 endRadius: 35,      // Final scatter radius in pixels
                 duration: 600       // Time for particles to scatter in ms
+            },
+
+            // Player exit warp effect settings
+            exitWarp: {
+                duration: 1000      // Time for player to shrink and fade into exit in ms
             }
         },
 

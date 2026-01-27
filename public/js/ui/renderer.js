@@ -1155,19 +1155,26 @@ class Renderer {
      * @param {Player} player - Player instance to draw
      * @param {number} scale - Scale factor for player size (default 1)
      * @param {number} time - Animation timestamp for effects (default 0)
+     * @param {number} opacity - Opacity multiplier (default 1)
      */
-    drawPlayerWithBoost(player, scale = 1, time = 0) {
+    drawPlayerWithBoost(player, scale = 1, time = 0, opacity = 1) {
         const ctx = this.ctx
         const pos = this.toScreen(player.x, player.y)
         const hints = player.effectManager.getRenderHints()
         const hasSpeedEffect = player.hasSpeedBoost() || player.isSlowed()
         const size = player.size * scale
 
+        // Apply opacity multiplier for exit animation
+        if (opacity < 1) {
+            ctx.save()
+            ctx.globalAlpha = opacity
+        }
+
         // Apply blinking effect (immunity or warning before effect expires)
         if (hints.blink && hints.blinkFrequency) {
             const blinkAlpha = 0.3 + 0.7 * Math.abs(Math.sin(time * hints.blinkFrequency))
             ctx.save()
-            ctx.globalAlpha = blinkAlpha
+            ctx.globalAlpha *= blinkAlpha
         }
 
         // Determine effect color based on render hints
@@ -1220,6 +1227,11 @@ class Renderer {
 
         // Restore alpha if blinking was applied
         if (hints.blink && hints.blinkFrequency) {
+            ctx.restore()
+        }
+
+        // Restore alpha if opacity was applied
+        if (opacity < 1) {
             ctx.restore()
         }
     }

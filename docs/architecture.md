@@ -60,6 +60,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `game.animations.collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `game.animations.pixelExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
 - `game.animations.mineExplosion`: particle count (12), particle size (4px), end radius (35px), duration (600ms)
+- `game.animations.exitWarp`: duration (1000ms) - player shrink/fade into exit portal
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
 - `storage`: localStorage key names (audioEnabled, firstPlay)
@@ -189,6 +190,18 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isComplete()` - Returns true when animation finished
 - `getParticles()` - Returns particle data {x, y, opacity} for rendering
 - `getPosition()` - Returns center position in world coordinates
+- `getProgress()` - Returns animation progress 0-1
+
+**PlayerExitAnimation** (`js/animations/player_exit_animation.js`) - Exit warp effect:
+- Visual effect for player entering the exit portal
+- Player shrinks and fades while moving to the exit center
+- Ease-out interpolation toward exit position over 1000ms
+- All entities freeze during animation (like death pause)
+- `update(delta)` - Advance animation
+- `isComplete()` - Returns true when animation finished
+- `getScale()` - Returns player scale (1 to 0)
+- `getOpacity()` - Returns player opacity (1 to 0)
+- `getPosition()` - Returns interpolated position toward exit center
 - `getProgress()` - Returns animation progress 0-1
 
 **EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
@@ -330,9 +343,11 @@ Cyberpunk/neon aesthetic with these design elements:
 - `checkEnemyCollisions()` - Returns true if player hit by any enemy
 - `handleEnemyHit()` - Processes enemy collision (shield break or death)
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
+- `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
 - Receives shared AudioManager from main.js, passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Death pause: 1000ms freeze with explosion effect before reset
+- Exit warp: 1000ms animation where player shrinks/fades into exit, entities freeze
 - Collision → death pause → reset flow (infinite lives)
 - Collision handling via `player.effectManager.handleCollision()` - returns true if effect absorbed hit
 - Camera follows player each frame (instant jump on teleport)

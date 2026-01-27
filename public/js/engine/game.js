@@ -61,6 +61,23 @@ class Game {
             return
         }
 
+        // During exit animation, update animation and player position
+        if (this.exiting) {
+            this.exitAnimation.update(delta)
+            const pos = this.exitAnimation.getPosition()
+            this.player.x = pos.x
+            this.player.y = pos.y
+            this.camera.follow(this.player.x, this.player.y)
+            if (this.exitAnimation.isComplete()) {
+                this.exiting = false
+                this.exitAnimation = null
+                if (this.onLevelComplete) {
+                    this.onLevelComplete()
+                }
+            }
+            return
+        }
+
         this.processInput()
         const expiredEffects = this.player.update(delta)
         if (expiredEffects.length > 0) {
@@ -326,6 +343,10 @@ class Game {
         // Draw explosion instead of player during death pause
         if (this.dead) {
             this.renderer.drawPlayerExplosion(this.explosion)
+        } else if (this.exiting) {
+            const scale = this.exitAnimation.getScale()
+            const opacity = this.exitAnimation.getOpacity()
+            this.renderer.drawPlayerWithBoost(this.player, scale, time, opacity)
         } else {
             const playerScale = this.pixelScatter ? this.pixelScatter.getPlayerScale() : 1
             this.renderer.drawPlayerWithBoost(this.player, playerScale, time)
@@ -344,6 +365,8 @@ class Game {
         this.collectionWave = null
         this.mineExplosions = []
         this.touchingExit = false
+        this.exiting = false
+        this.exitAnimation = null
         this.inputManager.clearPendingInput()
         this.player.reset()
         this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
@@ -395,6 +418,8 @@ class Game {
         this.collectionWave = null   // Collection wave effect
         this.mineExplosions = []     // Active mine explosion effects
         this.touchingExit = false    // True while player is on exit node
+        this.exiting = false         // True during exit warp animation
+        this.exitAnimation = null    // Exit warp animation instance
         this.initPowers(levelData)
         this.initExit(levelData)
         this.initSwitches(levelData)
@@ -418,11 +443,16 @@ class Game {
 
     /**
      * Handle level completion when player reaches open exit.
+     * Starts the exit warp animation; callback is called when animation completes.
      */
     handleLevelComplete() {
-        if (this.onLevelComplete) {
-            this.onLevelComplete()
-        }
+        this.exiting = true
+        this.exitAnimation = new PlayerExitAnimation(
+            this.player.x,
+            this.player.y,
+            this.exit.x,
+            this.exit.y
+        )
     }
 
     /**
