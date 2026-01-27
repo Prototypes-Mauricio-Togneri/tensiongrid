@@ -897,7 +897,7 @@ class Renderer {
     }
 
     /**
-     * Draw exit portal with flickering neon border segments.
+     * Draw exit portal with pulsing glow border effect.
      * @param {Exit} exit - Exit instance to draw
      */
     drawExit(exit) {
@@ -907,42 +907,40 @@ class Renderer {
         const borderColor = exit.getBorderColor()
         const glowColor = exit.getGlowColor()
         const exitConfig = Constants.game.exit
-        const segments = exit.getSegments()
+        const intensity = exit.getPulseIntensity()
 
-        // Black center fill (draw first, behind segments)
+        // Calculate pulsing glow blur
+        const { glowBlurMin, glowBlurMax } = exitConfig
+        const glowBlur = glowBlurMin + (glowBlurMax - glowBlurMin) * intensity
+
+        // Outer glow (pulsing)
+        ctx.save()
+        ctx.globalAlpha = intensity
+        ctx.shadowColor = borderColor
+        ctx.shadowBlur = glowBlur
+        ctx.strokeStyle = glowColor
+        ctx.lineWidth = 4 + 2 * intensity
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
+        ctx.stroke()
+        ctx.restore()
+
+        // Main border circle
+        ctx.save()
+        ctx.shadowColor = borderColor
+        ctx.shadowBlur = 8 + 8 * intensity
+        ctx.strokeStyle = borderColor
+        ctx.lineWidth = 3
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
+        ctx.stroke()
+        ctx.restore()
+
+        // Black center fill
         ctx.fillStyle = this.colors.exitCenter
         ctx.beginPath()
-        ctx.arc(pos.x, pos.y, size - 1, 0, Math.PI * 2)
+        ctx.arc(pos.x, pos.y, size - 2, 0, Math.PI * 2)
         ctx.fill()
-
-        // Draw each flickering segment
-        for (const seg of segments) {
-            if (!seg.visible) continue
-
-            // Outer glow for this segment
-            ctx.save()
-            ctx.globalAlpha = seg.intensity * 0.5
-            ctx.shadowColor = borderColor
-            ctx.shadowBlur = exitConfig.glowBlur * seg.intensity
-            ctx.strokeStyle = glowColor
-            ctx.lineWidth = 5
-            ctx.beginPath()
-            ctx.arc(pos.x, pos.y, size + 2, seg.startAngle, seg.endAngle)
-            ctx.stroke()
-            ctx.restore()
-
-            // Main segment arc
-            ctx.save()
-            ctx.globalAlpha = 0.3 + 0.7 * seg.intensity
-            ctx.shadowColor = borderColor
-            ctx.shadowBlur = 8 * seg.intensity
-            ctx.strokeStyle = borderColor
-            ctx.lineWidth = 3
-            ctx.beginPath()
-            ctx.arc(pos.x, pos.y, size, seg.startAngle, seg.endAngle)
-            ctx.stroke()
-            ctx.restore()
-        }
     }
 
     /**

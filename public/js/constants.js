@@ -224,10 +224,11 @@ const Constants = {
         // Exit portal settings
         exit: {
             size: 14,              // Circle radius in pixels
-            segmentCount: 8,       // Number of border segments
-            flickerSpeed: 0.012,   // Base flicker speed (per ms)
-            flickerThreshold: 0.3, // Below this value, segment is "off"
-            glowBlur: 15           // Glow blur radius in pixels
+            pulseSpeed: 0.004,     // Pulse oscillation speed (radians per ms)
+            pulseMin: 0.4,         // Minimum glow intensity
+            pulseMax: 1.0,         // Maximum glow intensity
+            glowBlurMin: 12,       // Minimum glow blur radius in pixels
+            glowBlurMax: 25        // Maximum glow blur radius in pixels
         },
 
         // Effect configurations (used by EffectManager)
