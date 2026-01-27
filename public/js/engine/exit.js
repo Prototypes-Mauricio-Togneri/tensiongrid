@@ -1,6 +1,6 @@
 /**
  * Exit portal entity that allows player to complete the level.
- * Sits at a grid position with animated electric border effect.
+ * Sits at a grid position with pulsing glow border effect.
  * Can be open (green) or closed (red) based on level configuration.
  */
 class Exit {
@@ -21,39 +21,26 @@ class Exit {
         this.y = pos.y
 
         this.size = Constants.game.exit.size
-        this.particles = this.initParticles()
+        this.pulsePhase = 0
     }
 
     /**
-     * Initialize electric border particles evenly distributed around the circle.
-     * Each particle has a phase offset for varied animation timing.
-     * @returns {Array} Array of particle objects
-     */
-    initParticles() {
-        const count = Constants.game.exit.particleCount
-        const particles = []
-        for (let i = 0; i < count; i++) {
-            particles.push({
-                angle: (Math.PI * 2 * i) / count,
-                offset: 0,
-                speed: Constants.game.exit.particleSpeed * (0.5 + Math.random() * 0.5),
-                phase: Math.random() * Math.PI * 2
-            })
-        }
-        return particles
-    }
-
-    /**
-     * Update particle animation.
-     * Creates oscillating radial movement for the sparky effect.
+     * Update pulse animation.
+     * Creates breathing glow effect.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
-        const amplitude = Constants.game.exit.particleAmplitude
-        for (const p of this.particles) {
-            p.phase += p.speed * delta
-            p.offset = Math.sin(p.phase) * amplitude
-        }
+        this.pulsePhase += Constants.game.exit.pulseSpeed * delta
+    }
+
+    /**
+     * Get current pulse intensity (0-1 range).
+     * @returns {number} Current intensity based on sine wave oscillation
+     */
+    getPulseIntensity() {
+        const { pulseMin, pulseMax } = Constants.game.exit
+        const range = pulseMax - pulseMin
+        return pulseMin + range * (0.5 + 0.5 * Math.sin(this.pulsePhase))
     }
 
     /**
@@ -70,14 +57,6 @@ class Exit {
      */
     getPosition() {
         return new Vector2(this.x, this.y)
-    }
-
-    /**
-     * Get particle data for rendering.
-     * @returns {Array} Array of particle objects with angle, offset properties
-     */
-    getParticles() {
-        return this.particles
     }
 
     /**

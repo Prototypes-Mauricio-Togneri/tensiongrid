@@ -224,11 +224,11 @@ const Constants = {
         // Exit portal settings
         exit: {
             size: 14,              // Circle radius in pixels
-            particleCount: 12,     // Number of electric particles around border
-            particleSpeed: 0.008,  // Animation speed (radians per ms)
-            particleAmplitude: 4,  // Max radial offset for spark movement
-            particleSize: 3,       // Individual spark size in pixels
-            glowBlur: 20           // Glow effect blur radius in pixels
+            pulseSpeed: 0.004,     // Pulse oscillation speed (radians per ms)
+            pulseMin: 0.4,         // Minimum glow intensity
+            pulseMax: 1.0,         // Maximum glow intensity
+            glowBlurMin: 12,       // Minimum glow blur radius in pixels
+            glowBlurMax: 25        // Maximum glow blur radius in pixels
         },
 
         // Effect configurations (used by EffectManager)
@@ -372,8 +372,7 @@ const Constants = {
             exitOpenGlow: '#44ff4480',      // Open exit glow effect
             exitClosed: '#ff4444',          // Closed exit border (red)
             exitClosedGlow: '#ff444480',    // Closed exit glow effect
-            exitCenter: '#0a0a0f',          // Exit center fill (dark)
-            exitParticle: '#ffffff'         // Electric particle color (white)
+            exitCenter: '#0a0a0f'           // Exit center fill (dark)
         },
     },
 

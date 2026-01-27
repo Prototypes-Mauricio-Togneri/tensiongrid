@@ -897,7 +897,7 @@ class Renderer {
     }
 
     /**
-     * Draw exit portal with animated electric border effect.
+     * Draw exit portal with pulsing glow border effect.
      * @param {Exit} exit - Exit instance to draw
      */
     drawExit(exit) {
@@ -907,13 +907,19 @@ class Renderer {
         const borderColor = exit.getBorderColor()
         const glowColor = exit.getGlowColor()
         const exitConfig = Constants.game.exit
+        const intensity = exit.getPulseIntensity()
 
-        // Outer glow (circle stroke)
+        // Calculate pulsing glow blur
+        const { glowBlurMin, glowBlurMax } = exitConfig
+        const glowBlur = glowBlurMin + (glowBlurMax - glowBlurMin) * intensity
+
+        // Outer glow (pulsing)
         ctx.save()
+        ctx.globalAlpha = intensity
         ctx.shadowColor = borderColor
-        ctx.shadowBlur = exitConfig.glowBlur
+        ctx.shadowBlur = glowBlur
         ctx.strokeStyle = glowColor
-        ctx.lineWidth = 4
+        ctx.lineWidth = 4 + 2 * intensity
         ctx.beginPath()
         ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
         ctx.stroke()
@@ -922,7 +928,7 @@ class Renderer {
         // Main border circle
         ctx.save()
         ctx.shadowColor = borderColor
-        ctx.shadowBlur = 12
+        ctx.shadowBlur = 8 + 8 * intensity
         ctx.strokeStyle = borderColor
         ctx.lineWidth = 3
         ctx.beginPath()
@@ -935,23 +941,6 @@ class Renderer {
         ctx.beginPath()
         ctx.arc(pos.x, pos.y, size - 2, 0, Math.PI * 2)
         ctx.fill()
-
-        // Electric particles on border
-        const particles = exit.getParticles()
-        for (const p of particles) {
-            const r = size + p.offset
-            const px = pos.x + Math.cos(p.angle) * r
-            const py = pos.y + Math.sin(p.angle) * r
-
-            ctx.save()
-            ctx.shadowColor = borderColor
-            ctx.shadowBlur = 8
-            ctx.fillStyle = this.colors.exitParticle
-            ctx.beginPath()
-            ctx.arc(px, py, exitConfig.particleSize, 0, Math.PI * 2)
-            ctx.fill()
-            ctx.restore()
-        }
     }
 
     /**
