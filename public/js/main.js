@@ -222,14 +222,14 @@
         if (currentScreen === Constants.screens.game && isPaused) {
             const pauseLen = pauseButtons.length
 
-            // Navigate up/down (edge detection)
-            if (input.keys.up && !lastMenuInput.up) {
-                pauseIndex = (pauseIndex - 1 + pauseLen) % pauseLen
+            // Navigate up/down (edge detection, clamped)
+            if (input.keys.up && !lastMenuInput.up && pauseIndex > 0) {
+                pauseIndex--
                 updatePauseButtonSelection()
                 audioManager.playSound(Constants.audio.sounds.menuChange)
             }
-            if (input.keys.down && !lastMenuInput.down) {
-                pauseIndex = (pauseIndex + 1) % pauseLen
+            if (input.keys.down && !lastMenuInput.down && pauseIndex < pauseLen - 1) {
+                pauseIndex++
                 updatePauseButtonSelection()
                 audioManager.playSound(Constants.audio.sounds.menuChange)
             }
@@ -245,14 +245,16 @@
 
         // Home screen input handling
         if (currentScreen === Constants.screens.home) {
-            // Navigate menu (edge detection)
+            // Navigate menu (edge detection, clamped)
             if (input.keys.up && !lastMenuInput.up) {
-                screen.navigateMenu(Constants.keys.up)
-                audioManager.playSound(Constants.audio.sounds.menuChange)
+                if (screen.navigateMenu(Constants.keys.up)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
             }
             if (input.keys.down && !lastMenuInput.down) {
-                screen.navigateMenu(Constants.keys.down)
-                audioManager.playSound(Constants.audio.sounds.menuChange)
+                if (screen.navigateMenu(Constants.keys.down)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down
@@ -282,14 +284,16 @@
 
         // Levels screen input handling
         if (currentScreen === Constants.screens.levels) {
-            // Navigate menu (edge detection)
+            // Navigate menu (edge detection, clamped)
             if (input.keys.up && !lastMenuInput.up) {
-                screen.navigateLevels(Constants.keys.up)
-                audioManager.playSound(Constants.audio.sounds.menuChange)
+                if (screen.navigateLevels(Constants.keys.up)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
             }
             if (input.keys.down && !lastMenuInput.down) {
-                screen.navigateLevels(Constants.keys.down)
-                audioManager.playSound(Constants.audio.sounds.menuChange)
+                if (screen.navigateLevels(Constants.keys.down)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
             }
             lastMenuInput.up = input.keys.up
             lastMenuInput.down = input.keys.down

@@ -73,16 +73,20 @@ class Screen {
      * @param {string} direction - Direction key from Constants.keys
      */
     navigateMenu(direction) {
-        if (this.currentScreen !== Constants.screens.home) return
+        if (this.currentScreen !== Constants.screens.home) return false
 
         const len = this.buttons.length
-        if (direction === Constants.keys.up) {
-            this.menuIndex = (this.menuIndex - 1 + len) % len
-        } else if (direction === Constants.keys.down) {
-            this.menuIndex = (this.menuIndex + 1) % len
+        let changed = false
+        if (direction === Constants.keys.up && this.menuIndex > 0) {
+            this.menuIndex--
+            changed = true
+        } else if (direction === Constants.keys.down && this.menuIndex < len - 1) {
+            this.menuIndex++
+            changed = true
         }
 
-        this.updateButtonSelection()
+        if (changed) this.updateButtonSelection()
+        return changed
     }
 
     /**
@@ -90,16 +94,20 @@ class Screen {
      * @param {string} direction - Direction key from Constants.keys
      */
     navigateLevels(direction) {
-        if (this.currentScreen !== Constants.screens.levels) return
+        if (this.currentScreen !== Constants.screens.levels) return false
 
         const len = this.levelsButtons.length
-        if (direction === Constants.keys.up) {
-            this.levelsIndex = (this.levelsIndex - 1 + len) % len
-        } else if (direction === Constants.keys.down) {
-            this.levelsIndex = (this.levelsIndex + 1) % len
+        let changed = false
+        if (direction === Constants.keys.up && this.levelsIndex > 0) {
+            this.levelsIndex--
+            changed = true
+        } else if (direction === Constants.keys.down && this.levelsIndex < len - 1) {
+            this.levelsIndex++
+            changed = true
         }
 
-        this.updateLevelsButtonSelection()
+        if (changed) this.updateLevelsButtonSelection()
+        return changed
     }
 
     /**
