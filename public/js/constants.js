@@ -230,6 +230,11 @@ const Constants = {
             ringSpeed: 0.01         // Shrink speed (radius reduction per ms)
         },
 
+        // Switch settings
+        switch: {
+            size: 24 // Key size in pixels
+        },
+
         // Effect configurations (used by EffectManager)
         effects: {
             fast: {
@@ -371,7 +376,12 @@ const Constants = {
             exitOpenGlow: '#44ff4480',      // Open exit glow effect
             exitClosed: '#ff4444',          // Closed exit border (red)
             exitClosedGlow: '#ff444480',    // Closed exit glow effect
-            exitCenter: '#0a0a0f'           // Exit center fill (dark)
+            exitCenter: '#0a0a0f',          // Exit center fill (dark)
+
+            // Switch colors
+            switch: '#ffd700',              // Switch fill color (gold/yellow)
+            switchGlow: '#ffd7004d',        // Switch glow effect
+            switchHighlight: '#ffffff70'    // Switch inner highlight
         },
     },
 
@@ -394,7 +404,8 @@ const Constants = {
             powerDown: 'audio/sound/power_down.wav',             // Power-down collection sound effect
             powerExpired: 'audio/sound/power_expired.wav',       // Power-up expiration sound effect
             shieldBreak: 'audio/sound/shield_break.wav',         // Shield break sound effect
-            wrapAround: 'audio/sound/wrap_around.wav'            // Grid wrap teleport sound effect
+            wrapAround: 'audio/sound/wrap_around.wav',           // Grid wrap teleport sound effect
+            switchCollected: 'audio/sound/switch_collected.wav' // Switch collection sound effect
         },
         music: {
             menu: {

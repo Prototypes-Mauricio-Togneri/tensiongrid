@@ -190,4 +190,16 @@ class Collision {
     checkPlayerExitCollision(player, exit) {
         return this.gridCollides(player, exit)
     }
+
+    /**
+     * Check if player collides with any uncollected switch using grid-based detection.
+     * @param {Player} player - Player instance
+     * @param {Switch[]} switches - Array of switch instances
+     * @returns {Switch|null} The collected switch, or null if none
+     */
+    checkPlayerSwitchCollision(player, switches) {
+        return this.findFirst(player, switches, (p, sw) =>
+            !sw.isCollected() && this.gridCollides(p, sw)
+        )
+    }
 }

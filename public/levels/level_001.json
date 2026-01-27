@@ -13,6 +13,14 @@
     "y": 5,
     "status": "closed"
   },
+  "switches": [
+    {
+      "x": 3,
+      "y": 1,
+      "unlocks": "exit",
+      "ttl": 5000
+    }
+  ],
   "powerUps": [
     {
       "x": 5,

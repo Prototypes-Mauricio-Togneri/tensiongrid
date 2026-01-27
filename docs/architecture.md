@@ -48,18 +48,19 @@ Cyberpunk/neon aesthetic with these design elements:
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s)
 - `powers.size`: (12px) - collectible size for all power types
 - `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
-- `exit`: size (14px), pulseSpeed (0.004 rad/ms), pulseMin (0.4), pulseMax (1.0), glowBlurMin (12px), glowBlurMax (25px), particleCount (12), particleSize (1px), particleOrbitMin (18px), particleOrbitMax (26px), particleSpeedMin (0.001 rad/ms), particleSpeedMax (0.004 rad/ms)
+- `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms)
+- `switch`: size (16px)
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
 - `effects.immunity`: duration (1000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
-- `colors`: all game element colors with glow variants
+- `colors`: all game element colors with glow variants (includes switch: gold #ffd700)
 - `game.animations.pixelScatter`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
 - `game.animations.collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `game.animations.pixelExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
 - `game.animations.mineExplosion`: particle count (12), particle size (4px), end radius (35px), duration (600ms)
-- `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, etc.)
+- `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
 - `storage`: localStorage key names (audioEnabled, firstPlay)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
@@ -264,14 +265,24 @@ Cyberpunk/neon aesthetic with these design elements:
 **Exit** (`js/engine/exit.js`) - Level completion portal:
 - Fixed position on a single grid node
 - Tunnel animation: static outer ring with shrinking rings that create depth illusion
-- Two states: `open` (green rings) or `closed` (red rings), fixed at level load
+- Two states: `open` (green rings) or `closed` (red rings)
 - Open exit: touching completes level and returns to previous screen
 - Closed exit: player can walk through without effect
 - Static outer ring always visible at 50% opacity
 - New rings spawn every second at outer radius, then shrink toward center
 - Rings fade out and get thinner as they approach the center
 - Multiple rings visible simultaneously create tunnel/portal effect
+- `open()` / `close()` methods allow dynamic state changes (used by switches)
 - Config: `x`, `y` (node position), `status` ('open' or 'closed')
+
+**Switch** (`js/engine/switch.js`) - Timed unlock mechanism:
+- Fixed position on a single grid node
+- Gold/yellow key shape (square head with stem and teeth)
+- When player touches switch: disappears, unlocks linked target (exit)
+- After TTL expires: switch reappears, target locks again
+- Collection triggers yellow wave animation and sound effect
+- Resets on player death (switch reappears, exit closes)
+- Config: `x`, `y` (node position), `unlocks` ('exit'), `ttl` (milliseconds)
 
 **AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds

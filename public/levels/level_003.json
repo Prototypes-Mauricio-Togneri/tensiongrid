@@ -11,7 +11,15 @@
   "exit": {
     "x": 14,
     "y": 14,
-    "status": "open"
+    "status": "closed"
   },
+  "switches": [
+    {
+      "x": 0,
+      "y": 0,
+      "unlocks": "exit",
+      "ttl": 12000
+    }
+  ],
   "enemies": {}
 }

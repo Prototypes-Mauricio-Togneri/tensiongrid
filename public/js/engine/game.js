@@ -73,6 +73,16 @@ class Game {
             this.exit.update(delta)
         }
 
+        // Update switches and handle expiration
+        for (const sw of this.switches) {
+            if (sw.update(delta)) {
+                // Switch TTL expired - close exit
+                if (sw.unlocks === 'exit' && this.exit) {
+                    this.exit.close()
+                }
+            }
+        }
+
         // Create explosion animations for mines that just exploded
         for (const pos of this.enemyManager.getExplodedMinePositions()) {
             this.mineExplosions.push(new MineExplosionAnimation(pos.x, pos.y))
@@ -136,6 +146,12 @@ class Game {
         const collectedPower = this.collision.checkPlayerPowerCollision(this.player, this.powers)
         if (collectedPower) {
             this.handlePowerCollection(collectedPower)
+        }
+
+        // Check for switch collection
+        const collectedSwitch = this.collision.checkPlayerSwitchCollision(this.player, this.switches)
+        if (collectedSwitch) {
+            this.handleSwitchCollection(collectedSwitch)
         }
 
         // Check enemy collisions and handle death
@@ -205,6 +221,23 @@ class Game {
     }
 
     /**
+     * Handle switch collection: unlock target, play sound, create wave animation.
+     * @param {Switch} sw - The collected switch
+     */
+    handleSwitchCollection(sw) {
+        sw.collect()
+
+        // Unlock the target
+        if (sw.unlocks === 'exit' && this.exit) {
+            this.exit.open()
+        }
+
+        // Play sound and create wave animation
+        this.audioManager.playSound(Constants.audio.sounds.switchCollected)
+        this.collectionWave = new PowerCollectionAnimation(sw.x, sw.y, Constants.game.colors.switch)
+    }
+
+    /**
      * Process input and move player if valid.
      * Handles grid wrapping and edge exclusion checks.
      */
@@ -252,6 +285,9 @@ class Game {
         if (this.exit) {
             this.renderer.drawExit(this.exit)
         }
+
+        // Draw switches
+        this.renderer.drawSwitches(this.switches, time)
 
         this.renderer.drawPowers(this.powers, time)
         this.renderer.drawLasers(this.enemyManager.getLasers())
@@ -302,8 +338,9 @@ class Game {
         this.pixelScatter = new PlayerWrapAnimation(this.player.x, this.player.y, true)
         this.audioManager.playSound(Constants.audio.sounds.wrapAround)
         this.enemyManager.clear()
-        this.initPowers(this.levelData) // Respawn powers
-        this.initExit(this.levelData)   // Reinitialize exit (resets particle animation)
+        this.initPowers(this.levelData)   // Respawn powers
+        this.initExit(this.levelData)     // Reinitialize exit (resets particle animation)
+        this.initSwitches(this.levelData) // Reset switches
         this.camera.follow(this.player.x, this.player.y)
     }
 
@@ -342,11 +379,13 @@ class Game {
         this.renderer = new Renderer(this.canvas, this.camera)
         this.powers = []             // Active powers (power-ups and power-downs)
         this.exit = null             // Exit portal (single per level, optional)
+        this.switches = []           // Switches that unlock the exit
         this.pixelScatter = null     // Wrap pixel scatter effect
         this.collectionWave = null   // Collection wave effect
         this.mineExplosions = []     // Active mine explosion effects
         this.initPowers(levelData)
         this.initExit(levelData)
+        this.initSwitches(levelData)
     }
 
     /**
@@ -388,6 +427,19 @@ class Game {
         if (levelData.powerDowns) {
             for (const config of levelData.powerDowns) {
                 this.powers.push(new Power(config, this.grid, true))
+            }
+        }
+    }
+
+    /**
+     * Initialize switches from level data.
+     * @param {Object} levelData - Level configuration containing switches array
+     */
+    initSwitches(levelData) {
+        this.switches = []
+        if (levelData.switches) {
+            for (const config of levelData.switches) {
+                this.switches.push(new Switch(config, this.grid))
             }
         }
     }

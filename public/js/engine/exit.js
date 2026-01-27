@@ -65,6 +65,20 @@ class Exit {
     }
 
     /**
+     * Open the exit portal.
+     */
+    open() {
+        this.isOpen = true
+    }
+
+    /**
+     * Close the exit portal.
+     */
+    close() {
+        this.isOpen = false
+    }
+
+    /**
      * Get current world position.
      * @returns {Vector2} Position in world coordinates
      */

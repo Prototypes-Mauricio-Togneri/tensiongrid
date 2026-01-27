@@ -936,6 +936,67 @@ class Renderer {
     }
 
     /**
+     * Draw switches with key shape.
+     * @param {Switch[]} switches - Array of switch instances
+     * @param {number} _time - Animation timestamp (unused)
+     */
+    drawSwitches(switches, _time) {
+        const ctx = this.ctx
+
+        for (const sw of switches) {
+            if (sw.isCollected()) continue
+
+            const pos = this.toScreen(sw.x, sw.y)
+            const size = sw.size
+
+            // Outer glow
+            ctx.save()
+            ctx.shadowColor = this.colors.switch
+            ctx.shadowBlur = 15
+            ctx.fillStyle = this.colors.switchGlow
+            this.drawKeyShape(pos.x, pos.y, size + 3)
+            ctx.restore()
+
+            // Main key shape
+            ctx.save()
+            ctx.shadowColor = this.colors.switch
+            ctx.shadowBlur = 8
+            ctx.fillStyle = this.colors.switch
+            this.drawKeyShape(pos.x, pos.y, size)
+            ctx.restore()
+
+            // Inner highlight
+            ctx.fillStyle = this.colors.switchHighlight
+            this.drawKeyShape(pos.x, pos.y, size * 0.4)
+        }
+    }
+
+    /**
+     * Draw a horizontal key shape (square head on left, stem with teeth extending right).
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Overall size of the key
+     */
+    drawKeyShape(x, y, size) {
+        const ctx = this.ctx
+        const headSize = size * 0.5
+        const stemHeight = size * 0.35
+        const stemLength = size * 0.6
+
+        // Key head (square on left)
+        ctx.fillRect(x - size * 0.5, y - headSize / 2, headSize, headSize)
+
+        // Key stem (rectangle extending right)
+        ctx.fillRect(x, y - stemHeight / 2, stemLength, stemHeight)
+
+        // Key teeth (small rectangles below stem)
+        const toothHeight = stemHeight * 0.7
+        const toothWidth = stemHeight * 0.4
+        ctx.fillRect(x + size * 0.15, y + stemHeight / 2, toothWidth, toothHeight)
+        ctx.fillRect(x + size * 0.35, y + stemHeight / 2, toothWidth, toothHeight * 0.7)
+    }
+
+    /**
      * Draw a lightning bolt icon centered at position.
      * @param {number} x - Center X position
      * @param {number} y - Center Y position
