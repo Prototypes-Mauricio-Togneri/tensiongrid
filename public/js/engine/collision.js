@@ -180,4 +180,14 @@ class Collision {
             !power.isCollected() && this.circleCollides(p, power, power.size)
         )
     }
+
+    /**
+     * Check if player's grid position matches the exit portal position.
+     * @param {Player} player - Player instance
+     * @param {Exit} exit - Exit portal instance
+     * @returns {boolean} True if player is on the exit node
+     */
+    checkPlayerExitCollision(player, exit) {
+        return this.gridCollides(player, exit)
+    }
 }

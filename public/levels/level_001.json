@@ -8,6 +8,11 @@
     "startX": 3,
     "startY": 3
   },
+  "exit": {
+    "x": 3,
+    "y": 5,
+    "status": "open"
+  },
   "powerUps": [
     {
       "x": 5,

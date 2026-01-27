@@ -127,6 +127,16 @@
         }
         screen.show(Constants.screens.game)
         game.start(levelData)
+
+        // Set level completion callback
+        game.setOnLevelComplete(() => {
+            game.stop()
+            playMenuMusic()
+            screen.show(gameStartedFrom)
+            if (gameStartedFrom === Constants.screens.home) {
+                updateContinueButtonText()
+            }
+        })
     }
 
     /**

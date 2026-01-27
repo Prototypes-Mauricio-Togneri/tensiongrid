@@ -8,5 +8,10 @@
     "startX": 7,
     "startY": 7
   },
+  "exit": {
+    "x": 14,
+    "y": 14,
+    "status": "open"
+  },
   "enemies": {}
 }

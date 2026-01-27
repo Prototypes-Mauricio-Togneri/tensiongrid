@@ -68,6 +68,11 @@ class Game {
         }
         this.enemyManager.update(delta, this.player.row, this.player.col)
 
+        // Update exit animation
+        if (this.exit) {
+            this.exit.update(delta)
+        }
+
         // Create explosion animations for mines that just exploded
         for (const pos of this.enemyManager.getExplodedMinePositions()) {
             this.mineExplosions.push(new MineExplosionAnimation(pos.x, pos.y))
@@ -113,6 +118,15 @@ class Game {
      * Check all collisions and handle results.
      */
     checkCollisionsAndHandle() {
+        // Check for exit collision (level completion)
+        if (this.exit && this.collision.checkPlayerExitCollision(this.player, this.exit)) {
+            if (this.exit.canExit()) {
+                this.handleLevelComplete()
+                return
+            }
+            // Closed exit: do nothing, player can walk through
+        }
+
         // Check for mine trigger (does not kill player, just starts countdown)
         if (this.collision.checkPlayerMineContact(this.player, this.enemyManager.getAllMines())) {
             this.audioManager.playSound(Constants.audio.sounds.mineAlarm)
@@ -233,6 +247,12 @@ class Game {
     render(time) {
         this.renderer.clear()
         this.renderer.drawGrid(this.grid)
+
+        // Draw exit portal (behind other entities)
+        if (this.exit) {
+            this.renderer.drawExit(this.exit)
+        }
+
         this.renderer.drawPowers(this.powers, time)
         this.renderer.drawLasers(this.enemyManager.getLasers())
         this.renderer.drawTraps(this.enemyManager.getTraps())
@@ -283,6 +303,7 @@ class Game {
         this.audioManager.playSound(Constants.audio.sounds.wrapAround)
         this.enemyManager.clear()
         this.initPowers(this.levelData) // Respawn powers
+        this.initExit(this.levelData)   // Reinitialize exit (resets particle animation)
         this.camera.follow(this.player.x, this.player.y)
     }
 
@@ -320,10 +341,37 @@ class Game {
         this.collision = new Collision(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
         this.powers = []             // Active powers (power-ups and power-downs)
+        this.exit = null             // Exit portal (single per level, optional)
         this.pixelScatter = null     // Wrap pixel scatter effect
         this.collectionWave = null   // Collection wave effect
         this.mineExplosions = []     // Active mine explosion effects
         this.initPowers(levelData)
+        this.initExit(levelData)
+    }
+
+    /**
+     * Initialize exit from level data.
+     * @param {Object} levelData - Level configuration containing optional exit
+     */
+    initExit(levelData) {
+        this.exit = levelData.exit ? new Exit(levelData.exit, this.grid) : null
+    }
+
+    /**
+     * Set callback function for level completion.
+     * @param {Function} callback - Function to call when level is completed
+     */
+    setOnLevelComplete(callback) {
+        this.onLevelComplete = callback
+    }
+
+    /**
+     * Handle level completion when player reaches open exit.
+     */
+    handleLevelComplete() {
+        if (this.onLevelComplete) {
+            this.onLevelComplete()
+        }
     }
 
     /**

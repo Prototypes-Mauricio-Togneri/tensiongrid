@@ -38,6 +38,11 @@
     "startX": 5,
     "startY": 5
   },
+  "exit": {
+    "x": 10,
+    "y": 0,
+    "status": "open"
+  },
   "enemies": {
     "enemyFollower": [
       {

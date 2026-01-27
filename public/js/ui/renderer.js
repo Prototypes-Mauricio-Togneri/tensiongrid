@@ -897,6 +897,64 @@ class Renderer {
     }
 
     /**
+     * Draw exit portal with animated electric border effect.
+     * @param {Exit} exit - Exit instance to draw
+     */
+    drawExit(exit) {
+        const ctx = this.ctx
+        const pos = this.toScreen(exit.x, exit.y)
+        const size = exit.size
+        const borderColor = exit.getBorderColor()
+        const glowColor = exit.getGlowColor()
+        const exitConfig = Constants.game.exit
+
+        // Outer glow (circle stroke)
+        ctx.save()
+        ctx.shadowColor = borderColor
+        ctx.shadowBlur = exitConfig.glowBlur
+        ctx.strokeStyle = glowColor
+        ctx.lineWidth = 4
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
+        ctx.stroke()
+        ctx.restore()
+
+        // Main border circle
+        ctx.save()
+        ctx.shadowColor = borderColor
+        ctx.shadowBlur = 12
+        ctx.strokeStyle = borderColor
+        ctx.lineWidth = 3
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
+        ctx.stroke()
+        ctx.restore()
+
+        // Black center fill
+        ctx.fillStyle = this.colors.exitCenter
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, size - 2, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Electric particles on border
+        const particles = exit.getParticles()
+        for (const p of particles) {
+            const r = size + p.offset
+            const px = pos.x + Math.cos(p.angle) * r
+            const py = pos.y + Math.sin(p.angle) * r
+
+            ctx.save()
+            ctx.shadowColor = borderColor
+            ctx.shadowBlur = 8
+            ctx.fillStyle = this.colors.exitParticle
+            ctx.beginPath()
+            ctx.arc(px, py, exitConfig.particleSize, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+        }
+    }
+
+    /**
      * Draw a lightning bolt icon centered at position.
      * @param {number} x - Center X position
      * @param {number} y - Center Y position

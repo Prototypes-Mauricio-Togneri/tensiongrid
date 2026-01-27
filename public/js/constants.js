@@ -221,6 +221,16 @@ const Constants = {
             }
         },
 
+        // Exit portal settings
+        exit: {
+            size: 14,              // Circle radius in pixels
+            particleCount: 12,     // Number of electric particles around border
+            particleSpeed: 0.008,  // Animation speed (radians per ms)
+            particleAmplitude: 4,  // Max radial offset for spark movement
+            particleSize: 3,       // Individual spark size in pixels
+            glowBlur: 20           // Glow effect blur radius in pixels
+        },
+
         // Effect configurations (used by EffectManager)
         effects: {
             fast: {
@@ -355,7 +365,15 @@ const Constants = {
             // Shield colors
             shield: '#00ccff',              // Shield circle color (light blue)
             shieldGlow: '#00ccff4d',        // Shield glow effect
-            shieldIcon: '#ffffff'           // Shield icon color (white)
+            shieldIcon: '#ffffff',          // Shield icon color (white)
+
+            // Exit portal colors
+            exitOpen: '#44ff44',            // Open exit border (green)
+            exitOpenGlow: '#44ff4480',      // Open exit glow effect
+            exitClosed: '#ff4444',          // Closed exit border (red)
+            exitClosedGlow: '#ff444480',    // Closed exit glow effect
+            exitCenter: '#0a0a0f',          // Exit center fill (dark)
+            exitParticle: '#ffffff'         // Electric particle color (white)
         },
     },
 
