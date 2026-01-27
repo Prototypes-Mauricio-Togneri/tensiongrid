@@ -48,7 +48,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s)
 - `powers.size`: (12px) - collectible size for all power types
 - `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
-- `exit`: size (14px), pulseSpeed (0.004 rad/ms), pulseMin (0.4), pulseMax (1.0), glowBlurMin (12px), glowBlurMax (25px)
+- `exit`: size (14px), segmentCount (8), flickerSpeed (0.012/ms), flickerThreshold (0.3), glowBlur (15px)
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
@@ -263,11 +263,11 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Exit** (`js/engine/exit.js`) - Level completion portal:
 - Fixed position on a single grid node
-- Circle shape with black center and pulsing glow border
+- Circle shape with black center and flickering neon border segments
 - Two states: `open` (green border) or `closed` (red border), fixed at level load
 - Open exit: touching completes level and returns to previous screen
 - Closed exit: player can walk through without effect
-- Border pulses with breathing glow effect (intensity oscillates between 0.4-1.0)
+- Border divided into 8 segments that flicker independently like broken neon
 - Config: `x`, `y` (node position), `status` ('open' or 'closed')
 
 **AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:

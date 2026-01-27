@@ -1,6 +1,6 @@
 /**
  * Exit portal entity that allows player to complete the level.
- * Sits at a grid position with pulsing glow border effect.
+ * Sits at a grid position with flickering neon border segments.
  * Can be open (green) or closed (red) based on level configuration.
  */
 class Exit {
@@ -21,26 +21,52 @@ class Exit {
         this.y = pos.y
 
         this.size = Constants.game.exit.size
-        this.pulsePhase = 0
+        this.segments = this.initSegments()
     }
 
     /**
-     * Update pulse animation.
-     * Creates breathing glow effect.
+     * Initialize flickering border segments.
+     * Each segment has independent phase and speed for varied flicker timing.
+     * @returns {Array} Array of segment objects
+     */
+    initSegments() {
+        const count = Constants.game.exit.segmentCount
+        const segments = []
+        const baseSpeed = Constants.game.exit.flickerSpeed
+
+        for (let i = 0; i < count; i++) {
+            segments.push({
+                startAngle: (Math.PI * 2 * i) / count,
+                endAngle: (Math.PI * 2 * (i + 1)) / count,
+                phase: Math.random() * Math.PI * 2,
+                speed: baseSpeed * (0.7 + Math.random() * 0.6)
+            })
+        }
+        return segments
+    }
+
+    /**
+     * Update segment flicker animation.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
-        this.pulsePhase += Constants.game.exit.pulseSpeed * delta
+        for (const seg of this.segments) {
+            seg.phase += seg.speed * delta
+        }
     }
 
     /**
-     * Get current pulse intensity (0-1 range).
-     * @returns {number} Current intensity based on sine wave oscillation
+     * Get segment visibility states for rendering.
+     * @returns {Array} Array of segment objects with visibility data
      */
-    getPulseIntensity() {
-        const { pulseMin, pulseMax } = Constants.game.exit
-        const range = pulseMax - pulseMin
-        return pulseMin + range * (0.5 + 0.5 * Math.sin(this.pulsePhase))
+    getSegments() {
+        const threshold = Constants.game.exit.flickerThreshold
+        return this.segments.map(seg => ({
+            startAngle: seg.startAngle,
+            endAngle: seg.endAngle,
+            intensity: Math.max(0, (Math.sin(seg.phase) + 1) / 2),
+            visible: Math.sin(seg.phase) > -threshold
+        }))
     }
 
     /**
