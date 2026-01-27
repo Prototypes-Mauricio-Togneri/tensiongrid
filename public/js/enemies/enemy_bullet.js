@@ -26,9 +26,7 @@ class EnemyBullet {
         this.grid = grid // Grid reference
         this.isMoving = true // False when bullet should be removed
 
-        this.wakeIntensity = 0 // Wake trail opacity (0-1)
-        this.wakeStartX = x // Wake trail start X position
-        this.wakeStartY = y // Wake trail start Y position
+        this.wake = new WakeTrail(x, y, Constants.game.animations.wakeTrail.fast)
     }
 
     /**
@@ -66,12 +64,7 @@ class EnemyBullet {
             const dir = Vector2.direction(current, target)
             this.x += dir.x * moveAmount
             this.y += dir.y * moveAmount
-            this.wakeIntensity = Math.min(1, this.wakeIntensity + delta * 0.05)
-
-            // Position wake trail behind bullet
-            const trailDistance = 60
-            this.wakeStartX = this.x - dir.x * trailDistance
-            this.wakeStartY = this.y - dir.y * trailDistance
+            this.wake.update(delta, true, this.x, this.y, dir.x, dir.y)
         }
 
         return true
@@ -84,4 +77,9 @@ class EnemyBullet {
     getPosition() {
         return new Vector2(this.x, this.y)
     }
+
+    // Wake trail property getters for renderer compatibility
+    get wakeIntensity() { return this.wake.intensity }
+    get wakeStartX() { return this.wake.startX }
+    get wakeStartY() { return this.wake.startY }
 }

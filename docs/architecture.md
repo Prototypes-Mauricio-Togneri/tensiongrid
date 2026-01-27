@@ -61,6 +61,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `game.animations.pixelExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
 - `game.animations.mineExplosion`: particle count (12), particle size (4px), end radius (35px), duration (600ms)
 - `game.animations.exitWarp`: duration (1000ms) - player shrink/fade into exit portal
+- `game.animations.wakeTrail`: fast profile (buildRate 0.05, trailDistance 60), slow profile (buildRate 0.005, trailDistance 50), fadeRate (0.004) - wake trail effect behind moving entities
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
 - `storage`: localStorage key names (audioEnabled, firstPlay)
@@ -135,9 +136,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getRenderHints()` - Returns combined render data for all active effects (includes warning blink for effects with warningDuration)
 - `clear()` - Removes all effects (on death/reset)
 
+**WakeTrail** (`js/effects/wake_trail.js`) - Wake trail state manager:
+- Manages wake trail effect state for moving entities
+- Used by Player, EnemyBullet, EnemyPatrol, EnemyFollower
+- `update(delta, isMoving, x, y, dirX, dirY)` - Update intensity and position
+- `reset(x, y)` - Reset trail to position with zero intensity
+- Config: `buildRate` (intensity increase per ms), `trailDistance` (pixels behind entity), `fadeRate` (optional, intensity decrease per ms when stationary)
+
 **Player** (`js/engine/player.js`) - Player entity:
 - Grid-snapped target-based movement
-- Wake effect - gradient trail during movement
+- Wake trail via WakeTrail instance (fast profile with fade)
 - `effectManager` - EffectManager instance for handling active effects
 - `moveTo(row, col, teleport)` - Movement with optional teleport
 - `hasSpeedBoost()` - Check if fast effect is active (delegates to effectManager)
@@ -206,7 +214,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
 - Linear movement along grid lines
-- Wake effect - gradient trail during movement
+- Wake trail via WakeTrail instance (fast profile)
 - Removed when exiting bounds
 
 **EnemyLaser** (`js/enemies/enemy_laser.js`) - Static threat entity:
@@ -250,7 +258,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Moves along a predefined cyclical path of grid nodes
 - Purple flat-top hexagon visual shape (#aa44ff)
 - Smooth interpolation between nodes (like EnemyBullet)
-- Wake effect - gradient trail during movement
+- Wake trail via WakeTrail instance (slow profile, resets at waypoints)
 - Kills player on contact (grid-based collision)
 - Path wraps cyclically: after reaching last node, returns to first
 - Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates)
@@ -259,7 +267,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Actively pursues player by moving toward the best adjacent node
 - Cyan square visual shape (#00ccff) that continuously rotates on its center
 - Smooth interpolation between nodes (like EnemyPatrol)
-- Wake effect - gradient trail during movement
+- Wake trail via WakeTrail instance (slow profile, resets at waypoints)
 - At each node, calculates which adjacent node minimizes distance to player
 - While moving between nodes, does NOT recalculate - continues to target
 - Handles blocked paths by choosing next best option; stays if all blocked

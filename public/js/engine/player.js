@@ -15,9 +15,12 @@ class Player {
         this.startY = config.startY   // Starting grid row
         this.startX = config.startX   // Starting grid column
 
-        this.wakeIntensity = 0        // Wake trail opacity (0-1)
-        this.wakeStartX = 0           // Wake trail start X position
-        this.wakeStartY = 0           // Wake trail start Y position
+        const wakeConfig = Constants.game.animations.wakeTrail
+        this.wake = new WakeTrail(0, 0, {
+            buildRate: wakeConfig.fast.buildRate,
+            trailDistance: wakeConfig.fast.trailDistance,
+            fadeRate: wakeConfig.fadeRate
+        })
 
         this.effectManager = new EffectManager(this)
 
@@ -40,9 +43,7 @@ class Player {
         this.isMoving = false         // True while interpolating to target
         this.teleported = false       // True if last move was a teleport
 
-        this.wakeIntensity = 0
-        this.wakeStartX = pos.x
-        this.wakeStartY = pos.y
+        this.wake.reset(pos.x, pos.y)
 
         // Clear all active effects and reset speed
         this.effectManager.clear()
@@ -59,7 +60,7 @@ class Player {
 
         // Fade wake when stationary
         if (!this.isMoving) {
-            this.wakeIntensity = Math.max(0, this.wakeIntensity - delta * 0.004)
+            this.wake.update(delta, false, this.x, this.y, 0, 0)
             return expiredEffects
         }
 
@@ -79,12 +80,7 @@ class Player {
             const dir = Vector2.direction(current, target)
             this.x += dir.x * moveAmount
             this.y += dir.y * moveAmount
-            this.wakeIntensity = Math.min(1, this.wakeIntensity + delta * 0.05)
-
-            // Position wake trail behind player
-            const trailDistance = 60
-            this.wakeStartX = this.x - dir.x * trailDistance
-            this.wakeStartY = this.y - dir.y * trailDistance
+            this.wake.update(delta, true, this.x, this.y, dir.x, dir.y)
         }
 
         return expiredEffects
@@ -108,9 +104,7 @@ class Player {
             this.col = targetCol
             this.isMoving = false
             this.teleported = true
-            this.wakeIntensity = 0
-            this.wakeStartX = pos.x
-            this.wakeStartY = pos.y
+            this.wake.reset(pos.x, pos.y)
         } else {
             this.isMoving = true
         }
@@ -163,4 +157,10 @@ class Player {
     isProtected() {
         return this.hasShield() || this.isImmune()
     }
+
+    // Wake trail property accessors for renderer/game compatibility
+    get wakeIntensity() { return this.wake.intensity }
+    set wakeIntensity(value) { this.wake.intensity = value }
+    get wakeStartX() { return this.wake.startX }
+    get wakeStartY() { return this.wake.startY }
 }

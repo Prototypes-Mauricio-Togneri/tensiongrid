@@ -21,9 +21,7 @@ class EnemyPatrol {
         this.x = pos.x // Current world X position
         this.y = pos.y // Current world Y position
 
-        this.wakeIntensity = 0 // Wake trail opacity (0-1)
-        this.wakeStartX = pos.x // Wake trail start X position
-        this.wakeStartY = pos.y // Wake trail start Y position
+        this.wake = new WakeTrail(pos.x, pos.y, Constants.game.animations.wakeTrail.slow)
     }
 
     /**
@@ -49,20 +47,13 @@ class EnemyPatrol {
             this.pathIndex = nextIndex
 
             // Reset wake at waypoint
-            this.wakeStartX = this.x
-            this.wakeStartY = this.y
-            this.wakeIntensity = 0
+            this.wake.reset(this.x, this.y)
         } else {
             // Interpolate toward target
             const dir = Vector2.direction(current, target)
             this.x += dir.x * moveAmount
             this.y += dir.y * moveAmount
-            this.wakeIntensity = Math.min(1, this.wakeIntensity + delta * 0.005)
-
-            // Position wake trail behind patrol
-            const trailDistance = 50
-            this.wakeStartX = this.x - dir.x * trailDistance
-            this.wakeStartY = this.y - dir.y * trailDistance
+            this.wake.update(delta, true, this.x, this.y, dir.x, dir.y)
         }
     }
 
@@ -73,4 +64,9 @@ class EnemyPatrol {
     getPosition() {
         return new Vector2(this.x, this.y)
     }
+
+    // Wake trail property getters for renderer compatibility
+    get wakeIntensity() { return this.wake.intensity }
+    get wakeStartX() { return this.wake.startX }
+    get wakeStartY() { return this.wake.startY }
 }

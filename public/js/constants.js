@@ -307,6 +307,19 @@ const Constants = {
             // Player exit warp effect settings
             exitWarp: {
                 duration: 1000      // Time for player to shrink and fade into exit in ms
+            },
+
+            // Wake trail effect settings (gradient trail behind moving entities)
+            wakeTrail: {
+                fast: {
+                    buildRate: 0.05,    // Intensity increase per ms (player, bullet)
+                    trailDistance: 60   // Trail length in pixels
+                },
+                slow: {
+                    buildRate: 0.005,   // Intensity increase per ms (patrol, follower)
+                    trailDistance: 50   // Trail length in pixels
+                },
+                fadeRate: 0.004         // Intensity decrease per ms when stationary (player only)
             }
         },
 
