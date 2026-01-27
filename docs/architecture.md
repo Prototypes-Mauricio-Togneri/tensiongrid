@@ -157,6 +157,18 @@ Cyberpunk/neon aesthetic with these design elements:
 - `update(delta)` - Update state toggle and visual intensity transitions
 - Config: `timeOn`/`timeOff` (ms, undefined for persistent), `intensityMin`/`intensityMax`, `transitionSpeed`
 
+**ParticleExplosion** (`js/helpers/particle_explosion.js`) - Particle burst animation base:
+- Generic particle explosion effect with configurable parameters
+- Extended by PlayerExplosionAnimation, MineExplosionAnimation
+- Particles scatter outward from center with random angles and staggered delays
+- Ease-out animation for smooth deceleration, particles fade as they scatter
+- `update(delta)` - Advance animation timer
+- `isComplete()` - Check if animation finished
+- `getProgress()` - Get animation progress (0 to 1)
+- `getParticles()` - Get particle data array `{x, y, opacity}` relative to center
+- `getPosition()` - Get center position in world coordinates
+- Config: `particleCount`, `particleSize`, `endRadius`, `duration`
+
 **Player** (`js/engine/player.js`) - Player entity:
 - Grid-snapped target-based movement via GridMovement
 - Wake trail via WakeTrail instance (fast profile with fade)
@@ -169,15 +181,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isProtected()` - Check if player has shield OR immunity (cannot die from collision)
 
 **PlayerExplosionAnimation** (`js/animations/player_explosion_animation.js`) - Death effect:
-- Visual effect for player death, particles scatter outward from center
-- 16 small square particles with random angles (uses pixelExplosion config)
-- Ease-out animation for smooth deceleration over 800ms
-- Particles fade out as they scatter
-- `update(delta)` - Advance animation
-- `isComplete()` - Returns true when animation finished
-- `getParticles()` - Returns particle data {x, y, opacity} for rendering
-- `getPosition()` - Returns center position in world coordinates
-- `getProgress()` - Returns animation progress 0-1
+- Extends ParticleExplosion with `pixelExplosion` config
+- Visual effect for player death (16 particles, 5px size, 40px radius, 800ms)
 
 **PlayerWrapAnimation** (`js/animations/player_wrap_animation.js`) - Wrap teleport effect:
 - Visual effect for player wrap-around teleportation
@@ -204,15 +209,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getProgress()` - Returns animation progress 0-1
 
 **MineExplosionAnimation** (`js/animations/mine_explosion_animation.js`) - Mine detonation effect:
-- Visual effect for mine explosion
-- 12 yellow square particles scatter outward from center
-- Ease-out animation for smooth deceleration over 600ms
-- Particles fade out as they scatter
-- `update(delta)` - Advance animation
-- `isComplete()` - Returns true when animation finished
-- `getParticles()` - Returns particle data {x, y, opacity} for rendering
-- `getPosition()` - Returns center position in world coordinates
-- `getProgress()` - Returns animation progress 0-1
+- Extends ParticleExplosion with `mineExplosion` config
+- Visual effect for mine explosion (12 particles, 4px size, 35px radius, 600ms)
 
 **PlayerExitAnimation** (`js/animations/player_exit_animation.js`) - Exit warp effect:
 - Visual effect for player entering the exit portal
