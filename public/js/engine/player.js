@@ -22,6 +22,7 @@ class Player {
             fadeRate: wakeConfig.fadeRate
         })
 
+        this.movement = new GridMovement(grid)
         this.effectManager = new EffectManager(this)
 
         this.reset()
@@ -64,23 +65,16 @@ class Player {
             return expiredEffects
         }
 
-        const moveAmount = this.speed * delta / 1000
-        const target = this.grid.getNodePosition(this.targetRow, this.targetCol)
-        const current = new Vector2(this.x, this.y)
-        const distance = Vector2.distance(current, target)
+        const result = this.movement.update(delta, this.speed, this.x, this.y, this.targetRow, this.targetCol)
+        this.x = result.x
+        this.y = result.y
 
-        // Snap to target if close enough, otherwise interpolate
-        if (distance < moveAmount) {
-            this.x = target.x
-            this.y = target.y
+        if (result.arrived) {
             this.row = this.targetRow
             this.col = this.targetCol
             this.isMoving = false
         } else {
-            const dir = Vector2.direction(current, target)
-            this.x += dir.x * moveAmount
-            this.y += dir.y * moveAmount
-            this.wake.update(delta, true, this.x, this.y, dir.x, dir.y)
+            this.wake.update(delta, true, this.x, this.y, result.dirX, result.dirY)
         }
 
         return expiredEffects

@@ -21,6 +21,7 @@ public/
 │   ├── effects/     → Visual effects
 │   ├── enemies/     → Enemy types
 │   ├── engine/      → Core game engine
+│   ├── helpers/     → Reusable behavior helpers
 │   ├── io/          → Input/output handling
 │   └── ui/          → UI components
 ├── levels/          → Level definitions (JSON)

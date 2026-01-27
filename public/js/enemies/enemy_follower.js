@@ -26,6 +26,7 @@ class EnemyFollower {
         this.isMoving = false // True while interpolating to target
         this.rotation = 0 // Current rotation angle in radians
 
+        this.movement = new GridMovement(grid)
         this.wake = new WakeTrail(pos.x, pos.y, Constants.game.animations.wakeTrail.slow)
 
         this.playerRow = 0 // Cached player row for pathfinding
@@ -46,8 +47,6 @@ class EnemyFollower {
         // Continuous rotation
         this.rotation += this.rotationSpeed * delta / 1000
 
-        const moveAmount = this.speed * delta / 1000
-
         // If not moving, calculate next best adjacent node
         if (!this.isMoving) {
             const nextNode = this.pickBestAdjacentNode()
@@ -60,27 +59,17 @@ class EnemyFollower {
             return
         }
 
-        // Interpolate toward target node
-        const target = this.grid.getNodePosition(this.targetRow, this.targetCol)
-        const current = new Vector2(this.x, this.y)
-        const distance = Vector2.distance(current, target)
+        const result = this.movement.update(delta, this.speed, this.x, this.y, this.targetRow, this.targetCol)
+        this.x = result.x
+        this.y = result.y
 
-        if (distance < moveAmount) {
-            // Reached target node
-            this.x = target.x
-            this.y = target.y
+        if (result.arrived) {
             this.row = this.targetRow
             this.col = this.targetCol
             this.isMoving = false
-
-            // Reset wake at waypoint
             this.wake.reset(this.x, this.y)
         } else {
-            // Continue interpolating
-            const dir = Vector2.direction(current, target)
-            this.x += dir.x * moveAmount
-            this.y += dir.y * moveAmount
-            this.wake.update(delta, true, this.x, this.y, dir.x, dir.y)
+            this.wake.update(delta, true, this.x, this.y, result.dirX, result.dirY)
         }
     }
 

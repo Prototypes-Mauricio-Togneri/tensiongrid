@@ -84,6 +84,12 @@ Cyberpunk/neon aesthetic with these design elements:
 - Supports `excludes.nodes` config to remove nodes and their edges from the grid
 - Supports `excludes.edges` config to remove specific edges (bidirectional)
 
+**GridMovement** (`js/helpers/grid_movement.js`) - Smooth interpolation movement:
+- Handles movement interpolation between grid nodes
+- Used by Player, EnemyBullet, EnemyPatrol, EnemyFollower
+- `update(delta, speed, x, y, targetRow, targetCol)` - Calculate interpolated position
+- Returns `{ arrived, x, y, dirX, dirY }` - new position and direction
+
 **Camera** (`js/ui/camera.js`) - Viewport and camera system:
 - `setViewport(width, height)` - Update viewport size on canvas resize
 - `follow(targetX, targetY)` - Center camera on target with edge clamping
@@ -136,14 +142,14 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getRenderHints()` - Returns combined render data for all active effects (includes warning blink for effects with warningDuration)
 - `clear()` - Removes all effects (on death/reset)
 
-**WakeTrail** (`js/effects/wake_trail.js`) - Wake trail state manager:
+**WakeTrail** (`js/helpers/wake_trail.js`) - Wake trail state manager:
 - Manages wake trail effect state for moving entities
 - Used by Player, EnemyBullet, EnemyPatrol, EnemyFollower
 - `update(delta, isMoving, x, y, dirX, dirY)` - Update intensity and position
 - `reset(x, y)` - Reset trail to position with zero intensity
 - Config: `buildRate` (intensity increase per ms), `trailDistance` (pixels behind entity), `fadeRate` (optional, intensity decrease per ms when stationary)
 
-**IntermittentState** (`js/effects/intermittent_state.js`) - On/off cycling state manager:
+**IntermittentState** (`js/helpers/intermittent_state.js`) - On/off cycling state manager:
 - Manages intermittent on/off behavior for hazard entities
 - Used by EnemyLaser, EnemyTrap
 - `isIntermittent()` - Check if entity cycles on/off
@@ -152,7 +158,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Config: `timeOn`/`timeOff` (ms, undefined for persistent), `intensityMin`/`intensityMax`, `transitionSpeed`
 
 **Player** (`js/engine/player.js`) - Player entity:
-- Grid-snapped target-based movement
+- Grid-snapped target-based movement via GridMovement
 - Wake trail via WakeTrail instance (fast profile with fade)
 - `effectManager` - EffectManager instance for handling active effects
 - `moveTo(row, col, teleport)` - Movement with optional teleport
@@ -221,7 +227,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getProgress()` - Returns animation progress 0-1
 
 **EnemyBullet** (`js/enemies/enemy_bullet.js`) - Threat entity:
-- Linear movement along grid lines
+- Linear movement along grid lines via GridMovement
 - Wake trail via WakeTrail instance (fast profile)
 - Removed when exiting bounds
 
@@ -262,18 +268,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - Config: `x`, `y`, plus optional `leftDelay`, `rightDelay`, `upDelay`, `downDelay` (ms between shots), `rotationDelay` (ms per 90-degree rotation)
 
 **EnemyPatrol** (`js/enemies/enemy_patrol.js`) - Moving path-based hazard:
-- Moves along a predefined cyclical path of grid nodes
+- Moves along a predefined cyclical path of grid nodes via GridMovement
 - Purple flat-top hexagon visual shape (#aa44ff)
-- Smooth interpolation between nodes (like EnemyBullet)
 - Wake trail via WakeTrail instance (slow profile, resets at waypoints)
 - Kills player on contact (grid-based collision)
 - Path wraps cyclically: after reaching last node, returns to first
 - Config: `speed` (pixels/second), `path` (array of {x, y} node coordinates)
 
 **EnemyFollower** (`js/enemies/enemy_follower.js`) - Player-tracking hazard:
-- Actively pursues player by moving toward the best adjacent node
+- Actively pursues player by moving toward the best adjacent node via GridMovement
 - Cyan square visual shape (#00ccff) that continuously rotates on its center
-- Smooth interpolation between nodes (like EnemyPatrol)
 - Wake trail via WakeTrail instance (slow profile, resets at waypoints)
 - At each node, calculates which adjacent node minimizes distance to player
 - While moving between nodes, does NOT recalculate - continues to target

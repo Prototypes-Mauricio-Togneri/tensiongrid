@@ -5,10 +5,6 @@
 - Where else can we play an sound?
 - Follower another color (different from power up)
 
-Issue: Position interpolation 
-Files Affected: Player, EnemyBullet, EnemyPatrol, EnemyFollower 
-Duplicated Lines: ~50 lines 
-────────────────────────────────────────
 Issue: Grid position initialization 
 Files Affected: Exit, Switch, Power, EnemyTrap, EnemyMine, EnemyShooter
 Duplicated Lines: ~20 lines 
