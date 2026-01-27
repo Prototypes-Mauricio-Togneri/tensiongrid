@@ -4,4 +4,3 @@
 
 - Where else can we play an sound?
 - Follower another color (different from power up)
-- Refactor app to use component based architecture (like Flame)
