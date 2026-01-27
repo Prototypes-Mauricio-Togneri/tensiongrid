@@ -223,12 +223,18 @@ const Constants = {
 
         // Exit portal settings
         exit: {
-            size: 14,              // Circle radius in pixels
-            pulseSpeed: 0.004,     // Pulse oscillation speed (radians per ms)
-            pulseMin: 0.4,         // Minimum glow intensity
-            pulseMax: 1.0,         // Maximum glow intensity
-            glowBlurMin: 12,       // Minimum glow blur radius in pixels
-            glowBlurMax: 25        // Maximum glow blur radius in pixels
+            size: 20,                 // Circle radius in pixels
+            pulseSpeed: 0.004,        // Pulse oscillation speed (radians per ms)
+            pulseMin: 0.4,            // Minimum glow intensity
+            pulseMax: 0.8,            // Maximum glow intensity
+            glowBlurMin: 12,          // Minimum glow blur radius in pixels
+            glowBlurMax: 25,          // Maximum glow blur radius in pixels
+            particleCount: 20,        // Number of orbiting particles
+            particleSize: 2,          // Particle radius in pixels
+            particleOrbitMin: 19,     // Minimum orbit radius in pixels
+            particleOrbitMax: 21,     // Maximum orbit radius in pixels
+            particleSpeedMin: 0.001,  // Minimum orbit speed (radians per ms)
+            particleSpeedMax: 0.004   // Maximum orbit speed (radians per ms)
         },
 
         // Effect configurations (used by EffectManager)

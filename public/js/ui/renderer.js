@@ -897,7 +897,7 @@ class Renderer {
     }
 
     /**
-     * Draw exit portal with pulsing glow border effect.
+     * Draw exit portal with radial gradient and orbiting particles.
      * @param {Exit} exit - Exit instance to draw
      */
     drawExit(exit) {
@@ -905,7 +905,6 @@ class Renderer {
         const pos = this.toScreen(exit.x, exit.y)
         const size = exit.size
         const borderColor = exit.getBorderColor()
-        const glowColor = exit.getGlowColor()
         const exitConfig = Constants.game.exit
         const intensity = exit.getPulseIntensity()
 
@@ -913,34 +912,56 @@ class Renderer {
         const { glowBlurMin, glowBlurMax } = exitConfig
         const glowBlur = glowBlurMin + (glowBlurMax - glowBlurMin) * intensity
 
-        // Outer glow (pulsing)
+        // Orbiting particles with curved wakes
+        const particles = exit.getParticles()
+        const wakeLength = 0.4 // Radians of arc for wake trail
+
+        for (const p of particles) {
+            // Draw curved wake trail (arc behind particle)
+            const wakeStartAngle = p.angle - wakeLength
+            const gradient = ctx.createConicGradient(p.angle - Math.PI, pos.x, pos.y)
+            gradient.addColorStop(0, 'transparent')
+            gradient.addColorStop(wakeLength / (Math.PI * 2), borderColor)
+            gradient.addColorStop(1, 'transparent')
+
+            ctx.save()
+            ctx.strokeStyle = borderColor
+            ctx.lineWidth = exitConfig.particleSize * 2
+            ctx.lineCap = 'round'
+            ctx.globalAlpha = 0.5
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, p.radius, wakeStartAngle, p.angle)
+            ctx.stroke()
+            ctx.restore()
+
+            // Draw particle
+            ctx.save()
+            ctx.globalAlpha = 0.6
+            ctx.shadowColor = borderColor
+            ctx.shadowBlur = 6
+            ctx.fillStyle = borderColor
+            ctx.beginPath()
+            ctx.arc(pos.x + p.x, pos.y + p.y, exitConfig.particleSize, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+        }
+
+        // Radial gradient from border color (outside) to transparent (center)
+        const gradient = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, size)
+        gradient.addColorStop(0, 'transparent')
+        gradient.addColorStop(0.3, 'transparent')
+        gradient.addColorStop(1, borderColor)
+
+        // Portal with pulsing glow
         ctx.save()
         ctx.globalAlpha = intensity
         ctx.shadowColor = borderColor
         ctx.shadowBlur = glowBlur
-        ctx.strokeStyle = glowColor
-        ctx.lineWidth = 4 + 2 * intensity
-        ctx.beginPath()
-        ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
-        ctx.stroke()
-        ctx.restore()
-
-        // Main border circle
-        ctx.save()
-        ctx.shadowColor = borderColor
-        ctx.shadowBlur = 8 + 8 * intensity
-        ctx.strokeStyle = borderColor
-        ctx.lineWidth = 3
+        ctx.fillStyle = gradient
         ctx.beginPath()
         ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
-        ctx.stroke()
-        ctx.restore()
-
-        // Black center fill
-        ctx.fillStyle = this.colors.exitCenter
-        ctx.beginPath()
-        ctx.arc(pos.x, pos.y, size - 2, 0, Math.PI * 2)
         ctx.fill()
+        ctx.restore()
     }
 
     /**

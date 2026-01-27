@@ -1,6 +1,6 @@
 /**
  * Exit portal entity that allows player to complete the level.
- * Sits at a grid position with pulsing glow border effect.
+ * Sits at a grid position with pulsing glow border and orbiting particles.
  * Can be open (green) or closed (red) based on level configuration.
  */
 class Exit {
@@ -22,15 +22,40 @@ class Exit {
 
         this.size = Constants.game.exit.size
         this.pulsePhase = 0
+        this.particles = this.initParticles()
     }
 
     /**
-     * Update pulse animation.
-     * Creates breathing glow effect.
+     * Initialize orbiting particles with varied orbit radii and speeds.
+     * @returns {Array} Array of particle objects
+     */
+    initParticles() {
+        const { particleCount, particleOrbitMin, particleOrbitMax, particleSpeedMin, particleSpeedMax } = Constants.game.exit
+        const particles = []
+        const orbitRange = particleOrbitMax - particleOrbitMin
+        const speedRange = particleSpeedMax - particleSpeedMin
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                angle: Math.random() * Math.PI * 2,
+                radius: particleOrbitMin + Math.random() * orbitRange,
+                speed: particleSpeedMin + Math.random() * speedRange
+            })
+        }
+        return particles
+    }
+
+    /**
+     * Update pulse and particle animations.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
         this.pulsePhase += Constants.game.exit.pulseSpeed * delta
+
+        // Update orbiting particles
+        for (const p of this.particles) {
+            p.angle += p.speed * delta
+        }
     }
 
     /**
@@ -41,6 +66,19 @@ class Exit {
         const { pulseMin, pulseMax } = Constants.game.exit
         const range = pulseMax - pulseMin
         return pulseMin + range * (0.5 + 0.5 * Math.sin(this.pulsePhase))
+    }
+
+    /**
+     * Get particle positions for rendering.
+     * @returns {Array} Array of particle objects with x, y offsets, angle, and radius
+     */
+    getParticles() {
+        return this.particles.map(p => ({
+            x: Math.cos(p.angle) * p.radius,
+            y: Math.sin(p.angle) * p.radius,
+            angle: p.angle,
+            radius: p.radius
+        }))
     }
 
     /**
