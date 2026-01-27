@@ -15,12 +15,7 @@ class Player {
         this.startY = config.startY   // Starting grid row
         this.startX = config.startX   // Starting grid column
 
-        const wakeConfig = Constants.game.animations.wakeTrail
-        this.wake = new WakeTrail(0, 0, {
-            buildRate: wakeConfig.fast.buildRate,
-            trailDistance: wakeConfig.fast.trailDistance,
-            fadeRate: wakeConfig.fadeRate
-        })
+        this.wake = new WakeTrail(0, 0, Constants.game.animations.wakeTrail.fast)
 
         this.movement = new GridMovement(grid)
         this.effectManager = new EffectManager(this)

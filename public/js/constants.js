@@ -149,8 +149,8 @@ const Constants = {
 
         // Player settings
         player: {
-            size: 12,  // Player rhombus size in pixels
-            speed: 200 // Movement speed in pixels/second
+            size: 12,       // Player rhombus size in pixels
+            speed: 200      // Movement speed in pixels/second
         },
 
         // Physics settings
@@ -196,7 +196,7 @@ const Constants = {
                 armLength: 28                  // Turret arm length from center in pixels
             },
             follower: {
-                size: 10,                       // Follower size in pixels
+                size: 10,                      // Follower size in pixels
                 rotationSpeed: 3               // Rotation speed in radians/second
             }
         },
@@ -313,13 +313,14 @@ const Constants = {
             wakeTrail: {
                 fast: {
                     buildRate: 0.05,    // Intensity increase per ms (player, bullet)
-                    trailDistance: 60   // Trail length in pixels
+                    trailDistance: 60,  // Trail length in pixels
+                    fadeRate: 0.004     // Intensity decrease per ms when stationary (player only)
                 },
                 slow: {
                     buildRate: 0.005,   // Intensity increase per ms (patrol, follower)
-                    trailDistance: 50   // Trail length in pixels
-                },
-                fadeRate: 0.004         // Intensity decrease per ms when stationary (player only)
+                    trailDistance: 50,  // Trail length in pixels
+                    fadeRate: 0         // No fade (always moving)
+                }
             }
         },
 

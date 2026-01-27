@@ -61,7 +61,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `game.animations.pixelExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
 - `game.animations.mineExplosion`: particle count (12), particle size (4px), end radius (35px), duration (600ms)
 - `game.animations.exitWarp`: duration (1000ms) - player shrink/fade into exit portal
-- `game.animations.wakeTrail`: fast profile (buildRate 0.05, trailDistance 60), slow profile (buildRate 0.005, trailDistance 50), fadeRate (0.004) - wake trail effect behind moving entities
+- `game.animations.wakeTrail`: fast profile (buildRate 0.05, trailDistance 60, fadeRate 0.004), slow profile (buildRate 0.005, trailDistance 50, fadeRate 0) - wake trail effect behind moving entities
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
 - `storage`: localStorage key names (audioEnabled, firstPlay)
