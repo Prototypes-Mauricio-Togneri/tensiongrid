@@ -127,11 +127,10 @@ class EnemyManager {
             laser.update(delta)
         }
 
-        // Update trap states (for intermittent traps) and remove expired
+        // Update trap states (for intermittent traps)
         for (const trap of this.traps) {
             trap.update(delta)
         }
-        this.traps = this.traps.filter(trap => !trap.isExpired())
 
         // Update mines and spawn bullets on explosion
         this.explodedMinePositions = []
@@ -143,7 +142,6 @@ class EnemyManager {
                 this.audioManager.playSound(Constants.audio.sounds.explosionMine)
             }
         }
-        this.mines = this.mines.filter(mine => !mine.isExpired())
 
         // Update shooters and spawn bullets they fire
         for (const shooter of this.shooters) {

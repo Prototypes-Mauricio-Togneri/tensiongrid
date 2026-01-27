@@ -17,7 +17,6 @@ class EnemyTrap {
         this.x = pos.x // World X coordinate
         this.y = pos.y // World Y coordinate
         this.size = Constants.game.enemies.trap.size // Trap size in pixels
-        this.ttl = config.ttl // Time to live in ms (undefined for permanent)
 
         const trapConfig = Constants.game.enemies.trap
         this.state = new IntermittentState({
@@ -46,28 +45,15 @@ class EnemyTrap {
     }
 
     /**
-     * Update intermittent trap state, opacity transitions, and TTL countdown.
+     * Update intermittent trap state and opacity transitions.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */
     update(delta) {
-        // Decrement TTL if set
-        if (this.ttl !== undefined) {
-            this.ttl -= delta
-        }
-
         this.state.update(delta)
     }
 
     // Opacity getter for renderer compatibility
     get opacity() { return this.state.intensity }
-
-    /**
-     * Check if trap has expired (TTL reached zero).
-     * @returns {boolean} True if trap should be removed
-     */
-    isExpired() {
-        return this.ttl !== undefined && this.ttl <= 0
-    }
 
     /**
      * Get current world position.

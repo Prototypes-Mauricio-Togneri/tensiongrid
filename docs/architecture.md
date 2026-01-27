@@ -239,7 +239,6 @@ Cyberpunk/neon aesthetic with these design elements:
 - Other entities (bullets) pass through unaffected
 - Persists across player deaths (static level feature)
 - Optional intermittent mode via IntermittentState: `timeOn`/`timeOff` (ms) to cycle on/off
-- Optional `ttl` (ms): time to live, trap is removed when TTL reaches zero
 
 **EnemyMine** (`js/enemies/enemy_mine.js`) - Triggered explosive hazard:
 - Fixed position on a single grid node
@@ -250,7 +249,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - On touch: begins countdown with accelerating blink frequency (2Hz → 10Hz)
 - After delay: spawns bullets in ALL valid directions from its node (one per connected edge)
 - One-time use: disappears after explosion (resets with level reset)
-- Config: `x`, `y`, `delay` (ms, mandatory), optional `ttl` (ms, time to live)
+- Config: `x`, `y`, `delay` (ms, mandatory)
 
 **EnemyShooter** (`js/enemies/enemy_shooter.js`) - Static turret hazard:
 - Fixed position on a single grid node

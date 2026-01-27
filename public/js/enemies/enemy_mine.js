@@ -25,7 +25,6 @@ class EnemyMine {
 
         this.state = EnemyMine.STATE_DORMANT
         this.timer = 0 // Time elapsed since triggered
-        this.ttl = config.ttl // Time to live in ms (undefined for permanent)
     }
 
     /**
@@ -63,16 +62,11 @@ class EnemyMine {
     }
 
     /**
-     * Update mine countdown timer and TTL.
+     * Update mine countdown timer.
      * @param {number} delta - Time elapsed since last frame in ms
      * @returns {boolean} True if mine just exploded this frame
      */
     update(delta) {
-        // Decrement TTL if set and mine hasn't exploded
-        if (this.ttl !== undefined && this.state !== EnemyMine.STATE_EXPLODED) {
-            this.ttl -= delta
-        }
-
         if (this.state !== EnemyMine.STATE_TRIGGERED) return false
 
         this.timer += delta
@@ -81,14 +75,6 @@ class EnemyMine {
             return true // Signal explosion occurred
         }
         return false
-    }
-
-    /**
-     * Check if mine has expired (TTL reached zero).
-     * @returns {boolean} True if mine should be removed
-     */
-    isExpired() {
-        return this.ttl !== undefined && this.ttl <= 0
     }
 
     /**
