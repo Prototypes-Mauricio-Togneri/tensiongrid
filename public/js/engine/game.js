@@ -447,6 +447,7 @@ class Game {
      */
     handleLevelComplete() {
         this.exiting = true
+        this.player.wakeIntensity = 0
         this.exitAnimation = new PlayerExitAnimation(
             this.player.x,
             this.player.y,
