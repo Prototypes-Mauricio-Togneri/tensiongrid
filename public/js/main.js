@@ -210,7 +210,7 @@
         if (currentScreen === Constants.screens.game && input.isEscapePressed()) {
             input.consumeEscape()
             if (isPaused) {
-                audioManager.playSound(Constants.audio.sounds.closeScreen)
+                audioManager.playSound(Constants.audio.sounds.pauseMenu)
                 hidePauseMenu()
                 game.resume()
             } else {
