@@ -438,6 +438,11 @@ const Constants = {
                 path: 'audio/music/game.mp3', // Game screen background music
                 volume: 0.5                   // Volume (0.0 to 1.0)
             }
+        },
+        musicSpeed: {
+            normal: 1.0, // Normal playback speed
+            fast: 1.5,   // Speed when fast effect is active
+            slow: 0.5    // Speed when slow effect is active
         }
     },
 

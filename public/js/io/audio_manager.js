@@ -149,6 +149,16 @@ class AudioManager {
     }
 
     /**
+     * Set playback speed of current music.
+     * @param {number} rate - Playback rate (1.0 = normal, 0.5 = half speed, 2.0 = double speed)
+     */
+    setMusicSpeed(rate) {
+        if (this.currentMusic) {
+            this.currentMusic.playbackRate = rate
+        }
+    }
+
+    /**
      * Set up event listeners to detect first user interaction.
      * Required to unlock audio playback due to browser autoplay policies.
      */

@@ -82,6 +82,11 @@ class Game {
         const expiredEffects = this.player.update(delta)
         if (expiredEffects.length > 0) {
             this.audioManager.playSound(Constants.audio.sounds.powerExpired)
+            // Reset music speed if fast or slow effect expired
+            if (expiredEffects.includes(Constants.game.effects.fast.type) ||
+                expiredEffects.includes(Constants.game.effects.slow.type)) {
+                this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.normal)
+            }
         }
         this.enemyManager.update(delta, this.player.row, this.player.col)
 
@@ -235,6 +240,13 @@ class Game {
         const effectConfig = Constants.game.effects[effectType]
         this.player.effectManager.addEffect(effectType, effectConfig)
 
+        // Adjust music speed for speed effects
+        if (effectType === Constants.game.effects.fast.type) {
+            this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.fast)
+        } else if (effectType === Constants.game.effects.slow.type) {
+            this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.slow)
+        }
+
         // Determine color for wave effect
         let waveColor
         if (power.isNegative) {
@@ -374,6 +386,7 @@ class Game {
         this.player.reset()
         this.playerWrap = new PlayerWrapAnimation(this.player.x, this.player.y, true)
         this.audioManager.playSound(Constants.audio.sounds.wrapAround)
+        this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.normal)
         this.enemyManager.clear()
         this.initPowers(this.levelData)   // Respawn powers
         this.initExit(this.levelData)     // Reinitialize exit (resets particle animation)
@@ -509,6 +522,7 @@ class Game {
      */
     stop() {
         this.running = false
+        this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.normal)
         window.removeEventListener(Constants.events.resize, this.boundResizeCanvas)
     }
 
