@@ -376,8 +376,8 @@ const Constants = {
             followerHighlight: '#ffffff70', // Follower inner highlight
 
             // Power-up colors
-            powerUp: '#00ccff',             // Power-up fill color (light blue)
-            powerUpGlow: '#00ccff4d',       // Power-up glow effect
+            powerUp: '#4466ff',             // Power-up fill color (electric blue)
+            powerUpGlow: '#4466ff4d',       // Power-up glow effect
             powerUpIcon: '#ffffff',         // Power-up icon color (white)
 
             // Power-down colors
@@ -386,8 +386,8 @@ const Constants = {
             powerDownIcon: '#ffffff',       // Power-down icon color (white)
 
             // Shield colors
-            shield: '#00ccff',              // Shield circle color (light blue)
-            shieldGlow: '#00ccff4d',        // Shield glow effect
+            shield: '#4466ff',              // Shield circle color (electric blue)
+            shieldGlow: '#4466ff4d',        // Shield glow effect
             shieldIcon: '#ffffff',          // Shield icon color (white)
 
             // Exit portal colors

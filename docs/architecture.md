@@ -199,7 +199,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **CollectionWaveAnimation** (`js/animations/collection_wave_animation.js`) - Collectible pickup effect:
 - Visual effect for collectible item pickup (powers, switches)
 - Single expanding ring that fades out as it grows
-- Color passed as constructor parameter (cyan for power-up, red for power-down, gold for switch)
+- Color passed as constructor parameter (electric blue for power-up, red for power-down, gold for switch)
 - Ease-out expansion over 300ms
 - `update(delta)` - Advance animation
 - `isComplete()` - Returns true when animation finished
@@ -345,8 +345,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `drawWakeTrail(entity, size, color, shadowColor?, endColor?)` - Unified wake trail rendering for moving entities
 - `drawGlowedShape(x, y, size, color, glowColor, drawShape)` - Standard 3-layer glow effect (outer glow → main → highlight)
 - Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, turtle for slow, parallel arrows for mirror)
-- Player boost indicator: cyan glow when speed boost is active, red glow when slowed
-- Shield rendering: light blue pulsing circular aura around player when shield is active
+- Player boost indicator: electric blue glow when speed boost is active, red glow when slowed
+- Shield rendering: electric blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
 
 **UIManager** (`js/io/ui_manager.js`) - UI effects:
@@ -370,7 +370,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Camera follows player each frame (instant jump on teleport)
 - Single powers array for both power-ups and power-downs
 - Power collection creates effects via `player.effectManager.addEffect(type, config)`
-- Collection wave animation on power pickup (cyan/blue for power-ups, red for power-downs)
+- Collection wave animation on power pickup (electric blue for power-ups, red for power-downs)
 - Powers respawn on player death
 - Responsive canvas with window resize handling and mobile scaling (73% at <768px viewport)
 
