@@ -426,7 +426,8 @@ const Constants = {
             wrapAround: 'audio/sound/wrap_around.wav',           // Grid wrap teleport sound effect
             switchCollected: 'audio/sound/switch_collected.wav', // Switch collection sound effect
             exitOpen: 'audio/sound/exit_open.wav',               // Exit open touch sound effect
-            exitClosed: 'audio/sound/exit_closed.wav'            // Exit closed touch sound effect
+            exitClosed: 'audio/sound/exit_closed.wav',           // Exit closed touch sound effect
+            levelFinished: 'audio/sound/level_finished.wav'      // Level completion sound effect
         },
         music: {
             menu: {

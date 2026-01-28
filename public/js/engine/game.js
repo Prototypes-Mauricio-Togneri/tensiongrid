@@ -154,6 +154,9 @@ class Game {
                     ? Constants.audio.sounds.exitOpen
                     : Constants.audio.sounds.exitClosed
                 this.audioManager.playSound(sound)
+                if (this.exit.canExit()) {
+                    this.audioManager.playSound(Constants.audio.sounds.levelFinished)
+                }
             }
             if (this.exit.canExit()) {
                 this.handleLevelComplete()
