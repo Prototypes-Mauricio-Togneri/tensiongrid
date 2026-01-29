@@ -47,5 +47,9 @@
     "type": "command",
     "command": "./scripts/statusline.sh",
     "padding": 0
+  },
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": ["Working"]
   }
 }
