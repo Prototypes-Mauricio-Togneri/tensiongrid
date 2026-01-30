@@ -524,6 +524,159 @@ canvas {
     justify-content: center;
 }
 
+/* ============================================
+   Grid Coordinate Level Selector
+   ============================================ */
+
+/* Grid container */
+.grid-container {
+    --grid-cols: 5;
+    --grid-rows: 2;
+    --cell-size: 80px;
+    --grid-gap: 20px;
+    --node-size: 52px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), var(--cell-size));
+    grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
+    gap: var(--grid-gap);
+    margin-top: 240px;
+    padding: 20px;
+}
+
+/* Grid lines background */
+.grid-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Horizontal grid lines */
+.grid-lines::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - var(--grid-gap) / 2);
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0, 245, 255, 0.3) 10%,
+        rgba(0, 245, 255, 0.3) 90%,
+        transparent 100%
+    );
+    box-shadow: 0 0 8px rgba(0, 245, 255, 0.2);
+}
+
+/* Vertical grid lines */
+.grid-lines::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(0, 245, 255, 0.3) 10%,
+        rgba(0, 245, 255, 0.3) 90%,
+        transparent 100%
+    );
+    box-shadow: 0 0 8px rgba(0, 245, 255, 0.2);
+}
+
+/* Level node */
+.grid-node {
+    width: var(--node-size);
+    height: var(--node-size);
+    border-radius: 50%;
+    background: rgba(0, 245, 255, 0.08);
+    border: 2px solid rgba(0, 245, 255, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(0, 245, 255, 0.5);
+    transition: all 0.2s ease;
+    outline: none;
+    justify-self: center;
+    align-self: center;
+    z-index: 1;
+    position: relative;
+}
+
+/* Pulsing ring effect on nodes */
+.grid-node::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 245, 255, 0.15);
+    animation: nodePulse 2s ease-in-out infinite;
+}
+
+@keyframes nodePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.2;
+    }
+}
+
+/* Selected node */
+.grid-node.selected {
+    background: rgba(0, 245, 255, 0.15);
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow:
+        0 0 15px var(--neon-cyan),
+        0 0 30px rgba(0, 245, 255, 0.4),
+        inset 0 0 10px rgba(0, 245, 255, 0.1);
+}
+
+.grid-node.selected::before {
+    border-color: var(--neon-cyan);
+    animation: selectedPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes selectedPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 0.3;
+    }
+}
+
+/* Locked node (hollow) */
+.grid-node.locked {
+    background: transparent;
+    border-color: rgba(0, 245, 255, 0.12);
+    border-style: dashed;
+    color: rgba(0, 245, 255, 0.15);
+    cursor: not-allowed;
+}
+
+.grid-node.locked::before {
+    display: none;
+}
+
 /* Settings screen layout */
 #settingsScreen {
     min-height: 100vh;
@@ -826,6 +979,25 @@ canvas {
         letter-spacing: 0.25em;
     }
 
+    /* Grid adjustments */
+    .grid-container {
+        --cell-size: 65px;
+        --grid-gap: 16px;
+        --node-size: 44px;
+        margin-top: 200px;
+    }
+
+    .grid-node {
+        font-size: 0.95rem;
+    }
+
+    .grid-node::before {
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+    }
+
     /* Pause modal */
     .pause-modal {
         padding: 28px 48px 24px 48px;
@@ -911,6 +1083,26 @@ canvas {
         top: 50px;
         font-size: 1.5rem;
         letter-spacing: 0.2em;
+    }
+
+    /* Grid adjustments */
+    .grid-container {
+        --cell-size: 52px;
+        --grid-gap: 12px;
+        --node-size: 36px;
+        margin-top: 150px;
+        padding: 15px;
+    }
+
+    .grid-node {
+        font-size: 0.85rem;
+    }
+
+    .grid-node::before {
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
     }
 
     /* Pause modal */
@@ -1008,6 +1200,27 @@ canvas {
         top: 40px;
         font-size: 1.3rem;
         letter-spacing: 0.15em;
+    }
+
+    /* Grid adjustments */
+    .grid-container {
+        --cell-size: 44px;
+        --grid-gap: 8px;
+        --node-size: 30px;
+        margin-top: 120px;
+        padding: 10px;
+    }
+
+    .grid-node {
+        font-size: 0.75rem;
+        border-width: 1.5px;
+    }
+
+    .grid-node::before {
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
     }
 
     /* Pause modal */

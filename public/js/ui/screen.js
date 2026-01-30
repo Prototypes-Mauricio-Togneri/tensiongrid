@@ -10,10 +10,10 @@ class Screen {
             [Constants.screens.levels]: document.getElementById(Constants.dom.ids.levelsScreen),
             [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen)
         }
-        this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)      // All home menu buttons
-        this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons
-        this.menuIndex = 0    // Selected index in home menu
-        this.levelsIndex = 0  // Selected index in levels menu
+        this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons) // All home menu buttons
+        this.gridNodes = document.querySelectorAll(Constants.dom.selectors.gridNodes)      // Grid coordinate nodes
+        this.menuIndex = 0       // Selected index in home menu
+        this.selectedLevel = 1   // Selected level number (1-10) for grid
         this.currentScreen = Constants.screens.home // Currently active screen
         this.cachedVisibleButtons = null // Cached visible buttons (invalidated on resize)
 
@@ -61,9 +61,9 @@ class Screen {
             this.currentScreen = screenName
         }
 
-        // Reset menu index when entering levels screen (except when returning from game)
+        // Reset selected level when entering levels screen (except when returning from game)
         if (screenName === Constants.screens.levels && previousScreen !== Constants.screens.game) {
-            this.levelsIndex = 0
+            this.selectedLevel = 1
             this.updateLevelsButtonSelection()
         }
     }
@@ -90,24 +90,21 @@ class Screen {
     }
 
     /**
-     * Navigate levels menu up or down.
-     * @param {string} direction - Direction key from Constants.keys
+     * Navigate grid in given direction (4-directional).
+     * @param {string} direction - Direction key from Constants.keys (up/down/left/right)
      */
     navigateLevels(direction) {
         if (this.currentScreen !== Constants.screens.levels) return false
 
-        const len = this.levelsButtons.length
-        let changed = false
-        if (direction === Constants.keys.up && this.levelsIndex > 0) {
-            this.levelsIndex--
-            changed = true
-        } else if (direction === Constants.keys.down && this.levelsIndex < len - 1) {
-            this.levelsIndex++
-            changed = true
-        }
+        const nav = Constants.levelGrid.navigation[this.selectedLevel]
+        if (!nav) return false
 
-        if (changed) this.updateLevelsButtonSelection()
-        return changed
+        const newLevel = nav[direction]
+        if (newLevel === null || newLevel === undefined) return false
+
+        this.selectedLevel = newLevel
+        this.updateLevelsButtonSelection()
+        return true
     }
 
     /**
@@ -120,25 +117,26 @@ class Screen {
     }
 
     /**
-     * Update visual selection state for levels menu buttons.
+     * Update visual selection state for grid nodes.
      */
     updateLevelsButtonSelection() {
-        this.levelsButtons.forEach((btn, i) => {
-            btn.classList.toggle(Constants.dom.classes.selected, i === this.levelsIndex)
+        this.gridNodes.forEach(node => {
+            const level = parseInt(node.dataset.level, 10)
+            node.classList.toggle(Constants.dom.classes.selected, level === this.selectedLevel)
         })
     }
 
     /**
-     * Update locked state for level buttons based on progress.
+     * Update locked state for grid nodes based on progress.
      * @param {LocalStorage} storage - Storage instance to check unlock state
      */
     updateLevelButtonStates(storage) {
-        this.levelsButtons.forEach(btn => {
-            const levelNumber = parseInt(btn.dataset.action.split('_')[1], 10)
+        this.gridNodes.forEach(node => {
+            const levelNumber = parseInt(node.dataset.level, 10)
             if (storage.isLevelUnlocked(levelNumber)) {
-                btn.classList.remove(Constants.dom.classes.locked)
+                node.classList.remove(Constants.dom.classes.locked)
             } else {
-                btn.classList.add(Constants.dom.classes.locked)
+                node.classList.add(Constants.dom.classes.locked)
             }
         })
     }
@@ -153,12 +151,14 @@ class Screen {
     }
 
     /**
-     * Get action string from currently selected levels button.
+     * Get action string from currently selected grid node.
      * @returns {string|null} Action data attribute value (level filename)
      */
     getSelectedLevelsAction() {
-        const selectedButton = this.levelsButtons[this.levelsIndex]
-        return selectedButton ? selectedButton.dataset.action : null
+        const node = Array.from(this.gridNodes).find(
+            n => parseInt(n.dataset.level, 10) === this.selectedLevel
+        )
+        return node ? node.dataset.action : null
     }
 
     /**

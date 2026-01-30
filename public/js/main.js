@@ -54,8 +54,9 @@
     }
 
     // Input edge detection state (tracks previous frame to detect key-down events)
-    let lastMenuInput = { up: false, down: false }        // For menu navigation
-    let lastSettingsInput = { left: false, right: false } // For settings toggles
+    let lastMenuInput = { up: false, down: false }                      // For home menu navigation
+    let lastGridInput = { up: false, down: false, left: false, right: false } // For grid navigation
+    let lastSettingsInput = { left: false, right: false }               // For settings toggles
     const audioToggle = document.getElementById(Constants.dom.ids.audioToggle)
 
     // Pause menu state
@@ -67,10 +68,12 @@
     let gameStartedFrom = '' // Screen to return to when quitting (home or levels)
     let currentLevel = ''    // Path to current level JSON
 
-    // Enable swipe input only on game screen when not paused
-    input.setSwipeEnabled(() =>
-        screen.getCurrentScreen() === Constants.screens.game && !isPaused
-    )
+    // Enable swipe input on game screen (when not paused) and levels screen
+    input.setSwipeEnabled(() => {
+        const currentScreen = screen.getCurrentScreen()
+        return (currentScreen === Constants.screens.game && !isPaused) ||
+               currentScreen === Constants.screens.levels
+    })
 
     /**
      * Update pause menu button selection visual state.
@@ -311,21 +314,33 @@
             lastSettingsInput.right = input.keys.right
         }
 
-        // Levels screen input handling
+        // Levels screen input handling (grid - 4 directions)
         if (currentScreen === Constants.screens.levels) {
-            // Navigate menu (edge detection, clamped)
-            if (input.keys.up && !lastMenuInput.up) {
+            // Navigate grid (edge detection)
+            if (input.keys.up && !lastGridInput.up) {
                 if (screen.navigateLevels(Constants.keys.up)) {
                     audioManager.playSound(Constants.audio.sounds.menuChange)
                 }
             }
-            if (input.keys.down && !lastMenuInput.down) {
+            if (input.keys.down && !lastGridInput.down) {
                 if (screen.navigateLevels(Constants.keys.down)) {
                     audioManager.playSound(Constants.audio.sounds.menuChange)
                 }
             }
-            lastMenuInput.up = input.keys.up
-            lastMenuInput.down = input.keys.down
+            if (input.keys.left && !lastGridInput.left) {
+                if (screen.navigateLevels(Constants.keys.left)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            if (input.keys.right && !lastGridInput.right) {
+                if (screen.navigateLevels(Constants.keys.right)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            lastGridInput.up = input.keys.up
+            lastGridInput.down = input.keys.down
+            lastGridInput.left = input.keys.left
+            lastGridInput.right = input.keys.right
 
             // Handle level selection
             if (input.isSelectPressed()) {
@@ -350,12 +365,19 @@
         })
     })
 
-    // Levels menu button clicks
-    screen.levelsButtons.forEach((btn, i) => {
-        btn.addEventListener(Constants.events.click, () => {
-            screen.levelsIndex = i
-            screen.updateLevelsButtonSelection()
-            handleLevelsMenuAction(btn.dataset.action)
+    // Grid node clicks
+    screen.gridNodes.forEach(node => {
+        node.addEventListener(Constants.events.click, () => {
+            const level = parseInt(node.dataset.level, 10)
+            if (level !== screen.selectedLevel) {
+                // Navigate to clicked level
+                screen.selectedLevel = level
+                screen.updateLevelsButtonSelection()
+                audioManager.playSound(Constants.audio.sounds.menuChange)
+            } else {
+                // Select current level
+                handleLevelsMenuAction(node.dataset.action)
+            }
         })
     })
 

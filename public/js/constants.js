@@ -30,7 +30,34 @@ const Constants = {
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',    // Home menu buttons
-            levelsMenuButtons: '#levelsScreen .menu-button' // Level select buttons
+            levelsMenuButtons: '#levelsScreen .menu-button', // Level select buttons (legacy)
+            gridNodes: '#levelGrid .grid-node'              // Grid coordinate nodes
+        }
+    },
+
+    // ==========================================
+    // Grid Coordinate System
+    // ==========================================
+    levelGrid: {
+        cols: 5,  // Grid columns
+        rows: 2,  // Grid rows
+        // Level positions as [col, row] (0-indexed)
+        positions: {
+            1:  [0, 0], 2:  [1, 0], 3:  [2, 0], 4:  [3, 0], 5:  [4, 0],
+            6:  [0, 1], 7:  [1, 1], 8:  [2, 1], 9:  [3, 1], 10: [4, 1]
+        },
+        // Navigation map: level -> direction -> target level (null = no neighbor)
+        navigation: {
+            1:  { up: null, down: 6,    left: null, right: 2    },
+            2:  { up: null, down: 7,    left: 1,    right: 3    },
+            3:  { up: null, down: 8,    left: 2,    right: 4    },
+            4:  { up: null, down: 9,    left: 3,    right: 5    },
+            5:  { up: null, down: 10,   left: 4,    right: null },
+            6:  { up: 1,    down: null, left: null, right: 7    },
+            7:  { up: 2,    down: null, left: 6,    right: 8    },
+            8:  { up: 3,    down: null, left: 7,    right: 9    },
+            9:  { up: 4,    down: null, left: 8,    right: 10   },
+            10: { up: 5,    down: null, left: 9,    right: null }
         }
     },
 

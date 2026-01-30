@@ -73,17 +73,20 @@
         <!-- Levels Screen -->
         <div class="screen" id="levelsScreen">
             <h2 class="screen-title">LEVELS</h2>
-            <div class="menu">
-                <button class="menu-button" data-action="level_001">Level 1</button>
-                <button class="menu-button" data-action="level_002">Level 2</button>
-                <button class="menu-button" data-action="level_003">Level 3</button>
-                <button class="menu-button" data-action="level_004">Level 4</button>
-                <button class="menu-button" data-action="level_005">Level 5</button>
-                <button class="menu-button" data-action="level_006">Level 6</button>
-                <button class="menu-button" data-action="level_007">Level 7</button>
-                <button class="menu-button" data-action="level_008">Level 8</button>
-                <button class="menu-button" data-action="level_009">Level 9</button>
-                <button class="menu-button" data-action="level_010">Level 10</button>
+            <div class="grid-container" id="levelGrid">
+                <!-- Grid lines rendered via CSS -->
+                <div class="grid-lines"></div>
+                <!-- Level nodes - 5x2 grid -->
+                <button class="grid-node" data-level="1" data-action="level_001" data-col="0" data-row="0">1</button>
+                <button class="grid-node" data-level="2" data-action="level_002" data-col="1" data-row="0">2</button>
+                <button class="grid-node" data-level="3" data-action="level_003" data-col="2" data-row="0">3</button>
+                <button class="grid-node" data-level="4" data-action="level_004" data-col="3" data-row="0">4</button>
+                <button class="grid-node" data-level="5" data-action="level_005" data-col="4" data-row="0">5</button>
+                <button class="grid-node" data-level="6" data-action="level_006" data-col="0" data-row="1">6</button>
+                <button class="grid-node" data-level="7" data-action="level_007" data-col="1" data-row="1">7</button>
+                <button class="grid-node" data-level="8" data-action="level_008" data-col="2" data-row="1">8</button>
+                <button class="grid-node" data-level="9" data-action="level_009" data-col="3" data-row="1">9</button>
+                <button class="grid-node" data-level="10" data-action="level_010" data-col="4" data-row="1">10</button>
             </div>
         </div>
 
