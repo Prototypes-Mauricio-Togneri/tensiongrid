@@ -10,6 +10,9 @@
     const game = new Game(Constants.dom.ids.gameCanvas, input, audioManager)
     const screen = new Screen()
 
+    // Debug: expose game globally for console inspection
+    window._debug = { game, storage, screen }
+
     /**
      * Play main menu background music.
      */
@@ -125,7 +128,7 @@
         game.start(levelData)
 
         // Set level completion callback
-        game.setOnLevelComplete(async () => {
+        game.setOnLevelComplete(() => {
             // Unlock next level on completion
             const nextLevel = levelData.id + 1
             if (nextLevel > storage.getCurrentLevel()) {
@@ -135,17 +138,9 @@
 
             // Check if next level exists
             if (nextLevel <= Constants.game.totalLevels) {
-                // Auto-advance to next level
+                // Auto-advance to next level (use openGameScreen to properly set up new callback)
                 const nextLevelPath = storage.getLevelPath(nextLevel)
-                const response = await fetch(nextLevelPath)
-                const nextLevelData = await response.json()
-                currentLevel = nextLevelPath
-                game.start(nextLevelData)
-
-                // Preload the level after this one
-                if (nextLevel + 1 <= Constants.game.totalLevels) {
-                    storage.preloadLevel(nextLevel + 1)
-                }
+                openGameScreen(nextLevelPath, gameStartedFrom)
             } else {
                 // Last level completed - return to previous screen
                 playMenuMusic()

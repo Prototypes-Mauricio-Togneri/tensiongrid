@@ -16,7 +16,9 @@
       "Bash(./scripts/generate-version.sh:*)",
       "Bash(./scripts/version.sh:*)",
       "Bash(git -C /home/max/Repositories/atomic/tensiongrid show HEAD:public/js/io/local_storage.js)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(do echo \"=== $f ===\")",
+      "Bash(python3 -m json.tool:*)"
     ]
   },
   "hooks": {
@@ -50,6 +52,8 @@
   },
   "spinnerVerbs": {
     "mode": "replace",
-    "verbs": ["Working"]
+    "verbs": [
+      "Working"
+    ]
   }
 }

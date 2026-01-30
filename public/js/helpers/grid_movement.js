@@ -28,8 +28,8 @@ class GridMovement {
         const dy = target.y - y
         const distance = Math.sqrt(dx * dx + dy * dy)
 
-        // Snap to target if close enough
-        if (distance < moveAmount) {
+        // Snap to target if close enough (or already there)
+        if (distance <= moveAmount || distance === 0) {
             return {
                 arrived: true,
                 x: target.x,

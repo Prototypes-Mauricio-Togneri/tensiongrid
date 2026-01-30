@@ -421,6 +421,7 @@ class Game {
      */
     init(levelData) {
         this.levelData = levelData // Store for reset
+        this.onLevelComplete = null // Clear old callback to prevent stale references
         this.grid = new Grid({ ...Constants.game.grid, ...levelData.grid })
         this.camera = new Camera(this.grid)
         this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
@@ -514,6 +515,7 @@ class Game {
         this.reset()
         this.running = true
         this.lastTime = performance.now() // Initialize to avoid large first-frame delta
+        window.addEventListener(Constants.events.resize, this.boundResizeCanvas)
         requestAnimationFrame((t) => this.gameLoop(t))
     }
 
