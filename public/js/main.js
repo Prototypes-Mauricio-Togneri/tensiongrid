@@ -22,7 +22,7 @@
      * @returns {boolean} True if no saved level exists, false otherwise
      */
     function isFirstPlay() {
-        return !storage.hasCurrentLevel()
+        return !storage.hasCurrentLevel() || storage.getCurrentLevel() === 1
     }
 
     /**
