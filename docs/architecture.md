@@ -45,7 +45,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s), wall core width (8px), wall glow width (14px), wall shadow blur (12px/18px)
 - `powers.size`: (12px) - collectible size for all power types
 - `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
 - `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms), timerArcOffset (6px), timerArcThickness (4px), timerArcWarningThreshold (0.25)
@@ -55,7 +55,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
 - `effects.immunity`: duration (1000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
-- `colors`: all game element colors with glow variants (includes switch: gold #ffd700)
+- `colors`: all game element colors with glow variants (includes switch: gold #ffd700, wall: slate blue #5588bb)
 - `game.animations.playerWrap`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
 - `game.animations.collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `game.animations.playerExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
@@ -316,6 +316,14 @@ Cyberpunk/neon aesthetic with these design elements:
 - Collection triggers yellow wave animation and sound effect
 - Resets on player death (switch reappears, exit closes)
 - Config: `x`, `y` (node position), `unlocks` ('exit'), `ttl` (milliseconds)
+
+**Wall** (`js/engine/wall.js`) - Static movement barrier:
+- Line segment between two grid nodes (can span multiple nodes)
+- Blocks player movement TO any node that lies on the wall's path
+- Does not damage player (purely structural)
+- Slate blue color (#5588bb) with glow effect
+- Persists across player deaths (static level feature)
+- Config: `from` (start node {x, y}), `to` (end node {x, y})
 
 **AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds

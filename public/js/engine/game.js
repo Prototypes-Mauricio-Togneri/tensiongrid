@@ -303,6 +303,8 @@ class Game {
         if (this.grid.isExcluded(wrapped.row, wrapped.col)) return
         // Block movement across excluded edges (unless wrapping)
         if (!wrapped.wrapped && this.grid.isEdgeExcluded(this.player.row, this.player.col, wrapped.row, wrapped.col)) return
+        // Block movement to nodes that lie on any wall
+        if (this.isNodeBlockedByWall(wrapped.row, wrapped.col)) return
 
         this.player.moveTo(wrapped.row, wrapped.col, wrapped.wrapped)
         // Disable input briefly after wrapping to prevent rapid teleporting
@@ -322,6 +324,7 @@ class Game {
     render(time) {
         this.renderer.clear()
         this.renderer.drawGrid(this.grid)
+        this.renderer.drawWalls(this.walls)
 
         // Draw exit portal (behind other entities)
         if (this.exit) {
@@ -391,6 +394,7 @@ class Game {
         this.initPowers(this.levelData)   // Respawn powers
         this.initExit(this.levelData)     // Reinitialize exit (resets particle animation)
         this.initSwitches(this.levelData) // Reset switches
+        this.initWalls(this.levelData)    // Reinitialize walls
         this.camera.follow(this.player.x, this.player.y)
     }
 
@@ -431,6 +435,7 @@ class Game {
         this.powers = []             // Active powers (power-ups and power-downs)
         this.exit = null             // Exit portal (single per level, optional)
         this.switches = []           // Switches that unlock the exit
+        this.walls = []              // Static walls that block movement
         this.playerWrap = null       // Player wrap effect
         this.collectionWave = null   // Collection wave effect
         this.mineExplosions = []     // Active mine explosion effects
@@ -440,6 +445,7 @@ class Game {
         this.initPowers(levelData)
         this.initExit(levelData)
         this.initSwitches(levelData)
+        this.initWalls(levelData)
     }
 
     /**
@@ -502,6 +508,35 @@ class Game {
                 this.switches.push(new Switch(config, this.grid))
             }
         }
+    }
+
+    /**
+     * Initialize walls from level data.
+     * @param {Object} levelData - Level configuration containing walls array
+     */
+    initWalls(levelData) {
+        this.walls = []
+        if (levelData.walls) {
+            for (const config of levelData.walls) {
+                this.walls.push(new Wall(this.grid, config))
+            }
+        }
+    }
+
+    /**
+     * Check if any wall blocks movement to a target node.
+     * A wall blocks a node if the node lies on the wall's path.
+     * @param {number} row - Target row
+     * @param {number} col - Target column
+     * @returns {boolean} True if a wall blocks this node
+     */
+    isNodeBlockedByWall(row, col) {
+        for (const wall of this.walls) {
+            if (wall.containsNode(row, col)) {
+                return true
+            }
+        }
+        return false
     }
 
     /**

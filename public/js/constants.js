@@ -200,6 +200,12 @@ const Constants = {
                 coreShadowBlur: 10,            // Core line shadow blur radius in pixels
                 glowShadowBlur: 20             // Outer glow shadow blur radius in pixels
             },
+            wall: {
+                coreWidth: 8,              // Main wall line thickness in pixels
+                glowWidth: 14,             // Outer glow line thickness in pixels
+                coreShadowBlur: 12,        // Core line shadow blur radius in pixels
+                glowShadowBlur: 18         // Outer glow shadow blur radius in pixels
+            },
             trap: {
                 size: 14,                      // Trap size in pixels
                 opacityTransitionSpeed: 0.004, // Opacity change per ms during transitions
@@ -378,6 +384,10 @@ const Constants = {
             // Laser colors
             laser: '#ff4da6',               // Laser beam color
             laserGlow: '#ff4da680',         // Laser glow effect
+
+            // Wall colors
+            wall: '#5588bb',                // Wall core color (slate blue)
+            wallGlow: '#5588bb80',          // Wall glow effect
 
             // Trap colors
             trap: '#ff8800',                // Trap fill color (orange)

@@ -519,6 +519,47 @@ class Renderer {
     }
 
     /**
+     * Draw walls as solid bars with glow effect.
+     * @param {Wall[]} walls - Array of wall instances
+     */
+    drawWalls(walls) {
+        const ctx = this.ctx
+        const settings = Constants.game.enemies.wall
+
+        for (const wall of walls) {
+            const positions = wall.getWorldPositions()
+            const start = this.toScreen(positions.start.x, positions.start.y)
+            const end = this.toScreen(positions.end.x, positions.end.y)
+
+            // Outer glow (wide, semi-transparent)
+            ctx.save()
+            ctx.strokeStyle = this.colors.wallGlow
+            ctx.lineWidth = settings.glowWidth
+            ctx.lineCap = 'round'
+            ctx.shadowColor = this.colors.wall
+            ctx.shadowBlur = settings.glowShadowBlur
+            ctx.beginPath()
+            ctx.moveTo(start.x, start.y)
+            ctx.lineTo(end.x, end.y)
+            ctx.stroke()
+            ctx.restore()
+
+            // Main wall line (solid core)
+            ctx.save()
+            ctx.strokeStyle = this.colors.wall
+            ctx.lineWidth = settings.coreWidth
+            ctx.lineCap = 'round'
+            ctx.shadowColor = this.colors.wall
+            ctx.shadowBlur = settings.coreShadowBlur
+            ctx.beginPath()
+            ctx.moveTo(start.x, start.y)
+            ctx.lineTo(end.x, end.y)
+            ctx.stroke()
+            ctx.restore()
+        }
+    }
+
+    /**
      * Draw traps with rhombus shape.
      * Opacity transitions smoothly based on active state.
      * @param {EnemyTrap[]} traps - Array of trap instances

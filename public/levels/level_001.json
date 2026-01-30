@@ -13,6 +13,9 @@
     "y": 4,
     "status": "open"
   },
+  "walls": [
+    { "from": { "x": 0, "y": 0 }, "to": { "x": 4, "y": 0 } }
+  ],
   "enemies": {
     "enemyBullet": [
       {
