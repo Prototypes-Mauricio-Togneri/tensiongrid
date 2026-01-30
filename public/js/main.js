@@ -56,6 +56,11 @@
     // Input edge detection state (tracks previous frame to detect key-down events)
     let lastMenuInput = { up: false, down: false }        // For menu navigation
     let lastSettingsInput = { left: false, right: false } // For settings toggles
+    let lastLevelsInput = { left: false, right: false }   // For levels timeline navigation
+
+    // Continuous navigation state for levels timeline
+    let levelsRepeatTimer = null   // Timer for repeat navigation
+    let levelsRepeatDirection = null // Current repeat direction ('left' or 'right')
     const audioToggle = document.getElementById(Constants.dom.ids.audioToggle)
 
     // Pause menu state
@@ -67,10 +72,12 @@
     let gameStartedFrom = '' // Screen to return to when quitting (home or levels)
     let currentLevel = ''    // Path to current level JSON
 
-    // Enable swipe input only on game screen when not paused
-    input.setSwipeEnabled(() =>
-        screen.getCurrentScreen() === Constants.screens.game && !isPaused
-    )
+    // Enable swipe input on game screen (when not paused) and levels screen
+    input.setSwipeEnabled(() => {
+        const currentScreen = screen.getCurrentScreen()
+        return (currentScreen === Constants.screens.game && !isPaused) ||
+               currentScreen === Constants.screens.levels
+    })
 
     /**
      * Update pause menu button selection visual state.
@@ -311,26 +318,65 @@
             lastSettingsInput.right = input.keys.right
         }
 
-        // Levels screen input handling
+        // Levels screen input handling (timeline - left/right navigation with repeat)
         if (currentScreen === Constants.screens.levels) {
-            // Navigate menu (edge detection, clamped)
-            if (input.keys.up && !lastMenuInput.up) {
-                if (screen.navigateLevels(Constants.keys.up)) {
-                    audioManager.playSound(Constants.audio.sounds.menuChange)
+            // Helper to start repeat navigation
+            const startRepeat = (direction) => {
+                if (levelsRepeatTimer) return
+                levelsRepeatDirection = direction
+                levelsRepeatTimer = setTimeout(function repeat() {
+                    if (screen.navigateLevels(direction)) {
+                        audioManager.playSound(Constants.audio.sounds.menuChange)
+                    }
+                    levelsRepeatTimer = setTimeout(repeat, Constants.navigation.repeatInterval)
+                }, Constants.navigation.repeatDelay)
+            }
+
+            // Helper to stop repeat navigation
+            const stopRepeat = () => {
+                if (levelsRepeatTimer) {
+                    clearTimeout(levelsRepeatTimer)
+                    levelsRepeatTimer = null
+                    levelsRepeatDirection = null
                 }
             }
-            if (input.keys.down && !lastMenuInput.down) {
-                if (screen.navigateLevels(Constants.keys.down)) {
+
+            // Navigate timeline on initial press
+            if (input.keys.left && !lastLevelsInput.left) {
+                if (screen.navigateLevels(Constants.keys.left)) {
                     audioManager.playSound(Constants.audio.sounds.menuChange)
                 }
+                startRepeat(Constants.keys.left)
             }
-            lastMenuInput.up = input.keys.up
-            lastMenuInput.down = input.keys.down
+            if (input.keys.right && !lastLevelsInput.right) {
+                if (screen.navigateLevels(Constants.keys.right)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+                startRepeat(Constants.keys.right)
+            }
+
+            // Stop repeat when key released
+            if (!input.keys.left && levelsRepeatDirection === Constants.keys.left) {
+                stopRepeat()
+            }
+            if (!input.keys.right && levelsRepeatDirection === Constants.keys.right) {
+                stopRepeat()
+            }
+
+            lastLevelsInput.left = input.keys.left
+            lastLevelsInput.right = input.keys.right
 
             // Handle level selection
             if (input.isSelectPressed()) {
                 input.consumeSelect()
                 handleLevelsMenuAction(screen.getSelectedLevelsAction())
+            }
+        } else {
+            // Clear repeat timer when leaving levels screen
+            if (levelsRepeatTimer) {
+                clearTimeout(levelsRepeatTimer)
+                levelsRepeatTimer = null
+                levelsRepeatDirection = null
             }
         }
 
@@ -350,12 +396,28 @@
         })
     })
 
-    // Levels menu button clicks
+    // Levels menu button clicks (legacy)
     screen.levelsButtons.forEach((btn, i) => {
         btn.addEventListener(Constants.events.click, () => {
             screen.levelsIndex = i
             screen.updateLevelsButtonSelection()
             handleLevelsMenuAction(btn.dataset.action)
+        })
+    })
+
+    // Timeline marker clicks
+    screen.timelineMarkers.forEach(marker => {
+        marker.addEventListener(Constants.events.click, () => {
+            const level = parseInt(marker.dataset.level, 10)
+            if (level !== screen.selectedLevel) {
+                // Navigate to this marker
+                screen.selectedLevel = level
+                screen.updateTimelineSelection()
+                audioManager.playSound(Constants.audio.sounds.menuChange)
+            } else {
+                // Already selected - activate it
+                handleLevelsMenuAction(marker.dataset.action)
+            }
         })
     })
 

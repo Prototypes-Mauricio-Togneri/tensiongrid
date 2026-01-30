@@ -30,7 +30,8 @@ const Constants = {
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',    // Home menu buttons
-            levelsMenuButtons: '#levelsScreen .menu-button' // Level select buttons
+            levelsMenuButtons: '#levelsScreen .menu-button', // Level select buttons (legacy)
+            timelineMarkers: '#levelTimeline .timeline-marker' // Timeline level markers
         }
     },
 
@@ -55,6 +56,14 @@ const Constants = {
     // ==========================================
     swipe: {
         minDistance: 30 // Minimum swipe distance in pixels
+    },
+
+    // ==========================================
+    // Navigation Configuration
+    // ==========================================
+    navigation: {
+        repeatDelay: 400,   // Initial delay before repeat starts (ms)
+        repeatInterval: 150 // Interval between repeats (ms)
     },
 
     // ==========================================

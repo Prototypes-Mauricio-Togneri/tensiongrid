@@ -11,9 +11,11 @@ class Screen {
             [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen)
         }
         this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)      // All home menu buttons
-        this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons
+        this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons (legacy)
+        this.timelineMarkers = document.querySelectorAll(Constants.dom.selectors.timelineMarkers) // Timeline level markers
         this.menuIndex = 0    // Selected index in home menu
-        this.levelsIndex = 0  // Selected index in levels menu
+        this.levelsIndex = 0  // Selected index in levels menu (legacy)
+        this.selectedLevel = 1 // Selected level number (1-10) for timeline
         this.currentScreen = Constants.screens.home // Currently active screen
         this.cachedVisibleButtons = null // Cached visible buttons (invalidated on resize)
 
@@ -22,6 +24,7 @@ class Screen {
 
         this.updateButtonSelection()
         this.updateLevelsButtonSelection()
+        this.updateTimelineSelection()
     }
 
     /**
@@ -64,7 +67,9 @@ class Screen {
         // Reset menu index when entering levels screen (except when returning from game)
         if (screenName === Constants.screens.levels && previousScreen !== Constants.screens.game) {
             this.levelsIndex = 0
+            this.selectedLevel = 1
             this.updateLevelsButtonSelection()
+            this.updateTimelineSelection()
         }
     }
 
@@ -90,23 +95,23 @@ class Screen {
     }
 
     /**
-     * Navigate levels menu up or down.
-     * @param {string} direction - Direction key from Constants.keys
+     * Navigate levels timeline left or right.
+     * @param {string} direction - Direction key from Constants.keys (left/right)
      */
     navigateLevels(direction) {
         if (this.currentScreen !== Constants.screens.levels) return false
 
-        const len = this.levelsButtons.length
+        const totalLevels = this.timelineMarkers.length
         let changed = false
-        if (direction === Constants.keys.up && this.levelsIndex > 0) {
-            this.levelsIndex--
+        if (direction === Constants.keys.left && this.selectedLevel > 1) {
+            this.selectedLevel--
             changed = true
-        } else if (direction === Constants.keys.down && this.levelsIndex < len - 1) {
-            this.levelsIndex++
+        } else if (direction === Constants.keys.right && this.selectedLevel < totalLevels) {
+            this.selectedLevel++
             changed = true
         }
 
-        if (changed) this.updateLevelsButtonSelection()
+        if (changed) this.updateTimelineSelection()
         return changed
     }
 
@@ -120,7 +125,7 @@ class Screen {
     }
 
     /**
-     * Update visual selection state for levels menu buttons.
+     * Update visual selection state for levels menu buttons (legacy).
      */
     updateLevelsButtonSelection() {
         this.levelsButtons.forEach((btn, i) => {
@@ -129,10 +134,21 @@ class Screen {
     }
 
     /**
+     * Update visual selection state for timeline markers.
+     */
+    updateTimelineSelection() {
+        this.timelineMarkers.forEach(marker => {
+            const level = parseInt(marker.dataset.level, 10)
+            marker.classList.toggle(Constants.dom.classes.selected, level === this.selectedLevel)
+        })
+    }
+
+    /**
      * Update locked state for level buttons based on progress.
      * @param {LocalStorage} storage - Storage instance to check unlock state
      */
     updateLevelButtonStates(storage) {
+        // Update legacy buttons
         this.levelsButtons.forEach(btn => {
             const levelNumber = parseInt(btn.dataset.action.split('_')[1], 10)
             if (storage.isLevelUnlocked(levelNumber)) {
@@ -141,6 +157,26 @@ class Screen {
                 btn.classList.add(Constants.dom.classes.locked)
             }
         })
+
+        // Update timeline markers
+        let highestUnlocked = 1
+        this.timelineMarkers.forEach(marker => {
+            const levelNumber = parseInt(marker.dataset.level, 10)
+            if (storage.isLevelUnlocked(levelNumber)) {
+                marker.classList.remove(Constants.dom.classes.locked)
+                highestUnlocked = Math.max(highestUnlocked, levelNumber)
+            } else {
+                marker.classList.add(Constants.dom.classes.locked)
+            }
+        })
+
+        // Update progress line width (percentage based on unlocked levels)
+        const totalLevels = this.timelineMarkers.length
+        const progressPercent = ((highestUnlocked - 0.5) / totalLevels) * 100
+        const container = document.getElementById('levelTimeline')
+        if (container) {
+            container.style.setProperty('--progress-width', `${progressPercent}%`)
+        }
     }
 
     /**
@@ -153,12 +189,14 @@ class Screen {
     }
 
     /**
-     * Get action string from currently selected levels button.
+     * Get action string from currently selected timeline marker.
      * @returns {string|null} Action data attribute value (level filename)
      */
     getSelectedLevelsAction() {
-        const selectedButton = this.levelsButtons[this.levelsIndex]
-        return selectedButton ? selectedButton.dataset.action : null
+        const selectedMarker = Array.from(this.timelineMarkers).find(
+            marker => parseInt(marker.dataset.level, 10) === this.selectedLevel
+        )
+        return selectedMarker ? selectedMarker.dataset.action : null
     }
 
     /**
