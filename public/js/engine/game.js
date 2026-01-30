@@ -271,7 +271,7 @@ class Game {
 
         // Unlock the target
         if (sw.unlocks === 'exit' && this.exit) {
-            this.exit.open()
+            this.exit.open(sw.ttl)
         }
 
         // Play sound and create wave animation

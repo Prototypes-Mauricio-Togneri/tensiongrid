@@ -1,4 +1,5 @@
 {
+  "id": 2,
   "grid": {
     "width": 11,
     "height": 11,
@@ -37,6 +38,19 @@
     "startX": 5,
     "startY": 5
   },
+  "exit": {
+    "x": 10,
+    "y": 0,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 0,
+      "y": 5,
+      "unlocks": "exit",
+      "ttl": 10000
+    }
+  ],
   "enemies": {
     "enemyFollower": [
       {

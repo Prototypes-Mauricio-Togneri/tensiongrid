@@ -48,7 +48,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s)
 - `powers.size`: (12px) - collectible size for all power types
 - `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
-- `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms)
+- `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms), timerArcOffset (6px), timerArcThickness (4px), timerArcWarningThreshold (0.25)
 - `switch`: size (16px)
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
@@ -296,13 +296,15 @@ Cyberpunk/neon aesthetic with these design elements:
 - Fixed position on a single grid node
 - Tunnel animation: static outer ring with shrinking rings that create depth illusion
 - Two states: `open` (green rings) or `closed` (red rings)
+- Timer arc: when opened with TTL, displays draining arc around exit (green → red in final 25%)
 - Open exit: touching completes level and returns to previous screen
 - Closed exit: player can walk through without effect
 - Static outer ring always visible at 50% opacity
 - New rings spawn every second at outer radius, then shrink toward center
 - Rings fade out and get thinner as they approach the center
 - Multiple rings visible simultaneously create tunnel/portal effect
-- `open()` / `close()` methods allow dynamic state changes (used by switches)
+- `open(ttl?)` / `close()` methods allow dynamic state changes (used by switches)
+- `getTimerProgress()` returns `{progress, isWarning}` for timer arc rendering
 - Config: `x`, `y` (node position), `status` ('open' or 'closed')
 
 **Switch** (`js/engine/switch.js`) - Timed unlock mechanism:

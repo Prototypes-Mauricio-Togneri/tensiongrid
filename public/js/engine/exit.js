@@ -23,6 +23,10 @@ class Exit {
         this.size = Constants.game.exit.size
         this.rings = []      // Array of active shrinking rings
         this.spawnTimer = 0  // Timer for spawning new rings
+
+        // Timer arc state (null when not active)
+        this.timerDuration = null   // Total TTL duration in ms
+        this.timerRemaining = null  // Remaining time in ms
     }
 
     /**
@@ -46,6 +50,14 @@ class Exit {
 
         // Remove rings that reached center
         this.rings = this.rings.filter(ring => ring.radius > 0)
+
+        // Update timer countdown
+        if (this.timerRemaining !== null) {
+            this.timerRemaining -= delta
+            if (this.timerRemaining < 0) {
+                this.timerRemaining = 0
+            }
+        }
     }
 
     /**
@@ -66,9 +78,14 @@ class Exit {
 
     /**
      * Open the exit portal.
+     * @param {number} [ttl] - Optional time-to-live in ms (for timer arc display)
      */
-    open() {
+    open(ttl) {
         this.isOpen = true
+        if (ttl !== undefined) {
+            this.timerDuration = ttl
+            this.timerRemaining = ttl
+        }
     }
 
     /**
@@ -76,6 +93,8 @@ class Exit {
      */
     close() {
         this.isOpen = false
+        this.timerDuration = null
+        this.timerRemaining = null
     }
 
     /**
@@ -94,5 +113,21 @@ class Exit {
         return this.isOpen
             ? Constants.game.colors.exitOpen
             : Constants.game.colors.exitClosed
+    }
+
+    /**
+     * Get timer arc progress data for rendering.
+     * @returns {Object|null} Timer data {progress, isWarning} or null if no timer
+     */
+    getTimerProgress() {
+        if (this.timerDuration === null || this.timerRemaining === null) {
+            return null
+        }
+        const progress = this.timerRemaining / this.timerDuration
+        const { timerArcWarningThreshold } = Constants.game.exit
+        return {
+            progress: Math.max(0, Math.min(1, progress)),
+            isWarning: progress <= timerArcWarningThreshold
+        }
     }
 }

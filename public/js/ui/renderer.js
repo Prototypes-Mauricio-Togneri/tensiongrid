@@ -933,6 +933,27 @@ class Renderer {
         ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
         ctx.stroke()
         ctx.restore()
+
+        // Draw timer arc (if active)
+        const timerData = exit.getTimerProgress()
+        if (timerData && timerData.progress > 0) {
+            const { timerArcOffset, timerArcThickness } = Constants.game.exit
+            const arcRadius = size + timerArcOffset
+
+            // Arc starts at top (-π/2) and depletes clockwise
+            const startAngle = -Math.PI / 2
+            const endAngle = startAngle + (timerData.progress * Math.PI * 2)
+
+            ctx.save()
+            ctx.globalAlpha = 0.6
+            ctx.strokeStyle = this.colors.exitTimerFull
+            ctx.lineWidth = timerArcThickness
+            ctx.lineCap = 'round'
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, arcRadius, startAngle, endAngle)
+            ctx.stroke()
+            ctx.restore()
+        }
     }
 
     /**

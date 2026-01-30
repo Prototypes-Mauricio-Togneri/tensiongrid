@@ -227,7 +227,10 @@ const Constants = {
             ringThickness: 3,       // Ring stroke width in pixels
             ringOpacity: 0.5,       // Base opacity for outer ring
             ringSpawnInterval: 500, // Ms between ring spawns
-            ringSpeed: 0.01         // Shrink speed (radius reduction per ms)
+            ringSpeed: 0.01,        // Shrink speed (radius reduction per ms)
+            timerArcOffset: 6,      // Timer arc offset outside outer ring in pixels
+            timerArcThickness: 4,   // Timer arc stroke width in pixels
+            timerArcWarningThreshold: 0.25 // Fraction when arc color shifts to red
         },
 
         // Switch settings
@@ -396,6 +399,8 @@ const Constants = {
             exitClosed: '#ff4444',          // Closed exit border (red)
             exitClosedGlow: '#ff444480',    // Closed exit glow effect
             exitCenter: '#0a0a0f',          // Exit center fill (dark)
+            exitTimerFull: '#44ff44',       // Timer arc at full (green)
+            exitTimerWarning: '#ff4444',    // Timer arc at warning (red)
 
             // Switch colors
             switch: '#ffd700',              // Switch fill color (gold/yellow)
