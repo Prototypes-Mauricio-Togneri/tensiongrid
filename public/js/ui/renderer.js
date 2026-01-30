@@ -79,7 +79,7 @@ class Renderer {
         const dx = entity.wakeStartX - entity.x
         const dy = entity.wakeStartY - entity.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist <= 1) return
+        if (dist <= 1 || !isFinite(dist)) return
 
         const ctx = this.ctx
         const pos = this.toScreen(entity.x, entity.y)

@@ -135,6 +135,9 @@ const Constants = {
         // Gym mode configuration path
         gym: 'gyms/gym_2.json',
 
+        // Total number of available levels
+        totalLevels: 10,
+
         // Mobile scaling settings
         scale: {
             mobileBreakpoint: 768, // Viewport width threshold in pixels

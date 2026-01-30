@@ -125,17 +125,34 @@
         game.start(levelData)
 
         // Set level completion callback
-        game.setOnLevelComplete(() => {
+        game.setOnLevelComplete(async () => {
             // Unlock next level on completion
             const nextLevel = levelData.id + 1
             if (nextLevel > storage.getCurrentLevel()) {
                 storage.setCurrentLevel(nextLevel)
             }
             game.stop()
-            playMenuMusic()
-            screen.show(gameStartedFrom)
-            if (gameStartedFrom === Constants.screens.home) {
-                updateContinueButtonText()
+
+            // Check if next level exists
+            if (nextLevel <= Constants.game.totalLevels) {
+                // Auto-advance to next level
+                const nextLevelPath = storage.getLevelPath(nextLevel)
+                const response = await fetch(nextLevelPath)
+                const nextLevelData = await response.json()
+                currentLevel = nextLevelPath
+                game.start(nextLevelData)
+
+                // Preload the level after this one
+                if (nextLevel + 1 <= Constants.game.totalLevels) {
+                    storage.preloadLevel(nextLevel + 1)
+                }
+            } else {
+                // Last level completed - return to previous screen
+                playMenuMusic()
+                screen.show(gameStartedFrom)
+                if (gameStartedFrom === Constants.screens.home) {
+                    updateContinueButtonText()
+                }
             }
         })
     }
