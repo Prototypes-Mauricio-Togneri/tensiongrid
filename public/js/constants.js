@@ -201,10 +201,10 @@ const Constants = {
                 glowShadowBlur: 20             // Outer glow shadow blur radius in pixels
             },
             wall: {
-                coreWidth: 8,              // Main wall line thickness in pixels
-                glowWidth: 14,             // Outer glow line thickness in pixels
-                coreShadowBlur: 12,        // Core line shadow blur radius in pixels
-                glowShadowBlur: 18         // Outer glow shadow blur radius in pixels
+                coreWidth: 4,                  // Main wall line thickness in pixels
+                glowWidth: 8,                  // Outer glow line thickness in pixels
+                coreShadowBlur: 12,            // Core line shadow blur radius in pixels
+                glowShadowBlur: 18             // Outer glow shadow blur radius in pixels
             },
             trap: {
                 size: 14,                      // Trap size in pixels
