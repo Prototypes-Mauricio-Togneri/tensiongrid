@@ -67,6 +67,15 @@ class LocalStorage {
     }
 
     /**
+     * Check if a level is unlocked based on current progress.
+     * @param {number} level - Level number to check
+     * @returns {boolean} True if level is unlocked
+     */
+    isLevelUnlocked(level) {
+        return level <= this.getCurrentLevel()
+    }
+
+    /**
      * Build level file path from level number.
      * @param {number} level - Level number
      * @returns {string} Path to level JSON file

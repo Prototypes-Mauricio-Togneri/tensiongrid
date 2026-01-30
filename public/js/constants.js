@@ -25,7 +25,8 @@ const Constants = {
             shake: 'shake',                   // Screen shake animation class
             active: 'active',                 // Visible screen class
             selected: 'selected',             // Selected menu item class
-            menuButton: 'menu-button'         // Menu button class
+            menuButton: 'menu-button',        // Menu button class
+            locked: 'locked'                  // Locked level button class
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',    // Home menu buttons

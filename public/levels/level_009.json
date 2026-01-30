@@ -1,0 +1,73 @@
+{
+  "id": 9,
+  "grid": {
+    "width": 9,
+    "height": 9
+  },
+  "player": {
+    "startX": 0,
+    "startY": 0
+  },
+  "exit": {
+    "x": 8,
+    "y": 8,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 8,
+      "y": 0,
+      "unlocks": "exit",
+      "ttl": 10000
+    }
+  ],
+  "powerUps": [
+    {"x": 6, "y": 4, "type": "fast"}
+  ],
+  "powerDowns": [
+    {"x": 4, "y": 2, "type": "slow"},
+    {"x": 2, "y": 6, "type": "mirror"}
+  ],
+  "enemies": {
+    "enemyPatrol": [
+      {
+        "speed": 100,
+        "path": [
+          {"x": 2, "y": 4},
+          {"x": 6, "y": 4},
+          {"x": 6, "y": 5},
+          {"x": 2, "y": 5}
+        ]
+      },
+      {
+        "speed": 100,
+        "path": [
+          {"x": 4, "y": 4},
+          {"x": 6, "y": 4},
+          {"x": 6, "y": 5},
+          {"x": 2, "y": 5},
+          {"x": 2, "y": 4}
+        ]
+      },
+      {
+        "speed": 100,
+        "path": [
+          {"x": 6, "y": 4},
+          {"x": 6, "y": 5},
+          {"x": 2, "y": 5},
+          {"x": 2, "y": 4}
+        ]
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 0,
+        "startY": 3,
+        "endX": 8,
+        "endY": 3,
+        "timeOn": 2500,
+        "timeOff": 2000
+      }
+    ]
+  }
+}

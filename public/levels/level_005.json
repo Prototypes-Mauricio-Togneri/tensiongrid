@@ -1,0 +1,34 @@
+{
+  "id": 5,
+  "grid": {
+    "width": 7,
+    "height": 7,
+    "excludes": {
+      "edges": [
+        {"from": {"x": 2, "y": 2}, "to": {"x": 3, "y": 2}},
+        {"from": {"x": 3, "y": 2}, "to": {"x": 4, "y": 2}},
+        {"from": {"x": 2, "y": 4}, "to": {"x": 3, "y": 4}},
+        {"from": {"x": 3, "y": 4}, "to": {"x": 4, "y": 4}}
+      ]
+    }
+  },
+  "player": {
+    "startX": 3,
+    "startY": 0
+  },
+  "exit": {
+    "x": 3,
+    "y": 6,
+    "status": "open"
+  },
+  "enemies": {
+    "enemyShooter": [
+      {
+        "x": 3,
+        "y": 3,
+        "leftDelay": 3000,
+        "rightDelay": 3000
+      }
+    ]
+  }
+}

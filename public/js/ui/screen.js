@@ -129,6 +129,21 @@ class Screen {
     }
 
     /**
+     * Update locked state for level buttons based on progress.
+     * @param {LocalStorage} storage - Storage instance to check unlock state
+     */
+    updateLevelButtonStates(storage) {
+        this.levelsButtons.forEach(btn => {
+            const levelNumber = parseInt(btn.dataset.action.split('_')[1], 10)
+            if (storage.isLevelUnlocked(levelNumber)) {
+                btn.classList.remove(Constants.dom.classes.locked)
+            } else {
+                btn.classList.add(Constants.dom.classes.locked)
+            }
+        })
+    }
+
+    /**
      * Get action string from currently selected home menu button.
      * @returns {string|null} Action data attribute value
      */

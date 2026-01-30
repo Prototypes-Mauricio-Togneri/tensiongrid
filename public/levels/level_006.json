@@ -1,0 +1,32 @@
+{
+  "id": 6,
+  "grid": {
+    "width": 7,
+    "height": 7
+  },
+  "player": {
+    "startX": 0,
+    "startY": 0
+  },
+  "exit": {
+    "x": 6,
+    "y": 6,
+    "status": "open"
+  },
+  "enemies": {
+    "enemyMine": [
+      {"x": 2, "y": 2, "delay": 2000},
+      {"x": 4, "y": 4, "delay": 2000},
+      {"x": 5, "y": 5, "delay": 2500}
+    ],
+    "enemyBullet": [
+      {
+        "x": 0,
+        "y": 3,
+        "direction": "right",
+        "delay": 3000,
+        "interval": 4000
+      }
+    ]
+  }
+}

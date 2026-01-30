@@ -121,15 +121,16 @@
         }
 
         audioManager.playMusic(Constants.audio.music.game)
-        // Update current level in storage if this level is higher than saved progress
-        if (levelData.id > storage.getCurrentLevel()) {
-            storage.setCurrentLevel(levelData.id)
-        }
         screen.show(Constants.screens.game)
         game.start(levelData)
 
         // Set level completion callback
         game.setOnLevelComplete(() => {
+            // Unlock next level on completion
+            const nextLevel = levelData.id + 1
+            if (nextLevel > storage.getCurrentLevel()) {
+                storage.setCurrentLevel(nextLevel)
+            }
             game.stop()
             playMenuMusic()
             screen.show(gameStartedFrom)
@@ -152,6 +153,7 @@
             const levelPath = `levels/level_${String(levelNumber).padStart(3, '0')}.json`
             openGameScreen(levelPath, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
+            screen.updateLevelButtonStates(storage)
             screen.show(Constants.screens.levels)
         } else if (action === Constants.actions.home.fullscreen) {
             if (document.fullscreenElement) {
@@ -194,6 +196,11 @@
      * @param {string} action - The action identifier from button dataset
      */
     function handleLevelsMenuAction(action) {
+        // Block selection of locked levels
+        const levelNumber = parseInt(action.split('_')[1], 10)
+        if (!storage.isLevelUnlocked(levelNumber)) {
+            return
+        }
         audioManager.playSound(Constants.audio.sounds.menuSelect)
         const levelPath = `levels/${action}.json`
         openGameScreen(levelPath, Constants.screens.levels)

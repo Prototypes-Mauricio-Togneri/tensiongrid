@@ -114,8 +114,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - `getAudioEnabled()` - Get audio enabled state (default: true)
 - `setAudioEnabled(enabled)` - Set audio enabled state
 - `hasCurrentLevel()` - Check if current game level exists
-- `getCurrentLevel()` - Get current game level
+- `getCurrentLevel()` - Get current game level (highest completed + 1)
 - `setCurrentLevel(level)` - Set current game level, preloads next level
+- `isLevelUnlocked(level)` - Check if level is unlocked (level <= currentLevel)
 - `getLevelPath(level)` - Build level file path from level number
 - `preloadLevel(level)` - Preload level JSON into browser cache
 

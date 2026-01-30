@@ -507,6 +507,17 @@ canvas {
     opacity: 1;
 }
 
+/* Locked level button style */
+.menu-button.locked {
+    color: rgba(0, 245, 255, 0.15);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.menu-button.locked::before {
+    display: none;
+}
+
 /* Levels screen layout */
 #levelsScreen {
     min-height: 100vh;

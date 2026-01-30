@@ -1,0 +1,81 @@
+{
+  "id": 10,
+  "grid": {
+    "width": 10,
+    "height": 10,
+    "excludes": {
+      "nodes": [
+        {"x": 4, "y": 4},
+        {"x": 5, "y": 5}
+      ]
+    }
+  },
+  "player": {
+    "startX": 0,
+    "startY": 0
+  },
+  "exit": {
+    "x": 9,
+    "y": 9,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 9,
+      "y": 0,
+      "unlocks": "exit",
+      "ttl": 12000
+    }
+  ],
+  "powerUps": [
+    {"x": 2, "y": 8, "type": "fast"},
+    {"x": 7, "y": 2, "type": "shield"}
+  ],
+  "enemies": {
+    "enemyShooter": [
+      {
+        "x": 3,
+        "y": 3,
+        "upDelay": 2500,
+        "downDelay": 2500,
+        "leftDelay": 2500,
+        "rightDelay": 2500,
+        "rotationDelay": 3000
+      },
+      {
+        "x": 6,
+        "y": 6,
+        "upDelay": 3000,
+        "rightDelay": 3000,
+        "rotationDelay": 4000
+      }
+    ],
+    "enemyFollower": [
+      {
+        "startX": 5,
+        "startY": 0,
+        "speed": 65
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 90,
+        "path": [
+          {"x": 7, "y": 8},
+          {"x": 8, "y": 8},
+          {"x": 8, "y": 9},
+          {"x": 7, "y": 9}
+        ]
+      },
+      {
+        "speed": 90,
+        "path": [
+          {"x": 8, "y": 8},
+          {"x": 8, "y": 9},
+          {"x": 7, "y": 9},
+          {"x": 7, "y": 8}
+        ]
+      }
+    ]
+  }
+}

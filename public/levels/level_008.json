@@ -1,0 +1,53 @@
+{
+  "id": 8,
+  "grid": {
+    "width": 8,
+    "height": 8
+  },
+  "player": {
+    "startX": 0,
+    "startY": 4
+  },
+  "exit": {
+    "x": 7,
+    "y": 4,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 4,
+      "y": 0,
+      "unlocks": "exit",
+      "ttl": 6000
+    }
+  ],
+  "powerUps": [
+    {"x": 2, "y": 4, "type": "fast"},
+    {"x": 4, "y": 7, "type": "shield"}
+  ],
+  "enemies": {
+    "enemyFollower": [
+      {
+        "startX": 4,
+        "startY": 4,
+        "speed": 70
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 7,
+        "y": 2,
+        "direction": "left",
+        "delay": 2000,
+        "interval": 3500
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "direction": "right",
+        "delay": 3500,
+        "interval": 3500
+      }
+    ]
+  }
+}
