@@ -110,7 +110,7 @@ class Collision {
      */
     checkPlayerTrapCollision(player, traps) {
         return this.checkAny(player, traps, (p, trap) =>
-            trap.isActive() && this.gridCollides(p, trap)
+            !p.isMoving && trap.isActive() && this.gridCollides(p, trap)
         )
     }
 
