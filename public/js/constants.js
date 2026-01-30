@@ -19,7 +19,11 @@ const Constants = {
             audioToggle: 'audioToggle',       // Audio toggle button
             pauseOverlay: 'pauseOverlay',     // Pause menu overlay
             gameCanvas: 'gameCanvas',         // Main game canvas
-            bgAnimation: 'bgAnimation'        // Background animation container
+            bgAnimation: 'bgAnimation',       // Background animation container
+            levelTimeline: 'levelTimeline',   // Level timeline container
+            timelineMarkers: 'timelineMarkers', // Timeline markers container
+            levelCurrent: 'levelCurrent',     // Current level counter
+            levelTotal: 'levelTotal'          // Total levels counter
         },
         classes: {
             shake: 'shake',                   // Screen shake animation class
@@ -64,6 +68,14 @@ const Constants = {
     navigation: {
         repeatDelay: 400,   // Initial delay before repeat starts (ms)
         repeatInterval: 150 // Interval between repeats (ms)
+    },
+
+    // ==========================================
+    // Timeline Configuration
+    // ==========================================
+    timeline: {
+        visibleCount: 7,       // Number of visible levels at once
+        visibleCountMobile: 5  // Number of visible levels on mobile
     },
 
     // ==========================================

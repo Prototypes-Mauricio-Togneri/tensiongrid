@@ -173,6 +173,7 @@
             openGameScreen(levelPath, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
             screen.updateLevelButtonStates(storage)
+            screen.setSelectedToHighestUnlocked(storage)
             screen.show(Constants.screens.levels)
         } else if (action === Constants.actions.home.fullscreen) {
             if (document.fullscreenElement) {
@@ -405,20 +406,19 @@
         })
     })
 
-    // Timeline marker clicks
-    screen.timelineMarkers.forEach(marker => {
-        marker.addEventListener(Constants.events.click, () => {
-            const level = parseInt(marker.dataset.level, 10)
-            if (level !== screen.selectedLevel) {
-                // Navigate to this marker
-                screen.selectedLevel = level
-                screen.updateTimelineSelection()
-                audioManager.playSound(Constants.audio.sounds.menuChange)
-            } else {
-                // Already selected - activate it
-                handleLevelsMenuAction(marker.dataset.action)
-            }
-        })
+    // Generate timeline markers dynamically
+    screen.generateTimelineMarkers(Constants.game.totalLevels, (marker, level) => {
+        if (level !== screen.selectedLevel) {
+            // Navigate to this marker
+            screen.selectedLevel = level
+            screen.updateTimelineSelection()
+            screen.updateTimelinePosition()
+            screen.updateLevelCounter()
+            audioManager.playSound(Constants.audio.sounds.menuChange)
+        } else {
+            // Already selected - activate it
+            handleLevelsMenuAction(marker.dataset.action)
+        }
     })
 
     // Pause menu button clicks

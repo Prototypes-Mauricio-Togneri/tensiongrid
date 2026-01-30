@@ -531,14 +531,13 @@ canvas {
 /* Timeline container */
 .timeline-container {
     position: relative;
-    width: 90%;
-    max-width: 800px;
+    width: 100vw;
     height: 120px;
     margin-top: 260px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 /* Track layer containing the line - hidden */
@@ -548,13 +547,13 @@ canvas {
 
 /* Markers container */
 .timeline-markers {
-    position: relative;
-    width: 100%;
+    position: absolute;
+    left: 50%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 52px;
+    transition: transform 0.3s ease-out;
 }
 
 /* Individual marker - diamond shape */
@@ -704,13 +703,28 @@ canvas {
     font-size: 1.2rem;
     color: rgba(0, 245, 255, 0.3);
     letter-spacing: 0.5em;
-    margin-top: 40px;
+    margin-top: 20px;
     animation: hintPulse 2s ease-in-out infinite;
 }
 
 @keyframes hintPulse {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 0.6; }
+}
+
+/* Level counter */
+.timeline-counter {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: rgba(0, 245, 255, 0.5);
+    letter-spacing: 0.15em;
+    margin-top: 24px;
+}
+
+.timeline-counter .current {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
 }
 
 /* Settings screen layout */
@@ -1062,7 +1076,12 @@ canvas {
 
     .timeline-hint {
         font-size: 1.1rem;
-        margin-top: 30px;
+        margin-top: 16px;
+    }
+
+    .timeline-counter {
+        font-size: 1.2rem;
+        margin-top: 20px;
     }
 }
 
@@ -1171,7 +1190,6 @@ canvas {
     .timeline-container {
         margin-top: 150px;
         height: 80px;
-        width: 98%;
     }
 
     .timeline-markers {
@@ -1201,8 +1219,13 @@ canvas {
 
     .timeline-hint {
         font-size: 1rem;
-        margin-top: 24px;
+        margin-top: 14px;
         letter-spacing: 0.4em;
+    }
+
+    .timeline-counter {
+        font-size: 1.1rem;
+        margin-top: 16px;
     }
 }
 
@@ -1306,7 +1329,6 @@ canvas {
     .timeline-container {
         margin-top: 120px;
         height: 70px;
-        width: 100%;
     }
 
     .timeline-markers {
@@ -1339,7 +1361,12 @@ canvas {
 
     .timeline-hint {
         font-size: 0.9rem;
-        margin-top: 20px;
+        margin-top: 12px;
         letter-spacing: 0.3em;
+    }
+
+    .timeline-counter {
+        font-size: 1rem;
+        margin-top: 14px;
     }
 }

@@ -12,10 +12,14 @@ class Screen {
         }
         this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)      // All home menu buttons
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons (legacy)
-        this.timelineMarkers = document.querySelectorAll(Constants.dom.selectors.timelineMarkers) // Timeline level markers
+        this.timelineMarkers = []  // Timeline level markers (generated dynamically)
+        this.markersContainer = document.getElementById(Constants.dom.ids.timelineMarkers)       // Markers container element
+        this.levelCurrentEl = document.getElementById(Constants.dom.ids.levelCurrent)            // Current level counter
+        this.levelTotalEl = document.getElementById(Constants.dom.ids.levelTotal)                // Total levels counter
         this.menuIndex = 0    // Selected index in home menu
         this.levelsIndex = 0  // Selected index in levels menu (legacy)
-        this.selectedLevel = 1 // Selected level number (1-10) for timeline
+        this.selectedLevel = 1 // Selected level number for timeline
+        this.totalLevels = 0   // Total number of levels
         this.currentScreen = Constants.screens.home // Currently active screen
         this.cachedVisibleButtons = null // Cached visible buttons (invalidated on resize)
 
@@ -24,7 +28,6 @@ class Screen {
 
         this.updateButtonSelection()
         this.updateLevelsButtonSelection()
-        this.updateTimelineSelection()
     }
 
     /**
@@ -47,6 +50,47 @@ class Screen {
     }
 
     /**
+     * Generate timeline markers dynamically.
+     * @param {number} totalLevels - Total number of levels to generate
+     * @param {function} onMarkerClick - Click handler for markers
+     */
+    generateTimelineMarkers(totalLevels, onMarkerClick) {
+        this.totalLevels = totalLevels
+        this.markersContainer.innerHTML = ''
+        this.timelineMarkers = []
+
+        for (let i = 1; i <= totalLevels; i++) {
+            const marker = document.createElement('button')
+            marker.className = 'timeline-marker'
+            if (i % 5 === 0) {
+                marker.classList.add('milestone')
+            }
+            marker.dataset.level = i
+            marker.dataset.action = `level_${String(i).padStart(3, '0')}`
+
+            const label = document.createElement('span')
+            label.className = 'marker-label'
+            label.textContent = i
+            marker.appendChild(label)
+
+            marker.addEventListener(Constants.events.click, () => onMarkerClick(marker, i))
+
+            this.markersContainer.appendChild(marker)
+            this.timelineMarkers.push(marker)
+        }
+
+        // Update counter total
+        if (this.levelTotalEl) {
+            this.levelTotalEl.textContent = totalLevels
+        }
+
+        // Initialize selection and position
+        this.updateTimelineSelection()
+        this.updateTimelinePosition()
+        this.updateLevelCounter()
+    }
+
+    /**
      * Show a screen and hide all others.
      * @param {string} screenName - Screen name from Constants.screens
      */
@@ -64,12 +108,9 @@ class Screen {
             this.currentScreen = screenName
         }
 
-        // Reset menu index when entering levels screen (except when returning from game)
-        if (screenName === Constants.screens.levels && previousScreen !== Constants.screens.game) {
-            this.levelsIndex = 0
-            this.selectedLevel = 1
-            this.updateLevelsButtonSelection()
-            this.updateTimelineSelection()
+        // Update timeline position when entering levels screen
+        if (screenName === Constants.screens.levels) {
+            this.updateTimelinePosition()
         }
     }
 
@@ -111,7 +152,11 @@ class Screen {
             changed = true
         }
 
-        if (changed) this.updateTimelineSelection()
+        if (changed) {
+            this.updateTimelineSelection()
+            this.updateTimelinePosition()
+            this.updateLevelCounter()
+        }
         return changed
     }
 
@@ -144,6 +189,52 @@ class Screen {
     }
 
     /**
+     * Update timeline position to always center selected level.
+     * Container is positioned at left: 50%, so we translate to put selected marker at origin.
+     */
+    updateTimelinePosition() {
+        if (!this.markersContainer || this.timelineMarkers.length === 0) return
+
+        // Get marker dimensions
+        const marker = this.timelineMarkers[0]
+        const markerWidth = marker.offsetWidth
+        const gap = parseFloat(getComputedStyle(this.markersContainer).gap) || 52
+
+        // Calculate offset: move so selected marker's center is at the container's left edge (which is screen center)
+        // Selected marker position from container start = (selectedLevel - 1) * (markerWidth + gap)
+        // We need to offset by that plus half the marker width to center it
+        const offset = (this.selectedLevel - 1) * (markerWidth + gap) + markerWidth / 2
+
+        this.markersContainer.style.transform = `translateX(-${offset}px)`
+    }
+
+    /**
+     * Update level counter display.
+     */
+    updateLevelCounter() {
+        if (this.levelCurrentEl) {
+            this.levelCurrentEl.textContent = this.selectedLevel
+        }
+    }
+
+    /**
+     * Set selected level to highest unlocked level.
+     * @param {LocalStorage} storage - Storage instance to check unlock state
+     */
+    setSelectedToHighestUnlocked(storage) {
+        let highestUnlocked = 1
+        for (let i = 1; i <= this.totalLevels; i++) {
+            if (storage.isLevelUnlocked(i)) {
+                highestUnlocked = i
+            }
+        }
+        this.selectedLevel = highestUnlocked
+        this.updateTimelineSelection()
+        this.updateTimelinePosition()
+        this.updateLevelCounter()
+    }
+
+    /**
      * Update locked state for level buttons based on progress.
      * @param {LocalStorage} storage - Storage instance to check unlock state
      */
@@ -159,24 +250,14 @@ class Screen {
         })
 
         // Update timeline markers
-        let highestUnlocked = 1
         this.timelineMarkers.forEach(marker => {
             const levelNumber = parseInt(marker.dataset.level, 10)
             if (storage.isLevelUnlocked(levelNumber)) {
                 marker.classList.remove(Constants.dom.classes.locked)
-                highestUnlocked = Math.max(highestUnlocked, levelNumber)
             } else {
                 marker.classList.add(Constants.dom.classes.locked)
             }
         })
-
-        // Update progress line width (percentage based on unlocked levels)
-        const totalLevels = this.timelineMarkers.length
-        const progressPercent = ((highestUnlocked - 0.5) / totalLevels) * 100
-        const container = document.getElementById('levelTimeline')
-        if (container) {
-            container.style.setProperty('--progress-width', `${progressPercent}%`)
-        }
     }
 
     /**
