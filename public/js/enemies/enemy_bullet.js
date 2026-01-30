@@ -11,8 +11,9 @@ class EnemyBullet {
      * @param {number} dirRow - Row direction (-1, 0, or 1)
      * @param {number} dirCol - Column direction (-1, 0, or 1)
      * @param {Grid} grid - Grid instance for position/validity checks
+     * @param {number} [speed] - Movement speed in pixels/second (optional, defaults to constant)
      */
-    constructor(row, col, x, y, dirRow, dirCol, grid) {
+    constructor(row, col, x, y, dirRow, dirCol, grid, speed) {
         this.row = row // Current grid row
         this.col = col // Current grid column
         this.x = x // Current world X position
@@ -21,7 +22,7 @@ class EnemyBullet {
         this.targetCol = col + dirCol // Target grid column for current move
         this.dirRow = dirRow // Row direction for movement
         this.dirCol = dirCol // Column direction for movement
-        this.speed = Constants.game.enemies.bullet.speed // Movement speed in pixels/second
+        this.speed = speed ?? Constants.game.enemies.bullet.speed // Movement speed in pixels/second
         this.size = Constants.game.enemies.bullet.size // Bullet size in pixels
         this.grid = grid // Grid reference
         this.isMoving = true // False when bullet should be removed

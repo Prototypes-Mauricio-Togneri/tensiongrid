@@ -253,7 +253,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - On touch: begins countdown with accelerating blink frequency (2Hz → 10Hz)
 - After delay: spawns bullets in ALL valid directions from its node (one per connected edge)
 - One-time use: disappears after explosion (resets with level reset)
-- Config: `x`, `y`, `delay` (ms, mandatory)
+- Config: `x`, `y`, `delay` (ms, mandatory), `bulletSpeed` (pixels/second, optional, defaults to 130)
 
 **EnemyShooter** (`js/enemies/enemy_shooter.js`) - Static turret hazard:
 - Fixed position on a single grid node

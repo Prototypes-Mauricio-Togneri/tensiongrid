@@ -226,7 +226,8 @@ class EnemyManager {
                 mine.row, mine.col,
                 pos.x, pos.y,
                 dir.dirRow, dir.dirCol,
-                this.grid
+                this.grid,
+                mine.bulletSpeed
             ))
         }
     }

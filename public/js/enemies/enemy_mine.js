@@ -17,6 +17,7 @@ class EnemyMine {
         this.col = config.x // Grid column position
         this.grid = grid // Grid reference
         this.delay = config.delay // Detonation delay in ms (mandatory)
+        this.bulletSpeed = config.bulletSpeed ?? Constants.game.enemies.bullet.speed // Bullet speed (optional)
 
         const pos = grid.getNodePosition(this.row, this.col)
         this.x = pos.x // World X coordinate

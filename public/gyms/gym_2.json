@@ -144,17 +144,20 @@
       {
         "x": 3,
         "y": 1,
-        "delay": 2300
+        "delay": 2300,
+        "bulletSpeed": 300
       },
       {
         "x": 7,
         "y": 7,
-        "delay": 2300
+        "delay": 2300,
+        "bulletSpeed": 300
       },
       {
         "x": 1,
         "y": 9,
-        "delay": 2300
+        "delay": 2300,
+        "bulletSpeed": 300
       }
     ],
     "enemyShooter": [
