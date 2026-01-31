@@ -112,14 +112,6 @@
     ],
     "enemyBullet": [
       {
-        "x": 1,
-        "y": 0,
-        "direction": "down",
-        "delay": 400,
-        "interval": 3600,
-        "speed": 85
-      },
-      {
         "x": 5,
         "y": 0,
         "direction": "down",
@@ -149,6 +141,14 @@
         "direction": "left",
         "delay": 1500,
         "interval": 3500,
+        "speed": 85
+      },
+      {
+        "x": 4,
+        "y": 6,
+        "direction": "up",
+        "delay": 400,
+        "interval": 4000,
         "speed": 85
       }
     ]
