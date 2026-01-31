@@ -58,28 +58,144 @@
   "enemies": {
     "enemyTrap": [
       {
-        "x": 1,
-        "y": 1
-      },
-      {
         "x": 2,
         "y": 2
       },
       {
-        "x": 3,
-        "y": 3
+        "x": 5,
+        "y": 2
       },
       {
-        "x": 4,
-        "y": 2,
+        "x": 3,
+        "y": 4
+      },
+      {
+        "x": 6,
+        "y": 4,
         "timeOn": 2000,
         "timeOff": 2000
       },
       {
         "x": 2,
-        "y": 4,
-        "timeOn": 2000,
+        "y": 6
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "timeOn": 1800,
         "timeOff": 2000
+      },
+      {
+        "x": 5,
+        "y": 1,
+        "timeOn": 2000,
+        "timeOff": 1800
+      },
+      {
+        "x": 1,
+        "y": 4,
+        "timeOn": 2200,
+        "timeOff": 1800
+      },
+      {
+        "x": 4,
+        "y": 5
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 2,
+        "startY": 3,
+        "endX": 5,
+        "endY": 3,
+        "timeOn": 2000,
+        "timeOff": 2500
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 100,
+        "path": [
+          {
+            "x": 0,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "speed": 100,
+        "path": [
+          {
+            "x": 7,
+            "y": 3
+          },
+          {
+            "x": 6,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          },
+          {
+            "x": 6,
+            "y": 3
+          }
+        ]
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 3,
+        "y": 0,
+        "direction": "down",
+        "delay": 500,
+        "interval": 3600,
+        "speed": 80
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "direction": "down",
+        "delay": 1400,
+        "interval": 3800,
+        "speed": 80
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "direction": "right",
+        "delay": 800,
+        "interval": 3400,
+        "speed": 85
+      },
+      {
+        "x": 7,
+        "y": 5,
+        "direction": "left",
+        "delay": 1100,
+        "interval": 4000,
+        "speed": 80
+      },
+      {
+        "x": 4,
+        "y": 7,
+        "direction": "up",
+        "delay": 300,
+        "interval": 3500,
+        "speed": 85
       }
     ]
   }
