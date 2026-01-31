@@ -120,12 +120,8 @@
             }
             const levelData = await response.json()
 
-            // Preload next level if it exists
-            const nextLevelId = levelData.id + 1
-
-            if (nextLevelId <= Constants.game.totalLevels) {
-                storage.preloadLevel(nextLevelId)
-            }
+            // Preload next level
+            storage.preloadLevel(levelData.id + 1)
 
             return levelData
         } catch {
@@ -167,9 +163,7 @@
                 storage.setCurrentLevel(nextLevel)
             }
 
-            if (nextLevel <= Constants.game.totalLevels) {
-                storage.preloadLevel(nextLevel)
-            }
+            storage.preloadLevel(nextLevel)
         })
 
         // Set level completion callback

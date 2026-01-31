@@ -87,6 +87,10 @@ class LocalStorage {
      * @param {number} level - Level number to preload
      */
     preloadLevel(level) {
+        if (level < 1 || level > Constants.game.totalLevels) {
+            return
+        }
+
         const path = this.getLevelPath(level)
         fetch(path).catch((_) => {
             // Ignore errors during preloading
