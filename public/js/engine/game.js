@@ -433,6 +433,7 @@ class Game {
     init(levelData) {
         this.levelData = levelData // Store for reset
         this.onLevelComplete = null // Clear old callback to prevent stale references
+        this.onExitReached = null   // Clear old callback to prevent stale references
         this.grid = new Grid({ ...Constants.game.grid, ...levelData.grid })
         this.camera = new Camera(this.grid)
         this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
@@ -474,10 +475,22 @@ class Game {
     }
 
     /**
+     * Set callback function for when player reaches the exit.
+     * @param {Function} callback - Function to call when player touches open exit
+     */
+    setOnExitReached(callback) {
+        this.onExitReached = callback
+    }
+
+    /**
      * Handle level completion when player reaches open exit.
-     * Starts the exit warp animation; callback is called when animation completes.
+     * Calls onExitReached immediately, then starts exit animation.
+     * onLevelComplete is called when animation completes.
      */
     handleLevelComplete() {
+        if (this.onExitReached) {
+            this.onExitReached()
+        }
         this.exiting = true
         this.player.wakeIntensity = 0
         this.exitAnimation = new PlayerExitAnimation(

@@ -154,19 +154,26 @@
         game.start(levelData)
         Analytics.trackLevelStart(levelData.id)
 
-        // Set level completion callback
-        game.setOnLevelComplete(() => {
+        // Set exit reached callback
+        game.setOnExitReached(() => {
             const duration = performance.now() - game.startTime
             Analytics.trackLevelComplete(levelData.id, game.deathCount, Math.round(duration))
 
             // Unlock next level on completion
             const nextLevel = levelData.id + 1
+            
             if (nextLevel > storage.getCurrentLevel()) {
                 storage.setCurrentLevel(nextLevel)
             }
+        })
+
+        // Set level completion callback
+        game.setOnLevelComplete(() => {
             game.stop()
 
             // Check if next level exists
+            const nextLevel = levelData.id + 1
+
             if (nextLevel <= Constants.game.totalLevels) {
                 // Auto-advance to next level (use openGameScreen to properly set up new callback)
                 const nextLevelPath = storage.getLevelPath(nextLevel)
