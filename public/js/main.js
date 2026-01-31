@@ -108,6 +108,32 @@
     }
 
     /**
+     * Load level JSON and preload next level.
+     * @param {string} levelPath - Path to level JSON file
+     * @returns {Promise<Object|null>} Level data or null on failure
+     */
+    async function loadLevel(levelPath) {
+        try {
+            const response = await fetch(levelPath)
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`)
+            }
+            const levelData = await response.json()
+
+            // Preload next level if it exists
+            const nextLevelId = levelData.id + 1
+            if (nextLevelId <= Constants.game.totalLevels) {
+                storage.preloadLevel(nextLevelId)
+            }
+
+            return levelData
+        } catch {
+            console.error(`Failed to load level: ${levelPath}`)
+            return null
+        }
+    }
+
+    /**
      * Load level JSON and start game.
      * @param {string} levelPath - Path to level JSON file
      * @param {string} from - Screen to return to on quit
@@ -116,22 +142,9 @@
         currentLevel = levelPath
         gameStartedFrom = from
 
-        let levelData
-        try {
-            const response = await fetch(currentLevel)
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`)
-            }
-            levelData = await response.json()  
+        const levelData = await loadLevel(levelPath)
         
-            // Preload next level if it exists
-            const nextLevelId = levelData.id + 1
-            if (nextLevelId <= Constants.game.totalLevels) {
-                storage.preloadLevel(nextLevelId)
-            }
-        } catch {
-            // Failed to load level - return to previous screen
-            console.error(`Failed to load level: ${currentLevel}`)
+        if (!levelData) {
             audioManager.playSound(Constants.audio.sounds.closeScreen)
             return
         }  
