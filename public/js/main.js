@@ -219,11 +219,12 @@
             hidePauseMenu()
             game.resume()
         } else if (action === Constants.actions.pause.restart) {
+            Analytics.trackLevelRestart(game.levelData.id)
             hidePauseMenu()
             game.reset()
             game.resume()
         } else if (action === Constants.actions.pause.quit) {
-            Analytics.trackLevelQuit(game.levelData.id, game.deathCount)
+            Analytics.trackLevelQuit(game.levelData.id, game.deathCount, Math.round(performance.now() - game.startTime))
             audioManager.playSound(Constants.audio.sounds.closeScreen)
             hidePauseMenu()
             game.stop()

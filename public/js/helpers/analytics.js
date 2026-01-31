@@ -47,11 +47,23 @@ class Analytics {
      * Track when a player quits a level mid-game.
      * @param {string|number} levelId - Level identifier
      * @param {number} deaths - Number of deaths before quitting
+     * @param {number} duration - Time spent in level in milliseconds
      */
-    static trackLevelQuit(levelId, deaths) {
+    static trackLevelQuit(levelId, deaths, duration) {
         this.sendEvent('level_quit', {
             level_id: String(levelId),
-            deaths: deaths
+            deaths: deaths,
+            duration_ms: duration
+        })
+    }
+
+    /**
+     * Track when a player restarts a level from the pause menu.
+     * @param {string|number} levelId - Level identifier
+     */
+    static trackLevelRestart(levelId) {
+        this.sendEvent('level_restart', {
+            level_id: String(levelId)
         })
     }
 
