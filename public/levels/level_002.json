@@ -65,6 +65,56 @@
         "timeOn": 2000,
         "timeOff": 2000
       }
+    ],
+    "enemyBullet": [
+      {
+        "x": 6,
+        "y": 1,
+        "direction": "left",
+        "delay": 1200,
+        "interval": 3800,
+        "speed": 85
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "direction": "right",
+        "delay": 500,
+        "interval": 3500,
+        "speed": 85
+      },
+      {
+        "x": 0,
+        "y": 4,
+        "direction": "right",
+        "delay": 200,
+        "interval": 3200,
+        "speed": 85
+      },
+      {
+        "x": 6,
+        "y": 4,
+        "direction": "left",
+        "delay": 1800,
+        "interval": 3600,
+        "speed": 85
+      },
+      {
+        "x": 4,
+        "y": 0,
+        "direction": "down",
+        "delay": 800,
+        "interval": 4000,
+        "speed": 85
+      },
+      {
+        "x": 3,
+        "y": 6,
+        "direction": "up",
+        "delay": 600,
+        "interval": 4200,
+        "speed": 85
+      }
     ]
   }
 }
