@@ -81,9 +81,9 @@ class Screen {
             this.levelTotalEl.textContent = totalLevels
         }
 
-        // Initialize selection and position
+        // Initialize selection and position (no animation on initial load)
         this.updateTimelineSelection()
-        this.updateTimelinePosition()
+        this.updateTimelinePosition(false)
         this.updateLevelCounter()
     }
 
@@ -105,9 +105,9 @@ class Screen {
             this.currentScreen = screenName
         }
 
-        // Update timeline position when entering levels screen
+        // Update timeline position when entering levels screen (no animation)
         if (screenName === Constants.screens.levels) {
-            this.updateTimelinePosition()
+            this.updateTimelinePosition(false)
         }
     }
 
@@ -188,8 +188,9 @@ class Screen {
     /**
      * Update timeline position to always center selected level.
      * Container is positioned at left: 50%, so we translate to put selected marker at origin.
+     * @param {boolean} animate - Whether to animate the transition (default: true)
      */
-    updateTimelinePosition() {
+    updateTimelinePosition(animate = true) {
         if (!this.markersContainer || this.timelineMarkers.length === 0) return
 
         // Get marker dimensions
@@ -202,7 +203,15 @@ class Screen {
         // We need to offset by that plus half the marker width to center it
         const offset = (this.selectedLevel - 1) * (markerWidth + gap) + markerWidth / 2
 
+        if (!animate) {
+            this.markersContainer.style.transition = 'none'
+        }
         this.markersContainer.style.transform = `translateX(-${offset}px)`
+        if (!animate) {
+            // Force reflow to apply transform immediately, then restore transition
+            this.markersContainer.offsetHeight
+            this.markersContainer.style.transition = ''
+        }
     }
 
     /**
@@ -227,7 +236,7 @@ class Screen {
         }
         this.selectedLevel = highestUnlocked
         this.updateTimelineSelection()
-        this.updateTimelinePosition()
+        this.updateTimelinePosition(false)
         this.updateLevelCounter()
     }
 
