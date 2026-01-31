@@ -58,12 +58,10 @@ class LocalStorage {
 
     /**
      * Set current game level in localStorage.
-     * Triggers preloading of the level.
      * @param {number} level - Level number to save
      */
     setCurrentLevel(level) {
         localStorage.setItem(Constants.storage.gameCurrentLevel, level)
-        this.preloadLevel(level)
     }
 
     /**

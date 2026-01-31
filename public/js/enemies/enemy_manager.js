@@ -261,7 +261,6 @@ class EnemyManager {
     getDirectionVectors(direction) {
         const result = Constants.directions[direction]
         if (!result) {
-            console.warn(`Invalid direction "${direction}", defaulting to none`)
             return Constants.directions.none
         }
         return result

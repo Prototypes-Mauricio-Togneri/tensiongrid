@@ -109,11 +109,11 @@
 
     /**
      * Load level JSON and start game.
-     * @param {string} level - Path to level JSON file
+     * @param {string} levelPath - Path to level JSON file
      * @param {string} from - Screen to return to on quit
      */
-    async function openGameScreen(level, from) {
-        currentLevel = level
+    async function openGameScreen(levelPath, from) {
+        currentLevel = levelPath
         gameStartedFrom = from
 
         let levelData
@@ -122,13 +122,19 @@
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`)
             }
-            levelData = await response.json()
+            levelData = await response.json()  
+        
+            // Preload next level if it exists
+            const nextLevelId = levelData.id + 1
+            if (nextLevelId <= Constants.game.totalLevels) {
+                storage.preloadLevel(nextLevelId)
+            }
         } catch {
             // Failed to load level - return to previous screen
             console.error(`Failed to load level: ${currentLevel}`)
             audioManager.playSound(Constants.audio.sounds.closeScreen)
             return
-        }
+        }  
 
         audioManager.playMusic(Constants.audio.music.game)
         screen.show(Constants.screens.game)
