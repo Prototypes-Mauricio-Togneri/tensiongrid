@@ -2,11 +2,6 @@
 
 [Web site](https://tensiongrid.com)
 
-level 2
-
-- remove bullet at row 1
-- add bullet in row 5
-
 level 3
 
 - remove bullet at col 1
