@@ -13,17 +13,17 @@ Guidelines for designing levels in Tension Grid.
 - **Every tile should ask a question** - Each move should force a decision: "Is this safe now?", "Do I bait or detour?", "Rush or wait?"
 - **Some tiles are answers, not questions** - Create "lanes of flow" where tiles act as the destination you're rushing toward; not every tile needs a new micro-decision
 - **Enemy placement must pose a challenge** - Don't place enemies where they can't threaten the player
-- **Minimize empty space** - No more than 5% of nodes should be "rest nodes" (safe from all threats)
+- **Minimize empty space** - No more than 5% of nodes should be "rest nodes" (safe from all threats); applies per level, excluding spawn grace period and tutorial levels
 - **No cramping of different enemy types** - Give each enemy type room to create its own threat pattern
 - **Scale enemy count with grid size** - Larger grids need more threats; aim for consistent density across levels
 
 ### Player Experience
 
-- **Action over puzzle** - Levels should flow with timing and reflexes, not require stopping to calculate solutions
+- **Flow over deliberation** - Players should think while moving, not stop to solve; decisions are made in motion, not through extended calculation
 - **Multiple deaths expected** - Players will learn through failure; non-obvious dangers are acceptable
-- **Every death should feel fair** - Players should understand why they died and how to avoid it next time; no cheap or random deaths
+- **Every death should feel fair** - Players should understand why they died and how to avoid it next time; no cheap or random deaths; one death should be enough to understand a new threat
 - **Forgiving hitboxes** - Player's collision area should be slightly smaller than visual; near-misses feel skillful, not cheap
-- **Multiple viable paths preferred** - Aim for 2-4 viable solutions, not dozens; tight solution space but expressive execution
+- **Multiple viable paths preferred** - Aim for 2-4 viable solutions, not dozens; tight solution space but expressive execution; timing variations count as different paths
 - **Mix urgency and methodical play** - Some levels have time pressure, others allow careful navigation
 - **Brief grace period at spawn** - Give players a moment to orient before threats reach them
 
@@ -40,7 +40,7 @@ Guidelines for designing levels in Tension Grid.
 - **Excluded edges/nodes**: Introduce starting at level 5 to create permanent barriers and corridors
 - **Chokepoints are intentional** - Narrow passages exist by design, not accident
 - **Clear sightlines where possible** - Players should see threats before they become lethal
-- **Limited visibility in large maps is OK** - Discovering threats is part of the challenge in bigger grids; perfect information applies within the viewport, discovery outside it
+- **Limited visibility in large maps is OK** - Discovering threats is part of the challenge in bigger grids; perfect information applies within the viewport, discovery outside it; should never create unavoidable death on discovery
 
 ### Start & Exit Placement
 
@@ -96,7 +96,7 @@ Guidelines for designing levels in Tension Grid.
 
 ### Across Levels
 
-- **Each level harder than the previous** - Difficulty should consistently increase as the player progresses
+- **Overall difficulty trend increases** - Not every level must be harder, but the player's challenge should trend upward over time
 - **Avoid difficulty spikes** - Progression should be gradual; no sudden jumps in difficulty between consecutive levels
 - **Increase complexity, not just raw difficulty** - Combine previously-learned mechanics in new ways rather than simply adding more enemies or making them faster
 - **Front-loaded clarity** - First few moves in any level should be learnable quickly (not random death)
