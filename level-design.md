@@ -11,6 +11,7 @@ Guidelines for designing levels in Tension Grid.
 ### Challenge & Density
 
 - **Every tile should ask a question** - Each move should force a decision: "Is this safe now?", "Do I bait or detour?", "Rush or wait?"
+- **Some tiles are answers, not questions** - Create "lanes of flow" where tiles act as the destination you're rushing toward; not every tile needs a new micro-decision
 - **Enemy placement must pose a challenge** - Don't place enemies where they can't threaten the player
 - **Minimize empty space** - No more than 5% of nodes should be "rest nodes" (safe from all threats)
 - **No cramping of different enemy types** - Give each enemy type room to create its own threat pattern
@@ -39,7 +40,7 @@ Guidelines for designing levels in Tension Grid.
 - **Excluded edges/nodes**: Introduce starting at level 5 to create permanent barriers and corridors
 - **Chokepoints are intentional** - Narrow passages exist by design, not accident
 - **Clear sightlines where possible** - Players should see threats before they become lethal
-- **Limited visibility in large maps is OK** - Discovering threats is part of the challenge in bigger grids
+- **Limited visibility in large maps is OK** - Discovering threats is part of the challenge in bigger grids; perfect information applies within the viewport, discovery outside it
 
 ### Start & Exit Placement
 
@@ -148,3 +149,5 @@ Not a fixed rule. Depends on:
 | Shooter  | Fires in configured directions     | Pattern prediction    |
 | Patrol   | Follows cyclic path                | Dynamic avoidance     |
 | Follower | Chases player (greedy pathfinding) | Active evasion        |
+
+**Note on Followers:** Followers must be outplayable. Greedy pathfinding (not optimal) and node-based recalculation allow players to "juke" them. Perfect pathfinding creates impassable walls that block multiple viable paths.
