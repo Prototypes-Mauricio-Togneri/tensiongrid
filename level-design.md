@@ -124,13 +124,13 @@ _Threat sources = total enemies, hazards, and spawners. Quality over quantity._
 - **Configuration:** Position, persistent or intermittent (with on/off timing)
 - **Best for:** Shaping available paths; creating maze-like navigation
 - **Pairs well with:** Bullets (limits dodge space), Patrols (forces timing around static obstacles)
-- **Avoid:** Completely blocking paths without alternative routes
+- **Avoid:** Persistent traps that completely block the only path; intermittent traps can gate paths since players wait for off-cycles
 
 ### Mine
 
 - **Behavior:** Dormant until player contact; triggers countdown with accelerating blink; explodes and spawns bullets in all valid adjacent directions
-- **Challenge:** Risk/reward decisions - trigger early from safe distance, or avoid entirely?
-- **Configuration:** Position, countdown delay (2000-2500ms typical)
+- **Challenge:** Risk/reward decisions - trigger early using an escape route to dodge the bullets, or avoid entirely?
+- **Configuration:** Position, countdown delay (1000-2000ms typical)
 - **Best for:** Creating tactical choices; punishing or rewarding different strategies
 - **Pairs well with:** Followers (can be used to create obstacles for follower), Patrols (timing the trigger)
 - **Avoid:** Placing where explosion is unavoidable; too many mines creating chaos
