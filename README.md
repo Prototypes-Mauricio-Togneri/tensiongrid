@@ -2,10 +2,6 @@
 
 [Web site](https://tensiongrid.com)
 
-level 1
-
-- add horizontal bullet in row 2
-
 level 2
 
 - remove bullet at row 1
