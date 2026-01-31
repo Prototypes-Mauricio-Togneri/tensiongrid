@@ -30,7 +30,7 @@ Guidelines for designing levels in Tension Grid.
 
 - **Tension and release cycles** - Alternate between high-pressure zones and moments of breathing room
 - **Don't frontload all danger** - Space out intense sections; constant pressure is exhausting
-- **Waiting should have consequences** - Enemies that advance, patrols that desync, or rewards for faster routes; delay should be a choice, not a free action
+- **Waiting should have consequences** - Standing still shouldn't be safe forever; followers advance, timing windows shift, and faster completion is rewarded
 - **End levels early** - Don't milk an idea; end the level as soon as the concept is proven
 
 ## Spatial Design
