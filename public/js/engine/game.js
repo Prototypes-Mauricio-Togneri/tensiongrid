@@ -190,32 +190,35 @@ class Game {
         }
 
         // Check enemy collisions and handle death
-        if (this.checkEnemyCollisions()) {
-            this.handleEnemyHit()
+        const enemyHit = this.checkEnemyCollisions()
+        if (enemyHit) {
+            this.handleEnemyHit(enemyHit)
         }
     }
 
     /**
      * Check if player collides with any enemy.
-     * @returns {boolean} True if player hit by any enemy
+     * @returns {string|null} Enemy type that hit the player, or null if no collision
      */
     checkEnemyCollisions() {
         const p = this.player
         const em = this.enemyManager
         const c = this.collision
 
-        return c.checkPlayerBulletCollision(p, em.getBullets())
-            || c.checkPlayerLaserCollision(p, em.getLasers())
-            || c.checkPlayerTrapCollision(p, em.getTraps())
-            || c.checkPlayerShooterCollision(p, em.getShooters())
-            || c.checkPlayerPatrolCollision(p, em.getPatrols())
-            || c.checkPlayerFollowerCollision(p, em.getFollowers())
+        if (c.checkPlayerBulletCollision(p, em.getBullets())) return 'bullet'
+        if (c.checkPlayerLaserCollision(p, em.getLasers())) return 'laser'
+        if (c.checkPlayerTrapCollision(p, em.getTraps())) return 'trap'
+        if (c.checkPlayerShooterCollision(p, em.getShooters())) return 'shooter'
+        if (c.checkPlayerPatrolCollision(p, em.getPatrols())) return 'patrol'
+        if (c.checkPlayerFollowerCollision(p, em.getFollowers())) return 'follower'
+        return null
     }
 
     /**
      * Handle player being hit by an enemy.
+     * @param {string} cause - Enemy type that hit the player
      */
-    handleEnemyHit() {
+    handleEnemyHit(cause) {
         if (this.player.effectManager.handleCollision()) {
             // Effect absorbed the hit (shield broke, immunity granted)
             this.audioManager.playSound(Constants.audio.sounds.shieldBreak)
@@ -223,6 +226,7 @@ class Game {
         } else if (!this.player.isImmune()) {
             // Normal death (not protected)
             this.deathCount++
+            Analytics.trackPlayerDeath(this.levelData.id, cause, this.player.row, this.player.col)
             this.audioManager.playSound(Constants.audio.sounds.explosionPlayer)
             this.ui.shake()
             this.dead = true

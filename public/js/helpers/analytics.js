@@ -63,11 +63,15 @@ class Analytics {
      * Track when a player dies.
      * @param {string|number} levelId - Level identifier
      * @param {string} cause - What killed the player (enemy type)
+     * @param {number} row - Player grid row at death
+     * @param {number} col - Player grid column at death
      */
-    static trackPlayerDeath(levelId, cause) {
+    static trackPlayerDeath(levelId, cause, row, col) {
         this.sendEvent('player_death', {
             level_id: String(levelId),
-            cause: cause
+            cause: cause,
+            row: row,
+            col: col
         })
     }
 
