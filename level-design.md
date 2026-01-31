@@ -2,6 +2,10 @@
 
 Guidelines for designing levels in Tension Grid.
 
+## Core Philosophy
+
+**Perfect information + irreversible decisions.** The player should always understand the rules and be able to simulate the next move mentally. Difficulty comes from state-space complexity, not hidden mechanics. Every move matters because players commit to consequences. The game respects their intelligence.
+
 ## Core Principles
 
 ### Challenge & Density
@@ -18,7 +22,7 @@ Guidelines for designing levels in Tension Grid.
 - **Multiple deaths expected** - Players will learn through failure; non-obvious dangers are acceptable
 - **Every death should feel fair** - Players should understand why they died and how to avoid it next time; no cheap or random deaths
 - **Forgiving hitboxes** - Player's collision area should be slightly smaller than visual; near-misses feel skillful, not cheap
-- **Multiple viable paths preferred** - Give players agency; avoid funneling into a single route
+- **Multiple viable paths preferred** - Aim for 2-4 viable solutions, not dozens; tight solution space but expressive execution
 - **Mix urgency and methodical play** - Some levels have time pressure, others allow careful navigation
 - **Brief grace period at spawn** - Give players a moment to orient before threats reach them
 
@@ -41,6 +45,7 @@ Guidelines for designing levels in Tension Grid.
 
 - **Open exit levels**: Place exit far from starting point (e.g., diagonal corners)
 - **Switch-based levels**: Exit and switch must not be close to each other (start position is flexible)
+- **Design the last move first** - Create the ending, then design backward; ensures the final moment feels earned
 
 ### Guiding Through Design
 
@@ -61,6 +66,7 @@ Guidelines for designing levels in Tension Grid.
 - **Enemies should create dilemmas together** - One blocks escape, another punishes waiting, a third forces detours; more enemies ≠ more interesting
 - **Avoid redundancy** - Don't stack enemies that do the same thing in the same area (e.g., two bullets on the same lane)
 - **One new mechanic per level** - Introduce new enemies or mechanics individually before combining them
+- **End levels early** - Don't milk an idea; end the level as soon as the concept is proven
 - **Safe first encounters** - When introducing a new enemy type, make the first encounter forgiving so players can learn its behavior
 
 ### Patrol Paths
@@ -70,6 +76,7 @@ Guidelines for designing levels in Tension Grid.
 
 ### Intermittent Timing
 
+- **Safety depends on timing, not just position** - Design tiles whose safety changes based on when you step on them
 - **Timings can vary within a level** - Different on/off cycles create complexity
 - **Avoid synchronized patterns** - Staggered timings feel more dynamic
 
