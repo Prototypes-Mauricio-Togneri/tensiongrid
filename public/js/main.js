@@ -122,6 +122,7 @@
 
             // Preload next level if it exists
             const nextLevelId = levelData.id + 1
+
             if (nextLevelId <= Constants.game.totalLevels) {
                 storage.preloadLevel(nextLevelId)
             }
@@ -161,9 +162,13 @@
 
             // Unlock next level on completion
             const nextLevel = levelData.id + 1
-            
+
             if (nextLevel > storage.getCurrentLevel()) {
                 storage.setCurrentLevel(nextLevel)
+            }
+
+            if (nextLevel <= Constants.game.totalLevels) {
+                storage.preloadLevel(nextLevel)
             }
         })
 
