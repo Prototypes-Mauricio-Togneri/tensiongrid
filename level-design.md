@@ -19,10 +19,10 @@ Guidelines for designing levels in Tension Grid.
 ### Player Experience
 
 - **Flow over deliberation** - Players should think while moving, not stop to solve; decisions are made in motion, not through extended calculation
-- **Multiple deaths expected** - Players will learn through failure; non-obvious dangers are acceptable
+- **Multiple deaths expected** - Players will learn through failure; dangers don't need to be obvious on first glance, but must be learnable through observation or one death
 - **Every death should feel fair** - Players should understand why they died and how to avoid it next time; no cheap or random deaths; one death should be enough to understand a new threat
 - **Forgiving hitboxes** - Player's collision area should be slightly smaller than visual; near-misses feel skillful, not cheap
-- **Multiple viable paths preferred** - Aim for 2-4 viable solutions, not dozens; tight solution space but expressive execution; timing variations count as different paths
+- **Multiple viable paths preferred** - Aim for 2-3 viable solutions, not dozens; tight solution space but expressive execution; timing variations count as different paths
 - **Mix urgency and methodical play** - Some levels have time pressure, others allow careful navigation; methodical levels have slower consequences for waiting, not zero
 - **Brief grace period at spawn** - Give players ~1000ms to orient before threats reach them
 
