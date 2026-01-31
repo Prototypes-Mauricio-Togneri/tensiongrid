@@ -50,7 +50,7 @@ Guidelines for designing levels in Tension Grid.
 
 ### Switch Mechanics
 
-- **TTL should not be too generous** - Create tension; the timer should allow reaching the exit with minimal margin for error on the optimal path
+- **TTL should not be too generous** - Create tension; the timer should allow reaching the exit with some reasonable margin for error on the optimal path
 - **Switch placement creates the challenge** - Distance and obstacles between switch and exit matter
 
 ### Guiding Through Design
