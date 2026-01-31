@@ -73,7 +73,7 @@ _Threat sources = total enemies, hazards, and spawners. Quality over quantity._
 - **Complementary threats** - Pair enemies that force different skills (e.g., patrol blocks route while bullets require timing)
 - **Enemies should create dilemmas together** - One blocks escape, another punishes waiting, a third forces detours; more enemies ≠ more interesting
 - **Avoid redundancy** - Don't stack enemies that do the same thing in the same area (e.g., two bullets on the same lane)
-- **One new mechanic per level** - During introduction phases, present new enemies or mechanics individually; combination levels come after each mechanic is learned
+- **One new mechanic per level** - During the tutorial levels (i.e., levels 1 to 10), present new enemies or mechanics gradually
 
 ### Patrol Paths
 
