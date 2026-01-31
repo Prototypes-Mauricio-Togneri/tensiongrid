@@ -44,6 +44,16 @@ class Analytics {
     }
 
     /**
+     * Track when a player restarts a level from the pause menu.
+     * @param {string|number} levelId - Level identifier
+     */
+    static trackLevelRestart(levelId) {
+        this.sendEvent('level_restart', {
+            level_id: String(levelId)
+        })
+    }
+
+    /**
      * Track when a player quits a level mid-game.
      * @param {string|number} levelId - Level identifier
      * @param {number} deaths - Number of deaths before quitting
@@ -54,16 +64,6 @@ class Analytics {
             level_id: String(levelId),
             deaths: deaths,
             duration_ms: duration
-        })
-    }
-
-    /**
-     * Track when a player restarts a level from the pause menu.
-     * @param {string|number} levelId - Level identifier
-     */
-    static trackLevelRestart(levelId) {
-        this.sendEvent('level_restart', {
-            level_id: String(levelId)
         })
     }
 
