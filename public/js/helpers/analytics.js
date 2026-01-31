@@ -10,6 +10,7 @@ class Analytics {
      * @param {Object} data - Event parameters
      */
     static sendEvent(name, data = {}) {
+        console.log('Analytics:', name, data)
         if (typeof gtag !== 'function') return
         gtag('event', name, data)
     }
