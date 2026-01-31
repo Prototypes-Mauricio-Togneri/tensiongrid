@@ -4,15 +4,15 @@ Guidelines for designing levels in Tension Grid.
 
 ## Core Philosophy
 
-**Perfect information + irreversible decisions.** The player should always understand the rules and be able to simulate the next move mentally. Difficulty comes from state-space complexity, not hidden mechanics. Every move matters because players commit to consequences. The game respects their intelligence.
+**Perfect information + irreversible decisions.** The player should always understand the rules and be able to simulate the next move mentally. Difficulty comes from state-space complexity, not hidden mechanics. Every move matters because players commit to consequences.
 
 ## Core Principles
 
 ### Challenge & Density
 
-- **Every tile should ask a question** - Each move should force a decision: "Is this safe now?", "Do I bait or detour?", "Rush or wait?"
+- **Every node should ask a question** - Each move should force a decision: "Is this safe now?", "Do I bait or detour?", "Rush or wait?"
 - **Enemy placement must pose a challenge** - Don't place enemies where they can't threaten the player
-- **Minimize empty space** - No more than 5% of nodes should be "rest nodes" (safe from all threats); applies per level, excluding spawn grace period and tutorial levels
+- **Minimize empty space** - No more than 5% of available nodes (i.e. nodes where the player can stand) should be "rest nodes" (safe from all threats); applies per level, excluding spawn grace period and tutorial levels
 - **No cramping of different enemy types** - Give each enemy type room to create its own threat pattern
 - **Scale enemy count with grid size** - Larger grids need more threats; aim for consistent density across levels
 
@@ -64,7 +64,7 @@ Guidelines for designing levels in Tension Grid.
 - **Medium grids (8x8 to 9x9)** - Good for combining mechanics; enough room for multiple threat types; 5-9 threat sources
 - **Large grids (10x10+)** - Best for complex scenarios with patrols, followers, and exploration; 8-15 threat sources
 
-*Threat sources = total enemies, hazards, and spawners. Quality over quantity.*
+_Threat sources = total enemies, hazards, and spawners. Quality over quantity._
 
 ## Enemy Design
 
@@ -83,7 +83,7 @@ Guidelines for designing levels in Tension Grid.
 
 ### Intermittent Timing
 
-- **Safety depends on timing, not just position** - Design tiles whose safety changes based on when you step on them
+- **Safety depends on timing, not just position** - Design nodes whose safety changes based on when you step on them
 - **Timings can vary within a level** - Different on/off cycles create complexity; typical range is 500ms-2000ms for on/off states
 - **Avoid synchronized patterns** - Staggered timings feel more dynamic
 
