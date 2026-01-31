@@ -798,7 +798,7 @@ class Renderer {
             this.drawGlowedShape(
                 pos.x, pos.y, patrol.size,
                 this.colors.patrol, this.colors.patrolGlow, this.colors.patrolHighlight,
-                (x, y, s) => this.drawFlatHexagon(x, y, s)
+                (x, y, size) => this.drawFlatHexagon(x, y, size)
             )
         }
     }
@@ -823,7 +823,7 @@ class Renderer {
             this.drawGlowedShape(
                 0, 0, follower.size,
                 this.colors.follower, this.colors.followerGlow, this.colors.followerHighlight,
-                (x, y, s) => this.drawSquareAt(x, y, s)
+                (x, y, size) => this.drawSquareAt(x, y, size)
             )
 
             ctx.restore()
@@ -893,23 +893,23 @@ class Renderer {
                 iconColor = this.colors.powerDownIcon
                 if (power.type === Constants.game.effects.mirror.type) {
                     iconScale = Constants.game.powers.mirror.iconScale
-                    drawIcon = (x, y, s, c) => this.drawMirrorIcon(x, y, s, c)
+                    drawIcon = (x, y, size, color) => this.drawMirrorIcon(x, y, size, color)
                 } else {
                     iconScale = Constants.game.powers.slow.iconScale
-                    drawIcon = (x, y, s, c) => this.drawTurtleIcon(x, y, s, c)
+                    drawIcon = (x, y, size, color) => this.drawTurtleIcon(x, y, size, color)
                 }
             } else if (power.type === Constants.game.effects.shield.type) {
                 color = this.colors.shield
                 glowColor = this.colors.shieldGlow
                 iconColor = this.colors.shieldIcon
                 iconScale = Constants.game.powers.shield.iconScale
-                drawIcon = (x, y, s, c) => this.drawShieldIcon(x, y, s, c)
+                drawIcon = (x, y, size, color) => this.drawShieldIcon(x, y, size, color)
             } else {
                 color = this.colors.powerUp
                 glowColor = this.colors.powerUpGlow
                 iconColor = this.colors.powerUpIcon
                 iconScale = Constants.game.powers.fast.iconScale
-                drawIcon = (x, y, s, c) => this.drawLightningBolt(x, y, s, c)
+                drawIcon = (x, y, size, color) => this.drawLightningBolt(x, y, size, color)
             }
 
             // Outer glow
@@ -1005,11 +1005,11 @@ class Renderer {
     drawSwitches(switches, _time) {
         const ctx = this.ctx
 
-        for (const sw of switches) {
-            if (sw.isCollected()) continue
+        for (const switchItem of switches) {
+            if (switchItem.isCollected()) continue
 
-            const pos = this.toScreen(sw.x, sw.y)
-            const size = sw.size
+            const pos = this.toScreen(switchItem.x, switchItem.y)
+            const size = switchItem.size
 
             // Outer glow
             ctx.save()

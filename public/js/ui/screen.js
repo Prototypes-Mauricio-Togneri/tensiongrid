@@ -14,8 +14,8 @@ class Screen {
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons (legacy)
         this.timelineMarkers = []  // Timeline level markers (generated dynamically)
         this.markersContainer = document.getElementById(Constants.dom.ids.timelineMarkers)       // Markers container element
-        this.levelCurrentEl = document.getElementById(Constants.dom.ids.levelCurrent)            // Current level counter
-        this.levelTotalEl = document.getElementById(Constants.dom.ids.levelTotal)                // Total levels counter
+        this.levelCurrentElement = document.getElementById(Constants.dom.ids.levelCurrent)            // Current level counter
+        this.levelTotalElement = document.getElementById(Constants.dom.ids.levelTotal)                // Total levels counter
         this.menuIndex = 0    // Selected index in home menu
         this.levelsIndex = 0  // Selected index in levels menu (legacy)
         this.selectedLevel = 1 // Selected level number for timeline
@@ -77,8 +77,8 @@ class Screen {
         }
 
         // Update counter total
-        if (this.levelTotalEl) {
-            this.levelTotalEl.textContent = totalLevels
+        if (this.levelTotalElement) {
+            this.levelTotalElement.textContent = totalLevels
         }
 
         // Initialize selection and position (no animation on initial load)
@@ -218,8 +218,8 @@ class Screen {
      * Update level counter display.
      */
     updateLevelCounter() {
-        if (this.levelCurrentEl) {
-            this.levelCurrentEl.textContent = this.selectedLevel
+        if (this.levelCurrentElement) {
+            this.levelCurrentElement.textContent = this.selectedLevel
         }
     }
 

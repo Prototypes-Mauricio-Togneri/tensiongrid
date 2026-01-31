@@ -311,7 +311,7 @@ class EnemyManager {
      * @returns {EnemyMine[]} Non-exploded mine instances
      */
     getMines() {
-        return this.mines.filter(m => !m.isExploded())
+        return this.mines.filter(mine => !mine.isExploded())
     }
 
     /**

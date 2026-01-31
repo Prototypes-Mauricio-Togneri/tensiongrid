@@ -96,10 +96,10 @@ class Game {
         }
 
         // Update switches and handle expiration
-        for (const sw of this.switches) {
-            if (sw.update(delta)) {
+        for (const switchItem of this.switches) {
+            if (switchItem.update(delta)) {
                 // Switch TTL expired - close exit
-                if (sw.unlocks === 'exit' && this.exit) {
+                if (switchItem.unlocks === 'exit' && this.exit) {
                     this.exit.close()
                 }
             }
@@ -201,16 +201,16 @@ class Game {
      * @returns {string|null} Enemy type that hit the player, or null if no collision
      */
     checkEnemyCollisions() {
-        const p = this.player
-        const em = this.enemyManager
-        const c = this.collision
+        const player = this.player
+        const enemyManager = this.enemyManager
+        const collision = this.collision
 
-        if (c.checkPlayerBulletCollision(p, em.getBullets())) return 'bullet'
-        if (c.checkPlayerLaserCollision(p, em.getLasers())) return 'laser'
-        if (c.checkPlayerTrapCollision(p, em.getTraps())) return 'trap'
-        if (c.checkPlayerShooterCollision(p, em.getShooters())) return 'shooter'
-        if (c.checkPlayerPatrolCollision(p, em.getPatrols())) return 'patrol'
-        if (c.checkPlayerFollowerCollision(p, em.getFollowers())) return 'follower'
+        if (collision.checkPlayerBulletCollision(player, enemyManager.getBullets())) return 'bullet'
+        if (collision.checkPlayerLaserCollision(player, enemyManager.getLasers())) return 'laser'
+        if (collision.checkPlayerTrapCollision(player, enemyManager.getTraps())) return 'trap'
+        if (collision.checkPlayerShooterCollision(player, enemyManager.getShooters())) return 'shooter'
+        if (collision.checkPlayerPatrolCollision(player, enemyManager.getPatrols())) return 'patrol'
+        if (collision.checkPlayerFollowerCollision(player, enemyManager.getFollowers())) return 'follower'
         return null
     }
 
@@ -270,20 +270,20 @@ class Game {
 
     /**
      * Handle switch collection: unlock target, play sound, create wave animation.
-     * @param {Switch} sw - The collected switch
+     * @param {Switch} switchItem - The collected switch
      */
-    handleSwitchCollection(sw) {
-        sw.collect()
-        Analytics.trackSwitchCollected(this.levelData.id, sw.unlocks)
+    handleSwitchCollection(switchItem) {
+        switchItem.collect()
+        Analytics.trackSwitchCollected(this.levelData.id, switchItem.unlocks)
 
         // Unlock the target
-        if (sw.unlocks === 'exit' && this.exit) {
-            this.exit.open(sw.ttl)
+        if (switchItem.unlocks === 'exit' && this.exit) {
+            this.exit.open(switchItem.ttl)
         }
 
         // Play sound and create wave animation
         this.audioManager.playSound(Constants.audio.sounds.switchCollected)
-        this.collectionWave = new CollectionWaveAnimation(sw.x, sw.y, Constants.game.colors.switch)
+        this.collectionWave = new CollectionWaveAnimation(switchItem.x, switchItem.y, Constants.game.colors.switch)
     }
 
     /**

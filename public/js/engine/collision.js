@@ -198,8 +198,8 @@ class Collision {
      * @returns {Switch|null} The collected switch, or null if none
      */
     checkPlayerSwitchCollision(player, switches) {
-        return this.findFirst(player, switches, (p, sw) =>
-            !sw.isCollected() && this.gridCollides(p, sw)
+        return this.findFirst(player, switches, (player, switchItem) =>
+            !switchItem.isCollected() && this.gridCollides(player, switchItem)
         )
     }
 }

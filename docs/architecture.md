@@ -411,6 +411,9 @@ Cyberpunk/neon aesthetic with these design elements:
   - Files: `snake_case`
   - Classes: `PascalCase`
   - Functions: `camelCase` (no underscore prefixes)
+  - Variables: full descriptive names, avoid abbreviations
+    - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
+    - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
 - All magic values in `constants.js`
 - Unused parameters: use `_`, `__`, `___`, etc.
 
