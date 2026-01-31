@@ -1029,7 +1029,7 @@ canvas {
     }
 
     .timeline-markers {
-        gap: 32px;
+        gap: 44px;
     }
 
     .timeline-marker {
@@ -1163,7 +1163,7 @@ canvas {
     }
 
     .timeline-markers {
-        gap: 20px;
+        gap: 32px;
     }
 
     .timeline-marker {
@@ -1293,7 +1293,7 @@ canvas {
     }
 
     .timeline-markers {
-        gap: 12px;
+        gap: 24px;
     }
 
     .timeline-marker {
