@@ -11,7 +11,6 @@ Guidelines for designing levels in Tension Grid.
 ### Challenge & Density
 
 - **Every tile should ask a question** - Each move should force a decision: "Is this safe now?", "Do I bait or detour?", "Rush or wait?"
-- **Some tiles are answers, not questions** - Create "lanes of flow" where tiles act as the destination you're rushing toward; not every tile needs a new micro-decision
 - **Enemy placement must pose a challenge** - Don't place enemies where they can't threaten the player
 - **Minimize empty space** - No more than 5% of nodes should be "rest nodes" (safe from all threats); applies per level, excluding spawn grace period and tutorial levels
 - **No cramping of different enemy types** - Give each enemy type room to create its own threat pattern
@@ -25,13 +24,14 @@ Guidelines for designing levels in Tension Grid.
 - **Forgiving hitboxes** - Player's collision area should be slightly smaller than visual; near-misses feel skillful, not cheap
 - **Multiple viable paths preferred** - Aim for 2-4 viable solutions, not dozens; tight solution space but expressive execution; timing variations count as different paths
 - **Mix urgency and methodical play** - Some levels have time pressure, others allow careful navigation; methodical levels have slower consequences for waiting, not zero
-- **Brief grace period at spawn** - Give players a moment to orient before threats reach them
+- **Brief grace period at spawn** - Give players ~1000ms to orient before threats reach them
 
 ### Pacing Within Levels
 
 - **Tension and release cycles** - Alternate between high-pressure zones and moments of breathing room
 - **Don't frontload all danger** - Space out intense sections; constant pressure is exhausting
 - **Waiting should have consequences** - Enemies that advance, patrols that desync, or rewards for faster routes; delay should be a choice, not a free action
+- **End levels early** - Don't milk an idea; end the level as soon as the concept is proven
 
 ## Spatial Design
 
@@ -69,8 +69,6 @@ Guidelines for designing levels in Tension Grid.
 - **Enemies should create dilemmas together** - One blocks escape, another punishes waiting, a third forces detours; more enemies ≠ more interesting
 - **Avoid redundancy** - Don't stack enemies that do the same thing in the same area (e.g., two bullets on the same lane)
 - **One new mechanic per level** - During introduction phases, present new enemies or mechanics individually; combination levels come after each mechanic is learned
-- **End levels early** - Don't milk an idea; end the level as soon as the concept is proven
-- **Safe first encounters** - When introducing a new enemy type, make the first encounter forgiving so players can learn its behavior
 
 ### Patrol Paths
 
@@ -81,7 +79,7 @@ Guidelines for designing levels in Tension Grid.
 ### Intermittent Timing
 
 - **Safety depends on timing, not just position** - Design tiles whose safety changes based on when you step on them
-- **Timings can vary within a level** - Different on/off cycles create complexity
+- **Timings can vary within a level** - Different on/off cycles create complexity; typical range is 500ms-2000ms for on/off states
 - **Avoid synchronized patterns** - Staggered timings feel more dynamic
 
 ### Enemy Speed
@@ -105,12 +103,13 @@ Introduce mechanics in this order:
 2. **Lasers** - Intermittent timing windows
 3. **Patrols** - Moving obstacles with predictable paths
 4. **Traps** - Static hazards requiring route planning
-5. **Shooters** - Multi-directional threats
-6. **Mines** - Risk/reward decisions
-7. **Followers** - Active evasion and juking
-8. **Switches** - Time pressure and objective sequencing
-9. **Power-ups** - Resource collection and path optimization
-10. **Power-downs** - Hazard avoidance on main paths
+5. **Excluded edges/nodes** - Permanent barriers creating corridors
+6. **Shooters** - Multi-directional threats
+7. **Mines** - Risk/reward decisions
+8. **Followers** - Active evasion and juking
+9. **Switches** - Time pressure and objective sequencing
+10. **Power-ups** - Resource collection and path optimization
+11. **Power-downs** - Hazard avoidance on main paths
 
 After introduction, combine mechanics in increasing complexity.
 
@@ -119,7 +118,7 @@ After introduction, combine mechanics in increasing complexity.
 - **Overall difficulty trend increases** - Not every level must be harder, but the player's challenge should trend upward over time
 - **Avoid difficulty spikes** - Progression should be gradual; no sudden jumps in difficulty between consecutive levels
 - **Increase complexity, not just raw difficulty** - Combine previously-learned mechanics in new ways rather than simply adding more enemies or making them faster
-- **Front-loaded clarity** - First few moves in any level should be learnable quickly (not random death)
+- **Front-loaded clarity** - First few moves should be learnable quickly; when introducing new enemies, make first encounters forgiving so players can learn behavior
 - **Escalating difficulty within a level** - The approach toward the exit should get harder, but the final moment should be a clear path to victory
 - **End with relief, not chaos** - The last move should feel like escape or victory; the journey escalates, but arrival is earned relief
 
@@ -132,7 +131,8 @@ After introduction, combine mechanics in increasing complexity.
 
 ### Power-Ups (Levels 1-10: Tutorial)
 
-- Part of teaching mechanics; can be on accessible paths
+- Introduced at level 9 and continue in following levels
+- Part of teaching mechanics; can be on accessible paths during tutorial
 
 ### Power-Ups (Level 11+)
 
@@ -173,10 +173,10 @@ These are guidelines, not hard rules. Actual time varies with player skill and l
 
 | Enemy    | Behavior                           | Challenge Type        |
 | -------- | ---------------------------------- | --------------------- |
-| Bullet   | Linear movement across grid        | Timing lanes          |
+| Bullet   | Spawns from grid borders with configurable delay/interval, moves linearly | Timing lanes          |
 | Laser    | Static beam, can be intermittent   | Timing windows        |
 | Trap     | Static point hazard                | Route planning        |
-| Mine     | Trigger-based explosive            | Risk/reward decisions |
+| Mine     | Trigger on contact, explodes after delay, spawns bullets in all directions | Risk/reward decisions |
 | Shooter  | Fires in configured directions     | Pattern prediction    |
 | Patrol   | Follows cyclic path                | Dynamic avoidance     |
 | Follower | Chases player (greedy pathfinding) | Active evasion        |
