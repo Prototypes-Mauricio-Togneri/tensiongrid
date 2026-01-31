@@ -100,17 +100,69 @@ Guidelines for designing levels in Tension Grid.
 
 ## Enemy Reference
 
-| Enemy    | Behavior                                                                   | Challenge Type        |
-| -------- | -------------------------------------------------------------------------- | --------------------- |
-| Bullet   | Spawns from grid borders with configurable delay/interval, moves linearly  | Timing lanes          |
-| Laser    | Static beam, can be intermittent                                           | Timing windows        |
-| Trap     | Static point hazard                                                        | Route planning        |
-| Mine     | Trigger on contact, explodes after delay, spawns bullets in all directions | Risk/reward decisions |
-| Shooter  | Fires in configured directions                                             | Pattern prediction    |
-| Patrol   | Follows cyclic path                                                        | Dynamic avoidance     |
-| Follower | Chases player (greedy pathfinding)                                         | Active evasion        |
+### Bullet
 
-**Note on Followers:** Followers must be outplayable. Greedy pathfinding (not optimal) and node-based recalculation allow players to "juke" them. Perfect pathfinding creates impassable walls that block multiple viable paths.
+- **Behavior:** Spawns from grid borders, moves linearly across the grid until reaching the opposite edge
+- **Challenge:** Timing lanes - player must find gaps between bullet streams
+- **Configuration:** Spawn edge, direction, delay before first spawn, interval between spawns, speed
+- **Best for:** Creating rhythm and flow; forcing players to time movements
+- **Pairs well with:** Lasers (timing + timing), Patrols (timing + spatial)
+- **Avoid:** Multiple bullets on the same lane (redundant), excessive bullet count without clear lanes
+
+### Laser
+
+- **Behavior:** Static beam spanning between two grid nodes (horizontal or vertical only)
+- **Challenge:** Timing windows - player must pass through when laser is off
+- **Configuration:** Start/end nodes, persistent or intermittent, on/off duration (500ms-2000ms typical)
+- **Best for:** Blocking corridors temporarily; creating rhythmic gates
+- **Pairs well with:** Bullets (forces commitment during timing windows), Traps (spatial + timing)
+- **Avoid:** Synchronized lasers (feels mechanical), lasers blocking the only path without off-cycle
+
+### Trap
+
+- **Behavior:** Static point hazard occupying a single grid node; kills on contact
+- **Challenge:** Route planning - player must navigate around fixed obstacles
+- **Configuration:** Position, persistent or intermittent (with on/off timing)
+- **Best for:** Shaping available paths; creating maze-like navigation
+- **Pairs well with:** Bullets (limits dodge space), Patrols (forces timing around static obstacles)
+- **Avoid:** Completely blocking paths without alternative routes
+
+### Mine
+
+- **Behavior:** Dormant until player contact; triggers countdown with accelerating blink; explodes and spawns bullets in all valid adjacent directions
+- **Challenge:** Risk/reward decisions - trigger early from safe distance, or avoid entirely?
+- **Configuration:** Position, countdown delay (2000-2500ms typical)
+- **Best for:** Creating tactical choices; punishing or rewarding different strategies
+- **Pairs well with:** Followers (can be used to create obstacles for follower), Patrols (timing the trigger)
+- **Avoid:** Placing where explosion is unavoidable; too many mines creating chaos
+
+### Shooter
+
+- **Behavior:** Static turret fixed on a grid node; fires bullets in configured directions at intervals
+- **Challenge:** Pattern prediction - player must anticipate fire timing and directions
+- **Configuration:** Position, fire directions (up/down/left/right independently), interval per direction, optional rotation
+- **Best for:** Creating directional pressure; controlling specific lanes from within the grid
+- **Pairs well with:** Patrols (shooter controls timing, patrol controls space), Traps (limits safe positions)
+- **Avoid:** Covering too many directions at once (overwhelming); unclear fire patterns
+
+### Patrol
+
+- **Behavior:** Moves along a cyclic path of grid nodes; returns to start after completing route
+- **Challenge:** Dynamic avoidance - player must read and time movement around moving obstacle
+- **Configuration:** Path nodes (cyclic), speed
+- **Best for:** Creating moving barriers; forcing players to observe and time
+- **Pairs well with:** Bullets (moving + static timing), other Patrols (interlocking patterns)
+- **Avoid:** Long complex paths that feel random; paths that completely seal off areas
+
+### Follower
+
+- **Behavior:** Actively chases player using greedy pathfinding; recalculates direction only at nodes
+- **Challenge:** Active evasion - player must constantly move and outmaneuver
+- **Configuration:** Starting position, speed
+- **Best for:** Creating urgency; punishing hesitation; forcing continuous movement
+- **Pairs well with:** Traps (limits escape routes), Bullets (adds timing pressure to evasion)
+- **Avoid:** Perfect pathfinding (makes them impassable walls); multiple followers in small grids
+- **Note:** Must be outplayable. Greedy pathfinding and node-based recalculation allow players to "juke" them.
 
 ## Tutorial Sequence
 
