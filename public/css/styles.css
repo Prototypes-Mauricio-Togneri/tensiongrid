@@ -653,29 +653,6 @@ canvas {
     font-size: 1.3rem;
 }
 
-/* Milestone markers (levels 5 and 10) */
-.timeline-marker.milestone {
-    --marker-size: 68px;
-    border-width: 3px;
-}
-
-.timeline-marker.milestone .marker-label {
-    font-size: 1.3rem;
-}
-
-.timeline-marker.milestone.selected {
-    transform: rotate(45deg) scale(1.15);
-}
-
-.timeline-marker.milestone.selected .marker-label {
-    font-size: 1.4rem;
-}
-
-/* Milestone glow effect */
-.timeline-marker.milestone::before {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 245, 255, 0.1) 50%, transparent 100%);
-}
-
 /* Locked marker */
 .timeline-marker.locked {
     background: transparent;
@@ -1058,16 +1035,8 @@ canvas {
         --marker-size: 44px;
     }
 
-    .timeline-marker.milestone {
-        --marker-size: 54px;
-    }
-
     .marker-label {
         font-size: 1rem;
-    }
-
-    .timeline-marker.milestone .marker-label {
-        font-size: 1.1rem;
     }
 
     .timeline-marker.selected .marker-label {
@@ -1200,17 +1169,8 @@ canvas {
         --marker-size: 34px;
     }
 
-    .timeline-marker.milestone {
-        --marker-size: 42px;
-        border-width: 2px;
-    }
-
     .marker-label {
         font-size: 0.8rem;
-    }
-
-    .timeline-marker.milestone .marker-label {
-        font-size: 0.9rem;
     }
 
     .timeline-marker.selected .marker-label {
@@ -1339,16 +1299,8 @@ canvas {
         --marker-size: 28px;
     }
 
-    .timeline-marker.milestone {
-        --marker-size: 34px;
-    }
-
     .marker-label {
         font-size: 0.65rem;
-    }
-
-    .timeline-marker.milestone .marker-label {
-        font-size: 0.75rem;
     }
 
     .timeline-marker.selected {

@@ -62,9 +62,6 @@ class Screen {
         for (let i = 1; i <= totalLevels; i++) {
             const marker = document.createElement('button')
             marker.className = 'timeline-marker'
-            if (i % 5 === 0) {
-                marker.classList.add('milestone')
-            }
             marker.dataset.level = i
             marker.dataset.action = `level_${String(i).padStart(3, '0')}`
 
