@@ -45,7 +45,7 @@ Guidelines for designing levels in Tension Grid.
 ### Start & Exit Placement
 
 - **Open exit levels**: Place exit far from starting point (e.g., diagonal corners)
-- **Switch-based levels**: Exit and switch must not be close to each other (start position is flexible)
+- **Switch-based levels**: Start, switch, and exit should all be distanced from each other; the journey is start → switch → exit
 - **Design the last move first** - Create the ending, then design backward; ensures the final moment feels earned
 
 ### Switch Mechanics
