@@ -16,27 +16,6 @@ class Analytics {
     }
 
     // ==========================================
-    // Session Events
-    // ==========================================
-
-    /**
-     * Track when a browser session starts.
-     */
-    static trackSessionStart() {
-        this.sendEvent('session_start')
-    }
-
-    /**
-     * Track when a browser session ends.
-     * @param {number} duration - Session duration in milliseconds
-     */
-    static trackSessionEnd(duration) {
-        this.sendEvent('session_end', {
-            duration_ms: duration
-        })
-    }
-
-    // ==========================================
     // Level Events
     // ==========================================
 
