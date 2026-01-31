@@ -163,6 +163,19 @@ _Threat sources = total enemies, hazards, and spawners. Quality over quantity._
 - **Avoid:** Multiple followers in small grids
 - **Note:** Must be outplayable. Greedy pathfinding and node-based recalculation allow players to "juke" them.
 
+## Structural Elements
+
+Non-threatening elements that shape the playable space.
+
+### Wall
+
+- **Behavior:** Static barrier between two grid nodes; blocks player movement but does not damage
+- **Purpose:** Constrains player movement; prevents edge wrapping in specific areas
+- **Configuration:** Start/end nodes (can span multiple nodes in a line)
+- **Best for:** Tutorial levels to guide players; preventing wrap-around on outer edges; creating corridors without using excluded nodes
+- **Placement:** Typically on outer grid edges to disable wrapping and keep players focused on the intended play area
+- **Note:** Unlike excluded edges, walls are visible barriers that clearly communicate "you cannot pass here"
+
 ## Tutorial levels
 
 Introduce mechanics in this order:

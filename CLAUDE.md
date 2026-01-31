@@ -33,6 +33,7 @@ public/
 Read these when working on specific areas:
 
 - `docs/architecture.md` - Visual design (colors, typography, effects), class architecture with line references, game mechanics
+- `docs/level-design.md` - Level design philosophy, enemy reference, difficulty progression guidelines
 
 # Critical Instructions
 
