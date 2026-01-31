@@ -154,7 +154,7 @@ const Constants = {
     // ==========================================
     game: {
         // Gym mode configuration path
-        gym: 'gyms/gym_1.json',
+        gym: 'gyms/gym_2.json',
 
         // Total number of available levels
         totalLevels: 10,

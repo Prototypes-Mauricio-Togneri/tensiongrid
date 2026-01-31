@@ -9,13 +9,21 @@ Guidelines for designing levels in Tension Grid.
 - **Enemy placement must pose a challenge** - Don't place enemies where they can't threaten the player
 - **Minimize empty space** - No more than 5% of nodes should be "rest nodes" (safe from all threats)
 - **No cramping of different enemy types** - Give each enemy type room to create its own threat pattern
+- **Scale enemy count with grid size** - Larger grids need more threats; aim for consistent density across levels
 
 ### Player Experience
 
 - **Action over puzzle** - Levels should flow with timing and reflexes, not require stopping to calculate solutions
 - **Multiple deaths expected** - Players will learn through failure; non-obvious dangers are acceptable
+- **Every death should feel fair** - Players should understand why they died and how to avoid it next time; no cheap or random deaths
 - **Multiple viable paths preferred** - Give players agency; avoid funneling into a single route
 - **Mix urgency and methodical play** - Some levels have time pressure, others allow careful navigation
+- **Brief grace period at spawn** - Give players a moment to orient before threats reach them
+
+### Pacing Within Levels
+
+- **Tension and release cycles** - Alternate between high-pressure zones and moments of breathing room
+- **Don't frontload all danger** - Space out intense sections; constant pressure is exhausting
 
 ## Spatial Design
 
@@ -31,6 +39,17 @@ Guidelines for designing levels in Tension Grid.
 - **Open exit levels**: Place exit far from starting point (e.g., diagonal corners)
 - **Switch-based levels**: Exit and switch must not be close to each other (start position is flexible)
 
+### Guiding Through Design
+
+- **Use enemies to suggest paths** - Enemy placement can implicitly guide players away from dead ends or toward the intended route
+- **Gaps in threats signal opportunity** - A clear lane between dangers invites the player to move through it
+
+### Grid Size Guidelines
+
+- **Small grids (7x7)** - Best for introducing new mechanics; limited space forces engagement with threats
+- **Medium grids (8x8 to 9x9)** - Good for combining mechanics; enough room for multiple threat types
+- **Large grids (10x10+)** - Best for complex scenarios with patrols, followers, and exploration; requires more enemies to avoid empty space
+
 ## Enemy Design
 
 ### Synergy & Variety
@@ -38,6 +57,7 @@ Guidelines for designing levels in Tension Grid.
 - **Complementary threats** - Pair enemies that force different skills (e.g., patrol blocks route while bullets require timing)
 - **Avoid redundancy** - Don't stack enemies that do the same thing in the same area (e.g., two bullets on the same lane)
 - **One new mechanic per level** - Introduce new enemies or mechanics individually before combining them
+- **Safe first encounters** - When introducing a new enemy type, make the first encounter forgiving so players can learn its behavior
 
 ### Patrol Paths
 
@@ -49,11 +69,18 @@ Guidelines for designing levels in Tension Grid.
 - **Timings can vary within a level** - Different on/off cycles create complexity
 - **Avoid synchronized patterns** - Staggered timings feel more dynamic
 
+### Enemy Speed
+
+- **Enemies should generally be slower than the player** - Allows reaction time and feeling of control
+- **Faster enemies require more predictable patterns** - If an enemy is fast, its behavior must be easy to anticipate
+
 ## Difficulty Progression
 
 ### Across Levels
 
 - **Each level harder than the previous** - Difficulty should consistently increase as the player progresses
+- **Avoid difficulty spikes** - Progression should be gradual; no sudden jumps in difficulty between consecutive levels
+- **Increase complexity, not just raw difficulty** - Combine previously-learned mechanics in new ways rather than simply adding more enemies or making them faster
 - **Front-loaded clarity** - First few moves in any level should be learnable quickly (not random death)
 - **Escalating difficulty within a level** - The path toward the exit should generally get harder, not easier
 
@@ -85,6 +112,12 @@ Not a fixed rule. Depends on:
 - Player skill level
 - Grid size
 - Enemy complexity and density
+
+## Replay Value
+
+- **Multiple viable paths** - Different routes encourage replaying to find optimal strategies
+- **Speedrun potential** - Skilled players should be able to find faster, riskier routes
+- **Mastery reward** - Levels that felt hard should feel satisfying once mastered
 
 ## Enemy Reference
 
