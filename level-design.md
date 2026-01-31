@@ -73,6 +73,7 @@ Guidelines for designing levels in Tension Grid.
 
 - **Prefer short, predictable paths** - Easy to memorize and time
 - **Long paths must be recognizable** - If a patrol has a complex route, make it visually obvious
+- **Learning the dance, not reaction** - Predictable patterns create choreography; players memorize and execute, not react in panic
 
 ### Intermittent Timing
 
