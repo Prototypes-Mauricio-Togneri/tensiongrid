@@ -6,6 +6,7 @@ Guidelines for designing levels in Tension Grid.
 
 ### Challenge & Density
 
+- **Every tile should ask a question** - Each move should force a decision: "Is this safe now?", "Do I bait or detour?", "Rush or wait?"
 - **Enemy placement must pose a challenge** - Don't place enemies where they can't threaten the player
 - **Minimize empty space** - No more than 5% of nodes should be "rest nodes" (safe from all threats)
 - **No cramping of different enemy types** - Give each enemy type room to create its own threat pattern
@@ -25,6 +26,7 @@ Guidelines for designing levels in Tension Grid.
 
 - **Tension and release cycles** - Alternate between high-pressure zones and moments of breathing room
 - **Don't frontload all danger** - Space out intense sections; constant pressure is exhausting
+- **Waiting should have consequences** - Enemies that advance, patrols that desync, or rewards for faster routes; delay should be a choice, not a free action
 
 ## Spatial Design
 
@@ -56,6 +58,7 @@ Guidelines for designing levels in Tension Grid.
 ### Synergy & Variety
 
 - **Complementary threats** - Pair enemies that force different skills (e.g., patrol blocks route while bullets require timing)
+- **Enemies should create dilemmas together** - One blocks escape, another punishes waiting, a third forces detours; more enemies ≠ more interesting
 - **Avoid redundancy** - Don't stack enemies that do the same thing in the same area (e.g., two bullets on the same lane)
 - **One new mechanic per level** - Introduce new enemies or mechanics individually before combining them
 - **Safe first encounters** - When introducing a new enemy type, make the first encounter forgiving so players can learn its behavior
@@ -89,6 +92,7 @@ Guidelines for designing levels in Tension Grid.
 - **Increase complexity, not just raw difficulty** - Combine previously-learned mechanics in new ways rather than simply adding more enemies or making them faster
 - **Front-loaded clarity** - First few moves in any level should be learnable quickly (not random death)
 - **Escalating difficulty within a level** - The path toward the exit should generally get harder, not easier
+- **End with relief, not chaos** - The final move should feel like escape or victory; avoid random dodging near the exit
 
 ### Switch Mechanics
 
