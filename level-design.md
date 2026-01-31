@@ -208,14 +208,29 @@ After introduction, combine mechanics in increasing complexity.
 - **Place on the main path** - Force players to actively avoid them
 - **Create decision points** - Faster route with power-down vs safer route without
 
-### Reference
+### Fast
 
-| Type   | Effect                 | Design Use                          |
-| ------ | ---------------------- | ----------------------------------- |
-| Fast   | Increases player speed | Help outrun followers or tight TTLs |
-| Shield | Absorbs one hit        | Allow passage through tight spots   |
-| Slow   | Decreases player speed | Power-down; punishes careless paths |
-| Mirror | Inverts controls       | Power-down; forces concentration    |
+- **Effect:** Increases player speed temporarily
+- **Design use:** Help outrun followers or reach exit before tight TTL expires
+- **Placement:** Before follower-heavy sections; reward for risky detours; near switches with tight timers
+
+### Shield
+
+- **Effect:** Absorbs one hit, then disappears
+- **Design use:** Allow passage through otherwise too-tight spots
+- **Placement:** Before unavoidable near-misses; as safety net for hard sections; enable risky shortcuts
+
+### Slow (Power-Down)
+
+- **Effect:** Decreases player speed temporarily
+- **Design use:** Punishes careless paths; creates decision points
+- **Placement:** On the main/obvious path to reward players who find alternate routes
+
+### Mirror (Power-Down)
+
+- **Effect:** Inverts player controls temporarily
+- **Design use:** Forces concentration; disrupts muscle memory
+- **Placement:** On tempting shortcuts; guarding valuable power-ups to create risk/reward
 
 ## Level Characteristics
 
