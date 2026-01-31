@@ -209,7 +209,8 @@ class EnemyManager {
             row, col,
             pos.x, pos.y,
             dirRow, dirCol,
-            this.grid
+            this.grid,
+            instanceConfig.speed
         ))
     }
 
