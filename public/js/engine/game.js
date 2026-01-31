@@ -237,6 +237,7 @@ class Game {
      */
     handlePowerCollection(power) {
         power.collect()
+        Analytics.trackPowerCollected(this.levelData.id, power.type)
         const effectType = power.type
         const effectConfig = Constants.game.effects[effectType]
         this.player.effectManager.addEffect(effectType, effectConfig)
@@ -269,6 +270,7 @@ class Game {
      */
     handleSwitchCollection(sw) {
         sw.collect()
+        Analytics.trackSwitchCollected(this.levelData.id, sw.unlocks)
 
         // Unlock the target
         if (sw.unlocks === 'exit' && this.exit) {

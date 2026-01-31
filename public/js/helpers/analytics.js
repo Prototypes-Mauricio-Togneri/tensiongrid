@@ -86,10 +86,12 @@ class Analytics {
     /**
      * Track when a player collects the exit switch.
      * @param {string|number} levelId - Level identifier
+     * @param {string} unlocks - What the switch unlocks (e.g., 'exit')
      */
-    static trackSwitchCollected(levelId) {
+    static trackSwitchCollected(levelId, unlocks) {
         this.sendEvent('switch_collected', {
-            level_id: String(levelId)
+            level_id: String(levelId),
+            unlocks: unlocks
         })
     }
 }
