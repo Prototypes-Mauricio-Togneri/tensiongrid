@@ -13,6 +13,8 @@ taking into account all the information in this document, are there change to be
 
 - Add 2 more tutorial levels to make them 15?
 
+- Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.
+
 - improve playe wake animation
 - sound when player moving?
 
