@@ -194,40 +194,35 @@ After introduction, combine mechanics in increasing complexity.
 
 ## Power-Ups & Power-Downs
 
-### Power-Ups (Levels 1-10: Tutorial)
-
-- Introduced at level 9 and continue in following levels
-- Part of teaching mechanics; can be on accessible paths during tutorial
-
-### Power-Ups (Level 11+)
+### Power-Ups
 
 - **Not trivial to collect** - Require detours or risk to obtain
 - **Essential, not bonuses** - Place them to help overcome specific challenges
+
+#### Fast
+
+- **Effect:** Increases player speed temporarily
+- **Design use:** Help outrun followers or reach exit before tight TTL expires
+- **Placement:** Before follower-heavy sections; reward for risky detours; near switches with tight timers
+
+#### Shield
+
+- **Effect:** Absorbs one hit, then disappears
+- **Design use:** Allow passage through otherwise too-tight spots
+- **Placement:** Before unavoidable near-misses; as safety net for hard sections; enable risky shortcuts
 
 ### Power-Downs
 
 - **Place on the main path** - Force players to actively avoid them
 - **Create decision points** - Faster route with power-down vs safer route without
 
-### Fast
-
-- **Effect:** Increases player speed temporarily
-- **Design use:** Help outrun followers or reach exit before tight TTL expires
-- **Placement:** Before follower-heavy sections; reward for risky detours; near switches with tight timers
-
-### Shield
-
-- **Effect:** Absorbs one hit, then disappears
-- **Design use:** Allow passage through otherwise too-tight spots
-- **Placement:** Before unavoidable near-misses; as safety net for hard sections; enable risky shortcuts
-
-### Slow (Power-Down)
+#### Slow
 
 - **Effect:** Decreases player speed temporarily
 - **Design use:** Punishes careless paths; creates decision points
 - **Placement:** On the main/obvious path to reward players who find alternate routes
 
-### Mirror (Power-Down)
+#### Mirror
 
 - **Effect:** Inverts player controls temporarily
 - **Design use:** Forces concentration; disrupts muscle memory
