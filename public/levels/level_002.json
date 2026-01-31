@@ -1,25 +1,67 @@
 {
   "id": 2,
   "grid": {
-    "width": 5,
-    "height": 5
+    "width": 7,
+    "height": 7
   },
   "player": {
-    "startX": 2,
-    "startY": 0
+    "startX": 1,
+    "startY": 1
   },
   "exit": {
-    "x": 2,
-    "y": 4,
+    "x": 5,
+    "y": 5,
     "status": "open"
   },
+  "walls": [
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 6,
+        "y": 0
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 0,
+        "y": 6
+      }
+    },
+    {
+      "from": {
+        "x": 6,
+        "y": 0
+      },
+      "to": {
+        "x": 6,
+        "y": 6
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 6
+      },
+      "to": {
+        "x": 6,
+        "y": 6
+      }
+    }
+  ],
   "enemies": {
     "enemyLaser": [
       {
         "startX": 0,
-        "startY": 2,
-        "endX": 4,
-        "endY": 2,
+        "startY": 3,
+        "endX": 6,
+        "endY": 3,
         "timeOn": 2000,
         "timeOff": 2000
       }
