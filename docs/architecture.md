@@ -372,6 +372,11 @@ Cyberpunk/neon aesthetic with these design elements:
 **UIManager** (`js/io/ui_manager.js`) - UI effects:
 - Screen shake trigger on collision
 
+**ErrorNotifier** (`js/io/error_notifier.js`) - Developer error visibility:
+- Displays JavaScript errors via `alert()` for immediate developer visibility
+- `init()` - Sets up global `window.onerror` and `unhandledrejection` handlers
+- Errors still log to console for debugging
+
 **Game** (`js/engine/game.js`) - Main orchestrator:
 - `start(levelData)` - Initializes game with level configuration (grid, player, enemies, powers)
 - `update(delta)` - Main update loop, delegates to helper methods

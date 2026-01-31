@@ -3,6 +3,10 @@
  * Handles screen navigation, menu input, and game lifecycle.
  */
 (() => {
+    // Initialize error notifier first to catch all errors
+    const errorNotifier = new ErrorNotifier()
+    errorNotifier.init()
+
     // Core instances
     const storage = new LocalStorage()
     const input = new InputManager()
