@@ -16,6 +16,7 @@ Guidelines for designing levels in Tension Grid.
 - **Action over puzzle** - Levels should flow with timing and reflexes, not require stopping to calculate solutions
 - **Multiple deaths expected** - Players will learn through failure; non-obvious dangers are acceptable
 - **Every death should feel fair** - Players should understand why they died and how to avoid it next time; no cheap or random deaths
+- **Forgiving hitboxes** - Player's collision area should be slightly smaller than visual; near-misses feel skillful, not cheap
 - **Multiple viable paths preferred** - Give players agency; avoid funneling into a single route
 - **Mix urgency and methodical play** - Some levels have time pressure, others allow careful navigation
 - **Brief grace period at spawn** - Give players a moment to orient before threats reach them
@@ -73,6 +74,11 @@ Guidelines for designing levels in Tension Grid.
 
 - **Enemies should generally be slower than the player** - Allows reaction time and feeling of control
 - **Faster enemies require more predictable patterns** - If an enemy is fast, its behavior must be easy to anticipate
+
+### Telegraphing
+
+- **Signal before state changes** - If an enemy is about to act (turn, fire, explode), give a visual cue beforehand
+- **No surprise attacks** - Players should have time to react to telegraphed danger
 
 ## Difficulty Progression
 
