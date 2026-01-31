@@ -69,6 +69,16 @@ Cyberpunk/neon aesthetic with these design elements:
 
 - `version`: UTC build timestamp (auto-updated by `scripts/version.sh` at deploy time)
 
+### Helpers
+
+**Analytics** (`js/helpers/analytics.js`) - GA4 event tracking (static methods only):
+- `sendEvent(name, data)` - Send generic event to Google Analytics
+- `trackSessionStart()` / `trackSessionEnd(duration)` - Session lifecycle
+- `trackLevelStart(levelId)` / `trackLevelComplete(levelId, deaths, duration)` / `trackLevelQuit(levelId)` - Level lifecycle
+- `trackPlayerDeath(levelId, cause)` - Player death with enemy type
+- `trackPowerCollected(levelId, powerType)` - Power-up/down collection
+- `trackSwitchCollected(levelId)` - Exit switch collection
+
 ### Core Classes
 
 **Vector2** (`js/engine/vector2.js`) - 2D vector utility:

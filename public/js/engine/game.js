@@ -222,6 +222,7 @@ class Game {
             this.ui.shake()
         } else if (!this.player.isImmune()) {
             // Normal death (not protected)
+            this.deathCount++
             this.audioManager.playSound(Constants.audio.sounds.explosionPlayer)
             this.ui.shake()
             this.dead = true
@@ -442,6 +443,8 @@ class Game {
         this.touchingExit = false    // True while player is on exit node
         this.exiting = false         // True during exit warp animation
         this.exitAnimation = null    // Exit warp animation instance
+        this.deathCount = 0          // Number of deaths in current level
+        this.startTime = 0           // Level start timestamp (ms)
         this.initPowers(levelData)
         this.initExit(levelData)
         this.initSwitches(levelData)
@@ -549,7 +552,9 @@ class Game {
         this.resizeCanvas()
         this.reset()
         this.running = true
-        this.lastTime = performance.now() // Initialize to avoid large first-frame delta
+        this.deathCount = 0
+        this.startTime = performance.now()
+        this.lastTime = this.startTime // Initialize to avoid large first-frame delta
         window.addEventListener(Constants.events.resize, this.boundResizeCanvas)
         requestAnimationFrame((t) => this.gameLoop(t))
     }

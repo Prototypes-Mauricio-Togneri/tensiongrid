@@ -152,9 +152,13 @@
         audioManager.playMusic(Constants.audio.music.game)
         screen.show(Constants.screens.game)
         game.start(levelData)
+        Analytics.trackLevelStart(levelData.id)
 
         // Set level completion callback
         game.setOnLevelComplete(() => {
+            const duration = performance.now() - game.startTime
+            Analytics.trackLevelComplete(levelData.id, game.deathCount, Math.round(duration))
+
             // Unlock next level on completion
             const nextLevel = levelData.id + 1
             if (nextLevel > storage.getCurrentLevel()) {
@@ -219,6 +223,7 @@
             game.reset()
             game.resume()
         } else if (action === Constants.actions.pause.quit) {
+            Analytics.trackLevelQuit(game.levelData.id, game.deathCount)
             audioManager.playSound(Constants.audio.sounds.closeScreen)
             hidePauseMenu()
             game.stop()
