@@ -2,8 +2,6 @@
 
 [Web site](https://tensiongrid.com)
 
-taking into account all the information in this document, are there change to be made in the codebase to comply with it?
-
 taking into account all the information in this document, are there change to be made in the levels 1, 2, 3 or 4? If so, why? What rules in the design level document do you want to apply?
 
 - Make key yellow rombus with pulse animation
