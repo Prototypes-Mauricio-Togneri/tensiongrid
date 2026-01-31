@@ -83,20 +83,19 @@ _Threat sources = total enemies, hazards, and spawners. Quality over quantity._
 
 ### Intermittent Timing
 
-- **Safety depends on timing, not just position** - Design nodes whose safety changes based on when you step on them
+- **Safety depends on timing, not just position** - A node can be safe one moment and deadly the next (laser turns on, bullet passes through, patrol arrives); players must time movements, not just plot routes
 - **Timings can vary within a level** - Different on/off cycles create complexity; typical range is 500ms-2000ms for on/off states
-- **Avoid synchronized patterns** - Staggered timings feel more dynamic
+- **Avoid synchronized patterns** - Don't make all intermittent hazards turn on/off at the same time; stagger their cycles so players must read each hazard individually rather than waiting for one "safe window"
 
 ### Enemy Speed
 
 - **Enemies should generally be slower than the player** - Allows reaction time and feeling of control
-- **Faster enemies require more predictable patterns** - If an enemy is fast, its behavior must be easy to anticipate
+- **Faster enemies require more predictability** - If an enemy moves at or above player speed (e.g., some bullets), its path must be simple and telegraphed
 
 ### Telegraphing
 
 - **Signal before state changes** - If an enemy is about to act (turn, fire, explode), give a visual cue at least 500ms beforehand
 - **No surprise attacks** - Players should have time to react to telegraphed danger
-- **Audio cues for off-screen threats** - In large maps, sound can warn of approaching danger before it enters the viewport
 
 ## Enemy Reference
 
