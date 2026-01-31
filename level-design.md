@@ -73,7 +73,7 @@ _Threat sources = total enemies, hazards, and spawners. Quality over quantity._
 - **Complementary threats** - Pair enemies that force different skills (e.g., patrol blocks route while bullets require timing)
 - **Enemies should create dilemmas together** - One blocks escape, another punishes waiting, a third forces detours; more enemies ≠ more interesting
 - **Avoid redundancy** - Don't stack enemies that do the same thing in the same area (e.g., two bullets on the same lane)
-- **One new mechanic per level** - During the tutorial levels (i.e., levels 1 to 10), present new enemies or mechanics gradually
+- **One new mechanic per level** - During the tutorial levels, present new enemies or mechanics gradually
 
 ### Patrol Paths
 
@@ -160,24 +160,26 @@ _Threat sources = total enemies, hazards, and spawners. Quality over quantity._
 - **Configuration:** Starting position, speed
 - **Best for:** Creating urgency; punishing hesitation; forcing continuous movement
 - **Pairs well with:** Traps (limits escape routes), Bullets (adds timing pressure to evasion)
-- **Avoid:** Perfect pathfinding (makes them impassable walls); multiple followers in small grids
+- **Avoid:** Multiple followers in small grids
 - **Note:** Must be outplayable. Greedy pathfinding and node-based recalculation allow players to "juke" them.
 
-## Tutorial Sequence
+## Tutorial levels
 
 Introduce mechanics in this order:
 
 1. **Bullets** - Basic timing and lane awareness
 2. **Lasers** - Intermittent timing windows
-3. **Patrols** - Moving obstacles with predictable paths
-4. **Traps** - Static hazards requiring route planning
+3. **Traps** - Static hazards requiring route planning
+4. **Patrols** - Moving obstacles with predictable paths
 5. **Excluded edges/nodes** - Permanent barriers creating corridors
 6. **Shooters** - Multi-directional threats
 7. **Mines** - Risk/reward decisions
 8. **Followers** - Active evasion and juking
 9. **Switches** - Time pressure and objective sequencing
-10. **Power-ups** - Resource collection and path optimization
-11. **Power-downs** - Hazard avoidance on main paths
+10. **Power-ups** - Fast movement
+11. **Power-ups** - Shields
+12. **Power-downs** - Slow movement
+13. **Power-downs** - Mirror controls
 
 After introduction, combine mechanics in increasing complexity.
 
