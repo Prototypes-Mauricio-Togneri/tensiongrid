@@ -48,6 +48,11 @@ Guidelines for designing levels in Tension Grid.
 - **Switch-based levels**: Exit and switch must not be close to each other (start position is flexible)
 - **Design the last move first** - Create the ending, then design backward; ensures the final moment feels earned
 
+### Switch Mechanics
+
+- **TTL should not be too generous** - Create tension; the timer should allow reaching the exit with minimal margin for error on the optimal path
+- **Switch placement creates the challenge** - Distance and obstacles between switch and exit matter
+
 ### Guiding Through Design
 
 - **Use enemies to suggest paths** - Enemy placement can implicitly guide players away from dead ends or toward the intended route
@@ -93,9 +98,21 @@ Guidelines for designing levels in Tension Grid.
 - **No surprise attacks** - Players should have time to react to telegraphed danger
 - **Audio cues for off-screen threats** - In large maps, sound can warn of approaching danger before it enters the viewport
 
-## Difficulty Progression
+## Enemy Reference
 
-### Tutorial Sequence (Recommended)
+| Enemy    | Behavior                                                                   | Challenge Type        |
+| -------- | -------------------------------------------------------------------------- | --------------------- |
+| Bullet   | Spawns from grid borders with configurable delay/interval, moves linearly  | Timing lanes          |
+| Laser    | Static beam, can be intermittent                                           | Timing windows        |
+| Trap     | Static point hazard                                                        | Route planning        |
+| Mine     | Trigger on contact, explodes after delay, spawns bullets in all directions | Risk/reward decisions |
+| Shooter  | Fires in configured directions                                             | Pattern prediction    |
+| Patrol   | Follows cyclic path                                                        | Dynamic avoidance     |
+| Follower | Chases player (greedy pathfinding)                                         | Active evasion        |
+
+**Note on Followers:** Followers must be outplayable. Greedy pathfinding (not optimal) and node-based recalculation allow players to "juke" them. Perfect pathfinding creates impassable walls that block multiple viable paths.
+
+## Tutorial Sequence
 
 Introduce mechanics in this order:
 
@@ -113,7 +130,7 @@ Introduce mechanics in this order:
 
 After introduction, combine mechanics in increasing complexity.
 
-### Across Levels
+## Difficulty Progression
 
 - **Overall difficulty trend increases** - Not every level must be harder, but the player's challenge should trend upward over time
 - **Avoid difficulty spikes** - Progression should be gradual; no sudden jumps in difficulty between consecutive levels
@@ -121,11 +138,6 @@ After introduction, combine mechanics in increasing complexity.
 - **Front-loaded clarity** - First few moves should be learnable quickly; when introducing new enemies, make first encounters forgiving so players can learn behavior
 - **Escalating difficulty within a level** - The approach toward the exit should get harder, but the final moment should be a clear path to victory
 - **End with relief, not chaos** - The last move should feel like escape or victory; the journey escalates, but arrival is earned relief
-
-### Switch Mechanics
-
-- **TTL should not be too generous** - Create tension; the timer should allow reaching the exit with minimal margin for error on the optimal path
-- **Switch placement creates the challenge** - Distance and obstacles between switch and exit matter
 
 ## Power-Ups & Power-Downs
 
@@ -144,16 +156,18 @@ After introduction, combine mechanics in increasing complexity.
 - **Place on the main path** - Force players to actively avoid them
 - **Create decision points** - Faster route with power-down vs safer route without
 
-### Power-Up Reference
+### Reference
 
-| Type   | Effect                    | Design Use                          |
-| ------ | ------------------------- | ----------------------------------- |
-| Fast   | Increases player speed    | Help outrun followers or tight TTLs |
-| Shield | Absorbs one hit           | Allow passage through tight spots   |
-| Slow   | Decreases player speed    | Power-down; punishes careless paths |
-| Mirror | Inverts controls          | Power-down; forces concentration    |
+| Type   | Effect                 | Design Use                          |
+| ------ | ---------------------- | ----------------------------------- |
+| Fast   | Increases player speed | Help outrun followers or tight TTLs |
+| Shield | Absorbs one hit        | Allow passage through tight spots   |
+| Slow   | Decreases player speed | Power-down; punishes careless paths |
+| Mirror | Inverts controls       | Power-down; forces concentration    |
 
-## Level Completion Time
+## Level Characteristics
+
+### Completion Time
 
 Target ranges for skilled players:
 
@@ -163,25 +177,11 @@ Target ranges for skilled players:
 
 These are guidelines, not hard rules. Actual time varies with player skill and level complexity.
 
-## Replay Value
+### Replay Value
 
 - **Path variety encourages replay** - See "Multiple viable paths" in Player Experience
 - **Speedrun potential** - Skilled players should be able to find faster, riskier routes
 - **Mastery reward** - Levels that felt hard should feel satisfying once mastered
-
-## Enemy Reference
-
-| Enemy    | Behavior                           | Challenge Type        |
-| -------- | ---------------------------------- | --------------------- |
-| Bullet   | Spawns from grid borders with configurable delay/interval, moves linearly | Timing lanes          |
-| Laser    | Static beam, can be intermittent   | Timing windows        |
-| Trap     | Static point hazard                | Route planning        |
-| Mine     | Trigger on contact, explodes after delay, spawns bullets in all directions | Risk/reward decisions |
-| Shooter  | Fires in configured directions     | Pattern prediction    |
-| Patrol   | Follows cyclic path                | Dynamic avoidance     |
-| Follower | Chases player (greedy pathfinding) | Active evasion        |
-
-**Note on Followers:** Followers must be outplayable. Greedy pathfinding (not optimal) and node-based recalculation allow players to "juke" them. Perfect pathfinding creates impassable walls that block multiple viable paths.
 
 ## Common Mistakes to Avoid
 
