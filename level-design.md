@@ -230,16 +230,6 @@ After introduction, combine mechanics in increasing complexity.
 
 ## Level Characteristics
 
-### Completion Time
-
-Target ranges for skilled players:
-
-- **Small grids (7x7)**: 5-15 seconds
-- **Medium grids (8x8-9x9)**: 10-25 seconds
-- **Large grids (10x10+)**: 15-40 seconds
-
-These are guidelines, not hard rules. Actual time varies with player skill and level complexity.
-
 ### Replay Value
 
 - **Path variety encourages replay** - See "Multiple viable paths" in Player Experience
