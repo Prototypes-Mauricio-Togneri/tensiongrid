@@ -118,10 +118,6 @@
       {
         "x": 3,
         "y": 2
-      },
-      {
-        "x": 5,
-        "y": 5
       }
     ],
     "enemyLaser": [
@@ -132,14 +128,6 @@
         "endY": 4,
         "timeOn": 2000,
         "timeOff": 2500
-      },
-      {
-        "startX": 5,
-        "startY": 1,
-        "endX": 5,
-        "endY": 4,
-        "timeOn": 1800,
-        "timeOff": 2200
       }
     ],
     "enemyPatrol": [
@@ -159,23 +147,6 @@
             "y": 3
           }
         ]
-      },
-      {
-        "speed": 90,
-        "path": [
-          {
-            "x": 4,
-            "y": 6
-          },
-          {
-            "x": 5,
-            "y": 6
-          },
-          {
-            "x": 4,
-            "y": 6
-          }
-        ]
       }
     ],
     "enemyBullet": [
@@ -186,14 +157,6 @@
         "delay": 1500,
         "interval": 3500,
         "speed": 85
-      },
-      {
-        "x": 7,
-        "y": 2,
-        "direction": "left",
-        "delay": 2500,
-        "interval": 4000,
-        "speed": 80
       }
     ]
   }
