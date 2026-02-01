@@ -2,7 +2,27 @@
   "id": 6,
   "grid": {
     "width": 8,
-    "height": 8
+    "height": 8,
+    "excludes": {
+      "nodes": [
+        {
+          "x": 2,
+          "y": 2
+        },
+        {
+          "x": 2,
+          "y": 3
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 5,
+          "y": 5
+        }
+      ]
+    }
   },
   "player": {
     "startX": 1,
@@ -55,5 +75,75 @@
       }
     }
   ],
-  "enemies": {}
+  "enemies": {
+    "enemyTrap": [
+      {
+        "x": 3,
+        "y": 5
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 0,
+        "startY": 4,
+        "endX": 4,
+        "endY": 4,
+        "timeOn": 1500,
+        "timeOff": 2000
+      },
+      {
+        "startX": 3,
+        "startY": 3,
+        "endX": 7,
+        "endY": 3,
+        "timeOn": 1500,
+        "timeOff": 2000
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 120,
+        "path": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 0,
+        "y": 3,
+        "direction": "right",
+        "delay": 2500,
+        "interval": 4000,
+        "speed": 95
+      },
+      {
+        "x": 7,
+        "y": 5,
+        "direction": "left",
+        "delay": 1500,
+        "interval": 3500,
+        "speed": 90
+      }
+    ]
+  }
 }
