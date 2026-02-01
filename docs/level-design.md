@@ -176,15 +176,17 @@ Introduce mechanics in this order:
 2. **Lasers** - Intermittent timing windows
 3. **Patrols** - Moving obstacles with predictable paths
 4. **Traps** - Static hazards requiring route planning
-5. **Excluded edges/nodes** - Permanent barriers creating corridors
-6. **Shooters** - Multi-directional threats
-7. **Mines** - Risk/reward decisions
-8. **Followers** - Active evasion and juking
-9. **Switches** - Time pressure and objective sequencing
-10. **Power-ups** - Fast movement
-11. **Power-ups** - Shields
-12. **Power-downs** - Slow movement
-13. **Power-downs** - Mirror controls
+5. **Excluded edges** - Blocked paths forcing alternate routes
+6. **Excluded nodes** - Impassable points creating obstacles
+7. **Shooters** - Multi-directional threats
+8. **Mines** - Risk/reward decisions
+9. **Followers** - Active evasion and juking
+10. **Wrap-around** - Player can exit one edge and enter from the opposite side
+11. **Switches** - Time pressure and objective sequencing
+12. **Power-ups** - Fast movement
+13. **Power-ups** - Shields
+14. **Power-downs** - Slow movement
+15. **Power-downs** - Mirror controls
 
 After introduction, combine mechanics in increasing complexity.
 
