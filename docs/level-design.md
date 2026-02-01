@@ -58,14 +58,6 @@ Guidelines for designing levels in Tension Grid.
 - **Use enemies to suggest paths** - Enemy placement can implicitly guide players away from dead ends or toward the intended route
 - **Gaps in threats signal opportunity** - A clear lane between dangers invites the player to move through it
 
-### Grid Size Guidelines
-
-- **Small grids (7x7)** - Best for introducing new mechanics; limited space forces engagement with threats; 3-6 threat sources
-- **Medium grids (8x8 to 9x9)** - Good for combining mechanics; enough room for multiple threat types; 5-9 threat sources
-- **Large grids (10x10+)** - Best for complex scenarios with patrols, followers, and exploration; 8-15 threat sources
-
-_Threat sources = total enemies, hazards, and spawners. Quality over quantity._
-
 ## Enemy Design
 
 ### Synergy & Variety
@@ -182,8 +174,8 @@ Introduce mechanics in this order:
 
 1. **Bullets** - Basic timing and lane awareness
 2. **Lasers** - Intermittent timing windows
-3. **Traps** - Static hazards requiring route planning
-4. **Patrols** - Moving obstacles with predictable paths
+3. **Patrols** - Moving obstacles with predictable paths
+4. **Traps** - Static hazards requiring route planning
 5. **Excluded edges/nodes** - Permanent barriers creating corridors
 6. **Shooters** - Multi-directional threats
 7. **Mines** - Risk/reward decisions
