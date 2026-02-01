@@ -2,11 +2,21 @@
   "id": 5,
   "grid": {
     "width": 9,
-    "height": 9
+    "height": 9,
+    "excludes": {
+      "edges": [
+        { "from": { "x": 4, "y": 1 }, "to": { "x": 5, "y": 1 } },
+        { "from": { "x": 4, "y": 2 }, "to": { "x": 5, "y": 2 } },
+        { "from": { "x": 4, "y": 3 }, "to": { "x": 5, "y": 3 } },
+        { "from": { "x": 4, "y": 5 }, "to": { "x": 5, "y": 5 } },
+        { "from": { "x": 4, "y": 6 }, "to": { "x": 5, "y": 6 } },
+        { "from": { "x": 4, "y": 7 }, "to": { "x": 5, "y": 7 } }
+      ]
+    }
   },
   "player": {
     "startX": 1,
-    "startY": 1
+    "startY": 7
   },
   "exit": {
     "x": 7,
@@ -14,46 +24,69 @@
     "status": "open"
   },
   "walls": [
-    {
-      "from": {
-        "x": 0,
-        "y": 0
-      },
-      "to": {
-        "x": 8,
-        "y": 0
-      }
-    },
-    {
-      "from": {
-        "x": 0,
-        "y": 0
-      },
-      "to": {
-        "x": 0,
-        "y": 8
-      }
-    },
-    {
-      "from": {
-        "x": 8,
-        "y": 0
-      },
-      "to": {
-        "x": 8,
-        "y": 8
-      }
-    },
-    {
-      "from": {
-        "x": 0,
-        "y": 8
-      },
-      "to": {
-        "x": 8,
-        "y": 8
-      }
-    }
+    { "from": { "x": 0, "y": 0 }, "to": { "x": 8, "y": 0 } },
+    { "from": { "x": 0, "y": 0 }, "to": { "x": 0, "y": 8 } },
+    { "from": { "x": 8, "y": 0 }, "to": { "x": 8, "y": 8 } },
+    { "from": { "x": 0, "y": 8 }, "to": { "x": 8, "y": 8 } }
   ],
-  "enemies": {}
+  "enemies": {
+    "enemyTrap": [
+      { "x": 3, "y": 3 },
+      { "x": 6, "y": 6 }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 0,
+        "startY": 5,
+        "endX": 4,
+        "endY": 5,
+        "timeOn": 2000,
+        "timeOff": 2500
+      },
+      {
+        "startX": 6,
+        "startY": 2,
+        "endX": 6,
+        "endY": 5,
+        "timeOn": 1800,
+        "timeOff": 2200
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 85,
+        "path": [
+          { "x": 1, "y": 4 },
+          { "x": 3, "y": 4 },
+          { "x": 1, "y": 4 }
+        ]
+      },
+      {
+        "speed": 90,
+        "path": [
+          { "x": 5, "y": 7 },
+          { "x": 6, "y": 7 },
+          { "x": 5, "y": 7 }
+        ]
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 0,
+        "y": 6,
+        "direction": "right",
+        "delay": 1500,
+        "interval": 3500,
+        "speed": 85
+      },
+      {
+        "x": 8,
+        "y": 3,
+        "direction": "left",
+        "delay": 2500,
+        "interval": 4000,
+        "speed": 80
+      }
+    ]
+  }
 }
