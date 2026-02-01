@@ -76,6 +76,28 @@
     }
   ],
   "enemies": {
+    "enemyTrap": [
+      {
+        "x": 1,
+        "y": 5
+      },
+      {
+        "x": 2,
+        "y": 6,
+        "timeOn": 1500,
+        "timeOff": 1500
+      },
+      {
+        "x": 3,
+        "y": 5
+      },
+      {
+        "x": 3,
+        "y": 6,
+        "timeOn": 3000,
+        "timeOff": 1500
+      }
+    ],
     "enemyLaser": [
       {
         "startX": 0,
