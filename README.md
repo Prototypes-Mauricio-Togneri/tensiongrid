@@ -191,3 +191,5 @@ Pairs well with: Fast tracers (long trails), Multiple tracers
 ## Enemy patterns
 
 - **Bullet rain:** A few consecutive rows where in each there is a bullet going horizontally across the entire row. Intercalating one going to the left and the next row going to the right.
+- **Trap field:** A cluster of intermittent traps with some "safe heaven" spots where the player can wait for the right moment to move.
+- **Laser grid** A set of parallel lasers that follow an intermittent pattern, creating windows for the player to move through.
