@@ -187,3 +187,7 @@ Challenge type: Trail tracking - must watch both the enemy AND its
 
 Pairs well with: Fast tracers (long trails), Multiple tracers  
  (overlapping trails)
+
+## Enemy patterns
+
+- **Bullet rain:** A few consecutive rows where in each there is a bullet going horizontally across the entire row. Intercalating one going to the left and the next row going to the right.

@@ -151,6 +151,14 @@
     ],
     "enemyBullet": [
       {
+        "x": 7,
+        "y": 1,
+        "direction": "left",
+        "delay": 2000,
+        "interval": 5000,
+        "speed": 120
+      },
+      {
         "x": 0,
         "y": 5,
         "direction": "right",
@@ -160,11 +168,31 @@
       },
       {
         "x": 7,
-        "y": 1,
+        "y": 2,
         "direction": "left",
-        "delay": 2000,
-        "interval": 5000,
-        "speed": 120
+        "interval": 1500,
+        "speed": 100
+      },
+      {
+        "x": 4,
+        "y": 3,
+        "direction": "right",
+        "interval": 1500,
+        "speed": 100
+      },
+      {
+        "x": 7,
+        "y": 4,
+        "direction": "left",
+        "interval": 1500,
+        "speed": 100
+      },
+      {
+        "x": 4,
+        "y": 5,
+        "direction": "right",
+        "interval": 1500,
+        "speed": 100
       }
     ]
   }

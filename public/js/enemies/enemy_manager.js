@@ -185,7 +185,7 @@ class EnemyManager {
         if (!state) return false
 
         state.timer += delta
-        const threshold = state.delayElapsed ? config.interval : config.delay
+        const threshold = state.delayElapsed ? config.interval : (config.delay ?? 0)
 
         if (state.timer >= threshold) {
             state.delayElapsed = true
