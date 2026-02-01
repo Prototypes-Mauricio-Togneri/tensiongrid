@@ -217,6 +217,13 @@
           }
         ]
       }
+    ],
+    "enemyBullet": [
+      { "x": 7, "y": 2, "direction": "left", "delay": 1000, "interval": 3500, "speed": 100 },
+      { "x": 3, "y": 0, "direction": "down", "delay": 500, "interval": 4000, "speed": 90 },
+      { "x": 4, "y": 0, "direction": "down", "delay": 1500, "interval": 4000, "speed": 90 },
+      { "x": 5, "y": 0, "direction": "down", "delay": 2500, "interval": 4000, "speed": 90 },
+      { "x": 6, "y": 0, "direction": "down", "delay": 3500, "interval": 4000, "speed": 90 }
     ]
   }
 }
