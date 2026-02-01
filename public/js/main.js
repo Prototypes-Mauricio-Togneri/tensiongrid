@@ -184,6 +184,10 @@
             } else {
                 // Last level completed - return to previous screen
                 playMenuMusic()
+                if (gameStartedFrom === Constants.screens.levels) {
+                    screen.updateLevelButtonStates(storage)
+                    screen.setSelectedToHighestUnlocked(storage)
+                }
                 screen.show(gameStartedFrom)
                 if (gameStartedFrom === Constants.screens.home) {
                     updateContinueButtonText()
@@ -239,6 +243,10 @@
             hidePauseMenu()
             game.stop()
             playMenuMusic()
+            if (gameStartedFrom === Constants.screens.levels) {
+                screen.updateLevelButtonStates(storage)
+                screen.setSelectedToHighestUnlocked(storage)
+            }
             screen.show(gameStartedFrom)
             if (gameStartedFrom === Constants.screens.home) {
                 updateContinueButtonText()

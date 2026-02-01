@@ -157,7 +157,7 @@ const Constants = {
         gym: 'gyms/gym_2.json',
 
         // Total number of available levels
-        totalLevels: 10,
+        totalLevels: 6,
 
         // Mobile scaling settings
         scale: {
@@ -497,5 +497,5 @@ const Constants = {
     // ==========================================
     // Build Version (auto-generated)
     // ==========================================
-    version: '2026-01-31T21:29:42Z'
+    version: '2026-02-01T21:07:17Z'
 }
