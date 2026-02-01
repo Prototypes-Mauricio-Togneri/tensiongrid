@@ -496,6 +496,7 @@
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     if (!isLocalhost) {
         document.querySelectorAll('.dev-only').forEach(el => el.style.display = 'none')
+        screen.invalidateButtonCache()
     }
 
     // Initialize and start
