@@ -1,3 +1,7 @@
+---                                                                 
+description: Design a level following the level design philosophy.
+--- 
+
 # Level Design Philosophy
 
 Guidelines for designing levels in Tension Grid.
