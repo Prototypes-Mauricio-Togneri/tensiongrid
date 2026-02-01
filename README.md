@@ -12,11 +12,9 @@ taking into account all the information in this document, are there change to be
 
 - Add oscilating behavior for patrols (defining only two nodes)
 
-- Add 2 more tutorial levels to make them 15?
-
 - Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.
 
-- improve playe wake animation
+- improve player wake animation
 - sound when player moving?
 
 ## Level ideas
@@ -38,8 +36,7 @@ Mechanics:
 - Danger ring expands 1-3 nodes outward (configurable radius)
 - All nodes within the ring during expansion are lethal
 - Visual telegraph: pulses/glows during charge phase before  
-  expanding  
-
+  expanding
 
 Challenge type: Proximity timing - player must be outside the radius
 when it pulses, or inside during cooldown.
@@ -50,8 +47,7 @@ Configuration:
 - radius - Maximum expansion (1-3 nodes)
 - chargeTime - Telegraph duration before pulse (ms)
 - expandTime - Duration of lethal expansion (ms)
-- cooldownTime - Safe period before next charge (ms)  
-
+- cooldownTime - Safe period before next charge (ms)
 
 Pairs well with: Followers (forces player toward pulsar), Patrols  
  (blocks escape routes during cooldown)
@@ -77,8 +73,7 @@ Mechanics:
   then fires
 - Cooldown before it can trigger again
 - Does NOT fire if player crosses perpendicular to sight line  
-  quickly  
-
+  quickly
 
 Challenge type: Line-of-sight awareness - player must recognize  
  watched lanes and either avoid them or cross quickly.
@@ -89,8 +84,7 @@ Configuration:
 - direction - Watch direction (single direction, not multiple)
 - chargeTime - Telegraph delay before firing (ms, ~500ms)
 - bulletSpeed - Speed of fired bullet
-- cooldown - Time before can trigger again (ms)  
-
+- cooldown - Time before can trigger again (ms)
 
 Pairs well with: Patrols (patrol pushes player into sentry sight  
  lines), Lasers (creates timing puzzles with sentry cooldowns)
@@ -113,8 +107,7 @@ Mechanics:
 - Orbits at fixed radius (1-2 nodes away from center)
 - Moves in circular pattern (or square pattern following adjacent  
   nodes)
-- Constant speed, predictable timing  
-
+- Constant speed, predictable timing
 
 Challenge type: Circular timing - unlike linear patrols, creates  
  rotating danger zones that require different mental model.
@@ -125,8 +118,7 @@ Configuration:
 - radius - Distance from center (1-2)
 - speed - Orbital speed
 - clockwise - Direction of orbit (boolean)
-- startAngle - Initial position on orbit (degrees)  
-
+- startAngle - Initial position on orbit (degrees)
 
 Pairs well with: Other Orbiters (interlocking orbits), Shooters at  
  center (shooter protected by orbiting guard)
@@ -147,8 +139,7 @@ Mechanics:
 - Follows patrol path like regular patrol
 - Every N nodes, drops a temporary trap
 - Dropped traps last for configurable duration, then fade
-- Creates "no-go" zones that shift over time  
-
+- Creates "no-go" zones that shift over time
 
 Challenge type: Territory denial - must track both the bomber and  
  its trail of temporary hazards.
@@ -170,8 +161,7 @@ Mechanics:
 - Rotates continuously at constant speed
 - Entire arm length is dangerous (line of nodes)
 - Can rotate clockwise or counter-clockwise
-- Can have multiple arms  
-
+- Can have multiple arms
 
 Challenge type: Rotational timing - must time passage through the  
  sweep zone between rotations.
@@ -191,8 +181,7 @@ Mechanics:
 - Moves along patrol path
 - Every node it passes becomes dangerous for N seconds
 - Trail fades from oldest to newest
-- Creates expanding then contracting danger zones  
-
+- Creates expanding then contracting danger zones
 
 Challenge type: Trail tracking - must watch both the enemy AND its  
  fading trail.
