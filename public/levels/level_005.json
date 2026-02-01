@@ -157,6 +157,14 @@
         "delay": 1500,
         "interval": 3500,
         "speed": 85
+      },
+      {
+        "x": 7,
+        "y": 1,
+        "direction": "left",
+        "delay": 2000,
+        "interval": 5000,
+        "speed": 120
       }
     ]
   }
