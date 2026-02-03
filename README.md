@@ -217,3 +217,12 @@ Introduce mechanics in this order:
 13. **Power-ups** - Shields
 14. **Power-downs** - Slow movement
 15. **Power-downs** - Mirror controls
+
+## Prompt
+
+you did a good job implementing level X. now create level Y.
+this levels introduces the XXX enemy.
+but it also should have bullets, 1 laser, 1 patrol, 1 follower, 1 shooter, 2-3 mines and 2-3 traps.
+don't forget to add walls around the grid like the other levels.
+plan it and ask me questions if it's not clear.
+use the @docs/level-design.md skill.
