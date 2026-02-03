@@ -123,6 +123,24 @@
         "y": 5,
         "timeOn": 1500,
         "timeOff": 1500
+      },
+      {
+        "x": 2,
+        "y": 6,
+        "timeOn": 1000,
+        "timeOff": 1000
+      },
+      {
+        "x": 3,
+        "y": 6,
+        "timeOn": 2000,
+        "timeOff": 2000
+      },
+      {
+        "x": 4,
+        "y": 6,
+        "timeOn": 4000,
+        "timeOff": 4000
       }
     ],
     "enemyBullet": [
