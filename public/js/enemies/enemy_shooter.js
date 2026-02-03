@@ -21,6 +21,8 @@ class EnemyShooter {
         // Rotation state
         this.rotation = 0 // Current visual rotation in radians
         this.rotationDelay = config.rotationDelay // Time between 90-degree rotations (ms), undefined if no rotation
+        this.rotationInitialDelay = config.rotationInitialDelay // Optional initial delay before first rotation (ms)
+        this.isFirstRotation = true // Track if first rotation hasn't happened yet
         this.targetRotation = 0 // Target rotation to animate toward
         this.startRotation = 0 // Starting rotation for animation
         this.rotationTimer = 0 // Timer until next 90-degree rotation
@@ -103,11 +105,16 @@ class EnemyShooter {
         } else {
             // Wait for next rotation
             this.rotationTimer += delta
-            if (this.rotationTimer >= this.rotationDelay) {
+            // Use initial delay for first rotation if set, otherwise use regular delay
+            const currentDelay = this.isFirstRotation && this.rotationInitialDelay !== undefined
+                ? this.rotationInitialDelay
+                : this.rotationDelay
+            if (this.rotationTimer >= currentDelay) {
                 this.startRotation = this.rotation
                 this.targetRotation = this.rotation + Math.PI / 2
                 this.isRotating = true
                 this.rotationAnimTimer = 0
+                this.isFirstRotation = false // First rotation triggered
                 return true // Rotation just started
             }
             return false

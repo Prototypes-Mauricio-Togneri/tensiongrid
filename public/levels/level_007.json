@@ -67,7 +67,8 @@
         "x": 5,
         "y": 5,
         "upDelay": 2000,
-        "rotationDelay": 3000
+        "rotationInitialDelay": 2200,
+        "rotationDelay": 2000
       }
     ],
     "enemyLaser": [

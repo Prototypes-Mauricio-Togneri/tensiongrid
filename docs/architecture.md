@@ -273,7 +273,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Optional continuous rotation that affects bullet direction
 - Rotation snaps fired bullets to nearest cardinal direction
 - Kills player on contact (grid-based collision)
-- Config: `x`, `y`, plus optional `leftDelay`, `rightDelay`, `upDelay`, `downDelay` (ms between shots), `rotationDelay` (ms per 90-degree rotation)
+- Config: `x`, `y`, plus optional `leftDelay`, `rightDelay`, `upDelay`, `downDelay` (ms between shots), `rotationDelay` (ms per 90-degree rotation), `rotationInitialDelay` (ms before first rotation)
 
 **EnemyPatrol** (`js/enemies/enemy_patrol.js`) - Moving path-based hazard:
 - Moves along a predefined cyclical path of grid nodes via GridMovement
