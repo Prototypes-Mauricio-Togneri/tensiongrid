@@ -194,3 +194,21 @@ Pairs well with: Fast tracers (long trails), Multiple tracers
 - **Bullet rain:** A few consecutive rows where in each there is a bullet going horizontally across the entire row. Intercalating one going to the left and the next row going to the right.
 - **Trap field:** A cluster of intermittent traps with some "safe heaven" spots where the player can wait for the right moment to move.
 - **Laser grid** A set of parallel lasers that follow an intermittent pattern, creating windows for the player to move through.
+
+Introduce mechanics in this order:
+
+1. **Bullets** - Basic timing and lane awareness
+2. **Lasers** - Intermittent timing windows
+3. **Patrols** - Moving obstacles with predictable paths
+4. **Traps** - Static hazards requiring route planning
+5. **Excluded edges** - Blocked paths forcing alternate routes
+6. **Excluded nodes** - Impassable points creating obstacles
+7. **Shooters** - Multi-directional threats
+8. **Mines** - Risk/reward decisions
+9. **Followers** - Active evasion and juking
+10. **Wrap-around** - Player can exit one edge and enter from the opposite side
+11. **Switches** - Time pressure and objective sequencing
+12. **Power-ups** - Fast movement
+13. **Power-ups** - Shields
+14. **Power-downs** - Slow movement
+15. **Power-downs** - Mirror controls

@@ -168,28 +168,6 @@ Non-threatening elements that shape the playable space.
 - **Placement:** Typically on outer grid edges to disable wrapping and keep players focused on the intended play area
 - **Note:** Unlike excluded edges, walls are visible barriers that clearly communicate "you cannot pass here"
 
-## Tutorial levels
-
-Introduce mechanics in this order:
-
-1. **Bullets** - Basic timing and lane awareness
-2. **Lasers** - Intermittent timing windows
-3. **Patrols** - Moving obstacles with predictable paths
-4. **Traps** - Static hazards requiring route planning
-5. **Excluded edges** - Blocked paths forcing alternate routes
-6. **Excluded nodes** - Impassable points creating obstacles
-7. **Shooters** - Multi-directional threats
-8. **Mines** - Risk/reward decisions
-9. **Followers** - Active evasion and juking
-10. **Wrap-around** - Player can exit one edge and enter from the opposite side
-11. **Switches** - Time pressure and objective sequencing
-12. **Power-ups** - Fast movement
-13. **Power-ups** - Shields
-14. **Power-downs** - Slow movement
-15. **Power-downs** - Mirror controls
-
-After introduction, combine mechanics in increasing complexity.
-
 ## Difficulty Progression
 
 - **Overall difficulty trend increases** - Not every level must be harder, but the player's challenge should trend upward over time
