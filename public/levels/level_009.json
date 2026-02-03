@@ -65,14 +65,6 @@
     ],
     "enemyBullet": [
       {
-        "x": 4,
-        "y": 0,
-        "direction": "down",
-        "delay": 2000,
-        "interval": 3500,
-        "speed": 100
-      },
-      {
         "x": 7,
         "y": 2,
         "direction": "left",
@@ -111,6 +103,14 @@
       }
     ],
     "enemyShooter": [
+      {
+        "x": 4,
+        "y": 0,
+        "arms": [
+          "down"
+        ],
+        "delay": 2200
+      },
       {
         "x": 4,
         "y": 7,
