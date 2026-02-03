@@ -111,6 +111,12 @@
         "y": 5,
         "timeOn": 1500,
         "timeOff": 1500
+      },
+      {
+        "x": 6,
+        "y": 5,
+        "timeOn": 1500,
+        "timeOff": 1500
       }
     ],
     "enemyBullet": [
