@@ -1,0 +1,160 @@
+{
+  "id": 8,
+  "grid": {
+    "width": 8,
+    "height": 8
+  },
+  "player": {
+    "startX": 1,
+    "startY": 1
+  },
+  "exit": {
+    "x": 6,
+    "y": 6,
+    "status": "open"
+  },
+  "walls": [
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 7,
+        "y": 0
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 0,
+        "y": 7
+      }
+    },
+    {
+      "from": {
+        "x": 7,
+        "y": 0
+      },
+      "to": {
+        "x": 7,
+        "y": 7
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 7
+      },
+      "to": {
+        "x": 7,
+        "y": 7
+      }
+    }
+  ],
+  "enemies": {
+    "enemyMine": [
+      {
+        "x": 2,
+        "y": 1,
+        "delay": 1500
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "delay": 1800
+      },
+      {
+        "x": 6,
+        "y": 4,
+        "delay": 1200
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 4,
+        "y": 0,
+        "direction": "down",
+        "delay": 1000,
+        "interval": 4000,
+        "speed": 90
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 0,
+        "startY": 4,
+        "endX": 4,
+        "endY": 4,
+        "timeOn": 3000,
+        "timeOff": 1000
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 160,
+        "path": [
+          {
+            "x": 1,
+            "y": 5
+          },
+          {
+            "x": 4,
+            "y": 5
+          },
+          {
+            "x": 1,
+            "y": 5
+          }
+        ]
+      },
+      {
+        "speed": 160,
+        "path": [
+          {
+            "x": 4,
+            "y": 6
+          },
+          {
+            "x": 1,
+            "y": 6
+          },
+          {
+            "x": 4,
+            "y": 6
+          }
+        ]
+      }
+    ],
+    "enemyShooter": [
+      {
+        "x": 5,
+        "y": 3,
+        "arms": [
+          "up",
+          "down",
+          "left",
+          "right"
+        ],
+        "delay": 1700
+      }
+    ],
+    "enemyTrap": [
+      {
+        "x": 5,
+        "y": 6,
+        "timeOn": 1500,
+        "timeOff": 1500
+      },
+      {
+        "x": 6,
+        "y": 5,
+        "timeOn": 2000,
+        "timeOff": 2000
+      }
+    ]
+  }
+}
