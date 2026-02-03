@@ -1,0 +1,159 @@
+{
+  "id": 10,
+  "grid": {
+    "width": 8,
+    "height": 8
+  },
+  "player": {
+    "startX": 1,
+    "startY": 1
+  },
+  "exit": {
+    "x": 6,
+    "y": 6,
+    "status": "open"
+  },
+  "walls": [
+    {
+      "from": {
+        "x": 0,
+        "y": 2
+      },
+      "to": {
+        "x": 0,
+        "y": 7
+      }
+    },
+    {
+      "from": {
+        "x": 2,
+        "y": 0
+      },
+      "to": {
+        "x": 7,
+        "y": 0
+      }
+    },
+    {
+      "from": {
+        "x": 7,
+        "y": 2
+      },
+      "to": {
+        "x": 7,
+        "y": 7
+      }
+    },
+    {
+      "from": {
+        "x": 2,
+        "y": 7
+      },
+      "to": {
+        "x": 7,
+        "y": 7
+      }
+    }
+  ],
+  "enemies": {
+    "enemyTrap": [
+      {
+        "x": 2,
+        "y": 1
+      },
+      {
+        "x": 1,
+        "y": 2
+      },
+      {
+        "x": 4,
+        "y": 6,
+        "timeOn": 1500,
+        "timeOff": 1500
+      }
+    ],
+    "enemyMine": [
+      {
+        "x": 6,
+        "y": 2,
+        "delay": 1500
+      },
+      {
+        "x": 3,
+        "y": 4,
+        "delay": 1500
+      },
+      {
+        "x": 5,
+        "y": 5,
+        "delay": 1200
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 3,
+        "startY": 5,
+        "endX": 6,
+        "endY": 5,
+        "timeOn": 2000,
+        "timeOff": 1500
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 130,
+        "path": [
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      }
+    ],
+    "enemyShooter": [
+      {
+        "x": 4,
+        "y": 2,
+        "arms": [
+          "left",
+          "down"
+        ],
+        "delay": 2000,
+        "rotation": "clockwise"
+      }
+    ],
+    "enemyFollower": [
+      {
+        "startX": 5,
+        "startY": 1,
+        "speed": 85
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 0,
+        "y": 4,
+        "direction": "right",
+        "delay": 1000,
+        "interval": 3500,
+        "speed": 90
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "direction": "down",
+        "delay": 2000,
+        "interval": 4000,
+        "speed": 85
+      }
+    ]
+  }
+}
