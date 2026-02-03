@@ -205,7 +205,7 @@
         if (action === Constants.actions.home.gym) {
             openGameScreen(Constants.game.gym, Constants.screens.home)
         } else if (action === Constants.actions.home.continue) {
-            const levelNumber = storage.getCurrentLevel()
+            const levelNumber = Math.min(storage.getCurrentLevel(), Constants.game.totalLevels)
             const levelPath = `levels/level_${String(levelNumber).padStart(3, '0')}.json`
             openGameScreen(levelPath, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
