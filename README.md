@@ -8,6 +8,11 @@
 
 - Bug calculating route of follower? It looks like it uses the last known col/row to calculate the path instead of the target col/row.
 
+- Bug with laser:
+  1. Step on a laser node when it's off
+  2. Start moving alonside the line of the laser while it's off
+  3. When the laser turns on, if the player still didn't reach the target node, the player doesn't die. it should die as soon as the laser is on
+
 - Add oscilating behavior for patrols (defining only two nodes)
 
 - Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.

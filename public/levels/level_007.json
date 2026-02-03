@@ -1,0 +1,135 @@
+{
+  "id": 7,
+  "grid": {
+    "width": 8,
+    "height": 8
+  },
+  "player": {
+    "startX": 1,
+    "startY": 1
+  },
+  "exit": {
+    "x": 6,
+    "y": 6,
+    "status": "open"
+  },
+  "walls": [
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 7,
+        "y": 0
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 0,
+        "y": 7
+      }
+    },
+    {
+      "from": {
+        "x": 7,
+        "y": 0
+      },
+      "to": {
+        "x": 7,
+        "y": 7
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 7
+      },
+      "to": {
+        "x": 7,
+        "y": 7
+      }
+    }
+  ],
+  "enemies": {
+    "enemyShooter": [
+      {
+        "x": 3,
+        "y": 3,
+        "leftDelay": 2200,
+        "rightDelay": 2200
+      },
+      {
+        "x": 5,
+        "y": 5,
+        "upDelay": 2000,
+        "rotationDelay": 3000
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 0,
+        "startY": 4,
+        "endX": 3,
+        "endY": 4,
+        "timeOn": 1500,
+        "timeOff": 1500
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 110,
+        "path": [
+          {
+            "x": 2,
+            "y": 5
+          },
+          {
+            "x": 4,
+            "y": 5
+          },
+          {
+            "x": 2,
+            "y": 5
+          }
+        ]
+      }
+    ],
+    "enemyTrap": [
+      {
+        "x": 1,
+        "y": 2,
+        "timeOn": 1500,
+        "timeOff": 1500
+      },
+      {
+        "x": 1,
+        "y": 5,
+        "timeOn": 1500,
+        "timeOff": 1500
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 7,
+        "y": 2,
+        "direction": "left",
+        "delay": 1200,
+        "interval": 3500,
+        "speed": 90
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "direction": "down",
+        "delay": 800,
+        "interval": 4000,
+        "speed": 85
+      }
+    ]
+  }
+}

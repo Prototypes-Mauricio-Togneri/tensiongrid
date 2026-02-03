@@ -234,3 +234,10 @@ Non-threatening elements that shape the playable space.
 - **Teaching multiple mechanics at once** - Confuses players; introduce one at a time
 - **Power-ups as bonuses** - They should be essential to the level's balance, not extras
 - **Obvious single solution** - If everyone solves it identically, it's too rigid
+
+## Adding New Levels
+
+Checklist when creating a new level:
+
+1. Create the level file at `public/levels/level_<NNN>.json` (zero-padded to 3 digits)
+2. Update `totalLevels` in `public/js/constants.js` to reflect the new count
