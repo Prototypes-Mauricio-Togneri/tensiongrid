@@ -12,8 +12,9 @@
 
 - Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.
 
-- improve player wake animation
-- sound when player moving?
+- Improve player wake animation
+- Sound when player moving?
+- Debug mode to see node coordinates
 
 ## Level ideas
 
