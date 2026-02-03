@@ -268,12 +268,11 @@ Cyberpunk/neon aesthetic with these design elements:
 **EnemyShooter** (`js/enemies/enemy_shooter.js`) - Static turret hazard:
 - Fixed position on a single grid node
 - Green cross/plus visual shape (#44ff88)
-- Fires EnemyBullet instances in configured directions
-- Each direction has independent timer (can fire multiple directions simultaneously)
-- Optional continuous rotation that affects bullet direction
-- Rotation snaps fired bullets to nearest cardinal direction
+- Fires EnemyBullet instances from configured arms simultaneously
+- Cycle: wait for delay → optionally rotate 90° → shoot all arms
+- If rotation enabled, arms rotate with the shooter visually
 - Kills player on contact (grid-based collision)
-- Config: `x`, `y`, plus optional `leftDelay`, `rightDelay`, `upDelay`, `downDelay` (ms between shots), `rotationDelay` (ms per 90-degree rotation), `rotationInitialDelay` (ms before first rotation)
+- Config: `x`, `y`, `arms` (array of "up"/"down"/"left"/"right"), `delay` (ms per cycle), `rotation` (optional: "clockwise"/"counterclockwise")
 
 **EnemyPatrol** (`js/enemies/enemy_patrol.js`) - Moving path-based hazard:
 - Moves along a predefined cyclical path of grid nodes via GridMovement

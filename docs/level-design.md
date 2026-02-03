@@ -129,12 +129,12 @@ Guidelines for designing levels in Tension Grid.
 
 ### Shooter
 
-- **Behavior:** Static turret fixed on a grid node; fires bullets in configured directions at intervals
-- **Challenge:** Pattern prediction - player must anticipate fire timing and directions
-- **Configuration:** Position, fire directions (up/down/left/right independently), interval per direction, optional rotation (with optional initial delay)
+- **Behavior:** Static turret fixed on a grid node; optionally rotates 90° each cycle, then fires bullets from all configured arms simultaneously
+- **Challenge:** Pattern prediction - player must anticipate fire timing and (if rotating) arm positions
+- **Configuration:** Position, arms array, cycle delay (ms), optional rotation direction ("clockwise"/"counterclockwise")
 - **Best for:** Creating directional pressure; controlling specific lanes from within the grid
 - **Pairs well with:** Patrols (shooter controls timing, patrol controls space), Traps (limits safe positions)
-- **Avoid:** Covering too many directions at once (overwhelming); unclear fire patterns
+- **Avoid:** Too many arms (overwhelming); unclear rotation patterns
 
 ### Patrol
 

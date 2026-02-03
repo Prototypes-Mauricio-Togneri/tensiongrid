@@ -60,15 +60,20 @@
       {
         "x": 3,
         "y": 3,
-        "leftDelay": 2200,
-        "rightDelay": 2200
+        "arms": [
+          "left",
+          "right"
+        ],
+        "delay": 2200
       },
       {
         "x": 5,
         "y": 5,
-        "upDelay": 2000,
-        "rotationInitialDelay": 2200,
-        "rotationDelay": 2000
+        "arms": [
+          "up"
+        ],
+        "delay": 1300,
+        "rotation": "clockwise"
       }
     ],
     "enemyLaser": [

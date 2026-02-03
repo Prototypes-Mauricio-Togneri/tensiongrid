@@ -164,30 +164,26 @@
       {
         "x": 0,
         "y": 10,
-        "upDelay": 2500,
-        "rightDelay": 3000
+        "arms": ["up", "right"],
+        "delay": 2500
       },
       {
         "x": 10,
         "y": 10,
-        "upDelay": 2800,
-        "leftDelay": 3200,
-        "rotationDelay": 4000
+        "arms": ["up", "left"],
+        "delay": 2800
       },
       {
         "x": 3,
         "y": 4,
-        "upDelay": 3500,
-        "downDelay": 4000,
-        "leftDelay": 3800,
-        "rightDelay": 4200
+        "arms": ["up", "down", "left", "right"],
+        "delay": 3500
       },
       {
         "x": 6,
         "y": 6,
-        "rightDelay": 1500,
-        "downDelay": 1500,
-        "rotationDelay": 3000
+        "arms": ["right", "down"],
+        "delay": 1500
       }
     ],
     "enemyPatrol": [

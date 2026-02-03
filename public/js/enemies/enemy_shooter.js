@@ -1,7 +1,6 @@
 /**
- * Static shooter enemy that fires bullets in configured directions.
- * Fixed on one grid node, renders with arms pointing in active fire directions.
- * Supports independent firing delays per direction and optional rotation.
+ * Static shooter enemy that fires bullets from configured arms.
+ * Fixed on one grid node. Optionally rotates 90° each cycle before firing.
  */
 class EnemyShooter {
     /**
@@ -18,45 +17,27 @@ class EnemyShooter {
         this.y = pos.y // World Y coordinate
         this.armLength = Constants.game.enemies.shooter.armLength // Arm length from center
 
-        // Rotation state
-        this.rotation = 0 // Current visual rotation in radians
-        this.rotationDelay = config.rotationDelay // Time between 90-degree rotations (ms), undefined if no rotation
-        this.rotationInitialDelay = config.rotationInitialDelay // Optional initial delay before first rotation (ms)
-        this.isFirstRotation = true // Track if first rotation hasn't happened yet
+        // Configuration
+        this.arms = config.arms // Array of arm directions ('up', 'down', 'left', 'right')
+        this.delay = config.delay // Cycle delay in ms
+        this.rotationDirection = config.rotation // 'clockwise', 'counterclockwise', or undefined
+
+        // State machine: 'waiting' | 'rotating'
+        this.state = 'waiting'
+        this.delayTimer = 0 // Timer for waiting phase
+
+        // Rotation animation state
+        this.visualRotation = 0 // Current visual rotation in radians
         this.targetRotation = 0 // Target rotation to animate toward
         this.startRotation = 0 // Starting rotation for animation
-        this.rotationTimer = 0 // Timer until next 90-degree rotation
+        this.rotationAngle = 0 // Rotation amount for current animation (+/- PI/2)
         this.isRotating = false // Currently animating rotation
         this.rotationAnimDuration = 200 // Animation duration (ms)
         this.rotationAnimTimer = 0 // Animation progress timer
-
-        // Direction firing timers (each is independent)
-        this.directionTimers = this.initDirectionTimers(config)
     }
 
     /**
-     * Initialize independent timers for each configured direction.
-     * @param {Object} config - Shooter config with optional leftDelay, rightDelay, upDelay, downDelay
-     * @returns {Object} Object with timers for each active direction
-     */
-    initDirectionTimers(config) {
-        const timers = {}
-        const directionKeys = Object.values(Constants.directions).map(direction => direction.key).filter(key => key !== Constants.directions.none.key)
-
-        for (const dir of directionKeys) {
-            const delayKey = `${dir}Delay`
-            if (config[delayKey] !== undefined) {
-                timers[dir] = {
-                    delay: config[delayKey], // Interval between shots (ms)
-                    timer: 0                 // Elapsed time since last shot
-                }
-            }
-        }
-        return timers
-    }
-
-    /**
-     * Update shooter state: rotation animation and firing timers.
+     * Update shooter state machine: waiting -> rotating -> fire.
      * @param {number} delta - Time elapsed since last frame in ms
      * @returns {Object} Object with bullets array and rotationStarted flag
      */
@@ -64,17 +45,29 @@ class EnemyShooter {
         const bulletsToSpawn = []
         let rotationStarted = false
 
-        // Update rotation if configured
-        if (this.rotationDelay !== undefined) {
-            rotationStarted = this.updateRotation(delta)
-        }
-
-        // Update each direction timer and check for firing
-        for (const [direction, timerState] of Object.entries(this.directionTimers)) {
-            timerState.timer += delta
-            if (timerState.timer >= timerState.delay) {
-                bulletsToSpawn.push(this.getBulletSpawnInfo(direction))
-                timerState.timer = 0
+        if (this.state === 'waiting') {
+            this.delayTimer += delta
+            if (this.delayTimer >= this.delay) {
+                this.delayTimer = 0
+                if (this.rotationDirection) {
+                    // Has rotation - start animation
+                    rotationStarted = this.startRotationAnimation()
+                    this.state = 'rotating'
+                } else {
+                    // No rotation - fire immediately
+                    for (const arm of this.arms) {
+                        bulletsToSpawn.push(this.getBulletSpawnInfo(arm))
+                    }
+                }
+            }
+        } else if (this.state === 'rotating') {
+            const complete = this.updateRotationAnimation(delta)
+            if (complete) {
+                this.state = 'waiting'
+                // Fire all arms
+                for (const arm of this.arms) {
+                    bulletsToSpawn.push(this.getBulletSpawnInfo(arm))
+                }
             }
         }
 
@@ -82,43 +75,36 @@ class EnemyShooter {
     }
 
     /**
-     * Update rotation state with discrete 90-degree steps.
-     * Waits rotationDelay ms, then quickly animates 90 degrees.
-     * @param {number} delta - Time elapsed since last frame in ms
-     * @returns {boolean} True if rotation just started this frame
+     * Start 90-degree rotation animation in configured direction.
+     * @returns {boolean} True (rotation started)
      */
-    updateRotation(delta) {
-        if (this.isRotating) {
-            // Animate toward target rotation
-            this.rotationAnimTimer += delta
-            const progress = Math.min(this.rotationAnimTimer / this.rotationAnimDuration, 1)
-            // Ease-out for smooth stop
-            const eased = 1 - Math.pow(1 - progress, 2)
-            this.rotation = this.startRotation + (Math.PI / 2) * eased
+    startRotationAnimation() {
+        this.startRotation = this.visualRotation
+        this.rotationAngle = this.rotationDirection === 'counterclockwise' ? -Math.PI / 2 : Math.PI / 2
+        this.targetRotation = this.visualRotation + this.rotationAngle
+        this.isRotating = true
+        this.rotationAnimTimer = 0
+        return true
+    }
 
-            if (progress >= 1) {
-                this.rotation = this.targetRotation
-                this.isRotating = false
-                this.rotationTimer = 0
-            }
-            return false
-        } else {
-            // Wait for next rotation
-            this.rotationTimer += delta
-            // Use initial delay for first rotation if set, otherwise use regular delay
-            const currentDelay = this.isFirstRotation && this.rotationInitialDelay !== undefined
-                ? this.rotationInitialDelay
-                : this.rotationDelay
-            if (this.rotationTimer >= currentDelay) {
-                this.startRotation = this.rotation
-                this.targetRotation = this.rotation + Math.PI / 2
-                this.isRotating = true
-                this.rotationAnimTimer = 0
-                this.isFirstRotation = false // First rotation triggered
-                return true // Rotation just started
-            }
-            return false
+    /**
+     * Update rotation animation progress.
+     * @param {number} delta - Time elapsed since last frame in ms
+     * @returns {boolean} True if animation completed this frame
+     */
+    updateRotationAnimation(delta) {
+        this.rotationAnimTimer += delta
+        const progress = Math.min(this.rotationAnimTimer / this.rotationAnimDuration, 1)
+        // Ease-out for smooth stop
+        const eased = 1 - Math.pow(1 - progress, 2)
+        this.visualRotation = this.startRotation + this.rotationAngle * eased
+
+        if (progress >= 1) {
+            this.visualRotation = this.targetRotation
+            this.isRotating = false
+            return true
         }
+        return false
     }
 
     /**
@@ -131,7 +117,7 @@ class EnemyShooter {
         const baseDir = this.getBaseDirectionVector(direction)
 
         // Apply rotation to direction vector
-        const rotatedDir = this.rotateVector(baseDir.row, baseDir.col, this.rotation)
+        const rotatedDir = this.rotateVector(baseDir.row, baseDir.col, this.visualRotation)
 
         // Snap to nearest cardinal direction for grid movement
         const snappedDir = this.snapToCardinalDirection(rotatedDir.x, rotatedDir.y)
@@ -211,14 +197,14 @@ class EnemyShooter {
      * @returns {number} Rotation angle
      */
     getRotation() {
-        return this.rotation
+        return this.visualRotation
     }
 
     /**
-     * Get array of active direction keys.
+     * Get array of arm directions for rendering.
      * @returns {string[]} Array of direction keys ('left', 'right', 'up', 'down')
      */
     getActiveDirections() {
-        return Object.keys(this.directionTimers)
+        return this.arms
     }
 }
