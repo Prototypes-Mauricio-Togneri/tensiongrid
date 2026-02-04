@@ -21,6 +21,8 @@
 
 - Bug: Swipe levels in mobile
 
+- Show from where the bullets are coming from (small flash before they appear?)
+
 - Bug in analytics?
   - Does the level_start and others are sent whenever we pass from one level to another? or only the first time we start a level?
 
