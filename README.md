@@ -15,6 +15,15 @@
 
 - Add oscilating behavior for patrols (defining only two nodes)
 
+- Upload own level
+
+- Bug killing with laser just turning on (and it didn't glow yet)
+
+- Bug: Swipe levels in mobile
+
+- Bug in analytics?
+  - Does the level_start and others are sent whenever we pass from one level to another? or only the first time we start a level?
+
 - Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.
 
 - Improve player wake animation
