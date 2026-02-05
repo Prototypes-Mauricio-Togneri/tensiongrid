@@ -318,7 +318,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Switch** (`js/engine/switch.js`) - Timed unlock mechanism:
 - Fixed position on a single grid node
-- Gold/yellow key shape (square head with stem and teeth)
+- Gold/yellow rhombus with semi-transparent pulse animation
 - When player touches switch: disappears, unlocks linked target (exit)
 - After TTL expires: switch reappears, target locks again
 - Collection triggers yellow wave animation and sound effect

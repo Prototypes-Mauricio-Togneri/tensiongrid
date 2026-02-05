@@ -998,12 +998,18 @@ class Renderer {
     }
 
     /**
-     * Draw switches with key shape.
+     * Draw switches with rhombus shape and pulse animation.
      * @param {Switch[]} switches - Array of switch instances
-     * @param {number} _time - Animation timestamp (unused)
+     * @param {number} time - Animation timestamp for pulse calculation
      */
-    drawSwitches(switches, _time) {
+    drawSwitches(switches, time) {
         const ctx = this.ctx
+        const { pulsePeriod, pulseScale, pulseAlpha } = Constants.game.switch
+
+        // Pulse: linear ramp 0→1 that resets, wave expands outward and fades
+        const pulse = (time % pulsePeriod) / pulsePeriod
+        const pScale = 1 + (pulseScale - 1) * pulse
+        const pAlpha = pulseAlpha * (1 - pulse)
 
         for (const switchItem of switches) {
             if (switchItem.isCollected()) continue
@@ -1011,51 +1017,33 @@ class Renderer {
             const pos = this.toScreen(switchItem.x, switchItem.y)
             const size = switchItem.size
 
+            const half = size * 0.5
+
+            // Pulse ring (expanding, fading rhombus)
+            ctx.save()
+            ctx.globalAlpha = pAlpha
+            this.drawRhombus(pos.x, pos.y, half * pScale, this.colors.switch)
+            ctx.restore()
+
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.switch
             ctx.shadowBlur = 15
-            ctx.fillStyle = this.colors.switchGlow
-            this.drawKeyShape(pos.x, pos.y, size + 3)
+            this.drawRhombus(pos.x, pos.y, half + 3, this.colors.switchGlow)
             ctx.restore()
 
-            // Main key shape
+            // Main rhombus
             ctx.save()
             ctx.shadowColor = this.colors.switch
             ctx.shadowBlur = 8
-            ctx.fillStyle = this.colors.switch
-            this.drawKeyShape(pos.x, pos.y, size)
+            this.drawRhombus(pos.x, pos.y, half, this.colors.switch)
             ctx.restore()
 
             // Inner highlight
-            ctx.fillStyle = this.colors.switchHighlight
-            this.drawKeyShape(pos.x, pos.y, size * 0.4)
+            this.drawRhombus(pos.x, pos.y, half * 0.4, this.colors.switchHighlight)
         }
     }
 
-    /**
-     * Draw a horizontal key shape (square head on left, stem with tooth extending right).
-     * @param {number} x - Center X position
-     * @param {number} y - Center Y position
-     * @param {number} size - Overall size of the key
-     */
-    drawKeyShape(x, y, size) {
-        const ctx = this.ctx
-        const headSize = size * 0.65
-        const stemHeight = size * 0.35
-        const stemLength = size * 0.8
-
-        // Key head (square on left)
-        ctx.fillRect(x - size * 0.5, y - headSize / 2, headSize, headSize)
-
-        // Key stem (rectangle extending right)
-        ctx.fillRect(x + size * 0.15, y - stemHeight / 2, stemLength, stemHeight)
-
-        // Key tooth (single rectangle below stem at the end)
-        const toothHeight = stemHeight * 0.25
-        const toothWidth = stemHeight * 0.7
-        ctx.fillRect(x + size * 0.15 + stemLength - toothWidth, y + stemHeight / 2, toothWidth, toothHeight)
-    }
 
     /**
      * Draw a lightning bolt icon centered at position.

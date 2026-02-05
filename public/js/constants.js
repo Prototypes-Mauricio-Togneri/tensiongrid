@@ -266,7 +266,10 @@ const Constants = {
 
         // Switch settings
         switch: {
-            size: 24 // Key size in pixels
+            size: 24,                  // Key size in pixels
+            pulsePeriod: 1500,         // Duration of one pulse wave cycle in ms
+            pulseScale: 3,             // Maximum pulse scale relative to base size
+            pulseAlpha: 0.3            // Pulse opacity at start of wave
         },
 
         // Effect configurations (used by EffectManager)
