@@ -132,8 +132,8 @@ class EnemyShooter {
         return {
             row: this.row,
             col: this.col,
-            x: this.x,
-            y: this.y,
+            x: this.x + snappedDir.dirCol * this.armLength,
+            y: this.y + snappedDir.dirRow * this.armLength,
             dirRow: snappedDir.dirRow,
             dirCol: snappedDir.dirCol
         }

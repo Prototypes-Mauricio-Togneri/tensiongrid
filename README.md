@@ -4,10 +4,6 @@
 
 ## UI/UX
 
-- Visual cues when a shooter is about to shoot
-
-- Improve player wake animation
-
 - Sound when player moving?
 
 ## BUGS
