@@ -183,7 +183,8 @@
         "x": 6,
         "y": 6,
         "arms": ["right", "down"],
-        "delay": 1500
+        "delay": 1500,
+        "rotation": "clockwise"
       }
     ],
     "enemyPatrol": [
