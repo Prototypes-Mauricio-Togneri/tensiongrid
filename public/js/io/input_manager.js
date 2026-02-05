@@ -11,7 +11,8 @@ class InputManager {
             [Constants.keys.right]: false,
             [Constants.keys.escape]: false,
             [Constants.keys.select]: false,
-            [Constants.keys.debug]: false
+            [Constants.keys.debug]: false,
+            [Constants.keys.pause]: false
         }
         this.enabled = true // False to ignore movement input
 
@@ -55,7 +56,9 @@ class InputManager {
             Enter: Constants.keys.select,
             ' ': Constants.keys.select,
             g: Constants.keys.debug,
-            G: Constants.keys.debug
+            G: Constants.keys.debug,
+            p: Constants.keys.pause,
+            P: Constants.keys.pause
         }
 
         document.addEventListener(Constants.events.keydown, (e) => {
@@ -219,6 +222,21 @@ class InputManager {
      */
     consumeDebug() {
         this.keys.debug = false
+    }
+
+    /**
+     * Check if pause key is currently pressed.
+     * @returns {boolean} True if pause key is pressed
+     */
+    isPausePressed() {
+        return this.keys.pause
+    }
+
+    /**
+     * Consume pause key press (reset state after handling).
+     */
+    consumePause() {
+        this.keys.pause = false
     }
 
     /**

@@ -88,7 +88,8 @@ const Constants = {
         right: 'right',   // Right direction key
         escape: 'escape', // Escape/back key
         select: 'select', // Select/confirm key
-        debug: 'debug'    // Debug mode toggle key
+        debug: 'debug',   // Debug mode toggle key
+        pause: 'pause'    // Soft pause toggle key
     },
 
     // ==========================================

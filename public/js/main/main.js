@@ -74,13 +74,14 @@
     const pauseButtons = pauseOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
     let pauseIndex = 0       // Currently selected pause menu item
     let isPaused = false     // True when pause menu is visible
+    let isSoftPaused = false // True when game is paused via P key (no menu)
     let gameStartedFrom = '' // Screen to return to when quitting (home or levels)
     let currentLevel = ''    // Path to current level JSON
 
     // Enable swipe input on game screen (when not paused) and levels screen
     input.setSwipeEnabled(() => {
         const currentScreen = screen.getCurrentScreen()
-        return (currentScreen === Constants.screens.game && !isPaused) ||
+        return (currentScreen === Constants.screens.game && !isPaused && !isSoftPaused) ||
                currentScreen === Constants.screens.levels
     })
 
@@ -109,6 +110,7 @@
      */
     function hidePauseMenu() {
         isPaused = false
+        isSoftPaused = false
         pauseOverlay.classList.remove(Constants.dom.classes.active)
     }
 
@@ -284,9 +286,29 @@
                 audioManager.playSound(Constants.audio.sounds.pauseMenu)
                 hidePauseMenu()
                 game.resume()
+            } else if (isSoftPaused) {
+                // Convert soft pause to full pause (game already paused)
+                isSoftPaused = false
+                audioManager.playSound(Constants.audio.sounds.pauseMenu)
+                isPaused = true
+                pauseIndex = 0
+                updatePauseButtonSelection()
+                pauseOverlay.classList.add(Constants.dom.classes.active)
             } else {
                 audioManager.playSound(Constants.audio.sounds.pauseMenu)
                 showPauseMenu()
+            }
+        }
+
+        // P on game screen toggles soft pause (no menu)
+        if (currentScreen === Constants.screens.game && !isPaused && input.isPausePressed()) {
+            input.consumePause()
+            if (isSoftPaused) {
+                isSoftPaused = false
+                game.resume()
+            } else {
+                isSoftPaused = true
+                game.pause()
             }
         }
 

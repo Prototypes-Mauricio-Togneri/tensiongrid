@@ -117,6 +117,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isSelectPressed()` - Check if select key (Enter/Space) is pressed
 - `consumeSelect()` - Consume select key press (resets state)
 - `isDebugPressed()` - Check if debug key (G) is pressed
+- `isPausePressed()` - Check if pause key (P) is pressed
+- `consumePause()` - Consume pause key press (resets state)
 - `consumeDebug()` - Consume debug key press (resets state)
 - Auto-disables after edge wrap
 - Continuous drag detection: triggers move when drag exceeds 30px threshold, resets start position for chaining multiple moves without lifting finger
