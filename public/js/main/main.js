@@ -61,6 +61,7 @@
     let lastMenuInput = { up: false, down: false }        // For menu navigation
     let lastSettingsInput = { left: false, right: false } // For settings toggles
     let lastLevelsInput = { left: false, right: false }   // For levels timeline navigation
+    let lastDebugInput = false                             // For debug mode toggle
 
     // Continuous navigation state for levels timeline
     let levelsRepeatTimer = null   // Timer for repeat navigation
@@ -296,6 +297,14 @@
             playMenuMusic()
             screen.show(Constants.screens.home)
             updateContinueButtonText()
+        }
+
+        // Debug mode toggle (localhost only, game screen, not paused)
+        if (isLocalhost && currentScreen === Constants.screens.game && !isPaused) {
+            if (input.keys.debug && !lastDebugInput) {
+                game.debugMode = !game.debugMode
+            }
+            lastDebugInput = input.keys.debug
         }
 
         // Pause menu input handling

@@ -116,6 +116,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `consumeEscape()` - Consume escape key press (resets state)
 - `isSelectPressed()` - Check if select key (Enter/Space) is pressed
 - `consumeSelect()` - Consume select key press (resets state)
+- `isDebugPressed()` - Check if debug key (G) is pressed
+- `consumeDebug()` - Consume debug key press (resets state)
 - Auto-disables after edge wrap
 - Continuous drag detection: triggers move when drag exceeds 30px threshold, resets start position for chaining multiple moves without lifting finger
 
@@ -367,6 +369,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Player boost indicator: electric blue glow when speed boost is active, red glow when slowed
 - Shield rendering: electric blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
+- `drawDebugNodeCoordinates(grid)` - Draws `row,col` text above each grid node (debug mode)
 
 **UIManager** (`js/io/ui_manager.js`) - UI effects:
 - Screen shake trigger on collision
@@ -386,6 +389,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
 - Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
+- `debugMode` - Toggle for debug overlay (localhost only, toggled via "G" key in main loop)
 - Delta-time game loop via requestAnimationFrame
 - Death pause: 1000ms freeze with explosion effect before reset
 - Exit warp: 1000ms animation where player shrinks/fades into exit, entities freeze

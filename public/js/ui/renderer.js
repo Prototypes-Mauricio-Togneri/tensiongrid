@@ -1169,6 +1169,32 @@ class Renderer {
     }
 
     /**
+     * Draw debug coordinate labels on each grid node.
+     * @param {Grid} grid - Grid instance to draw coordinates for
+     */
+    drawDebugNodeCoordinates(grid) {
+        const ctx = this.ctx
+        const { fontSize, fontFamily, textColor, textOffsetY } = Constants.game.debug
+
+        ctx.save()
+        ctx.font = `${fontSize}px ${fontFamily}`
+        ctx.fillStyle = textColor
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'bottom'
+
+        for (let row = 0; row < grid.height; row++) {
+            for (let col = 0; col < grid.width; col++) {
+                if (grid.isExcluded(row, col)) continue
+                const posWorld = grid.getNodePosition(row, col)
+                const pos = this.toScreen(posWorld.x, posWorld.y)
+                ctx.fillText(`${row},${col}`, pos.x, pos.y + textOffsetY)
+            }
+        }
+
+        ctx.restore()
+    }
+
+    /**
      * Draw shield circle around player.
      * @param {number} x - Screen X position
      * @param {number} y - Screen Y position

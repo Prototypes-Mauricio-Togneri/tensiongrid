@@ -8,6 +8,8 @@
 
 - Debug mode to see node coordinates
 
+- Pause with p
+
 ## UI/UX
 
 - Visual cues when a shooter is about to shoot

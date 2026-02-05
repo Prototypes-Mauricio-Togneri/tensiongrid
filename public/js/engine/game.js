@@ -14,6 +14,7 @@ class Game {
         this.audioManager = audioManager  // Shared audio manager
         this.ui = new UIManager()         // HUD manager
         this.running = false              // True while game loop is active
+        this.debugMode = false            // Debug overlay toggle (localhost only)
 
         this.boundResizeCanvas = () => this.resizeCanvas() // Bound handler for cleanup
         window.addEventListener(Constants.events.resize, this.boundResizeCanvas)
@@ -375,6 +376,10 @@ class Game {
         } else {
             const playerScale = this.playerWrap ? this.playerWrap.getPlayerScale() : 1
             this.renderer.drawPlayerWithBoost(this.player, playerScale, time)
+        }
+
+        if (this.debugMode) {
+            this.renderer.drawDebugNodeCoordinates(this.grid)
         }
 
         this.renderer.endFrame()

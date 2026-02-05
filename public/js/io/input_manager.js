@@ -10,7 +10,8 @@ class InputManager {
             [Constants.keys.left]: false,
             [Constants.keys.right]: false,
             [Constants.keys.escape]: false,
-            [Constants.keys.select]: false
+            [Constants.keys.select]: false,
+            [Constants.keys.debug]: false
         }
         this.enabled = true // False to ignore movement input
 
@@ -52,7 +53,9 @@ class InputManager {
             Escape: Constants.keys.escape,
             Backspace: Constants.keys.escape,
             Enter: Constants.keys.select,
-            ' ': Constants.keys.select
+            ' ': Constants.keys.select,
+            g: Constants.keys.debug,
+            G: Constants.keys.debug
         }
 
         document.addEventListener(Constants.events.keydown, (e) => {
@@ -201,6 +204,21 @@ class InputManager {
      */
     consumeSelect() {
         this.keys.select = false
+    }
+
+    /**
+     * Check if debug key is currently pressed.
+     * @returns {boolean} True if debug key is pressed
+     */
+    isDebugPressed() {
+        return this.keys.debug
+    }
+
+    /**
+     * Consume debug key press (reset state after handling).
+     */
+    consumeDebug() {
+        this.keys.debug = false
     }
 
     /**
