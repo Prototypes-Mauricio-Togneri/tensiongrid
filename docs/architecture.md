@@ -161,9 +161,10 @@ Cyberpunk/neon aesthetic with these design elements:
 **WakeTrail** (`js/helpers/wake_trail.js`) - Wake trail state manager:
 - Manages wake trail effect state for moving entities
 - Used by Player, EnemyBullet, EnemyPatrol, EnemyFollower
-- `update(delta, isMoving, x, y, dirX, dirY)` - Update intensity and position
-- `reset(x, y)` - Reset trail to position with zero intensity
-- Config: `buildRate` (intensity increase per ms), `trailDistance` (pixels behind entity), `fadeRate` (optional, intensity decrease per ms when stationary)
+- `update(delta, isMoving, speed, x, y, dirX, dirY)` - Update intensity, length, and position
+- `reset(x, y)` - Reset trail to position with zero intensity and zero length
+- Trail length grows from 0 to `trailDistance` at entity speed, resets on `reset()` and when intensity fades to 0
+- Config: `buildRate` (intensity increase per ms), `trailDistance` (max pixels behind entity), `fadeRate` (optional, intensity decrease per ms when stationary)
 
 **IntermittentState** (`js/helpers/intermittent_state.js`) - On/off cycling state manager:
 - Manages intermittent on/off behavior for hazard entities

@@ -56,7 +56,7 @@ class Player {
 
         // Fade wake when stationary
         if (!this.isMoving) {
-            this.wake.update(delta, false, this.x, this.y, 0, 0)
+            this.wake.update(delta, false, 0, this.x, this.y, 0, 0)
             return expiredEffects
         }
 
@@ -69,7 +69,7 @@ class Player {
             this.col = this.targetCol
             this.isMoving = false
         } else {
-            this.wake.update(delta, true, this.x, this.y, result.dirX, result.dirY)
+            this.wake.update(delta, true, this.speed, this.x, this.y, result.dirX, result.dirY)
         }
 
         return expiredEffects

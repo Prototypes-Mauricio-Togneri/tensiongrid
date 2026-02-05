@@ -58,7 +58,7 @@ class EnemyBullet {
                 return false // Remove bullet at boundary
             }
         } else {
-            this.wake.update(delta, true, this.x, this.y, result.dirX, result.dirY)
+            this.wake.update(delta, true, this.speed, this.x, this.y, result.dirX, result.dirY)
         }
 
         return true

@@ -44,7 +44,7 @@ class EnemyPatrol {
             this.pathIndex = nextIndex
             this.wake.reset(this.x, this.y)
         } else {
-            this.wake.update(delta, true, this.x, this.y, result.dirX, result.dirY)
+            this.wake.update(delta, true, this.speed, this.x, this.y, result.dirX, result.dirY)
         }
     }
 

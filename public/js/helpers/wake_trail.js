@@ -19,27 +19,33 @@ class WakeTrail {
         this.buildRate = config.buildRate
         this.fadeRate = config.fadeRate || 0
         this.trailDistance = config.trailDistance
+        this.currentDistance = 0    // Current trail length, grows from 0 to trailDistance
     }
 
     /**
      * Update wake trail state based on movement.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      * @param {boolean} isMoving - Whether the entity is currently moving
+     * @param {number} speed - Entity movement speed in pixels/second
      * @param {number} x - Current entity X position
      * @param {number} y - Current entity Y position
      * @param {number} dirX - Movement direction X component (normalized)
      * @param {number} dirY - Movement direction Y component (normalized)
      */
-    update(delta, isMoving, x, y, dirX, dirY) {
+    update(delta, isMoving, speed, x, y, dirX, dirY) {
         if (!isMoving) {
             if (this.fadeRate > 0) {
                 this.intensity = Math.max(0, this.intensity - delta * this.fadeRate)
             }
+            if (this.intensity <= 0) {
+                this.currentDistance = 0
+            }
             return
         }
         this.intensity = Math.min(1, this.intensity + delta * this.buildRate)
-        this.startX = x - dirX * this.trailDistance
-        this.startY = y - dirY * this.trailDistance
+        this.currentDistance = Math.min(this.trailDistance, this.currentDistance + speed * delta / 1000)
+        this.startX = x - dirX * this.currentDistance
+        this.startY = y - dirY * this.currentDistance
     }
 
     /**
@@ -51,5 +57,6 @@ class WakeTrail {
         this.intensity = 0
         this.startX = x
         this.startY = y
+        this.currentDistance = 0
     }
 }
