@@ -70,6 +70,7 @@
 
     // Pause menu state
     // Note: pauseButtons is queried once at init. Button count assumed fixed in HTML.
+    const levelFileInput = document.getElementById(Constants.dom.ids.levelFileInput)
     const pauseOverlay = document.getElementById(Constants.dom.ids.pauseOverlay)
     const pauseButtons = pauseOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
     let pauseIndex = 0       // Currently selected pause menu item
@@ -77,6 +78,7 @@
     let isSoftPaused = false // True when game is paused via P key (no menu)
     let gameStartedFrom = '' // Screen to return to when quitting (home or levels)
     let currentLevel = ''    // Path to current level JSON
+    let isCustomLevel = false // True when playing a user-uploaded level
 
     // Enable swipe input on game screen (when not paused) and levels screen
     input.setSwipeEnabled(() => {
@@ -143,6 +145,7 @@
      * @param {string} from - Screen to return to on quit
      */
     async function openGameScreen(levelPath, from) {
+        isCustomLevel = false
         currentLevel = levelPath
         gameStartedFrom = from
 
@@ -200,6 +203,46 @@
     }
 
     /**
+     * Start game with user-provided level data (no fetch, no storage, no analytics).
+     * @param {Object} levelData - Parsed level JSON object
+     */
+    function openCustomGameScreen(levelData) {
+        isCustomLevel = true
+        currentLevel = ''
+        gameStartedFrom = Constants.screens.home
+
+        audioManager.playMusic(Constants.audio.music.game)
+        screen.show(Constants.screens.game)
+        game.start(levelData)
+
+        // No storage update on exit reached
+        game.setOnExitReached(() => {})
+
+        // Return to home screen on completion (no auto-advance)
+        game.setOnLevelComplete(() => {
+            game.stop()
+            playMenuMusic()
+            screen.show(Constants.screens.home)
+            updateContinueButtonText()
+        })
+    }
+
+    /**
+     * Read a JSON file from a file input and start the custom game.
+     * @param {File} file - The selected JSON file
+     */
+    async function handleCustomLevelFile(file) {
+        try {
+            const text = await file.text()
+            const levelData = JSON.parse(text)
+            openCustomGameScreen(levelData)
+        } catch {
+            console.error('Failed to parse custom level file')
+            audioManager.playSound(Constants.audio.sounds.closeScreen)
+        }
+    }
+
+    /**
      * Handle home menu action selection.
      * @param {string} action - The action identifier from button dataset
      */
@@ -215,6 +258,8 @@
             screen.updateLevelButtonStates(storage)
             screen.setSelectedToHighestUnlocked(storage)
             screen.show(Constants.screens.levels)
+        } else if (action === Constants.actions.home.upload) {
+            levelFileInput.click()
         } else if (action === Constants.actions.home.fullscreen) {
             if (document.fullscreenElement) {
                 document.exitFullscreen()
@@ -236,12 +281,16 @@
             hidePauseMenu()
             game.resume()
         } else if (action === Constants.actions.pause.restart) {
-            Analytics.trackLevelRestart(game.levelData.id)
+            if (!isCustomLevel) {
+                Analytics.trackLevelRestart(game.levelData.id)
+            }
             hidePauseMenu()
             game.reset()
             game.resume()
         } else if (action === Constants.actions.pause.quit) {
-            Analytics.trackLevelQuit(game.levelData.id, game.deathCount, Math.round(performance.now() - game.startTime))
+            if (!isCustomLevel) {
+                Analytics.trackLevelQuit(game.levelData.id, game.deathCount, Math.round(performance.now() - game.startTime))
+            }
             audioManager.playSound(Constants.audio.sounds.closeScreen)
             hidePauseMenu()
             game.stop()
@@ -503,6 +552,15 @@
             updatePauseButtonSelection()
             handlePauseMenuAction(btn.dataset.action)
         })
+    })
+
+    // Custom level file input handler
+    levelFileInput.addEventListener(Constants.events.change, () => {
+        const file = levelFileInput.files[0]
+        if (file) {
+            handleCustomLevelFile(file)
+        }
+        levelFileInput.value = '' // Reset so same file can be re-selected
     })
 
     // Capture browser back button and treat it as escape key

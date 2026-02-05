@@ -2,15 +2,9 @@
 
 [Web site](https://tensiongrid.com)
 
-## Features
-
-- Upload own levels
-
 ## UI/UX
 
 - Visual cues when a shooter is about to shoot
-
-- Visual cues when a shooter is about to turn
 
 - Improve player wake animation
 

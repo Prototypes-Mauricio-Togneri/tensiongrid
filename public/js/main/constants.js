@@ -23,7 +23,8 @@ const Constants = {
             levelTimeline: 'levelTimeline',   // Level timeline container
             timelineMarkers: 'timelineMarkers', // Timeline markers container
             levelCurrent: 'levelCurrent',     // Current level counter
-            levelTotal: 'levelTotal'          // Total levels counter
+            levelTotal: 'levelTotal',         // Total levels counter
+            levelFileInput: 'levelFileInput'  // Hidden file input for custom level upload
         },
         classes: {
             shake: 'shake',                   // Screen shake animation class
@@ -131,6 +132,7 @@ const Constants = {
             gym: 'gym',               // Open gym mode
             continue: 'continue',     // Continue last game
             levels: 'levels',         // Open level select
+            upload: 'upload',         // Upload custom level
             fullscreen: 'fullscreen', // Toggle fullscreen mode
             settings: 'settings'      // Open settings
         },
