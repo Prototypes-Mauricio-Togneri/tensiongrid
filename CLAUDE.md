@@ -23,6 +23,7 @@ public/
 │   ├── engine/      → Core game engine
 │   ├── helpers/     → Reusable behavior helpers
 │   ├── io/          → Input/output handling
+│   ├── main/        → Constants and bootstrap
 │   └── ui/          → UI components
 ├── levels/          → Level definitions (JSON)
 └── index.html
@@ -49,7 +50,7 @@ Read these when working on specific areas:
 - **Analytical Rigor**: Thoroughly review the codebase for relevant facts, styles, conventions, and abstractions. Before implementation, clearly identify what will change and what will remain untouched.
 - **Minimalist Approach**: Prioritize extreme simplicity. Impact only the code strictly necessary for the task to avoid complexity and prevent breaking existing functionality.
 - **Maintainability Check**: Ensure the solution is readable, consistent, maintainable, simple, robust, and strictly follows the requested requirements.
-- **Centralized Constants**: Declare all magic constants in `public/js/constants.js` and reference them from there. Do not hardcode values directly in other files.
+- **Centralized Constants**: Declare all magic constants in `public/js/main/constants.js` and reference them from there. Do not hardcode values directly in other files.
 - **Root Cause Fixes**: If a bug exists, identify and fix the root cause. Do not apply temporary or partial fixes.
 - **Async Patterns**: Prefer `async` and `await` over `Promise` and `then` calls.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.

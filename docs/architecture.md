@@ -39,7 +39,7 @@ Cyberpunk/neon aesthetic with these design elements:
 
 ### Configuration
 
-**Constants** (`js/constants.js`) - Immutable game constants:
+**Constants** (`js/main/constants.js`) - Immutable game constants:
 - `scale`: mobile breakpoint (768px), mobile scale factor (0.73)
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
@@ -385,7 +385,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handleEnemyHit()` - Processes enemy collision (shield break or death)
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
-- Receives shared AudioManager from main.js, passes to EnemyManager for sound effects
+- Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
 - Delta-time game loop via requestAnimationFrame
 - Death pause: 1000ms freeze with explosion effect before reset
 - Exit warp: 1000ms animation where player shrinks/fades into exit, entities freeze
@@ -418,7 +418,7 @@ Cyberpunk/neon aesthetic with these design elements:
   - Variables: full descriptive names, avoid abbreviations
     - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
     - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
-- All magic values in `constants.js`
+- All magic values in `main/constants.js`
 - Unused parameters: use `_`, `__`, `___`, etc.
 
 ### JavaScript Comment Conventions

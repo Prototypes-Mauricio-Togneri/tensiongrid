@@ -2,7 +2,6 @@
 
 [Web site](https://tensiongrid.com)
 
-- Make key yellow rombus with pulse animation
 - Visual cues when a shooter is about to shoot
 - Visual cues when a shooter is about to turn
 
