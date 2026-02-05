@@ -1218,7 +1218,7 @@ class Renderer {
                 if (grid.isExcluded(row, col)) continue
                 const posWorld = grid.getNodePosition(row, col)
                 const pos = this.toScreen(posWorld.x, posWorld.y)
-                ctx.fillText(`${row},${col}`, pos.x, pos.y + textOffsetY)
+                ctx.fillText(`${col},${row}`, pos.x, pos.y + textOffsetY)
             }
         }
 

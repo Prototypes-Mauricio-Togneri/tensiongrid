@@ -1,0 +1,99 @@
+{
+  "id": 2,
+  "grid": {
+    "width": 10,
+    "height": 10
+  },
+  "player": {
+    "startX": 4,
+    "startY": 5
+  },
+  "exit": {
+    "x": 8,
+    "y": 1,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 2,
+      "y": 5,
+      "unlocks": "exit",
+      "ttl": 10000
+    }
+  ],
+  "enemies": {
+    "enemyFollower": [
+      {
+        "startX": 9,
+        "startY": 9,
+        "speed": 70
+      }
+    ],
+    "enemyBullet": [
+      {
+        "x": 1,
+        "y": 0,
+        "direction": "down",
+        "delay": 1000,
+        "interval": 3500
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 0,
+        "startY": 3,
+        "endX": 9,
+        "endY": 3,
+        "timeOn": 2000,
+        "timeOff": 2000
+      }
+    ],
+    "enemyTrap": [
+      {
+        "x": 2,
+        "y": 7,
+        "timeOn": 2000,
+        "timeOff": 1500
+      }
+    ],
+    "enemyMine": [
+      {
+        "x": 4,
+        "y": 7,
+        "delay": 2300,
+        "bulletSpeed": 300
+      }
+    ],
+    "enemyShooter": [
+      {
+        "x": 6,
+        "y": 6,
+        "arms": [
+          "right",
+          "down"
+        ],
+        "delay": 1500,
+        "rotation": "clockwise"
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 90,
+        "path": [
+          {
+            "x": 8,
+            "y": 5
+          },
+          {
+            "x": 8,
+            "y": 7
+          },
+          {
+            "x": 8,
+            "y": 5
+          }
+        ]
+      }
+    ]
+  }
+}
