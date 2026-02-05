@@ -15,6 +15,12 @@
 
 - Add oscilating behavior for patrols (defining only two nodes)
 
+- Review collision strategy for all entities
+  - Which type has each entity?
+  - Can it be improved?
+  - Does it miss some collisions?
+  - Does it trigger some false positives?
+
 - Upload own level
 
 - Bug killing with laser just turning on (and it didn't glow yet)
