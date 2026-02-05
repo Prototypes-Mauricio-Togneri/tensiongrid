@@ -2,8 +2,25 @@
 
 [Web site](https://tensiongrid.com)
 
+## Features
+
+- Upload own levels
+
+- Debug mode to see node coordinates
+
+## UI/UX
+
 - Visual cues when a shooter is about to shoot
+
 - Visual cues when a shooter is about to turn
+
+- Show from where the bullets are coming from (small flash before they appear?)
+
+- Improve player wake animation
+
+- Sound when player moving?
+
+## BUGS
 
 - Bug calculating route of follower? It looks like it uses the last known col/row to calculate the path instead of the target col/row.
 
@@ -12,30 +29,24 @@
   2. Start moving alonside the line of the laser while it's off
   3. When the laser turns on, if the player still didn't reach the target node, the player doesn't die. it should die as soon as the laser is on
 
-- Add oscilating behavior for patrols (defining only two nodes)
-
 - Review collision strategy for all entities
   - Which type has each entity?
   - Can it be improved?
   - Does it miss some collisions?
   - Does it trigger some false positives?
 
-- Upload own level
-
 - Bug killing with laser just turning on (and it didn't glow yet)
 
 - Bug: Swipe levels in mobile
 
-- Show from where the bullets are coming from (small flash before they appear?)
-
 - Bug in analytics?
   - Does the level_start and others are sent whenever we pass from one level to another? or only the first time we start a level?
 
-- Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.
+## Enemy ideas
 
-- Improve player wake animation
-- Sound when player moving?
-- Debug mode to see node coordinates
+- Add oscilating behavior for patrols (defining only two nodes)
+
+- Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.
 
 ## Level ideas
 
