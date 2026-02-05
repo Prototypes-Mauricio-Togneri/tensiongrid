@@ -22,9 +22,10 @@ class EnemyShooter {
         this.delay = config.delay // Cycle delay in ms
         this.rotationDirection = config.rotation // 'clockwise', 'counterclockwise', or undefined
 
-        // State machine: 'waiting' | 'rotating'
+        // State machine: 'waiting' | 'rotating' | 'charging'
         this.state = 'waiting'
         this.delayTimer = 0 // Timer for waiting phase
+        this.chargeTimer = 0 // Timer for charging phase
 
         // Rotation animation state
         this.visualRotation = 0 // Current visual rotation in radians
@@ -32,12 +33,12 @@ class EnemyShooter {
         this.startRotation = 0 // Starting rotation for animation
         this.rotationAngle = 0 // Rotation amount for current animation (+/- PI/2)
         this.isRotating = false // Currently animating rotation
-        this.rotationAnimDuration = 200 // Animation duration (ms)
+        this.rotationAnimDuration = Constants.game.enemies.shooter.rotationDuration
         this.rotationAnimTimer = 0 // Animation progress timer
     }
 
     /**
-     * Update shooter state machine: waiting -> rotating -> fire.
+     * Update shooter state machine: waiting -> [rotating] -> charging -> fire.
      * @param {number} delta - Time elapsed since last frame in ms
      * @returns {Object} Object with bullets array and rotationStarted flag
      */
@@ -54,20 +55,26 @@ class EnemyShooter {
                     rotationStarted = this.startRotationAnimation()
                     this.state = 'rotating'
                 } else {
-                    // No rotation - fire immediately
-                    for (const arm of this.arms) {
-                        bulletsToSpawn.push(this.getBulletSpawnInfo(arm))
-                    }
+                    // No rotation - go straight to charging
+                    this.chargeTimer = 0
+                    this.state = 'charging'
                 }
             }
         } else if (this.state === 'rotating') {
             const complete = this.updateRotationAnimation(delta)
             if (complete) {
-                this.state = 'waiting'
-                // Fire all arms
+                // Rotation done - start charging
+                this.chargeTimer = 0
+                this.state = 'charging'
+            }
+        } else if (this.state === 'charging') {
+            this.chargeTimer += delta
+            if (this.chargeTimer >= Constants.game.enemies.shooter.chargeDuration) {
+                // Charge complete - fire all arms
                 for (const arm of this.arms) {
                     bulletsToSpawn.push(this.getBulletSpawnInfo(arm))
                 }
+                this.state = 'waiting'
             }
         }
 
@@ -206,5 +213,41 @@ class EnemyShooter {
      */
     getActiveDirections() {
         return this.arms
+    }
+
+    /**
+     * Get charge-up progress (0 = not charging, 0→1 = charging).
+     * Only active during the 'charging' state.
+     * @returns {number} Charge progress from 0 to 1
+     */
+    getChargeProgress() {
+        if (this.state !== 'charging') return 0
+        return Math.min(this.chargeTimer / Constants.game.enemies.shooter.chargeDuration, 1)
+    }
+
+    /**
+     * Get arm tip offsets in local space (before canvas rotation).
+     * @returns {Object[]} Array of {x, y} offsets from shooter center
+     */
+    getArmTipOffsets() {
+        const len = this.armLength
+        const offsets = []
+        for (const dir of this.arms) {
+            switch (dir) {
+                case Constants.directions.up.key:
+                    offsets.push({ x: 0, y: -len })
+                    break
+                case Constants.directions.down.key:
+                    offsets.push({ x: 0, y: len })
+                    break
+                case Constants.directions.left.key:
+                    offsets.push({ x: -len, y: 0 })
+                    break
+                case Constants.directions.right.key:
+                    offsets.push({ x: len, y: 0 })
+                    break
+            }
+        }
+        return offsets
     }
 }

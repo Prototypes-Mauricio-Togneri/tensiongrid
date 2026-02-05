@@ -45,7 +45,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
 - `physics.deathPauseMs`: pause duration after death (1000ms)
-- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s), wall core width (8px), wall glow width (14px), wall shadow blur (12px/18px)
+- `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), shooter charge duration (500ms), shooter rotation duration (250ms), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s), wall core width (8px), wall glow width (14px), wall shadow blur (12px/18px)
 - `powers.size`: (12px) - collectible size for all power types
 - `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
 - `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms), timerArcOffset (6px), timerArcThickness (4px), timerArcWarningThreshold (0.25)
@@ -275,7 +275,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Fixed position on a single grid node
 - Green cross/plus visual shape (#44ff88)
 - Fires EnemyBullet instances from configured arms simultaneously
-- Cycle: wait for delay → optionally rotate 90° → shoot all arms
+- Cycle: wait for delay → optionally rotate 90° (250ms) → charge (500ms) → shoot all arms
+- Charge-up visual cue: growing red circle (#cc2244) at each arm tip during the 500ms charging phase before firing
 - If rotation enabled, arms rotate with the shooter visually
 - Kills player on contact (grid-based collision)
 - Config: `x`, `y`, `arms` (array of "up"/"down"/"left"/"right"), `delay` (ms per cycle), `rotation` (optional: "clockwise"/"counterclockwise")

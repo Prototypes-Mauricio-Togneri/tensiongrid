@@ -817,6 +817,41 @@ class Renderer {
     }
 
     /**
+     * Draw charge-up circles at shooter arm tips before firing.
+     * Rendered before drawShooters so circles appear behind the arms.
+     * @param {EnemyShooter[]} shooters - Array of shooter instances
+     */
+    drawShooterCharges(shooters) {
+        const ctx = this.ctx
+        const maxRadius = Constants.game.enemies.shooter.size / 2
+
+        for (const shooter of shooters) {
+            const progress = shooter.getChargeProgress()
+            if (progress <= 0) continue
+
+            const pos = this.toScreen(shooter.x, shooter.y)
+            const tipOffsets = shooter.getArmTipOffsets()
+            const radius = maxRadius * progress
+
+            ctx.save()
+            ctx.translate(pos.x, pos.y)
+            ctx.rotate(shooter.getRotation())
+
+            ctx.shadowColor = this.colors.bullet
+            ctx.shadowBlur = 10 * progress
+            ctx.fillStyle = this.hexWithAlpha(this.colors.bullet, 0.7 * progress)
+
+            for (const tip of tipOffsets) {
+                ctx.beginPath()
+                ctx.arc(tip.x, tip.y, radius, 0, Math.PI * 2)
+                ctx.fill()
+            }
+
+            ctx.restore()
+        }
+    }
+
+    /**
      * Draw patrols with wake trail and glow effects.
      * @param {EnemyPatrol[]} patrols - Array of patrol instances
      */

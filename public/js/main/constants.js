@@ -228,7 +228,9 @@ const Constants = {
             },
             shooter: {
                 size: 14,                      // Turret arm and hub thickness in pixels
-                armLength: 28                  // Turret arm length from center in pixels
+                armLength: 28,                 // Turret arm length from center in pixels
+                chargeDuration: 500,           // Charge-up animation duration in ms before firing
+                rotationDuration: 250          // Rotation animation duration in ms
             },
             follower: {
                 size: 10,                      // Follower size in pixels

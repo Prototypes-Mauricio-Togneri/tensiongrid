@@ -348,6 +348,7 @@ class Game {
         this.renderer.drawLasers(this.enemyManager.getLasers())
         this.renderer.drawTraps(this.enemyManager.getTraps())
         this.renderer.drawMines(this.enemyManager.getMines(), time)
+        this.renderer.drawShooterCharges(this.enemyManager.getShooters())
         this.renderer.drawShooters(this.enemyManager.getShooters())
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
