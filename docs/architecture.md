@@ -61,6 +61,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `game.animations.playerExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
 - `game.animations.mineExplosion`: particle count (12), particle size (4px), end radius (35px), duration (600ms)
 - `game.animations.playerExit`: duration (1000ms) - player shrink/fade into exit portal
+- `game.animations.spawnWarning`: particle count (10), particle size (3px), spawn radius (35px), duration (400ms) - converging particles before bullet spawn
 - `game.animations.wakeTrail`: fast profile (buildRate 0.05, trailDistance 60, fadeRate 0.004), slow profile (buildRate 0.005, trailDistance 50, fadeRate 0) - wake trail effect behind moving entities
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
@@ -351,6 +352,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Spawns from all four borders
 - Minimum distance check prevents clustering
 - Triggers sound effects via AudioManager (turret rotation)
+- `getSpawnWarnings()` - Returns converging particle data for spawners about to fire (within 400ms), with pre-generated random particle positions per spawner
 
 **Collision** (`js/engine/collision.js`) - Collision detection:
 - Strategy helpers: `circleCollides(player, entity, size)`, `gridCollides(player, entity)`
@@ -371,6 +373,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Player boost indicator: electric blue glow when speed boost is active, red glow when slowed
 - Shield rendering: electric blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
+- `drawSpawnWarnings(warnings)` - Draws converging bullet-red particles at spawn points before bullets fire
 - `drawDebugNodeCoordinates(grid)` - Draws `row,col` text above each grid node (debug mode)
 
 **UIManager** (`js/io/ui_manager.js`) - UI effects:

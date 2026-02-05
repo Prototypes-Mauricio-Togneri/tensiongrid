@@ -12,8 +12,6 @@
 
 - Visual cues when a shooter is about to turn
 
-- Show from where the bullets are coming from (small flash before they appear?)
-
 - Improve player wake animation
 
 - Sound when player moving?

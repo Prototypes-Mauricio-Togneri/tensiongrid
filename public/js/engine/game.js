@@ -332,6 +332,7 @@ class Game {
     render(time) {
         this.renderer.clear()
         this.renderer.drawGrid(this.grid)
+        this.renderer.drawSpawnWarnings(this.enemyManager.getSpawnWarnings())
         this.renderer.drawWalls(this.walls)
         this.renderer.drawBullets(this.enemyManager.getBullets())
 

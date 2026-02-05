@@ -38,9 +38,29 @@ class EnemyManager {
     initInstanceStates() {
         if (!this.config.enemyBullet) return
         this.instanceStates = this.config.enemyBullet.map(() => ({
-            delayElapsed: false, // Whether initial delay has passed
-            timer: 0             // Time elapsed since last spawn/start
+            delayElapsed: false,                              // Whether initial delay has passed
+            timer: 0,                                         // Time elapsed since last spawn/start
+            warningParticles: this.generateWarningParticles() // Pre-computed particle start positions
         }))
+    }
+
+    /**
+     * Generate random particle start positions for a spawn warning effect.
+     * @returns {Object[]} Array of {startX, startY, delay} particle configurations
+     */
+    generateWarningParticles() {
+        const config = Constants.game.animations.spawnWarning
+        const particles = []
+        for (let i = 0; i < config.particleCount; i++) {
+            const angle = Math.random() * Math.PI * 2
+            const distance = config.spawnRadius * (0.5 + Math.random() * 0.5)
+            particles.push({
+                startX: Math.cos(angle) * distance,
+                startY: Math.sin(angle) * distance,
+                delay: Math.random() * 0.2
+            })
+        }
+        return particles
     }
 
     /**
@@ -352,5 +372,56 @@ class EnemyManager {
      */
     getExplodedMinePositions() {
         return this.explodedMinePositions
+    }
+
+    /**
+     * Get active spawn warnings for bullet spawners approaching their fire threshold.
+     * Returns converging particle data for rendering.
+     * @returns {Object[]} Array of {x, y, particles, particleSize} for active warnings
+     */
+    getSpawnWarnings() {
+        if (!this.config.enemyBullet) return []
+
+        const config = Constants.game.animations.spawnWarning
+        const warnings = []
+
+        for (let i = 0; i < this.config.enemyBullet.length; i++) {
+            const spawnerConfig = this.config.enemyBullet[i]
+            const state = this.instanceStates[i]
+            if (!state) continue
+
+            const threshold = state.delayElapsed ? spawnerConfig.interval : (spawnerConfig.delay ?? 0)
+            const timeUntilSpawn = threshold - state.timer
+
+            if (timeUntilSpawn > 0 && timeUntilSpawn <= config.duration) {
+                const progress = 1 - (timeUntilSpawn / config.duration)
+                const pos = this.grid.getNodePosition(spawnerConfig.y, spawnerConfig.x)
+
+                // Compute converging particle positions from progress
+                const particles = []
+                for (const p of state.warningParticles) {
+                    const adjustedProgress = Math.max(0, (progress - p.delay) / (1 - p.delay))
+                    const eased = adjustedProgress < 0.5
+                        ? 2 * adjustedProgress * adjustedProgress
+                        : 1 - Math.pow(-2 * adjustedProgress + 2, 2) / 2
+
+                    const x = p.startX * (1 - eased)
+                    const y = p.startY * (1 - eased)
+
+                    let opacity
+                    if (adjustedProgress < 0.7) {
+                        opacity = Math.min(1, adjustedProgress / 0.3)
+                    } else {
+                        opacity = 1 - (adjustedProgress - 0.7) / 0.3
+                    }
+
+                    particles.push({ x, y, opacity })
+                }
+
+                warnings.push({ x: pos.x, y: pos.y, particles, particleSize: config.particleSize })
+            }
+        }
+
+        return warnings
     }
 }

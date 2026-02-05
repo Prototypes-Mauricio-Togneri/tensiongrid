@@ -237,6 +237,37 @@ class Renderer {
     }
 
     /**
+     * Draw spawn warning effects (converging particles at bullet spawn points).
+     * @param {Object[]} warnings - Array of {x, y, particles, particleSize} from EnemyManager
+     */
+    drawSpawnWarnings(warnings) {
+        const ctx = this.ctx
+
+        for (const warning of warnings) {
+            const pos = this.toScreen(warning.x, warning.y)
+
+            ctx.save()
+            for (const particle of warning.particles) {
+                if (particle.opacity <= 0) continue
+
+                const px = pos.x + particle.x
+                const py = pos.y + particle.y
+
+                ctx.shadowColor = this.colors.bullet
+                ctx.shadowBlur = 8 * particle.opacity
+                ctx.fillStyle = this.hexWithAlpha(this.colors.bullet, particle.opacity)
+                ctx.fillRect(
+                    px - warning.particleSize / 2,
+                    py - warning.particleSize / 2,
+                    warning.particleSize,
+                    warning.particleSize
+                )
+            }
+            ctx.restore()
+        }
+    }
+
+    /**
      * Draw player wrap effect (particles converging to center).
      * @param {PlayerWrapAnimation} scatter - PlayerWrapAnimation instance with particle data
      */

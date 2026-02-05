@@ -348,6 +348,14 @@ const Constants = {
                 duration: 1500      // Time for player to shrink and fade into exit in ms
             },
 
+            // Spawn warning effect settings (converging particles before bullet spawn)
+            spawnWarning: {
+                particleCount: 10,  // Number of particles
+                particleSize: 3,    // Size of each square particle in pixels
+                spawnRadius: 35,    // Initial scatter radius in pixels
+                duration: 400       // Time for particles to converge in ms
+            },
+
             // Wake trail effect settings (gradient trail behind moving entities)
             wakeTrail: {
                 fast: {
