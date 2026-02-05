@@ -35,7 +35,8 @@
         "y": 0,
         "direction": "down",
         "delay": 1000,
-        "interval": 3500
+        "interval": 3500,
+        "speed": 90
       }
     ],
     "enemyLaser": [
