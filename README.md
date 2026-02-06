@@ -28,42 +28,6 @@
 
 ## New enemies
 
-Pulsar (Zone Control)
-
-Behavior: Stationary enemy at a grid node that periodically emits a  
- shockwave - a ring of danger that expands outward from its position,
-then retracts.
-
-Mechanics:
-
-- Fixed position on one grid node
-- Cycles: charge → expand → retract → cooldown
-- Danger ring expands 1-3 nodes outward (configurable radius)
-- All nodes within the ring during expansion are lethal
-- Visual telegraph: pulses/glows during charge phase before  
-  expanding
-
-Challenge type: Proximity timing - player must be outside the radius
-when it pulses, or inside during cooldown.
-
-Configuration:
-
-- x, y - Grid position
-- radius - Maximum expansion (1-3 nodes)
-- chargeTime - Telegraph duration before pulse (ms)
-- expandTime - Duration of lethal expansion (ms)
-- cooldownTime - Safe period before next charge (ms)
-
-Pairs well with: Followers (forces player toward pulsar), Patrols  
- (blocks escape routes during cooldown)
-
-Why it fits: Creates area denial with perfect information. Player  
- can mentally track the timing and plan routes that avoid the danger  
- zone at the right moments. Different from lasers because it's  
- radial, not linear.
-
----
-
 Sentry (Sight-Line Triggered)
 
 Behavior: Stationary enemy that watches a line of sight. When the  
