@@ -64,7 +64,7 @@ const Constants = {
     // Swipe Configuration
     // ==========================================
     swipe: {
-        minDistance: 100    // Minimum swipe distance in pixels
+        minDistance: 30     // Minimum swipe distance in pixels
     },
 
     // ==========================================
@@ -529,5 +529,5 @@ const Constants = {
     // ==========================================
     // Build Version (auto-generated)
     // ==========================================
-    version: '2026-02-06T19:43:43Z'
+    version: '2026-02-06T19:54:27Z'
 }

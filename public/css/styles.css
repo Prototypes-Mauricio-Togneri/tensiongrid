@@ -774,7 +774,7 @@ canvas {
 /* Version display styling */
 .version-info {
     position: fixed;
-    bottom: 30px;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1178,7 +1178,7 @@ canvas {
 
     /* Version info */
     .version-info {
-        bottom: 20px;
+        bottom: 36px;
     }
 
     .version-value {
@@ -1308,7 +1308,7 @@ canvas {
 
     /* Version info */
     .version-info {
-        bottom: 16px;
+        bottom: 36px;
     }
 
     .version-value {
