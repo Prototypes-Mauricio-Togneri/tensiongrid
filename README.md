@@ -26,28 +26,6 @@
 - Several lasers one after the other. there is a gap where the player has to wait for a laser to turn off before moving forward. but bullets pass through that gap, so the player has to time the movement carefully.
 - Maze with followers at intersections. Player has to move quickly between cover spots to avoid them.
 
-## New enemies
-
-Sweeper (Rotating Arm)
-
-Behavior: A rotating arm anchored to a point, sweeping around like a
-clock hand. The entire arm is lethal.
-
-Mechanics:
-
-- Fixed center point
-- Arm extends 2-4 nodes from center
-- Rotates continuously at constant speed
-- Entire arm length is dangerous (line of nodes)
-- Can rotate clockwise or counter-clockwise
-- Can have multiple arms
-
-Challenge type: Rotational timing - must time passage through the  
- sweep zone between rotations.
-
-Pairs well with: Multiple sweepers (interlocking rotations),  
- Orbiters (orbit vs sweep timing)
-
 ## Enemy patterns
 
 - **Bullet rain:** A few consecutive rows where in each there is a bullet going horizontally across the entire row. Intercalating one going to the left and the next row going to the right.
