@@ -64,7 +64,7 @@ const Constants = {
     // Swipe Configuration
     // ==========================================
     swipe: {
-        minDistance: 150    // Minimum swipe distance in pixels
+        minDistance: 100    // Minimum swipe distance in pixels
     },
 
     // ==========================================
