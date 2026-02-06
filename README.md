@@ -28,43 +28,6 @@
 
 ## New enemies
 
-Sentry (Sight-Line Triggered)
-
-Behavior: Stationary enemy that watches a line of sight. When the  
- player enters its sight line, it fires a fast bullet after a short  
- telegraph delay.
-
-Mechanics:
-
-- Fixed position on grid node
-- Watches one direction (configurable: up/down/left/right)
-- When player is on the watched line: charges up (visual telegraph),
-  then fires
-- Cooldown before it can trigger again
-- Does NOT fire if player crosses perpendicular to sight line  
-  quickly
-
-Challenge type: Line-of-sight awareness - player must recognize  
- watched lanes and either avoid them or cross quickly.
-
-Configuration:
-
-- x, y - Grid position
-- direction - Watch direction (single direction, not multiple)
-- chargeTime - Telegraph delay before firing (ms, ~500ms)
-- bulletSpeed - Speed of fired bullet
-- cooldown - Time before can trigger again (ms)
-
-Pairs well with: Patrols (patrol pushes player into sentry sight  
- lines), Lasers (creates timing puzzles with sentry cooldowns)
-
-Why it fits: Introduces reactive enemy without being unfair - the  
- telegraph gives time to escape. Creates risk/reward for taking  
- certain paths. Player-position reactive but still deterministic and  
- telegraphed.
-
----
-
 Orbiter (Circular Patrol)
 
 Behavior: Enemy that orbits around a fixed center point, tracing a  
