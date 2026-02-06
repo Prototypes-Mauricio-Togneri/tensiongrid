@@ -81,26 +81,6 @@ Challenge type: Rotational timing - must time passage through the
 Pairs well with: Multiple sweepers (interlocking rotations),  
  Orbiters (orbit vs sweep timing)
 
----
-
-Tracer (Continuous Trail)
-
-Behavior: Moving enemy that leaves a continuous lethal trail behind
-it. Trail fades over time.
-
-Mechanics:
-
-- Moves along patrol path
-- Every node it passes becomes dangerous for N seconds
-- Trail fades from oldest to newest
-- Creates expanding then contracting danger zones
-
-Challenge type: Trail tracking - must watch both the enemy AND its  
- fading trail.
-
-Pairs well with: Fast tracers (long trails), Multiple tracers  
- (overlapping trails)
-
 ## Enemy patterns
 
 - **Bullet rain:** A few consecutive rows where in each there is a bullet going horizontally across the entire row. Intercalating one going to the left and the next row going to the right.
