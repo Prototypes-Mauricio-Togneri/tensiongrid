@@ -6,8 +6,6 @@
 
 - Sound when player moving?
 
-- Add walls to template
-
 - Show level number in pause menu
 
 - Settings to turn off blur effect
