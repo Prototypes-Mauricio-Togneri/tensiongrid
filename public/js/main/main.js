@@ -229,6 +229,12 @@
         game.setOnLevelComplete(() => {
             game.stop()
 
+            // Gym levels restart instead of advancing
+            if (currentLevel.startsWith('gyms/')) {
+                openGameScreen(currentLevel, gameStartedFrom)
+                return
+            }
+
             // Check if next level exists
             const nextLevel = levelData.id + 1
 
@@ -267,12 +273,10 @@
         // No storage update on exit reached
         game.setOnExitReached(() => {})
 
-        // Return to home screen on completion (no auto-advance)
+        // Restart custom level on completion
         game.setOnLevelComplete(() => {
             game.stop()
-            playMenuMusic()
-            screen.show(Constants.screens.home)
-            updateContinueButtonText()
+            openCustomGameScreen(levelData)
         })
     }
 
