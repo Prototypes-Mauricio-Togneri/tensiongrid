@@ -6,6 +6,12 @@
 
 - Sound when player moving?
 
+- Add walls to template
+
+- Show level number in pause menu
+
+- Settings to turn off blur effect
+
 ## BUGS
 
 - Bug calculating route of follower? It looks like it uses the last known col/row to calculate the path instead of the target col/row.
