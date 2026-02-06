@@ -203,6 +203,7 @@ const Constants = {
                 glowTransitionSpeed: 0.004,    // Glow change per ms during transitions
                 glowMin: 0.2,                  // Minimum glow intensity (off state, faded but visible)
                 glowMax: 1.0,                  // Maximum glow intensity (on state)
+                activeThreshold: 1,            // Intensity threshold to become dangerous (visual leads danger)
                 coreWidth: 5,                  // Main beam line thickness in pixels
                 glowWidth: 10,                 // Outer glow line thickness in pixels
                 coreShadowBlur: 10,            // Core line shadow blur radius in pixels
@@ -218,7 +219,8 @@ const Constants = {
                 size: 14,                      // Trap size in pixels
                 opacityTransitionSpeed: 0.004, // Opacity change per ms during transitions
                 opacityMin: 0.2,               // Minimum opacity (off state)
-                opacityMax: 1.0                // Maximum opacity (on state)
+                opacityMax: 1.0,               // Maximum opacity (on state)
+                activeThreshold: 1             // Opacity threshold to become dangerous (visual leads danger)
             },
             mine: {
                 size: 12,                      // Mine size in pixels

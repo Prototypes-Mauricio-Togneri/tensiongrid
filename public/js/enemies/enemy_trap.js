@@ -24,7 +24,8 @@ class EnemyTrap {
             timeOff: config.timeOff,
             intensityMin: trapConfig.opacityMin,
             intensityMax: trapConfig.opacityMax,
-            transitionSpeed: trapConfig.opacityTransitionSpeed
+            transitionSpeed: trapConfig.opacityTransitionSpeed,
+            activeThreshold: trapConfig.activeThreshold
         })
     }
 

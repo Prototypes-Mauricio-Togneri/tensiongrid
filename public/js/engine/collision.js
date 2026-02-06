@@ -141,7 +141,7 @@ class Collision {
      */
     checkPlayerShooterCollision(player, shooters) {
         return this.checkAny(player, shooters, (p, shooter) =>
-            this.gridCollides(p, shooter)
+            !p.isMoving && this.gridCollides(p, shooter)
         )
     }
 

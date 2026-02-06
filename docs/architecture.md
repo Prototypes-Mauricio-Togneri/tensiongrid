@@ -172,9 +172,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - Manages intermittent on/off behavior for hazard entities
 - Used by EnemyLaser, EnemyTrap
 - `isIntermittent()` - Check if entity cycles on/off
-- `isActive()` - Check if currently dangerous
+- `isActive()` - Check if currently dangerous (requires `active` AND intensity >= `activeThreshold`)
 - `update(delta)` - Update state toggle and visual intensity transitions
-- Config: `timeOn`/`timeOff` (ms, undefined for persistent), `intensityMin`/`intensityMax`, `transitionSpeed`
+- Config: `timeOn`/`timeOff` (ms, undefined for persistent), `intensityMin`/`intensityMax`, `transitionSpeed`, `activeThreshold` (intensity required to be dangerous, defaults to `intensityMin`)
 
 **ParticleExplosion** (`js/helpers/particle_explosion.js`) - Particle burst animation base:
 - Generic particle explosion effect with configurable parameters
@@ -363,7 +363,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Strategy helpers: `circleCollides(player, entity, size)`, `gridCollides(player, entity)`
 - Generic methods: `checkAny(player, entities, checkFn)`, `findFirst(player, entities, checkFn)`
 - Circle collision for bullets, patrols, followers, and powers with threshold multiplier (0.7)
-- Grid-based collision for lasers, traps, and shooters (exact node match)
+- Grid-based collision for lasers, traps, and shooters (exact node match, only when player is stationary)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
 - Power collection detection: returns collected power for effect application
 

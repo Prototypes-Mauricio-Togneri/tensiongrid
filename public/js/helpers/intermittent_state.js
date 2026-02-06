@@ -23,6 +23,7 @@ class IntermittentState {
         this.intensityMin = config.intensityMin
         this.intensityMax = config.intensityMax
         this.transitionSpeed = config.transitionSpeed
+        this.activeThreshold = config.activeThreshold ?? config.intensityMin // Intensity required to be dangerous
     }
 
     /**
@@ -38,7 +39,7 @@ class IntermittentState {
      * @returns {boolean} True if entity can damage player
      */
     isActive() {
-        return this.active
+        return this.active && this.intensity >= this.activeThreshold
     }
 
     /**

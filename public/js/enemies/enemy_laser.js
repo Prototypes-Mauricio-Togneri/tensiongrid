@@ -20,7 +20,8 @@ class EnemyLaser {
             timeOff: config.timeOff,
             intensityMin: laserConfig.glowMin,
             intensityMax: laserConfig.glowMax,
-            transitionSpeed: laserConfig.glowTransitionSpeed
+            transitionSpeed: laserConfig.glowTransitionSpeed,
+            activeThreshold: laserConfig.activeThreshold
         })
     }
 
