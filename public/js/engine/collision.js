@@ -170,14 +170,14 @@ class Collision {
     }
 
     /**
-     * Check if player collides with any uncollected power using circle-to-circle detection.
+     * Check if player's grid position matches any uncollected power position.
      * @param {Player} player - Player instance
      * @param {Power[]} powers - Array of powers (both power-ups and power-downs)
      * @returns {Power|null} The collected power, or null if none
      */
     checkPlayerPowerCollision(player, powers) {
         return this.findFirst(player, powers, (p, power) =>
-            !power.isCollected() && this.circleCollides(p, power, power.size)
+            !power.isCollected() && this.gridCollides(p, power)
         )
     }
 
