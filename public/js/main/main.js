@@ -72,6 +72,7 @@
     // Note: pauseButtons is queried once at init. Button count assumed fixed in HTML.
     const levelFileInput = document.getElementById(Constants.dom.ids.levelFileInput)
     const pauseOverlay = document.getElementById(Constants.dom.ids.pauseOverlay)
+    const pauseLevel = document.getElementById(Constants.dom.ids.pauseLevel)
     const pauseButtons = pauseOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
     let pauseIndex = 0       // Currently selected pause menu item
     let isPaused = false     // True when pause menu is visible
@@ -97,12 +98,22 @@
     }
 
     /**
+     * Get label text for the pause menu level indicator.
+     */
+    function getPauseLevelLabel() {
+        if (isCustomLevel) return 'CUSTOM'
+        if (currentLevel.startsWith('gyms/')) return 'GYM'
+        return 'LEVEL ' + String(game.levelData.id).padStart(2, '0')
+    }
+
+    /**
      * Show pause menu and pause game.
      */
     function showPauseMenu() {
         isPaused = true
         pauseIndex = 0
         updatePauseButtonSelection()
+        pauseLevel.textContent = getPauseLevelLabel()
         pauseOverlay.classList.add(Constants.dom.classes.active)
         game.pause()
     }

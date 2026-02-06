@@ -936,6 +936,16 @@ canvas {
     z-index: -1;
 }
 
+/* Pause level label */
+.pause-level {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    color: rgba(0, 245, 255, 0.4);
+    margin-top: -16px;
+}
+
 /* Pause modal menu override */
 .pause-modal .menu {
     margin-top: 8px;
@@ -1015,6 +1025,11 @@ canvas {
     .pause-title {
         font-size: 1.9rem;
         letter-spacing: 0.3em;
+    }
+
+    .pause-level {
+        font-size: 0.8rem;
+        margin-top: -12px;
     }
 
     .pause-modal .menu {
@@ -1135,6 +1150,11 @@ canvas {
     .pause-title {
         font-size: 1.6rem;
         letter-spacing: 0.25em;
+    }
+
+    .pause-level {
+        font-size: 0.75rem;
+        margin-top: -10px;
     }
 
     .pause-modal .menu {
@@ -1265,6 +1285,11 @@ canvas {
     .pause-title {
         font-size: 1.4rem;
         letter-spacing: 0.2em;
+    }
+
+    .pause-level {
+        font-size: 0.7rem;
+        margin-top: -8px;
     }
 
     /* Version info */

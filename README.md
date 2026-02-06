@@ -6,8 +6,6 @@
 
 - Sound when player moving?
 
-- Show level number in pause menu
-
 - Settings to turn off blur effect
 
 ## BUGS

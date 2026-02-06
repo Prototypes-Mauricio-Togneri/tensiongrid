@@ -18,6 +18,7 @@ const Constants = {
             settingsScreen: 'settingsScreen', // Settings screen
             audioToggle: 'audioToggle',       // Audio toggle button
             pauseOverlay: 'pauseOverlay',     // Pause menu overlay
+            pauseLevel: 'pauseLevel',         // Pause menu level label
             gameCanvas: 'gameCanvas',         // Main game canvas
             bgAnimation: 'bgAnimation',       // Background animation container
             levelTimeline: 'levelTimeline',   // Level timeline container
