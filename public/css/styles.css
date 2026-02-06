@@ -69,6 +69,14 @@ body::after {
     z-index: 1000;
 }
 
+/* Disable scanlines when toggled off */
+body.no-scanlines::after,
+body.no-scanlines .title-tension::before,
+body.no-scanlines .title-grid::before,
+body.no-scanlines .pause-title::before {
+    display: none;
+}
+
 /* ============================================
    Background Animation (Menu Screens)
    ============================================ */
@@ -733,7 +741,7 @@ canvas {
 .settings-panel {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 48px;
     min-width: 320px;
     padding: 30px 40px;
     margin-top: 300px;
@@ -745,6 +753,12 @@ canvas {
     justify-content: space-between;
     align-items: center;
     gap: 60px;
+}
+
+/* Focused settings item (keyboard navigation indicator) */
+.settings-item.focused .settings-label {
+    color: rgba(0, 245, 255, 1);
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.5);
 }
 
 /* Settings label text */

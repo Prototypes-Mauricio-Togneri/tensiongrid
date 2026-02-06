@@ -17,6 +17,7 @@ const Constants = {
             levelsScreen: 'levelsScreen',     // Level selection screen
             settingsScreen: 'settingsScreen', // Settings screen
             audioToggle: 'audioToggle',       // Audio toggle button
+            scanlinesToggle: 'scanlinesToggle', // Scanlines toggle button
             pauseOverlay: 'pauseOverlay',     // Pause menu overlay
             pauseLevel: 'pauseLevel',         // Pause menu level label
             gameCanvas: 'gameCanvas',         // Main game canvas
@@ -32,7 +33,9 @@ const Constants = {
             active: 'active',                 // Visible screen class
             selected: 'selected',             // Selected menu item class
             menuButton: 'menu-button',        // Menu button class
-            locked: 'locked'                  // Locked level button class
+            locked: 'locked',                 // Locked level button class
+            focused: 'focused',               // Focused settings item class
+            noScanlines: 'no-scanlines'       // Disable scanline overlay class
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',    // Home menu buttons
@@ -516,8 +519,9 @@ const Constants = {
     // Storage Configuration
     // ==========================================
     storage: {
-        settingsAudioEnabled: 'settings.audioEnabled', // localStorage key for audio toggle state
-        gameCurrentLevel: 'game.currentLevel'          // localStorage key for current level (default: 1)
+        settingsAudioEnabled: 'settings.audioEnabled',       // localStorage key for audio toggle state
+        settingsScanlinesEnabled: 'settings.scanlinesEnabled', // localStorage key for scanlines toggle state
+        gameCurrentLevel: 'game.currentLevel'                  // localStorage key for current level (default: 1)
     },
 
     // ==========================================

@@ -59,7 +59,7 @@
 
     // Input edge detection state (tracks previous frame to detect key-down events)
     let lastMenuInput = { up: false, down: false }        // For menu navigation
-    let lastSettingsInput = { left: false, right: false } // For settings toggles
+    let lastSettingsInput = { left: false, right: false, up: false, down: false } // For settings toggles
     let lastLevelsInput = { left: false, right: false }   // For levels timeline navigation
     let lastDebugInput = false                             // For debug mode toggle
 
@@ -67,6 +67,31 @@
     let levelsRepeatTimer = null   // Timer for repeat navigation
     let levelsRepeatDirection = null // Current repeat direction ('left' or 'right')
     const audioToggle = document.getElementById(Constants.dom.ids.audioToggle)
+    const scanlinesToggle = document.getElementById(Constants.dom.ids.scanlinesToggle)
+    const settingsItems = document.querySelectorAll('#settingsScreen .settings-item:not(.version-info)')
+    let settingsFocusIndex = 0
+    const settingsToggles = [audioToggle, scanlinesToggle]
+
+    /**
+     * Update visual focus indicator on settings items.
+     */
+    function updateSettingsFocus() {
+        settingsItems.forEach((item, i) => {
+            item.classList.toggle(Constants.dom.classes.focused, i === settingsFocusIndex)
+        })
+    }
+
+    // Initialize scanlines toggle from persisted state
+    if (scanlinesToggle) {
+        scanlinesToggle.checked = storage.getScanlinesEnabled()
+        if (!scanlinesToggle.checked) {
+            document.body.classList.add(Constants.dom.classes.noScanlines)
+        }
+        scanlinesToggle.addEventListener(Constants.events.change, () => {
+            storage.setScanlinesEnabled(scanlinesToggle.checked)
+            document.body.classList.toggle(Constants.dom.classes.noScanlines, !scanlinesToggle.checked)
+        })
+    }
 
     // Pause menu state
     // Note: pauseButtons is queried once at init. Button count assumed fixed in HTML.
@@ -278,6 +303,8 @@
                 document.documentElement.requestFullscreen()
             }
         } else if (action === Constants.actions.home.settings) {
+            settingsFocusIndex = 0
+            updateSettingsFocus()
             screen.show(Constants.screens.settings)
         }
     }
@@ -439,18 +466,33 @@
 
         // Settings screen input handling
         if (currentScreen === Constants.screens.settings) {
-            // Toggle audio on left/right (edge detection)
+            // Navigate between settings with up/down (edge detection)
+            if (input.keys.up && !lastSettingsInput.up) {
+                settingsFocusIndex = Math.max(0, settingsFocusIndex - 1)
+                updateSettingsFocus()
+                audioManager.playSound(Constants.audio.sounds.menuChange)
+            }
+            if (input.keys.down && !lastSettingsInput.down) {
+                settingsFocusIndex = Math.min(settingsToggles.length - 1, settingsFocusIndex + 1)
+                updateSettingsFocus()
+                audioManager.playSound(Constants.audio.sounds.menuChange)
+            }
+
+            // Toggle focused setting on left/right (edge detection)
             if ((input.keys.left && !lastSettingsInput.left) ||
                 (input.keys.right && !lastSettingsInput.right)) {
-                audioToggle.checked = !audioToggle.checked
-                audioToggle.dispatchEvent(new Event(Constants.events.change))
-                // Play sound only when enabling audio (off → on)
-                if (audioToggle.checked) {
+                const toggle = settingsToggles[settingsFocusIndex]
+                toggle.checked = !toggle.checked
+                toggle.dispatchEvent(new Event(Constants.events.change))
+                // Play sound (skip when disabling audio since it won't be heard)
+                if (toggle !== audioToggle || toggle.checked) {
                     audioManager.playSound(Constants.audio.sounds.audioToggle)
                 }
             }
             lastSettingsInput.left = input.keys.left
             lastSettingsInput.right = input.keys.right
+            lastSettingsInput.up = input.keys.up
+            lastSettingsInput.down = input.keys.down
         }
 
         // Levels screen input handling (timeline - left/right navigation with repeat)

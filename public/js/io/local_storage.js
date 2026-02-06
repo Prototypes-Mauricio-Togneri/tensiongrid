@@ -21,6 +21,23 @@ class LocalStorage {
     }
 
     /**
+     * Get scanlines enabled state from localStorage.
+     * @returns {boolean} True if scanlines enabled (default: true if not set)
+     */
+    getScanlinesEnabled() {
+        const value = localStorage.getItem(Constants.storage.settingsScanlinesEnabled)
+        return value !== 'false'
+    }
+
+    /**
+     * Set scanlines enabled state in localStorage.
+     * @param {boolean} enabled - Whether scanlines are enabled
+     */
+    setScanlinesEnabled(enabled) {
+        localStorage.setItem(Constants.storage.settingsScanlinesEnabled, enabled)
+    }
+
+    /**
      * Check if current game level exists in localStorage.
      * @returns {boolean} True if level is set
      */

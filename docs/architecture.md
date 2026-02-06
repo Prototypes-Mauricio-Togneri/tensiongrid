@@ -26,7 +26,7 @@ Cyberpunk/neon aesthetic with these design elements:
   - Perspective grid layer with infinite scroll
   - Uses CSS `:has()` selector to hide when game screen is active
 - **Animated background grid** - Perspective-transformed grid with infinite scroll animation
-- **Scanline overlay** - Subtle horizontal lines for CRT effect (via `body::after`)
+- **Scanline overlay** - Subtle horizontal lines for CRT effect (via `body::after`), toggleable in settings (persisted to localStorage)
 - **Title design** - Stacked "TENSION" / "GRID" layout with:
   - "TENSION" in red (#ff2020) with molten heat glow and scan line overlay
   - Warning bar with diagonal danger stripes
@@ -66,7 +66,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
 - `actions.home`: menu actions (gym, continue, levels, upload, fullscreen, settings)
-- `storage`: localStorage key names (audioEnabled, currentLevel)
+- `storage`: localStorage key names (audioEnabled, scanlinesEnabled, currentLevel)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
 
 - `version`: UTC build timestamp (auto-updated by `scripts/version.sh` at deploy time)
@@ -128,6 +128,8 @@ Cyberpunk/neon aesthetic with these design elements:
 **LocalStorage** (`js/io/local_storage.js`) - Centralized localStorage operations:
 - `getAudioEnabled()` - Get audio enabled state (default: true)
 - `setAudioEnabled(enabled)` - Set audio enabled state
+- `getScanlinesEnabled()` - Get scanlines enabled state (default: true)
+- `setScanlinesEnabled(enabled)` - Set scanlines enabled state
 - `hasCurrentLevel()` - Check if current game level exists
 - `getCurrentLevel()` - Get current game level (highest completed + 1)
 - `setCurrentLevel(level)` - Set current game level, preloads next level
