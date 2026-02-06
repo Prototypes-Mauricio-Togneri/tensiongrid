@@ -531,10 +531,11 @@
                 }
             }
 
-            // Navigate timeline on swipe
+            // Navigate timeline on swipe (inverted: swipe left = next, swipe right = prev)
             const swipe = input.consumeSwipe()
             if (swipe) {
-                if (screen.navigateLevels(swipe.key)) {
+                const invertedKey = swipe.key === Constants.keys.left ? Constants.keys.right : Constants.keys.left
+                if (screen.navigateLevels(invertedKey)) {
                     audioManager.playSound(Constants.audio.sounds.menuChange)
                 }
             }

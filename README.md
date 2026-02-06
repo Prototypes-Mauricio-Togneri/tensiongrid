@@ -13,13 +13,13 @@
   2. Start moving alonside the line of the laser while it's off
   3. When the laser turns on, if the player still didn't reach the target node, the player doesn't die. it should die as soon as the laser is on
 
+- Bug killing with laser just turning on (and it didn't glow yet)
+
 - Review collision strategy for all entities
   - Which type has each entity?
   - Can it be improved?
   - Does it miss some collisions?
   - Does it trigger some false positives?
-
-- Bug killing with laser just turning on (and it didn't glow yet)
 
 ## Enemy ideas
 
