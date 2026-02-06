@@ -61,26 +61,6 @@ Why it fits: Fills gap between linear bullets and waypoint patrols.
 
 ---
 
-Bomber (Trail Layer)
-
-Behavior: Patrol enemy that drops temporary traps along its path as
-it moves.
-
-Mechanics:
-
-- Follows patrol path like regular patrol
-- Every N nodes, drops a temporary trap
-- Dropped traps last for configurable duration, then fade
-- Creates "no-go" zones that shift over time
-
-Challenge type: Territory denial - must track both the bomber and  
- its trail of temporary hazards.
-
-Pairs well with: Followers (trail blocks escape routes), Other  
- patrols (interlocking danger zones)
-
----
-
 Sweeper (Rotating Arm)
 
 Behavior: A rotating arm anchored to a point, sweeping around like a
