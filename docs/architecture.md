@@ -399,7 +399,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
 - Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
-- `debugMode` - Toggle for debug overlay (localhost only, toggled via "G" key in main loop)
+- `debugMode` - Toggle for debug overlay (toggled via "G" key in main loop)
 - Delta-time game loop via requestAnimationFrame
 - Death pause: 1000ms freeze with explosion effect before reset
 - Exit warp: 1000ms animation where player shrinks/fades into exit, entities freeze

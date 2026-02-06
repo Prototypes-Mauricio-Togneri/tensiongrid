@@ -426,7 +426,7 @@
         }
 
         // Debug mode toggle (localhost only, game screen, not paused)
-        if (isLocalhost && currentScreen === Constants.screens.game && !isPaused) {
+        if (currentScreen === Constants.screens.game && !isPaused) {
             if (input.keys.debug && !lastDebugInput) {
                 game.debugMode = !game.debugMode
             }
