@@ -183,6 +183,29 @@ class Screen {
             const level = parseInt(marker.dataset.level, 10)
             marker.classList.toggle(Constants.dom.classes.selected, level === this.selectedLevel)
         })
+        this.updateMarkerVisibility()
+    }
+
+    /**
+     * Update marker opacity based on distance from selected level.
+     * Markers beyond visibleSideCount fade to fully transparent.
+     */
+    updateMarkerVisibility() {
+        const sideCount = Constants.timeline.visibleSideCount
+        const opacitySteps = Constants.timeline.markerOpacity
+
+        this.timelineMarkers.forEach(marker => {
+            const level = parseInt(marker.dataset.level, 10)
+            const distance = Math.abs(level - this.selectedLevel)
+
+            if (level === this.selectedLevel) {
+                marker.style.opacity = ''
+            } else if (distance <= sideCount) {
+                marker.style.opacity = opacitySteps[distance]
+            } else {
+                marker.style.opacity = 0
+            }
+        })
     }
 
     /**

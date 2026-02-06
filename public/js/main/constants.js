@@ -79,8 +79,8 @@ const Constants = {
     // Timeline Configuration
     // ==========================================
     timeline: {
-        visibleCount: 7,       // Number of visible levels at once
-        visibleCountMobile: 5  // Number of visible levels on mobile
+        visibleSideCount: 3,                // Max markers visible on each side of selected
+        markerOpacity: [1, 0.6, 0.35, 0.15] // Opacity by distance from selected (0, 1, 2, 3)
     },
 
     // ==========================================
