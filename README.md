@@ -8,8 +8,6 @@
 
 ## BUGS
 
-- Bug calculating route of follower? It looks like it uses the last known col/row to calculate the path instead of the target col/row.
-
 - Bug with laser:
   1. Step on a laser node when it's off
   2. Start moving alonside the line of the laser while it's off

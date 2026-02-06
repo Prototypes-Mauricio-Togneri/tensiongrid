@@ -89,7 +89,7 @@ class Game {
                 this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.normal)
             }
         }
-        this.enemyManager.update(delta, this.player.row, this.player.col)
+        this.enemyManager.update(delta, this.player.targetRow, this.player.targetCol)
 
         // Update exit animation
         if (this.exit) {
