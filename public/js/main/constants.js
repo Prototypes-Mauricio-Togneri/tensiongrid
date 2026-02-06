@@ -386,7 +386,7 @@ const Constants = {
             fontSize: 11,              // Debug text font size in pixels
             fontFamily: 'monospace',   // Debug text font family
             textColor: '#ffffff',    // Debug text color (cyan, semi-transparent)
-            textOffsetY: 0             // Text offset above node center in pixels
+            textOffsetY: 7             // Text offset above node center in pixels
         },
 
         // Color palette (hex with optional alpha)
