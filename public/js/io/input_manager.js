@@ -137,6 +137,16 @@ class InputManager {
     }
 
     /**
+     * Consume pending swipe direction (one-shot).
+     * @returns {Object|null} Direction {row, col, key} or null if no swipe
+     */
+    consumeSwipe() {
+        const direction = this.swipeDirection
+        this.swipeDirection = null
+        return direction
+    }
+
+    /**
      * Get current movement direction based on pressed keys or swipe.
      * @returns {Object|null} Direction {row, col} or null if no movement
      */

@@ -531,6 +531,14 @@
                 }
             }
 
+            // Navigate timeline on swipe
+            const swipe = input.consumeSwipe()
+            if (swipe) {
+                if (screen.navigateLevels(swipe.key)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+
             // Navigate timeline on initial press
             if (input.keys.left && !lastLevelsInput.left) {
                 if (screen.navigateLevels(Constants.keys.left)) {

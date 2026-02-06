@@ -21,8 +21,6 @@
 
 - Bug killing with laser just turning on (and it didn't glow yet)
 
-- Bug: Swipe levels in mobile
-
 ## Enemy ideas
 
 - Add oscilating behavior for patrols (defining only two nodes)
