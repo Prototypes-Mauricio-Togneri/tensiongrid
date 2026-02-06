@@ -97,9 +97,11 @@ class Collision {
      * @returns {boolean} True if player is on an active laser
      */
     checkPlayerLaserCollision(player, lasers) {
-        return this.checkAny(player, lasers, (p, laser) =>
-            !p.isMoving && laser.isActive() && laser.containsNode(p.row, p.col)
-        )
+        return this.checkAny(player, lasers, (p, laser) => {
+            if (!laser.isActive()) return false
+            if (!p.isMoving) return laser.containsNode(p.row, p.col)
+            return laser.containsNode(p.row, p.col) && laser.containsNode(p.targetRow, p.targetCol)
+        })
     }
 
     /**

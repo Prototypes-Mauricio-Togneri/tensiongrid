@@ -6,13 +6,6 @@
 
 - Sound when player moving?
 
-## BUGS
-
-- Bug with laser:
-  1. Step on a laser node when it's off
-  2. Start moving alonside the line of the laser while it's off
-  3. When the laser turns on, if the player still didn't reach the target node, the player doesn't die. it should die as soon as the laser is on
-
 ## Level ideas
 
 - Several lasers one after the other. there is a gap where the player has to wait for a laser to turn off before moving forward. but bullets pass through that gap, so the player has to time the movement carefully.
