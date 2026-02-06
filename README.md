@@ -28,39 +28,6 @@
 
 ## New enemies
 
-Orbiter (Circular Patrol)
-
-Behavior: Enemy that orbits around a fixed center point, tracing a  
- circular/square path around that node.
-
-Mechanics:
-
-- Defined center point (grid node)
-- Orbits at fixed radius (1-2 nodes away from center)
-- Moves in circular pattern (or square pattern following adjacent  
-  nodes)
-- Constant speed, predictable timing
-
-Challenge type: Circular timing - unlike linear patrols, creates  
- rotating danger zones that require different mental model.
-
-Configuration:
-
-- centerX, centerY - Center of orbit
-- radius - Distance from center (1-2)
-- speed - Orbital speed
-- clockwise - Direction of orbit (boolean)
-- startAngle - Initial position on orbit (degrees)
-
-Pairs well with: Other Orbiters (interlocking orbits), Shooters at  
- center (shooter protected by orbiting guard)
-
-Why it fits: Fills gap between linear bullets and waypoint patrols.  
- Creates rhythmic, predictable patterns that feel different from  
- existing movement types. Easy to mentally simulate.
-
----
-
 Sweeper (Rotating Arm)
 
 Behavior: A rotating arm anchored to a point, sweeping around like a
