@@ -21,12 +21,6 @@
   - Does it miss some collisions?
   - Does it trigger some false positives?
 
-## Enemy ideas
-
-- Add oscilating behavior for patrols (defining only two nodes)
-
-- Add zones. Zones apply an effect to the player while inside them. For example, a slow zone that reduces player speed by 50%.
-
 ## Level ideas
 
 - Several lasers one after the other. there is a gap where the player has to wait for a laser to turn off before moving forward. but bullets pass through that gap, so the player has to time the movement carefully.
