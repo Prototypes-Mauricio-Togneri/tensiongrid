@@ -106,6 +106,15 @@
     let currentLevel = ''    // Path to current level JSON
     let isCustomLevel = false // True when playing a user-uploaded level
 
+    /**
+     * Whether analytics should be tracked for the current level.
+     * Disabled for gym and custom (uploaded) levels.
+     * @returns {boolean}
+     */
+    function shouldTrackAnalytics() {
+        return !isCustomLevel && !currentLevel.startsWith('gyms/')
+    }
+
     // Enable swipe input on game screen (when not paused) and levels screen
     input.setSwipeEnabled(() => {
         const currentScreen = screen.getCurrentScreen()
@@ -192,15 +201,19 @@
             return
         }  
 
+        const trackAnalytics = shouldTrackAnalytics()
+
         audioManager.playMusic(Constants.audio.music.game)
         screen.show(Constants.screens.game)
-        game.start(levelData)
-        Analytics.trackLevelStart(levelData.id)
+        game.start(levelData, trackAnalytics)
+        if (trackAnalytics) Analytics.trackLevelStart(levelData.id)
 
         // Set exit reached callback
         game.setOnExitReached(() => {
-            const duration = performance.now() - game.startTime
-            Analytics.trackLevelComplete(levelData.id, game.deathCount, Math.round(duration))
+            if (trackAnalytics) {
+                const duration = performance.now() - game.startTime
+                Analytics.trackLevelComplete(levelData.id, game.deathCount, Math.round(duration))
+            }
 
             // Unlock next level on completion
             const nextLevel = levelData.id + 1
@@ -249,7 +262,7 @@
 
         audioManager.playMusic(Constants.audio.music.game)
         screen.show(Constants.screens.game)
-        game.start(levelData)
+        game.start(levelData, false)
 
         // No storage update on exit reached
         game.setOnExitReached(() => {})
@@ -319,14 +332,14 @@
             hidePauseMenu()
             game.resume()
         } else if (action === Constants.actions.pause.restart) {
-            if (!isCustomLevel) {
+            if (shouldTrackAnalytics()) {
                 Analytics.trackLevelRestart(game.levelData.id)
             }
             hidePauseMenu()
             game.reset()
             game.resume()
         } else if (action === Constants.actions.pause.quit) {
-            if (!isCustomLevel) {
+            if (shouldTrackAnalytics()) {
                 Analytics.trackLevelQuit(game.levelData.id, game.deathCount, Math.round(performance.now() - game.startTime))
             }
             audioManager.playSound(Constants.audio.sounds.closeScreen)

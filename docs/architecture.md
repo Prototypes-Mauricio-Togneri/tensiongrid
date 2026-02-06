@@ -419,6 +419,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - **Enemies**: Various threat types (bullets, lasers, traps), each with unique movement and collision mechanics
 - **Collision**: Collisions reset the level (infinite lives)
 - **Custom levels**: Users can upload a JSON level file from the home menu. Custom levels bypass localStorage progression updates and analytics tracking. On completion, the player returns to the home screen (no auto-advance)
+- **Gym levels**: Gym levels bypass analytics tracking but otherwise function normally
 
 ## Code Style
 

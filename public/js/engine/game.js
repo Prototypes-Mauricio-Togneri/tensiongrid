@@ -227,7 +227,7 @@ class Game {
         } else if (!this.player.isImmune()) {
             // Normal death (not protected)
             this.deathCount++
-            Analytics.trackPlayerDeath(this.levelData.id, cause, this.player.row, this.player.col)
+            if (this.trackAnalytics) Analytics.trackPlayerDeath(this.levelData.id, cause, this.player.row, this.player.col)
             this.audioManager.playSound(Constants.audio.sounds.explosionPlayer)
             this.ui.shake()
             this.dead = true
@@ -242,7 +242,7 @@ class Game {
      */
     handlePowerCollection(power) {
         power.collect()
-        Analytics.trackPowerCollected(this.levelData.id, power.type)
+        if (this.trackAnalytics) Analytics.trackPowerCollected(this.levelData.id, power.type)
         const effectType = power.type
         const effectConfig = Constants.game.effects[effectType]
         this.player.effectManager.addEffect(effectType, effectConfig)
@@ -275,7 +275,7 @@ class Game {
      */
     handleSwitchCollection(switchItem) {
         switchItem.collect()
-        Analytics.trackSwitchCollected(this.levelData.id, switchItem.unlocks)
+        if (this.trackAnalytics) Analytics.trackSwitchCollected(this.levelData.id, switchItem.unlocks)
 
         // Unlock the target
         if (switchItem.unlocks === 'exit' && this.exit) {
@@ -571,8 +571,10 @@ class Game {
     /**
      * Start a new game with the given level.
      * @param {Object} levelData - Level configuration from JSON
+     * @param {boolean} [trackAnalytics=true] - Whether to send in-game analytics events
      */
-    start(levelData) {
+    start(levelData, trackAnalytics = true) {
+        this.trackAnalytics = trackAnalytics
         if (this.running) return
         this.init(levelData)
         this.resizeCanvas()
