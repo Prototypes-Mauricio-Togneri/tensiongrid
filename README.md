@@ -23,9 +23,6 @@
 
 - Bug: Swipe levels in mobile
 
-- Bug in analytics?
-  - Does the level_start and others are sent whenever we pass from one level to another? or only the first time we start a level?
-
 ## Enemy ideas
 
 - Add oscilating behavior for patrols (defining only two nodes)
