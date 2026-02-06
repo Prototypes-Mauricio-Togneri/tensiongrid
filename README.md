@@ -6,8 +6,6 @@
 
 - Sound when player moving?
 
-- Settings to turn off blur effect
-
 ## BUGS
 
 - Bug calculating route of follower? It looks like it uses the last known col/row to calculate the path instead of the target col/row.
