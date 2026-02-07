@@ -563,7 +563,7 @@ canvas {
 /* Scrollable changelog content container */
 .changelog-content {
     margin-top: 200px;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 240px);
     width: 63vw;
     max-width: 700px;
     overflow-y: auto;
@@ -599,7 +599,7 @@ canvas {
 /* Version header */
 .changelog-version {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--neon-cyan);
     letter-spacing: 0.1em;
@@ -615,7 +615,7 @@ canvas {
 
 .changelog-list li {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: rgba(0, 245, 255, 0.6);
     line-height: 1.6;
     padding-left: 16px;
@@ -783,8 +783,7 @@ canvas {
 }
 
 /* Navigation hint */
-.timeline-hint,
-.changelog-hint {
+.timeline-hint {
     font-family: 'Share Tech Mono', monospace;
     font-size: 1.2rem;
     color: rgba(0, 245, 255, 0.3);
