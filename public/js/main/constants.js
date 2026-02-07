@@ -16,6 +16,7 @@ const Constants = {
             gameScreen: 'gameScreen',         // Game play screen
             levelsScreen: 'levelsScreen',     // Level selection screen
             settingsScreen: 'settingsScreen', // Settings screen
+            customScreen: 'customScreen',     // Custom level screen
             audioToggle: 'audioToggle',       // Audio toggle button
             scanlinesToggle: 'scanlinesToggle', // Scanlines toggle button
             pauseOverlay: 'pauseOverlay',     // Pause menu overlay
@@ -38,7 +39,8 @@ const Constants = {
             noScanlines: 'no-scanlines'       // Disable scanline overlay class
         },
         selectors: {
-            homeMenuButtons: '#homeScreen .menu-button',    // Home menu buttons
+            homeMenuButtons: '#homeScreen .menu-button',      // Home menu buttons
+            customMenuButtons: '#customScreen .menu-button', // Custom screen menu buttons
             levelsMenuButtons: '#levelsScreen .menu-button', // Level select buttons (legacy)
             timelineMarkers: '#levelTimeline .timeline-marker' // Timeline level markers
         }
@@ -136,9 +138,12 @@ const Constants = {
             gym: 'gym',               // Open gym mode
             continue: 'continue',     // Continue last game
             levels: 'levels',         // Open level select
-            upload: 'upload',         // Upload custom level
+            custom: 'custom',         // Open custom level screen
             fullscreen: 'fullscreen', // Toggle fullscreen mode
             settings: 'settings'      // Open settings
+        },
+        custom: {
+            upload: 'upload'          // Upload custom level file
         },
         pause: {
             continue: 'continue',     // Resume game
@@ -154,6 +159,7 @@ const Constants = {
         home: 'home',         // Main menu screen
         game: 'game',         // Game play screen
         levels: 'levels',     // Level selection screen
+        custom: 'custom',     // Custom level screen
         settings: 'settings'  // Settings screen
     },
 

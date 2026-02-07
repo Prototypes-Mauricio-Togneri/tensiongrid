@@ -532,6 +532,12 @@ canvas {
     justify-content: center;
 }
 
+/* Custom level screen layout */
+#customScreen {
+    min-height: 100vh;
+    justify-content: center;
+}
+
 /* ============================================
    Timeline Level Selector
    ============================================ */

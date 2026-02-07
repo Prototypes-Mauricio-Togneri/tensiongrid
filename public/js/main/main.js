@@ -264,7 +264,7 @@
     function openCustomGameScreen(levelData) {
         isCustomLevel = true
         currentLevel = ''
-        gameStartedFrom = Constants.screens.home
+        gameStartedFrom = Constants.screens.custom
 
         audioManager.playMusic(Constants.audio.music.game)
         screen.show(Constants.screens.game)
@@ -311,8 +311,10 @@
             screen.updateLevelButtonStates(storage)
             screen.setSelectedToHighestUnlocked(storage)
             screen.show(Constants.screens.levels)
-        } else if (action === Constants.actions.home.upload) {
-            levelFileInput.click()
+        } else if (action === Constants.actions.home.custom) {
+            screen.customMenuIndex = 0
+            screen.updateCustomButtonSelection()
+            screen.show(Constants.screens.custom)
         } else if (action === Constants.actions.home.fullscreen) {
             if (document.fullscreenElement) {
                 document.exitFullscreen()
@@ -323,6 +325,17 @@
             settingsFocusIndex = 0
             updateSettingsFocus()
             screen.show(Constants.screens.settings)
+        }
+    }
+
+    /**
+     * Handle custom screen menu action selection.
+     * @param {string} action - The action identifier from button dataset
+     */
+    function handleCustomMenuAction(action) {
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
+        if (action === Constants.actions.custom.upload) {
+            levelFileInput.click()
         }
     }
 
@@ -481,6 +494,29 @@
             }
         }
 
+        // Custom screen input handling
+        if (currentScreen === Constants.screens.custom) {
+            // Navigate menu (edge detection, clamped)
+            if (input.keys.up && !lastMenuInput.up) {
+                if (screen.navigateCustomMenu(Constants.keys.up)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            if (input.keys.down && !lastMenuInput.down) {
+                if (screen.navigateCustomMenu(Constants.keys.down)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            lastMenuInput.up = input.keys.up
+            lastMenuInput.down = input.keys.down
+
+            // Handle selection
+            if (input.isSelectPressed()) {
+                input.consumeSelect()
+                handleCustomMenuAction(screen.getSelectedCustomAction())
+            }
+        }
+
         // Settings screen input handling
         if (currentScreen === Constants.screens.settings) {
             // Navigate between settings with up/down (edge detection)
@@ -596,6 +632,15 @@
             screen.menuIndex = i
             screen.updateButtonSelection()
             handleHomeMenuAction(btn.dataset.action)
+        })
+    })
+
+    // Custom screen menu button clicks
+    screen.customButtons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            screen.customMenuIndex = i
+            screen.updateCustomButtonSelection()
+            handleCustomMenuAction(btn.dataset.action)
         })
     })
 

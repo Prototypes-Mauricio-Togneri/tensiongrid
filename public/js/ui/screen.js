@@ -8,16 +8,19 @@ class Screen {
             [Constants.screens.home]: document.getElementById(Constants.dom.ids.homeScreen),
             [Constants.screens.game]: document.getElementById(Constants.dom.ids.gameScreen),
             [Constants.screens.levels]: document.getElementById(Constants.dom.ids.levelsScreen),
+            [Constants.screens.custom]: document.getElementById(Constants.dom.ids.customScreen),
             [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen)
         }
-        this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)      // All home menu buttons
+        this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)        // All home menu buttons
+        this.customButtons = document.querySelectorAll(Constants.dom.selectors.customMenuButtons) // Custom screen menu buttons
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons (legacy)
         this.timelineMarkers = []  // Timeline level markers (generated dynamically)
         this.markersContainer = document.getElementById(Constants.dom.ids.timelineMarkers)       // Markers container element
         this.levelCurrentElement = document.getElementById(Constants.dom.ids.levelCurrent)            // Current level counter
         this.levelTotalElement = document.getElementById(Constants.dom.ids.levelTotal)                // Total levels counter
-        this.menuIndex = 0    // Selected index in home menu
-        this.levelsIndex = 0  // Selected index in levels menu (legacy)
+        this.menuIndex = 0       // Selected index in home menu
+        this.customMenuIndex = 0 // Selected index in custom screen menu
+        this.levelsIndex = 0     // Selected index in levels menu (legacy)
         this.selectedLevel = 1 // Selected level number for timeline
         this.totalLevels = 0   // Total number of levels
         this.currentScreen = Constants.screens.home // Currently active screen
@@ -133,6 +136,27 @@ class Screen {
     }
 
     /**
+     * Navigate custom screen menu up or down.
+     * @param {string} direction - Direction key from Constants.keys
+     */
+    navigateCustomMenu(direction) {
+        if (this.currentScreen !== Constants.screens.custom) return false
+
+        const len = this.customButtons.length
+        let changed = false
+        if (direction === Constants.keys.up && this.customMenuIndex > 0) {
+            this.customMenuIndex--
+            changed = true
+        } else if (direction === Constants.keys.down && this.customMenuIndex < len - 1) {
+            this.customMenuIndex++
+            changed = true
+        }
+
+        if (changed) this.updateCustomButtonSelection()
+        return changed
+    }
+
+    /**
      * Navigate levels timeline left or right.
      * @param {string} direction - Direction key from Constants.keys (left/right)
      */
@@ -164,6 +188,24 @@ class Screen {
         this.buttons.forEach((btn, i) => {
             btn.classList.toggle(Constants.dom.classes.selected, i === this.menuIndex)
         })
+    }
+
+    /**
+     * Update visual selection state for custom screen menu buttons.
+     */
+    updateCustomButtonSelection() {
+        this.customButtons.forEach((btn, i) => {
+            btn.classList.toggle(Constants.dom.classes.selected, i === this.customMenuIndex)
+        })
+    }
+
+    /**
+     * Get action string from currently selected custom screen menu button.
+     * @returns {string|null} Action data attribute value
+     */
+    getSelectedCustomAction() {
+        const selectedButton = this.customButtons[this.customMenuIndex]
+        return selectedButton ? selectedButton.dataset.action : null
     }
 
     /**

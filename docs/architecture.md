@@ -65,7 +65,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `game.animations.wakeTrail`: fast profile (buildRate 0.05, trailDistance 60, fadeRate 0.004), slow profile (buildRate 0.005, trailDistance 50, fadeRate 0) - wake trail effect behind moving entities
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
-- `actions.home`: menu actions (gym, continue, levels, upload, fullscreen, settings)
+- `actions.home`: menu actions (gym, continue, levels, custom, fullscreen, settings)
+- `actions.custom`: custom screen actions (upload)
 - `storage`: localStorage key names (audioEnabled, scanlinesEnabled, currentLevel)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
 
@@ -418,7 +419,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - **Edge wrapping**: Toroidal topology - exit one edge, appear on opposite
 - **Enemies**: Various threat types (bullets, lasers, traps), each with unique movement and collision mechanics
 - **Collision**: Collisions reset the level (infinite lives)
-- **Custom levels**: Users can upload a JSON level file from the home menu. Custom levels bypass localStorage progression updates and analytics tracking. On completion, the player returns to the home screen (no auto-advance)
+- **Custom levels**: Users can upload a JSON level file from the custom screen (navigated from home menu). Custom levels bypass localStorage progression updates and analytics tracking. On completion, the custom level restarts. Quitting returns to the custom screen
 - **Gym levels**: Gym levels bypass analytics tracking but otherwise function normally
 
 ## Code Style
