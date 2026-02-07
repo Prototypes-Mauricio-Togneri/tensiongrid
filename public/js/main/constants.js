@@ -28,7 +28,8 @@ const Constants = {
             timelineMarkers: 'timelineMarkers', // Timeline markers container
             levelCurrent: 'levelCurrent',     // Current level counter
             levelTotal: 'levelTotal',         // Total levels counter
-            levelFileInput: 'levelFileInput'  // Hidden file input for custom level upload
+            levelFileInput: 'levelFileInput', // Hidden file input for custom level upload
+            aboutScreen: 'aboutScreen'        // About screen
         },
         classes: {
             shake: 'shake',                   // Screen shake animation class
@@ -44,7 +45,8 @@ const Constants = {
             homeMenuButtons: '#homeScreen .menu-button',      // Home menu buttons
             customMenuButtons: '#customScreen .menu-button', // Custom screen menu buttons
             levelsMenuButtons: '#levelsScreen .menu-button', // Level select buttons (legacy)
-            timelineMarkers: '#levelTimeline .timeline-marker' // Timeline level markers
+            timelineMarkers: '#levelTimeline .timeline-marker', // Timeline level markers
+            aboutMenuButtons: '#aboutScreen .menu-button'   // About screen menu buttons
         }
     },
 
@@ -142,7 +144,8 @@ const Constants = {
             levels: 'levels',         // Open level select
             custom: 'custom',         // Open custom level screen
             fullscreen: 'fullscreen', // Toggle fullscreen mode
-            settings: 'settings'      // Open settings
+            settings: 'settings',     // Open settings
+            about: 'about'            // Open about screen
         },
         custom: {
             download: 'download',     // Download level template file
@@ -152,6 +155,12 @@ const Constants = {
             continue: 'continue',     // Resume game
             restart: 'restart',       // Restart current level
             quit: 'quit'              // Return to main menu
+        },
+        about: {
+            changelog: 'changelog',   // View changelog
+            moreGames: 'moreGames',   // View more games
+            feedback: 'feedback',     // Send feedback
+            help: 'help'              // View help
         },
         resetDialog: {
             yes: 'yes',               // Confirm reset
@@ -167,7 +176,8 @@ const Constants = {
         game: 'game',         // Game play screen
         levels: 'levels',     // Level selection screen
         custom: 'custom',     // Custom level screen
-        settings: 'settings'  // Settings screen
+        settings: 'settings', // Settings screen
+        about: 'about'        // About screen
     },
 
     // ==========================================

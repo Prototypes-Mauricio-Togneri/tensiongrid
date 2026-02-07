@@ -538,6 +538,12 @@ canvas {
     justify-content: center;
 }
 
+/* About screen layout */
+#aboutScreen {
+    min-height: 100vh;
+    justify-content: center;
+}
+
 /* ============================================
    Timeline Level Selector
    ============================================ */

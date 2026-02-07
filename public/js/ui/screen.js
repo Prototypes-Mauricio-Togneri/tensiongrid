@@ -9,10 +9,12 @@ class Screen {
             [Constants.screens.game]: document.getElementById(Constants.dom.ids.gameScreen),
             [Constants.screens.levels]: document.getElementById(Constants.dom.ids.levelsScreen),
             [Constants.screens.custom]: document.getElementById(Constants.dom.ids.customScreen),
-            [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen)
+            [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen),
+            [Constants.screens.about]: document.getElementById(Constants.dom.ids.aboutScreen)
         }
         this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)        // All home menu buttons
         this.customButtons = document.querySelectorAll(Constants.dom.selectors.customMenuButtons) // Custom screen menu buttons
+        this.aboutButtons = document.querySelectorAll(Constants.dom.selectors.aboutMenuButtons)   // About screen menu buttons
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons (legacy)
         this.timelineMarkers = []  // Timeline level markers (generated dynamically)
         this.markersContainer = document.getElementById(Constants.dom.ids.timelineMarkers)       // Markers container element
@@ -20,6 +22,7 @@ class Screen {
         this.levelTotalElement = document.getElementById(Constants.dom.ids.levelTotal)                // Total levels counter
         this.menuIndex = 0       // Selected index in home menu
         this.customMenuIndex = 0 // Selected index in custom screen menu
+        this.aboutMenuIndex = 0  // Selected index in about screen menu
         this.levelsIndex = 0     // Selected index in levels menu (legacy)
         this.selectedLevel = 1 // Selected level number for timeline
         this.totalLevels = 0   // Total number of levels
@@ -154,6 +157,45 @@ class Screen {
 
         if (changed) this.updateCustomButtonSelection()
         return changed
+    }
+
+    /**
+     * Navigate about screen menu up or down.
+     * @param {string} direction - Direction key from Constants.keys
+     */
+    navigateAboutMenu(direction) {
+        if (this.currentScreen !== Constants.screens.about) return false
+
+        const len = this.aboutButtons.length
+        let changed = false
+        if (direction === Constants.keys.up && this.aboutMenuIndex > 0) {
+            this.aboutMenuIndex--
+            changed = true
+        } else if (direction === Constants.keys.down && this.aboutMenuIndex < len - 1) {
+            this.aboutMenuIndex++
+            changed = true
+        }
+
+        if (changed) this.updateAboutButtonSelection()
+        return changed
+    }
+
+    /**
+     * Update visual selection state for about screen menu buttons.
+     */
+    updateAboutButtonSelection() {
+        this.aboutButtons.forEach((btn, i) => {
+            btn.classList.toggle(Constants.dom.classes.selected, i === this.aboutMenuIndex)
+        })
+    }
+
+    /**
+     * Get action string from currently selected about screen menu button.
+     * @returns {string|null} Action data attribute value
+     */
+    getSelectedAboutAction() {
+        const selectedButton = this.aboutButtons[this.aboutMenuIndex]
+        return selectedButton ? selectedButton.dataset.action : null
     }
 
     /**

@@ -373,6 +373,10 @@
             settingsFocusIndex = 0
             updateSettingsFocus()
             screen.show(Constants.screens.settings)
+        } else if (action === Constants.actions.home.about) {
+            screen.aboutMenuIndex = 0
+            screen.updateAboutButtonSelection()
+            screen.show(Constants.screens.about)
         }
     }
 
@@ -387,6 +391,14 @@
         } else if (action === Constants.actions.custom.upload) {
             levelFileInput.click()
         }
+    }
+
+    /**
+     * Handle about screen menu action selection.
+     * @param {string} action - The action identifier from button dataset
+     */
+    function handleAboutMenuAction(action) {
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
     }
 
     /**
@@ -581,6 +593,29 @@
             }
         }
 
+        // About screen input handling
+        if (currentScreen === Constants.screens.about) {
+            // Navigate menu (edge detection, clamped)
+            if (input.keys.up && !lastMenuInput.up) {
+                if (screen.navigateAboutMenu(Constants.keys.up)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            if (input.keys.down && !lastMenuInput.down) {
+                if (screen.navigateAboutMenu(Constants.keys.down)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            lastMenuInput.up = input.keys.up
+            lastMenuInput.down = input.keys.down
+
+            // Handle selection
+            if (input.isSelectPressed()) {
+                input.consumeSelect()
+                handleAboutMenuAction(screen.getSelectedAboutAction())
+            }
+        }
+
         // Settings screen input handling
         if (currentScreen === Constants.screens.settings) {
             if (isResetDialogOpen) {
@@ -748,6 +783,15 @@
             screen.customMenuIndex = i
             screen.updateCustomButtonSelection()
             handleCustomMenuAction(btn.dataset.action)
+        })
+    })
+
+    // About screen menu button clicks
+    screen.aboutButtons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            screen.aboutMenuIndex = i
+            screen.updateAboutButtonSelection()
+            handleAboutMenuAction(btn.dataset.action)
         })
     })
 
