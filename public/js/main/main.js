@@ -722,10 +722,17 @@
                     }
                 }
 
-                // Enter/Space on the Reset Progress item opens dialog
+                // Enter/Space toggles switches or opens Reset Progress dialog
                 if (input.isSelectPressed()) {
                     input.consumeSelect()
-                    if (settingsFocusIndex === settingsItems.length - 1) {
+                    if (settingsFocusIndex < settingsToggles.length) {
+                        const toggle = settingsToggles[settingsFocusIndex]
+                        toggle.checked = !toggle.checked
+                        toggle.dispatchEvent(new Event(Constants.events.change))
+                        if (toggle !== audioToggle || toggle.checked) {
+                            audioManager.playSound(Constants.audio.sounds.audioToggle)
+                        }
+                    } else if (settingsFocusIndex === settingsItems.length - 1) {
                         audioManager.playSound(Constants.audio.sounds.menuSelect)
                         showResetDialog()
                     }

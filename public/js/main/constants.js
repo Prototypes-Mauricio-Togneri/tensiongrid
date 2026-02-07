@@ -161,8 +161,7 @@ const Constants = {
         about: {
             changelog: 'changelog',   // View changelog
             moreGames: 'moreGames',   // View more games
-            feedback: 'feedback',     // Send feedback
-            help: 'help'              // View help
+            feedback: 'feedback'      // Send feedback
         },
         moreGames: {
             tensionTunnel: 'tensionTunnel', // Open Tension Tunnel
