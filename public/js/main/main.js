@@ -522,8 +522,14 @@
         }
 
         // ESC on other screens returns to home (skip if reset dialog is open — handled in settings block)
-        if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
-            if (currentScreen === Constants.screens.settings && isResetDialogOpen) {
+        if (currentScreen !== Constants.screens.game && input.isEscapePressed()) {
+            if (currentScreen === Constants.screens.home) {
+                // Consume escape on home screen to prevent stale flag. triggerEscape()
+                // (from popstate) sets the flag but nothing on the home screen handles it.
+                // Without consuming, a back gesture on home followed by navigating to a
+                // sub-screen would immediately bounce back due to the lingering flag.
+                input.consumeEscape()
+            } else if (currentScreen === Constants.screens.settings && isResetDialogOpen) {
                 // Dialog ESC is handled in settings input block below
             } else if (currentScreen === Constants.screens.moreGames || currentScreen === Constants.screens.changelog) {
                 // More games / changelog screen goes back to about screen
@@ -938,10 +944,15 @@
         levelFileInput.value = '' // Reset so same file can be re-selected
     })
 
-    // Capture browser back button and treat it as escape key
-    history.pushState(null, '')
-    window.addEventListener(Constants.events.popstate, () => {
+    // Capture browser back button / mobile back gesture and treat it as escape key.
+    // Pre-load a buffer of history states instead of re-pushing inside the popstate
+    // handler. Mobile browsers (Chrome's "history manipulation intervention", Safari's
+    // gesture-driven navigation) can silently ignore pushState calls inside popstate
+    // handlers, which depletes the history stack and causes the tab to close.
+    for (let i = 0; i < 20; i++) {
         history.pushState(null, '')
+    }
+    window.addEventListener(Constants.events.popstate, () => {
         input.triggerEscape()
     })
 
