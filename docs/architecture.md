@@ -66,7 +66,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
 - `actions.home`: menu actions (gym, continue, levels, custom, fullscreen, settings)
-- `actions.custom`: custom screen actions (upload)
+- `actions.custom`: custom screen actions (download, upload)
 - `storage`: localStorage key names (audioEnabled, scanlinesEnabled, currentLevel)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
 

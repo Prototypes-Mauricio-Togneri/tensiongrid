@@ -143,6 +143,7 @@ const Constants = {
             settings: 'settings'      // Open settings
         },
         custom: {
+            download: 'download',     // Download level template file
             upload: 'upload'          // Upload custom level file
         },
         pause: {
@@ -169,6 +170,9 @@ const Constants = {
     game: {
         // Gym mode configuration path
         gym: 'gyms/gym_1.json',
+
+        // Level template file path
+        template: 'templates/template.json',
 
         // Total number of available levels
         totalLevels: 10,

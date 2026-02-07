@@ -334,9 +334,21 @@
      */
     function handleCustomMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
-        if (action === Constants.actions.custom.upload) {
+        if (action === Constants.actions.custom.download) {
+            downloadTemplateFile()
+        } else if (action === Constants.actions.custom.upload) {
             levelFileInput.click()
         }
+    }
+
+    /**
+     * Download the level template JSON file.
+     */
+    function downloadTemplateFile() {
+        const link = document.createElement('a')
+        link.href = Constants.game.template
+        link.download = 'template.json'
+        link.click()
     }
 
     /**
