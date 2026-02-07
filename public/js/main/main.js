@@ -68,7 +68,7 @@
     let levelsRepeatDirection = null // Current repeat direction ('left' or 'right')
     const audioToggle = document.getElementById(Constants.dom.ids.audioToggle)
     const scanlinesToggle = document.getElementById(Constants.dom.ids.scanlinesToggle)
-    const settingsItems = document.querySelectorAll('#settingsScreen .settings-item:not(.version-info)')
+    const settingsItems = document.querySelectorAll('#settingsScreen .settings-item')
     let settingsFocusIndex = 0
     const settingsToggles = [audioToggle, scanlinesToggle]
 
