@@ -28,11 +28,16 @@
 
 ## New levels
 
-11. **Switches** - Time pressure and objective sequencing
+11. **Exit key** - Time pressure and objective sequencing
 12. **Power-ups** - Fast movement
-13. **Power-ups** - Shields
-14. **Power-downs** - Slow movement
-15. **Power-downs** - Mirror controls
+13. **Power-downs** - Slow movement
+14. **Portals** - Teleportation mechanics
+15. **Laser switch** - Unlocks laser
+16. **Power-ups** - Shields
+17. **Power-downs** - Mirror controls
+18. **Safe heaven** - Areas where player can wait safely
+19. **Power-up** - Enemies freeze
+20. **Power-down** - No breaks
 
 ## Prompt
 
