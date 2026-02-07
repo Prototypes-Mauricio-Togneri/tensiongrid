@@ -116,8 +116,22 @@
                         </span>
                     </label>
                 </div>
+                <div class="settings-item settings-action">
+                    <button class="menu-button" data-action="resetProgress">Reset Progress</button>
+                </div>
                 <div class="settings-item version-info">
                     <span class="version-value" id="versionDisplay"></span>
+                </div>
+            </div>
+
+            <!-- Reset Progress Confirmation Dialog -->
+            <div class="reset-overlay" id="resetProgressOverlay">
+                <div class="reset-modal">
+                    <p class="reset-message">Do you want to reset the progress of the game?</p>
+                    <div class="reset-actions">
+                        <button class="menu-button danger" data-action="yes">Yes</button>
+                        <button class="menu-button selected" data-action="no">No</button>
+                    </div>
                 </div>
             </div>
         </div>

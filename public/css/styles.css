@@ -840,6 +840,102 @@ canvas {
     box-shadow: 0 0 8px var(--neon-cyan), 0 0 16px var(--neon-cyan);
 }
 
+/* Settings action item (non-toggle, contains a menu button) */
+.settings-action {
+    justify-content: center;
+}
+
+/* Focused settings action button gets selected glow */
+.settings-item.focused .menu-button {
+    color: var(--neon-cyan);
+    filter: drop-shadow(0 0 6px #00f5ff) drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.25));
+}
+
+.settings-item.focused .menu-button::before {
+    opacity: 1;
+}
+
+/* ============================================
+   Reset Progress Dialog
+   ============================================ */
+
+/* Reset overlay backdrop */
+.reset-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 15, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Active reset overlay with fade-in */
+.reset-overlay.active {
+    display: flex;
+    animation: overlayFadeIn 0.3s ease-out;
+}
+
+/* Reset confirmation modal */
+.reset-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 36px 48px 28px 48px;
+    position: relative;
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid rgba(0, 245, 255, 0.4);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Reset confirmation message */
+.reset-message {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.6rem;
+    color: rgba(0, 245, 255, 0.7);
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
+    max-width: 440px;
+    line-height: 1.5;
+}
+
+/* Reset dialog button row */
+.reset-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+/* Reset dialog button sizing */
+.reset-actions .menu-button {
+    font-size: 1.2rem;
+    padding: 10px 28px;
+}
+
+/* Danger button (destructive action) */
+.menu-button.danger {
+    color: rgba(255, 42, 109, 0.4);
+}
+
+/* Danger button selected state with pink glow */
+.menu-button.danger.selected {
+    color: var(--neon-pink);
+    filter: drop-shadow(0 0 6px var(--neon-pink)) drop-shadow(0 0 12px rgba(255, 42, 109, 0.5)) drop-shadow(0 0 20px rgba(255, 42, 109, 0.25));
+}
+
+/* Danger button background effect override */
+.menu-button.danger.selected::before {
+    background: radial-gradient(ellipse at center, rgba(255, 42, 109, 0.08) 0%, transparent 70%);
+}
+
 /* ============================================
    Pause Menu
    ============================================ */
@@ -1057,6 +1153,20 @@ canvas {
         min-width: 180px;
     }
 
+    /* Reset dialog */
+    .reset-modal {
+        padding: 28px 36px 24px 36px;
+    }
+
+    .reset-message {
+        font-size: 1.4rem;
+    }
+
+    .reset-actions .menu-button {
+        font-size: 1.1rem;
+        padding: 8px 24px;
+    }
+
     /* Timeline adjustments */
     .timeline-container {
         margin-top: 200px;
@@ -1180,6 +1290,22 @@ canvas {
     .pause-modal .menu {
         min-width: 160px;
         gap: 10px;
+    }
+
+    /* Reset dialog */
+    .reset-modal {
+        padding: 24px 28px 20px 28px;
+        gap: 24px;
+    }
+
+    .reset-message {
+        font-size: 1.2rem;
+        max-width: 340px;
+    }
+
+    .reset-actions .menu-button {
+        font-size: 1rem;
+        padding: 8px 20px;
     }
 
     /* Version info */
@@ -1319,6 +1445,22 @@ canvas {
 
     .version-value {
         font-size: 0.75rem;
+    }
+
+    /* Reset dialog */
+    .reset-modal {
+        padding: 20px 24px 16px 24px;
+        gap: 20px;
+    }
+
+    .reset-message {
+        font-size: 1.1rem;
+        max-width: 300px;
+    }
+
+    .reset-actions .menu-button {
+        font-size: 0.9rem;
+        padding: 6px 16px;
     }
 
     /* Background grid - reduce visual complexity */

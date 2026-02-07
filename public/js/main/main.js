@@ -72,6 +72,12 @@
     let settingsFocusIndex = 0
     const settingsToggles = [audioToggle, scanlinesToggle]
 
+    // Reset progress dialog state
+    const resetOverlay = document.getElementById(Constants.dom.ids.resetProgressOverlay)
+    const resetDialogButtons = resetOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
+    let isResetDialogOpen = false
+    let resetDialogIndex = 1 // 0=Yes, 1=No (default to safe option)
+
     /**
      * Update visual focus indicator on settings items.
      */
@@ -159,6 +165,48 @@
         isPaused = false
         isSoftPaused = false
         pauseOverlay.classList.remove(Constants.dom.classes.active)
+    }
+
+    /**
+     * Update reset dialog button selection visual state.
+     */
+    function updateResetDialogSelection() {
+        resetDialogButtons.forEach((btn, i) => {
+            btn.classList.toggle(Constants.dom.classes.selected, i === resetDialogIndex)
+        })
+    }
+
+    /**
+     * Show reset progress confirmation dialog.
+     */
+    function showResetDialog() {
+        isResetDialogOpen = true
+        resetDialogIndex = 1
+        updateResetDialogSelection()
+        resetOverlay.classList.add(Constants.dom.classes.active)
+    }
+
+    /**
+     * Hide reset progress confirmation dialog.
+     */
+    function hideResetDialog() {
+        isResetDialogOpen = false
+        resetOverlay.classList.remove(Constants.dom.classes.active)
+    }
+
+    /**
+     * Handle reset dialog action selection.
+     * @param {string} action - The action identifier (yes/no)
+     */
+    function handleResetDialogAction(action) {
+        if (action === Constants.actions.resetDialog.yes) {
+            audioManager.playSound(Constants.audio.sounds.menuSelect)
+            storage.setCurrentLevel(1)
+            hideResetDialog()
+        } else if (action === Constants.actions.resetDialog.no) {
+            audioManager.playSound(Constants.audio.sounds.closeScreen)
+            hideResetDialog()
+        }
     }
 
     /**
@@ -441,13 +489,17 @@
             }
         }
 
-        // ESC on other screens returns to home
+        // ESC on other screens returns to home (skip if reset dialog is open — handled in settings block)
         if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
-            input.consumeEscape()
-            audioManager.playSound(Constants.audio.sounds.closeScreen)
-            playMenuMusic()
-            screen.show(Constants.screens.home)
-            updateContinueButtonText()
+            if (currentScreen === Constants.screens.settings && isResetDialogOpen) {
+                // Dialog ESC is handled in settings input block below
+            } else {
+                input.consumeEscape()
+                audioManager.playSound(Constants.audio.sounds.closeScreen)
+                playMenuMusic()
+                screen.show(Constants.screens.home)
+                updateContinueButtonText()
+            }
         }
 
         // Debug mode toggle (localhost only, game screen, not paused)
@@ -531,29 +583,72 @@
 
         // Settings screen input handling
         if (currentScreen === Constants.screens.settings) {
-            // Navigate between settings with up/down (edge detection)
-            if (input.keys.up && !lastSettingsInput.up) {
-                settingsFocusIndex = Math.max(0, settingsFocusIndex - 1)
-                updateSettingsFocus()
-                audioManager.playSound(Constants.audio.sounds.menuChange)
-            }
-            if (input.keys.down && !lastSettingsInput.down) {
-                settingsFocusIndex = Math.min(settingsToggles.length - 1, settingsFocusIndex + 1)
-                updateSettingsFocus()
-                audioManager.playSound(Constants.audio.sounds.menuChange)
-            }
+            if (isResetDialogOpen) {
+                // Reset dialog navigation (left/right between Yes/No)
+                if (input.keys.left && !lastSettingsInput.left) {
+                    resetDialogIndex = Math.max(0, resetDialogIndex - 1)
+                    updateResetDialogSelection()
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+                if (input.keys.right && !lastSettingsInput.right) {
+                    resetDialogIndex = Math.min(resetDialogButtons.length - 1, resetDialogIndex + 1)
+                    updateResetDialogSelection()
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
 
-            // Toggle focused setting on left/right (edge detection)
-            if ((input.keys.left && !lastSettingsInput.left) ||
-                (input.keys.right && !lastSettingsInput.right)) {
-                const toggle = settingsToggles[settingsFocusIndex]
-                toggle.checked = !toggle.checked
-                toggle.dispatchEvent(new Event(Constants.events.change))
-                // Play sound (skip when disabling audio since it won't be heard)
-                if (toggle !== audioToggle || toggle.checked) {
-                    audioManager.playSound(Constants.audio.sounds.audioToggle)
+                // ESC/Backspace closes dialog
+                if (input.isEscapePressed()) {
+                    input.consumeEscape()
+                    audioManager.playSound(Constants.audio.sounds.closeScreen)
+                    hideResetDialog()
+                }
+
+                // Enter/Space confirms selection
+                if (input.isSelectPressed()) {
+                    input.consumeSelect()
+                    handleResetDialogAction(resetDialogButtons[resetDialogIndex].dataset.action)
+                }
+            } else {
+                // Navigate between settings with up/down (edge detection)
+                if (input.keys.up && !lastSettingsInput.up) {
+                    if (settingsFocusIndex > 0) {
+                        settingsFocusIndex--
+                        updateSettingsFocus()
+                        audioManager.playSound(Constants.audio.sounds.menuChange)
+                    }
+                }
+                if (input.keys.down && !lastSettingsInput.down) {
+                    if (settingsFocusIndex < settingsItems.length - 1) {
+                        settingsFocusIndex++
+                        updateSettingsFocus()
+                        audioManager.playSound(Constants.audio.sounds.menuChange)
+                    }
+                }
+
+                // Toggle focused setting on left/right (only for toggle items)
+                if (settingsFocusIndex < settingsToggles.length) {
+                    if ((input.keys.left && !lastSettingsInput.left) ||
+                        (input.keys.right && !lastSettingsInput.right)) {
+                        const toggle = settingsToggles[settingsFocusIndex]
+                        toggle.checked = !toggle.checked
+                        toggle.dispatchEvent(new Event(Constants.events.change))
+                        // Play sound (skip when disabling audio since it won't be heard)
+                        if (toggle !== audioToggle || toggle.checked) {
+                            audioManager.playSound(Constants.audio.sounds.audioToggle)
+                        }
+                    }
+                }
+
+                // Enter/Space on the Reset Progress item opens dialog
+                if (input.isSelectPressed()) {
+                    input.consumeSelect()
+                    if (settingsFocusIndex === settingsItems.length - 1) {
+                        audioManager.playSound(Constants.audio.sounds.menuSelect)
+                        showResetDialog()
+                    }
                 }
             }
+
             lastSettingsInput.left = input.keys.left
             lastSettingsInput.right = input.keys.right
             lastSettingsInput.up = input.keys.up
@@ -688,6 +783,25 @@
             updatePauseButtonSelection()
             handlePauseMenuAction(btn.dataset.action)
         })
+    })
+
+    // Reset dialog button clicks
+    resetDialogButtons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            if (!isResetDialogOpen) return
+            resetDialogIndex = i
+            updateResetDialogSelection()
+            handleResetDialogAction(btn.dataset.action)
+        })
+    })
+
+    // Settings action button click (Reset Progress)
+    document.querySelector('#settingsScreen .settings-action .menu-button').addEventListener(Constants.events.click, () => {
+        if (screen.getCurrentScreen() !== Constants.screens.settings) return
+        settingsFocusIndex = settingsItems.length - 1
+        updateSettingsFocus()
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
+        showResetDialog()
     })
 
     // Custom level file input handler

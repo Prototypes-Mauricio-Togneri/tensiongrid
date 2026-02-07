@@ -19,6 +19,7 @@ const Constants = {
             customScreen: 'customScreen',     // Custom level screen
             audioToggle: 'audioToggle',       // Audio toggle button
             scanlinesToggle: 'scanlinesToggle', // Scanlines toggle button
+            resetProgressOverlay: 'resetProgressOverlay', // Reset progress confirmation overlay
             pauseOverlay: 'pauseOverlay',     // Pause menu overlay
             pauseLevel: 'pauseLevel',         // Pause menu level label
             gameCanvas: 'gameCanvas',         // Main game canvas
@@ -36,7 +37,8 @@ const Constants = {
             menuButton: 'menu-button',        // Menu button class
             locked: 'locked',                 // Locked level button class
             focused: 'focused',               // Focused settings item class
-            noScanlines: 'no-scanlines'       // Disable scanline overlay class
+            noScanlines: 'no-scanlines',      // Disable scanline overlay class
+            danger: 'danger'                  // Danger/destructive action button class
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',      // Home menu buttons
@@ -150,6 +152,10 @@ const Constants = {
             continue: 'continue',     // Resume game
             restart: 'restart',       // Restart current level
             quit: 'quit'              // Return to main menu
+        },
+        resetDialog: {
+            yes: 'yes',               // Confirm reset
+            no: 'no'                  // Cancel reset
         }
     },
 
