@@ -366,12 +366,6 @@
             screen.customMenuIndex = 0
             screen.updateCustomButtonSelection()
             screen.show(Constants.screens.custom)
-        } else if (action === Constants.actions.home.fullscreen) {
-            if (document.fullscreenElement) {
-                document.exitFullscreen()
-            } else {
-                document.documentElement.requestFullscreen()
-            }
         } else if (action === Constants.actions.home.settings) {
             settingsFocusIndex = 0
             updateSettingsFocus()

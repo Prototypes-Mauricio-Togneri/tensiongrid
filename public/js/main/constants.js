@@ -153,7 +153,6 @@ const Constants = {
             continue: 'continue',     // Continue last game
             levels: 'levels',         // Open level select
             custom: 'custom',         // Open custom level screen
-            fullscreen: 'fullscreen', // Toggle fullscreen mode
             settings: 'settings',     // Open settings
             about: 'about'            // Open about screen
         },

@@ -48,7 +48,7 @@ class Screen {
     }
 
     /**
-     * Get visible home menu buttons (excludes hidden mobile-only buttons on desktop).
+     * Get visible home menu buttons (excludes hidden buttons on desktop).
      * Cached to avoid expensive offsetParent checks on every call.
      * @returns {HTMLElement[]} Array of visible button elements
      */

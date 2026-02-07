@@ -65,7 +65,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `game.animations.wakeTrail`: fast profile (buildRate 0.05, trailDistance 60, fadeRate 0.004), slow profile (buildRate 0.005, trailDistance 50, fadeRate 0) - wake trail effect behind moving entities
 - `audio.sounds`: paths to sound effect files (shooterTurn, menuChange, menuSelect, switchCollected, etc.)
 - `audio.music`: paths to music files (mainMenu)
-- `actions.home`: menu actions (gym, continue, levels, custom, fullscreen, settings, about)
+- `actions.home`: menu actions (gym, continue, levels, custom, settings, about)
 - `actions.custom`: custom screen actions (download, upload)
 - `actions.about`: about screen actions (changelog, moreGames, feedback)
 - `actions.moreGames`: more games screen actions (tensionTunnel, hextrategic)
