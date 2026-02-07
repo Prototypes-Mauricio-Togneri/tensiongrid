@@ -955,6 +955,12 @@
     })
     document.getElementById('versionDisplay').textContent = localVersion
 
+    // Format changelog dates (convert ISO yyyy-mm-dd to locale "DD MMM YYYY")
+    document.querySelectorAll('.changelog-date[data-date]').forEach(el => {
+        const date = new Date(el.dataset.date + 'T00:00:00')
+        el.textContent = date.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
+    })
+
     // Hide dev-only elements when not on localhost
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     if (!isLocalhost) {
