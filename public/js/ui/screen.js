@@ -11,7 +11,8 @@ class Screen {
             [Constants.screens.custom]: document.getElementById(Constants.dom.ids.customScreen),
             [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen),
             [Constants.screens.about]: document.getElementById(Constants.dom.ids.aboutScreen),
-            [Constants.screens.moreGames]: document.getElementById(Constants.dom.ids.moreGamesScreen)
+            [Constants.screens.moreGames]: document.getElementById(Constants.dom.ids.moreGamesScreen),
+            [Constants.screens.changelog]: document.getElementById(Constants.dom.ids.changelogScreen)
         }
         this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)            // All home menu buttons
         this.customButtons = document.querySelectorAll(Constants.dom.selectors.customMenuButtons)     // Custom screen menu buttons

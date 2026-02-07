@@ -551,6 +551,87 @@ canvas {
 }
 
 /* ============================================
+   Changelog Screen
+   ============================================ */
+
+/* Changelog screen layout */
+#changelogScreen {
+    min-height: 100vh;
+    justify-content: center;
+}
+
+/* Scrollable changelog content container */
+.changelog-content {
+    margin-top: 200px;
+    max-height: calc(100vh - 300px);
+    width: 63vw;
+    max-width: 700px;
+    overflow-y: auto;
+    padding: 0 20px 40px 20px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 20px, black calc(100% - 40px), transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 20px, black calc(100% - 40px), transparent);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 245, 255, 0.3) rgba(0, 245, 255, 0.05);
+}
+
+/* Custom scrollbar - webkit */
+.changelog-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.changelog-content::-webkit-scrollbar-track {
+    background: rgba(0, 245, 255, 0.05);
+}
+
+.changelog-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 245, 255, 0.3);
+}
+
+.changelog-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 245, 255, 0.5);
+}
+
+/* Individual changelog entry block */
+.changelog-entry {
+    margin-bottom: 28px;
+}
+
+/* Version header */
+.changelog-version {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.4);
+    margin-bottom: 12px;
+}
+
+/* Changelog list items */
+.changelog-list {
+    list-style: none;
+    padding: 0;
+}
+
+.changelog-list li {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    color: rgba(0, 245, 255, 0.6);
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+/* Bullet point */
+.changelog-list li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: rgba(0, 245, 255, 0.3);
+}
+
+/* ============================================
    Timeline Level Selector
    ============================================ */
 
@@ -702,7 +783,8 @@ canvas {
 }
 
 /* Navigation hint */
-.timeline-hint {
+.timeline-hint,
+.changelog-hint {
     font-family: 'Share Tech Mono', monospace;
     font-size: 1.2rem;
     color: rgba(0, 245, 255, 0.3);
@@ -1211,6 +1293,22 @@ canvas {
         font-size: 1.2rem;
         margin-top: 20px;
     }
+
+    /* Changelog adjustments */
+    .changelog-content {
+        margin-top: 160px;
+        max-height: calc(100vh - 250px);
+        width: calc(100% - 48px);
+        max-width: none;
+    }
+
+    .changelog-version {
+        font-size: 1rem;
+    }
+
+    .changelog-list li {
+        font-size: 0.9rem;
+    }
 }
 
 /* Phone breakpoint */
@@ -1367,6 +1465,25 @@ canvas {
         font-size: 1.1rem;
         margin-top: 16px;
     }
+
+    /* Changelog adjustments */
+    .changelog-content {
+        margin-top: 120px;
+        max-height: calc(100vh - 200px);
+        width: calc(100% - 32px);
+        max-width: none;
+        padding: 0 16px 32px 16px;
+    }
+
+    .changelog-version {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+
+    .changelog-list li {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
 }
 
 /* Extra small phone breakpoint */
@@ -1521,5 +1638,24 @@ canvas {
     .timeline-counter {
         font-size: 1rem;
         margin-top: 14px;
+    }
+
+    /* Changelog adjustments */
+    .changelog-content {
+        margin-top: 100px;
+        max-height: calc(100vh - 170px);
+        width: calc(100% - 24px);
+        max-width: none;
+        padding: 0 12px 24px 12px;
+    }
+
+    .changelog-version {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+    }
+
+    .changelog-list li {
+        font-size: 0.8rem;
+        line-height: 1.4;
     }
 }

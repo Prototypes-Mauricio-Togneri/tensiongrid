@@ -72,6 +72,9 @@
     let settingsFocusIndex = 0
     const settingsToggles = [audioToggle, scanlinesToggle]
 
+    // Changelog scroll container
+    const changelogContent = document.querySelector('#changelogScreen .changelog-content')
+
     // Reset progress dialog state
     const resetOverlay = document.getElementById(Constants.dom.ids.resetProgressOverlay)
     const resetDialogButtons = resetOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
@@ -401,6 +404,9 @@
         audioManager.playSound(Constants.audio.sounds.menuSelect)
         if (action === Constants.actions.about.feedback) {
             window.open(Constants.urls.feedback)
+        } else if (action === Constants.actions.about.changelog) {
+            changelogContent.scrollTop = 0
+            screen.show(Constants.screens.changelog)
         } else if (action === Constants.actions.about.moreGames) {
             screen.moreGamesMenuIndex = 0
             screen.updateMoreGamesButtonSelection()
@@ -525,8 +531,8 @@
         if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
             if (currentScreen === Constants.screens.settings && isResetDialogOpen) {
                 // Dialog ESC is handled in settings input block below
-            } else if (currentScreen === Constants.screens.moreGames) {
-                // More games screen goes back to about screen
+            } else if (currentScreen === Constants.screens.moreGames || currentScreen === Constants.screens.changelog) {
+                // More games / changelog screen goes back to about screen
                 input.consumeEscape()
                 audioManager.playSound(Constants.audio.sounds.closeScreen)
                 screen.show(Constants.screens.about)
@@ -661,6 +667,16 @@
             if (input.isSelectPressed()) {
                 input.consumeSelect()
                 handleMoreGamesMenuAction(screen.getSelectedMoreGamesAction())
+            }
+        }
+
+        // Changelog screen input handling (scroll with arrow keys, continuous)
+        if (currentScreen === Constants.screens.changelog) {
+            if (input.keys.up) {
+                changelogContent.scrollTop -= Constants.changelog.scrollStep
+            }
+            if (input.keys.down) {
+                changelogContent.scrollTop += Constants.changelog.scrollStep
             }
         }
 

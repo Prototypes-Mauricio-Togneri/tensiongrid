@@ -30,7 +30,8 @@ const Constants = {
             levelTotal: 'levelTotal',         // Total levels counter
             levelFileInput: 'levelFileInput', // Hidden file input for custom level upload
             aboutScreen: 'aboutScreen',        // About screen
-            moreGamesScreen: 'moreGamesScreen' // More games screen
+            moreGamesScreen: 'moreGamesScreen', // More games screen
+            changelogScreen: 'changelogScreen'  // Changelog screen
         },
         classes: {
             shake: 'shake',                   // Screen shake animation class
@@ -73,6 +74,13 @@ const Constants = {
     // ==========================================
     swipe: {
         minDistance: 30     // Minimum swipe distance in pixels
+    },
+
+    // ==========================================
+    // Changelog Configuration
+    // ==========================================
+    changelog: {
+        scrollStep: 40  // Pixels per arrow key scroll per frame
     },
 
     // ==========================================
@@ -183,7 +191,8 @@ const Constants = {
         custom: 'custom',     // Custom level screen
         settings: 'settings', // Settings screen
         about: 'about',        // About screen
-        moreGames: 'moreGames' // More games screen
+        moreGames: 'moreGames', // More games screen
+        changelog: 'changelog'  // Changelog screen
     },
 
     // ==========================================
