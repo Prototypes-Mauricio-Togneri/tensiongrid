@@ -29,7 +29,8 @@ const Constants = {
             levelCurrent: 'levelCurrent',     // Current level counter
             levelTotal: 'levelTotal',         // Total levels counter
             levelFileInput: 'levelFileInput', // Hidden file input for custom level upload
-            aboutScreen: 'aboutScreen'        // About screen
+            aboutScreen: 'aboutScreen',        // About screen
+            moreGamesScreen: 'moreGamesScreen' // More games screen
         },
         classes: {
             shake: 'shake',                   // Screen shake animation class
@@ -46,7 +47,8 @@ const Constants = {
             customMenuButtons: '#customScreen .menu-button', // Custom screen menu buttons
             levelsMenuButtons: '#levelsScreen .menu-button', // Level select buttons (legacy)
             timelineMarkers: '#levelTimeline .timeline-marker', // Timeline level markers
-            aboutMenuButtons: '#aboutScreen .menu-button'   // About screen menu buttons
+            aboutMenuButtons: '#aboutScreen .menu-button',  // About screen menu buttons
+            moreGamesMenuButtons: '#moreGamesScreen .menu-button' // More games screen menu buttons
         }
     },
 
@@ -162,6 +164,10 @@ const Constants = {
             feedback: 'feedback',     // Send feedback
             help: 'help'              // View help
         },
+        moreGames: {
+            tensionTunnel: 'tensionTunnel', // Open Tension Tunnel
+            hextrategic: 'hextrategic'      // Open Hextrategic
+        },
         resetDialog: {
             yes: 'yes',               // Confirm reset
             no: 'no'                  // Cancel reset
@@ -177,7 +183,8 @@ const Constants = {
         levels: 'levels',     // Level selection screen
         custom: 'custom',     // Custom level screen
         settings: 'settings', // Settings screen
-        about: 'about'        // About screen
+        about: 'about',        // About screen
+        moreGames: 'moreGames' // More games screen
     },
 
     // ==========================================
@@ -499,6 +506,14 @@ const Constants = {
             switchGlow: '#ffd7004d',        // Switch glow effect
             switchHighlight: '#ffffff70'    // Switch inner highlight
         },
+    },
+
+    // ==========================================
+    // External URLs
+    // ==========================================
+    urls: {
+        tensionTunnel: 'https://tensiontunnel.com', // Tension Tunnel game
+        hextrategic: 'https://hextrategic.com'      // Hextrategic game
     },
 
     // ==========================================

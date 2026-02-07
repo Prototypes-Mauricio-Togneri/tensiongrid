@@ -399,6 +399,24 @@
      */
     function handleAboutMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
+        if (action === Constants.actions.about.moreGames) {
+            screen.moreGamesMenuIndex = 0
+            screen.updateMoreGamesButtonSelection()
+            screen.show(Constants.screens.moreGames)
+        }
+    }
+
+    /**
+     * Handle more games screen menu action selection.
+     * @param {string} action - The action identifier from button dataset
+     */
+    function handleMoreGamesMenuAction(action) {
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
+        if (action === Constants.actions.moreGames.tensionTunnel) {
+            window.open(Constants.urls.tensionTunnel, '_blank')
+        } else if (action === Constants.actions.moreGames.hextrategic) {
+            window.open(Constants.urls.hextrategic, '_blank')
+        }
     }
 
     /**
@@ -505,6 +523,11 @@
         if (currentScreen !== Constants.screens.home && currentScreen !== Constants.screens.game && input.isEscapePressed()) {
             if (currentScreen === Constants.screens.settings && isResetDialogOpen) {
                 // Dialog ESC is handled in settings input block below
+            } else if (currentScreen === Constants.screens.moreGames) {
+                // More games screen goes back to about screen
+                input.consumeEscape()
+                audioManager.playSound(Constants.audio.sounds.closeScreen)
+                screen.show(Constants.screens.about)
             } else {
                 input.consumeEscape()
                 audioManager.playSound(Constants.audio.sounds.closeScreen)
@@ -613,6 +636,29 @@
             if (input.isSelectPressed()) {
                 input.consumeSelect()
                 handleAboutMenuAction(screen.getSelectedAboutAction())
+            }
+        }
+
+        // More games screen input handling
+        if (currentScreen === Constants.screens.moreGames) {
+            // Navigate menu (edge detection, clamped)
+            if (input.keys.up && !lastMenuInput.up) {
+                if (screen.navigateMoreGamesMenu(Constants.keys.up)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            if (input.keys.down && !lastMenuInput.down) {
+                if (screen.navigateMoreGamesMenu(Constants.keys.down)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+            lastMenuInput.up = input.keys.up
+            lastMenuInput.down = input.keys.down
+
+            // Handle selection
+            if (input.isSelectPressed()) {
+                input.consumeSelect()
+                handleMoreGamesMenuAction(screen.getSelectedMoreGamesAction())
             }
         }
 
@@ -792,6 +838,15 @@
             screen.aboutMenuIndex = i
             screen.updateAboutButtonSelection()
             handleAboutMenuAction(btn.dataset.action)
+        })
+    })
+
+    // More games screen menu button clicks
+    screen.moreGamesButtons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            screen.moreGamesMenuIndex = i
+            screen.updateMoreGamesButtonSelection()
+            handleMoreGamesMenuAction(btn.dataset.action)
         })
     })
 

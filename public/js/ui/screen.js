@@ -10,19 +10,22 @@ class Screen {
             [Constants.screens.levels]: document.getElementById(Constants.dom.ids.levelsScreen),
             [Constants.screens.custom]: document.getElementById(Constants.dom.ids.customScreen),
             [Constants.screens.settings]: document.getElementById(Constants.dom.ids.settingsScreen),
-            [Constants.screens.about]: document.getElementById(Constants.dom.ids.aboutScreen)
+            [Constants.screens.about]: document.getElementById(Constants.dom.ids.aboutScreen),
+            [Constants.screens.moreGames]: document.getElementById(Constants.dom.ids.moreGamesScreen)
         }
-        this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)        // All home menu buttons
-        this.customButtons = document.querySelectorAll(Constants.dom.selectors.customMenuButtons) // Custom screen menu buttons
-        this.aboutButtons = document.querySelectorAll(Constants.dom.selectors.aboutMenuButtons)   // About screen menu buttons
+        this.allButtons = document.querySelectorAll(Constants.dom.selectors.homeMenuButtons)            // All home menu buttons
+        this.customButtons = document.querySelectorAll(Constants.dom.selectors.customMenuButtons)     // Custom screen menu buttons
+        this.aboutButtons = document.querySelectorAll(Constants.dom.selectors.aboutMenuButtons)       // About screen menu buttons
+        this.moreGamesButtons = document.querySelectorAll(Constants.dom.selectors.moreGamesMenuButtons) // More games screen menu buttons
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons (legacy)
         this.timelineMarkers = []  // Timeline level markers (generated dynamically)
         this.markersContainer = document.getElementById(Constants.dom.ids.timelineMarkers)       // Markers container element
         this.levelCurrentElement = document.getElementById(Constants.dom.ids.levelCurrent)            // Current level counter
         this.levelTotalElement = document.getElementById(Constants.dom.ids.levelTotal)                // Total levels counter
-        this.menuIndex = 0       // Selected index in home menu
-        this.customMenuIndex = 0 // Selected index in custom screen menu
-        this.aboutMenuIndex = 0  // Selected index in about screen menu
+        this.menuIndex = 0          // Selected index in home menu
+        this.customMenuIndex = 0    // Selected index in custom screen menu
+        this.aboutMenuIndex = 0     // Selected index in about screen menu
+        this.moreGamesMenuIndex = 0 // Selected index in more games screen menu
         this.levelsIndex = 0     // Selected index in levels menu (legacy)
         this.selectedLevel = 1 // Selected level number for timeline
         this.totalLevels = 0   // Total number of levels
@@ -195,6 +198,45 @@ class Screen {
      */
     getSelectedAboutAction() {
         const selectedButton = this.aboutButtons[this.aboutMenuIndex]
+        return selectedButton ? selectedButton.dataset.action : null
+    }
+
+    /**
+     * Navigate more games screen menu up or down.
+     * @param {string} direction - Direction key from Constants.keys
+     */
+    navigateMoreGamesMenu(direction) {
+        if (this.currentScreen !== Constants.screens.moreGames) return false
+
+        const len = this.moreGamesButtons.length
+        let changed = false
+        if (direction === Constants.keys.up && this.moreGamesMenuIndex > 0) {
+            this.moreGamesMenuIndex--
+            changed = true
+        } else if (direction === Constants.keys.down && this.moreGamesMenuIndex < len - 1) {
+            this.moreGamesMenuIndex++
+            changed = true
+        }
+
+        if (changed) this.updateMoreGamesButtonSelection()
+        return changed
+    }
+
+    /**
+     * Update visual selection state for more games screen menu buttons.
+     */
+    updateMoreGamesButtonSelection() {
+        this.moreGamesButtons.forEach((btn, i) => {
+            btn.classList.toggle(Constants.dom.classes.selected, i === this.moreGamesMenuIndex)
+        })
+    }
+
+    /**
+     * Get action string from currently selected more games screen menu button.
+     * @returns {string|null} Action data attribute value
+     */
+    getSelectedMoreGamesAction() {
+        const selectedButton = this.moreGamesButtons[this.moreGamesMenuIndex]
         return selectedButton ? selectedButton.dataset.action : null
     }
 

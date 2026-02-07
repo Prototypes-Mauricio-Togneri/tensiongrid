@@ -544,6 +544,12 @@ canvas {
     justify-content: center;
 }
 
+/* More games screen layout */
+#moreGamesScreen {
+    min-height: 100vh;
+    justify-content: center;
+}
+
 /* ============================================
    Timeline Level Selector
    ============================================ */
@@ -747,6 +753,7 @@ canvas {
     top: 100px;
     left: 50%;
     transform: translateX(-50%);
+    white-space: nowrap;
 }
 
 /* Settings panel container */

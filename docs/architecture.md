@@ -68,7 +68,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - `actions.home`: menu actions (gym, continue, levels, custom, fullscreen, settings, about)
 - `actions.custom`: custom screen actions (download, upload)
 - `actions.about`: about screen actions (changelog, moreGames, feedback, help)
+- `actions.moreGames`: more games screen actions (tensionTunnel, hextrategic)
 - `actions.resetDialog`: reset confirmation dialog actions (yes, no)
+- `urls`: external game URLs (tensionTunnel, hextrategic)
 - `storage`: localStorage key names (audioEnabled, scanlinesEnabled, currentLevel)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
 
