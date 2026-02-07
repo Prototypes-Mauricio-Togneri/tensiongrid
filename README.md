@@ -6,6 +6,15 @@
 
 - Sound when player moving?
 
+- Implement star system (1 to 3 stars) based on time taken to complete the level. This adds replayability and encourages players to improve their performance.
+
+- Show what each switch is connected to
+
+- Implement switches that unlock:
+  - Lasers
+  - Traps
+  - Walls
+
 ## Level ideas
 
 - Several lasers one after the other. there is a gap where the player has to wait for a laser to turn off before moving forward. but bullets pass through that gap, so the player has to time the movement carefully.

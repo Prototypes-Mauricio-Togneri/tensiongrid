@@ -829,6 +829,13 @@
         requestAnimationFrame(mainLoop)
     }
 
+    // Hide dev-only elements when not on localhost
+    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+    if (!isLocalhost) {
+        document.querySelectorAll('.dev-only').forEach(el => el.style.display = 'none')
+        screen.invalidateButtonCache()
+    }
+
     // ==========================================
     // Click Handlers for Menu Buttons
     // ==========================================
@@ -954,13 +961,6 @@
         const date = new Date(el.dataset.date + 'T00:00:00')
         el.textContent = date.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
     })
-
-    // Hide dev-only elements when not on localhost
-    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
-    if (!isLocalhost) {
-        document.querySelectorAll('.dev-only').forEach(el => el.style.display = 'none')
-        screen.invalidateButtonCache()
-    }
 
     // Initialize and start
     screen.menuIndex = 0
