@@ -399,7 +399,9 @@
      */
     function handleAboutMenuAction(action) {
         audioManager.playSound(Constants.audio.sounds.menuSelect)
-        if (action === Constants.actions.about.moreGames) {
+        if (action === Constants.actions.about.feedback) {
+            window.open(Constants.urls.feedback)
+        } else if (action === Constants.actions.about.moreGames) {
             screen.moreGamesMenuIndex = 0
             screen.updateMoreGamesButtonSelection()
             screen.show(Constants.screens.moreGames)

@@ -513,7 +513,8 @@ const Constants = {
     // ==========================================
     urls: {
         tensionTunnel: 'https://tensiontunnel.com', // Tension Tunnel game
-        hextrategic: 'https://hextrategic.com'      // Hextrategic game
+        hextrategic: 'https://hextrategic.com',     // Hextrategic game
+        feedback: 'mailto:contact@atomicinstinct.com' // Feedback email
     },
 
     // ==========================================
