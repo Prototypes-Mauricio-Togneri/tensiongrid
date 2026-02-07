@@ -1,4 +1,5 @@
 ---
+name: level-design
 description: Design a new level for Tension Grid. Use when asked to create, design, or add a level. Examples: "design a new level", "create level 11", "add a level with followers", "make a harder level".
 ---
 
