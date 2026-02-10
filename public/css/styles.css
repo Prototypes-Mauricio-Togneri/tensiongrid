@@ -1300,7 +1300,7 @@ canvas {
 
 /* Star threshold time label */
 .completion-star-threshold {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     color: rgba(0, 245, 255, 0.35);
     letter-spacing: 0.05em;
@@ -1324,15 +1324,17 @@ canvas {
 /* Stat icon colors */
 .stat-icon-deaths {
     color: rgba(255, 42, 109, 0.7);
+    font-size: 1.1rem;
+    line-height: 1;
 }
 
 .stat-icon-time {
-    color: rgba(0, 245, 255, 0.4);
+    color: rgba(0, 255, 100, 0.5);
 }
 
 /* Stat value */
 .completion-stat-value {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.1rem;
     color: rgba(0, 245, 255, 0.7);
     letter-spacing: 0.05em;
@@ -1342,6 +1344,7 @@ canvas {
 .completion-modal .menu {
     margin-top: 8px;
     min-width: 220px;
+    gap: 10px;
 }
 
 /* ============================================
@@ -1485,6 +1488,7 @@ canvas {
     .completion-modal .menu {
         margin-top: 4px;
         min-width: 180px;
+        gap: 10px;
     }
 
     /* Marker stars */
