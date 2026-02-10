@@ -1254,11 +1254,11 @@ canvas {
 .completion-level {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.85rem;
-    font-weight: 400;
+    font-weight: 700;
     letter-spacing: 0.3em;
-    color: rgba(0, 245, 255, 0.4);
-    margin-top: 8px;
-    margin-bottom: 4px;
+    color: rgba(0, 245, 255, 0.8);
+    margin-top: 16px;
+    margin-bottom: 12px;
 }
 
 /* Star display row */
