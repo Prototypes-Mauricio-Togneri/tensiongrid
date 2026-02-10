@@ -21,6 +21,7 @@ class Screen {
         this.levelsButtons = document.querySelectorAll(Constants.dom.selectors.levelsMenuButtons) // Level select buttons (legacy)
         this.timelineMarkers = []  // Timeline level markers (generated dynamically)
         this.markersContainer = document.getElementById(Constants.dom.ids.timelineMarkers)       // Markers container element
+        this.timelineStarsElement = document.getElementById(Constants.dom.ids.timelineStars)    // Floating stars display
         this.levelCurrentElement = document.getElementById(Constants.dom.ids.levelCurrent)            // Current level counter
         this.levelTotalElement = document.getElementById(Constants.dom.ids.levelTotal)                // Total levels counter
         this.menuIndex = 0          // Selected index in home menu
@@ -30,6 +31,7 @@ class Screen {
         this.levelsIndex = 0     // Selected index in levels menu (legacy)
         this.selectedLevel = 1 // Selected level number for timeline
         this.totalLevels = 0   // Total number of levels
+        this.storage = null    // Storage reference for star updates
         this.currentScreen = Constants.screens.home // Currently active screen
         this.cachedVisibleButtons = null // Cached visible buttons (invalidated on resize)
 
@@ -80,16 +82,6 @@ class Screen {
             label.textContent = i
             marker.appendChild(label)
 
-            // Star indicators
-            const starsContainer = document.createElement('span')
-            starsContainer.className = 'marker-stars'
-            for (let j = 0; j < Constants.game.stars.count; j++) {
-                const star = document.createElement('span')
-                star.className = 'marker-star'
-                starsContainer.appendChild(star)
-            }
-            marker.appendChild(starsContainer)
-
             marker.addEventListener(Constants.events.click, () => onMarkerClick(marker, i))
 
             this.markersContainer.appendChild(marker)
@@ -99,6 +91,21 @@ class Screen {
         // Update counter total
         if (this.levelTotalElement) {
             this.levelTotalElement.textContent = totalLevels
+        }
+
+        // Generate floating stars display (SVG stars matching completion overlay)
+        if (this.timelineStarsElement) {
+            this.timelineStarsElement.innerHTML = ''
+            const svgNS = 'http://www.w3.org/2000/svg'
+            for (let j = 0; j < Constants.game.stars.count; j++) {
+                const svg = document.createElementNS(svgNS, 'svg')
+                svg.setAttribute('class', 'timeline-star')
+                svg.setAttribute('viewBox', '0 0 24 24')
+                const path = document.createElementNS(svgNS, 'path')
+                path.setAttribute('d', Constants.game.stars.svgPath)
+                svg.appendChild(path)
+                this.timelineStarsElement.appendChild(svg)
+            }
         }
 
         // Initialize selection and position (no animation on initial load)
@@ -272,6 +279,7 @@ class Screen {
             this.updateTimelineSelection()
             this.updateTimelinePosition()
             this.updateLevelCounter()
+            this.updateMarkerStars()
         }
         return changed
     }
@@ -427,24 +435,25 @@ class Screen {
     }
 
     /**
-     * Update star indicators on timeline markers.
+     * Update floating star indicators for the currently selected level.
      * @param {LocalStorage} storage - Storage instance to read star data
      */
     updateMarkerStars(storage) {
-        this.timelineMarkers.forEach(marker => {
-            const levelNumber = parseInt(marker.dataset.level, 10)
-            const stars = storage.getStars(levelNumber)
-            const starElements = marker.querySelectorAll('.marker-star')
-            starElements.forEach((el, i) => {
-                if (i < stars) {
-                    el.classList.add(Constants.dom.classes.starFilled)
-                    el.classList.remove(Constants.dom.classes.starEmpty)
-                } else {
-                    el.classList.remove(Constants.dom.classes.starFilled)
-                    el.classList.add(Constants.dom.classes.starEmpty)
-                }
-            })
+        if (storage) this.storage = storage
+        if (!this.timelineStarsElement || !this.storage) return
+        const stars = this.storage.getStars(this.selectedLevel)
+        const isLocked = !this.storage.isLevelUnlocked(this.selectedLevel)
+        const starElements = this.timelineStarsElement.querySelectorAll('.timeline-star')
+        starElements.forEach((el, i) => {
+            if (i < stars) {
+                el.classList.add(Constants.dom.classes.starFilled)
+                el.classList.remove(Constants.dom.classes.starEmpty)
+            } else {
+                el.classList.remove(Constants.dom.classes.starFilled)
+                el.classList.add(Constants.dom.classes.starEmpty)
+            }
         })
+        this.timelineStarsElement.classList.toggle(Constants.dom.classes.locked, isLocked)
     }
 
     /**

@@ -252,8 +252,8 @@
     function returnToPreviousScreen() {
         if (gameStartedFrom === Constants.screens.levels) {
             screen.updateLevelButtonStates(storage)
-            screen.updateMarkerStars(storage)
             screen.setSelectedToHighestUnlocked(storage)
+            screen.updateMarkerStars(storage)
         }
         screen.show(gameStartedFrom)
         if (gameStartedFrom === Constants.screens.home) {
@@ -516,8 +516,8 @@
             openGameScreen(levelPath, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
             screen.updateLevelButtonStates(storage)
-            screen.updateMarkerStars(storage)
             screen.setSelectedToHighestUnlocked(storage)
+            screen.updateMarkerStars(storage)
             screen.show(Constants.screens.levels)
         } else if (action === Constants.actions.home.custom) {
             screen.customMenuIndex = 0
@@ -1072,6 +1072,7 @@
             screen.updateTimelineSelection()
             screen.updateTimelinePosition()
             screen.updateLevelCounter()
+            screen.updateMarkerStars()
             audioManager.playSound(Constants.audio.sounds.menuChange)
         } else {
             // Already selected - activate it

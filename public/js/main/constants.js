@@ -27,6 +27,7 @@ const Constants = {
             bgAnimation: 'bgAnimation',       // Background animation container
             levelTimeline: 'levelTimeline',   // Level timeline container
             timelineMarkers: 'timelineMarkers', // Timeline markers container
+            timelineStars: 'timelineStars',     // Timeline floating stars display
             levelCurrent: 'levelCurrent',     // Current level counter
             levelTotal: 'levelTotal',         // Total levels counter
             levelFileInput: 'levelFileInput', // Hidden file input for custom level upload
@@ -223,7 +224,8 @@ const Constants = {
 
         // Star rating settings
         stars: {
-            count: 3 // Total star tiers per level
+            count: 3, // Total star tiers per level
+            svgPath: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' // 5-pointed star SVG path
         },
 
         // Mobile scaling settings
