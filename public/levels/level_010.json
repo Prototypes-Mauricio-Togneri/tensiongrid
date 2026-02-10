@@ -1,9 +1,9 @@
 {
   "id": 10,
   "stars": {
-    "stars1": 80000,
-    "stars2": 50000,
-    "stars3": 35000
+    "stars1": 40000,
+    "stars2": 25000,
+    "stars3": 17500
   },
   "grid": {
     "width": 8,
