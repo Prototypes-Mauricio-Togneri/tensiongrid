@@ -19,6 +19,7 @@ const Constants = {
             customScreen: 'customScreen',     // Custom level screen
             audioToggle: 'audioToggle',       // Audio toggle button
             scanlinesToggle: 'scanlinesToggle', // Scanlines toggle button
+            glowToggle: 'glowToggle',           // Glow toggle button
             resetProgressOverlay: 'resetProgressOverlay', // Reset progress confirmation overlay
             pauseOverlay: 'pauseOverlay',     // Pause menu overlay
             pauseLevel: 'pauseLevel',         // Pause menu level label
@@ -41,6 +42,7 @@ const Constants = {
             locked: 'locked',                 // Locked level button class
             focused: 'focused',               // Focused settings item class
             noScanlines: 'no-scanlines',      // Disable scanline overlay class
+            noGlow: 'no-glow',                // Disable glow effects class
             danger: 'danger'                  // Danger/destructive action button class
         },
         selectors: {
@@ -572,6 +574,7 @@ const Constants = {
     storage: {
         settingsAudioEnabled: 'settings.audioEnabled',       // localStorage key for audio toggle state
         settingsScanlinesEnabled: 'settings.scanlinesEnabled', // localStorage key for scanlines toggle state
+        settingsGlowEnabled: 'settings.glowEnabled',           // localStorage key for glow toggle state
         gameCurrentLevel: 'game.currentLevel'                  // localStorage key for current level (default: 1)
     },
 

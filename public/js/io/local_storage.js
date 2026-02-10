@@ -38,6 +38,23 @@ class LocalStorage {
     }
 
     /**
+     * Get glow enabled state from localStorage.
+     * @returns {boolean} True if glow enabled (default: true if not set)
+     */
+    getGlowEnabled() {
+        const value = localStorage.getItem(Constants.storage.settingsGlowEnabled)
+        return value !== 'false'
+    }
+
+    /**
+     * Set glow enabled state in localStorage.
+     * @param {boolean} enabled - Whether glow is enabled
+     */
+    setGlowEnabled(enabled) {
+        localStorage.setItem(Constants.storage.settingsGlowEnabled, enabled)
+    }
+
+    /**
      * Check if current game level exists in localStorage.
      * @returns {boolean} True if level is set
      */

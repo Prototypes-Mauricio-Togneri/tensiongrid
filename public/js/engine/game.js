@@ -15,6 +15,7 @@ class Game {
         this.ui = new UIManager()         // HUD manager
         this.running = false              // True while game loop is active
         this.debugMode = false            // Debug overlay toggle (localhost only)
+        this.glowEnabled = true           // Glow effects toggle
 
         this.boundResizeCanvas = () => this.resizeCanvas() // Bound handler for cleanup
         window.addEventListener(Constants.events.resize, this.boundResizeCanvas)
@@ -45,6 +46,17 @@ class Game {
         // Divide viewport by scale so camera shows more of the world when scaled down
         this.camera.setViewport(width / scale, height / scale)
         this.camera.follow(this.player.x, this.player.y)
+    }
+
+    /**
+     * Set glow effects enabled state and propagate to renderer.
+     * @param {boolean} enabled - Whether glow effects are enabled
+     */
+    setGlowEnabled(enabled) {
+        this.glowEnabled = enabled
+        if (this.renderer) {
+            this.renderer.glowEnabled = enabled
+        }
     }
 
     /**
@@ -447,6 +459,7 @@ class Game {
         this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collision = new Collision(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
+        this.renderer.glowEnabled = this.glowEnabled
         this.powers = []             // Active powers (power-ups and power-downs)
         this.exit = null             // Exit portal (single per level, optional)
         this.switches = []           // Switches that unlock the exit

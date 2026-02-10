@@ -13,6 +13,16 @@ class Renderer {
         this.colors = Constants.game.colors  // Color palette reference
         this.camera = camera                 // Camera for world-to-screen transforms
         this.scale = 1                       // Render scale (0.5 for mobile)
+        this.glowEnabled = true              // Glow effects toggle
+    }
+
+    /**
+     * Return blur value if glow is enabled, otherwise 0.
+     * @param {number} blur - Desired shadow blur radius
+     * @returns {number} blur or 0
+     */
+    shadow(blur) {
+        return this.glowEnabled ? blur : 0
     }
 
     /**
@@ -95,7 +105,7 @@ class Renderer {
 
         ctx.save()
         ctx.shadowColor = shadowColor || this.hexWithAlpha(color, 0.5)
-        ctx.shadowBlur = 10 * entity.wakeIntensity
+        ctx.shadowBlur = this.shadow(10 * entity.wakeIntensity)
 
         // Calculate perpendicular for wake width
         const perpX = -dirY
@@ -132,7 +142,7 @@ class Renderer {
         // Outer glow
         ctx.save()
         ctx.shadowColor = color
-        ctx.shadowBlur = 15
+        ctx.shadowBlur = this.shadow(15)
         ctx.fillStyle = glowColor
         drawShape(x, y, size + 4)
         ctx.restore()
@@ -140,7 +150,7 @@ class Renderer {
         // Main shape
         ctx.save()
         ctx.shadowColor = color
-        ctx.shadowBlur = 8
+        ctx.shadowBlur = this.shadow(8)
         ctx.fillStyle = color
         drawShape(x, y, size)
         ctx.restore()
@@ -254,7 +264,7 @@ class Renderer {
                 const py = pos.y + particle.y
 
                 ctx.shadowColor = this.colors.bullet
-                ctx.shadowBlur = 8 * particle.opacity
+                ctx.shadowBlur = this.shadow(8 * particle.opacity)
                 ctx.fillStyle = this.hexWithAlpha(this.colors.bullet, particle.opacity)
                 ctx.fillRect(
                     px - warning.particleSize / 2,
@@ -288,7 +298,7 @@ class Renderer {
 
             // Draw glow
             ctx.shadowColor = this.colors.player
-            ctx.shadowBlur = 8 * particle.opacity
+            ctx.shadowBlur = this.shadow(8 * particle.opacity)
             ctx.fillStyle = this.hexWithAlpha(this.colors.player, particle.opacity)
             ctx.fillRect(px - size / 2, py - size / 2, size, size)
         }
@@ -313,7 +323,7 @@ class Renderer {
 
         // Glow effect
         ctx.shadowColor = color
-        ctx.shadowBlur = 15 * data.opacity
+        ctx.shadowBlur = this.shadow(15 * data.opacity)
 
         // Draw expanding ring
         ctx.strokeStyle = this.hexWithAlpha(color, data.opacity)
@@ -344,14 +354,14 @@ class Renderer {
         // Outer glow (larger, transparent rhombus)
         ctx.save()
         ctx.shadowColor = this.colors.player
-        ctx.shadowBlur = 20
+        ctx.shadowBlur = this.shadow(20)
         this.drawRhombus(pos.x, pos.y, player.size + 4, this.colors.playerGlow)
         ctx.restore()
 
         // Main player rhombus
         ctx.save()
         ctx.shadowColor = this.colors.player
-        ctx.shadowBlur = 15
+        ctx.shadowBlur = this.shadow(15)
         this.drawRhombus(pos.x, pos.y, player.size, this.colors.player)
         ctx.restore()
 
@@ -387,7 +397,7 @@ class Renderer {
 
             // Draw glow
             ctx.shadowColor = this.colors.player
-            ctx.shadowBlur = 8 * particle.opacity
+            ctx.shadowBlur = this.shadow(8 * particle.opacity)
             ctx.fillStyle = this.hexWithAlpha(this.colors.player, particle.opacity)
             ctx.fillRect(px - size / 2, py - size / 2, size, size)
         }
@@ -416,7 +426,7 @@ class Renderer {
 
             // Draw glow
             ctx.shadowColor = this.colors.mine
-            ctx.shadowBlur = 10 * particle.opacity
+            ctx.shadowBlur = this.shadow(10 * particle.opacity)
             ctx.fillStyle = this.hexWithAlpha(this.colors.mine, particle.opacity)
             ctx.fillRect(px - size / 2, py - size / 2, size, size)
         }
@@ -452,7 +462,7 @@ class Renderer {
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.bullet
-            ctx.shadowBlur = 8
+            ctx.shadowBlur = this.shadow(8)
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
             ctx.fillStyle = this.colors.bulletGlow
@@ -462,7 +472,7 @@ class Renderer {
             // Main bullet circle
             ctx.save()
             ctx.shadowColor = this.colors.bullet
-            ctx.shadowBlur = 5
+            ctx.shadowBlur = this.shadow(5)
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
             ctx.fillStyle = this.colors.bullet
@@ -530,7 +540,7 @@ class Renderer {
             ctx.lineWidth = settings.glowWidth
             ctx.lineCap = 'round'
             ctx.shadowColor = this.colors.laser
-            ctx.shadowBlur = settings.glowShadowBlur
+            ctx.shadowBlur = this.shadow(settings.glowShadowBlur)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
@@ -539,7 +549,7 @@ class Renderer {
             // Main laser line (thin core)
             ctx.strokeStyle = this.colors.laser
             ctx.lineWidth = settings.coreWidth
-            ctx.shadowBlur = settings.coreShadowBlur
+            ctx.shadowBlur = this.shadow(settings.coreShadowBlur)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
@@ -568,7 +578,7 @@ class Renderer {
             ctx.lineWidth = settings.glowWidth
             ctx.lineCap = 'round'
             ctx.shadowColor = this.colors.wall
-            ctx.shadowBlur = settings.glowShadowBlur
+            ctx.shadowBlur = this.shadow(settings.glowShadowBlur)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
@@ -581,7 +591,7 @@ class Renderer {
             ctx.lineWidth = settings.coreWidth
             ctx.lineCap = 'round'
             ctx.shadowColor = this.colors.wall
-            ctx.shadowBlur = settings.coreShadowBlur
+            ctx.shadowBlur = this.shadow(settings.coreShadowBlur)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
@@ -606,14 +616,14 @@ class Renderer {
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.trap
-            ctx.shadowBlur = 15
+            ctx.shadowBlur = this.shadow(15)
             this.drawRhombus(pos.x, pos.y, size + 4, this.hexWithAlpha(this.colors.trap.slice(0, 7), 0.3 * opacity))
             ctx.restore()
 
             // Main rhombus shape
             ctx.save()
             ctx.shadowColor = this.colors.trap
-            ctx.shadowBlur = 8
+            ctx.shadowBlur = this.shadow(8)
             this.drawRhombus(pos.x, pos.y, size, this.hexWithAlpha(this.colors.trap.slice(0, 7), opacity))
             ctx.restore()
 
@@ -674,7 +684,7 @@ class Renderer {
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.mine
-            ctx.shadowBlur = 15 * blinkIntensity
+            ctx.shadowBlur = this.shadow(15 * blinkIntensity)
             ctx.fillStyle = this.colors.mineGlow
             this.drawHexagon(pos.x, pos.y, size + 4)
             ctx.restore()
@@ -682,7 +692,7 @@ class Renderer {
             // Main mine shape (hexagon for visual distinction)
             ctx.save()
             ctx.shadowColor = this.colors.mine
-            ctx.shadowBlur = 8 * blinkIntensity
+            ctx.shadowBlur = this.shadow(8 * blinkIntensity)
             ctx.fillStyle = this.colors.mine
             this.drawHexagon(pos.x, pos.y, size)
             ctx.restore()
@@ -756,7 +766,7 @@ class Renderer {
             // Outer glow (hub + arms combined)
             ctx.save()
             ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 15
+            ctx.shadowBlur = this.shadow(15)
             ctx.fillStyle = this.colors.shooterGlow
             this.drawShooterShape(0, 0, armLength + 3, size + 3, hubSize + 2, directions)
             ctx.restore()
@@ -764,7 +774,7 @@ class Renderer {
             // Main shape (hub + arms combined)
             ctx.save()
             ctx.shadowColor = this.colors.shooter
-            ctx.shadowBlur = 8
+            ctx.shadowBlur = this.shadow(8)
             ctx.fillStyle = this.colors.shooter
             this.drawShooterShape(0, 0, armLength, size, hubSize, directions)
             ctx.restore()
@@ -838,7 +848,7 @@ class Renderer {
             ctx.rotate(shooter.getRotation())
 
             ctx.shadowColor = this.colors.bullet
-            ctx.shadowBlur = 10 * progress
+            ctx.shadowBlur = this.shadow(10 * progress)
             ctx.fillStyle = this.hexWithAlpha(this.colors.bullet, 0.7 * progress)
 
             for (const tip of tipOffsets) {
@@ -981,7 +991,7 @@ class Renderer {
             // Outer glow
             ctx.save()
             ctx.shadowColor = color
-            ctx.shadowBlur = 20 * pulseIntensity
+            ctx.shadowBlur = this.shadow(20 * pulseIntensity)
             ctx.fillStyle = glowColor
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 4, 0, Math.PI * 2)
@@ -991,7 +1001,7 @@ class Renderer {
             // Main circle
             ctx.save()
             ctx.shadowColor = color
-            ctx.shadowBlur = 10 * pulseIntensity
+            ctx.shadowBlur = this.shadow(10 * pulseIntensity)
             ctx.fillStyle = color
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2)
@@ -1094,14 +1104,14 @@ class Renderer {
             // Outer glow
             ctx.save()
             ctx.shadowColor = this.colors.switch
-            ctx.shadowBlur = 15
+            ctx.shadowBlur = this.shadow(15)
             this.drawRhombus(pos.x, pos.y, half + 3, this.colors.switchGlow)
             ctx.restore()
 
             // Main rhombus
             ctx.save()
             ctx.shadowColor = this.colors.switch
-            ctx.shadowBlur = 8
+            ctx.shadowBlur = this.shadow(8)
             this.drawRhombus(pos.x, pos.y, half, this.colors.switch)
             ctx.restore()
 
@@ -1274,7 +1284,7 @@ class Renderer {
 
         // Outer glow
         ctx.shadowColor = this.colors.shield
-        ctx.shadowBlur = 20
+        ctx.shadowBlur = this.shadow(20)
         ctx.strokeStyle = this.colors.shieldGlow
         ctx.lineWidth = 4
         ctx.beginPath()
@@ -1282,7 +1292,7 @@ class Renderer {
         ctx.stroke()
 
         // Main shield circle
-        ctx.shadowBlur = 12
+        ctx.shadowBlur = this.shadow(12)
         ctx.strokeStyle = this.colors.shield
         ctx.lineWidth = 2
         ctx.beginPath()
@@ -1333,7 +1343,7 @@ class Renderer {
         if (hasSpeedEffect) {
             ctx.save()
             ctx.shadowColor = effectColor
-            ctx.shadowBlur = 30
+            ctx.shadowBlur = this.shadow(30)
             this.drawRhombus(pos.x, pos.y, size + 8, effectGlow)
             ctx.restore()
         }
@@ -1341,14 +1351,14 @@ class Renderer {
         // Outer glow (larger, transparent rhombus)
         ctx.save()
         ctx.shadowColor = effectColor
-        ctx.shadowBlur = 20
+        ctx.shadowBlur = this.shadow(20)
         this.drawRhombus(pos.x, pos.y, size + 4, this.colors.playerGlow)
         ctx.restore()
 
         // Main player rhombus
         ctx.save()
         ctx.shadowColor = effectColor
-        ctx.shadowBlur = 15
+        ctx.shadowBlur = this.shadow(15)
         this.drawRhombus(pos.x, pos.y, size, this.colors.player)
         ctx.restore()
 

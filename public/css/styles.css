@@ -77,6 +77,24 @@ body.no-scanlines .pause-title::before {
     display: none;
 }
 
+/* Disable glow effects when toggled off */
+body.no-glow * {
+    text-shadow: none !important;
+}
+
+body.no-glow .menu-button.selected,
+body.no-glow .settings-item.focused .menu-button {
+    filter: none;
+}
+
+body.no-glow .toggle-switch input:checked + .toggle-track {
+    box-shadow: none;
+}
+
+body.no-glow .toggle-switch input:checked + .toggle-track .toggle-thumb {
+    box-shadow: none;
+}
+
 /* ============================================
    Background Animation (Menu Screens)
    ============================================ */

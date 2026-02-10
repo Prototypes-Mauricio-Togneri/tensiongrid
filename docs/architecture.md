@@ -27,6 +27,7 @@ Cyberpunk/neon aesthetic with these design elements:
   - Uses CSS `:has()` selector to hide when game screen is active
 - **Animated background grid** - Perspective-transformed grid with infinite scroll animation
 - **Scanline overlay** - Subtle horizontal lines for CRT effect (via `body::after`), toggleable in settings (persisted to localStorage)
+- **Glow effects** - Neon glow on canvas elements (via `ctx.shadowBlur`) and CSS UI (via `text-shadow`, `box-shadow`, `drop-shadow`), toggleable in settings (persisted to localStorage)
 - **Title design** - Stacked "TENSION" / "GRID" layout with:
   - "TENSION" in red (#ff2020) with molten heat glow and scan line overlay
   - Warning bar with diagonal danger stripes
@@ -71,7 +72,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `actions.moreGames`: more games screen actions (tensionTunnel, hextrategic)
 - `actions.resetDialog`: reset confirmation dialog actions (yes, no)
 - `urls`: external game URLs (tensionTunnel, hextrategic)
-- `storage`: localStorage key names (audioEnabled, scanlinesEnabled, currentLevel)
+- `storage`: localStorage key names (audioEnabled, scanlinesEnabled, glowEnabled, currentLevel)
 - `changelog.scrollStep`: pixels per arrow key scroll per frame (40px)
 - `screens`: screen name constants (home, game, levels, custom, settings, about, moreGames, changelog)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
@@ -137,6 +138,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `setAudioEnabled(enabled)` - Set audio enabled state
 - `getScanlinesEnabled()` - Get scanlines enabled state (default: true)
 - `setScanlinesEnabled(enabled)` - Set scanlines enabled state
+- `getGlowEnabled()` - Get glow enabled state (default: true)
+- `setGlowEnabled(enabled)` - Set glow enabled state
 - `hasCurrentLevel()` - Check if current game level exists
 - `getCurrentLevel()` - Get current game level (highest completed + 1)
 - `setCurrentLevel(level)` - Set current game level, preloads next level
@@ -376,6 +379,8 @@ Cyberpunk/neon aesthetic with these design elements:
 
 **Renderer** (`js/ui/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
+- `glowEnabled` flag controls all `shadowBlur` effects; toggled via settings
+- `shadow(blur)` helper returns blur value when glow enabled, 0 when disabled
 - Mobile scaling: `setScale(factor)` applies canvas context transform for 73% size on mobile
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
@@ -406,6 +411,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
 - Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
+- `setGlowEnabled(enabled)` - Propagates glow toggle state to renderer
 - `debugMode` - Toggle for debug overlay (toggled via "G" key in main loop)
 - Delta-time game loop via requestAnimationFrame
 - Death pause: 1000ms freeze with explosion effect before reset

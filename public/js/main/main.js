@@ -68,9 +68,10 @@
     let levelsRepeatDirection = null // Current repeat direction ('left' or 'right')
     const audioToggle = document.getElementById(Constants.dom.ids.audioToggle)
     const scanlinesToggle = document.getElementById(Constants.dom.ids.scanlinesToggle)
+    const glowToggle = document.getElementById(Constants.dom.ids.glowToggle)
     const settingsItems = document.querySelectorAll('#settingsScreen .settings-item')
     let settingsFocusIndex = 0
-    const settingsToggles = [audioToggle, scanlinesToggle]
+    const settingsToggles = [audioToggle, scanlinesToggle, glowToggle]
 
     // Changelog scroll container
     const changelogContent = document.querySelector('#changelogScreen .changelog-content')
@@ -99,6 +100,20 @@
         scanlinesToggle.addEventListener(Constants.events.change, () => {
             storage.setScanlinesEnabled(scanlinesToggle.checked)
             document.body.classList.toggle(Constants.dom.classes.noScanlines, !scanlinesToggle.checked)
+        })
+    }
+
+    // Initialize glow toggle from persisted state
+    if (glowToggle) {
+        glowToggle.checked = storage.getGlowEnabled()
+        if (!glowToggle.checked) {
+            document.body.classList.add(Constants.dom.classes.noGlow)
+        }
+        game.setGlowEnabled(glowToggle.checked)
+        glowToggle.addEventListener(Constants.events.change, () => {
+            storage.setGlowEnabled(glowToggle.checked)
+            document.body.classList.toggle(Constants.dom.classes.noGlow, !glowToggle.checked)
+            game.setGlowEnabled(glowToggle.checked)
         })
     }
 
