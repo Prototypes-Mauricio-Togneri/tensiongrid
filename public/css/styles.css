@@ -819,20 +819,6 @@ canvas {
     text-shadow: none;
 }
 
-/* Navigation hint */
-.timeline-hint {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.2rem;
-    color: rgba(0, 245, 255, 0.3);
-    letter-spacing: 0.5em;
-    margin-top: 20px;
-    animation: hintPulse 2s ease-in-out infinite;
-}
-
-@keyframes hintPulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
-}
 
 /* Level counter */
 .timeline-counter {
@@ -1537,10 +1523,6 @@ canvas {
         font-size: 1.1rem;
     }
 
-    .timeline-hint {
-        font-size: 1.1rem;
-        margin-top: 16px;
-    }
 
     .timeline-counter {
         font-size: 1.2rem;
@@ -1760,11 +1742,6 @@ canvas {
         font-size: 0.9rem;
     }
 
-    .timeline-hint {
-        font-size: 1rem;
-        margin-top: 14px;
-        letter-spacing: 0.4em;
-    }
 
     .timeline-counter {
         font-size: 1.1rem;
@@ -1981,11 +1958,6 @@ canvas {
         font-size: 0.75rem;
     }
 
-    .timeline-hint {
-        font-size: 0.9rem;
-        margin-top: 12px;
-        letter-spacing: 0.3em;
-    }
 
     .timeline-counter {
         font-size: 1rem;
