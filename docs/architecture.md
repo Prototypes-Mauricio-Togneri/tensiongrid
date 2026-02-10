@@ -72,7 +72,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `actions.moreGames`: more games screen actions (tensionTunnel, hextrategic)
 - `actions.resetDialog`: reset confirmation dialog actions (yes, no)
 - `urls`: external game URLs (tensionTunnel, hextrategic)
-- `storage`: localStorage key names (audioEnabled, scanlinesEnabled, glowEnabled, currentLevel)
+- `stars.count`: total star tiers per level (3)
+- `storage`: localStorage key names (audioEnabled, scanlinesEnabled, glowEnabled, currentLevel, starsPrefix)
 - `changelog.scrollStep`: pixels per arrow key scroll per frame (40px)
 - `screens`: screen name constants (home, game, levels, custom, settings, about, moreGames, changelog)
 - `swipe.minDistance`: minimum swipe distance in pixels (30px)
@@ -146,6 +147,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isLevelUnlocked(level)` - Check if level is unlocked (level <= currentLevel)
 - `getLevelPath(level)` - Build level file path from level number
 - `preloadLevel(level)` - Preload level JSON into browser cache
+- `getStars(levelId)` - Get best star count for a level (0 if none saved)
+- `setStars(levelId, stars)` - Save star count (only if better than existing)
+- `clearStars()` - Clear all saved star data (called on reset progress)
 
 ### Effect System
 
@@ -414,6 +418,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `setGlowEnabled(enabled)` - Propagates glow toggle state to renderer
 - `debugMode` - Toggle for debug overlay (toggled via "G" key in main loop)
 - Delta-time game loop via requestAnimationFrame
+- `runElapsed` - Accumulated run time (ms) for current attempt, only ticks during live gameplay (not death/exit/pause), resets on death/restart
 - Death pause: 1000ms freeze with explosion effect before reset
 - Exit warp: 1000ms animation where player shrinks/fades into exit, entities freeze
 - Collision → death pause → reset flow (infinite lives)
@@ -431,6 +436,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - **Edge wrapping**: Toroidal topology - exit one edge, appear on opposite
 - **Enemies**: Various threat types (bullets, lasers, traps), each with unique movement and collision mechanics
 - **Collision**: Collisions reset the level (infinite lives)
+- **Star rating**: Each level defines time thresholds (`stars.stars1`/`stars2`/`stars3` in ms). On completion, elapsed run time determines stars earned (1-3, or 0 if too slow). Best star count per level persists in localStorage. Stars display on timeline markers and in the completion overlay. Timer only ticks during live gameplay (pauses excluded). Resets on death/restart. Disabled for gym and custom levels
+- **Completion overlay**: Shown after finishing a standard level. Displays 5-pointed SVG stars (filled/empty based on performance) with per-star time thresholds, level name, death count, completion time, and three buttons: Next (advance to next level or return to menu if last), Retry (restart same level), Quit (return to previous screen). Keyboard navigation mirrors pause menu pattern. ESC is ignored while the overlay is shown
 - **Custom levels**: Users can upload a JSON level file from the custom screen (navigated from home menu). Custom levels bypass localStorage progression updates and analytics tracking. On completion, the custom level restarts. Quitting returns to the custom screen
 - **Gym levels**: Gym levels bypass analytics tracking but otherwise function normally
 

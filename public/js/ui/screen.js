@@ -80,6 +80,16 @@ class Screen {
             label.textContent = i
             marker.appendChild(label)
 
+            // Star indicators
+            const starsContainer = document.createElement('span')
+            starsContainer.className = 'marker-stars'
+            for (let j = 0; j < Constants.game.stars.count; j++) {
+                const star = document.createElement('span')
+                star.className = 'marker-star'
+                starsContainer.appendChild(star)
+            }
+            marker.appendChild(starsContainer)
+
             marker.addEventListener(Constants.events.click, () => onMarkerClick(marker, i))
 
             this.markersContainer.appendChild(marker)
@@ -413,6 +423,27 @@ class Screen {
             } else {
                 marker.classList.add(Constants.dom.classes.locked)
             }
+        })
+    }
+
+    /**
+     * Update star indicators on timeline markers.
+     * @param {LocalStorage} storage - Storage instance to read star data
+     */
+    updateMarkerStars(storage) {
+        this.timelineMarkers.forEach(marker => {
+            const levelNumber = parseInt(marker.dataset.level, 10)
+            const stars = storage.getStars(levelNumber)
+            const starElements = marker.querySelectorAll('.marker-star')
+            starElements.forEach((el, i) => {
+                if (i < stars) {
+                    el.classList.add(Constants.dom.classes.starFilled)
+                    el.classList.remove(Constants.dom.classes.starEmpty)
+                } else {
+                    el.classList.remove(Constants.dom.classes.starFilled)
+                    el.classList.add(Constants.dom.classes.starEmpty)
+                }
+            })
         })
     }
 

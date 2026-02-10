@@ -130,6 +130,20 @@
     let currentLevel = ''    // Path to current level JSON
     let isCustomLevel = false // True when playing a user-uploaded level
 
+    // Completion overlay state
+    const completionOverlay = document.getElementById(Constants.dom.ids.completionOverlay)
+    const completionLevel = document.getElementById(Constants.dom.ids.completionLevel)
+    const completionStars = document.getElementById(Constants.dom.ids.completionStars)
+    const completionDeaths = document.getElementById(Constants.dom.ids.completionDeaths)
+    const completionTime = document.getElementById(Constants.dom.ids.completionTime)
+    const completionButtons = completionOverlay.querySelectorAll('.' + Constants.dom.classes.menuButton)
+    let completionIndex = 0  // Currently selected completion menu item
+    let isCompletionShown = false
+    let lastEarnedStars = 0
+    let lastDeathCount = 0
+    let lastRunElapsed = 0
+    let pendingAdvance = null // Function to call when completion overlay is dismissed
+
     /**
      * Whether analytics should be tracked for the current level.
      * Disabled for gym and custom (uploaded) levels.
@@ -137,6 +151,74 @@
      */
     function shouldTrackAnalytics() {
         return !isCustomLevel && !currentLevel.startsWith('gyms/')
+    }
+
+    /**
+     * Calculate star rating based on completion time and level thresholds.
+     * @param {number} timeMs - Completion time in milliseconds
+     * @param {Object} starThresholds - Object with stars1, stars2, stars3 (ms)
+     * @returns {number} Star count (0-3)
+     */
+    function calculateStars(timeMs, starThresholds) {
+        if (!starThresholds) return 0
+        if (timeMs <= starThresholds.stars3) return 3
+        if (timeMs <= starThresholds.stars2) return 2
+        if (timeMs <= starThresholds.stars1) return 1
+        return 0
+    }
+
+    /**
+     * Show completion overlay with star rating and stats.
+     * @param {number} levelId - Completed level ID
+     * @param {number} stars - Stars earned (0-3)
+     * @param {number} deathCount - Number of deaths during the level
+     * @param {number} runElapsed - Completion time in milliseconds
+     * @param {Object} starThresholds - Object with stars1, stars2, stars3 (ms)
+     */
+    function showCompletionOverlay(levelId, stars, deathCount, runElapsed, starThresholds) {
+        isCompletionShown = true
+        completionIndex = 0
+        updateCompletionButtonSelection()
+
+        completionLevel.textContent = 'LEVEL ' + String(levelId).padStart(2, '0')
+
+        // Update star display
+        const starElements = completionStars.querySelectorAll('.completion-star')
+        starElements.forEach((el, i) => {
+            if (i < stars) {
+                el.classList.add(Constants.dom.classes.starFilled)
+                el.classList.remove(Constants.dom.classes.starEmpty)
+            } else {
+                el.classList.remove(Constants.dom.classes.starFilled)
+                el.classList.add(Constants.dom.classes.starEmpty)
+            }
+        })
+
+        // Update star threshold labels (stars1=easiest on left, stars3=hardest on right)
+        const thresholdEls = completionStars.querySelectorAll('.completion-star-threshold')
+        const thresholds = starThresholds
+            ? [starThresholds.stars1, starThresholds.stars2, starThresholds.stars3]
+            : []
+        thresholdEls.forEach((el, i) => {
+            el.textContent = thresholds[i] ? Math.round(thresholds[i] / 1000) + 's' : ''
+        })
+
+        // Update stats
+        completionDeaths.textContent = deathCount
+        completionTime.textContent = (runElapsed / 1000).toFixed(1) + 's'
+
+        // Hide stars section if no thresholds (gym/custom levels)
+        completionStars.style.display = starThresholds ? '' : 'none'
+
+        completionOverlay.classList.add(Constants.dom.classes.active)
+    }
+
+    /**
+     * Hide completion overlay.
+     */
+    function hideCompletionOverlay() {
+        isCompletionShown = false
+        completionOverlay.classList.remove(Constants.dom.classes.active)
     }
 
     // Enable swipe input on game screen (when not paused) and levels screen
@@ -153,6 +235,55 @@
         pauseButtons.forEach((btn, i) => {
             btn.classList.toggle(Constants.dom.classes.selected, i === pauseIndex)
         })
+    }
+
+    /**
+     * Update completion overlay button selection visual state.
+     */
+    function updateCompletionButtonSelection() {
+        completionButtons.forEach((btn, i) => {
+            btn.classList.toggle(Constants.dom.classes.selected, i === completionIndex)
+        })
+    }
+
+    /**
+     * Return to the screen the game was started from, with proper UI updates.
+     */
+    function returnToPreviousScreen() {
+        if (gameStartedFrom === Constants.screens.levels) {
+            screen.updateLevelButtonStates(storage)
+            screen.updateMarkerStars(storage)
+            screen.setSelectedToHighestUnlocked(storage)
+        }
+        screen.show(gameStartedFrom)
+        if (gameStartedFrom === Constants.screens.home) {
+            updateContinueButtonText()
+        }
+    }
+
+    /**
+     * Handle completion overlay action selection.
+     * @param {string} action - The action identifier from button dataset
+     */
+    function handleCompletionAction(action) {
+        audioManager.playSound(Constants.audio.sounds.menuSelect)
+        hideCompletionOverlay()
+
+        if (action === Constants.actions.completion.next) {
+            if (pendingAdvance) {
+                const advance = pendingAdvance
+                pendingAdvance = null
+                advance()
+            }
+        } else if (action === Constants.actions.completion.retry) {
+            pendingAdvance = null
+            openGameScreen(currentLevel, gameStartedFrom)
+        } else if (action === Constants.actions.completion.quit) {
+            pendingAdvance = null
+            audioManager.playSound(Constants.audio.sounds.closeScreen)
+            playMenuMusic()
+            returnToPreviousScreen()
+        }
     }
 
     /**
@@ -220,6 +351,7 @@
         if (action === Constants.actions.resetDialog.yes) {
             audioManager.playSound(Constants.audio.sounds.menuSelect)
             storage.setCurrentLevel(1)
+            storage.clearStars()
             hideResetDialog()
         } else if (action === Constants.actions.resetDialog.no) {
             audioManager.playSound(Constants.audio.sounds.closeScreen)
@@ -281,6 +413,20 @@
                 Analytics.trackLevelComplete(levelData.id, game.deathCount, Math.round(duration))
             }
 
+            // Capture stats before game.stop() could clear them
+            lastDeathCount = game.deathCount
+            lastRunElapsed = game.runElapsed
+
+            // Calculate and save stars (only for standard levels with star thresholds)
+            if (!currentLevel.startsWith('gyms/') && levelData.stars) {
+                lastEarnedStars = calculateStars(game.runElapsed, levelData.stars)
+                if (lastEarnedStars > 0) {
+                    storage.setStars(levelData.id, lastEarnedStars)
+                }
+            } else {
+                lastEarnedStars = 0
+            }
+
             // Unlock next level on completion
             const nextLevel = levelData.id + 1
 
@@ -301,25 +447,20 @@
                 return
             }
 
-            // Check if next level exists
+            // Store advance logic for after completion overlay dismissal
             const nextLevel = levelData.id + 1
-
-            if (nextLevel <= Constants.game.totalLevels) {
-                // Auto-advance to next level (use openGameScreen to properly set up new callback)
-                const nextLevelPath = storage.getLevelPath(nextLevel)
-                openGameScreen(nextLevelPath, gameStartedFrom)
-            } else {
-                // Last level completed - return to previous screen
-                playMenuMusic()
-                if (gameStartedFrom === Constants.screens.levels) {
-                    screen.updateLevelButtonStates(storage)
-                    screen.setSelectedToHighestUnlocked(storage)
-                }
-                screen.show(gameStartedFrom)
-                if (gameStartedFrom === Constants.screens.home) {
-                    updateContinueButtonText()
+            pendingAdvance = () => {
+                if (nextLevel <= Constants.game.totalLevels) {
+                    const nextLevelPath = storage.getLevelPath(nextLevel)
+                    openGameScreen(nextLevelPath, gameStartedFrom)
+                } else {
+                    playMenuMusic()
+                    returnToPreviousScreen()
                 }
             }
+
+            // Show completion overlay with stars and stats
+            showCompletionOverlay(levelData.id, lastEarnedStars, lastDeathCount, lastRunElapsed, levelData.stars)
         })
     }
 
@@ -375,6 +516,7 @@
             openGameScreen(levelPath, Constants.screens.home)
         } else if (action === Constants.actions.home.levels) {
             screen.updateLevelButtonStates(storage)
+            screen.updateMarkerStars(storage)
             screen.setSelectedToHighestUnlocked(storage)
             screen.show(Constants.screens.levels)
         } else if (action === Constants.actions.home.custom) {
@@ -470,14 +612,7 @@
             hidePauseMenu()
             game.stop()
             playMenuMusic()
-            if (gameStartedFrom === Constants.screens.levels) {
-                screen.updateLevelButtonStates(storage)
-                screen.setSelectedToHighestUnlocked(storage)
-            }
-            screen.show(gameStartedFrom)
-            if (gameStartedFrom === Constants.screens.home) {
-                updateContinueButtonText()
-            }
+            returnToPreviousScreen()
         }
     }
 
@@ -503,8 +638,8 @@
     function mainLoop() {
         const currentScreen = screen.getCurrentScreen()
 
-        // ESC on game screen toggles pause menu
-        if (currentScreen === Constants.screens.game && input.isEscapePressed()) {
+        // ESC on game screen toggles pause menu (ignored when completion overlay is shown)
+        if (currentScreen === Constants.screens.game && input.isEscapePressed() && !isCompletionShown) {
             input.consumeEscape()
             if (isPaused) {
                 audioManager.playSound(Constants.audio.sounds.pauseMenu)
@@ -590,6 +725,29 @@
             if (input.isSelectPressed()) {
                 input.consumeSelect()
                 handlePauseMenuAction(pauseButtons[pauseIndex].dataset.action)
+            }
+        }
+
+        // Completion overlay input handling (shares lastMenuInput with pause menu — mutually exclusive states)
+        if (currentScreen === Constants.screens.game && isCompletionShown) {
+            const completionLen = completionButtons.length
+
+            if (input.keys.up && !lastMenuInput.up && completionIndex > 0) {
+                completionIndex--
+                updateCompletionButtonSelection()
+                audioManager.playSound(Constants.audio.sounds.menuChange)
+            }
+            if (input.keys.down && !lastMenuInput.down && completionIndex < completionLen - 1) {
+                completionIndex++
+                updateCompletionButtonSelection()
+                audioManager.playSound(Constants.audio.sounds.menuChange)
+            }
+            lastMenuInput.up = input.keys.up
+            lastMenuInput.down = input.keys.down
+
+            if (input.isSelectPressed()) {
+                input.consumeSelect()
+                handleCompletionAction(completionButtons[completionIndex].dataset.action)
             }
         }
 
@@ -920,6 +1078,7 @@
             handleLevelsMenuAction(marker.dataset.action)
         }
     })
+    screen.updateMarkerStars(storage)
 
     // Pause menu button clicks
     pauseButtons.forEach((btn, i) => {
@@ -928,6 +1087,16 @@
             pauseIndex = i
             updatePauseButtonSelection()
             handlePauseMenuAction(btn.dataset.action)
+        })
+    })
+
+    // Completion overlay button clicks
+    completionButtons.forEach((btn, i) => {
+        btn.addEventListener(Constants.events.click, () => {
+            if (!isCompletionShown) return
+            completionIndex = i
+            updateCompletionButtonSelection()
+            handleCompletionAction(btn.dataset.action)
         })
     })
 

@@ -239,6 +239,53 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Completion Overlay -->
+            <div class="completion-overlay" id="completionOverlay">
+                <div class="completion-modal">
+                    <div class="completion-stars" id="completionStars">
+                        <div class="completion-star-group">
+                            <svg class="completion-star star-empty" viewBox="0 0 24 24" width="44" height="44">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span class="completion-star-threshold"></span>
+                        </div>
+                        <div class="completion-star-group">
+                            <svg class="completion-star star-empty" viewBox="0 0 24 24" width="44" height="44">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span class="completion-star-threshold"></span>
+                        </div>
+                        <div class="completion-star-group">
+                            <svg class="completion-star star-empty" viewBox="0 0 24 24" width="44" height="44">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span class="completion-star-threshold"></span>
+                        </div>
+                    </div>
+                    <span class="completion-level" id="completionLevel"></span>
+                    <div class="completion-stats">
+                        <div class="completion-stat">
+                            <svg class="completion-stat-icon stat-icon-deaths" viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+                                <polygon points="8,0 10,5.5 16,5.5 11,9 13,15 8,11 3,15 5,9 0,5.5 6,5.5"/>
+                            </svg>
+                            <span class="completion-stat-value" id="completionDeaths">0</span>
+                        </div>
+                        <div class="completion-stat">
+                            <svg class="completion-stat-icon stat-icon-time" viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
+                                <circle cx="8" cy="8" r="6.5"/>
+                                <polyline points="8,4 8,8 11,10"/>
+                            </svg>
+                            <span class="completion-stat-value" id="completionTime">0s</span>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <button class="menu-button selected" data-action="next">Next</button>
+                        <button class="menu-button" data-action="retry">Retry</button>
+                        <button class="menu-button" data-action="quit">Quit</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

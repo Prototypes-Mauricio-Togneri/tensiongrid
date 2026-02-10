@@ -32,7 +32,12 @@ const Constants = {
             levelFileInput: 'levelFileInput', // Hidden file input for custom level upload
             aboutScreen: 'aboutScreen',        // About screen
             moreGamesScreen: 'moreGamesScreen', // More games screen
-            changelogScreen: 'changelogScreen'  // Changelog screen
+            changelogScreen: 'changelogScreen', // Changelog screen
+            completionOverlay: 'completionOverlay', // Level completion overlay
+            completionLevel: 'completionLevel',     // Completion overlay level label
+            completionStars: 'completionStars',     // Completion overlay stars container
+            completionDeaths: 'completionDeaths',   // Completion overlay death count
+            completionTime: 'completionTime'        // Completion overlay completion time
         },
         classes: {
             shake: 'shake',                   // Screen shake animation class
@@ -43,7 +48,9 @@ const Constants = {
             focused: 'focused',               // Focused settings item class
             noScanlines: 'no-scanlines',      // Disable scanline overlay class
             noGlow: 'no-glow',                // Disable glow effects class
-            danger: 'danger'                  // Danger/destructive action button class
+            danger: 'danger',                 // Danger/destructive action button class
+            starFilled: 'star-filled',        // Filled star indicator class
+            starEmpty: 'star-empty'           // Empty star indicator class
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',      // Home menu buttons
@@ -167,6 +174,11 @@ const Constants = {
             restart: 'restart',       // Restart current level
             quit: 'quit'              // Return to main menu
         },
+        completion: {
+            next: 'next',             // Advance to next level
+            retry: 'retry',           // Restart current level
+            quit: 'quit'              // Return to previous screen
+        },
         about: {
             changelog: 'changelog',   // View changelog
             moreGames: 'moreGames',   // View more games
@@ -208,6 +220,11 @@ const Constants = {
 
         // Total number of available levels
         totalLevels: 10,
+
+        // Star rating settings
+        stars: {
+            count: 3 // Total star tiers per level
+        },
 
         // Mobile scaling settings
         scale: {
@@ -575,7 +592,8 @@ const Constants = {
         settingsAudioEnabled: 'settings.audioEnabled',       // localStorage key for audio toggle state
         settingsScanlinesEnabled: 'settings.scanlinesEnabled', // localStorage key for scanlines toggle state
         settingsGlowEnabled: 'settings.glowEnabled',           // localStorage key for glow toggle state
-        gameCurrentLevel: 'game.currentLevel'                  // localStorage key for current level (default: 1)
+        gameCurrentLevel: 'game.currentLevel',                 // localStorage key for current level (default: 1)
+        starsPrefix: 'stars.'                                  // localStorage key prefix for star ratings per level
     },
 
     // ==========================================

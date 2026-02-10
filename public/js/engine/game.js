@@ -91,6 +91,9 @@ class Game {
             return
         }
 
+        // Accumulate run time only during live gameplay (not death, exit, or pause)
+        this.runElapsed += delta
+
         this.processInput()
         const expiredEffects = this.player.update(delta)
         if (expiredEffects.length > 0) {
@@ -403,6 +406,7 @@ class Game {
      * Reset player position and clear enemies.
      */
     reset() {
+        this.runElapsed = 0
         this.dead = false
         this.deathTimer = 0
         this.explosion = null
@@ -472,6 +476,7 @@ class Game {
         this.exitAnimation = null    // Exit warp animation instance
         this.deathCount = 0          // Number of deaths in current level
         this.startTime = 0           // Level start timestamp (ms)
+        this.runElapsed = 0          // Elapsed time for current run in ms (resets on death/restart)
         this.initPowers(levelData)
         this.initExit(levelData)
         this.initSwitches(levelData)

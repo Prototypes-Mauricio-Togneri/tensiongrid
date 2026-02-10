@@ -117,6 +117,38 @@ class LocalStorage {
     }
 
     /**
+     * Get best star count for a level.
+     * @param {number} levelId - Level number
+     * @returns {number} Star count (0 if no stars saved)
+     */
+    getStars(levelId) {
+        const value = localStorage.getItem(Constants.storage.starsPrefix + levelId)
+        const stars = parseInt(value, 10)
+        return isNaN(stars) ? 0 : stars
+    }
+
+    /**
+     * Save star count for a level (only if better than existing).
+     * @param {number} levelId - Level number
+     * @param {number} stars - Star count (1-3)
+     */
+    setStars(levelId, stars) {
+        const current = this.getStars(levelId)
+        if (stars > current) {
+            localStorage.setItem(Constants.storage.starsPrefix + levelId, stars)
+        }
+    }
+
+    /**
+     * Clear all saved star data.
+     */
+    clearStars() {
+        for (let i = 1; i <= Constants.game.totalLevels; i++) {
+            localStorage.removeItem(Constants.storage.starsPrefix + i)
+        }
+    }
+
+    /**
      * Preload a level's JSON file into browser cache.
      * @param {number} level - Level number to preload
      */

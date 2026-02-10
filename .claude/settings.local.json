@@ -18,7 +18,8 @@
       "Bash(git -C /home/max/Repositories/atomic/tensiongrid show HEAD:public/js/io/local_storage.js)",
       "Bash(find:*)",
       "Bash(do echo \"=== $f ===\")",
-      "Bash(python3 -m json.tool:*)"
+      "Bash(python3 -m json.tool:*)",
+      "Skill(keybindings-help)"
     ]
   },
   "hooks": {

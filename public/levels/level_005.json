@@ -1,5 +1,10 @@
 {
   "id": 5,
+  "stars": {
+    "stars1": 50000,
+    "stars2": 30000,
+    "stars3": 20000
+  },
   "grid": {
     "width": 8,
     "height": 8,
