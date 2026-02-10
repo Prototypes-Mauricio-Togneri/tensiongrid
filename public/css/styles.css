@@ -83,7 +83,8 @@ body.no-glow * {
 }
 
 body.no-glow .menu-button.selected,
-body.no-glow .settings-item.focused .menu-button {
+body.no-glow .settings-item.focused .menu-button,
+body.no-glow .settings-item.focused .settings-label {
     filter: none;
 }
 
@@ -92,6 +93,14 @@ body.no-glow .toggle-switch input:checked + .toggle-track {
 }
 
 body.no-glow .toggle-switch input:checked + .toggle-track .toggle-thumb {
+    box-shadow: none;
+}
+
+body.no-glow .settings-item.focused .toggle-track {
+    box-shadow: none;
+}
+
+body.no-glow .settings-item.focused .toggle-thumb {
     box-shadow: none;
 }
 
@@ -877,8 +886,20 @@ canvas {
 
 /* Focused settings item (keyboard navigation indicator) */
 .settings-item.focused .settings-label {
-    color: rgba(0, 245, 255, 1);
-    text-shadow: 0 0 8px rgba(0, 245, 255, 0.5);
+    color: var(--neon-cyan);
+    filter: drop-shadow(0 0 6px #00f5ff) drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.25));
+}
+
+/* Focused toggle track glow */
+.settings-item.focused .toggle-track {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 8px rgba(0, 245, 255, 0.3), inset 0 0 10px rgba(0, 245, 255, 0.15);
+}
+
+/* Focused toggle thumb glow */
+.settings-item.focused .toggle-thumb {
+    background: rgba(0, 245, 255, 0.6);
+    box-shadow: 0 0 6px var(--neon-cyan), 0 0 12px rgba(0, 245, 255, 0.4);
 }
 
 /* Settings label text */
