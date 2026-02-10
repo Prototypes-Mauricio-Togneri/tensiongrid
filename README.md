@@ -4,8 +4,6 @@
 
 ## UI/UX
 
-- Sound when player moving?
-
 - Implement star system (1 to 3 stars) based on time taken to complete the level. This adds replayability and encourages players to improve their performance.
 
 - Show what each switch is connected to
