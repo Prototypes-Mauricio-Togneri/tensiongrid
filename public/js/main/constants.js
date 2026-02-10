@@ -414,7 +414,7 @@ const Constants = {
 
             // Player exit effect settings
             playerExit: {
-                duration: 1500      // Time for player to shrink and fade into exit in ms
+                duration: 500       // Time for player to shrink and fade into exit in ms
             },
 
             // Spawn warning effect settings (converging particles before bullet spawn)

@@ -82,8 +82,6 @@ class Game {
             this.player.y = pos.y
             this.camera.follow(this.player.x, this.player.y)
             if (this.exitAnimation.isComplete()) {
-                this.exiting = false
-                this.exitAnimation = null
                 if (this.onLevelComplete) {
                     this.onLevelComplete()
                 }
