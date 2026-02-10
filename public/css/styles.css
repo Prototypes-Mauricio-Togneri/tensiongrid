@@ -534,7 +534,7 @@ canvas {
 /* Selected button glow state */
 .menu-button.selected {
     color: var(--neon-cyan);
-    filter: drop-shadow(0 0 6px #00f5ff) drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.25));
+    filter: drop-shadow(0 0 5px rgba(0, 245, 255, 0.7)) drop-shadow(0 0 10px rgba(0, 245, 255, 0.35)) drop-shadow(0 0 16px rgba(0, 245, 255, 0.15));
 }
 
 /* Selected button animated background */
@@ -983,7 +983,7 @@ canvas {
 /* Focused settings action button gets selected glow */
 .settings-item.focused .menu-button {
     color: var(--neon-cyan);
-    filter: drop-shadow(0 0 6px #00f5ff) drop-shadow(0 0 12px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.25));
+    filter: drop-shadow(0 0 5px rgba(0, 245, 255, 0.7)) drop-shadow(0 0 10px rgba(0, 245, 255, 0.35)) drop-shadow(0 0 16px rgba(0, 245, 255, 0.15));
 }
 
 .settings-item.focused .menu-button::before {
