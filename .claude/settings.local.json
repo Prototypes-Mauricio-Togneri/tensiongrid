@@ -19,7 +19,8 @@
       "Bash(find:*)",
       "Bash(do echo \"=== $f ===\")",
       "Bash(python3 -m json.tool:*)",
-      "Skill(keybindings-help)"
+      "Skill(keybindings-help)",
+      "Bash(git checkout:*)"
     ]
   },
   "hooks": {
