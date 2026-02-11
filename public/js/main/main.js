@@ -228,6 +228,9 @@
                currentScreen === Constants.screens.levels
     })
 
+    // Enable wheel input on levels screen only
+    input.setWheelEnabled(() => screen.getCurrentScreen() === Constants.screens.levels)
+
     /**
      * Update pause menu button selection visual state.
      */
@@ -962,6 +965,14 @@
             if (swipe) {
                 const invertedKey = swipe.key === Constants.keys.left ? Constants.keys.right : Constants.keys.left
                 if (screen.navigateLevels(invertedKey)) {
+                    audioManager.playSound(Constants.audio.sounds.menuChange)
+                }
+            }
+
+            // Navigate timeline on mouse wheel
+            const wheel = input.consumeWheel()
+            if (wheel) {
+                if (screen.navigateLevels(wheel.key)) {
                     audioManager.playSound(Constants.audio.sounds.menuChange)
                 }
             }

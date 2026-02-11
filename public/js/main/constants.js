@@ -75,6 +75,7 @@ const Constants = {
         touchstart: 'touchstart',            // Touch start event
         touchmove: 'touchmove',              // Touch move event
         touchend: 'touchend',                // Touch end event
+        wheel: 'wheel',                      // Mouse wheel event
         popstate: 'popstate',                // Browser history navigation event
         visibilitychange: 'visibilitychange' // Tab visibility change event
     },
@@ -91,6 +92,13 @@ const Constants = {
     // ==========================================
     changelog: {
         scrollStep: 40  // Pixels per arrow key scroll per frame
+    },
+
+    // ==========================================
+    // Wheel Configuration
+    // ==========================================
+    wheel: {
+        threshold: 100 // Accumulated delta before triggering navigation
     },
 
     // ==========================================
@@ -608,5 +616,5 @@ const Constants = {
     // ==========================================
     // Build Version (auto-generated)
     // ==========================================
-    version: '2026-02-11T21:19:40Z'
+    version: '2026-02-11T21:35:33Z'
 }

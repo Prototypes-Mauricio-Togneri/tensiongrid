@@ -23,6 +23,11 @@ class InputManager {
         this.lastSwipeDirection = null // Last swipe direction (persists while finger is on screen)
         this.isSwipeEnabled = null    // Callback to check if swipes should trigger movement
 
+        // Wheel state
+        this.wheelDirection = null   // Pending wheel direction (consumed on read)
+        this.wheelAccumulator = 0    // Accumulated wheel delta before triggering
+        this.isWheelEnabled = null   // Callback to check if wheel should trigger navigation
+
         this.bindEvents()
     }
 
@@ -32,6 +37,14 @@ class InputManager {
      */
     setSwipeEnabled(callback) {
         this.isSwipeEnabled = callback
+    }
+
+    /**
+     * Set callback to determine if wheel events should trigger navigation.
+     * @param {Function} callback - Returns true if wheel should be processed
+     */
+    setWheelEnabled(callback) {
+        this.isWheelEnabled = callback
     }
 
     /**
@@ -134,6 +147,21 @@ class InputManager {
             this.swipeDirection = null
             this.lastSwipeDirection = null
         })
+
+        // Wheel event for level timeline navigation
+        document.addEventListener(Constants.events.wheel, (e) => {
+            if (!this.isWheelEnabled?.()) return
+            const absX = Math.abs(e.deltaX)
+            const absY = Math.abs(e.deltaY)
+            const delta = absX > absY ? e.deltaX : e.deltaY
+            if (delta === 0) return
+            this.wheelAccumulator += delta
+            if (Math.abs(this.wheelAccumulator) >= Constants.wheel.threshold) {
+                this.wheelDirection = this.wheelAccumulator > 0 ? Constants.directions.right : Constants.directions.left
+                this.wheelAccumulator = 0
+            }
+            e.preventDefault()
+        }, { passive: false })
     }
 
     /**
@@ -143,6 +171,16 @@ class InputManager {
     consumeSwipe() {
         const direction = this.swipeDirection
         this.swipeDirection = null
+        return direction
+    }
+
+    /**
+     * Consume pending wheel direction (one-shot).
+     * @returns {Object|null} Direction {row, col, key} or null if no wheel
+     */
+    consumeWheel() {
+        const direction = this.wheelDirection
+        this.wheelDirection = null
         return direction
     }
 
