@@ -4,8 +4,6 @@
 
 ## UI/UX
 
-- Show what each switch is connected to
-
 - Implement switches that unlock:
   - Lasers
   - Traps
