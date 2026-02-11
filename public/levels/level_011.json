@@ -1,23 +1,95 @@
 {
   "id": 11,
   "stars": {
-    "stars1": 50000,
-    "stars2": 35000,
-    "stars3": 25000
+    "stars1": 20000,
+    "stars2": 15000,
+    "stars3": 12000
   },
   "grid": {
     "width": 9,
     "height": 9,
     "excludes": {
       "edges": [
-        { "from": { "x": 0, "y": 3 }, "to": { "x": 0, "y": 4 } },
-        { "from": { "x": 1, "y": 3 }, "to": { "x": 1, "y": 4 } },
-        { "from": { "x": 2, "y": 3 }, "to": { "x": 2, "y": 4 } },
-        { "from": { "x": 3, "y": 3 }, "to": { "x": 3, "y": 4 } },
-        { "from": { "x": 5, "y": 3 }, "to": { "x": 5, "y": 4 } },
-        { "from": { "x": 6, "y": 3 }, "to": { "x": 6, "y": 4 } },
-        { "from": { "x": 7, "y": 3 }, "to": { "x": 7, "y": 4 } },
-        { "from": { "x": 8, "y": 3 }, "to": { "x": 8, "y": 4 } }
+        {
+          "from": {
+            "x": 0,
+            "y": 3
+          },
+          "to": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 1,
+            "y": 3
+          },
+          "to": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 2,
+            "y": 3
+          },
+          "to": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 3,
+            "y": 3
+          },
+          "to": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 3
+          },
+          "to": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 5,
+            "y": 3
+          },
+          "to": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 6,
+            "y": 3
+          },
+          "to": {
+            "x": 6,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 8,
+            "y": 3
+          },
+          "to": {
+            "x": 8,
+            "y": 4
+          }
+        }
       ]
     }
   },
@@ -26,52 +98,157 @@
     "startY": 7
   },
   "exit": {
-    "x": 7,
+    "x": 1,
     "y": 1,
     "status": "closed"
   },
   "switches": [
-    { "x": 4, "y": 4, "unlocks": "exit", "ttl": 10000 }
+    {
+      "x": 7,
+      "y": 4,
+      "unlocks": "exit",
+      "ttl": 10000
+    }
   ],
   "walls": [
-    { "from": { "x": 0, "y": 8 }, "to": { "x": 8, "y": 8 } },
-    { "from": { "x": 8, "y": 0 }, "to": { "x": 8, "y": 4 } }
+    {
+      "from": {
+        "x": 0,
+        "y": 8
+      },
+      "to": {
+        "x": 8,
+        "y": 8
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 0,
+        "y": 3
+      }
+    },
+    {
+      "from": {
+        "x": 8,
+        "y": 0
+      },
+      "to": {
+        "x": 8,
+        "y": 3
+      }
+    }
   ],
   "enemies": {
     "enemyBullet": [
-      { "x": 0, "y": 6, "direction": "right", "delay": 1000, "interval": 3500, "speed": 90 },
-      { "x": 0, "y": 5, "direction": "right", "delay": 2500, "interval": 3500, "speed": 90 },
-      { "x": 3, "y": 0, "direction": "down", "delay": 2000, "interval": 4000, "speed": 85 }
+      {
+        "x": 0,
+        "y": 6,
+        "direction": "right",
+        "delay": 1000,
+        "interval": 3500,
+        "speed": 90
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "direction": "right",
+        "delay": 2500,
+        "interval": 3500,
+        "speed": 90
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "direction": "down",
+        "delay": 2000,
+        "interval": 4000,
+        "speed": 85
+      }
     ],
     "enemyLaser": [
-      { "startX": 4, "startY": 5, "endX": 4, "endY": 7, "timeOn": 1500, "timeOff": 1500 }
+      {
+        "startX": 6,
+        "startY": 5,
+        "endX": 6,
+        "endY": 7,
+        "timeOn": 1500,
+        "timeOff": 1500
+      }
     ],
     "enemyTrap": [
-      { "x": 2, "y": 6 },
-      { "x": 5, "y": 5 },
-      { "x": 6, "y": 2 }
+      {
+        "x": 3,
+        "y": 6
+      },
+      {
+        "x": 5,
+        "y": 5
+      },
+      {
+        "x": 3,
+        "y": 2
+      }
     ],
     "enemyMine": [
-      { "x": 3, "y": 4, "delay": 1500 },
-      { "x": 5, "y": 2, "delay": 1500 }
+      {
+        "x": 6,
+        "y": 4,
+        "delay": 1500
+      },
+      {
+        "x": 3,
+        "y": 1,
+        "delay": 1500
+      }
     ],
     "enemyShooter": [
-      { "x": 2, "y": 1, "arms": ["right", "down"], "delay": 3000 }
+      {
+        "x": 7,
+        "y": 1,
+        "arms": [
+          "left",
+          "down"
+        ],
+        "delay": 3000
+      }
     ],
     "enemyPatrol": [
       {
         "speed": 130,
         "path": [
-          { "x": 3, "y": 1 },
-          { "x": 5, "y": 1 },
-          { "x": 5, "y": 2 },
-          { "x": 3, "y": 2 },
-          { "x": 3, "y": 1 }
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 6,
+            "y": 1
+          },
+          {
+            "x": 6,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 1
+          }
         ]
       }
     ],
     "enemyFollower": [
-      { "startX": 7, "startY": 7, "speed": 80 }
+      {
+        "startX": 7,
+        "startY": 7,
+        "speed": 80
+      }
     ]
   }
 }
