@@ -105,7 +105,7 @@
   "switches": [
     {
       "x": 7,
-      "y": 4,
+      "y": 3,
       "unlocks": "exit",
       "ttl": 10000
     }
