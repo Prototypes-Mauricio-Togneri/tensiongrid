@@ -8,6 +8,7 @@ class Wall {
      * @param {Object} config - Wall configuration from level data
      */
     constructor(grid, config) {
+        this.id = config.id || null // Optional element id for switch targeting
         this.grid = grid
         this.fromX = config.from.x  // Start node column
         this.fromY = config.from.y  // Start node row

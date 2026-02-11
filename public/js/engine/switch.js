@@ -7,14 +7,14 @@ class Switch {
      * @param {Object} config - Switch configuration from level data
      * @param {number} config.x - Grid column position
      * @param {number} config.y - Grid row position
-     * @param {string} config.unlocks - Target type to unlock ('exit')
+     * @param {string} config.unlocks - Id of the element to unlock
      * @param {number} config.ttl - Time to live in milliseconds
      * @param {Grid} grid - Grid instance for position calculation
      */
     constructor(config, grid) {
         this.row = config.y           // Grid row position
         this.col = config.x           // Grid column position
-        this.unlocks = config.unlocks // Target type ('exit')
+        this.unlocks = config.unlocks // Target element id
         this.ttl = config.ttl         // Time to live in ms
 
         const pos = grid.getNodePosition(this.row, this.col)

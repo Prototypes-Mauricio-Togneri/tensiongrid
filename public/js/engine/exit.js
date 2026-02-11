@@ -12,6 +12,7 @@ class Exit {
      * @param {Grid} grid - Grid instance for position calculation
      */
     constructor(config, grid) {
+        this.id = config.id || null   // Optional element id for switch targeting
         this.row = config.y
         this.col = config.x
         this.isOpen = config.status === 'open'

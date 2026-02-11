@@ -8,6 +8,7 @@ class EnemyShooter {
      * @param {Grid} grid - Grid instance for position calculation
      */
     constructor(config, grid) {
+        this.id = config.id || null // Optional element id for switch targeting
         this.row = config.y // Grid row position
         this.col = config.x // Grid column position
         this.grid = grid // Grid reference

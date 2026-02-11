@@ -112,9 +112,10 @@ class Game {
         // Update switches and handle expiration
         for (const switchItem of this.switches) {
             if (switchItem.update(delta)) {
-                // Switch TTL expired - close exit
-                if (switchItem.unlocks === 'exit' && this.exit) {
-                    this.exit.close()
+                // Switch TTL expired - close target
+                const target = this.unlockables.get(switchItem.unlocks)
+                if (target && typeof target.close === 'function') {
+                    target.close()
                 }
             }
         }
@@ -290,9 +291,10 @@ class Game {
         switchItem.collect()
         if (this.trackAnalytics) Analytics.trackSwitchCollected(this.levelData.id, switchItem.unlocks)
 
-        // Unlock the target
-        if (switchItem.unlocks === 'exit' && this.exit) {
-            this.exit.open(switchItem.ttl)
+        // Unlock the target by id
+        const target = this.unlockables.get(switchItem.unlocks)
+        if (target && typeof target.open === 'function') {
+            target.open(switchItem.ttl)
         }
 
         // Play sound and create wave animation
@@ -423,6 +425,7 @@ class Game {
         this.initExit(this.levelData)     // Reinitialize exit (resets particle animation)
         this.initSwitches(this.levelData) // Reset switches
         this.initWalls(this.levelData)    // Reinitialize walls
+        this.registerUnlockables()        // Rebuild id-to-element map
         this.camera.follow(this.player.x, this.player.y)
     }
 
@@ -466,6 +469,7 @@ class Game {
         this.exit = null             // Exit portal (single per level, optional)
         this.switches = []           // Switches that unlock the exit
         this.walls = []              // Static walls that block movement
+        this.unlockables = new Map() // Id-to-element lookup for switch targeting
         this.playerWrap = null       // Player wrap effect
         this.collectionWave = null   // Collection wave effect
         this.mineExplosions = []     // Active mine explosion effects
@@ -479,6 +483,7 @@ class Game {
         this.initExit(levelData)
         this.initSwitches(levelData)
         this.initWalls(levelData)
+        this.registerUnlockables()
     }
 
     /**
@@ -564,6 +569,26 @@ class Game {
         if (levelData.walls) {
             for (const config of levelData.walls) {
                 this.walls.push(new Wall(this.grid, config))
+            }
+        }
+    }
+
+    /**
+     * Register elements with ids in the unlockables map for switch targeting.
+     */
+    registerUnlockables() {
+        this.unlockables.clear()
+        if (this.exit && this.exit.id) {
+            this.unlockables.set(this.exit.id, this.exit)
+        }
+        for (const wall of this.walls) {
+            if (wall.id) {
+                this.unlockables.set(wall.id, wall)
+            }
+        }
+        for (const enemy of this.enemyManager.getAllEnemies()) {
+            if (enemy.id) {
+                this.unlockables.set(enemy.id, enemy)
             }
         }
     }

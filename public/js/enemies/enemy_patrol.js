@@ -8,6 +8,7 @@ class EnemyPatrol {
      * @param {Grid} grid - Grid instance for position calculations
      */
     constructor(config, grid) {
+        this.id = config.id || null // Optional element id for switch targeting
         this.grid = grid // Grid reference
         this.path = config.path // Array of {x, y} node coordinates
         this.speed = config.speed // Movement speed in pixels/second

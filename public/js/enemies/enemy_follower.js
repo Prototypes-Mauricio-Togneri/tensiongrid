@@ -9,6 +9,7 @@ class EnemyFollower {
      * @param {Grid} grid - Grid instance for position calculations
      */
     constructor(config, grid) {
+        this.id = config.id || null // Optional element id for switch targeting
         this.grid = grid // Grid reference
         this.speed = config.speed // Movement speed in pixels/second
         this.size = Constants.game.enemies.follower.size // Follower size in pixels

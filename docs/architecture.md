@@ -338,16 +338,16 @@ Cyberpunk/neon aesthetic with these design elements:
 - Multiple rings visible simultaneously create tunnel/portal effect
 - `open(ttl?)` / `close()` methods allow dynamic state changes (used by switches)
 - `getTimerProgress()` returns `{progress, isWarning}` for timer arc rendering
-- Config: `x`, `y` (node position), `status` ('open' or 'closed')
+- Config: `id` (optional element id for switch targeting), `x`, `y` (node position), `status` ('open' or 'closed')
 
 **Switch** (`js/engine/switch.js`) - Timed unlock mechanism:
 - Fixed position on a single grid node
 - Gold/yellow rhombus with semi-transparent pulse animation
-- When player touches switch: disappears, unlocks linked target (exit)
+- When player touches switch: disappears, unlocks linked target by id
 - After TTL expires: switch reappears, target locks again
 - Collection triggers yellow wave animation and sound effect
 - Resets on player death (switch reappears, exit closes)
-- Config: `x`, `y` (node position), `unlocks` ('exit'), `ttl` (milliseconds)
+- Config: `x`, `y` (node position), `unlocks` (element id to unlock), `ttl` (milliseconds)
 
 **Wall** (`js/engine/wall.js`) - Static movement barrier:
 - Line segment between two grid nodes (can span multiple nodes)
@@ -414,6 +414,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handleEnemyHit()` - Processes enemy collision (shield break or death)
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
+- `registerUnlockables()` - Builds id-to-element map from exit and walls for switch targeting
 - Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
 - `setGlowEnabled(enabled)` - Propagates glow toggle state to renderer
 - `debugMode` - Toggle for debug overlay (toggled via "G" key in main loop)

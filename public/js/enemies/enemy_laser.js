@@ -8,6 +8,7 @@ class EnemyLaser {
      * @param {Object} config - Laser configuration from level data
      */
     constructor(grid, config) {
+        this.id = config.id || null // Optional element id for switch targeting
         this.grid = grid // Grid reference
         this.startX = config.startX // Start node column
         this.startY = config.startY // Start node row

@@ -367,6 +367,21 @@ class EnemyManager {
     }
 
     /**
+     * Get all static enemy instances (excludes spawned bullets).
+     * @returns {Object[]} All laser, trap, mine, shooter, patrol, and follower instances
+     */
+    getAllEnemies() {
+        return [
+            ...this.lasers,
+            ...this.traps,
+            ...this.mines,
+            ...this.shooters,
+            ...this.patrols,
+            ...this.followers
+        ]
+    }
+
+    /**
      * Get positions of mines that exploded this frame.
      * @returns {Vector2[]} Array of explosion positions
      */
