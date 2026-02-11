@@ -220,7 +220,7 @@ const Constants = {
         template: 'templates/template.json',
 
         // Total number of available levels
-        totalLevels: 10,
+        totalLevels: 11,
 
         // Star rating settings
         stars: {

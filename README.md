@@ -42,5 +42,6 @@ this levels introduces the XXX enemy.
 but it also should have bullets, 1 laser, 1 patrol, 1 follower, 1 shooter, 2-3 mines and 2-3 traps.
 leave some edges strategically so the player can use them to escape some hazards.
 but also add walls to the player can't just wrap around the grid to reach the exit directly.
+read all the previous levels in @public/levels to understand how they were made.
 plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.

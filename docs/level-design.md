@@ -12,7 +12,7 @@ Guidelines for designing levels in Tension Grid.
 
 - **Every node should ask a question** - Each move should force a decision: "Is this safe now?", "Do I bait or detour?", "Rush or wait?"
 - **Enemy placement must pose a challenge** - Don't place enemies where they can't threaten the player
-- **Minimize empty space** - No more than 5% of available nodes (i.e. nodes where the player can stand) should be "rest nodes" (safe from all threats); applies per level, excluding spawn grace period and tutorial levels
+- **Minimize empty space** - No more than 5% of available nodes (i.e. nodes where the player can stand) should be "rest nodes" (safe from all threats); applies per level, excluding spawn grace period
 - **No cramping of different enemy types** - Give each enemy type room to create its own threat pattern
 - **Scale enemy count with grid size** - Larger grids need more threats; aim for consistent density across levels
 
@@ -65,7 +65,6 @@ Guidelines for designing levels in Tension Grid.
 - **Complementary threats** - Pair enemies that force different skills (e.g., patrol blocks route while bullets require timing)
 - **Enemies should create dilemmas together** - One blocks escape, another punishes waiting, a third forces detours; more enemies ≠ more interesting
 - **Avoid redundancy** - Don't stack enemies that do the same thing in the same area (e.g., two bullets on the same lane)
-- **One new mechanic per level** - During the tutorial levels, present new enemies or mechanics gradually
 
 ### Patrol Paths
 
@@ -164,7 +163,7 @@ Non-threatening elements that shape the playable space.
 - **Behavior:** Static barrier between two grid nodes; blocks player movement but does not damage
 - **Purpose:** Constrains player movement; prevents edge wrapping in specific areas
 - **Configuration:** Start/end nodes (can span multiple nodes in a line)
-- **Best for:** Tutorial levels to guide players; preventing wrap-around on outer edges; creating corridors without using excluded nodes
+- **Best for:** Preventing wrap-around on outer edges; creating corridors without using excluded nodes
 - **Placement:** Typically on outer grid edges to disable wrapping and keep players focused on the intended play area
 - **Note:** Unlike excluded edges, walls are visible barriers that clearly communicate "you cannot pass here"
 
