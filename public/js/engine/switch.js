@@ -24,6 +24,7 @@ class Switch {
         this.size = Constants.game.switch.size
         this.collected = false        // Whether switch has been collected
         this.resetTimer = 0           // Countdown timer when collected
+        this.path = null              // World-coordinate path to target [{x, y}, ...]
     }
 
     /**
@@ -72,5 +73,13 @@ class Switch {
      */
     getPosition() {
         return new Vector2(this.x, this.y)
+    }
+
+    /**
+     * Set the world-coordinate path from this switch to its unlock target.
+     * @param {Object[]} worldPositions - Array of {x, y} world positions from switch to target
+     */
+    setPath(worldPositions) {
+        this.path = worldPositions
     }
 }

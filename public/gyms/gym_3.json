@@ -14,6 +14,7 @@
     "startY": 7
   },
   "exit": {
+    "id": "exit",
     "x": 14,
     "y": 14,
     "status": "closed"

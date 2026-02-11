@@ -50,7 +50,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `powers.size`: (12px) - collectible size for all power types
 - `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
 - `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms), timerArcOffset (6px), timerArcThickness (4px), timerArcWarningThreshold (0.25)
-- `switch`: size (16px)
+- `switch`: size (24px), pulsePeriod (1500ms), pulseScale (3), pulseAlpha (0.3), connection (lineWidth: 2px, dash: [6,8], opacity: 0.15, glowBlur: 4)
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
 - `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
@@ -101,6 +101,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isExcluded(row, col)` - Check if node is excluded
 - `isEdgeExcluded(row1, col1, row2, col2)` - Check if edge between two nodes is excluded
 - `wrapPosition(row, col)` - Toroidal wrapping
+- `findPath(startRow, startCol, endRow, endCol, costlyNodes?)` - Dijkstra's shortest path between two nodes (respects exclusions, avoids costly nodes)
 - Supports `excludes.nodes` config to remove nodes and their edges from the grid
 - Supports `excludes.edges` config to remove specific edges (bidirectional)
 
@@ -347,6 +348,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - After TTL expires: switch reappears, target locks again
 - Collection triggers yellow wave animation and sound effect
 - Resets on player death (switch reappears, exit closes)
+- Dashed gold connection line along grid edges from switch to target (BFS path)
+- `setPath(worldPositions)` - Stores precomputed world-coordinate path for connection line rendering
 - Config: `x`, `y` (node position), `unlocks` (element id to unlock), `ttl` (milliseconds)
 
 **Wall** (`js/engine/wall.js`) - Static movement barrier:
@@ -394,6 +397,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Player boost indicator: electric blue glow when speed boost is active, red glow when slowed
 - Shield rendering: electric blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
+- `drawSwitchConnections(switches)` - Draws faint gold dashed lines along BFS paths from switches to targets
 - `drawSpawnWarnings(warnings)` - Draws converging bullet-red particles at spawn points before bullets fire
 - `drawDebugNodeCoordinates(grid)` - Draws `row,col` text above each grid node (debug mode)
 
@@ -415,6 +419,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
 - `registerUnlockables()` - Builds id-to-element map from exit and walls for switch targeting
+- `computeSwitchPaths()` - Computes weighted paths from switches to targets, avoiding fixed enemies when possible
 - Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
 - `setGlowEnabled(enabled)` - Propagates glow toggle state to renderer
 - `debugMode` - Toggle for debug overlay (toggled via "G" key in main loop)

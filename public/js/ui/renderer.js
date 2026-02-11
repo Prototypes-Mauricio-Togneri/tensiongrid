@@ -1120,6 +1120,37 @@ class Renderer {
         }
     }
 
+    /**
+     * Draw dashed connection lines from uncollected switches to their targets.
+     * @param {Switch[]} switches - Array of switch instances
+     */
+    drawSwitchConnections(switches) {
+        const ctx = this.ctx
+        const { lineWidth, dash, opacity, glowBlur } = Constants.game.switch.connection
+
+        for (const switchItem of switches) {
+            if (switchItem.isCollected()) continue
+            if (!switchItem.path || switchItem.path.length < 2) continue
+
+            const start = this.toScreen(switchItem.path[0].x, switchItem.path[0].y)
+
+            ctx.save()
+            ctx.strokeStyle = this.hexWithAlpha(this.colors.switch, opacity)
+            ctx.lineWidth = lineWidth
+            ctx.setLineDash(dash)
+            ctx.shadowColor = this.colors.switch
+            ctx.shadowBlur = this.shadow(glowBlur)
+
+            ctx.beginPath()
+            ctx.moveTo(start.x, start.y)
+            for (let i = 1; i < switchItem.path.length; i++) {
+                const point = this.toScreen(switchItem.path[i].x, switchItem.path[i].y)
+                ctx.lineTo(point.x, point.y)
+            }
+            ctx.stroke()
+            ctx.restore()
+        }
+    }
 
     /**
      * Draw a lightning bolt icon centered at position.

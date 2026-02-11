@@ -342,7 +342,14 @@ const Constants = {
             size: 24,                  // Key size in pixels
             pulsePeriod: 1500,         // Duration of one pulse wave cycle in ms
             pulseScale: 3,             // Maximum pulse scale relative to base size
-            pulseAlpha: 0.3            // Pulse opacity at start of wave
+            pulseAlpha: 0.3,           // Pulse opacity at start of wave
+            // Dashed line from switch to target
+            connection: {
+                lineWidth: 2,          // Line width in pixels
+                dash: [6, 8],          // Dash pattern [dash, gap]
+                opacity: 0.15,         // Line opacity
+                glowBlur: 4            // Shadow blur for subtle glow
+            }
         },
 
         // Effect configurations (used by EffectManager)

@@ -356,6 +356,9 @@ class Game {
             this.renderer.drawExit(this.exit)
         }
 
+        // Draw switch connection lines (behind switches)
+        this.renderer.drawSwitchConnections(this.switches)
+
         // Draw switches
         this.renderer.drawSwitches(this.switches, time)
 
@@ -426,6 +429,7 @@ class Game {
         this.initSwitches(this.levelData) // Reset switches
         this.initWalls(this.levelData)    // Reinitialize walls
         this.registerUnlockables()        // Rebuild id-to-element map
+        this.computeSwitchPaths()        // Compute connection line paths
         this.camera.follow(this.player.x, this.player.y)
     }
 
@@ -484,6 +488,7 @@ class Game {
         this.initSwitches(levelData)
         this.initWalls(levelData)
         this.registerUnlockables()
+        this.computeSwitchPaths()
     }
 
     /**
@@ -590,6 +595,54 @@ class Game {
             if (enemy.id) {
                 this.unlockables.set(enemy.id, enemy)
             }
+        }
+    }
+
+    /**
+     * Compute weighted paths from each switch to its unlock target.
+     * Avoids fixed enemies when possible. Stores world-coordinate paths on each switch.
+     */
+    computeSwitchPaths() {
+        // Build set of nodes occupied by fixed enemies
+        const costlyNodes = new Set()
+        for (const trap of this.enemyManager.getTraps()) {
+            costlyNodes.add(`${trap.row},${trap.col}`)
+        }
+        for (const mine of this.enemyManager.getMines()) {
+            costlyNodes.add(`${mine.row},${mine.col}`)
+        }
+        for (const shooter of this.enemyManager.getShooters()) {
+            costlyNodes.add(`${shooter.row},${shooter.col}`)
+        }
+        for (const laser of this.enemyManager.getLasers()) {
+            // Enumerate all nodes along the laser's axis-aligned line
+            const minRow = Math.min(laser.startY, laser.endY)
+            const maxRow = Math.max(laser.startY, laser.endY)
+            const minCol = Math.min(laser.startX, laser.endX)
+            const maxCol = Math.max(laser.startX, laser.endX)
+            for (let r = minRow; r <= maxRow; r++) {
+                for (let c = minCol; c <= maxCol; c++) {
+                    costlyNodes.add(`${r},${c}`)
+                }
+            }
+        }
+
+        for (const switchItem of this.switches) {
+            const target = this.unlockables.get(switchItem.unlocks)
+            if (!target) continue
+
+            const targetRow = target.row ?? target.fromY
+            const targetCol = target.col ?? target.fromX
+            if (targetRow === undefined || targetCol === undefined) continue
+
+            const pathNodes = this.grid.findPath(switchItem.row, switchItem.col, targetRow, targetCol, costlyNodes)
+            if (!pathNodes) continue
+
+            const worldPositions = pathNodes.map(node => {
+                const pos = this.grid.getNodePosition(node.row, node.col)
+                return { x: pos.x, y: pos.y }
+            })
+            switchItem.setPath(worldPositions)
         }
     }
 
