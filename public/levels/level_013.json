@@ -129,13 +129,21 @@
         "delay": 1500,
         "interval": 4500,
         "speed": 85
+      },
+      {
+        "x": 9,
+        "y": 1,
+        "direction": "left",
+        "delay": 2000,
+        "interval": 3500,
+        "speed": 100
       }
     ],
     "enemyLaser": [
       {
-        "startX": 2,
+        "startX": 1,
         "startY": 4,
-        "endX": 7,
+        "endX": 8,
         "endY": 4,
         "timeOn": 1500,
         "timeOff": 1500
@@ -150,11 +158,11 @@
             "y": 5
           },
           {
-            "x": 8,
+            "x": 9,
             "y": 5
           },
           {
-            "x": 8,
+            "x": 9,
             "y": 7
           },
           {
