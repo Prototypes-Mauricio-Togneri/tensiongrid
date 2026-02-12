@@ -33,7 +33,7 @@
 
 ## Prompt
 
-you did a good job implementing level X. now create level Y.
+you did a good job implementing all the levels up to level X. now create level Y.
 this levels introduces the XXX enemy.
 but it also should have bullets, 1 laser, 1 patrol, 1 follower, 1 shooter, 2-3 mines and 2-3 traps.
 leave some edges strategically so the player can use them to escape some hazards.
