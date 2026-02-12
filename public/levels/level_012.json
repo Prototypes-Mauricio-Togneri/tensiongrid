@@ -15,14 +15,14 @@
   },
   "exit": {
     "id": "exit",
-    "x": 1,
+    "x": 8,
     "y": 1,
     "status": "closed"
   },
   "switches": [
     {
       "x": 1,
-      "y": 8,
+      "y": 6,
       "unlocks": "exit",
       "ttl": 12000
     }
@@ -30,7 +30,7 @@
   "powerUps": [
     {
       "x": 2,
-      "y": 6,
+      "y": 8,
       "type": "fast"
     }
   ],
@@ -87,26 +87,10 @@
         "speed": 140
       },
       {
-        "x": 9,
-        "y": 3,
-        "direction": "left",
-        "delay": 700,
-        "interval": 1400,
-        "speed": 140
-      },
-      {
         "x": 0,
         "y": 4,
         "direction": "right",
-        "delay": 300,
-        "interval": 1300,
-        "speed": 150
-      },
-      {
-        "x": 9,
-        "y": 4,
-        "direction": "left",
-        "delay": 950,
+        "delay": 500,
         "interval": 1300,
         "speed": 150
       },
@@ -114,15 +98,7 @@
         "x": 0,
         "y": 5,
         "direction": "right",
-        "delay": 600,
-        "interval": 1400,
-        "speed": 140
-      },
-      {
-        "x": 9,
-        "y": 5,
-        "direction": "left",
-        "delay": 100,
+        "delay": 200,
         "interval": 1400,
         "speed": 140
       },
@@ -192,20 +168,21 @@
         "x": 5,
         "y": 2,
         "arms": [
-          "down"
+          "left",
+          "right"
         ],
         "delay": 2500
       }
     ],
     "enemyMine": [
       {
-        "x": 4,
+        "x": 2,
         "y": 7,
         "delay": 1500
       },
       {
-        "x": 3,
-        "y": 9,
+        "x": 5,
+        "y": 8,
         "delay": 1500
       }
     ],
@@ -221,6 +198,24 @@
       {
         "x": 2,
         "y": 2,
+        "timeOn": 1500,
+        "timeOff": 1500
+      },
+      {
+        "x": 3,
+        "y": 1,
+        "timeOn": 1500,
+        "timeOff": 1200
+      },
+      {
+        "x": 5,
+        "y": 1,
+        "timeOn": 1200,
+        "timeOff": 1500
+      },
+      {
+        "x": 7,
+        "y": 1,
         "timeOn": 1500,
         "timeOff": 1500
       }
