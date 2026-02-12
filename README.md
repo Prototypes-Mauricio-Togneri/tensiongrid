@@ -22,7 +22,6 @@
 
 ## New levels
 
-11. **Exit key** - Time pressure and objective sequencing
 12. **Power-ups** - Fast movement
 13. **Power-downs** - Slow movement
 14. **Portals** - Teleportation mechanics
