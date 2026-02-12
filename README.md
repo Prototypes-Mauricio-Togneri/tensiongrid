@@ -41,3 +41,4 @@ but also add walls to the player can't just wrap around the grid to reach the ex
 read all the previous levels in @public/levels to understand how they were made.
 plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.
+ask me if you have any question.
