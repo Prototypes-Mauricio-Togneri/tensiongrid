@@ -22,7 +22,6 @@
 
 ## New levels
 
-12. **Power-ups** - Fast movement
 13. **Power-downs** - Slow movement
 14. **Portals** - Teleportation mechanics
 15. **Laser switch** - Unlocks laser
