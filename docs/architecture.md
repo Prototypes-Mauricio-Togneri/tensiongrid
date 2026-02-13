@@ -268,6 +268,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - Pink/magenta glow that transitions with state via IntermittentState
 - Kills player on contact with any node along the laser
 - Optional intermittent mode: `timeOn`/`timeOff` (ms) to cycle on/off (starts on)
+- Constant mode: omit `timeOn`/`timeOff` for always-on laser
+- Switch-controllable: `open(ttl)` disables, `close()` re-enables (for constant lasers targeted by switches)
+- `row`/`col` getters return midpoint for switch connection line targeting
 
 **EnemyTrap** (`js/enemies/enemy_trap.js`) - Static point hazard:
 - Fixed position on a single grid node

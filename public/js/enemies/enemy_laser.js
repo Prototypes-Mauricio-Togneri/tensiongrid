@@ -53,6 +53,28 @@ class EnemyLaser {
     // Glow intensity getter for renderer compatibility
     get glowIntensity() { return this.state.intensity }
 
+    // Midpoint getters for switch connection line targeting
+    get row() { return Math.round((this.startY + this.endY) / 2) }
+    get col() { return Math.round((this.startX + this.endX) / 2) }
+
+    /**
+     * Disable the laser (called by switch system).
+     * For constant lasers, this turns the beam off until close() is called.
+     * @param {number} _ttl - Time to live in ms (managed by switch, unused here)
+     */
+    open(_ttl) {
+        this.state.active = false
+    }
+
+    /**
+     * Re-enable the laser (called when switch TTL expires).
+     * Intensity ramps back up via IntermittentState, providing a brief visual warning.
+     */
+    close() {
+        this.state.active = true
+        this.state.timer = 0
+    }
+
     /**
      * Check if a grid node falls within the laser's line segment.
      * Only supports horizontal and vertical lasers.
