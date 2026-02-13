@@ -38,6 +38,7 @@ but it also should have bullets, 1 laser, 1 patrol, 1 follower, 1 shooter, 2-3 m
 leave some edges strategically so the player can use them to escape some hazards.
 but also add walls to the player can't just wrap around the grid to reach the exit directly.
 read all the previous levels in @public/levels to understand how they were made.
+read all the level descriptions in @docs/levels.md to understand the design philosophy behind each level.
 plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.
 ask me if you have any question.
