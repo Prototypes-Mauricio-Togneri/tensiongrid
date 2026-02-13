@@ -22,7 +22,6 @@
 
 ## New levels
 
-14. **Portals** - Teleportation mechanics
 15. **Laser switch** - Unlocks laser
 16. **Power-ups** - Shields
 17. **Power-downs** - Mirror controls
