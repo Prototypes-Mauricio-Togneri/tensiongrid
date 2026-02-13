@@ -240,3 +240,4 @@ Checklist when creating a new level:
 
 1. Create the level file at `public/levels/level_<NNN>.json` (zero-padded to 3 digits)
 2. Update `totalLevels` in `public/js/main/constants.js` to reflect the new count
+3. Add a description for the new level in `docs/levels.md`
