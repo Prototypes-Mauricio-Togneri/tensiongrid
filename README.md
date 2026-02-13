@@ -22,7 +22,6 @@
 
 ## New levels
 
-15. **Laser switch** - Unlocks laser
 16. **Power-ups** - Shields
 17. **Power-downs** - Mirror controls
 18. **Safe heaven** - Areas where player can wait safely
