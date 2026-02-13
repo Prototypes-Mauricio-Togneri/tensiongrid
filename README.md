@@ -41,3 +41,6 @@ read all the level descriptions in @docs/levels.md to understand the design phil
 plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.
 ask me if you have any question.
+
+- Use traps with long time on and short time off to stop players to advance through an easy path
+- Adjust walls in level 14
