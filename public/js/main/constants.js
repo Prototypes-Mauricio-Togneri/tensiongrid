@@ -222,7 +222,7 @@ const Constants = {
     // ==========================================
     game: {
         // Gym mode configuration path
-        gym: 'gyms/gym_1.json',
+        gym: 'gyms/gym_3.json',
 
         // Level template file path
         template: 'templates/template.json',
