@@ -42,16 +42,34 @@ Guidelines for designing levels in Tension Grid.
 - **Clear sightlines where possible** - Players should see threats before they become lethal
 - **Limited visibility in large maps is OK** - Discovering threats is part of the challenge in bigger grids; perfect information applies within the viewport, discovery outside it; should never create unavoidable death on discovery
 
+### Grid Size Progression
+
+- **Start small, grow with complexity** - New mechanics need room; increase grid size when the current one feels cramped, not on a fixed schedule
+- **7×7 for fundamentals** - Sufficient for 1-2 enemy types in isolation; keeps the player focused on learning core mechanics
+- **8×8 for spatial complexity** - Needed when traps, excluded edges/nodes, or multiple enemy types share the grid
+- **9×9+ for multi-objective levels** - Switch-based levels need routing room for barriers, gaps, and the longer journeys between objectives
+- **10×10 for multi-section levels** - Portal levels and complex switch levels benefit from the extra space to create distinct zones
+- **Larger grids demand more threats** - An empty 10×10 feels barren; scale enemy count and variety to maintain density
+
 ### Start & Exit Placement
 
 - **Open exit levels**: Place exit far from starting point (e.g., diagonal corners)
 - **Switch-based levels**: Start, switch, and exit should all be distanced from each other; the journey is start → switch → exit
 - **Design the last move first** - Create the ending, then design backward; ensures the final moment feels earned
+- **Vary start/exit direction across levels** - Repeating the same diagonal (e.g., top-left to bottom-right) builds muscle memory; reversing direction forces players to re-read the grid
 
 ### Switch Mechanics
 
 - **TTL should not be too generous** - Create tension; the timer should allow reaching the exit with some reasonable margin for error on the optimal path
 - **Switch placement creates the challenge** - Distance and obstacles between switch and exit matter
+
+### Multi-Phase Journeys
+
+- **Switch and portal levels create distinct phases** - Typically: navigate to switch/portal → activate/teleport → race to exit; design each phase with its own threat profile
+- **Each phase should escalate or shift** - Phase 1 might be methodical navigation, phase 2 a timed sprint; avoid repeating the same challenge across phases
+- **Barriers define phases spatially** - Excluded edges with a single gap, or disconnected grid sections linked by portals, create natural phase boundaries
+- **The return trip should feel different** - After hitting a switch the player retraces ground, but time pressure and new awareness (follower closing in, TTL ticking) change the experience
+- **Confine enemies to sections when useful** - Followers and patrols can be restricted to one side of a barrier or portal split, giving the player relief when they cross to the other side
 
 ### Guiding Through Design
 
@@ -185,6 +203,15 @@ Non-threatening elements that shape the playable space.
 - **Front-loaded clarity** - First few moves should be learnable quickly; when introducing new enemies, make first encounters forgiving so players can learn behavior
 - **Escalating difficulty within a level** - The approach toward the exit should get harder, but the final moment should be a clear path to victory
 - **End with relief, not chaos** - The last move should feel like escape or victory; the journey escalates, but arrival is earned relief
+
+### Star Thresholds
+
+- **Star 1 (bronze):** Generous completion time; a player who knows the route but doesn't optimize should earn it comfortably — roughly 2-3× the optimal clear time for open-exit levels
+- **Star 2 (silver):** Midpoint between star 1 and star 3 — roughly 50-65% of star 1 for open-exit levels
+- **Star 3 (gold):** Near-optimal execution; demands route knowledge and precise timing — roughly 35-45% of the star 1 time for open-exit levels
+- **Switch levels have tighter spreads** - The TTL creates a hard floor on completion time, so star 3 is closer to star 1 (~55-60% of star 1) and star 2 sits at ~70-75%
+- **Scale with grid size and objective count** - Larger grids and multi-phase journeys need longer base times; a 10×10 switch level naturally takes longer than a 7×7 open-exit level
+- **Playtest the gold time** - The star 3 threshold should feel achievable but demanding; if a skilled player can't reach it after several attempts, it's too tight
 
 ## Power-Ups & Power-Downs
 
