@@ -360,6 +360,17 @@ Cyberpunk/neon aesthetic with these design elements:
 - Persists across player deaths (static level feature)
 - Config: `from` (start node {x, y}), `to` (end node {x, y})
 
+**Portal** (`js/engine/portal.js`) - Teleportation portal:
+- Portals come in pairs linked by a shared `group` string
+- Player stepping on a portal teleports to its partner
+- Uses grid-based collision (same as exit) — triggers only when player is stationary
+- Cooldown prevents infinite re-teleportation (clears when player steps off)
+- Teleportation reuses `PlayerWrapAnimation` and wrap-around sound
+- Visual: spinning vortex with two counter-rotating arc rings (magenta #ff44ff)
+- Outer ring rotates clockwise, inner ring counter-clockwise at 1.5x speed
+- Config per portal: `group` (string), `x` (col), `y` (row)
+- Level JSON property: `portals` (optional array)
+
 **AudioManager** (`js/io/audio_manager.js`) - Sound and music playback:
 - Preloads sound files from Constants.audio.sounds
 - Respects audio toggle setting in UI
@@ -383,6 +394,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Grid-based collision for lasers, traps, shooters, and powers (exact node match, only when player is stationary)
 - Mine contact detection: triggers mine countdown (does not cause collision/death)
 - Power collection detection: returns collected power for effect application
+- Portal collision detection: returns portal player is standing on for teleportation
 
 **Renderer** (`js/ui/renderer.js`) - Canvas drawing:
 - Multi-layer rendering: glow → main → highlight
@@ -397,6 +409,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Player boost indicator: electric blue glow when speed boost is active, red glow when slowed
 - Shield rendering: electric blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
+- `drawPortals(portals)` - Draws spinning vortex portals with counter-rotating magenta arc rings
 - `drawSwitchConnections(switches)` - Draws faint gold dashed lines along BFS paths from switches to targets
 - `drawSpawnWarnings(warnings)` - Draws converging bullet-red particles at spawn points before bullets fire
 - `drawDebugNodeCoordinates(grid)` - Draws `row,col` text above each grid node (debug mode)
@@ -433,6 +446,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Single powers array for both power-ups and power-downs
 - Power collection creates effects via `player.effectManager.addEffect(type, config)`
 - Collection wave animation on power pickup (electric blue for power-ups, red for power-downs)
+- Portal teleportation: pairs portals by group, teleports player on grid collision, reuses wrap animation and sound, cooldown clears when player steps off
 - Powers respawn on player death
 - Responsive canvas with window resize handling and mobile scaling (73% at <768px viewport)
 

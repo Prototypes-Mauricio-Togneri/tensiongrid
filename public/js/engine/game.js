@@ -109,6 +109,11 @@ class Game {
             this.exit.update(delta)
         }
 
+        // Update portal animations
+        for (const portal of this.portals) {
+            portal.update(delta)
+        }
+
         // Update switches and handle expiration
         for (const switchItem of this.switches) {
             if (switchItem.update(delta)) {
@@ -185,6 +190,29 @@ class Game {
             // Closed exit: do nothing, player can walk through
         } else {
             this.touchingExit = false
+        }
+
+        // Check for portal teleportation
+        if (this.portals.length > 0) {
+            const portal = this.collision.checkPlayerPortalCollision(this.player, this.portals)
+            if (portal && portal.partner && !this.portalCooldown) {
+                const dest = portal.partner
+                this.player.row = dest.row
+                this.player.col = dest.col
+                this.player.x = dest.x
+                this.player.y = dest.y
+                this.player.teleported = true
+                this.player.wakeIntensity = 0
+                this.portalCooldown = true
+                this.inputManager.disable()
+                this.audioManager.playSound(Constants.audio.sounds.wrapAround)
+                const newPos = this.grid.getNodePosition(dest.row, dest.col)
+                this.playerWrap = new PlayerWrapAnimation(newPos.x, newPos.y)
+                this.camera.follow(this.player.x, this.player.y)
+            } else if (!portal) {
+                // Clear cooldown when player steps off all portals
+                this.portalCooldown = false
+            }
         }
 
         // Check for mine trigger (does not kill player, just starts countdown)
@@ -356,6 +384,9 @@ class Game {
             this.renderer.drawExit(this.exit)
         }
 
+        // Draw portals (behind switches)
+        this.renderer.drawPortals(this.portals)
+
         // Draw switch connection lines (behind switches)
         this.renderer.drawSwitchConnections(this.switches)
 
@@ -418,6 +449,7 @@ class Game {
         this.touchingExit = false
         this.exiting = false
         this.exitAnimation = null
+        this.portalCooldown = false
         this.inputManager.clearPendingInput()
         this.player.reset()
         this.playerWrap = new PlayerWrapAnimation(this.player.x, this.player.y, true)
@@ -428,6 +460,7 @@ class Game {
         this.initExit(this.levelData)     // Reinitialize exit (resets particle animation)
         this.initSwitches(this.levelData) // Reset switches
         this.initWalls(this.levelData)    // Reinitialize walls
+        this.initPortals(this.levelData)  // Reinitialize portals
         this.registerUnlockables()        // Rebuild id-to-element map
         this.computeSwitchPaths()        // Compute connection line paths
         this.camera.follow(this.player.x, this.player.y)
@@ -473,6 +506,8 @@ class Game {
         this.exit = null             // Exit portal (single per level, optional)
         this.switches = []           // Switches that unlock the exit
         this.walls = []              // Static walls that block movement
+        this.portals = []            // Portal pairs for teleportation
+        this.portalCooldown = false  // True while player stands on a portal after teleporting
         this.unlockables = new Map() // Id-to-element lookup for switch targeting
         this.playerWrap = null       // Player wrap effect
         this.collectionWave = null   // Collection wave effect
@@ -487,6 +522,7 @@ class Game {
         this.initExit(levelData)
         this.initSwitches(levelData)
         this.initWalls(levelData)
+        this.initPortals(levelData)
         this.registerUnlockables()
         this.computeSwitchPaths()
     }
@@ -574,6 +610,35 @@ class Game {
         if (levelData.walls) {
             for (const config of levelData.walls) {
                 this.walls.push(new Wall(this.grid, config))
+            }
+        }
+    }
+
+    /**
+     * Initialize portals from level data and pair them by group.
+     * @param {Object} levelData - Level configuration containing optional portals array
+     */
+    initPortals(levelData) {
+        this.portals = []
+        this.portalCooldown = false
+        if (!levelData.portals) return
+
+        // Create portal instances
+        for (const config of levelData.portals) {
+            this.portals.push(new Portal(config, this.grid))
+        }
+
+        // Pair portals by group
+        const groups = new Map()
+        for (const portal of this.portals) {
+            const list = groups.get(portal.group) || []
+            list.push(portal)
+            groups.set(portal.group, list)
+        }
+        for (const pair of groups.values()) {
+            if (pair.length === 2) {
+                pair[0].partner = pair[1]
+                pair[1].partner = pair[0]
             }
         }
     }

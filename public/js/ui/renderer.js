@@ -1074,6 +1074,62 @@ class Renderer {
     }
 
     /**
+     * Draw portals as spinning vortex with counter-rotating arc rings.
+     * @param {Portal[]} portals - Array of portal instances
+     */
+    drawPortals(portals) {
+        const ctx = this.ctx
+        const { arcCount, arcGap, arcThickness, innerScale, glowBlur } = Constants.game.portal
+        const arcSpan = (Math.PI * 2 / arcCount) - arcGap
+
+        for (const portal of portals) {
+            const pos = this.toScreen(portal.x, portal.y)
+            const size = portal.size
+            const angle = portal.angle
+
+            // Dark center fill
+            ctx.save()
+            ctx.fillStyle = this.colors.portalCenter
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, size * 0.4, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+
+            // Outer ring — rotates clockwise
+            ctx.save()
+            ctx.strokeStyle = this.colors.portal
+            ctx.lineWidth = arcThickness
+            ctx.lineCap = 'round'
+            ctx.shadowColor = this.colors.portal
+            ctx.shadowBlur = this.shadow(glowBlur)
+            for (let i = 0; i < arcCount; i++) {
+                const start = angle + (i * (arcSpan + arcGap))
+                ctx.beginPath()
+                ctx.arc(pos.x, pos.y, size, start, start + arcSpan)
+                ctx.stroke()
+            }
+            ctx.restore()
+
+            // Inner ring — rotates counter-clockwise
+            ctx.save()
+            ctx.strokeStyle = this.colors.portal
+            ctx.lineWidth = arcThickness * 0.7
+            ctx.lineCap = 'round'
+            ctx.globalAlpha = 0.6
+            ctx.shadowColor = this.colors.portal
+            ctx.shadowBlur = this.shadow(glowBlur * 0.6)
+            const innerAngle = -angle * 1.5 // Counter-rotate at different speed
+            for (let i = 0; i < arcCount; i++) {
+                const start = innerAngle + (i * (arcSpan + arcGap))
+                ctx.beginPath()
+                ctx.arc(pos.x, pos.y, size * innerScale, start, start + arcSpan)
+                ctx.stroke()
+            }
+            ctx.restore()
+        }
+    }
+
+    /**
      * Draw switches with rhombus shape and pulse animation.
      * @param {Switch[]} switches - Array of switch instances
      * @param {number} time - Animation timestamp for pulse calculation

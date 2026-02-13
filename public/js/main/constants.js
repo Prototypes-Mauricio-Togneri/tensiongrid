@@ -345,6 +345,17 @@ const Constants = {
             timerArcWarningThreshold: 0.25 // Fraction when arc color shifts to red
         },
 
+        // Portal settings (spinning vortex)
+        portal: {
+            size: 16,                  // Vortex outer radius in pixels
+            arcCount: 3,               // Number of arc segments per ring
+            arcGap: 0.4,              // Gap between arcs in radians
+            arcThickness: 3,           // Arc stroke width in pixels
+            rotationSpeed: 0.0015,     // Rotation speed in radians per ms
+            innerScale: 0.55,          // Inner ring radius as fraction of outer
+            glowBlur: 12               // Shadow blur for glow effect
+        },
+
         // Switch settings
         switch: {
             size: 24,                  // Key size in pixels
@@ -543,6 +554,11 @@ const Constants = {
             exitCenter: '#0a0a0f',          // Exit center fill (dark)
             exitTimerFull: '#44ff44',       // Timer arc at full (green)
             exitTimerWarning: '#ff4444',    // Timer arc at warning (red)
+
+            // Portal colors
+            portal: '#ff44ff',              // Portal arc color (magenta)
+            portalGlow: '#ff44ff80',        // Portal glow effect
+            portalCenter: '#0a0a0f',        // Portal center fill (dark)
 
             // Switch colors
             switch: '#ffd700',              // Switch fill color (gold/yellow)

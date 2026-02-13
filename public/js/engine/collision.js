@@ -204,4 +204,16 @@ class Collision {
             !switchItem.isCollected() && this.gridCollides(player, switchItem)
         )
     }
+
+    /**
+     * Check if player's grid position matches any portal position.
+     * @param {Player} player - Player instance
+     * @param {Portal[]} portals - Array of portal instances
+     * @returns {Portal|null} The portal the player is standing on, or null
+     */
+    checkPlayerPortalCollision(player, portals) {
+        return this.findFirst(player, portals, (p, portal) =>
+            this.gridCollides(p, portal)
+        )
+    }
 }
