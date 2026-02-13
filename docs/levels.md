@@ -17,6 +17,7 @@ Descriptions for all levels in `public/levels/`. Each entry documents the level'
 - **Level 11** — Exit switches
 - **Level 12** — Power-ups (Fast)
 - **Level 13** — Power-downs (Slow)
+- **Level 14** — Portals
 
 ---
 
@@ -266,3 +267,22 @@ Descriptions for all levels in `public/levels/`. Each entry documents the level'
 **Challenge:** Navigate from the enclosed bottom-left corner (1,8) across to the far-right switch (8,2), then race back to top-left exit (1,1). A Slow power-down sits at (3,8), directly on the obvious rightward path from spawn: collecting it halves player speed for 5 seconds, making the 11-second return trip extremely tight. The wide laser at y=4 bisects the grid. A 4-arm shooter at (4,2) controls the center-upper area where the exit is. The follower from (8,7) and a large patrol loop guard the right side. Three mines along the main corridors create triggered hazards that can block escape routes.
 
 **Design rationale:** Introduces power-downs as obstacles to avoid. The Slow at (3,8) is deliberately on the most obvious path from spawn to teach situational awareness: careless movement is punished. The wall layout creates a semi-enclosed starting corner that guides the player rightward, directly through the power-down. The 4-arm shooter at (4,2) guards the final approach to the exit, demanding careful timing on the return trip. With the switch, power-down, 4-arm shooter, follower, mines, and wide laser, this is the most mechanically dense level in the game.
+
+---
+
+### Level 014
+
+**Grid:** 10x10 | **Start:** (1,8) &rarr; **Exit:** (1,1) closed | **Stars:** 32s / 24s / 18s
+**Difficulty:** &#9733;&#9733;&#9733;&#9733;&#9733;
+
+**Layout:** 10x10 grid split vertically into two disconnected sections by 10 excluded edges between x=4 and x=5. Left section (x=0-4) contains the start, exit, and one portal. Right section (x=5-9) contains the switch, follower, and the paired portal. Full walls on top, left, and right edges. Bottom edge partially walled (x=2-6), leaving gaps at x=0-1 (left section) and x=7-9 (right section) for strategic wrapping escapes.
+
+**Enemies:** Bullet x5 (2 rightward in left section at y=4 and y=6, 1 downward at x=4, 1 downward at x=5, 1 leftward at y=4 in right section), Laser x1 (horizontal at y=3, spanning x=0-4), Trap x3 (1 persistent near exit at (2,2), 1 intermittent at (1,6), 1 persistent at (7,8)), Patrol x1 (2x2 loop at (7,3)-(8,4), speed 120), Shooter x1 (dual-arm at (7,7), fires up and left), Mine x3 ((3,3) behind laser, (6,3) on switch approach, (8,6) on return path), Follower x1 (speed 80, starts at (9,2))
+
+**Other elements:** Switch at (8,2) with TTL 11,000ms. Portal pair: (3,5) &harr; (6,5), group "A".
+
+**Introduces:** Portals
+
+**Challenge:** A four-phase journey across two disconnected grid sections. Phase 1: Navigate up from spawn (1,8) through the intermittent trap at (1,6), bullet lanes at y=4 and y=6, to the left portal at (3,5). Phase 2: Teleport to (6,5) in the right section and navigate up to the switch at (8,2), passing through a mine at (6,3), dodging the patrol loop at (7,3)-(8,4), and outrunning the follower from (9,2). Phase 3: Hit the switch (11s TTL starts), navigate back down to the portal at (6,5) while the follower closes in and the mine at (8,6) threatens the return path. Phase 4: Teleport back to (3,5), race up through the laser gate at y=3 (1.8s on / 1.5s off) and past the mine at (3,3) to reach the exit at (1,1). The bottom wrapping gaps offer alternative routes: in the left section, wrapping from (1,9) to (1,0) provides a shortcut to the exit that avoids the laser; in the right section, wrapping from (8,9) to (8,0) helps escape the follower.
+
+**Design rationale:** Introduces portals by making them the only way to cross between two disconnected grid halves. The vertical split of excluded edges is visually clear and immediately communicates that normal movement won't work. The player discovers portals naturally when they see the spinning vortex and have no other option. The four-phase journey forces bidirectional portal use, teaching that portals work both ways. The follower is confined to the right section and cannot follow through portals, rewarding quick play on that side and providing relief when returning to the left. The two bottom wrapping gaps create risk/reward escape routes within each section without bypassing the portal requirement (left/right walls prevent cross-section wrapping). Bullet lanes at x=4 and x=5 frame the split visually, reinforcing the boundary.

@@ -20,7 +20,8 @@
       "Bash(do echo \"=== $f ===\")",
       "Bash(python3 -m json.tool:*)",
       "Skill(keybindings-help)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(python3:*)"
     ]
   },
   "hooks": {

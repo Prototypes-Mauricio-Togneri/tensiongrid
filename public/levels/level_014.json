@@ -1,0 +1,316 @@
+{
+  "id": 14,
+  "stars": {
+    "stars1": 32000,
+    "stars2": 24000,
+    "stars3": 18000
+  },
+  "grid": {
+    "width": 10,
+    "height": 10,
+    "excludes": {
+      "edges": [
+        {
+          "from": {
+            "x": 4,
+            "y": 0
+          },
+          "to": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 1
+          },
+          "to": {
+             "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 2
+          },
+          "to": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 3
+          },
+          "to": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 4
+          },
+          "to": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 5
+          },
+          "to": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 6
+          },
+          "to": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 7
+          },
+          "to": {
+            "x": 5,
+            "y": 7
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 8
+          },
+          "to": {
+            "x": 5,
+            "y": 8
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 9
+          },
+          "to": {
+            "x": 5,
+            "y": 9
+          }
+        }
+      ]
+    }
+  },
+  "player": {
+    "startX": 1,
+    "startY": 8
+  },
+  "exit": {
+    "id": "exit",
+    "x": 1,
+    "y": 1,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 8,
+      "y": 2,
+      "unlocks": "exit",
+      "ttl": 11000
+    }
+  ],
+  "portals": [
+    {
+      "group": "A",
+      "x": 3,
+      "y": 5
+    },
+    {
+      "group": "A",
+      "x": 6,
+      "y": 5
+    }
+  ],
+  "walls": [
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 9,
+        "y": 0
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 0,
+        "y": 9
+      }
+    },
+    {
+      "from": {
+        "x": 9,
+        "y": 0
+      },
+      "to": {
+        "x": 9,
+        "y": 9
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 9
+      },
+      "to": {
+        "x": 9,
+        "y": 9
+      }
+    }
+  ],
+  "enemies": {
+    "enemyBullet": [
+      {
+        "x": 0,
+        "y": 6,
+        "direction": "right",
+        "delay": 1000,
+        "interval": 3500,
+        "speed": 95
+      },
+      {
+        "x": 0,
+        "y": 4,
+        "direction": "right",
+        "delay": 1500,
+        "interval": 3500,
+        "speed": 95
+      },
+      {
+        "x": 4,
+        "y": 0,
+        "direction": "down",
+        "delay": 2000,
+        "interval": 4000,
+        "speed": 85
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "direction": "down",
+        "delay": 1500,
+        "interval": 4000,
+        "speed": 90
+      },
+      {
+        "x": 9,
+        "y": 4,
+        "direction": "left",
+        "delay": 500,
+        "interval": 3500,
+        "speed": 100
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 0,
+        "startY": 3,
+        "endX": 4,
+        "endY": 3,
+        "timeOn": 1800,
+        "timeOff": 1500
+      }
+    ],
+    "enemyTrap": [
+      {
+        "x": 2,
+        "y": 2
+      },
+      {
+        "x": 1,
+        "y": 6,
+        "timeOn": 1500,
+        "timeOff": 1200
+      },
+      {
+        "x": 7,
+        "y": 8
+      }
+    ],
+    "enemyMine": [
+      {
+        "x": 3,
+        "y": 3,
+        "delay": 1500
+      },
+      {
+        "x": 6,
+        "y": 3,
+        "delay": 1500
+      },
+      {
+        "x": 8,
+        "y": 6,
+        "delay": 1200
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 120,
+        "path": [
+          {
+            "x": 7,
+            "y": 3
+          },
+          {
+            "x": 8,
+            "y": 3
+          },
+          {
+            "x": 8,
+            "y": 4
+          },
+          {
+            "x": 7,
+            "y": 4
+          }
+        ]
+      }
+    ],
+    "enemyShooter": [
+      {
+        "x": 7,
+        "y": 7,
+        "arms": [
+          "up",
+          "left"
+        ],
+        "delay": 2500
+      }
+    ],
+    "enemyFollower": [
+      {
+        "startX": 9,
+        "startY": 2,
+        "speed": 80
+      }
+    ]
+  }
+}

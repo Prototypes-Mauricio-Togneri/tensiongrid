@@ -167,6 +167,16 @@ Non-threatening elements that shape the playable space.
 - **Placement:** Typically on outer grid edges to disable wrapping and keep players focused on the intended play area
 - **Note:** Unlike excluded edges, walls are visible barriers that clearly communicate "you cannot pass here"
 
+### Portal
+
+- **Behavior:** Paired teleportation points; stepping on one instantly transports the player to its partner
+- **Purpose:** Enables non-adjacent traversal; connects disconnected grid sections; creates strategic shortcuts
+- **Configuration:** Position (x, y) and group string; two portals with the same group form a bidirectional pair
+- **Best for:** Connecting split grid sections; creating multi-phase journeys; enabling escape routes
+- **Pairs well with:** Followers (portal escapes follower's section), Switches (forces multi-section journeys), excluded edges (creates the disconnection that portals solve)
+- **Avoid:** Placing portals where enemies can camp the destination; more than one pair per level until players are comfortable with the mechanic
+- **Note:** Only the player can use portals; enemies cannot teleport through them. A cooldown prevents re-teleportation until the player steps off the portal node.
+
 ## Difficulty Progression
 
 - **Overall difficulty trend increases** - Not every level must be harder, but the player's challenge should trend upward over time
