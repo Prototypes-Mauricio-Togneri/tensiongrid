@@ -512,8 +512,8 @@ const Constants = {
             trapGlow: '#ff88004d',          // Trap glow effect
 
             // Mine colors
-            mine: '#ffcc00',                // Mine fill color (yellow)
-            mineGlow: '#ffcc004d',          // Mine glow effect
+            mine: '#ff55bb',                // Mine fill color (neon rose)
+            mineGlow: '#ff55bb4d',          // Mine glow effect
             mineHighlight: '#ffffff70',     // Mine inner highlight
 
             // Shooter colors

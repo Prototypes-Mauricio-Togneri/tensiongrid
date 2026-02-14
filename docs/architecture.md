@@ -284,7 +284,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **EnemyMine** (`js/enemies/enemy_mine.js`) - Triggered explosive hazard:
 - Fixed position on a single grid node
 - Hexagonal visual shape (distinguishes from trap spike)
-- Yellow color (#ffcc00)
+- Neon rose color (#ff55bb)
 - States: `dormant` → `triggered` → `exploded`
 - Dormant until player touches the same node (touch does NOT kill)
 - On touch: begins countdown with accelerating blink frequency (2Hz → 10Hz)
