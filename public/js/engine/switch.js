@@ -9,6 +9,7 @@ class Switch {
      * @param {number} config.y - Grid row position
      * @param {string} config.unlocks - Id of the element to unlock
      * @param {number} config.ttl - Time to live in milliseconds
+     * @param {Object[]} [config.connection] - Grid-coordinate path from switch to target [{x, y}, ...]
      * @param {Grid} grid - Grid instance for position calculation
      */
     constructor(config, grid) {
@@ -24,7 +25,7 @@ class Switch {
         this.size = Constants.game.switch.size
         this.collected = false        // Whether switch has been collected
         this.resetTimer = 0           // Countdown timer when collected
-        this.path = null              // World-coordinate path to target [{x, y}, ...]
+        this.path = config.connection?.map(node => grid.getNodePosition(node.y, node.x)) ?? null
     }
 
     /**
@@ -75,11 +76,4 @@ class Switch {
         return new Vector2(this.x, this.y)
     }
 
-    /**
-     * Set the world-coordinate path from this switch to its unlock target.
-     * @param {Object[]} worldPositions - Array of {x, y} world positions from switch to target
-     */
-    setPath(worldPositions) {
-        this.path = worldPositions
-    }
 }

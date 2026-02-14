@@ -101,7 +101,6 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isExcluded(row, col)` - Check if node is excluded
 - `isEdgeExcluded(row1, col1, row2, col2)` - Check if edge between two nodes is excluded
 - `wrapPosition(row, col)` - Toroidal wrapping
-- `findPath(startRow, startCol, endRow, endCol, costlyNodes?, blockedNodes?)` - Dijkstra's shortest path between two nodes (respects exclusions, avoids costly nodes, treats blocked nodes as impassable)
 - Supports `excludes.nodes` config to remove nodes and their edges from the grid
 - Supports `excludes.edges` config to remove specific edges (bidirectional)
 
@@ -351,9 +350,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - After TTL expires: switch reappears, target locks again
 - Collection triggers yellow wave animation and sound effect
 - Resets on player death (switch reappears, exit closes)
-- Dashed gold connection line along grid edges from switch to target (BFS path)
-- `setPath(worldPositions)` - Stores precomputed world-coordinate path for connection line rendering
-- Config: `x`, `y` (node position), `unlocks` (element id to unlock), `ttl` (milliseconds)
+- Dashed gold connection line along grid edges from switch to target
+- Config: `x`, `y` (node position), `unlocks` (element id to unlock), `ttl` (milliseconds), `connection` (grid-coordinate path from switch to target)
 
 **Wall** (`js/engine/wall.js`) - Static movement barrier:
 - Line segment between two grid nodes (can span multiple nodes)
@@ -413,7 +411,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Shield rendering: electric blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
 - `drawPortals(portals)` - Draws spinning vortex portals with counter-rotating magenta arc rings
-- `drawSwitchConnections(switches)` - Draws faint gold dashed lines along BFS paths from switches to targets
+- `drawSwitchConnections(switches)` - Draws faint gold dashed lines from switches to targets
 - `drawSpawnWarnings(warnings)` - Draws converging bullet-red particles at spawn points before bullets fire
 - `drawDebugNodeCoordinates(grid)` - Draws `row,col` text above each grid node (debug mode)
 
@@ -435,7 +433,6 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
 - `registerUnlockables()` - Builds id-to-element map from exit and walls for switch targeting
-- `computeSwitchPaths()` - Computes weighted paths from switches to targets, blocking wall nodes and avoiding fixed enemies when possible
 - Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
 - `setGlowEnabled(enabled)` - Propagates glow toggle state to renderer
 - `debugMode` - Toggle for debug overlay (toggled via "G" key in main loop)

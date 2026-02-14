@@ -63,6 +63,29 @@ Guidelines for designing levels in Tension Grid.
 - **TTL should not be too generous** - Create tension; the timer should allow reaching the exit with some reasonable margin for error on the optimal path
 - **Switch placement creates the challenge** - Distance and obstacles between switch and exit matter
 
+#### Connection Path (`connection` property)
+
+Each switch has a `connection` array in the JSON: an ordered list of `{x, y}` grid positions from the switch to its unlock target. This path is rendered as a dashed line in-game. The first element is the switch position; the last is the target position.
+
+**How to calculate the path:**
+
+1. Start at the switch position
+2. Find the shortest path to the target using 4-directional movement (up, down, left, right — no diagonals)
+3. Walls block nodes — any grid node that lies on a wall's line segment is impassable
+4. Excluded nodes and excluded edges from the grid config are impassable
+5. Enemy positions are costly but traversable — traps, mines, shooters (their grid node), and lasers (all nodes along the laser's span) should be avoided when possible, but the path may route through them if no alternative exists
+6. The target endpoint is always reachable even if it sits on a blocked or costly node
+7. When multiple shortest paths exist, prefer the one that avoids costly nodes
+
+**Target position:**
+
+- For exits: the exit's `{x, y}` position
+- For lasers: the midpoint of the laser span — `{x: round((startX + endX) / 2), y: round((startY + endY) / 2)}`
+- For other enemies: the enemy's `{x, y}` position
+- For walls: the wall's `from` position
+
+**When no path exists** (e.g., the grid is split by excluded edges and only connected by portals), omit the `connection` property. No connection line will be drawn.
+
 ### Multi-Phase Journeys
 
 - **Switch and portal levels create distinct phases** - Typically: navigate to switch/portal → activate/teleport → race to exit; design each phase with its own threat profile

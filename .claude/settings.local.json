@@ -21,7 +21,8 @@
       "Bash(python3 -m json.tool:*)",
       "Skill(keybindings-help)",
       "Bash(git checkout:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(node:*)"
     ]
   },
   "hooks": {
