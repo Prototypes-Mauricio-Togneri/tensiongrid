@@ -19,6 +19,7 @@
 - **Bullet rain:** A few consecutive rows where in each there is a bullet going horizontally across the entire row. Intercalating one going to the left and the next row going to the right.
 - **Trap field:** A cluster of intermittent traps with some "safe heaven" spots where the player can wait for the right moment to move.
 - **Laser grid** A set of parallel lasers that follow an intermittent pattern, creating windows for the player to move through.
+- **Trap as stopper** - Use traps with long time on and short time off to stop players to advance through an easy path
 
 ## New levels
 
@@ -40,5 +41,3 @@ read all the level descriptions in @docs/levels.md to understand the design phil
 plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.
 ask me if you have any question.
-
-- Use traps with long time on and short time off to stop players to advance through an easy path
