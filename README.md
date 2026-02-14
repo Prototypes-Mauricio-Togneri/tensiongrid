@@ -22,7 +22,6 @@
 
 ## New levels
 
-16. **Power-ups** - Shields
 17. **Power-downs** - Mirror controls
 18. **Safe heaven** - Areas where player can wait safely
 19. **Power-up** - Enemies freeze
