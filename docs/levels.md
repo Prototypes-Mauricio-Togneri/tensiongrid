@@ -19,6 +19,7 @@ Descriptions for all levels in `public/levels/`. Each entry documents the level'
 - **Level 13** — Power-downs (Slow)
 - **Level 14** — Portals
 - **Level 15** — Switch-controlled laser
+- **Level 16** — Power-ups (Shield)
 
 ---
 
@@ -306,3 +307,22 @@ Descriptions for all levels in `public/levels/`. Each entry documents the level'
 **Challenge:** A constant full-width horizontal laser at y=5 divides the grid into two halves: a bottom half containing the start and laser switch, and a top half containing the exit switch and exit. The laser is always on and cannot be passed without collecting the laser switch first. Phase 1: Navigate from spawn (1,8) rightward through the bottom half, dodging bullets at y=7 and y=6, a mine at (4,8) on the direct path, an intermittent trap at (2,6), and a mine at (6,6), while a follower from (8,8) creates urgency. Phase 2: Collect the laser switch at (7,7) (5s TTL) and cross the deactivated laser at y=5 into the top half before it reactivates. Phase 3: Navigate the top half past two downward bullet lanes at x=6 and x=3, a dual-arm shooter at (5,3) controlling horizontal movement, persistent traps at (4,1) and (3,3), and a mine at (8,3) to reach the exit switch at (2,2). Phase 4: Collect the exit switch (10s TTL) and race right to the exit at (8,1), dodging the 2x2 patrol loop at (6,1)-(7,2) guarding the exit area. The follower can cross the laser (enemies are not affected by lasers), adding persistent pressure throughout both halves. The bottom half's open edges allow horizontal wrapping to escape the follower and dodge bullets; the top half's walled edges create tighter constraints after crossing.
 
 **Design rationale:** Introduces the concept that switches can control elements beyond the exit. The constant laser is the first always-on laser in the game, creating an impassable barrier that clearly communicates the need for the nearby switch. Two switches with different targets (laser vs exit) and independent TTLs teach the extensibility of the switch system. The visual connection lines from each switch to its respective target (laser beam vs exit portal) help the player understand the relationships at a glance. The 5-second laser TTL is generous for a first encounter with the mechanic but creates urgency for crossing. The top half's lack of horizontal wrapping escalates difficulty after the midpoint crossing, while the bottom half's open edges provide escape routes from the follower and bullets. The four-phase journey (navigate to laser switch, cross laser, navigate to exit switch, race to exit) creates the most complex multi-objective level yet.
+
+---
+
+### Level 016
+
+**Grid:** 10x10 | **Start:** (8,8) &rarr; **Exit:** (1,1) closed | **Stars:** 35s / 26s / 20s
+**Difficulty:** &#9733;&#9733;&#9733;&#9733;&#9733;
+
+**Layout:** 10x10 grid. Walls on top and bottom edges fully. Left and right edges walled from y=0 to y=5, blocking horizontal wrapping in the upper half. Lower half (y=6-8) has open left and right edges, enabling horizontal wrapping for escape routes.
+
+**Enemies:** Bullet x6 (4 shower streams at y=4 with speed 200 and 600ms intervals creating an impassable horizontal wall, 1 rightward at y=7 with speed 100, 1 downward at x=3 with speed 90), Laser x1 (horizontal at y=2, x=2-6, intermittent 1.8s/1.5s), Trap x3 (1 intermittent at (2,6), 1 intermittent at (3,3), 1 persistent at (6,1)), Mine x3 ((6,7) on path to shield, (7,2) near switch, (3,1) near exit), Shooter x1 (dual-arm at (5,3)), Patrol x1 (2x2 loop at (4,7)-(5,8), speed 120), Follower x1 (speed 80, starts at (7,7))
+
+**Other elements:** Switch at (8,1) unlocking exit (TTL 11,000ms). Power-up: Shield at (1,8).
+
+**Introduces:** Power-ups (Shield)
+
+**Challenge:** A four-phase journey centered around the shield power-up. Four bullet streams at y=4 (speed 200, interval 600ms, staggered delays) create an impassable horizontal shower that divides the grid into two halves. The shield at (1,8) is the only way through. Phase 1: Navigate leftward from spawn (8,8) through the lower half to reach the shield at (1,8), dodging a mine at (6,7), the patrol loop at (4,7)-(5,8), an intermittent trap at (2,6), a rightward bullet at y=7, and the follower chasing from (7,7). Phase 2: Collect the shield and move up through the bullet shower at y=4. The shield absorbs one bullet hit, then 1s post-shield immunity covers the rest of the crossing. Phase 3: Navigate the upper half rightward to the switch at (8,1), past the shooter at (5,3) controlling horizontal movement, an intermittent trap at (3,3), the laser gate at y=2 (x=2-6), a downward bullet at x=3, and a mine at (7,2). Phase 4: Collect the switch (11s TTL) and race leftward to the exit at (1,1), past a persistent trap at (6,1) and a mine at (3,1), while the laser at y=2 continues cycling. The follower is immune to bullets and follows through the shower into the upper half, maintaining persistent pressure across all phases. Open edges at y=6-8 provide horizontal wrapping escape routes in the lower half; the upper half's walled edges prevent shortcutting to the exit.
+
+**Design rationale:** Introduces the shield as an essential tool, not a bonus. The impassable bullet shower makes the shield's purpose immediately clear: without it, the player cannot progress. This teaches that power-ups can be mandatory for level completion, not just helpful extras. The four-phase structure mirrors Level 15's complexity but replaces the switch-controlled laser mechanic with a power-up-gated barrier. The shower's visual intensity (4 streams of fast bullets) creates a dramatic moment when the player crosses through with the shield. The follower's ability to follow through the shower (enemies are immune to bullets) prevents the upper half from feeling like a safe haven. The reversed start/exit direction (bottom-right to top-left) compared to Level 15's (bottom-left to top-right) breaks muscle memory. One mine per phase ensures the player faces triggered-hazard decisions throughout the journey.
