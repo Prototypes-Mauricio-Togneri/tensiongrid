@@ -125,6 +125,14 @@
         "delay": 2000,
         "interval": 3500,
         "speed": 90
+      },
+      {
+        "x": 9,
+        "y": 6,
+        "direction": "left",
+        "delay": 1000,
+        "interval": 2800,
+        "speed": 100
       }
     ],
     "enemyLaser": [
@@ -138,6 +146,12 @@
       }
     ],
     "enemyTrap": [
+      {
+        "x": 1,
+        "y": 6,
+        "timeOn": 1000,
+        "timeOff": 1000
+      },
       {
         "x": 2,
         "y": 6,
@@ -159,9 +173,20 @@
         "y": 6,
         "timeOn": 2000,
         "timeOff": 1000
+      },
+      {
+        "x": 3,
+        "y": 8,
+        "timeOn": 1500,
+        "timeOff": 1000
       }
     ],
     "enemyMine": [
+      {
+        "x": 2,
+        "y": 5,
+        "delay": 1500
+      },
       {
         "x": 6,
         "y": 7,
