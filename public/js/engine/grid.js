@@ -98,9 +98,10 @@ class Grid {
      * @param {number} endRow - End node row
      * @param {number} endCol - End node column
      * @param {Set<string>} [costlyNodes] - Optional set of "row,col" keys with high traversal cost
+     * @param {Set<string>} [blockedNodes] - Optional set of "row,col" keys that are impassable (end node exempt)
      * @returns {Object[]|null} Array of {row, col} from start to end inclusive, or null if no path
      */
-    findPath(startRow, startCol, endRow, endCol, costlyNodes) {
+    findPath(startRow, startCol, endRow, endCol, costlyNodes, blockedNodes) {
         if (startRow === endRow && startCol === endCol) {
             return [{ row: startRow, col: startCol }]
         }
@@ -146,6 +147,7 @@ class Grid {
                 if (this.isEdgeExcluded(current.row, current.col, nextRow, nextCol)) continue
 
                 const nextKey = `${nextRow},${nextCol}`
+                if (blockedNodes?.has(nextKey) && !(nextRow === endRow && nextCol === endCol)) continue
                 const stepCost = costlyNodes?.has(nextKey) ? 100 : 1
                 const newDist = current.cost + stepCost
 

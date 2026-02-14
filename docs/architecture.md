@@ -101,7 +101,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isExcluded(row, col)` - Check if node is excluded
 - `isEdgeExcluded(row1, col1, row2, col2)` - Check if edge between two nodes is excluded
 - `wrapPosition(row, col)` - Toroidal wrapping
-- `findPath(startRow, startCol, endRow, endCol, costlyNodes?)` - Dijkstra's shortest path between two nodes (respects exclusions, avoids costly nodes)
+- `findPath(startRow, startCol, endRow, endCol, costlyNodes?, blockedNodes?)` - Dijkstra's shortest path between two nodes (respects exclusions, avoids costly nodes, treats blocked nodes as impassable)
 - Supports `excludes.nodes` config to remove nodes and their edges from the grid
 - Supports `excludes.edges` config to remove specific edges (bidirectional)
 
@@ -435,7 +435,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `handlePowerCollection(power)` - Applies effect, plays sound, creates wave animation
 - `handleLevelComplete()` - Starts exit warp animation (callback called when animation completes)
 - `registerUnlockables()` - Builds id-to-element map from exit and walls for switch targeting
-- `computeSwitchPaths()` - Computes weighted paths from switches to targets, avoiding fixed enemies when possible
+- `computeSwitchPaths()` - Computes weighted paths from switches to targets, blocking wall nodes and avoiding fixed enemies when possible
 - Receives shared AudioManager from main/main.js, passes to EnemyManager for sound effects
 - `setGlowEnabled(enabled)` - Propagates glow toggle state to renderer
 - `debugMode` - Toggle for debug overlay (toggled via "G" key in main loop)

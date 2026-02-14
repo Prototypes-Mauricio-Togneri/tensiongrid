@@ -665,10 +665,26 @@ class Game {
 
     /**
      * Compute weighted paths from each switch to its unlock target.
-     * Avoids fixed enemies when possible. Stores world-coordinate paths on each switch.
+     * Avoids walls and fixed enemies when possible. Stores world-coordinate paths on each switch.
      */
     computeSwitchPaths() {
-        // Build set of nodes occupied by fixed enemies
+        // Build set of nodes blocked by walls (impassable)
+        const blockedNodes = new Set()
+        for (const wall of this.walls) {
+            const minRow = Math.min(wall.fromY, wall.toY)
+            const maxRow = Math.max(wall.fromY, wall.toY)
+            const minCol = Math.min(wall.fromX, wall.toX)
+            const maxCol = Math.max(wall.fromX, wall.toX)
+            for (let r = minRow; r <= maxRow; r++) {
+                for (let c = minCol; c <= maxCol; c++) {
+                    if (wall.containsNode(r, c)) {
+                        blockedNodes.add(`${r},${c}`)
+                    }
+                }
+            }
+        }
+
+        // Build set of nodes occupied by fixed enemies (costly but traversable)
         const costlyNodes = new Set()
         for (const trap of this.enemyManager.getTraps()) {
             costlyNodes.add(`${trap.row},${trap.col}`)
@@ -700,7 +716,7 @@ class Game {
             const targetCol = target.col ?? target.fromX
             if (targetRow === undefined || targetCol === undefined) continue
 
-            const pathNodes = this.grid.findPath(switchItem.row, switchItem.col, targetRow, targetCol, costlyNodes)
+            const pathNodes = this.grid.findPath(switchItem.row, switchItem.col, targetRow, targetCol, costlyNodes, blockedNodes)
             if (!pathNodes) continue
 
             const worldPositions = pathNodes.map(node => {
