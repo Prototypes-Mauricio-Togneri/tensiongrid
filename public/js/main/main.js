@@ -255,7 +255,7 @@
     function returnToPreviousScreen() {
         if (gameStartedFrom === Constants.screens.levels) {
             screen.updateLevelButtonStates(storage)
-            screen.setSelectedToHighestUnlocked(storage)
+            screen.setSelectedLevel(game.levelData.id)
             screen.updateMarkerStars(storage)
         }
         screen.show(gameStartedFrom)
@@ -655,6 +655,7 @@
                 isPaused = true
                 pauseIndex = 0
                 updatePauseButtonSelection()
+                pauseLevel.textContent = getPauseLevelLabel()
                 pauseOverlay.classList.add(Constants.dom.classes.active)
             } else {
                 audioManager.playSound(Constants.audio.sounds.pauseMenu)

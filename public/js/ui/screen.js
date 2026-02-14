@@ -409,6 +409,17 @@ class Screen {
     }
 
     /**
+     * Set selected level to a specific level number.
+     * @param {number} level - Level number to select
+     */
+    setSelectedLevel(level) {
+        this.selectedLevel = level
+        this.updateTimelineSelection()
+        this.updateTimelinePosition(false)
+        this.updateLevelCounter()
+    }
+
+    /**
      * Update locked state for level buttons based on progress.
      * @param {LocalStorage} storage - Storage instance to check unlock state
      */
