@@ -1,0 +1,375 @@
+{
+  "id": 17,
+  "stars": {
+    "stars1": 37000,
+    "stars2": 27000,
+    "stars3": 21000
+  },
+  "grid": {
+    "width": 10,
+    "height": 10,
+    "excludes": {
+      "edges": [
+        {
+          "from": {
+            "x": 0,
+            "y": 4
+          },
+          "to": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 1,
+            "y": 4
+          },
+          "to": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 2,
+            "y": 4
+          },
+          "to": {
+            "x": 2,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 3,
+            "y": 4
+          },
+          "to": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 4
+          },
+          "to": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 5,
+            "y": 4
+          },
+          "to": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 6,
+            "y": 4
+          },
+          "to": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 7,
+            "y": 4
+          },
+          "to": {
+            "x": 7,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 9,
+            "y": 4
+          },
+          "to": {
+            "x": 9,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 5
+          },
+          "to": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 6
+          },
+          "to": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 7
+          },
+          "to": {
+            "x": 5,
+            "y": 7
+          }
+        },
+        {
+          "from": {
+            "x": 4,
+            "y": 9
+          },
+          "to": {
+            "x": 5,
+            "y": 9
+          }
+        }
+      ]
+    }
+  },
+  "player": {
+    "startX": 1,
+    "startY": 1
+  },
+  "exit": {
+    "id": "exit",
+    "x": 1,
+    "y": 6,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 7,
+      "y": 7,
+      "unlocks": "exit",
+      "ttl": 11000
+    }
+  ],
+  "powerDowns": [
+    {
+      "x": 5,
+      "y": 8,
+      "type": "mirror"
+    }
+  ],
+  "walls": [
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 9,
+        "y": 0
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 9
+      },
+      "to": {
+        "x": 9,
+        "y": 9
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 0,
+        "y": 9
+      }
+    },
+    {
+      "from": {
+        "x": 9,
+        "y": 0
+      },
+      "to": {
+        "x": 9,
+        "y": 9
+      }
+    }
+  ],
+  "enemies": {
+    "enemyBullet": [
+      {
+        "x": 0,
+        "y": 2,
+        "direction": "right",
+        "delay": 1000,
+        "interval": 3500,
+        "speed": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "direction": "down",
+        "delay": 2000,
+        "interval": 4000,
+        "speed": 90
+      },
+      {
+        "x": 9,
+        "y": 1,
+        "direction": "left",
+        "delay": 1500,
+        "interval": 3500,
+        "speed": 100
+      },
+      {
+        "x": 9,
+        "y": 7,
+        "direction": "left",
+        "delay": 1500,
+        "interval": 3000,
+        "speed": 100
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "direction": "down",
+        "delay": 2500,
+        "interval": 4000,
+        "speed": 90
+      },
+      {
+        "x": 1,
+        "y": 9,
+        "direction": "up",
+        "interval": 4000,
+        "speed": 90
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "direction": "right",
+        "interval": 3500,
+        "speed": 90
+      },
+      {
+        "x": 9,
+        "y": 4,
+        "direction": "left",
+        "interval": 9000,
+        "speed": 90
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 1,
+        "startY": 3,
+        "endX": 4,
+        "endY": 3,
+        "timeOn": 1500,
+        "timeOff": 1200
+      }
+    ],
+    "enemyTrap": [
+      {
+        "x": 3,
+        "y": 1
+      },
+      {
+        "x": 7,
+        "y": 8,
+        "timeOn": 1200,
+        "timeOff": 1000
+      },
+      {
+        "x": 3,
+        "y": 7,
+        "timeOn": 1500,
+        "timeOff": 1500
+      },
+      {
+        "x": 2,
+        "y": 8,
+        "timeOn": 1000,
+        "timeOff": 1000
+      }
+    ],
+    "enemyMine": [
+      {
+        "x": 8,
+        "y": 3,
+        "delay": 1500
+      },
+      {
+        "x": 7,
+        "y": 5,
+        "delay": 1500
+      },
+      {
+        "x": 6,
+        "y": 6,
+        "delay": 1500
+      },
+      {
+        "x": 4,
+        "y": 8,
+        "delay": 1000
+      }
+    ],
+    "enemyShooter": [
+      {
+        "x": 7,
+        "y": 2,
+        "arms": [
+          "left",
+          "right"
+        ],
+        "delay": 2200
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 120,
+        "path": [
+          {
+            "x": 5,
+            "y": 1
+          },
+          {
+            "x": 6,
+            "y": 1
+          },
+          {
+            "x": 6,
+            "y": 2
+          },
+          {
+            "x": 5,
+            "y": 2
+          }
+        ]
+      }
+    ],
+    "enemyFollower": [
+      {
+        "startX": 9,
+        "startY": 6,
+        "speed": 80
+      }
+    ]
+  }
+}

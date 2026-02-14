@@ -20,6 +20,7 @@ Descriptions for all levels in `public/levels/`. Each entry documents the level'
 - **Level 14** — Portals
 - **Level 15** — Switch-controlled laser
 - **Level 16** — Power-ups (Shield)
+- **Level 17** — Power-downs (Mirror)
 
 ---
 
@@ -326,3 +327,22 @@ Descriptions for all levels in `public/levels/`. Each entry documents the level'
 **Challenge:** A four-phase journey centered around the shield power-up. Four bullet streams at y=4 (speed 200, interval 600ms, staggered delays) create an impassable horizontal shower that divides the grid into two halves. The shield at (1,8) is the only way through. Phase 1: Navigate leftward from spawn (8,8) through the lower half to reach the shield at (1,8), dodging a mine at (6,7), the patrol loop at (4,7)-(5,8), an intermittent trap at (8,6), a rightward bullet at y=7, and the follower chasing from (7,6). The bottom-left quadrant is dense: a persistent trap at (1,6) blocks the direct upward path from the shield, an intermittent trap at (2,6) flanks it, a leftward bullet at y=6 sweeps through, and a mine at (2,5) guards the shower approach. Phase 2: Collect the shield and move up through the bullet shower at y=4. The shield absorbs one bullet hit, then 1s post-shield immunity covers the rest of the crossing. Phase 3: Navigate the upper half rightward to the switch at (8,1), past the shooter at (5,3) controlling horizontal movement, an intermittent trap at (3,3), the laser gate at y=2 (x=2-6), a downward bullet at x=3, and a mine at (7,2). Phase 4: Collect the switch (11s TTL) and race leftward to the exit at (1,1), past a persistent trap at (6,1) and a mine at (3,1), while the laser at y=2 continues cycling. The follower is immune to bullets and follows through the shower into the upper half, maintaining persistent pressure across all phases. Fully walled edges prevent wrapping entirely, keeping the player confined to the intended journey.
 
 **Design rationale:** Introduces the shield as an essential tool, not a bonus. The impassable bullet shower makes the shield's purpose immediately clear: without it, the player cannot progress. This teaches that power-ups can be mandatory for level completion, not just helpful extras. The four-phase structure mirrors Level 15's complexity but replaces the switch-controlled laser mechanic with a power-up-gated barrier. The shower's visual intensity (4 streams of fast bullets) creates a dramatic moment when the player crosses through with the shield. The follower's ability to follow through the shower (enemies are immune to bullets) prevents the upper half from feeling like a safe haven. The reversed start/exit direction (bottom-right to top-left) compared to Level 15's (bottom-left to top-right) breaks muscle memory. One mine per phase ensures the player faces triggered-hazard decisions throughout the journey.
+
+---
+
+### Level 017
+
+**Grid:** 10x10 | **Start:** (1,1) &rarr; **Exit:** (1,8) closed | **Stars:** 37s / 27s / 21s
+**Difficulty:** &#9733;&#9733;&#9733;&#9733;&#9733;
+
+**Layout:** 10x10 grid divided into four quadrants by two barrier systems. A horizontal barrier of 9 excluded edges between y=4 and y=5 separates the top half from the bottom, with a single gap at x=8 serving as the only crossing point. A vertical barrier of 4 excluded edges between x=4 and x=5 in the bottom half separates BL from BR, with a single gap at y=8 where the mirror power-down sits. Full walls on top and bottom edges. Left and right edges walled from y=4 to y=9, open from y=0 to y=3 for horizontal wrapping escape routes in the top half.
+
+**Enemies:** Bullet x5, Laser x1, Trap x3 (1 persistent, 2 intermittent), Mine x3, Shooter x1 (dual-arm), Patrol x1 (2x2 loop), Follower x1
+
+**Other elements:** Switch at (7,7) with TTL 11,000ms. Power-down: Mirror at (5,8).
+
+**Introduces:** Power-downs (Mirror)
+
+**Challenge:** A four-quadrant clockwise journey. Phase 1 (TL): Navigate from spawn (1,1) rightward through a horizontal laser at y=3 (x=1-4, 1.5s/1.2s), a rightward bullet at y=2, a downward bullet at x=2, and a persistent trap at (3,1) blocking the direct path. Phase 2 (TR): Cross into the top-right past a dual-arm shooter at (7,2), a 2x2 patrol loop at (5,1)-(6,2), a leftward bullet at y=1, and a mine at (8,3) guarding the only gap at x=8 in the horizontal barrier. Horizontal wrapping at y=1-3 provides emergency escapes from the patrol and shooter. Phase 3 (BR): Drop through the gap into the bottom-right quadrant, dodge the follower starting at (9,6), mines at (7,5) and (6,6), a leftward bullet at y=7, a downward bullet at x=7, and an intermittent trap at (7,8) to collect the switch at (7,7). The 11s TTL starts. Phase 4 (BL): Navigate from the switch toward the mirror at (5,8), the only gap in the vertical barrier. Collecting the mirror inverts all controls for 5 seconds. Cross to (4,8) and race to the exit at (1,8) with inverted controls. BL has only an intermittent trap at (3,7) with generous 1.5s/1.5s timing and the y=7 bullet sweeping through, keeping enemy density low while the mirror makes even simple movement challenging.
+
+**Design rationale:** Introduces the mirror power-down by making it unavoidable: the vertical barrier's only gap forces the player to step on the mirror node at (5,8). The four-quadrant clockwise journey creates four distinct phases: methodical navigation through timed threats (TL), combat escalation with dynamic enemies (TR), urgency from follower pursuit and switch TTL (BR), and cognitive challenge from inverted controls (BL). The BL quadrant is intentionally sparse because the mirror effect is the challenge itself &mdash; adding more enemies would create unfair deaths under inverted controls. The L-shaped barrier system guarantees the player cannot skip ahead or reach the exit without completing all four phases. The top-half wrapping (both edges open at y=0-3) provides escape routes from the TR patrol and shooter without enabling shortcuts past the barriers. The bottom-half walls (y=4-9 on both sides) protect the barrier system. The start/exit direction (top-left to bottom-left) is a new direction not seen in recent levels, breaking muscle memory.
