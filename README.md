@@ -1,6 +1,6 @@
 # Tension Grid
 
-[Web site](https://tensiongrid.com)
+[Website](https://tensiongrid.com)
 
 ## UI/UX
 
