@@ -137,6 +137,12 @@ class Game {
             this.mineExplosions.push(new MineExplosionAnimation(pos.x, pos.y))
         }
 
+        // Update camera zoom for zoom effect
+        const zoomEffect = Constants.game.effects.zoom
+        const isZoomed = this.player.effectManager.hasEffect(zoomEffect.type)
+        this.camera.setTargetZoom(isZoomed ? zoomEffect.zoomLevel : 1)
+        this.camera.update(delta, zoomEffect.zoomSpeed)
+
         // Camera follows player position
         this.camera.follow(this.player.x, this.player.y)
         this.player.teleported = false

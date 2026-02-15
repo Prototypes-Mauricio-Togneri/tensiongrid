@@ -335,6 +335,9 @@ const Constants = {
             },
             freeze: {
                 iconScale: 0.7   // Icon size multiplier
+            },
+            zoom: {
+                iconScale: 0.7   // Icon size multiplier
             }
         },
 
@@ -412,6 +415,14 @@ const Constants = {
             freeze: {
                 type: 'freeze',        // Effect type identifier
                 duration: 3000,        // Enemy freeze duration in ms
+                warningDuration: 1000, // Start blinking this many ms before expiration
+                blinkFrequency: 0.015  // Blink speed (radians per ms)
+            },
+            zoom: {
+                type: 'zoom',          // Effect type identifier
+                duration: 5000,        // Reduced visibility duration in ms
+                zoomLevel: 4,          // Camera zoom multiplier when active
+                zoomSpeed: 0.008,      // Zoom transition speed (exponential lerp factor per ms)
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             }

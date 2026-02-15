@@ -54,7 +54,8 @@ class Renderer {
         this.ctx.save()
         this.ctx.setTransform(1, 0, 0, 1, 0, 0) // Reset to identity for clear
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        this.ctx.scale(this.scale, this.scale)
+        const zoom = this.camera ? this.camera.zoom : 1
+        this.ctx.scale(this.scale * zoom, this.scale * zoom)
     }
 
     /**
@@ -973,6 +974,9 @@ class Renderer {
                 if (power.type === Constants.game.effects.mirror.type) {
                     iconScale = Constants.game.powers.mirror.iconScale
                     drawIcon = (x, y, size, color) => this.drawMirrorIcon(x, y, size, color)
+                } else if (power.type === Constants.game.effects.zoom.type) {
+                    iconScale = Constants.game.powers.zoom.iconScale
+                    drawIcon = (x, y, size, color) => this.drawZoomIcon(x, y, size, color)
                 } else {
                     iconScale = Constants.game.powers.slow.iconScale
                     drawIcon = (x, y, size, color) => this.drawTurtleIcon(x, y, size, color)
@@ -1376,6 +1380,43 @@ class Renderer {
                 ctx.stroke()
             }
         }
+
+        ctx.restore()
+    }
+
+    /**
+     * Draw an eye icon centered at position.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Size of the icon
+     * @param {string} iconColor - Stroke color for the icon
+     */
+    drawZoomIcon(x, y, size, iconColor) {
+        const ctx = this.ctx
+        ctx.save()
+        ctx.strokeStyle = iconColor
+        ctx.lineWidth = size * 0.2
+        ctx.lineCap = 'round'
+
+        // Eye outline (almond shape using two arcs)
+        ctx.beginPath()
+        ctx.moveTo(x - size, y)
+        ctx.quadraticCurveTo(x, y - size * 0.8, x + size, y)
+        ctx.quadraticCurveTo(x, y + size * 0.8, x - size, y)
+        ctx.closePath()
+        ctx.stroke()
+
+        // Iris (filled circle)
+        ctx.fillStyle = iconColor
+        ctx.beginPath()
+        ctx.arc(x, y, size * 0.3, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Slash across the eye (top-right to bottom-left)
+        ctx.beginPath()
+        ctx.moveTo(x + size * 0.7, y - size * 0.7)
+        ctx.lineTo(x - size * 0.7, y + size * 0.7)
+        ctx.stroke()
 
         ctx.restore()
     }

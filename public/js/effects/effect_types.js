@@ -109,5 +109,20 @@ const EffectTypes = {
             glowColor: 'freeze',
             glowColorAlpha: 'freezeGlow'
         }
+    },
+
+    /**
+     * Zoom effect - zooms camera in, drastically reducing visibility.
+     */
+    [Constants.game.effects.zoom.type]: {
+        category: 'player',
+        stackMode: 'replace',
+        stackGroup: 'zoom',
+        apply: () => {},
+        remove: () => {},
+        renderHint: {
+            glowColor: 'powerDown',
+            glowColorAlpha: 'powerDownGlow'
+        }
     }
 }

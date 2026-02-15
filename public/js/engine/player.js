@@ -140,6 +140,14 @@ class Player {
     }
 
     /**
+     * Check if player currently has zoom effect active.
+     * @returns {boolean} True if zoom is active
+     */
+    isZoomed() {
+        return this.effectManager.hasEffect(Constants.game.effects.zoom.type)
+    }
+
+    /**
      * Check if player is protected from death (shield OR immunity).
      * @returns {boolean} True if player cannot die from collision
      */

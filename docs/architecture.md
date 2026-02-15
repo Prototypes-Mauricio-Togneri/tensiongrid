@@ -48,7 +48,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), shooter charge duration (500ms), shooter rotation duration (250ms), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s), wall core width (8px), wall glow width (14px), wall shadow blur (12px/18px)
 - `powers.size`: (12px) - collectible size for all power types
-- `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8, freeze: 0.7)
+- `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8, freeze: 0.7, zoom: 0.7)
 - `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms), timerArcOffset (6px), timerArcThickness (4px), timerArcWarningThreshold (0.25)
 - `switch`: size (24px), pulsePeriod (1500ms), pulseScale (3), pulseAlpha (0.3), connection (lineWidth: 2px, dash: [6,8], opacity: 0.15, glowBlur: 4)
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
@@ -57,6 +57,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `effects.immunity`: duration (1000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
 - `effects.freeze`: duration (3000ms), warningDuration (1000ms), blinkFrequency (0.015) - freezes all enemies, blinks before expiring
+- `effects.zoom`: duration (5000ms), zoomLevel (2x), zoomSpeed (0.008), warningDuration (1000ms), blinkFrequency (0.015) - zooms camera in reducing visibility, blinks before expiring
 - `colors`: all game element colors with glow variants (includes switch: gold #ffd700, wall: slate blue #5588bb, freeze: ice cyan #44ddff)
 - `game.animations.playerWrap`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
 - `game.animations.collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
@@ -116,6 +117,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `follow(targetX, targetY)` - Center camera on target with edge clamping
 - `worldToScreen(worldX, worldY)` - Transform world coordinates to screen coordinates
 - `clamp()` - Constrain camera so viewport stays within grid bounds (centers grid if smaller than viewport)
+- `setTargetZoom(target)` / `update(delta, speed)` - Smooth zoom transition for zoom power-down (zoom > 1 reduces visible area)
 
 **InputManager** (`js/io/input_manager.js`) - Keyboard and touch input:
 - Supports arrow keys, WASD, and touch drag gestures
@@ -163,7 +165,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Each type specifies: `category` (player/enemy/world), `stackMode` (replace), `stackGroup` (effects in same group replace each other)
 - Handler functions: `apply(target, effect)`, `remove(target, effect)`, optional `onHit(target, effect, manager)`
 - `renderHint` object provides data for renderer (glowColor, showShield, blink)
-- Current types: `fast`, `slow`, `shield`, `immunity`, `mirror`, `freeze`
+- Current types: `fast`, `slow`, `shield`, `immunity`, `mirror`, `freeze`, `zoom`
 
 **EffectManager** (`js/effects/effect_manager.js`) - Effect lifecycle manager:
 - Manages active effects on a target entity (player, enemy, etc.)
@@ -325,10 +327,10 @@ Cyberpunk/neon aesthetic with these design elements:
 - Fixed position on a single grid node
 - Holds position (x, y), type, size, isNegative flag, and collected state
 - `getPosition()` - Returns world position as Vector2
-- `isNegative: false` for power-ups (fast, shield, freeze), `true` for power-downs (slow, mirror)
+- `isNegative: false` for power-ups (fast, shield, freeze), `true` for power-downs (slow, mirror, zoom)
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast', 'shield', 'freeze', 'slow', or 'mirror')
+- Config: `x`, `y` (node position), `type` ('fast', 'shield', 'freeze', 'slow', 'mirror', or 'zoom')
 
 **Exit** (`js/engine/exit.js`) - Level completion portal:
 - Fixed position on a single grid node
@@ -410,7 +412,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
 - `drawWakeTrail(entity, size, color, shadowColor?, endColor?)` - Unified wake trail rendering for moving entities
 - `drawGlowedShape(x, y, size, color, glowColor, drawShape)` - Standard 3-layer glow effect (outer glow → main → highlight)
-- Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, snowflake for freeze, turtle for slow, parallel arrows for mirror)
+- Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, snowflake for freeze, turtle for slow, parallel arrows for mirror, eye icon for zoom)
 - Freeze overlay: ice-cyan glow on all enemies while freeze effect is active
 - Player boost indicator: electric blue glow when speed boost is active, red glow when slowed
 - Shield rendering: electric blue pulsing circular aura around player when shield is active

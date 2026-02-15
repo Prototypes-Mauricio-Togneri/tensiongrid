@@ -134,6 +134,13 @@
       "type": "freeze"
     }
   ],
+  "powerDowns": [
+    {
+      "x": 3,
+      "y": 5,
+      "type": "zoom"
+    }
+  ],
   "enemies": {
     "enemyFollower": [
       {

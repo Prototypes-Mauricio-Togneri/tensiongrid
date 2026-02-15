@@ -273,6 +273,12 @@ Non-threatening elements that shape the playable space.
 - **Design use:** Forces concentration; disrupts muscle memory
 - **Placement:** On tempting shortcuts; guarding valuable power-ups to create risk/reward
 
+#### Zoom
+
+- **Effect:** Zooms camera in, drastically reducing visible area
+- **Design use:** Breaks "perfect information" temporarily; creates tension from unseen threats
+- **Placement:** On main paths in levels with off-screen threats (bullets, followers); before sections where spatial awareness matters
+
 ## Level Characteristics
 
 ### Replay Value

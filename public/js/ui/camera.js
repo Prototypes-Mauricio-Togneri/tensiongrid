@@ -1,6 +1,7 @@
 /**
  * Camera system that follows the player and handles coordinate transforms.
  * Keeps the grid visible with configurable padding and centers small grids.
+ * Supports zoom for effects like zoom power-down (reduced visibility).
  */
 class Camera {
     /**
@@ -13,6 +14,8 @@ class Camera {
         this.viewportWidth = 800  // Canvas width in pixels
         this.viewportHeight = 600 // Canvas height in pixels
         this.padding = 60         // Minimum padding from grid edge to viewport edge
+        this.zoom = 1             // Current zoom level (1 = normal, >1 = zoomed in)
+        this.targetZoom = 1       // Target zoom for smooth transition
     }
 
     /**
@@ -23,6 +26,29 @@ class Camera {
     setViewport(width, height) {
         this.viewportWidth = width
         this.viewportHeight = height
+    }
+
+    /**
+     * Set target zoom level for smooth transition.
+     * @param {number} target - Target zoom level (1 = normal)
+     */
+    setTargetZoom(target) {
+        this.targetZoom = target
+    }
+
+    /**
+     * Update zoom interpolation toward target.
+     * @param {number} delta - Time elapsed since last frame in milliseconds
+     * @param {number} speed - Exponential lerp factor per ms
+     */
+    update(delta, speed) {
+        if (this.zoom !== this.targetZoom) {
+            const t = 1 - Math.pow(1 - speed, delta)
+            this.zoom += (this.targetZoom - this.zoom) * t
+            if (Math.abs(this.zoom - this.targetZoom) < 0.01) {
+                this.zoom = this.targetZoom
+            }
+        }
     }
 
     /**
@@ -39,11 +65,14 @@ class Camera {
     /**
      * Constrain camera position to keep grid visible with padding.
      * Centers the grid if it fits within the viewport.
+     * Accounts for zoom level when calculating visible area.
      */
     clamp() {
         const grid = this.grid
-        const halfWidth = this.viewportWidth / 2
-        const halfHeight = this.viewportHeight / 2
+        const effectiveWidth = this.viewportWidth / this.zoom
+        const effectiveHeight = this.viewportHeight / this.zoom
+        const halfWidth = effectiveWidth / 2
+        const halfHeight = effectiveHeight / 2
 
         // Grid bounds in world space
         const gridLeft = 0
@@ -55,8 +84,8 @@ class Camera {
         const gridHeight = gridBottom - gridTop
 
         // Available viewport space (minus padding on both sides)
-        const availableWidth = this.viewportWidth - this.padding * 2
-        const availableHeight = this.viewportHeight - this.padding * 2
+        const availableWidth = effectiveWidth - this.padding * 2
+        const availableHeight = effectiveHeight - this.padding * 2
 
         // Center grid if it fits, otherwise clamp with padding
         if (gridWidth <= availableWidth) {
@@ -78,14 +107,17 @@ class Camera {
 
     /**
      * Transform world coordinates to screen coordinates.
+     * Accounts for zoom level in the transform.
      * @param {number} worldX - X position in world space
      * @param {number} worldY - Y position in world space
      * @returns {Object} Screen coordinates {x, y}
      */
     worldToScreen(worldX, worldY) {
+        const effectiveWidth = this.viewportWidth / this.zoom
+        const effectiveHeight = this.viewportHeight / this.zoom
         return {
-            x: worldX - this.x + this.viewportWidth / 2,
-            y: worldY - this.y + this.viewportHeight / 2
+            x: worldX - this.x + effectiveWidth / 2,
+            y: worldY - this.y + effectiveHeight / 2
         }
     }
 }
