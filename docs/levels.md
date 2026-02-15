@@ -377,7 +377,7 @@ Descriptions for all levels in `public/levels/`. Each entry documents the level'
 
 **Layout:** 10x10 grid. A horizontal barrier of 9 excluded edges between y=4 and y=5 separates the top half (y=0-4) from the bottom half (y=5-9), with a single gap at x=1. Full walls on all four edges (no wrapping).
 
-**Enemies:** Bullet x4 (2 downward in top half at x=7 speed 90 and x=4 speed 100, 1 rightward at y=5 speed 120 in gauntlet, 1 leftward at y=7 speed 110 in gauntlet), Laser x1 (horizontal at y=2, x=3-7, intermittent 2s/1.5s), Trap x3 (1 persistent at (5,1), 1 intermittent at (3,6) 1.8s/1.5s, 1 intermittent at (7,8) 1.5s/1.2s), Mine x3 ((4,2) on laser path, (6,7) in gauntlet, (5,8) on exit approach), Patrol x1 (large rectangular sweep (3,5)-(7,5)-(7,7)-(3,7), speed 140), Shooter x1 (dual-arm left/right at (5,6), delay 1800ms), Follower x1 (speed 85, starts at (7,6))
+**Enemies:** Bullet x4 (2 downward in top half at x=7 speed 90 and x=4 speed 100, 1 rightward at y=5 speed 120 in gauntlet, 1 leftward at y=7 speed 110 in gauntlet), Laser x1 (horizontal at y=2, x=3-7, intermittent 2s/1.5s), Trap x4 (1 persistent at (5,1), 1 intermittent at (3,6) 1.8s/1.5s, 1 intermittent at (2,7) 1.5s/1.5s, 1 intermittent at (7,8) 1.5s/1.2s), Mine x4 ((4,2) on laser path, (6,7) in gauntlet, (3,8) bottom-left, (5,8) on exit approach), Patrol x1 (large rectangular sweep (3,5)-(7,5)-(7,7)-(3,7), speed 140), Shooter x1 (dual-arm left/right at (5,6), delay 1800ms), Follower x1 (speed 85, starts at (7,6))
 
 **Other elements:** Switch at (1,2) unlocking exit (TTL 12,000ms). Power-up: Freeze at (1,5).
 
