@@ -206,6 +206,7 @@ Non-threatening elements that shape the playable space.
 - **Configuration:** Start/end nodes (can span multiple nodes in a line)
 - **Best for:** Preventing wrap-around on outer edges; creating corridors without using excluded nodes
 - **Placement:** Typically on outer grid edges to disable wrapping and keep players focused on the intended play area
+- **Prevent trivial shortcuts:** When the exit is reachable in fewer moves by wrapping around the grid edges than by traversing the intended play area, add walls on those edges to block the shortcut and force the designed route
 - **Note:** Unlike excluded edges, walls are visible barriers that clearly communicate "you cannot pass here"
 
 ### Portal
