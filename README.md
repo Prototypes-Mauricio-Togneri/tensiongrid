@@ -22,7 +22,7 @@
 
 ## New levels
 
-20. **Power-down** - No breaks
+20. **Power-down** - Zoom
 
 ## Prompt
 
