@@ -1,7 +1,6 @@
 /**
- * Enemy that actively follows the player by moving toward the best adjacent node.
- * Calculates shortest path to player at each node, choosing the adjacent node
- * that minimizes distance to player.
+ * Enemy that actively follows the player using BFS shortest path.
+ * At each node, finds the shortest grid path to the player and takes the first step.
  */
 class EnemyFollower {
     /**
@@ -75,11 +74,14 @@ class EnemyFollower {
     }
 
     /**
-     * Find the best adjacent node that minimizes distance to player.
-     * Validates that target node and edge are not excluded.
-     * @returns {Object|null} Best adjacent node {row, col} or null if all blocked
+     * Find the best adjacent node using BFS shortest path to player.
+     * Validates that nodes and edges are not excluded.
+     * @returns {Object|null} First step toward player {row, col} or null if unreachable
      */
     pickBestAdjacentNode() {
+        // Already at player position
+        if (this.row === this.playerRow && this.col === this.playerCol) return null
+
         const directions = [
             Constants.directions.up,
             Constants.directions.down,
@@ -87,31 +89,42 @@ class EnemyFollower {
             Constants.directions.right
         ]
 
-        const playerPos = this.grid.getNodePosition(this.playerRow, this.playerCol)
-        let bestNode = null
-        let bestDistance = Infinity
+        // BFS from follower to player
+        const startKey = `${this.row},${this.col}`
+        const queue = [{ row: this.row, col: this.col }]
+        const cameFrom = new Map() // "row,col" -> { row, col } of predecessor
+        cameFrom.set(startKey, null)
 
-        for (const dir of directions) {
-            const candidateRow = this.row + dir.row
-            const candidateCol = this.col + dir.col
+        while (queue.length > 0) {
+            const current = queue.shift()
 
-            // Skip if target node is invalid (out of bounds or excluded)
-            if (!this.grid.isValidPosition(candidateRow, candidateCol)) continue
+            // Goal reached - trace back to find first step
+            if (current.row === this.playerRow && current.col === this.playerCol) {
+                let step = current
+                let parent = cameFrom.get(`${step.row},${step.col}`)
+                while (parent.row !== this.row || parent.col !== this.col) {
+                    step = parent
+                    parent = cameFrom.get(`${step.row},${step.col}`)
+                }
+                return { row: step.row, col: step.col }
+            }
 
-            // Skip if edge to target is excluded
-            if (this.grid.isEdgeExcluded(this.row, this.col, candidateRow, candidateCol)) continue
+            for (const dir of directions) {
+                const neighborRow = current.row + dir.row
+                const neighborCol = current.col + dir.col
+                const neighborKey = `${neighborRow},${neighborCol}`
 
-            // Calculate distance from candidate to player
-            const candidatePos = this.grid.getNodePosition(candidateRow, candidateCol)
-            const distToPlayer = Vector2.distance(candidatePos, playerPos)
+                if (cameFrom.has(neighborKey)) continue
+                if (!this.grid.isValidPosition(neighborRow, neighborCol)) continue
+                if (this.grid.isEdgeExcluded(current.row, current.col, neighborRow, neighborCol)) continue
 
-            if (distToPlayer < bestDistance) {
-                bestDistance = distToPlayer
-                bestNode = { row: candidateRow, col: candidateCol }
+                cameFrom.set(neighborKey, { row: current.row, col: current.col })
+                queue.push({ row: neighborRow, col: neighborCol })
             }
         }
 
-        return bestNode
+        // Player unreachable
+        return null
     }
 
     /**
