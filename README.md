@@ -22,7 +22,6 @@
 
 ## New levels
 
-19. **Power-up** - Enemies freeze
 20. **Power-down** - No breaks
 
 ## Prompt
