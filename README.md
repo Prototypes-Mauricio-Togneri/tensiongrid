@@ -22,7 +22,6 @@
 
 ## New levels
 
-18. **Switch** - Unlock traps and walls
 19. **Power-up** - Enemies freeze
 20. **Power-down** - No breaks
 
