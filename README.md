@@ -35,3 +35,5 @@ read all the level descriptions in @docs/levels.md to understand the design phil
 plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.
 ask me if you have any question.
+
+- make all power ups/down accept a mandatory property called "ttl"
