@@ -5,7 +5,6 @@
 ## UI/UX
 
 - Implement switches that unlock:
-  - Lasers
   - Traps
   - Walls
 
@@ -23,7 +22,7 @@
 
 ## New levels
 
-18. **Safe heaven** - Areas where player can wait safely
+18. **Switch** - Unlock traps and walls
 19. **Power-up** - Enemies freeze
 20. **Power-down** - No breaks
 
