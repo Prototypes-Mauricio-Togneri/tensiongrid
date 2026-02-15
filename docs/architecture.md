@@ -48,7 +48,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `physics.deathPauseMs`: pause duration after death (1000ms)
 - `enemies`: bullet size (5px), bullet speed (130px/s), trap size (14px), trap opacity transition speed (0.004/ms), trap opacity min/max (0.2/1.0), mine size (12px), shooter size (14px), shooter arm length (28px), shooter charge duration (500ms), shooter rotation duration (250ms), patrol size (12px), follower size (10px), follower rotation speed (3 rad/s), wall core width (8px), wall glow width (14px), wall shadow blur (12px/18px)
 - `powers.size`: (12px) - collectible size for all power types
-- `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8)
+- `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8, freeze: 0.7)
 - `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms), timerArcOffset (6px), timerArcThickness (4px), timerArcWarningThreshold (0.25)
 - `switch`: size (24px), pulsePeriod (1500ms), pulseScale (3), pulseAlpha (0.3), connection (lineWidth: 2px, dash: [6,8], opacity: 0.15, glowBlur: 4)
 - `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
@@ -56,7 +56,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
 - `effects.immunity`: duration (1000ms), blink frequency (0.015) - effect behavior
 - `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
-- `colors`: all game element colors with glow variants (includes switch: gold #ffd700, wall: slate blue #5588bb)
+- `effects.freeze`: duration (3000ms), warningDuration (1000ms), blinkFrequency (0.015) - freezes all enemies, blinks before expiring
+- `colors`: all game element colors with glow variants (includes switch: gold #ffd700, wall: slate blue #5588bb, freeze: ice cyan #44ddff)
 - `game.animations.playerWrap`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
 - `game.animations.collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
 - `game.animations.playerExplosion`: particle count (16), particle size (5px), end radius (40px), duration (800ms)
@@ -162,7 +163,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Each type specifies: `category` (player/enemy/world), `stackMode` (replace), `stackGroup` (effects in same group replace each other)
 - Handler functions: `apply(target, effect)`, `remove(target, effect)`, optional `onHit(target, effect, manager)`
 - `renderHint` object provides data for renderer (glowColor, showShield, blink)
-- Current types: `fast`, `slow`, `shield`, `immunity`, `mirror`
+- Current types: `fast`, `slow`, `shield`, `immunity`, `mirror`, `freeze`
 
 **EffectManager** (`js/effects/effect_manager.js`) - Effect lifecycle manager:
 - Manages active effects on a target entity (player, enemy, etc.)
@@ -232,7 +233,7 @@ Cyberpunk/neon aesthetic with these design elements:
 **CollectionWaveAnimation** (`js/animations/collection_wave_animation.js`) - Collectible pickup effect:
 - Visual effect for collectible item pickup (powers, switches)
 - Single expanding ring that fades out as it grows
-- Color passed as constructor parameter (electric blue for power-up, red for power-down, gold for switch)
+- Color passed as constructor parameter (electric blue for power-up, ice cyan for freeze, red for power-down, gold for switch)
 - Ease-out expansion over 300ms
 - `update(delta)` - Advance animation
 - `isComplete()` - Returns true when animation finished
@@ -324,10 +325,10 @@ Cyberpunk/neon aesthetic with these design elements:
 - Fixed position on a single grid node
 - Holds position (x, y), type, size, isNegative flag, and collected state
 - `getPosition()` - Returns world position as Vector2
-- `isNegative: false` for power-ups (fast, shield), `true` for power-downs (slow, mirror)
+- `isNegative: false` for power-ups (fast, shield, freeze), `true` for power-downs (slow, mirror)
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast', 'shield', 'slow', or 'mirror')
+- Config: `x`, `y` (node position), `type` ('fast', 'shield', 'freeze', 'slow', or 'mirror')
 
 **Exit** (`js/engine/exit.js`) - Level completion portal:
 - Fixed position on a single grid node
@@ -409,7 +410,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`
 - `drawWakeTrail(entity, size, color, shadowColor?, endColor?)` - Unified wake trail rendering for moving entities
 - `drawGlowedShape(x, y, size, color, glowColor, drawShape)` - Standard 3-layer glow effect (outer glow → main → highlight)
-- Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, turtle for slow, parallel arrows for mirror)
+- Power rendering with pulsing circle and type-specific icon (lightning bolt for fast, shield icon for shield, snowflake for freeze, turtle for slow, parallel arrows for mirror)
+- Freeze overlay: ice-cyan glow on all enemies while freeze effect is active
 - Player boost indicator: electric blue glow when speed boost is active, red glow when slowed
 - Shield rendering: electric blue pulsing circular aura around player when shield is active
 - Immunity blinking: player blinks rapidly during post-shield immunity period
@@ -448,7 +450,8 @@ Cyberpunk/neon aesthetic with these design elements:
 - Camera follows player each frame (instant jump on teleport)
 - Single powers array for both power-ups and power-downs
 - Power collection creates effects via `player.effectManager.addEffect(type, config)`
-- Collection wave animation on power pickup (electric blue for power-ups, red for power-downs)
+- Collection wave animation on power pickup (electric blue for power-ups, ice cyan for freeze, red for power-downs)
+- Freeze effect skips `enemyManager.update()` to halt all enemy behavior while active
 - Portal teleportation: pairs portals by group, teleports player on grid collision, reuses wrap animation and sound, cooldown clears when player steps off
 - Powers respawn on player death
 - Responsive canvas with window resize handling and mobile scaling (73% at <768px viewport)

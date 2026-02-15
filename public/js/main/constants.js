@@ -222,7 +222,7 @@ const Constants = {
     // ==========================================
     game: {
         // Gym mode configuration path
-        gym: 'gyms/gym_3.json',
+        gym: 'gyms/gym_2.json',
 
         // Level template file path
         template: 'templates/template.json',
@@ -332,6 +332,9 @@ const Constants = {
             },
             mirror: {
                 iconScale: 0.8   // Icon size multiplier
+            },
+            freeze: {
+                iconScale: 0.7   // Icon size multiplier
             }
         },
 
@@ -403,6 +406,12 @@ const Constants = {
             mirror: {
                 type: 'mirror',        // Effect type identifier
                 duration: 5000,        // Control inversion duration in ms
+                warningDuration: 1000, // Start blinking this many ms before expiration
+                blinkFrequency: 0.015  // Blink speed (radians per ms)
+            },
+            freeze: {
+                type: 'freeze',        // Effect type identifier
+                duration: 3000,        // Enemy freeze duration in ms
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             }
@@ -547,6 +556,11 @@ const Constants = {
             shield: '#4466ff',              // Shield circle color (electric blue)
             shieldGlow: '#4466ff4d',        // Shield glow effect
             shieldIcon: '#ffffff',          // Shield icon color (white)
+
+            // Freeze colors
+            freeze: '#44ddff',              // Freeze circle color (ice cyan)
+            freezeGlow: '#44ddff4d',        // Freeze glow effect
+            freezeIcon: '#ffffff',          // Freeze icon color (white)
 
             // Exit portal colors
             exitOpen: '#44ff44',            // Open exit border (green)

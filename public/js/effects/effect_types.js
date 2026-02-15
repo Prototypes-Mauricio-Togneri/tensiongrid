@@ -94,5 +94,20 @@ const EffectTypes = {
             glowColor: 'powerDown',
             glowColorAlpha: 'powerDownGlow'
         }
+    },
+
+    /**
+     * Freeze effect - freezes all enemies in place.
+     */
+    [Constants.game.effects.freeze.type]: {
+        category: 'world',
+        stackMode: 'replace',
+        stackGroup: 'freeze',
+        apply: () => {},
+        remove: () => {},
+        renderHint: {
+            glowColor: 'freeze',
+            glowColorAlpha: 'freezeGlow'
+        }
     }
 }

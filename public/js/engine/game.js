@@ -102,7 +102,9 @@ class Game {
                 this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.normal)
             }
         }
-        this.enemyManager.update(delta, this.player.targetRow, this.player.targetCol)
+        if (!this.player.effectManager.hasEffect(Constants.game.effects.freeze.type)) {
+            this.enemyManager.update(delta, this.player.targetRow, this.player.targetCol)
+        }
 
         // Update exit animation
         if (this.exit) {
@@ -221,7 +223,9 @@ class Game {
         }
 
         // Check for mine trigger (does not kill player, just starts countdown)
-        if (this.collision.checkPlayerMineContact(this.player, this.enemyManager.getAllMines())) {
+        // Mines cannot be triggered while freeze effect is active
+        if (!this.player.effectManager.hasEffect(Constants.game.effects.freeze.type) &&
+            this.collision.checkPlayerMineContact(this.player, this.enemyManager.getAllMines())) {
             this.audioManager.playSound(Constants.audio.sounds.mineAlarm)
         }
 
@@ -308,9 +312,13 @@ class Game {
             waveColor = Constants.game.colors.powerDown
         } else {
             this.audioManager.playSound(Constants.audio.sounds.powerUp)
-            waveColor = effectType === Constants.game.effects.shield.type
-                ? Constants.game.colors.shield
-                : Constants.game.colors.powerUp
+            if (effectType === Constants.game.effects.shield.type) {
+                waveColor = Constants.game.colors.shield
+            } else if (effectType === Constants.game.effects.freeze.type) {
+                waveColor = Constants.game.colors.freeze
+            } else {
+                waveColor = Constants.game.colors.powerUp
+            }
         }
 
         this.collectionWave = new CollectionWaveAnimation(power.x, power.y, waveColor)
@@ -406,6 +414,19 @@ class Game {
         this.renderer.drawShooters(this.enemyManager.getShooters())
         this.renderer.drawPatrols(this.enemyManager.getPatrols())
         this.renderer.drawFollowers(this.enemyManager.getFollowers())
+
+        // Draw freeze overlay on enemies
+        if (this.player.effectManager.hasEffect(Constants.game.effects.freeze.type)) {
+            this.renderer.drawFreezeOverlay(
+                this.enemyManager.getBullets(),
+                this.enemyManager.getShooters(),
+                this.enemyManager.getPatrols(),
+                this.enemyManager.getFollowers(),
+                this.enemyManager.getMines(),
+                this.enemyManager.getLasers(),
+                this.enemyManager.getTraps()
+            )
+        }
 
         // Draw player wrap effect behind player
         if (this.playerWrap) {

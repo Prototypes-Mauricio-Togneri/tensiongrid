@@ -983,6 +983,12 @@ class Renderer {
                 iconColor = this.colors.shieldIcon
                 iconScale = Constants.game.powers.shield.iconScale
                 drawIcon = (x, y, size, color) => this.drawShieldIcon(x, y, size, color)
+            } else if (power.type === Constants.game.effects.freeze.type) {
+                color = this.colors.freeze
+                glowColor = this.colors.freezeGlow
+                iconColor = this.colors.freezeIcon
+                iconScale = Constants.game.powers.freeze.iconScale
+                drawIcon = (x, y, size, color) => this.drawSnowflakeIcon(x, y, size, color)
             } else {
                 color = this.colors.powerUp
                 glowColor = this.colors.powerUpGlow
@@ -1332,6 +1338,103 @@ class Renderer {
         ctx.fill()
 
         ctx.restore()
+    }
+
+    /**
+     * Draw a snowflake icon centered at position.
+     * @param {number} x - Center X position
+     * @param {number} y - Center Y position
+     * @param {number} size - Size of the icon
+     * @param {string} iconColor - Stroke color for the icon
+     */
+    drawSnowflakeIcon(x, y, size, iconColor) {
+        const ctx = this.ctx
+        ctx.save()
+        ctx.strokeStyle = iconColor
+        ctx.lineWidth = size * 0.2
+        ctx.lineCap = 'round'
+
+        for (let i = 0; i < 6; i++) {
+            const angle = (Math.PI / 3) * i
+            const endX = x + Math.cos(angle) * size
+            const endY = y + Math.sin(angle) * size
+
+            // Main arm
+            ctx.beginPath()
+            ctx.moveTo(x, y)
+            ctx.lineTo(endX, endY)
+            ctx.stroke()
+
+            // Branches at 60% along arm
+            const bx = x + Math.cos(angle) * size * 0.6
+            const by = y + Math.sin(angle) * size * 0.6
+            const bLen = size * 0.35
+            for (const offset of [Math.PI / 4, -Math.PI / 4]) {
+                ctx.beginPath()
+                ctx.moveTo(bx, by)
+                ctx.lineTo(bx + Math.cos(angle + offset) * bLen, by + Math.sin(angle + offset) * bLen)
+                ctx.stroke()
+            }
+        }
+
+        ctx.restore()
+    }
+
+    /**
+     * Draw ice-cyan overlay on all enemies during freeze effect.
+     * @param {EnemyBullet[]} bullets - Active bullet instances
+     * @param {EnemyShooter[]} shooters - Shooter instances
+     * @param {EnemyPatrol[]} patrols - Patrol instances
+     * @param {EnemyFollower[]} followers - Follower instances
+     * @param {EnemyMine[]} mines - Mine instances
+     * @param {EnemyLaser[]} lasers - Laser instances
+     * @param {EnemyTrap[]} traps - Trap instances
+     */
+    drawFreezeOverlay(bullets, shooters, patrols, followers, mines, lasers, traps) {
+        const ctx = this.ctx
+        const color = this.colors.freeze
+
+        // Draw overlay circle at a screen position
+        const drawOverlayAt = (worldX, worldY, size) => {
+            const pos = this.toScreen(worldX, worldY)
+            ctx.save()
+            ctx.globalAlpha = 0.25
+            ctx.shadowColor = color
+            ctx.shadowBlur = this.shadow(12)
+            ctx.fillStyle = color
+            ctx.beginPath()
+            ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.restore()
+        }
+
+        for (const b of bullets) drawOverlayAt(b.x, b.y, b.size)
+        for (const s of shooters) drawOverlayAt(s.x, s.y, s.size)
+        for (const p of patrols) drawOverlayAt(p.x, p.y, p.size)
+        for (const f of followers) drawOverlayAt(f.x, f.y, f.size)
+        for (const m of mines) {
+            if (!m.isExploded()) drawOverlayAt(m.x, m.y, m.size)
+        }
+        for (const t of traps) drawOverlayAt(t.x, t.y, t.size)
+
+        // Lasers: overlay at both endpoints
+        for (const laser of lasers) {
+            const positions = laser.getWorldPositions()
+            const start = this.toScreen(positions.start.x, positions.start.y)
+            const end = this.toScreen(positions.end.x, positions.end.y)
+            ctx.save()
+            ctx.globalAlpha = 0.25
+            ctx.strokeStyle = color
+            ctx.lineWidth = 6
+            ctx.lineCap = 'round'
+            ctx.shadowColor = color
+            ctx.shadowBlur = this.shadow(12)
+            ctx.beginPath()
+            ctx.moveTo(start.x, start.y)
+            ctx.lineTo(end.x, end.y)
+            ctx.stroke()
+            ctx.restore()
+        }
     }
 
     /**
