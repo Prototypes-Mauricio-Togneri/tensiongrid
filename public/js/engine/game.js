@@ -114,6 +114,11 @@ class Game {
             portal.update(delta)
         }
 
+        // Update wall opacity transitions
+        for (const wall of this.walls) {
+            wall.update(delta)
+        }
+
         // Update switches and handle expiration
         for (const switchItem of this.switches) {
             if (switchItem.update(delta)) {

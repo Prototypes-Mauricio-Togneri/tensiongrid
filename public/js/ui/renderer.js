@@ -571,9 +571,11 @@ class Renderer {
             const positions = wall.getWorldPositions()
             const start = this.toScreen(positions.start.x, positions.start.y)
             const end = this.toScreen(positions.end.x, positions.end.y)
+            const alpha = wall.opacity
 
             // Outer glow (wide, semi-transparent)
             ctx.save()
+            ctx.globalAlpha = alpha
             ctx.strokeStyle = this.colors.wallGlow
             ctx.lineWidth = settings.glowWidth
             ctx.lineCap = 'round'
@@ -587,6 +589,7 @@ class Renderer {
 
             // Main wall line (solid core)
             ctx.save()
+            ctx.globalAlpha = alpha
             ctx.strokeStyle = this.colors.wall
             ctx.lineWidth = settings.coreWidth
             ctx.lineCap = 'round'

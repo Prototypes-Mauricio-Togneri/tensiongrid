@@ -47,6 +47,23 @@ class EnemyTrap {
     }
 
     /**
+     * Disable the trap (called by switch system).
+     * @param {number} _ttl - Time to live in ms (managed by switch, unused here)
+     */
+    open(_ttl) {
+        this.state.active = false
+    }
+
+    /**
+     * Re-enable the trap (called when switch TTL expires).
+     * Opacity ramps back up via IntermittentState, providing a brief visual warning.
+     */
+    close() {
+        this.state.active = true
+        this.state.timer = 0
+    }
+
+    /**
      * Update intermittent trap state and opacity transitions.
      * @param {number} delta - Time elapsed since last frame in milliseconds
      */

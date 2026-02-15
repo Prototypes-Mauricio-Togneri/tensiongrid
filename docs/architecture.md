@@ -279,6 +279,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Other entities (bullets) pass through unaffected
 - Persists across player deaths (static level feature)
 - Optional intermittent mode via IntermittentState: `timeOn`/`timeOff` (ms) to cycle on/off
+- Switch-controllable: `open(_ttl)` deactivates trap, `close()` reactivates with visual ramp-up warning
 
 **EnemyMine** (`js/enemies/enemy_mine.js`) - Triggered explosive hazard:
 - Fixed position on a single grid node
@@ -359,7 +360,9 @@ Cyberpunk/neon aesthetic with these design elements:
 - Does not damage player (purely structural)
 - Slate blue color (#5588bb) with glow effect
 - Persists across player deaths (static level feature)
-- Config: `from` (start node {x, y}), `to` (end node {x, y})
+- Switch-controllable: `open(_ttl)` deactivates wall (stops blocking, fades out), `close()` reactivates (resumes blocking, fades in)
+- `update(delta)` drives smooth opacity transitions between active/inactive states
+- Config: `from` (start node {x, y}), `to` (end node {x, y}), optional `id` for switch targeting
 
 **Portal** (`js/engine/portal.js`) - Teleportation portal:
 - Portals come in pairs linked by a shared `group` string

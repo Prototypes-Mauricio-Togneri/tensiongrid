@@ -228,7 +228,7 @@ const Constants = {
         template: 'templates/template.json',
 
         // Total number of available levels
-        totalLevels: 17,
+        totalLevels: 18,
 
         // Star rating settings
         stars: {
@@ -282,7 +282,9 @@ const Constants = {
                 coreWidth: 4,                  // Main wall line thickness in pixels
                 glowWidth: 8,                  // Outer glow line thickness in pixels
                 coreShadowBlur: 12,            // Core line shadow blur radius in pixels
-                glowShadowBlur: 18             // Outer glow shadow blur radius in pixels
+                glowShadowBlur: 18,            // Outer glow shadow blur radius in pixels
+                opacityTransitionSpeed: 0.004, // Opacity change per ms during transitions
+                opacityMin: 0.15               // Minimum opacity when deactivated by switch
             },
             trap: {
                 size: 14,                      // Trap size in pixels
