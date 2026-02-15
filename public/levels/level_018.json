@@ -414,7 +414,7 @@
         "endX": 6,
         "endY": 5,
         "timeOn": 2000,
-        "timeOff": 3500
+        "timeOff": 2000
       }
     ],
     "enemyTrap": [
@@ -457,7 +457,7 @@
     ],
     "enemyShooter": [
       {
-        "x": 5,
+        "x": 4,
         "y": 4,
         "arms": [
           "left",
@@ -473,7 +473,7 @@
         "delay": 1500
       },
       {
-        "x": 3,
+        "x": 2,
         "y": 6,
         "delay": 1500
       },
