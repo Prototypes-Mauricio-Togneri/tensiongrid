@@ -2,8 +2,8 @@
   "id": 18,
   "stars": {
     "stars1": 40000,
-    "stars2": 30000,
-    "stars3": 23000
+    "stars2": 35000,
+    "stars3": 30000
   },
   "grid": {
     "width": 10,
@@ -395,7 +395,7 @@
         "y": 1,
         "direction": "right",
         "delay": 0,
-        "interval": 2500,
+        "interval": 3500,
         "speed": 110
       },
       {
@@ -405,6 +405,14 @@
         "delay": 1000,
         "interval": 3000,
         "speed": 100
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "direction": "right",
+        "delay": 0,
+        "interval": 4000,
+        "speed": 90
       }
     ],
     "enemyLaser": [
@@ -429,7 +437,9 @@
       },
       {
         "x": 3,
-        "y": 2
+        "y": 2,
+        "timeOn": 1000,
+        "timeOff": 1000
       }
     ],
     "enemyPatrol": [
