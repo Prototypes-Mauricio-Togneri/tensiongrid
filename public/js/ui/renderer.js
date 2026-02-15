@@ -1398,24 +1398,21 @@ class Renderer {
         ctx.lineWidth = size * 0.2
         ctx.lineCap = 'round'
 
-        // Eye outline (almond shape using two arcs)
+        // Lens (circle, offset up-left so handle fits)
+        const lensRadius = size * 0.55
+        const lensX = x - size * 0.15
+        const lensY = y - size * 0.15
         ctx.beginPath()
-        ctx.moveTo(x - size, y)
-        ctx.quadraticCurveTo(x, y - size * 0.8, x + size, y)
-        ctx.quadraticCurveTo(x, y + size * 0.8, x - size, y)
-        ctx.closePath()
+        ctx.arc(lensX, lensY, lensRadius, 0, Math.PI * 2)
         ctx.stroke()
 
-        // Iris (filled circle)
-        ctx.fillStyle = iconColor
+        // Handle (diagonal line from lens edge to bottom-right)
+        const angle = Math.PI * 0.25
+        const handleStartX = lensX + Math.cos(angle) * lensRadius
+        const handleStartY = lensY + Math.sin(angle) * lensRadius
         ctx.beginPath()
-        ctx.arc(x, y, size * 0.3, 0, Math.PI * 2)
-        ctx.fill()
-
-        // Slash across the eye (top-right to bottom-left)
-        ctx.beginPath()
-        ctx.moveTo(x + size * 0.7, y - size * 0.7)
-        ctx.lineTo(x - size * 0.7, y + size * 0.7)
+        ctx.moveTo(handleStartX, handleStartY)
+        ctx.lineTo(handleStartX + size * 0.45, handleStartY + size * 0.45)
         ctx.stroke()
 
         ctx.restore()
