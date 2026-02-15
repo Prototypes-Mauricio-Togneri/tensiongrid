@@ -13,6 +13,7 @@ class Power {
         this.row = config.y        // Grid row position
         this.col = config.x        // Grid column position
         this.type = config.type    // Power type (e.g., 'fast', 'shield', 'slow')
+        this.ttl = config.ttl      // Effect duration in ms (from level data)
         this.isNegative = isNegative // True for power-downs
 
         const pos = grid.getNodePosition(this.row, this.col)

@@ -51,13 +51,13 @@ Cyberpunk/neon aesthetic with these design elements:
 - `powers.[type].iconScale`: icon size multiplier per power type (fast: 0.7, slow: 0.9, shield: 0.6, mirror: 0.8, freeze: 0.7, zoom: 0.7)
 - `exit`: size (18px), ringThickness (3px), ringOpacity (0.5), ringSpawnInterval (500ms), ringSpeed (0.01 radius/ms), timerArcOffset (6px), timerArcThickness (4px), timerArcWarningThreshold (0.25)
 - `switch`: size (24px), pulsePeriod (1500ms), pulseScale (3), pulseAlpha (0.3), connection (lineWidth: 2px, dash: [6,8], opacity: 0.15, glowBlur: 4)
-- `effects.fast`: duration (5000ms), speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
-- `effects.slow`: duration (5000ms), speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring
-- `effects.shield`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - blinks before expiring naturally
-- `effects.immunity`: duration (1000ms), blink frequency (0.015) - effect behavior
-- `effects.mirror`: duration (5000ms), warningDuration (1000ms), blinkFrequency (0.015) - inverts player controls, blinks before expiring
-- `effects.freeze`: duration (3000ms), warningDuration (1000ms), blinkFrequency (0.015) - freezes all enemies, blinks before expiring
-- `effects.zoom`: duration (5000ms), zoomLevel (2x), zoomSpeed (0.008), warningDuration (1000ms), blinkFrequency (0.015) - zooms camera in reducing visibility, blinks before expiring
+- `effects.fast`: speed multiplier (1.5x), warningDuration (1000ms), blinkFrequency (0.015) - duration from level JSON `ttl`, blinks before expiring
+- `effects.slow`: speed multiplier (0.5x), warningDuration (1000ms), blinkFrequency (0.015) - duration from level JSON `ttl`, blinks before expiring
+- `effects.shield`: warningDuration (1000ms), blinkFrequency (0.015) - duration from level JSON `ttl`, blinks before expiring naturally
+- `effects.immunity`: duration (1000ms), blink frequency (0.015) - hardcoded duration (not a collectible, triggered by shield break)
+- `effects.mirror`: warningDuration (1000ms), blinkFrequency (0.015) - duration from level JSON `ttl`, inverts player controls, blinks before expiring
+- `effects.freeze`: warningDuration (1000ms), blinkFrequency (0.015) - duration from level JSON `ttl`, freezes all enemies, blinks before expiring
+- `effects.zoom`: zoomLevel (2x), zoomSpeed (0.008), warningDuration (1000ms), blinkFrequency (0.015) - duration from level JSON `ttl`, zooms camera in reducing visibility, blinks before expiring
 - `colors`: all game element colors with glow variants (includes switch: gold #ffd700, wall: slate blue #5588bb, freeze: ice cyan #44ddff)
 - `game.animations.playerWrap`: particle count (16), particle size (3px), spawn radius (45px), duration (250ms) - wrap teleport effect
 - `game.animations.collectionWave`: start radius (8px), end radius (35px), duration (300ms), line width (3px)
@@ -157,7 +157,7 @@ Cyberpunk/neon aesthetic with these design elements:
 ### Effect System
 
 **Effect** (`js/effects/effect.js`) - Effect instance data:
-- Holds type, duration, remaining time, and config for an active effect
+- Holds type, duration (from level JSON `ttl` or hardcoded for immunity), remaining time, and config for an active effect
 - `update(delta)` - Decrements timer, returns true if effect just expired
 
 **EffectTypes** (`js/effects/effect_types.js`) - Effect behavior registry:
@@ -330,7 +330,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `isNegative: false` for power-ups (fast, shield, freeze), `true` for power-downs (slow, mirror, zoom)
 - On collection, Game creates effect via `player.effectManager.addEffect(type, config)`
 - Respawns on player death (level reset)
-- Config: `x`, `y` (node position), `type` ('fast', 'shield', 'freeze', 'slow', 'mirror', or 'zoom')
+- Config: `x`, `y` (node position), `type` ('fast', 'shield', 'freeze', 'slow', 'mirror', or 'zoom'), `ttl` (effect duration in ms)
 
 **Exit** (`js/engine/exit.js`) - Level completion portal:
 - Fixed position on a single grid node

@@ -207,7 +207,8 @@
     {
       "x": 5,
       "y": 8,
-      "type": "mirror"
+      "type": "mirror",
+      "ttl": 5000
     }
   ],
   "walls": [

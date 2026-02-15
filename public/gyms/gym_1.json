@@ -53,24 +53,28 @@
     {
       "x": 5,
       "y": 5,
-      "type": "fast"
+      "type": "fast",
+      "ttl": 5000
     },
     {
       "x": 1,
       "y": 5,
-      "type": "shield"
+      "type": "shield",
+      "ttl": 5000
     }
   ],
   "powerDowns": [
     {
       "x": 1,
       "y": 1,
-      "type": "slow"
+      "type": "slow",
+      "ttl": 5000
     },
     {
       "x": 5,
       "y": 1,
-      "type": "mirror"
+      "type": "mirror",
+      "ttl": 5000
     }
   ],
   "enemies": {

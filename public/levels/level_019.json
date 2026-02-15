@@ -183,7 +183,8 @@
     {
       "x": 1,
       "y": 5,
-      "type": "freeze"
+      "type": "freeze",
+      "ttl": 3000
     }
   ],
   "walls": [

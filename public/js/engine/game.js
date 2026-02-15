@@ -301,7 +301,7 @@ class Game {
         power.collect()
         if (this.trackAnalytics) Analytics.trackPowerCollected(this.levelData.id, power.type)
         const effectType = power.type
-        const effectConfig = Constants.game.effects[effectType]
+        const effectConfig = { ...Constants.game.effects[effectType], duration: power.ttl }
         this.player.effectManager.addEffect(effectType, effectConfig)
 
         // Adjust music speed for speed effects

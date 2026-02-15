@@ -89,7 +89,8 @@
     {
       "x": 1,
       "y": 8,
-      "type": "shield"
+      "type": "shield",
+      "ttl": 5000
     }
   ],
   "walls": [

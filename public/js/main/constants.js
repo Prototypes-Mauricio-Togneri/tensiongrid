@@ -383,21 +383,18 @@ const Constants = {
         effects: {
             fast: {
                 type: 'fast',          // Effect type identifier
-                duration: 5000,        // Effect duration in ms
                 speedMultiplier: 1.5,  // Player speed multiplier
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
             slow: {
                 type: 'slow',          // Effect type identifier
-                duration: 5000,        // Effect duration in ms
                 speedMultiplier: 0.5,  // Player speed multiplier
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
             shield: {
                 type: 'shield',        // Effect type identifier
-                duration: 5000,        // Shield active duration in ms
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
@@ -408,19 +405,16 @@ const Constants = {
             },
             mirror: {
                 type: 'mirror',        // Effect type identifier
-                duration: 5000,        // Control inversion duration in ms
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
             freeze: {
                 type: 'freeze',        // Effect type identifier
-                duration: 3000,        // Enemy freeze duration in ms
                 warningDuration: 1000, // Start blinking this many ms before expiration
                 blinkFrequency: 0.015  // Blink speed (radians per ms)
             },
             zoom: {
                 type: 'zoom',          // Effect type identifier
-                duration: 5000,        // Reduced visibility duration in ms
                 zoomLevel: 4,          // Camera zoom multiplier when active
                 zoomSpeed: 0.008,      // Zoom transition speed (exponential lerp factor per ms)
                 warningDuration: 1000, // Start blinking this many ms before expiration

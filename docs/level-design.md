@@ -243,6 +243,7 @@ Non-threatening elements that shape the playable space.
 
 - **Not trivial to collect** - Require detours or risk to obtain
 - **Essential, not bonuses** - Place them to help overcome specific challenges
+- **`ttl` required** - Each power must define a `ttl` (time to live) in ms that controls effect duration
 
 #### Fast
 
@@ -260,6 +261,7 @@ Non-threatening elements that shape the playable space.
 
 - **Place on the main path** - Force players to actively avoid them
 - **Create decision points** - Faster route with power-down vs safer route without
+- **`ttl` required** - Each power must define a `ttl` (time to live) in ms that controls effect duration
 
 #### Slow
 

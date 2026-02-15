@@ -131,14 +131,16 @@
     {
       "x": 5,
       "y": 7,
-      "type": "freeze"
+      "type": "freeze",
+      "ttl": 3000
     }
   ],
   "powerDowns": [
     {
       "x": 3,
       "y": 5,
-      "type": "zoom"
+      "type": "zoom",
+      "ttl": 5000
     }
   ],
   "enemies": {

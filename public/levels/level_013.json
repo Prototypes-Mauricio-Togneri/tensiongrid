@@ -69,7 +69,8 @@
     {
       "x": 3,
       "y": 8,
-      "type": "slow"
+      "type": "slow",
+      "ttl": 5000
     }
   ],
   "walls": [
