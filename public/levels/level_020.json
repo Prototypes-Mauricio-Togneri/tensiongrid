@@ -1,0 +1,264 @@
+{
+  "id": 20,
+  "stars": {
+    "stars1": 40000,
+    "stars2": 30000,
+    "stars3": 23000
+  },
+  "grid": {
+    "width": 10,
+    "height": 10
+  },
+  "player": {
+    "startX": 8,
+    "startY": 1
+  },
+  "exit": {
+    "id": "exit",
+    "x": 8,
+    "y": 6,
+    "status": "closed"
+  },
+  "switches": [
+    {
+      "x": 1,
+      "y": 8,
+      "unlocks": "exit",
+      "ttl": 11000,
+      "connection": [
+        {
+          "x": 1,
+          "y": 8
+        },
+        {
+          "x": 2,
+          "y": 8
+        },
+        {
+          "x": 3,
+          "y": 8
+        },
+        {
+          "x": 4,
+          "y": 8
+        },
+        {
+          "x": 5,
+          "y": 8
+        },
+        {
+          "x": 6,
+          "y": 8
+        },
+        {
+          "x": 7,
+          "y": 8
+        },
+        {
+          "x": 8,
+          "y": 8
+        },
+        {
+          "x": 8,
+          "y": 7
+        },
+        {
+          "x": 8,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "powerDowns": [
+    {
+      "x": 1,
+      "y": 5,
+      "type": "zoom",
+      "ttl": 4000
+    }
+  ],
+  "walls": [
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 9,
+        "y": 0
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 9
+      },
+      "to": {
+        "x": 9,
+        "y": 9
+      }
+    },
+    {
+      "from": {
+        "x": 0,
+        "y": 0
+      },
+      "to": {
+        "x": 0,
+        "y": 9
+      }
+    },
+    {
+      "from": {
+        "x": 9,
+        "y": 0
+      },
+      "to": {
+        "x": 9,
+        "y": 9
+      }
+    },
+    {
+      "from": {
+        "x": 2,
+        "y": 5
+      },
+      "to": {
+        "x": 9,
+        "y": 5
+      }
+    }
+  ],
+  "enemies": {
+    "enemyBullet": [
+      {
+        "x": 9,
+        "y": 2,
+        "direction": "left",
+        "delay": 1000,
+        "interval": 3000,
+        "speed": 100
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "direction": "down",
+        "delay": 1500,
+        "interval": 3500,
+        "speed": 90
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "direction": "right",
+        "delay": 500,
+        "interval": 2500,
+        "speed": 110
+      },
+      {
+        "x": 9,
+        "y": 8,
+        "direction": "left",
+        "delay": 1000,
+        "interval": 3000,
+        "speed": 100
+      },
+      {
+        "x": 7,
+        "y": 9,
+        "direction": "up",
+        "delay": 2000,
+        "interval": 3500,
+        "speed": 100
+      }
+    ],
+    "enemyLaser": [
+      {
+        "startX": 2,
+        "startY": 3,
+        "endX": 6,
+        "endY": 3,
+        "timeOn": 2000,
+        "timeOff": 1500
+      }
+    ],
+    "enemyTrap": [
+      {
+        "x": 5,
+        "y": 1,
+        "timeOn": 1000,
+        "timeOff": 500
+      },
+      {
+        "x": 3,
+        "y": 8,
+        "timeOn": 1500,
+        "timeOff": 1200
+      },
+      {
+        "x": 7,
+        "y": 6,
+        "timeOn": 1500,
+        "timeOff": 1500
+      }
+    ],
+    "enemyMine": [
+      {
+        "x": 4,
+        "y": 3,
+        "delay": 1500
+      },
+      {
+        "x": 5,
+        "y": 7,
+        "delay": 1500
+      },
+      {
+        "x": 2,
+        "y": 8,
+        "delay": 1500
+      }
+    ],
+    "enemyShooter": [
+      {
+        "x": 6,
+        "y": 7,
+        "arms": [
+          "left",
+          "right"
+        ],
+        "delay": 1800
+      }
+    ],
+    "enemyPatrol": [
+      {
+        "speed": 130,
+        "path": [
+          {
+            "x": 3,
+            "y": 6
+          },
+          {
+            "x": 4,
+            "y": 6
+          },
+          {
+            "x": 4,
+            "y": 7
+          },
+          {
+            "x": 3,
+            "y": 7
+          }
+        ]
+      }
+    ],
+    "enemyFollower": [
+      {
+        "startX": 8,
+        "startY": 7,
+        "speed": 80
+      }
+    ]
+  }
+}
