@@ -487,11 +487,12 @@ class Game {
         this.playerWrap = new PlayerWrapAnimation(this.player.x, this.player.y, true)
         this.audioManager.playSound(Constants.audio.sounds.wrapAround)
         this.audioManager.setMusicSpeed(Constants.audio.musicSpeed.normal)
+        this.initWalls(this.levelData)    // Reinitialize walls
+        this.enemyManager.walls = this.walls // Update walls reference before re-creating followers
         this.enemyManager.clear()
         this.initPowers(this.levelData)   // Respawn powers
         this.initExit(this.levelData)     // Reinitialize exit (resets particle animation)
         this.initSwitches(this.levelData) // Reset switches
-        this.initWalls(this.levelData)    // Reinitialize walls
         this.initPortals(this.levelData)  // Reinitialize portals
         this.registerUnlockables()        // Rebuild id-to-element map
         this.camera.follow(this.player.x, this.player.y)
@@ -529,7 +530,6 @@ class Game {
         this.grid = new Grid({ ...Constants.game.grid, ...levelData.grid })
         this.camera = new Camera(this.grid)
         this.player = new Player(this.grid, { ...Constants.game.player, ...levelData.player })
-        this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager)
         this.collision = new Collision(Constants.game.physics)
         this.renderer = new Renderer(this.canvas, this.camera)
         this.renderer.glowEnabled = this.glowEnabled
@@ -549,10 +549,11 @@ class Game {
         this.deathCount = 0          // Number of deaths in current level
         this.startTime = 0           // Level start timestamp (ms)
         this.runElapsed = 0          // Elapsed time for current run in ms (resets on death/restart)
+        this.initWalls(levelData)
+        this.enemyManager = new EnemyManager(this.grid, levelData.enemies, this.audioManager, this.walls)
         this.initPowers(levelData)
         this.initExit(levelData)
         this.initSwitches(levelData)
-        this.initWalls(levelData)
         this.initPortals(levelData)
         this.registerUnlockables()
     }

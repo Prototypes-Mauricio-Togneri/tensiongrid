@@ -317,7 +317,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Actively pursues player by moving toward the best adjacent node via GridMovement
 - Cyan square visual shape (#00ccff) that continuously rotates on its center
 - Wake trail via WakeTrail instance (slow profile, resets at waypoints)
-- At each node, uses BFS to find shortest grid path to player and takes the first step
+- At each node, uses BFS to find shortest grid path to player and takes the first step (respects walls)
 - While moving between nodes, does NOT recalculate - continues to target
 - If player is unreachable, stays in place
 - Kills player on contact (circle-based collision)

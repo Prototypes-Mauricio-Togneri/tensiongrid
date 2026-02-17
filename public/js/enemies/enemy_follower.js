@@ -6,10 +6,12 @@ class EnemyFollower {
     /**
      * @param {Object} config - Follower configuration from level data
      * @param {Grid} grid - Grid instance for position calculations
+     * @param {Wall[]} walls - Active walls that block movement
      */
-    constructor(config, grid) {
+    constructor(config, grid, walls) {
         this.id = config.id || null // Optional element id for switch targeting
         this.grid = grid // Grid reference
+        this.walls = walls // Walls that block pathfinding
         this.speed = config.speed // Movement speed in pixels/second
         this.size = Constants.game.enemies.follower.size // Follower size in pixels
         this.rotationSpeed = Constants.game.enemies.follower.rotationSpeed // Rotation speed in radians/second
@@ -117,6 +119,7 @@ class EnemyFollower {
                 if (cameFrom.has(neighborKey)) continue
                 if (!this.grid.isValidPosition(neighborRow, neighborCol)) continue
                 if (this.grid.isEdgeExcluded(current.row, current.col, neighborRow, neighborCol)) continue
+                if (this.isNodeBlockedByWall(neighborRow, neighborCol)) continue
 
                 cameFrom.set(neighborKey, { row: current.row, col: current.col })
                 queue.push({ row: neighborRow, col: neighborCol })
@@ -125,6 +128,21 @@ class EnemyFollower {
 
         // Player unreachable
         return null
+    }
+
+    /**
+     * Check if any wall blocks a target node.
+     * @param {number} row - Target row
+     * @param {number} col - Target column
+     * @returns {boolean} True if a wall blocks this node
+     */
+    isNodeBlockedByWall(row, col) {
+        for (const wall of this.walls) {
+            if (wall.containsNode(row, col)) {
+                return true
+            }
+        }
+        return false
     }
 
     /**

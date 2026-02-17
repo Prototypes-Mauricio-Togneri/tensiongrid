@@ -7,11 +7,13 @@ class EnemyManager {
      * @param {Grid} grid - Grid instance for position calculations
      * @param {Object} config - Enemy configuration from level data
      * @param {AudioManager} audioManager - Audio manager for sound effects
+     * @param {Wall[]} walls - Active walls that block follower pathfinding
      */
-    constructor(grid, config, audioManager) {
+    constructor(grid, config, audioManager, walls) {
         this.grid = grid // Grid reference
         this.config = config // Level enemy configuration
         this.audioManager = audioManager // Audio manager for sound effects
+        this.walls = walls // Walls reference for follower pathfinding
         this.bullets = [] // Active bullet instances
         this.lasers = [] // Laser instances
         this.traps = [] // Static trap instances
@@ -123,7 +125,7 @@ class EnemyManager {
     initFollowers() {
         if (!this.config.enemyFollower) return
         this.followers = this.config.enemyFollower.map(
-            followerConfig => new EnemyFollower(followerConfig, this.grid)
+            followerConfig => new EnemyFollower(followerConfig, this.grid, this.walls)
         )
     }
 
