@@ -1,9 +1,9 @@
 {
   "id": 20,
   "stars": {
-    "stars1": 40000,
-    "stars2": 30000,
-    "stars3": 23000
+    "stars1": 38000,
+    "stars2": 28000,
+    "stars3": 22000
   },
   "grid": {
     "width": 10,
@@ -132,6 +132,14 @@
   "enemies": {
     "enemyBullet": [
       {
+        "x": 0,
+        "y": 1,
+        "direction": "right",
+        "delay": 500,
+        "interval": 2800,
+        "speed": 100
+      },
+      {
         "x": 9,
         "y": 2,
         "direction": "left",
@@ -145,6 +153,14 @@
         "direction": "down",
         "delay": 1500,
         "interval": 3500,
+        "speed": 90
+      },
+      {
+        "x": 9,
+        "y": 4,
+        "direction": "left",
+        "delay": 1200,
+        "interval": 3000,
         "speed": 90
       },
       {
@@ -176,7 +192,7 @@
       {
         "startX": 1,
         "startY": 3,
-        "endX": 6,
+        "endX": 7,
         "endY": 3,
         "timeOn": 2000,
         "timeOff": 1500
@@ -190,6 +206,12 @@
         "timeOff": 500
       },
       {
+        "x": 8,
+        "y": 3,
+        "timeOn": 1500,
+        "timeOff": 1000
+      },
+      {
         "x": 3,
         "y": 8,
         "timeOn": 1500,
@@ -200,6 +222,12 @@
         "y": 6,
         "timeOn": 1500,
         "timeOff": 1500
+      },
+      {
+        "x": 2,
+        "y": 4,
+        "timeOn": 2000,
+        "timeOff": 1000
       }
     ],
     "enemyMine": [
@@ -231,6 +259,27 @@
       }
     ],
     "enemyPatrol": [
+      {
+        "speed": 120,
+        "path": [
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
       {
         "speed": 130,
         "path": [
