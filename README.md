@@ -13,6 +13,7 @@
 - Several lasers one after the other. there is a gap where the player has to wait for a laser to turn off before moving forward. but bullets pass through that gap, so the player has to time the movement carefully.
 - Maze with bullets with small walls blocking them. Player has to move quickly between cover spots to avoid them.
 - 4 independent quadrants only communicated via portals
+- 4 chambers each interconnected with the next via one edge and surrounded by walls
 
 ## Enemy patterns
 
@@ -36,3 +37,5 @@ read all the level descriptions in @docs/levels.md to understand the design phil
 plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.
 ask me if you have any question.
+
+Test all levels with followers
