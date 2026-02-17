@@ -22,10 +22,6 @@
 - **Laser grid** A set of parallel lasers that follow an intermittent pattern, creating windows for the player to move through.
 - **Trap as stopper** - Use traps with long time on and short time off to stop players to advance through an easy path
 
-## New levels
-
-20. **Power-down** - Zoom
-
 ## Prompt
 
 you did a good job implementing all the levels up to level X. now create level Y.
