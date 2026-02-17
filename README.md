@@ -12,6 +12,7 @@
 
 - Several lasers one after the other. there is a gap where the player has to wait for a laser to turn off before moving forward. but bullets pass through that gap, so the player has to time the movement carefully.
 - Maze with bullets with small walls blocking them. Player has to move quickly between cover spots to avoid them.
+- 4 independent quadrants only communicated via portals
 
 ## Enemy patterns
 
