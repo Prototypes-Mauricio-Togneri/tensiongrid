@@ -34,5 +34,4 @@ plan it and ask me questions if it's not clear.
 use the @docs/level-design.md skill.
 ask me if you have any question.
 
-Align JSON levels and descriptions
 Is template full? Add power ups, portals
