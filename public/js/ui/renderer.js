@@ -988,9 +988,9 @@ class Renderer {
                 iconScale = Constants.game.powers.shield.iconScale
                 drawIcon = (x, y, size, color) => this.drawShieldIcon(x, y, size, color)
             } else if (power.type === Constants.game.effects.freeze.type) {
-                color = this.colors.freeze
-                glowColor = this.colors.freezeGlow
-                iconColor = this.colors.freezeIcon
+                color = this.colors.powerUp
+                glowColor = this.colors.powerUpGlow
+                iconColor = this.colors.powerUpIcon
                 iconScale = Constants.game.powers.freeze.iconScale
                 drawIcon = (x, y, size, color) => this.drawSnowflakeIcon(x, y, size, color)
             } else {
