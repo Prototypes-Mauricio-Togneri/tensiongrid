@@ -73,6 +73,58 @@
       ]
     }
   ],
+  "powerUps": [
+    {
+      "x": 3,
+      "y": 2,
+      "type": "fast",
+      "ttl": 5000
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "type": "shield",
+      "ttl": 5000
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "type": "freeze",
+      "ttl": 5000
+    }
+  ],
+  "powerDowns": [
+    {
+      "x": 3,
+      "y": 7,
+      "type": "slow",
+      "ttl": 5000
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "type": "mirror",
+      "ttl": 5000
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "type": "zoom",
+      "ttl": 5000
+    }
+  ],
+  "portals": [
+    {
+      "group": "A",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "group": "A",
+      "x": 7,
+      "y": 8
+    }
+  ],
   "walls": [
     {
       "from": {
