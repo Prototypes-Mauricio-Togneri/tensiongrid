@@ -496,8 +496,8 @@
     "enemyFollower": [
       {
         "startX": 4,
-        "startY": 5,
-        "speed": 80
+        "startY": 8,
+        "speed": 60
       }
     ]
   }
