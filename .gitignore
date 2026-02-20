@@ -1,5 +1,5 @@
 !.vscode/
-!.claude/settings.local.json
+!.claude/
 !scripts/
 .firebase/
 firebase-debug.log
