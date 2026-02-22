@@ -1,0 +1,163 @@
+# Platform Compatibility Audit Report
+
+**Date**: 2026-02-22
+
+---
+
+## High Severity
+
+### No device pixel ratio correction
+
+**File**: `js/engine/game.js` | **Lines**: 33-34
+**Platforms**: All high-DPI displays (Retina Macs, iPhones, Android flagships, 4K monitors)
+
+Canvas dimensions are set to CSS pixel size without multiplying by `window.devicePixelRatio`. All canvas rendering will appear blurry on high-DPI screens.
+
+**Fix**: Set `canvas.width = width * dpr`, `canvas.height = height * dpr`, then `ctx.scale(dpr, dpr)`.
+
+---
+
+### No null check on `getContext('2d')`
+
+**File**: `js/ui/renderer.js` | **Line**: 12
+**Platforms**: Low-memory devices, GPU-constrained browsers
+
+`canvas.getContext('2d')` can return `null` if GPU memory is exhausted or canvas exceeds hardware limits. Will crash with `Cannot read property of null` on first draw call.
+
+**Fix**: Add null check and show error to user.
+
+---
+
+### Autoplay policy — initial `play()` fails silently
+
+**File**: `js/io/audio_manager.js` | **Line**: 130
+**Platforms**: iOS Safari, Chrome Mobile, all mobile browsers
+
+`playMusic()` calls `await play()` which fails on mobile before user gesture. The interaction retry system (lines 167-213) re-creates the Audio element on gesture, which is correct — but there's a gap: if `playMusic()` is called *after* the first user interaction but the `userInteracted` flag is already `true` (listeners removed), subsequent tracks won't get the gesture-unlocked benefit and may still fail.
+
+**Fix**: Always create Audio within a known user-gesture context, or keep a single unlocked AudioContext.
+
+---
+
+## Medium Severity
+
+### Single audio format with no codec fallback
+
+**File**: `js/main/constants.js` | **Lines**: 605-633
+**Platforms**: Older Firefox (no MP3 codec), older Android (limited WAV support)
+
+Sound effects use `.wav` only; music uses `.mp3` only. No `<source>` fallback or `canPlayType()` detection.
+
+**Fix**: Provide `.ogg` fallbacks and use `canPlayType()` to select best format.
+
+---
+
+### `width: 100vw` causes horizontal overflow
+
+**File**: `css/styles.css` | **Lines**: 434, 722
+**Platforms**: All browsers with visible scrollbars (Windows, Linux)
+
+`100vw` includes scrollbar width, creating a horizontal scrollbar when vertical scrollbar is visible. Affects `#gameScreen` (line 434) and `.timeline-container` (line 722).
+
+**Fix**: Use `width: 100%` instead.
+
+---
+
+### `min-height: 100vh` on menu screens ignores mobile browser chrome
+
+**File**: `css/styles.css` | **Lines**: 22, 493, 568, 574, 580, 586, 596, 883
+**Platforms**: Mobile Safari, Chrome Mobile
+
+`100vh` includes the browser address bar area on mobile, causing content to extend below the visible viewport. Only `#gameScreen` (line 436) uses the `100dvh` fallback.
+
+**Fix**: Add `min-height: 100dvh` fallback after each `min-height: 100vh` on all screen containers.
+
+---
+
+### `calc(100vh - ...)` in `max-height` inherits the `100vh` mobile problem
+
+**File**: `css/styles.css` | **Lines**: 603, 1558, 1769, 1977
+**Platforms**: Mobile Safari, Chrome Mobile
+
+Scrollable content areas sized with `100vh` will shift when the address bar shows/hides.
+
+**Fix**: Use `100dvh` instead of `100vh` in these calculations.
+
+---
+
+### `:has()` selector unsupported on older Firefox
+
+**File**: `css/styles.css` | **Line**: 133
+**Platforms**: Firefox < 121
+
+`body:has(#gameScreen.active) .bg-animation` won't match on Firefox versions before 121 (Dec 2023). Background animation will remain visible during gameplay, wasting performance.
+
+**Fix**: Toggle a class on `body` via JS instead of relying on `:has()`.
+
+---
+
+### `clip-path` missing `-webkit-` prefix
+
+**File**: `css/styles.css` | **Line**: 997
+**Platforms**: Safari < 15.4 (iOS 13-14, macOS 10.15-11)
+
+The diamond-shaped toggle thumb uses `clip-path: polygon(...)` without `-webkit-clip-path`. Will render as a square on older Safari.
+
+**Fix**: Add `-webkit-clip-path` before the standard property.
+
+---
+
+## Warning
+
+### Missing font smoothing declarations
+
+**File**: `css/styles.css` | **Line**: 21
+**Platforms**: Safari (macOS/iOS), Firefox (macOS)
+
+No `-webkit-font-smoothing: antialiased` or `-moz-osx-font-smoothing: grayscale` on `body`. Text may appear with subpixel anti-aliasing, looking thicker/blurrier than intended on macOS.
+
+**Fix**: Add both properties to `body`.
+
+---
+
+### `user-select: none` missing vendor prefixes
+
+**File**: `css/styles.css` | **Line**: 30
+**Platforms**: Safari < 3, Firefox < 69, IE/Edge Legacy
+
+Modern browsers support unprefixed, but older Safari and Firefox need `-webkit-user-select` and `-moz-user-select`.
+
+**Fix**: Add prefixed versions before the standard property.
+
+---
+
+### Missing `<meta name="theme-color">`
+
+**File**: `index.html`
+**Platforms**: Mobile browsers (Android, iOS)
+
+Browser chrome color doesn't match the game's dark aesthetic, breaking immersion on mobile.
+
+**Fix**: Add `<meta name="theme-color" content="#0a0a0f">`.
+
+---
+
+### `sound.cloneNode()` + `play()` failures are silent
+
+**File**: `js/io/audio_manager.js` | **Lines**: 99-102
+**Platforms**: All platforms with audio errors
+
+If a sound file 404s during preload (line 75), `cloneNode()` on line 99 creates a clone of a broken Audio element. `play()` rejects silently. No user feedback.
+
+**Fix**: Validate `sound.readyState` before cloning, or add an `error` event listener during preload.
+
+---
+
+### No load error handling for preloaded sounds
+
+**File**: `js/io/audio_manager.js` | **Lines**: 73-76
+**Platforms**: All platforms
+
+`new Audio(path)` elements never get `error` event listeners. If files fail to load (network error, 404), the failure is completely silent until playback is attempted.
+
+**Fix**: Add `onerror` handler during preload.
