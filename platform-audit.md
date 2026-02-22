@@ -1,14 +1,3 @@
-### No null check on `getContext('2d')`
-
-**File**: `js/ui/renderer.js` | **Line**: 12
-**Platforms**: Low-memory devices, GPU-constrained browsers
-
-`canvas.getContext('2d')` can return `null` if GPU memory is exhausted or canvas exceeds hardware limits. Will crash with `Cannot read property of null` on first draw call.
-
-**Fix**: Add null check and show error to user.
-
----
-
 ### Autoplay policy — initial `play()` fails silently
 
 **File**: `js/io/audio_manager.js` | **Line**: 130

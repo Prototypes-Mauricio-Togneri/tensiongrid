@@ -10,6 +10,7 @@ class Renderer {
     constructor(canvas, camera) {
         this.canvas = canvas                 // Canvas element
         this.ctx = canvas.getContext('2d')   // 2D rendering context
+        if (!this.ctx) throw new Error('Failed to get 2D canvas context. Your browser or device may be out of GPU memory.')
         this.colors = Constants.game.colors  // Color palette reference
         this.camera = camera                 // Camera for world-to-screen transforms
         this.scale = 1                       // Render scale (0.5 for mobile)
