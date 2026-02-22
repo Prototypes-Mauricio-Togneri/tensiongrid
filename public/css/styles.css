@@ -432,7 +432,7 @@ canvas {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     height: 100dvh; /* Dynamic viewport height for mobile browser UI */
     padding-bottom: env(safe-area-inset-bottom, 0px); /* Safe area for home indicators */
@@ -727,7 +727,7 @@ canvas {
 /* Timeline container */
 .timeline-container {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 140px;
     display: flex;
     align-items: center;
