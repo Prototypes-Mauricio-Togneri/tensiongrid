@@ -1,14 +1,3 @@
-### Missing font smoothing declarations
-
-**File**: `css/styles.css` | **Line**: 21
-**Platforms**: Safari (macOS/iOS), Firefox (macOS)
-
-No `-webkit-font-smoothing: antialiased` or `-moz-osx-font-smoothing: grayscale` on `body`. Text may appear with subpixel anti-aliasing, looking thicker/blurrier than intended on macOS.
-
-**Fix**: Add both properties to `body`.
-
----
-
 ### `user-select: none` missing vendor prefixes
 
 **File**: `css/styles.css` | **Line**: 30

@@ -26,6 +26,8 @@ body {
     align-items: center;
     background: var(--deep-black);
     font-family: 'Share Tech Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
     position: relative;
     user-select: none;
