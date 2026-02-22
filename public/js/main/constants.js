@@ -78,7 +78,8 @@ const Constants = {
         touchend: 'touchend',                // Touch end event
         wheel: 'wheel',                      // Mouse wheel event
         popstate: 'popstate',                // Browser history navigation event
-        visibilitychange: 'visibilitychange' // Tab visibility change event
+        visibilitychange: 'visibilitychange', // Tab visibility change event
+        error: 'error'                       // Error event
     },
 
     // ==========================================

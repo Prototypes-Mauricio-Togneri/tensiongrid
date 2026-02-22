@@ -72,7 +72,12 @@ class AudioManager {
      */
     preloadSounds() {
         for (const path of Object.values(Constants.audio.sounds)) {
-            this.sounds[path] = new Audio(path)
+            const audio = new Audio(path)
+            audio.addEventListener(Constants.events.error, () => {
+                console.warn(`Failed to load sound: ${path}`)
+                delete this.sounds[path]
+            })
+            this.sounds[path] = audio
         }
     }
 
