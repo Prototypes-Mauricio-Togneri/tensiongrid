@@ -270,7 +270,7 @@ const Constants = {
             },
             laser: {
                 glowTransitionSpeed: 0.004,    // Glow change per ms during transitions
-                glowMin: 0.1,                  // Minimum glow intensity (off state, faded but visible)
+                glowMin: 0.2,                  // Minimum glow intensity (off state, faded but visible)
                 glowMax: 1.0,                  // Maximum glow intensity (on state)
                 activeThreshold: 1,            // Intensity threshold to become dangerous (visual leads danger)
                 coreWidth: 5,                  // Main beam line thickness in pixels

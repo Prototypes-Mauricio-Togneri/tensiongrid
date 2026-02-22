@@ -26,6 +26,21 @@ class Renderer {
     }
 
     /**
+     * Scale a hex color's alpha channel by a multiplier.
+     * Works with both 7-char (#rrggbb) and 9-char (#rrggbbaa) hex strings.
+     * @param {string} hex - Hex color string
+     * @param {number} multiplier - Alpha multiplier (0-1)
+     * @returns {string} Hex color with scaled alpha
+     */
+    scaleAlpha(hex, multiplier) {
+        const hasAlpha = hex.length === 9
+        const baseAlpha = hasAlpha ? parseInt(hex.slice(7, 9), 16) / 255 : 1
+        const baseColor = hasAlpha ? hex.slice(0, 7) : hex
+        const scaled = Math.round(baseAlpha * multiplier * 255).toString(16).padStart(2, '0')
+        return baseColor + scaled
+    }
+
+    /**
      * Set render scale factor (used for mobile scaling).
      * @param {number} scale - Scale factor (1 = normal, 0.5 = half size)
      */
@@ -532,15 +547,14 @@ class Renderer {
             const end = this.toScreen(positions.end.x, positions.end.y)
             const glowIntensity = laser.glowIntensity
 
-            // Apply overall transparency based on glow state
+            // Scale color alpha by glow intensity (avoids Safari globalAlpha + shadowBlur bug)
             ctx.save()
-            ctx.globalAlpha = glowIntensity
 
             // Outer glow (wide, semi-transparent)
-            ctx.strokeStyle = this.colors.laserGlow
+            ctx.strokeStyle = this.scaleAlpha(this.colors.laserGlow, glowIntensity)
             ctx.lineWidth = settings.glowWidth
             ctx.lineCap = 'round'
-            ctx.shadowColor = this.colors.laser
+            ctx.shadowColor = this.scaleAlpha(this.colors.laser, glowIntensity)
             ctx.shadowBlur = this.shadow(settings.glowShadowBlur)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
@@ -548,7 +562,7 @@ class Renderer {
             ctx.stroke()
 
             // Main laser line (thin core)
-            ctx.strokeStyle = this.colors.laser
+            ctx.strokeStyle = this.scaleAlpha(this.colors.laser, glowIntensity)
             ctx.lineWidth = settings.coreWidth
             ctx.shadowBlur = this.shadow(settings.coreShadowBlur)
             ctx.beginPath()
@@ -574,32 +588,29 @@ class Renderer {
             const end = this.toScreen(positions.end.x, positions.end.y)
             const alpha = wall.opacity
 
-            // Outer glow (wide, semi-transparent)
+            // Scale color alpha by wall opacity (avoids Safari globalAlpha + shadowBlur bug)
             ctx.save()
-            ctx.globalAlpha = alpha
-            ctx.strokeStyle = this.colors.wallGlow
+
+            // Outer glow (wide, semi-transparent)
+            ctx.strokeStyle = this.scaleAlpha(this.colors.wallGlow, alpha)
             ctx.lineWidth = settings.glowWidth
             ctx.lineCap = 'round'
-            ctx.shadowColor = this.colors.wall
+            ctx.shadowColor = this.scaleAlpha(this.colors.wall, alpha)
             ctx.shadowBlur = this.shadow(settings.glowShadowBlur)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
             ctx.stroke()
-            ctx.restore()
 
             // Main wall line (solid core)
-            ctx.save()
-            ctx.globalAlpha = alpha
-            ctx.strokeStyle = this.colors.wall
+            ctx.strokeStyle = this.scaleAlpha(this.colors.wall, alpha)
             ctx.lineWidth = settings.coreWidth
-            ctx.lineCap = 'round'
-            ctx.shadowColor = this.colors.wall
             ctx.shadowBlur = this.shadow(settings.coreShadowBlur)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)
             ctx.lineTo(end.x, end.y)
             ctx.stroke()
+
             ctx.restore()
         }
     }
