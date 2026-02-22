@@ -693,27 +693,27 @@ class Renderer {
             const blinkIntensity = mine.getBlinkIntensity()
             const size = mine.size
 
+            // Scale color alpha by blink intensity (avoids Safari globalAlpha + shadowBlur bug)
             ctx.save()
-            ctx.globalAlpha = blinkIntensity
 
             // Outer glow
             ctx.save()
-            ctx.shadowColor = this.colors.mine
+            ctx.shadowColor = this.scaleAlpha(this.colors.mine, blinkIntensity)
             ctx.shadowBlur = this.shadow(15 * blinkIntensity)
-            ctx.fillStyle = this.colors.mineGlow
+            ctx.fillStyle = this.scaleAlpha(this.colors.mineGlow, blinkIntensity)
             this.drawHexagon(pos.x, pos.y, size + 4)
             ctx.restore()
 
             // Main mine shape (hexagon for visual distinction)
             ctx.save()
-            ctx.shadowColor = this.colors.mine
+            ctx.shadowColor = this.scaleAlpha(this.colors.mine, blinkIntensity)
             ctx.shadowBlur = this.shadow(8 * blinkIntensity)
-            ctx.fillStyle = this.colors.mine
+            ctx.fillStyle = this.scaleAlpha(this.colors.mine, blinkIntensity)
             this.drawHexagon(pos.x, pos.y, size)
             ctx.restore()
 
             // Inner highlight
-            ctx.fillStyle = this.colors.mineHighlight
+            ctx.fillStyle = this.scaleAlpha(this.colors.mineHighlight, blinkIntensity)
             this.drawHexagon(pos.x, pos.y, size * 0.4)
 
             ctx.restore()
@@ -1136,11 +1136,10 @@ class Renderer {
 
             // Inner ring — rotates counter-clockwise
             ctx.save()
-            ctx.strokeStyle = this.colors.portal
+            ctx.strokeStyle = this.scaleAlpha(this.colors.portal, 0.6)
             ctx.lineWidth = arcThickness * 0.7
             ctx.lineCap = 'round'
-            ctx.globalAlpha = 0.6
-            ctx.shadowColor = this.colors.portal
+            ctx.shadowColor = this.scaleAlpha(this.colors.portal, 0.6)
             ctx.shadowBlur = this.shadow(glowBlur * 0.6)
             const innerAngle = -angle * 1.5 // Counter-rotate at different speed
             for (let i = 0; i < arcCount; i++) {
@@ -1443,14 +1442,14 @@ class Renderer {
         const ctx = this.ctx
         const color = this.colors.freeze
 
-        // Draw overlay circle at a screen position
+        // Scale color alpha for freeze effect (avoids Safari globalAlpha + shadowBlur bug)
+        const freezeColor = this.scaleAlpha(color, 0.25)
         const drawOverlayAt = (worldX, worldY, size) => {
             const pos = this.toScreen(worldX, worldY)
             ctx.save()
-            ctx.globalAlpha = 0.25
-            ctx.shadowColor = color
+            ctx.shadowColor = freezeColor
             ctx.shadowBlur = this.shadow(12)
-            ctx.fillStyle = color
+            ctx.fillStyle = freezeColor
             ctx.beginPath()
             ctx.arc(pos.x, pos.y, size + 3, 0, Math.PI * 2)
             ctx.fill()
@@ -1472,11 +1471,10 @@ class Renderer {
             const start = this.toScreen(positions.start.x, positions.start.y)
             const end = this.toScreen(positions.end.x, positions.end.y)
             ctx.save()
-            ctx.globalAlpha = 0.25
-            ctx.strokeStyle = color
+            ctx.strokeStyle = freezeColor
             ctx.lineWidth = 6
             ctx.lineCap = 'round'
-            ctx.shadowColor = color
+            ctx.shadowColor = freezeColor
             ctx.shadowBlur = this.shadow(12)
             ctx.beginPath()
             ctx.moveTo(start.x, start.y)

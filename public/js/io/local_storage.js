@@ -1,14 +1,56 @@
 /**
  * Centralized localStorage operations.
  * Handles type conversion and default values for persistent settings.
+ * All access is guarded against exceptions (e.g. Safari Private Browsing).
  */
 class LocalStorage {
+    /**
+     * Safe wrapper for localStorage.getItem.
+     * Returns null if localStorage is unavailable.
+     * @param {string} key - Storage key
+     * @returns {string|null} Stored value or null
+     */
+    safeGet(key) {
+        try {
+            return localStorage.getItem(key)
+        } catch (_) {
+            return null
+        }
+    }
+
+    /**
+     * Safe wrapper for localStorage.setItem.
+     * Silently fails if localStorage is unavailable.
+     * @param {string} key - Storage key
+     * @param {*} value - Value to store
+     */
+    safeSet(key, value) {
+        try {
+            localStorage.setItem(key, value)
+        } catch (_) {
+            // Silently ignore (e.g. Safari Private Browsing)
+        }
+    }
+
+    /**
+     * Safe wrapper for localStorage.removeItem.
+     * Silently fails if localStorage is unavailable.
+     * @param {string} key - Storage key
+     */
+    safeRemove(key) {
+        try {
+            localStorage.removeItem(key)
+        } catch (_) {
+            // Silently ignore
+        }
+    }
+
     /**
      * Get audio enabled state from localStorage.
      * @returns {boolean} True if audio enabled (default: true if not set)
      */
     getAudioEnabled() {
-        const value = localStorage.getItem(Constants.storage.settingsAudioEnabled)
+        const value = this.safeGet(Constants.storage.settingsAudioEnabled)
         return value !== 'false'
     }
 
@@ -17,7 +59,7 @@ class LocalStorage {
      * @param {boolean} enabled - Whether audio is enabled
      */
     setAudioEnabled(enabled) {
-        localStorage.setItem(Constants.storage.settingsAudioEnabled, enabled)
+        this.safeSet(Constants.storage.settingsAudioEnabled, enabled)
     }
 
     /**
@@ -25,7 +67,7 @@ class LocalStorage {
      * @returns {boolean} True if scanlines enabled (default: true if not set)
      */
     getScanlinesEnabled() {
-        const value = localStorage.getItem(Constants.storage.settingsScanlinesEnabled)
+        const value = this.safeGet(Constants.storage.settingsScanlinesEnabled)
         return value !== 'false'
     }
 
@@ -34,7 +76,7 @@ class LocalStorage {
      * @param {boolean} enabled - Whether scanlines are enabled
      */
     setScanlinesEnabled(enabled) {
-        localStorage.setItem(Constants.storage.settingsScanlinesEnabled, enabled)
+        this.safeSet(Constants.storage.settingsScanlinesEnabled, enabled)
     }
 
     /**
@@ -42,7 +84,7 @@ class LocalStorage {
      * @returns {boolean} True if glow enabled (default: true if not set)
      */
     getGlowEnabled() {
-        const value = localStorage.getItem(Constants.storage.settingsGlowEnabled)
+        const value = this.safeGet(Constants.storage.settingsGlowEnabled)
         return value !== 'false'
     }
 
@@ -51,7 +93,7 @@ class LocalStorage {
      * @param {boolean} enabled - Whether glow is enabled
      */
     setGlowEnabled(enabled) {
-        localStorage.setItem(Constants.storage.settingsGlowEnabled, enabled)
+        this.safeSet(Constants.storage.settingsGlowEnabled, enabled)
     }
 
     /**
@@ -59,7 +101,7 @@ class LocalStorage {
      * @returns {boolean} True if level is set
      */
     hasCurrentLevel() {
-        const value =  localStorage.getItem(Constants.storage.gameCurrentLevel)
+        const value = this.safeGet(Constants.storage.gameCurrentLevel)
 
         if (value === null) {
             this.preloadLevel(1)
@@ -81,7 +123,7 @@ class LocalStorage {
             this.setCurrentLevel(1)
         }
 
-        const level = parseInt(localStorage.getItem(Constants.storage.gameCurrentLevel), 10)
+        const level = parseInt(this.safeGet(Constants.storage.gameCurrentLevel), 10)
         // Validate: must be a positive integer
         if (isNaN(level) || level < 1) {
             this.setCurrentLevel(1)
@@ -95,7 +137,7 @@ class LocalStorage {
      * @param {number} level - Level number to save
      */
     setCurrentLevel(level) {
-        localStorage.setItem(Constants.storage.gameCurrentLevel, level)
+        this.safeSet(Constants.storage.gameCurrentLevel, level)
     }
 
     /**
@@ -122,7 +164,7 @@ class LocalStorage {
      * @returns {number} Star count (0 if no stars saved)
      */
     getStars(levelId) {
-        const value = localStorage.getItem(Constants.storage.starsPrefix + levelId)
+        const value = this.safeGet(Constants.storage.starsPrefix + levelId)
         const stars = parseInt(value, 10)
         return isNaN(stars) ? 0 : stars
     }
@@ -135,7 +177,7 @@ class LocalStorage {
     setStars(levelId, stars) {
         const current = this.getStars(levelId)
         if (stars > current) {
-            localStorage.setItem(Constants.storage.starsPrefix + levelId, stars)
+            this.safeSet(Constants.storage.starsPrefix + levelId, stars)
         }
     }
 
@@ -144,7 +186,7 @@ class LocalStorage {
      */
     clearStars() {
         for (let i = 1; i <= Constants.game.totalLevels; i++) {
-            localStorage.removeItem(Constants.storage.starsPrefix + i)
+            this.safeRemove(Constants.storage.starsPrefix + i)
         }
     }
 

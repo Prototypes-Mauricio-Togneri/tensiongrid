@@ -1038,6 +1038,7 @@ canvas {
     right: 0;
     bottom: 0;
     background: rgba(10, 10, 15, 0.6);
+    -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
     z-index: 100;
     justify-content: center;
@@ -1119,6 +1120,7 @@ canvas {
     right: 0;
     bottom: 0;
     background: rgba(10, 10, 15, 0.6);
+    -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
     z-index: 100;
     justify-content: center;
@@ -1251,6 +1253,7 @@ canvas {
     right: 0;
     bottom: 0;
     background: rgba(10, 10, 15, 0.6);
+    -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
     z-index: 100;
     justify-content: center;

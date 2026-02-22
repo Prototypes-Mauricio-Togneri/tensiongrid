@@ -107,7 +107,7 @@ class AudioManager {
      * Loops continuously. Does nothing if same track already playing.
      * @param {Object} config - Music config with path and volume from Constants.audio.music
      */
-    playMusic(config) {
+    async playMusic(config) {
         if (!config) return
 
         // Skip if same track is already playing
@@ -126,11 +126,12 @@ class AudioManager {
         // Only play if audio is enabled
         if (this.isEnabled()) {
             this.musicStarted = false
-            this.currentMusic.play().then(() => {
+            try {
+                await this.currentMusic.play()
                 this.musicStarted = true
-            }).catch(() => {
+            } catch (_) {
                 // Silently ignore autoplay restrictions
-            })
+            }
         }
     }
 
@@ -159,39 +160,55 @@ class AudioManager {
     }
 
     /**
-     * Set up event listeners to detect first user interaction.
+     * Set up event listeners to detect user interaction.
      * Required to unlock audio playback due to browser autoplay policies.
+     * Retries on subsequent interactions if the first attempt fails.
      */
     setupInteractionListeners() {
-        const events = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
-        events.forEach(event => {
-            document.addEventListener(event, this.boundHandleFirstInteraction, { once: true, capture: true })
+        this.interactionEvents = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
+        this.interactionEvents.forEach(event => {
+            document.addEventListener(event, this.boundHandleFirstInteraction, { capture: true })
         })
     }
 
     /**
-     * Handle first user interaction to unlock audio playback.
-     * Attempts to play current music if one is pending.
-     * Listeners auto-remove via { once: true }.
+     * Remove interaction listeners after successful audio unlock.
      */
-    handleFirstInteraction() {
-        if (this.userInteracted) return
-        this.userInteracted = true
+    removeInteractionListeners() {
+        this.interactionEvents.forEach(event => {
+            document.removeEventListener(event, this.boundHandleFirstInteraction, { capture: true })
+        })
+    }
 
-        // Resume music if audio is enabled and music was requested but blocked
-        if (this.currentMusicPath && this.isEnabled() && !this.musicStarted) {
-            // Stop old blocked element before creating new one
-            if (this.currentMusic) {
-                this.currentMusic.pause()
-            }
-            // Re-create Audio element within user gesture to unlock on mobile
-            this.currentMusic = new Audio(this.currentMusicPath)
-            this.currentMusic.loop = true
-            this.currentMusic.volume = this.currentMusicVolume
+    /**
+     * Handle user interaction to unlock audio playback.
+     * Retries on each interaction until audio plays successfully.
+     */
+    async handleFirstInteraction() {
+        // Already unlocked — remove listeners and stop
+        if (this.userInteracted) {
+            this.removeInteractionListeners()
+            return
+        }
+
+        // No music pending or audio disabled — skip but keep listeners
+        if (!this.currentMusicPath || !this.isEnabled() || this.musicStarted) return
+
+        // Stop old blocked element before creating new one
+        if (this.currentMusic) {
+            this.currentMusic.pause()
+        }
+        // Re-create Audio element within user gesture to unlock on mobile
+        this.currentMusic = new Audio(this.currentMusicPath)
+        this.currentMusic.loop = true
+        this.currentMusic.volume = this.currentMusicVolume
+        try {
+            await this.currentMusic.play()
             this.musicStarted = true
-            this.currentMusic.play().catch(() => {
-                this.musicStarted = false
-            })
+            this.userInteracted = true
+            this.removeInteractionListeners()
+        } catch (_) {
+            // Keep listeners active to retry on next interaction
         }
     }
 }

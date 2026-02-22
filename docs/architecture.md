@@ -120,7 +120,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - `setTargetZoom(target)` / `update(delta, speed)` - Smooth zoom transition for zoom power-down (zoom > 1 reduces visible area)
 
 **InputManager** (`js/io/input_manager.js`) - Keyboard and touch input:
-- Supports arrow keys, WASD, and touch drag gestures
+- Supports arrow keys, WASD (via `event.code` for keyboard layout independence), and touch drag gestures
 - `getDirection()` - Returns movement delta or null (checks swipe first, then keyboard)
 - `setSwipeEnabled(callback)` - Set callback to determine if swipes trigger movement
 - `triggerEscape()` - Programmatically trigger escape (used by browser back button)
@@ -137,7 +137,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Auto-disables after edge wrap
 - Continuous drag detection: triggers move when drag exceeds 30px threshold, resets start position for chaining multiple moves without lifting finger
 
-**LocalStorage** (`js/io/local_storage.js`) - Centralized localStorage operations:
+**LocalStorage** (`js/io/local_storage.js`) - Centralized localStorage operations (all access guarded via try/catch for Safari Private Browsing):
 - `getAudioEnabled()` - Get audio enabled state (default: true)
 - `setAudioEnabled(enabled)` - Set audio enabled state
 - `getScanlinesEnabled()` - Get scanlines enabled state (default: true)
@@ -383,7 +383,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Respects audio toggle setting in UI
 - Persists toggle state to localStorage (defaults to enabled)
 - Clones audio elements to allow overlapping playback
-- Unlocks audio playback on first user interaction (click/key/touch) due to browser autoplay policies
+- Unlocks audio playback on user interaction (click/key/touch) with retry until successful (browser autoplay policies)
 - `playSound(soundKey)` - Play sound by key if audio enabled
 - `playMusic(musicKey)` - Play looping background music (skips if same track already playing)
 - `stopMusic()` - Stop and reset current background music
@@ -407,6 +407,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Multi-layer rendering: glow → main → highlight
 - `glowEnabled` flag controls all `shadowBlur` effects; toggled via settings
 - `shadow(blur)` helper returns blur value when glow enabled, 0 when disabled
+- `scaleAlpha(hex, multiplier)` scales a hex color's alpha channel (avoids Safari `globalAlpha` + `shadowBlur` bug)
 - Mobile scaling: `setScale(factor)` applies canvas context transform for 73% size on mobile
 - Wake effect with tapered gradient for player and enemies
 - Camera-aware: transforms all world coordinates to screen space via `toScreen()`

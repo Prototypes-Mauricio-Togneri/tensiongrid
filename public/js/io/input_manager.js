@@ -51,43 +51,43 @@ class InputManager {
      * Set up keyboard and touch event listeners.
      */
     bindEvents() {
+        // Use event.key for special keys, event.code for character keys
+        // (event.code maps to physical position, independent of keyboard layout)
         const keyMap = {
             ArrowUp: Constants.keys.up,
             ArrowDown: Constants.keys.down,
             ArrowLeft: Constants.keys.left,
             ArrowRight: Constants.keys.right,
-            w: Constants.keys.up,
-            s: Constants.keys.down,
-            a: Constants.keys.left,
-            d: Constants.keys.right,
-            W: Constants.keys.up,
-            S: Constants.keys.down,
-            A: Constants.keys.left,
-            D: Constants.keys.right,
             Escape: Constants.keys.escape,
             Backspace: Constants.keys.escape,
             Enter: Constants.keys.select,
-            ' ': Constants.keys.select,
-            g: Constants.keys.debug,
-            G: Constants.keys.debug,
-            p: Constants.keys.pause,
-            P: Constants.keys.pause
+            ' ': Constants.keys.select
+        }
+        const codeMap = {
+            KeyW: Constants.keys.up,
+            KeyS: Constants.keys.down,
+            KeyA: Constants.keys.left,
+            KeyD: Constants.keys.right,
+            KeyG: Constants.keys.debug,
+            KeyP: Constants.keys.pause
         }
 
         document.addEventListener(Constants.events.keydown, (e) => {
-            if (e.key in keyMap) {
+            const action = keyMap[e.key] ?? codeMap[e.code]
+            if (action) {
                 e.preventDefault()
                 // Re-enable input on any valid keypress
                 if (!this.enabled) {
                     this.enabled = true
                 }
-                this.keys[keyMap[e.key]] = true
+                this.keys[action] = true
             }
         })
 
         document.addEventListener(Constants.events.keyup, (e) => {
-            if (e.key in keyMap) {
-                this.keys[keyMap[e.key]] = false
+            const action = keyMap[e.key] ?? codeMap[e.code]
+            if (action) {
+                this.keys[action] = false
             }
         })
 
