@@ -24,7 +24,7 @@ Cyberpunk/neon aesthetic with these design elements:
   - Ambient pulsing glow orbs (cyan top-left, pink bottom-right)
   - Cyan particles that recede toward the horizon (aligned with grid perspective)
   - Perspective grid layer with infinite scroll
-  - Uses CSS `:has()` selector to hide when game screen is active
+  - Hidden via `body.game-active` class toggled by `Screen.show()` for browser compatibility
 - **Animated background grid** - Perspective-transformed grid with infinite scroll animation
 - **Scanline overlay** - Subtle horizontal lines for CRT effect (via `body::after`), toggleable in settings (persisted to localStorage)
 - **Glow effects** - Neon glow on canvas elements (via `ctx.shadowBlur`) and CSS UI (via `text-shadow`, `box-shadow`, `drop-shadow`), toggleable in settings (persisted to localStorage)
@@ -547,7 +547,7 @@ All CSS code uses a minimal, purpose-focused comment style:
 **Conditional Logic Comments** - Explain non-obvious selectors:
 ```css
 /* Hide background animation when game screen is active */
-body:has(.game-screen.active) .background-animation {
+body.game-active .background-animation {
 ```
 
 **Guidelines:**

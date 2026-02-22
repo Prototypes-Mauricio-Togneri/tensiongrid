@@ -131,7 +131,7 @@ body.no-glow .timeline-star.star-filled {
 }
 
 /* Hide background animation when game screen is active */
-body:has(#gameScreen.active) .bg-animation {
+body.game-active .bg-animation {
     display: none;
 }
 

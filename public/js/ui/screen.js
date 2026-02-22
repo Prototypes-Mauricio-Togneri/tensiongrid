@@ -132,6 +132,9 @@ class Screen {
             this.currentScreen = screenName
         }
 
+        // Toggle body class for game screen (avoids :has() for browser compat)
+        document.body.classList.toggle(Constants.dom.classes.gameActive, screenName === Constants.screens.game)
+
         // Update timeline position when entering levels screen (no animation)
         if (screenName === Constants.screens.levels) {
             this.updateTimelinePosition(false)

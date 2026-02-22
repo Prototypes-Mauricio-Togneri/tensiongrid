@@ -1,14 +1,3 @@
-### `:has()` selector unsupported on older Firefox
-
-**File**: `css/styles.css` | **Line**: 133
-**Platforms**: Firefox < 121
-
-`body:has(#gameScreen.active) .bg-animation` won't match on Firefox versions before 121 (Dec 2023). Background animation will remain visible during gameplay, wasting performance.
-
-**Fix**: Toggle a class on `body` via JS instead of relying on `:has()`.
-
----
-
 ### `clip-path` missing `-webkit-` prefix
 
 **File**: `css/styles.css` | **Line**: 997

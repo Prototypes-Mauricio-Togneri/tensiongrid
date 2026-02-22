@@ -51,7 +51,8 @@ const Constants = {
             noGlow: 'no-glow',                // Disable glow effects class
             danger: 'danger',                 // Danger/destructive action button class
             starFilled: 'star-filled',        // Filled star indicator class
-            starEmpty: 'star-empty'           // Empty star indicator class
+            starEmpty: 'star-empty',          // Empty star indicator class
+            gameActive: 'game-active'         // Body class when game screen is active
         },
         selectors: {
             homeMenuButtons: '#homeScreen .menu-button',      // Home menu buttons
