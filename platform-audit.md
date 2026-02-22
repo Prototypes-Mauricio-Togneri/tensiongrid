@@ -1,14 +1,3 @@
-### `calc(100vh - ...)` in `max-height` inherits the `100vh` mobile problem
-
-**File**: `css/styles.css` | **Lines**: 603, 1558, 1769, 1977
-**Platforms**: Mobile Safari, Chrome Mobile
-
-Scrollable content areas sized with `100vh` will shift when the address bar shows/hides.
-
-**Fix**: Use `100dvh` instead of `100vh` in these calculations.
-
----
-
 ### `:has()` selector unsupported on older Firefox
 
 **File**: `css/styles.css` | **Line**: 133
