@@ -17,7 +17,7 @@ class AudioManager {
         this.currentMusicPath = null     // Path of current music track
         this.currentMusicVolume = null   // Volume of current music track
         this.musicStarted = false        // Whether music playback started successfully
-        this.userInteracted = false // Whether user has interacted with the page
+        this.listeningForInteraction = false // Whether interaction listeners are currently registered
         this.boundHandleFirstInteraction = this.handleFirstInteraction.bind(this) // Bound handler for cleanup
         this.preloadSounds()
         this.setupInteractionListeners()
@@ -130,7 +130,8 @@ class AudioManager {
                 await this.currentMusic.play()
                 this.musicStarted = true
             } catch (_) {
-                // Silently ignore autoplay restrictions
+                // Play failed due to autoplay policy — arm interaction listeners to retry on next gesture
+                this.ensureInteractionListeners()
             }
         }
     }
@@ -166,6 +167,16 @@ class AudioManager {
      */
     setupInteractionListeners() {
         this.interactionEvents = [Constants.events.click, Constants.events.keydown, Constants.events.touchstart]
+        this.ensureInteractionListeners()
+    }
+
+    /**
+     * Register interaction listeners if not already registered.
+     * Called on setup and whenever play() fails due to autoplay policy.
+     */
+    ensureInteractionListeners() {
+        if (this.listeningForInteraction) return
+        this.listeningForInteraction = true
         this.interactionEvents.forEach(event => {
             document.addEventListener(event, this.boundHandleFirstInteraction, { capture: true })
         })
@@ -175,6 +186,8 @@ class AudioManager {
      * Remove interaction listeners after successful audio unlock.
      */
     removeInteractionListeners() {
+        if (!this.listeningForInteraction) return
+        this.listeningForInteraction = false
         this.interactionEvents.forEach(event => {
             document.removeEventListener(event, this.boundHandleFirstInteraction, { capture: true })
         })
@@ -182,17 +195,14 @@ class AudioManager {
 
     /**
      * Handle user interaction to unlock audio playback.
-     * Retries on each interaction until audio plays successfully.
+     * Re-creates Audio within gesture context and retries until successful.
      */
     async handleFirstInteraction() {
-        // Already unlocked — remove listeners and stop
-        if (this.userInteracted) {
+        // No music pending, audio disabled, or already playing — clean up listeners
+        if (!this.currentMusicPath || !this.isEnabled() || this.musicStarted) {
             this.removeInteractionListeners()
             return
         }
-
-        // No music pending or audio disabled — skip but keep listeners
-        if (!this.currentMusicPath || !this.isEnabled() || this.musicStarted) return
 
         // Stop old blocked element before creating new one
         if (this.currentMusic) {
@@ -205,7 +215,6 @@ class AudioManager {
         try {
             await this.currentMusic.play()
             this.musicStarted = true
-            this.userInteracted = true
             this.removeInteractionListeners()
         } catch (_) {
             // Keep listeners active to retry on next interaction

@@ -1,16 +1,3 @@
-### Autoplay policy — initial `play()` fails silently
-
-**File**: `js/io/audio_manager.js` | **Line**: 130
-**Platforms**: iOS Safari, Chrome Mobile, all mobile browsers
-
-`playMusic()` calls `await play()` which fails on mobile before user gesture. The interaction retry system (lines 167-213) re-creates the Audio element on gesture, which is correct — but there's a gap: if `playMusic()` is called _after_ the first user interaction but the `userInteracted` flag is already `true` (listeners removed), subsequent tracks won't get the gesture-unlocked benefit and may still fail.
-
-**Fix**: Always create Audio within a known user-gesture context, or keep a single unlocked AudioContext.
-
----
-
-## Medium Severity
-
 ### Single audio format with no codec fallback
 
 **File**: `js/main/constants.js` | **Lines**: 605-633
