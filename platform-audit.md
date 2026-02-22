@@ -1,25 +1,3 @@
-### Single audio format with no codec fallback
-
-**File**: `js/main/constants.js` | **Lines**: 605-633
-**Platforms**: Older Firefox (no MP3 codec), older Android (limited WAV support)
-
-Sound effects use `.wav` only; music uses `.mp3` only. No `<source>` fallback or `canPlayType()` detection.
-
-**Fix**: Provide `.ogg` fallbacks and use `canPlayType()` to select best format.
-
----
-
-### `width: 100vw` causes horizontal overflow
-
-**File**: `css/styles.css` | **Lines**: 434, 722
-**Platforms**: All browsers with visible scrollbars (Windows, Linux)
-
-`100vw` includes scrollbar width, creating a horizontal scrollbar when vertical scrollbar is visible. Affects `#gameScreen` (line 434) and `.timeline-container` (line 722).
-
-**Fix**: Use `width: 100%` instead.
-
----
-
 ### `min-height: 100vh` on menu screens ignores mobile browser chrome
 
 **File**: `css/styles.css` | **Lines**: 22, 493, 568, 574, 580, 586, 596, 883
