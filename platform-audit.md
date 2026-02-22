@@ -1,14 +1,3 @@
-### `user-select: none` missing vendor prefixes
-
-**File**: `css/styles.css` | **Line**: 30
-**Platforms**: Safari < 3, Firefox < 69, IE/Edge Legacy
-
-Modern browsers support unprefixed, but older Safari and Firefox need `-webkit-user-select` and `-moz-user-select`.
-
-**Fix**: Add prefixed versions before the standard property.
-
----
-
 ### Missing `<meta name="theme-color">`
 
 **File**: `index.html`
