@@ -13,6 +13,7 @@ class Renderer {
         this.colors = Constants.game.colors  // Color palette reference
         this.camera = camera                 // Camera for world-to-screen transforms
         this.scale = 1                       // Render scale (0.5 for mobile)
+        this.dpr = window.devicePixelRatio || 1 // Device pixel ratio for high-DPI displays
         this.glowEnabled = true              // Glow effects toggle
     }
 
@@ -70,7 +71,8 @@ class Renderer {
         this.ctx.setTransform(1, 0, 0, 1, 0, 0) // Reset to identity for clear
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         const zoom = this.camera ? this.camera.zoom : 1
-        this.ctx.scale(this.scale * zoom, this.scale * zoom)
+        const s = this.dpr * this.scale * zoom
+        this.ctx.scale(s, s)
     }
 
     /**

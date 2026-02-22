@@ -30,15 +30,17 @@ class Game {
         const width = wrapper.clientWidth
         const height = wrapper.clientHeight
 
-        this.canvas.width = width
-        this.canvas.height = height
+        const dpr = window.devicePixelRatio || 1
+        this.canvas.width = width * dpr
+        this.canvas.height = height * dpr
 
         // Calculate scale factor based on viewport width
         const { mobileBreakpoint, mobileFactor } = Constants.game.scale
         const scale = window.innerWidth < mobileBreakpoint ? mobileFactor : 1
 
-        // Apply scale to renderer
+        // Apply scale and DPR to renderer
         if (this.renderer) {
+            this.renderer.dpr = dpr
             this.renderer.setScale(scale)
         }
 

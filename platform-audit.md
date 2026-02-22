@@ -1,22 +1,3 @@
-# Platform Compatibility Audit Report
-
-**Date**: 2026-02-22
-
----
-
-## High Severity
-
-### No device pixel ratio correction
-
-**File**: `js/engine/game.js` | **Lines**: 33-34
-**Platforms**: All high-DPI displays (Retina Macs, iPhones, Android flagships, 4K monitors)
-
-Canvas dimensions are set to CSS pixel size without multiplying by `window.devicePixelRatio`. All canvas rendering will appear blurry on high-DPI screens.
-
-**Fix**: Set `canvas.width = width * dpr`, `canvas.height = height * dpr`, then `ctx.scale(dpr, dpr)`.
-
----
-
 ### No null check on `getContext('2d')`
 
 **File**: `js/ui/renderer.js` | **Line**: 12
@@ -33,7 +14,7 @@ Canvas dimensions are set to CSS pixel size without multiplying by `window.devic
 **File**: `js/io/audio_manager.js` | **Line**: 130
 **Platforms**: iOS Safari, Chrome Mobile, all mobile browsers
 
-`playMusic()` calls `await play()` which fails on mobile before user gesture. The interaction retry system (lines 167-213) re-creates the Audio element on gesture, which is correct — but there's a gap: if `playMusic()` is called *after* the first user interaction but the `userInteracted` flag is already `true` (listeners removed), subsequent tracks won't get the gesture-unlocked benefit and may still fail.
+`playMusic()` calls `await play()` which fails on mobile before user gesture. The interaction retry system (lines 167-213) re-creates the Audio element on gesture, which is correct — but there's a gap: if `playMusic()` is called _after_ the first user interaction but the `userInteracted` flag is already `true` (listeners removed), subsequent tracks won't get the gesture-unlocked benefit and may still fail.
 
 **Fix**: Always create Audio within a known user-gesture context, or keep a single unlocked AudioContext.
 
