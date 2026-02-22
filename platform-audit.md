@@ -9,8 +9,6 @@ The diamond-shaped toggle thumb uses `clip-path: polygon(...)` without `-webkit-
 
 ---
 
-## Warning
-
 ### Missing font smoothing declarations
 
 **File**: `css/styles.css` | **Line**: 21
