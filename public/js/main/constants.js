@@ -241,7 +241,8 @@ const Constants = {
         // Mobile scaling settings
         scale: {
             mobileBreakpoint: 768, // Viewport width threshold in pixels
-            mobileFactor: 0.73     // Scale factor for mobile (0.5 = 50% size)
+            mobileFactor: 0.73,    // Scale factor for mobile (0.5 = 50% size)
+            maxMobileDpr: 1.5      // Cap device pixel ratio on mobile to limit render cost
         },
 
         // Grid rendering settings
@@ -655,5 +656,5 @@ const Constants = {
     // ==========================================
     // Build Version (auto-generated)
     // ==========================================
-    version: '2026-02-22T15:09:40Z'
+    version: '2026-02-22T15:29:02Z'
 }

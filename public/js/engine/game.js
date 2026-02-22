@@ -30,13 +30,16 @@ class Game {
         const width = wrapper.clientWidth
         const height = wrapper.clientHeight
 
-        const dpr = window.devicePixelRatio || 1
+        // Calculate scale factor based on viewport width
+        const { mobileBreakpoint, mobileFactor, maxMobileDpr } = Constants.game.scale
+        const isMobile = window.innerWidth < mobileBreakpoint
+        const scale = isMobile ? mobileFactor : 1
+
+        // Cap DPR on mobile to limit rendering cost (high-DPI phones have DPR 2-3)
+        const rawDpr = window.devicePixelRatio || 1
+        const dpr = isMobile ? Math.min(rawDpr, maxMobileDpr) : rawDpr
         this.canvas.width = width * dpr
         this.canvas.height = height * dpr
-
-        // Calculate scale factor based on viewport width
-        const { mobileBreakpoint, mobileFactor } = Constants.game.scale
-        const scale = window.innerWidth < mobileBreakpoint ? mobileFactor : 1
 
         // Apply scale and DPR to renderer
         if (this.renderer) {

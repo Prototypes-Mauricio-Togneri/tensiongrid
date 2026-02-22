@@ -41,7 +41,7 @@ Cyberpunk/neon aesthetic with these design elements:
 ### Configuration
 
 **Constants** (`js/main/constants.js`) - Immutable game constants:
-- `scale`: mobile breakpoint (768px), mobile scale factor (0.73)
+- `scale`: mobile breakpoint (768px), mobile scale factor (0.73), max mobile DPR (1.5)
 - `physics`: max delta time (100ms), collision threshold (0.7)
 - `grid`: cell size (80px), node radius (5px), edge width (2px)
 - `player`: size (12px), speed (200px/s)
@@ -457,7 +457,7 @@ Cyberpunk/neon aesthetic with these design elements:
 - Freeze effect skips `enemyManager.update()` to halt all enemy behavior while active
 - Portal teleportation: pairs portals by group, teleports player on grid collision, reuses wrap animation and sound, cooldown clears when player steps off
 - Powers respawn on player death
-- Responsive canvas with window resize handling and mobile scaling (73% at <768px viewport)
+- Responsive canvas with window resize handling and mobile scaling (73% at <768px viewport, DPR capped at 1.5)
 
 ## Game Mechanics
 
