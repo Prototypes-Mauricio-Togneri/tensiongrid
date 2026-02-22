@@ -1,14 +1,3 @@
-### Missing `<meta name="theme-color">`
-
-**File**: `index.html`
-**Platforms**: Mobile browsers (Android, iOS)
-
-Browser chrome color doesn't match the game's dark aesthetic, breaking immersion on mobile.
-
-**Fix**: Add `<meta name="theme-color" content="#0a0a0f">`.
-
----
-
 ### `sound.cloneNode()` + `play()` failures are silent
 
 **File**: `js/io/audio_manager.js` | **Lines**: 99-102
