@@ -1,14 +1,3 @@
-### `clip-path` missing `-webkit-` prefix
-
-**File**: `css/styles.css` | **Line**: 997
-**Platforms**: Safari < 15.4 (iOS 13-14, macOS 10.15-11)
-
-The diamond-shaped toggle thumb uses `clip-path: polygon(...)` without `-webkit-clip-path`. Will render as a square on older Safari.
-
-**Fix**: Add `-webkit-clip-path` before the standard property.
-
----
-
 ### Missing font smoothing declarations
 
 **File**: `css/styles.css` | **Line**: 21
