@@ -1017,10 +1017,25 @@ canvas {
     justify-content: center;
 }
 
+/* Reset Progress button red text */
+.settings-action .menu-button {
+    color: rgba(255, 42, 109, 0.4);
+}
+
 /* Focused settings action button gets selected glow */
 .settings-item.focused .menu-button {
     color: var(--neon-cyan);
     filter: drop-shadow(0 0 5px rgba(0, 245, 255, 0.7)) drop-shadow(0 0 10px rgba(0, 245, 255, 0.35)) drop-shadow(0 0 16px rgba(0, 245, 255, 0.15));
+}
+
+/* Focused Reset Progress button pink glow */
+.settings-action.focused .menu-button {
+    color: var(--neon-pink);
+    filter: drop-shadow(0 0 6px var(--neon-pink)) drop-shadow(0 0 12px rgba(255, 42, 109, 0.5)) drop-shadow(0 0 20px rgba(255, 42, 109, 0.25));
+}
+
+.settings-action.focused .menu-button::before {
+    background: radial-gradient(ellipse at center, rgba(255, 42, 109, 0.08) 0%, transparent 70%);
 }
 
 .settings-item.focused .menu-button::before {
