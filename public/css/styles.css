@@ -968,8 +968,12 @@ canvas {
     bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+.version-label,
 .version-value {
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.9rem;

@@ -1156,12 +1156,13 @@
     // Initialize version display (convert UTC to local time)
     const utcDate = new Date(Constants.version)
     const localVersion = utcDate.toLocaleString(undefined, {
-        year: 'numeric',
-        month: '2-digit',
         day: '2-digit',
+        month: 'short',
+        year: 'numeric',
         hour: '2-digit',
-        minute: '2-digit'
-    })
+        minute: '2-digit',
+        hour12: false
+    }).replace(/ /, ' ')
     document.getElementById('versionDisplay').textContent = localVersion
 
     // Format changelog dates (convert ISO yyyy-mm-dd to locale "DD MMM YYYY")
