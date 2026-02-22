@@ -1,14 +1,3 @@
-### `min-height: 100vh` on menu screens ignores mobile browser chrome
-
-**File**: `css/styles.css` | **Lines**: 22, 493, 568, 574, 580, 586, 596, 883
-**Platforms**: Mobile Safari, Chrome Mobile
-
-`100vh` includes the browser address bar area on mobile, causing content to extend below the visible viewport. Only `#gameScreen` (line 436) uses the `100dvh` fallback.
-
-**Fix**: Add `min-height: 100dvh` fallback after each `min-height: 100vh` on all screen containers.
-
----
-
 ### `calc(100vh - ...)` in `max-height` inherits the `100vh` mobile problem
 
 **File**: `css/styles.css` | **Lines**: 603, 1558, 1769, 1977

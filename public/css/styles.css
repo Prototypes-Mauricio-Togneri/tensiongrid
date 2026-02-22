@@ -20,6 +20,7 @@
 /* Main body container */
 body {
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -491,6 +492,7 @@ canvas {
 /* Home screen layout */
 #homeScreen {
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
 }
 
@@ -566,24 +568,28 @@ canvas {
 /* Levels screen layout */
 #levelsScreen {
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
 }
 
 /* Custom level screen layout */
 #customScreen {
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
 }
 
 /* About screen layout */
 #aboutScreen {
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
 }
 
 /* More games screen layout */
 #moreGamesScreen {
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
 }
 
@@ -594,6 +600,7 @@ canvas {
 /* Changelog screen layout */
 #changelogScreen {
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
 }
 
@@ -601,6 +608,7 @@ canvas {
 .changelog-content {
     margin-top: 200px;
     max-height: calc(100vh - 240px);
+    max-height: calc(100dvh - 240px);
     width: 63vw;
     max-width: 700px;
     overflow-y: auto;
@@ -881,6 +889,7 @@ canvas {
 /* Settings screen layout */
 #settingsScreen {
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
 }
 
@@ -1556,6 +1565,7 @@ canvas {
     .changelog-content {
         margin-top: 160px;
         max-height: calc(100vh - 250px);
+        max-height: calc(100dvh - 250px);
         width: calc(100% - 48px);
         max-width: none;
     }
@@ -1767,6 +1777,7 @@ canvas {
     .changelog-content {
         margin-top: 120px;
         max-height: calc(100vh - 200px);
+        max-height: calc(100dvh - 200px);
         width: calc(100% - 32px);
         max-width: none;
         padding: 0 16px 32px 16px;
@@ -1975,6 +1986,7 @@ canvas {
     .changelog-content {
         margin-top: 100px;
         max-height: calc(100vh - 170px);
+        max-height: calc(100dvh - 170px);
         width: calc(100% - 24px);
         max-width: none;
         padding: 0 12px 24px 12px;
