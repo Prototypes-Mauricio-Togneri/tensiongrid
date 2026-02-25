@@ -6,7 +6,7 @@ HTML5 canvas game "Tension Grid" - a retro-futuristic arcade game. Vanilla JS/CS
 
 ## How to Run
 
-Static site — open `public/index.html` in a browser. Deploy: `./scripts/deploy.sh` (runs version stamp + Firebase hosting).
+Static site — open `public/index.html` in a browser.
 
 ## Reference Docs
 
