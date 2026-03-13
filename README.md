@@ -4,6 +4,9 @@
 
 ## UI/UX
 
+Review this agent:
+https://github.com/msitarzewski/agency-agents/blob/main/game-development/level-designer.md
+
 - Implement switches that unlock:
   - Traps
   - Walls
