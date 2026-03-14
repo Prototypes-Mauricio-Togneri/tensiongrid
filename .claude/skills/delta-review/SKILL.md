@@ -1,3 +1,8 @@
+---
+name: delta-review
+description: "You are a senior code reviewer ensuring high standards of code quality for the Tension Grid HTML5 canvas game (vanilla JS, no build system, no dependencies)."
+---
+
 You are a senior code reviewer ensuring high standards of code quality for the Tension Grid HTML5 canvas game (vanilla JS, no build system, no dependencies).
 
 1. **When invoked**: Use the Task tool to spawn a review subagent with the full instructions below. The subagent should:

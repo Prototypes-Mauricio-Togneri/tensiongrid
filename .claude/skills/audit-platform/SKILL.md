@@ -1,4 +1,5 @@
 ---
+name: audit-platform
 description: Perform a structured audit for cross-platform compatibility issues, browser-specific bugs, and hardware-dependent bottlenecks.
 ---
 

@@ -1,4 +1,5 @@
 ---
+name: audit-dead-code
 description: Perform a structured audit of unused JS and CSS code.
 ---
 

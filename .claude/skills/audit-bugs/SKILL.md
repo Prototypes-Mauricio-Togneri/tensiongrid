@@ -1,4 +1,5 @@
 ---
+name: audit-bugs
 description: Perform a structured audit for logical bugs, architectural inconsistencies, and code smells.
 ---
 

@@ -1,4 +1,5 @@
 ---
+name: sync-docs
 description: Audits and updates JS/CSS documentation based on docs/architecture.md standards.
 ---
 
