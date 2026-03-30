@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "Dark+",
   "workbench.editor.enablePreview": false,
   "editor.minimap.enabled": false,
   "editor.insertSpaces": true,
@@ -14,8 +14,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
   "files.autoSave": "afterDelay",
   "eslint.run": "onSave",
   "eslint.enable": true,
@@ -29,7 +27,6 @@
       "mode": "auto"
     }
   ],
-  "cSpell.words": [
-  ],
+  "cSpell.words": [],
   "liveServer.settings.port": 5501,
 }
