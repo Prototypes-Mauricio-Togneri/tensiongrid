@@ -16,4 +16,4 @@ Static site — open `public/index.html` in a browser.
 
 - **Centralized Constants**: All magic constants go in `public/js/main/constants.js` — no hardcoded values elsewhere.
 - **Async Patterns**: Prefer `async`/`await` over `Promise`/`then`.
-- **Maintenance**: Keep `CLAUDE.md` and `docs/architecture.md` up to date after changes.
+- **Maintenance**: Keep `AGENTS.md` and `docs/architecture.md` up to date after changes.

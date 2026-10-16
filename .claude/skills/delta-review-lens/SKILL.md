@@ -7,7 +7,7 @@ This file is a **lens**, not a review. The `delta-review` skill reads it, takes 
 
 **The project.** A retro-futuristic grid arcade game. Static site, no build step, no dependencies, no linter, no test suite — every rule below is enforced by review alone. Source lives in `public/js/` across eight directories: `main` (entry point and constants), `engine` (grid, player, game orchestration, collision, structural elements), `enemies`, `effects`, `animations`, `helpers` (shared behaviour managers), `io` (input, audio, storage, UI, error notification), and `ui` (renderer, camera, screens). Levels are JSON files in `public/levels/`.
 
-**What to read first.** `CLAUDE.md` and `docs/architecture.md` for every review. Add `docs/level-design.md` and `docs/levels.md` whenever the change touches `public/levels/` — design rules there are binding, and a level change is judged against them, not against taste.
+**What to read first.** `AGENTS.md` and `docs/architecture.md` for every review. Add `docs/level-design.md` and `docs/levels.md` whenever the change touches `public/levels/` — design rules there are binding, and a level change is judged against them, not against taste.
 
 ## Architecture
 
