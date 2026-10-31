@@ -1,38 +1,41 @@
 # Tension Grid
 
-[Website](https://tensiongrid.com)
+A retro-futuristic arcade game played on a neon grid. Move one node at a time, read the patterns of bullets, lasers, patrols and other hazards, and reach the exit portal. Every hit restarts the level, so each death teaches you something for the next attempt.
 
-## UI/UX
+Play it at [tensiongrid.com](https://tensiongrid.com).
 
-Review this agent:
-https://github.com/msitarzewski/agency-agents/blob/main/game-development/level-designer.md
+## How to play
 
-- Implement switches that unlock:
-  - Traps
-  - Walls
+Step from node to node and reach the exit. Some exits start closed: step on a switch to open them for a limited time. Finish faster to earn up to three stars per level.
 
-## Level ideas
+| #   | Action              | Keyboard            | Touch               |
+| --- | ------------------- | ------------------- | ------------------- |
+| 1   | Move                | Arrow keys or WASD  | Drag in a direction |
+| 2   | Select              | Enter or Space      | Tap                 |
+| 3   | Pause menu / back   | Escape or Backspace | Browser back        |
+| 4   | Freeze without menu | P                   | —                   |
 
-- Several lasers one after the other. there is a gap where the player has to wait for a laser to turn off before moving forward. but bullets pass through that gap, so the player has to time the movement carefully.
-- Maze with bullets with small walls blocking them. Player has to move quickly between cover spots to avoid them.
-- 4 independent quadrants only communicated via portals
-- 4 chambers each interconnected with the next via one edge and surrounded by walls
+### Hazards
 
-## Enemy patterns
+| #   | Hazard   | Behavior                                                                      |
+| --- | -------- | ----------------------------------------------------------------------------- |
+| 1   | Bullet   | Travels in a straight line from one edge of the grid to the other             |
+| 2   | Laser    | Beam between two nodes, always on or switching on and off                     |
+| 3   | Trap     | Deadly node, always on or switching on and off                                |
+| 4   | Mine     | Harmless to touch, but explodes shortly after into bullets in every direction |
+| 5   | Shooter  | Turret that fires from its arms, sometimes rotating between shots             |
+| 6   | Patrol   | Loops along a fixed path                                                      |
+| 7   | Follower | Chases you along the shortest path                                            |
 
-- **Bullet rain:** A few consecutive rows where in each there is a bullet going horizontally across the entire row. Intercalating one going to the left and the next row going to the right.
-- **Trap field:** A cluster of intermittent traps with some "safe heaven" spots where the player can wait for the right moment to move.
-- **Laser grid** A set of parallel lasers that follow an intermittent pattern, creating windows for the player to move through.
-- **Trap as stopper** - Use traps with long time on and short time off to stop players to advance through an easy path
+### Powers
 
-## Prompt
+| #   | Power  | Kind       | Effect                               |
+| --- | ------ | ---------- | ------------------------------------ |
+| 1   | Fast   | Power-up   | Moves you faster                     |
+| 2   | Shield | Power-up   | Absorbs one hit                      |
+| 3   | Freeze | Power-up   | Stops every enemy                    |
+| 4   | Slow   | Power-down | Moves you slower                     |
+| 5   | Mirror | Power-down | Inverts your controls                |
+| 6   | Zoom   | Power-down | Zooms the camera in, hiding the grid |
 
-you did a good job implementing all the levels up to level X. now create level Y.
-this levels introduces the XXX enemy.
-but it also should have bullets, 1 laser, 1 patrol, 1 follower, 1 shooter, 2-3 mines, 2-3 traps and an exit switch.
-read the level design guidelines in @docs/level-design.md to understand how to create a good level.
-read all the previous levels in @public/levels to understand how they were made.
-read all the level descriptions in @docs/levels.md to understand the design philosophy behind each level.
-plan it and ask me questions if it's not clear.
-use the @docs/level-design.md skill.
-ask me if you have any question.
+Every power wears off after a few seconds.
